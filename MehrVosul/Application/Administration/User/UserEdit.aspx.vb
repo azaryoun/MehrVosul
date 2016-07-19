@@ -1,0 +1,324 @@
+﻿Public Class UserEdit
+    Inherits System.Web.UI.Page
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        Page.Response.Cache.SetCacheability(HttpCacheability.NoCache)
+
+        Bootstrap_Panel1.CanNew = False
+        Bootstrap_Panel1.CanSave = True
+        Bootstrap_Panel1.CanDelete = False
+        Bootstrap_Panel1.CanSearch = False
+        Bootstrap_Panel1.CanCancel = True
+        Bootstrap_Panel1.CanUp = False
+        Bootstrap_Panel1.CanWizard = False
+        Bootstrap_Panel1.CanConfirmRequest = False
+        Bootstrap_Panel1.CanReject = False
+        Bootstrap_Panel1.CanDisplay = False
+        Bootstrap_Panel1.CanExcel = False
+        Bootstrap_Panel1.Enable_Save_Client_Validate = True
+
+        lblInnerPageTitle.Text = "پرکردن کادرهای قرمز رنگ، اجباری است."
+
+        If Page.IsPostBack = False Then
+
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+
+            If drwUserLogin.IsDataAdmin = True AndAlso drwUserLogin.IsItemAdmin = True Then
+
+                cmbBranch.Enabled = True
+                cmbUserType.Items.Add(New ListItem("Normal Access", 0))
+                cmbUserType.Items.Add(New ListItem("Item Access", 2))
+                cmbUserType.Items.Add(New ListItem("Full Access", 3))
+
+                cmbBranch.SelectedIndex = 0
+
+                odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 1
+                odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = -1
+                odsAccessGroups.DataBind()
+
+                lstAccessGroups.DataBind()
+
+            ElseIf drwUserLogin.IsDataAdmin = True AndAlso drwUserLogin.IsItemAdmin = False Then
+                cmbUserType.Items.Add(New ListItem("Normal Access", 0))
+                cmbUserType.Items.Add(New ListItem("Item Access", 2))
+
+                cmbBranch.Enabled = True
+                cmbBranch.SelectedIndex = 0
+
+                odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 1
+                odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = -1
+                odsAccessGroups.DataBind()
+
+                lstAccessGroups.DataBind()
+
+            ElseIf drwUserLogin.IsDataUserAdmin = True Then
+
+                '' cmbUserType.Items.Add(New ListItem("Item Access", 2))
+
+                cmbUserType.Items.Add(New ListItem("Normal Access", 0))
+
+                cmbUserType.SelectedValue = 1
+                Dim tadpUserProvince As New BusinessObject.dstBranchTableAdapters.spr_Province_Check_SelectTableAdapter
+                Dim dtblUserProvince As BusinessObject.dstBranch.spr_Province_Check_SelectDataTable = Nothing
+
+                dtblUserProvince = tadpUserProvince.GetData(drwUserLogin.FK_BrnachID)
+
+                cmbProvince.DataBind()
+                cmbProvince.SelectedValue = dtblUserProvince.First.ID
+                cmbProvince.Enabled = False
+
+                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+                odsBranch.DataBind()
+
+                cmbBranch.Enabled = True
+                cmbBranch.DataSourceID = "odsBranch"
+                cmbBranch.DataTextField = "BrnachCode"
+                cmbBranch.DataValueField = "ID"
+                cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
+
+                odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 2
+                odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = drwUserLogin.ID
+                odsAccessGroups.DataBind()
+
+                lstAccessGroups.DataBind()
+
+
+
+
+            End If
+
+
+
+            If Session("intEditUserID") Is Nothing Then
+                Response.Redirect("UserManagement.aspx")
+                Return
+            End If
+
+            Dim intEditUserID As Integer = CInt(Session("intEditUserID"))
+
+            Dim tadpUser As New BusinessObject.dstUserTableAdapters.spr_User_SelectTableAdapter
+            Dim dtblUser As BusinessObject.dstUser.spr_User_SelectDataTable = Nothing
+            dtblUser = tadpUser.GetData(intEditUserID)
+
+            If dtblUser.Rows.Count = 0 Then
+                Response.Redirect("UserManagement.aspx")
+                Return
+            End If
+
+
+            Dim drwUser As BusinessObject.dstUser.spr_User_SelectRow = dtblUser.Rows(0)
+
+            With drwUser
+                If drwUserLogin.Username = .Username And drwUserLogin.IsDataAdmin = False Then
+
+                    Bootstrap_Panel1.CanSave = False
+
+                End If
+
+                txtUsername.Text = .Username
+                txtAddress.Text = .Address
+                txtEmail.Text = .Email
+                txtFirstName.Text = .FName
+                txtLastName.Text = .LName
+                txtMobile.Text = .Mobile
+                txtNationalID.Text = .NationalID
+                txtNationalNo.Text = .NationalNo
+                txtPersonCode.Text = .PersonCode
+                txtTel.Text = .Tel
+
+                rdoIsPartTimeNo.Checked = Not .IsPartTime
+                rdoIsPartTimeYes.Checked = .IsPartTime
+
+                If .IsUserPhotoNull = False Then
+                    imgUserPhoto.ImageUrl = "data:image/png;base64," + Convert.ToBase64String(.UserPhoto)
+                End If
+
+                If .IsDataAdmin = True AndAlso .IsItemAdmin = True Then
+                    cmbUserType.SelectedIndex = 3
+                ElseIf .IsItemAdmin = True Then
+                    cmbUserType.SelectedIndex = 2
+                ElseIf .IsDataUserAdmin = True Then
+                    cmbUserType.SelectedIndex = 1
+                Else
+                    cmbUserType.SelectedIndex = 0
+                End If
+
+                rdoSexFemale.Checked = .Sex
+                rdoSexMale.Checked = Not (.Sex)
+
+
+                Dim tadpUserProvince As New BusinessObject.dstBranchTableAdapters.spr_Province_Check_SelectTableAdapter
+                Dim dtblUserProvince As BusinessObject.dstBranch.spr_Province_Check_SelectDataTable = Nothing
+
+                dtblUserProvince = tadpUserProvince.GetData(drwUser.FK_BrnachID)
+
+                cmbProvince.DataBind()
+                cmbProvince.SelectedValue = dtblUserProvince.First.ID
+
+                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+                odsBranch.DataBind()
+
+                cmbBranch.Enabled = True
+                cmbBranch.DataSourceID = "odsBranch"
+                cmbBranch.DataTextField = "BrnachCode"
+                cmbBranch.DataValueField = "ID"
+
+
+                cmbBranch.DataBind()
+
+                cmbBranch.SelectedValue = drwUser.FK_BrnachID
+
+            End With
+
+            Dim tadpAccessgroupUserList As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUser_List_SelectTableAdapter
+            Dim dtblAccessgroupUserList As BusinessObject.dstAccessgroupUser.spr_AccessgroupUser_List_SelectDataTable = Nothing
+            dtblAccessgroupUserList = tadpAccessgroupUserList.GetData(drwUser.ID)
+
+            For Each drwAccessgroupUserList As BusinessObject.dstAccessgroupUser.spr_AccessgroupUser_List_SelectRow In dtblAccessgroupUserList.Rows
+                For i As Integer = 0 To lstAccessGroups.Items.Count - 1
+                    If lstAccessGroups.Items(i).Value = drwAccessgroupUserList.FK_AccessGroupID Then
+                        lstAccessGroups.Items(i).Selected = True
+                    End If
+                Next
+
+            Next drwAccessgroupUserList
+
+
+        End If
+
+
+    End Sub
+
+
+
+    Private Sub Bootstrap_Panel1_Panel_Cancel_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Cancel_Click
+        Response.Redirect("UserManagement.aspx")
+        Return
+    End Sub
+
+
+    Private Sub Bootstrap_Panel1_Panel_Save_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Save_Click
+
+        Dim intEditUserID As Integer = CInt(Session("intEditUserID"))
+
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+        Dim strAddress As String = txtAddress.Text.Trim
+        Dim strNationalID As String = txtNationalID.Text.Trim
+        Dim strNationalNo As String = txtNationalNo.Text
+        Dim strFname As String = txtFirstName.Text.Trim
+        Dim strLname As String = txtLastName.Text.Trim
+        Dim strPersonCode As String = txtPersonCode.Text.Trim
+        Dim strEmail As String = txtEmail.Text.Trim
+        Dim blnSex As Boolean = rdoSexFemale.Checked
+        Dim strTel As String = txtTel.Text.Trim
+        Dim strMobile As String = txtMobile.Text.Trim
+        Dim intBranchID As Integer = cmbBranch.SelectedValue
+        Dim blnIsPartTime As Boolean = rdoIsPartTimeYes.Checked
+
+        Dim blnDataAdmin As Boolean = False
+        Dim blnItemAdmin As Boolean = False
+
+        If cmbUserType.SelectedValue = "1" Then
+            blnDataAdmin = True
+        ElseIf cmbUserType.SelectedValue = "2" Then
+            blnItemAdmin = True
+        ElseIf cmbUserType.SelectedValue = "3" Then
+            blnItemAdmin = True
+            blnDataAdmin = True
+        End If
+
+
+        Dim blnUserPhotoChanged As Boolean = False
+
+        Dim arrUserPhoto() As Byte = Nothing
+
+        If fleUserPhoto.PostedFile IsNot Nothing AndAlso fleUserPhoto.PostedFile.ContentLength <> 0 Then
+
+            If fleUserPhoto.PostedFile.ContentType.ToLower.IndexOf("png") = -1 Then
+                Bootstrap_Panel1.ShowMessage("فرمت تصویر باید png باشد", True)
+                Return
+            End If
+
+
+            Dim strmUserPhoto As IO.Stream = fleUserPhoto.PostedFile.InputStream
+            ReDim arrUserPhoto(strmUserPhoto.Length)
+            strmUserPhoto.Read(arrUserPhoto, 0, arrUserPhoto.Length)
+
+            blnUserPhotoChanged = True
+        End If
+
+
+        Try
+            Dim qryUser As New BusinessObject.dstUserTableAdapters.QueriesTableAdapter
+            If blnItemAdmin = True Then
+                qryUser.spr_User_Update(intEditUserID, True, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
+
+            Else
+                qryUser.spr_User_Update(intEditUserID, True, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
+
+            End If
+
+
+            If blnUserPhotoChanged = True Then
+                qryUser.spr_User_Photo_Update(intEditUserID, arrUserPhoto)
+            End If
+
+
+            Dim arrSelectedGroups() As Integer = lstAccessGroups.GetSelectedIndices()
+            Dim qryAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.QueriesTableAdapter
+            qryAccessgroupUser.spr_AccessgroupUser_User_Delete(intEditUserID)
+            For i As Integer = 0 To arrSelectedGroups.Length - 1
+                qryAccessgroupUser.spr_AccessgroupUser_Insert(intEditUserID, lstAccessGroups.Items(arrSelectedGroups(i)).Value)
+            Next i
+
+
+
+        Catch ex As Exception
+            Response.Redirect("UserManagement.aspx?Edit=NO")
+            Return
+        End Try
+
+        Response.Redirect("UserManagement.aspx?Edit=OK")
+
+
+
+    End Sub
+
+    Protected Sub cmbBranch_DataBound(sender As Object, e As EventArgs) Handles cmbBranch.DataBound
+
+        Dim li As New ListItem
+        li.Text = "---"
+        li.Value = -1
+        cmbBranch.Items.Insert(0, li)
+
+    End Sub
+
+    Protected Sub cmbProvince_DataBound(sender As Object, e As EventArgs) Handles cmbProvince.DataBound
+        Dim li As New ListItem
+        li.Text = "---"
+        li.Value = -1
+        cmbProvince.Items.Insert(0, li)
+    End Sub
+
+    Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
+        odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+        odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+        odsBranch.DataBind()
+
+        cmbBranch.DataSourceID = "odsBranch"
+        cmbBranch.DataTextField = "BrnachCode"
+        cmbBranch.DataValueField = "ID"
+
+
+        cmbBranch.DataBind()
+    End Sub
+End Class

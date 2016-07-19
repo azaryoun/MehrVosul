@@ -1,0 +1,1014 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{8D5A05D4-5DCF-4772-89A0-0302E85F5C9E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BusinessObject</RootNamespace>
+    <AssemblyName>BusinessObject</AssemblyName>
+    <FileAlignment>512</FileAlignment>
+    <MyType>Windows</MyType>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DocumentationFile>BusinessObject.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DocumentationFile>BusinessObject.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022</NoWarn>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.Data.Schema, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.Data.Schema.UnitTesting, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="Microsoft.VisualStudio.QualityTools.UnitTestFramework, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Administration\dstAccessgroup.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstAccessgroup.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\dstAccessgroupMenu.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstAccessgroupMenu.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\dstAccessgroupUser.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstAccessgroupUser.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\dstMenu.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstMenu.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\dstSelfReport.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstSelfReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\dstUser.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstUser.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Administration\dstUser.vb">
+      <DependentUpon>dstUser.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Alcatel\dstInput.Designer.vb" />
+    <Compile Include="BasicInfo\dstSystemSetting.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstSystemSetting.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Context\dbMehrVosul.Context.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbMehrVosul.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\dbMehrVosul.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbMehrVosul.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Context\dbMehrVosul.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\sysdiagram.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Accessgroup.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_AccessgroupMenu.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_AccessgroupUser.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_AlcatelLog.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Branch.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Commitment_Active.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Commitment_Archive.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_CurrentLCStatus.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Date.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Deposits.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_DepositType.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_DraftText.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_ErrorLog.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_File.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiDraftText.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiLogCurrentLCStatus_H.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiLogLoanStatus.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiOperation_Deposit.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiOperation_Loan.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiWarningIntervals.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiWarningIntervalsBranch.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiWarningIntervalsDeposit.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiWarningIntervalsException.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiWarningIntervalsExceptionBranch.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiWarningIntervalsExceptionDeposit.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiWarningNotificationLog.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HadiWarningNotificationLogDetail.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_HandyFollow.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Loan.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_LoanSponsor.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_LoanSponsor_WarantyType.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_LoanType.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_LogCurrentLCStatus_H.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Menu.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_NotificationTarif.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Province.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_SelfReport.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_SMSCountLog.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Sponsors_List.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_Sponsor_List_Log.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_SystemLoginLog.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_SystemSetting.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_User.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_VoiceRecords.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_VoiceSMS_Report_Log.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarnatyType.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarningIntervals.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarningIntervalsBranch.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarningIntervalsException.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarningIntervalsExceptionBranch.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarningIntervalsExceptionLoanType.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarningIntervalsLoanType.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarningNotificationLog.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_WarningNotificationLogDetail.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstDeposit.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstDeposit.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiDraft.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiDraft.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiLogCurrentLCStatus_H.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiLogCurrentLCStatus_H.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiLogLoanStatus.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiLogLoanStatus.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiOperation_Deposit.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiOperation_Deposit.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiOperation_Loan.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiOperation_Loan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiWarningIntervals.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiWarningIntervals.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiWarningIntervalsBranch.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiWarningIntervalsBranch.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiWarningIntervalsDeposit.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiWarningIntervalsDeposit.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiWarningNotificationLog.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiWarningNotificationLog.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Hadi\dstHadiWarningNotificationLogDetail.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiWarningNotificationLogDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Vosul\dstBranch.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstBranch.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstBranch.vb">
+      <DependentUpon>dstBranch.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstCommitmentActive.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstCommitmentActive.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstCommitmentActive.vb">
+      <DependentUpon>dstCommitmentActive.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstCurrentLCStatus.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstCurrentLCStatus.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstDraft.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstDraft.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstFile.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstFile.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstFile.vb">
+      <DependentUpon>dstFile.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstHandyFollow.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHandyFollow.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstLoan.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstLoan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstLoan.vb">
+      <DependentUpon>dstLoan.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstLoanSponsor.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstLoanSponsor.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstLoanSponsor.vb">
+      <DependentUpon>dstLoanSponsor.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstLoanType.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstLoanType.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstLogCurrentLCStatus_F.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstLogCurrentLCStatus_F.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstLogCurrentLCStatus_H.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstLogCurrentLCStatus_H.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstLoginLog.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstLoginLog.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstReport.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstReport.vb">
+      <DependentUpon>dstReport.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstSponsor_List.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstSponsor_List.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstTarrif.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstTarrif.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstWarningIntervals.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstWarningIntervals.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstWarningIntervals.vb">
+      <DependentUpon>dstWarningIntervals.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstWarningIntervalsBranch.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstWarningIntervalsBranch.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstWarningIntervalsLoanType.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstWarningIntervalsLoanType.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstWarningNotificationLog.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstWarningNotificationLog.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstWarningNotificationLogDetail.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstWarningNotificationLogDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstWarningNotificationLogDetail.vb">
+      <DependentUpon>dstWarningNotificationLogDetail.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstZamanak.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstZamanak.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dst_Sponsor_List_Log.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dst_Sponsor_List_Log.xsd</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Administration\dstAccessgroup.xsc">
+      <DependentUpon>dstAccessgroup.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstAccessgroup.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstAccessgroup.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Administration\dstAccessgroup.xss">
+      <DependentUpon>dstAccessgroup.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstAccessgroupMenu.xsc">
+      <DependentUpon>dstAccessgroupMenu.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstAccessgroupMenu.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstAccessgroupMenu.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Administration\dstAccessgroupMenu.xss">
+      <DependentUpon>dstAccessgroupMenu.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstAccessgroupUser.xsc">
+      <DependentUpon>dstAccessgroupUser.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstAccessgroupUser.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstAccessgroupUser.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Administration\dstAccessgroupUser.xss">
+      <DependentUpon>dstAccessgroupUser.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstMenu.xsc">
+      <DependentUpon>dstMenu.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstMenu.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstMenu.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Administration\dstMenu.xss">
+      <DependentUpon>dstMenu.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstSelfReport.xsc">
+      <DependentUpon>dstSelfReport.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstSelfReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstSelfReport.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Administration\dstSelfReport.xss">
+      <DependentUpon>dstSelfReport.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstUser.xsc">
+      <DependentUpon>dstUser.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstUser.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstUser.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Administration\dstUser.xss">
+      <DependentUpon>dstUser.xsd</DependentUpon>
+    </None>
+    <None Include="Alcatel\dstInput.xsc">
+      <DependentUpon>dstInput.xsd</DependentUpon>
+    </None>
+    <None Include="Alcatel\dstInput.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstInput1.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Alcatel\dstInput.xss">
+      <DependentUpon>dstInput.xsd</DependentUpon>
+    </None>
+    <None Include="app.config" />
+    <None Include="BasicInfo\dstSystemSetting.xsc">
+      <DependentUpon>dstSystemSetting.xsd</DependentUpon>
+    </None>
+    <None Include="BasicInfo\dstSystemSetting.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstSystemSetting.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="BasicInfo\dstSystemSetting.xss">
+      <DependentUpon>dstSystemSetting.xsd</DependentUpon>
+    </None>
+    <EntityDeploy Include="Context\dbMehrVosul.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbMehrVosul.Designer.vb</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Context\dbMehrVosul.edmx.diagram">
+      <DependentUpon>dbMehrVosul.edmx</DependentUpon>
+    </None>
+    <None Include="Hadi\dstDeposit.xsc">
+      <DependentUpon>dstDeposit.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstDeposit.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstDeposit.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstDeposit.xss">
+      <DependentUpon>dstDeposit.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiDraft.xsc">
+      <DependentUpon>dstHadiDraft.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiDraft.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiDraft.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiDraft.xss">
+      <DependentUpon>dstHadiDraft.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiLogCurrentLCStatus_H.xsc">
+      <DependentUpon>dstHadiLogCurrentLCStatus_H.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiLogCurrentLCStatus_H.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiLogCurrentLCStatus_H.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiLogCurrentLCStatus_H.xss">
+      <DependentUpon>dstHadiLogCurrentLCStatus_H.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiLogLoanStatus.xsc">
+      <DependentUpon>dstHadiLogLoanStatus.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiLogLoanStatus.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiLogLoanStatus.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiLogLoanStatus.xss">
+      <DependentUpon>dstHadiLogLoanStatus.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiOperation_Deposit.xsc">
+      <DependentUpon>dstHadiOperation_Deposit.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiOperation_Deposit.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiOperation_Deposit.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiOperation_Deposit.xss">
+      <DependentUpon>dstHadiOperation_Deposit.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiOperation_Loan.xsc">
+      <DependentUpon>dstHadiOperation_Loan.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiOperation_Loan.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiOperation_Loan.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiOperation_Loan.xss">
+      <DependentUpon>dstHadiOperation_Loan.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervals.xsc">
+      <DependentUpon>dstHadiWarningIntervals.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervals.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiWarningIntervals.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervals.xss">
+      <DependentUpon>dstHadiWarningIntervals.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervalsBranch.xsc">
+      <DependentUpon>dstHadiWarningIntervalsBranch.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervalsBranch.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiWarningIntervalsBranch.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervalsBranch.xss">
+      <DependentUpon>dstHadiWarningIntervalsBranch.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervalsDeposit.xsc">
+      <DependentUpon>dstHadiWarningIntervalsDeposit.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervalsDeposit.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiWarningIntervalsDeposit.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiWarningIntervalsDeposit.xss">
+      <DependentUpon>dstHadiWarningIntervalsDeposit.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningNotificationLog.xsc">
+      <DependentUpon>dstHadiWarningNotificationLog.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningNotificationLog.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiWarningNotificationLog.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiWarningNotificationLog.xss">
+      <DependentUpon>dstHadiWarningNotificationLog.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningNotificationLogDetail.xsc">
+      <DependentUpon>dstHadiWarningNotificationLogDetail.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiWarningNotificationLogDetail.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiWarningNotificationLogDetail.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiWarningNotificationLogDetail.xss">
+      <DependentUpon>dstHadiWarningNotificationLogDetail.xsd</DependentUpon>
+    </None>
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Vosul\dstBranch.xsc">
+      <DependentUpon>dstBranch.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstBranch.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstBranch.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstBranch.xss">
+      <DependentUpon>dstBranch.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstCommitmentActive.xsc">
+      <DependentUpon>dstCommitmentActive.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstCommitmentActive.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstCommitmentActive.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstCommitmentActive.xss">
+      <DependentUpon>dstCommitmentActive.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstCurrentLCStatus.xsc">
+      <DependentUpon>dstCurrentLCStatus.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstCurrentLCStatus.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstCurrentLCStatus.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstCurrentLCStatus.xss">
+      <DependentUpon>dstCurrentLCStatus.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstDraft.xsc">
+      <DependentUpon>dstDraft.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstDraft.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstDraft.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstDraft.xss">
+      <DependentUpon>dstDraft.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstFile.xsc">
+      <DependentUpon>dstFile.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstFile.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstFile.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstFile.xss">
+      <DependentUpon>dstFile.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstHandyFollow.xsc">
+      <DependentUpon>dstHandyFollow.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstHandyFollow.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHandyFollow.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstHandyFollow.xss">
+      <DependentUpon>dstHandyFollow.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLoan.xsc">
+      <DependentUpon>dstLoan.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLoan.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstLoan.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstLoan.xss">
+      <DependentUpon>dstLoan.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLoanSponsor.xsc">
+      <DependentUpon>dstLoanSponsor.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLoanSponsor.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstLoanSponsor.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstLoanSponsor.xss">
+      <DependentUpon>dstLoanSponsor.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLoanType.xsc">
+      <DependentUpon>dstLoanType.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLoanType.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstLoanType.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstLoanType.xss">
+      <DependentUpon>dstLoanType.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLogCurrentLCStatus_F.xsc">
+      <DependentUpon>dstLogCurrentLCStatus_F.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLogCurrentLCStatus_F.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstLogCurrentLCStatus_F.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstLogCurrentLCStatus_F.xss">
+      <DependentUpon>dstLogCurrentLCStatus_F.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLogCurrentLCStatus_H.xsc">
+      <DependentUpon>dstLogCurrentLCStatus_H.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLogCurrentLCStatus_H.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstLogCurrentLCStatus_H.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstLogCurrentLCStatus_H.xss">
+      <DependentUpon>dstLogCurrentLCStatus_H.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLoginLog.xsc">
+      <DependentUpon>dstLoginLog.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstLoginLog.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstLoginLog.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstLoginLog.xss">
+      <DependentUpon>dstLoginLog.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstReport.xsc">
+      <DependentUpon>dstReport.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstReport.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstReport.xss">
+      <DependentUpon>dstReport.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstSponsor_List.xsc">
+      <DependentUpon>dstSponsor_List.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstSponsor_List.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstSponsor_List.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstSponsor_List.xss">
+      <DependentUpon>dstSponsor_List.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstTarrif.xsc">
+      <DependentUpon>dstTarrif.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstTarrif.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstTarrif.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstTarrif.xss">
+      <DependentUpon>dstTarrif.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningIntervals.xsc">
+      <DependentUpon>dstWarningIntervals.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningIntervals.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstWarningIntervals.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstWarningIntervals.xss">
+      <DependentUpon>dstWarningIntervals.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningIntervalsBranch.xsc">
+      <DependentUpon>dstWarningIntervalsBranch.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningIntervalsBranch.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstWarningIntervalsBranch.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstWarningIntervalsBranch.xss">
+      <DependentUpon>dstWarningIntervalsBranch.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningIntervalsLoanType.xsc">
+      <DependentUpon>dstWarningIntervalsLoanType.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningIntervalsLoanType.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstWarningIntervalsLoanType.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstWarningIntervalsLoanType.xss">
+      <DependentUpon>dstWarningIntervalsLoanType.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningNotificationLog.xsc">
+      <DependentUpon>dstWarningNotificationLog.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningNotificationLog.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstWarningNotificationLog.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstWarningNotificationLog.xss">
+      <DependentUpon>dstWarningNotificationLog.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningNotificationLogDetail.xsc">
+      <DependentUpon>dstWarningNotificationLogDetail.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstWarningNotificationLogDetail.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstWarningNotificationLogDetail.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstWarningNotificationLogDetail.xss">
+      <DependentUpon>dstWarningNotificationLogDetail.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstZamanak.xsc">
+      <DependentUpon>dstZamanak.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstZamanak.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstZamanak.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstZamanak.xss">
+      <DependentUpon>dstZamanak.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dst_Sponsor_List_Log.xsc">
+      <DependentUpon>dst_Sponsor_List_Log.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dst_Sponsor_List_Log.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dst_Sponsor_List_Log.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dst_Sponsor_List_Log.xss">
+      <DependentUpon>dst_Sponsor_List_Log.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="Context\dbMehrVosul.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbMehrVosul.edmx</DependentUpon>
+      <LastGenOutput>dbMehrVosul.Context.vb</LastGenOutput>
+    </Content>
+    <Content Include="Context\dbMehrVosul.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbMehrVosul.edmx</DependentUpon>
+      <LastGenOutput>dbMehrVosul.vb</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

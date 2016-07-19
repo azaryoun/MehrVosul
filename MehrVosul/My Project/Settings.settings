@@ -1,0 +1,12 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="My" GeneratedClassName="MySettings" UseMySettingsClassName="true">
+  <Profiles />
+  <Settings>
+    <Setting Name="MehrVosul_ZamanakWebService_Default_Service_SoapServer_ZamanakV4Service" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://www.zamanak.ir/api/soap-v4</Value>
+    </Setting>
+    <Setting Name="MehrVosul_VoiceSMS_RahyabVoiceSend" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://panel.rahyab.ir/RahyabVoiceSend.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

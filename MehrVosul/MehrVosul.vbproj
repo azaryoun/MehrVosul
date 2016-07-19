@@ -1,0 +1,942 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>
+    </SchemaVersion>
+    <ProjectGuid>{31B0F606-523D-49BB-B69A-C117963CB681}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{F184B08F-C81C-45F6-A57F-5ABD9991F28F}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <RootNamespace>MehrVosul</RootNamespace>
+    <AssemblyName>MehrVosul</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <MyType>Custom</MyType>
+    <UseIISExpress>false</UseIISExpress>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>4.0</OldToolsVersion>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>MehrVosul.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>MehrVosul.xml</DocumentationFile>
+    <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionExplicit>On</OptionExplicit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionCompare>Binary</OptionCompare>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionStrict>Off</OptionStrict>
+  </PropertyGroup>
+  <PropertyGroup>
+    <OptionInfer>On</OptionInfer>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net40\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NAudio">
+      <HintPath>..\..\..\Memphis\MEMPHIS\MEMPHIS\Assembly\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="WkHtmlToXSharp, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\WkHtmlToXSharp.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Collections.Generic" />
+    <Import Include="System.Data" />
+    <Import Include="System.Linq" />
+    <Import Include="System.Xml.Linq" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Collections.Specialized" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Text" />
+    <Import Include="System.Text.RegularExpressions" />
+    <Import Include="System.Web" />
+    <Import Include="System.Web.Caching" />
+    <Import Include="System.Web.SessionState" />
+    <Import Include="System.Web.Security" />
+    <Import Include="System.Web.Profile" />
+    <Import Include="System.Web.UI" />
+    <Import Include="System.Web.UI.WebControls" />
+    <Import Include="System.Web.UI.WebControls.WebParts" />
+    <Import Include="System.Web.UI.HtmlControls" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Application\Administration\Accessgroup\AccessgroupManagement.aspx" />
+    <Content Include="Application\Administration\Accessgroup\AccessgroupNew.aspx" />
+    <Content Include="Application\Administration\Accessgroup\AccessgroupEdit.aspx" />
+    <Content Include="Application\Administration\User\CurrentUserChangePassword.aspx" />
+    <Content Include="Application\Administration\User\UserChangePassword.aspx" />
+    <Content Include="Application\Administration\User\UserEdit.aspx" />
+    <Content Include="Application\Administration\User\UserNew.aspx" />
+    <Content Include="Application\Administration\User\UserManagement.aspx" />
+    <Content Include="Application\BasicInfo\SystemSetting.aspx" />
+    <Content Include="Application\Hadi\Deposit\DepositTypeEdit.aspx" />
+    <Content Include="Application\Hadi\Deposit\DepositTypeManagement.aspx" />
+    <Content Include="Application\Hadi\Deposit\DepositTypeNew.aspx" />
+    <Content Include="Application\Hadi\HadiDraft\HadiDraftText.aspx" />
+    <Content Include="Application\Hadi\HadiDraft\HadiDraftTextDeposit.aspx" />
+    <Content Include="Application\Hadi\HadiDraft\HadiVoiceMessageDraftText.aspx" />
+    <Content Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsEdit.aspx" />
+    <Content Include="Application\Hadi\HadiWarningIntervals\HadiWarningIntervalsException.aspx" />
+    <Content Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsMagic.aspx" />
+    <Content Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsManagement.aspx" />
+    <Content Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsNew.aspx" />
+    <Content Include="Application\Vosul\Branch\BranchEdit.aspx" />
+    <Content Include="Application\Vosul\Branch\BranchManagement.aspx" />
+    <Content Include="Application\Vosul\Branch\BranchNew.aspx" />
+    <Content Include="Application\Vosul\Draft\DraftManagement.aspx" />
+    <Content Include="Application\Vosul\Draft\DraftText.aspx" />
+    <Content Include="Application\Vosul\Draft\VoiceMessageDraftText.aspx" />
+    <Content Include="Application\Vosul\File\FileEdit.aspx" />
+    <Content Include="Application\Vosul\File\FileLoanDetail.aspx" />
+    <Content Include="Application\Vosul\File\FileManagement.aspx" />
+    <Content Include="Application\Vosul\File\FileNew.aspx" />
+    <Content Include="Application\Vosul\File\FileNotificationLog.aspx" />
+    <Content Include="Application\Vosul\File\FileNotificationLogDetail.aspx" />
+    <Content Include="Application\Vosul\File\FileNotificationLogDetailSMS.aspx" />
+    <Content Include="Application\Vosul\File\FileSponsor.aspx" />
+    <Content Include="Application\Vosul\File\Requests\FileRequestManagement.aspx" />
+    <Content Include="Application\Vosul\File\Requests\FileRequestView.aspx" />
+    <Content Include="Application\Vosul\File\Temp\MehrLogo.jpg" />
+    <Content Include="Application\Vosul\File\WhiteListManagement.aspx" />
+    <Content Include="Application\Vosul\File\WhiteListNew.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx" />
+    <Content Include="Application\Vosul\LoanType\LoanTypeEdit.aspx" />
+    <Content Include="Application\Vosul\LoanType\LoanTypeManagement.aspx" />
+    <Content Include="Application\Vosul\LoanType\LoanTypeNew.aspx" />
+    <Content Include="Application\Vosul\Reports\CurrentLCStatusMaxLoanTypeReport.aspx" />
+    <Content Include="Application\Vosul\Reports\CurrentLCStatusNewArrivalReport.aspx" />
+    <Content Include="Application\Vosul\Reports\FileChanges_Report.aspx" />
+    <Content Include="Application\Vosul\Reports\HandyFollowReport.aspx" />
+    <Content Include="Application\Vosul\Reports\IncompleteFileInfoReport.aspx" />
+    <Content Include="Application\Vosul\Reports\LogCurrentLCStatusReport.aspx" />
+    <Content Include="Application\Vosul\Reports\SystemLoginLogReport.aspx" />
+    <Content Include="Application\Vosul\Reports\WarningNotificationLogDetailSummaryReport.aspx" />
+    <Content Include="Application\Vosul\Reports\WarningNotificationReport.aspx" />
+    <Content Include="Application\Vosul\Tarrif\NotificationTarrifEdit.aspx" />
+    <Content Include="Application\Vosul\Tarrif\NotificationTarrifManagement.aspx" />
+    <Content Include="Application\Vosul\Tarrif\NotificationTarrifNew.aspx" />
+    <Content Include="Application\Vosul\VoiceMessage\VoiceMessageFileEdit.aspx" />
+    <Content Include="Application\Vosul\VoiceMessage\VoiceMessageFileNew.aspx" />
+    <Content Include="Application\Vosul\VoiceMessage\VoiceMessageManagement.aspx" />
+    <Content Include="Application\Vosul\WarningIntervals\WarningIntervalsEdit.aspx" />
+    <Content Include="Application\Vosul\WarningIntervals\WarningIntervalsException.aspx" />
+    <Content Include="Application\Vosul\WarningIntervals\WarningIntervalsManagement.aspx" />
+    <Content Include="Application\Vosul\WarningIntervals\WarningIntervalsNew.aspx" />
+    <Content Include="Assembly\NAudio.dll" />
+    <Content Include="Assembly\WkHtmlToXSharp.dll" />
+    <Content Include="assets\css\bootstrap-combined.min.css" />
+    <Content Include="assets\css\bootstrap-datetimepicker.min.css" />
+    <Content Include="assets\css\bootstrap-theme.min.css" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\custom.css" />
+    <Content Include="assets\css\font-awesome.css" />
+    <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\Site.css" />
+    <Content Include="assets\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="assets\img\1.png" />
+    <Content Include="assets\img\2.png" />
+    <Content Include="assets\img\3.png" />
+    <Content Include="assets\img\4.png" />
+    <Content Include="assets\img\find_user.png" />
+    <Content Include="assets\js\bootstrap-datetimepicker.min.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\bootstrap.min_cal.js" />
+    <Content Include="assets\js\calendar.js" />
+    <Content Include="assets\js\custom.js" />
+    <Content Include="assets\js\dataTables\dataTables.bootstrap.css" />
+    <Content Include="assets\js\dataTables\dataTables.bootstrap.js" />
+    <Content Include="assets\js\dataTables\jquery.dataTables.js" />
+    <Content Include="assets\js\jquery-1.10.2.js" />
+    <Content Include="assets\css\jquery.Bootstrap-PersianDateTimePicker.css" />
+    <Content Include="assets\js\jquery.Bootstrap-PersianDateTimePicker.js" />
+    <Content Include="assets\js\jquery.metisMenu.js" />
+    <Content Include="assets\js\morris\morris-0.4.3.min.css" />
+    <Content Include="assets\js\morris\morris.js" />
+    <Content Include="assets\js\morris\raphael-2.1.0.min.js" />
+    <Content Include="Global.asax" />
+    <Content Include="Images\System\2448.jpg" />
+    <Content Include="Images\System\add_icon.png" />
+    <Content Include="Images\System\audio.png" />
+    <Content Include="Images\System\bachgroundcolor.jpg" />
+    <Content Include="Images\System\datepicker.bmp" />
+    <Content Include="Images\System\download.jpg" />
+    <Content Include="Images\System\find_user.png" />
+    <Content Include="Images\System\key_enter.png" />
+    <Content Include="Images\System\MehrHeader.jpg" />
+    <Content Include="Images\System\MehrLogo.jpg" />
+    <Content Include="Images\System\MehrLogonew.jpg" />
+    <Content Include="Images\System\MehrLogoNew.png" />
+    <Content Include="Images\System\MehrLogoNew1.png" />
+    <Content Include="Images\System\minus_icon.png" />
+    <Content Include="Images\System\Responsive.png" />
+    <Content Include="Login.aspx" />
+    <Content Include="Application\StartPage.aspx" />
+    <Content Include="obj\Styles\Site.css" />
+    <Content Include="Scripts\Farsi.js" />
+    <Content Include="Scripts\Integrated.js" />
+    <Content Include="Scripts\jquery-1.4.1-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.4.1.js" />
+    <Content Include="Scripts\jquery-1.4.1.min.js" />
+    <Content Include="Scripts\jquery.ui.datepicker-cc-ar.js" />
+    <Content Include="Scripts\jquery.ui.datepicker-cc-fa.js" />
+    <Content Include="Scripts\jquery.ui.datepicker-cc.all.min.js" />
+    <Content Include="Scripts\jquery.ui.datepicker-cc.js" />
+    <Content Include="UserControl\Bootstrap_Menu.ascx" />
+    <Content Include="UserControl\Bootstrap_Panel.ascx" />
+    <Content Include="UserControl\Bootstrap_PersianDateTimePicker.ascx" />
+    <Content Include="UserControl\UC_TimePicker.ascx" />
+    <None Include="Web References\VoiceSMS\RahyabVoiceSend.disco" />
+    <Content Include="Web.config" />
+    <Content Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </Content>
+    <Content Include="WebForm1.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Application\Administration\Accessgroup\AccessgroupManagement.aspx.designer.vb">
+      <DependentUpon>AccessgroupManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\Accessgroup\AccessgroupManagement.aspx.vb">
+      <DependentUpon>AccessgroupManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\Accessgroup\AccessgroupNew.aspx.designer.vb">
+      <DependentUpon>AccessgroupNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\Accessgroup\AccessgroupNew.aspx.vb">
+      <DependentUpon>AccessgroupNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\Accessgroup\AccessgroupEdit.aspx.designer.vb">
+      <DependentUpon>AccessgroupEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\Accessgroup\AccessgroupEdit.aspx.vb">
+      <DependentUpon>AccessgroupEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\User\CurrentUserChangePassword.aspx.designer.vb">
+      <DependentUpon>CurrentUserChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\User\CurrentUserChangePassword.aspx.vb">
+      <DependentUpon>CurrentUserChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserChangePassword.aspx.designer.vb">
+      <DependentUpon>UserChangePassword.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserChangePassword.aspx.vb">
+      <DependentUpon>UserChangePassword.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserEdit.aspx.designer.vb">
+      <DependentUpon>UserEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserEdit.aspx.vb">
+      <DependentUpon>UserEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserNew.aspx.designer.vb">
+      <DependentUpon>UserNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserNew.aspx.vb">
+      <DependentUpon>UserNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserManagement.aspx.designer.vb">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserManagement.aspx.vb">
+      <DependentUpon>UserManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\BasicInfo\SystemSetting.aspx.designer.vb">
+      <DependentUpon>SystemSetting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\BasicInfo\SystemSetting.aspx.vb">
+      <DependentUpon>SystemSetting.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\Deposit\DepositTypeEdit.aspx.designer.vb">
+      <DependentUpon>DepositTypeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\Deposit\DepositTypeEdit.aspx.vb">
+      <DependentUpon>DepositTypeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\Deposit\DepositTypeManagement.aspx.designer.vb">
+      <DependentUpon>DepositTypeManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\Deposit\DepositTypeManagement.aspx.vb">
+      <DependentUpon>DepositTypeManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\Deposit\DepositTypeNew.aspx.designer.vb">
+      <DependentUpon>DepositTypeNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\Deposit\DepositTypeNew.aspx.vb">
+      <DependentUpon>DepositTypeNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiDraft\HadiDraftText.aspx.designer.vb">
+      <DependentUpon>HadiDraftText.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiDraft\HadiDraftText.aspx.vb">
+      <DependentUpon>HadiDraftText.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiDraft\HadiDraftTextDeposit.aspx.designer.vb">
+      <DependentUpon>HadiDraftTextDeposit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiDraft\HadiDraftTextDeposit.aspx.vb">
+      <DependentUpon>HadiDraftTextDeposit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiDraft\HadiVoiceMessageDraftText.aspx.designer.vb">
+      <DependentUpon>HadiVoiceMessageDraftText.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiDraft\HadiVoiceMessageDraftText.aspx.vb">
+      <DependentUpon>HadiVoiceMessageDraftText.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsEdit.aspx.designer.vb">
+      <DependentUpon>HadiwarningIntervalsEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsEdit.aspx.vb">
+      <DependentUpon>HadiwarningIntervalsEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiWarningIntervalsException.aspx.designer.vb">
+      <DependentUpon>HadiWarningIntervalsException.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiWarningIntervalsException.aspx.vb">
+      <DependentUpon>HadiWarningIntervalsException.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsMagic.aspx.designer.vb">
+      <DependentUpon>HadiwarningIntervalsMagic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsMagic.aspx.vb">
+      <DependentUpon>HadiwarningIntervalsMagic.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsManagement.aspx.designer.vb">
+      <DependentUpon>HadiwarningIntervalsManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsManagement.aspx.vb">
+      <DependentUpon>HadiwarningIntervalsManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsNew.aspx.designer.vb">
+      <DependentUpon>HadiwarningIntervalsNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsNew.aspx.vb">
+      <DependentUpon>HadiwarningIntervalsNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Branch\BranchEdit.aspx.designer.vb">
+      <DependentUpon>BranchEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Branch\BranchEdit.aspx.vb">
+      <DependentUpon>BranchEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Branch\BranchManagement.aspx.designer.vb">
+      <DependentUpon>BranchManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Branch\BranchManagement.aspx.vb">
+      <DependentUpon>BranchManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Branch\BranchNew.aspx.designer.vb">
+      <DependentUpon>BranchNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Branch\BranchNew.aspx.vb">
+      <DependentUpon>BranchNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Draft\DraftManagement.aspx.designer.vb">
+      <DependentUpon>DraftManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Draft\DraftManagement.aspx.vb">
+      <DependentUpon>DraftManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Draft\DraftText.aspx.designer.vb">
+      <DependentUpon>DraftText.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Draft\DraftText.aspx.vb">
+      <DependentUpon>DraftText.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Draft\VoiceMessageDraftText.aspx.designer.vb">
+      <DependentUpon>VoiceMessageDraftText.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Draft\VoiceMessageDraftText.aspx.vb">
+      <DependentUpon>VoiceMessageDraftText.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileEdit.aspx.designer.vb">
+      <DependentUpon>FileEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileEdit.aspx.vb">
+      <DependentUpon>FileEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileLoanDetail.aspx.designer.vb">
+      <DependentUpon>FileLoanDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileLoanDetail.aspx.vb">
+      <DependentUpon>FileLoanDetail.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileManagement.aspx.designer.vb">
+      <DependentUpon>FileManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileManagement.aspx.vb">
+      <DependentUpon>FileManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileNew.aspx.designer.vb">
+      <DependentUpon>FileNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileNew.aspx.vb">
+      <DependentUpon>FileNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileNotificationLog.aspx.designer.vb">
+      <DependentUpon>FileNotificationLog.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileNotificationLog.aspx.vb">
+      <DependentUpon>FileNotificationLog.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileNotificationLogDetail.aspx.designer.vb">
+      <DependentUpon>FileNotificationLogDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileNotificationLogDetail.aspx.vb">
+      <DependentUpon>FileNotificationLogDetail.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileNotificationLogDetailSMS.aspx.designer.vb">
+      <DependentUpon>FileNotificationLogDetailSMS.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileNotificationLogDetailSMS.aspx.vb">
+      <DependentUpon>FileNotificationLogDetailSMS.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileSponsor.aspx.designer.vb">
+      <DependentUpon>FileSponsor.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\FileSponsor.aspx.vb">
+      <DependentUpon>FileSponsor.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\Requests\FileRequestManagement.aspx.designer.vb">
+      <DependentUpon>FileRequestManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\Requests\FileRequestManagement.aspx.vb">
+      <DependentUpon>FileRequestManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\Requests\FileRequestView.aspx.designer.vb">
+      <DependentUpon>FileRequestView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\Requests\FileRequestView.aspx.vb">
+      <DependentUpon>FileRequestView.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\WhiteListManagement.aspx.designer.vb">
+      <DependentUpon>WhiteListManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\WhiteListManagement.aspx.vb">
+      <DependentUpon>WhiteListManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\File\WhiteListNew.aspx.designer.vb">
+      <DependentUpon>WhiteListNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\File\WhiteListNew.aspx.vb">
+      <DependentUpon>WhiteListNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx.designer.vb">
+      <DependentUpon>HandyFollowNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx.vb">
+      <DependentUpon>HandyFollowNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx.designer.vb">
+      <DependentUpon>HandyFollowSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx.vb">
+      <DependentUpon>HandyFollowSearch.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\LoanType\LoanTypeEdit.aspx.designer.vb">
+      <DependentUpon>LoanTypeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\LoanType\LoanTypeEdit.aspx.vb">
+      <DependentUpon>LoanTypeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\LoanType\LoanTypeManagement.aspx.designer.vb">
+      <DependentUpon>LoanTypeManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\LoanType\LoanTypeManagement.aspx.vb">
+      <DependentUpon>LoanTypeManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\LoanType\LoanTypeNew.aspx.designer.vb">
+      <DependentUpon>LoanTypeNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\LoanType\LoanTypeNew.aspx.vb">
+      <DependentUpon>LoanTypeNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\CurrentLCStatusMaxLoanTypeReport.aspx.designer.vb">
+      <DependentUpon>CurrentLCStatusMaxLoanTypeReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\CurrentLCStatusMaxLoanTypeReport.aspx.vb">
+      <DependentUpon>CurrentLCStatusMaxLoanTypeReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\CurrentLCStatusNewArrivalReport.aspx.designer.vb">
+      <DependentUpon>CurrentLCStatusNewArrivalReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\CurrentLCStatusNewArrivalReport.aspx.vb">
+      <DependentUpon>CurrentLCStatusNewArrivalReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\FileChanges_Report.aspx.designer.vb">
+      <DependentUpon>FileChanges_Report.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\FileChanges_Report.aspx.vb">
+      <DependentUpon>FileChanges_Report.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\HandyFollowReport.aspx.designer.vb">
+      <DependentUpon>HandyFollowReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\HandyFollowReport.aspx.vb">
+      <DependentUpon>HandyFollowReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\IncompleteFileInfoReport.aspx.designer.vb">
+      <DependentUpon>IncompleteFileInfoReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\IncompleteFileInfoReport.aspx.vb">
+      <DependentUpon>IncompleteFileInfoReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\LogCurrentLCStatusReport.aspx.designer.vb">
+      <DependentUpon>LogCurrentLCStatusReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\LogCurrentLCStatusReport.aspx.vb">
+      <DependentUpon>LogCurrentLCStatusReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\SystemLoginLogReport.aspx.designer.vb">
+      <DependentUpon>SystemLoginLogReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\SystemLoginLogReport.aspx.vb">
+      <DependentUpon>SystemLoginLogReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\WarningNotificationLogDetailSummaryReport.aspx.designer.vb">
+      <DependentUpon>WarningNotificationLogDetailSummaryReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\WarningNotificationLogDetailSummaryReport.aspx.vb">
+      <DependentUpon>WarningNotificationLogDetailSummaryReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\WarningNotificationReport.aspx.designer.vb">
+      <DependentUpon>WarningNotificationReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\WarningNotificationReport.aspx.vb">
+      <DependentUpon>WarningNotificationReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Tarrif\NotificationTarrifEdit.aspx.designer.vb">
+      <DependentUpon>NotificationTarrifEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Tarrif\NotificationTarrifEdit.aspx.vb">
+      <DependentUpon>NotificationTarrifEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Tarrif\NotificationTarrifManagement.aspx.designer.vb">
+      <DependentUpon>NotificationTarrifManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Tarrif\NotificationTarrifManagement.aspx.vb">
+      <DependentUpon>NotificationTarrifManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Tarrif\NotificationTarrifNew.aspx.designer.vb">
+      <DependentUpon>NotificationTarrifNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Tarrif\NotificationTarrifNew.aspx.vb">
+      <DependentUpon>NotificationTarrifNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\VoiceMessage\VoiceMessageFileEdit.aspx.designer.vb">
+      <DependentUpon>VoiceMessageFileEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\VoiceMessage\VoiceMessageFileEdit.aspx.vb">
+      <DependentUpon>VoiceMessageFileEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\VoiceMessage\VoiceMessageFileNew.aspx.designer.vb">
+      <DependentUpon>VoiceMessageFileNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\VoiceMessage\VoiceMessageFileNew.aspx.vb">
+      <DependentUpon>VoiceMessageFileNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\VoiceMessage\VoiceMessageManagement.aspx.designer.vb">
+      <DependentUpon>VoiceMessageManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\VoiceMessage\VoiceMessageManagement.aspx.vb">
+      <DependentUpon>VoiceMessageManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\WarningIntervals\WarningIntervalsEdit.aspx.designer.vb">
+      <DependentUpon>WarningIntervalsEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\WarningIntervals\WarningIntervalsEdit.aspx.vb">
+      <DependentUpon>WarningIntervalsEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\WarningIntervals\WarningIntervalsException.aspx.designer.vb">
+      <DependentUpon>WarningIntervalsException.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\WarningIntervals\WarningIntervalsException.aspx.vb">
+      <DependentUpon>WarningIntervalsException.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\WarningIntervals\WarningIntervalsManagement.aspx.designer.vb">
+      <DependentUpon>WarningIntervalsManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\WarningIntervals\WarningIntervalsManagement.aspx.vb">
+      <DependentUpon>WarningIntervalsManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\WarningIntervals\WarningIntervalsNew.aspx.designer.vb">
+      <DependentUpon>WarningIntervalsNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\WarningIntervals\WarningIntervalsNew.aspx.vb">
+      <DependentUpon>WarningIntervalsNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="ClassModule\clsCSVWriter.vb" />
+    <Compile Include="ClassModule\clsMakePDFReport.vb" />
+    <Compile Include="ClassModule\clsSMS.vb" />
+    <Compile Include="ClassModule\ClsZamanak.vb" />
+    <Compile Include="ClassModule\mdlGeneral.vb" />
+    <Compile Include="Global.asax.vb">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.designer.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Login.aspx.vb">
+      <DependentUpon>Login.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="MasterPage\SmartIntergace_Master.Master.designer.vb">
+      <DependentUpon>SmartIntergace_Master.Master</DependentUpon>
+    </Compile>
+    <Compile Include="MasterPage\SmartIntergace_Master.Master.vb">
+      <DependentUpon>SmartIntergace_Master.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="My Project\AssemblyInfo.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\MyExtensions\MyWebExtension.vb">
+      <VBMyExtensionTemplateID>Microsoft.VisualBasic.Web.MyExtension</VBMyExtensionTemplateID>
+      <VBMyExtensionTemplateVersion>1.0.0.0</VBMyExtensionTemplateVersion>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Application\StartPage.aspx.designer.vb">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\StartPage.aspx.vb">
+      <DependentUpon>StartPage.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Bootstrap_Menu.ascx.designer.vb">
+      <DependentUpon>Bootstrap_Menu.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Bootstrap_Menu.ascx.vb">
+      <DependentUpon>Bootstrap_Menu.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Bootstrap_Panel.ascx.designer.vb">
+      <DependentUpon>Bootstrap_Panel.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Bootstrap_Panel.ascx.vb">
+      <DependentUpon>Bootstrap_Panel.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\Bootstrap_PersianDateTimePicker.ascx.designer.vb">
+      <DependentUpon>Bootstrap_PersianDateTimePicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\Bootstrap_PersianDateTimePicker.ascx.vb">
+      <DependentUpon>Bootstrap_PersianDateTimePicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UserControl\UC_TimePicker.ascx.designer.vb">
+      <DependentUpon>UC_TimePicker.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="UserControl\UC_TimePicker.ascx.vb">
+      <DependentUpon>UC_TimePicker.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web References\VoiceSMS\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="Web References\ZamanakWebService\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.vb">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Application\Web.config" />
+    <None Include="assets\font-awesome\fonts\fontawesome-webfont.woff" />
+    <None Include="assets\font-awesome\fonts\fontawesome-webfont.woff2" />
+    <None Include="assets\font-awesome\fonts\FontAwesome.otf" />
+    <None Include="assets\font-awesome\less\animated.less" />
+    <None Include="assets\font-awesome\less\bordered-pulled.less" />
+    <None Include="assets\font-awesome\less\core.less" />
+    <None Include="assets\font-awesome\less\fixed-width.less" />
+    <None Include="assets\font-awesome\less\font-awesome.less" />
+    <None Include="assets\font-awesome\less\icons.less" />
+    <None Include="assets\font-awesome\less\larger.less" />
+    <None Include="assets\font-awesome\less\list.less" />
+    <None Include="assets\font-awesome\less\mixins.less" />
+    <None Include="assets\font-awesome\less\path.less" />
+    <None Include="assets\font-awesome\less\rotated-flipped.less" />
+    <None Include="assets\font-awesome\less\stacked.less" />
+    <None Include="assets\font-awesome\less\variables.less" />
+    <None Include="assets\font-awesome\scss\font-awesome.scss" />
+    <None Include="assets\font-awesome\scss\_animated.scss" />
+    <None Include="assets\font-awesome\scss\_bordered-pulled.scss" />
+    <None Include="assets\font-awesome\scss\_core.scss" />
+    <None Include="assets\font-awesome\scss\_fixed-width.scss" />
+    <None Include="assets\font-awesome\scss\_icons.scss" />
+    <None Include="assets\font-awesome\scss\_larger.scss" />
+    <None Include="assets\font-awesome\scss\_list.scss" />
+    <None Include="assets\font-awesome\scss\_mixins.scss" />
+    <None Include="assets\font-awesome\scss\_path.scss" />
+    <None Include="assets\font-awesome\scss\_rotated-flipped.scss" />
+    <None Include="assets\font-awesome\scss\_stacked.scss" />
+    <None Include="assets\font-awesome\scss\_variables.scss" />
+    <None Include="assets\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="assets\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="assets\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="assets\fonts\glyphicons-halflings-regulard41d.eot" />
+    <Content Include="MasterPage\SmartIntergace_Master.Master" />
+    <None Include="assets\fonts\iransansz-webfont.eot" />
+    <None Include="assets\fonts\iransansz-webfont.ttf" />
+    <None Include="assets\fonts\iransansz-webfont.woff" />
+    <Content Include="assets\fonts\YekanWeb-Regular.woff" />
+    <None Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <CustomToolNamespace>My</CustomToolNamespace>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <Content Include="packages.config" />
+    <None Include="UserManual\MehrUserManual.pdf" />
+    <None Include="Web References\VoiceSMS\RahyabVoiceSend.wsdl" />
+    <None Include="Web References\VoiceSMS\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\ZamanakWebService\Default_Service_SoapServer_ZamanakV4.wsdl" />
+    <Content Include="Web References\ZamanakWebService\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Application\Vosul\Reports\TempFile\" />
+    <Folder Include="Application\Vosul\VoiceMessage\Listen\" />
+    <Folder Include="Application\Vosul\VoiceMessage\Temp\" />
+    <Folder Include="App_Data\" />
+    <Folder Include="Images\User\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.vbproj">
+      <Project>{8D5A05D4-5DCF-4772-89A0-0302E85F5C9E}</Project>
+      <Name>BusinessObject</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="http://panel.rahyab.ir/RahyabVoiceSend.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\VoiceSMS\</RelPath>
+      <UpdateFromURL>http://panel.rahyab.ir/RahyabVoiceSend.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>MehrVosul_VoiceSMS_RahyabVoiceSend</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://www.zamanak.ir/api/soap-v4%3fwsdl">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ZamanakWebService\</RelPath>
+      <UpdateFromURL>http://www.zamanak.ir/api/soap-v4%3fwsdl</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>MehrVosul_ZamanakWebService_Default_Service_SoapServer_ZamanakV4Service</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>64198</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>
+          </IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

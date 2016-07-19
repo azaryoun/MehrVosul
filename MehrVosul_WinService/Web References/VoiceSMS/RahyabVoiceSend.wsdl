@@ -1,0 +1,612 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Authentication">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AuthenticationResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AuthenticationResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadVoiceFile">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileBytes" type="s:base64Binary" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileExt" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="fileDuration" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="fileSize" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadVoiceFileResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="UploadVoiceFileResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InquiryFileName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFileName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InquiryFileNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="InquiryFileNameResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendVoiceSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrDest" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="repeatTotal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendVoiceSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendVoiceSMSResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendVoiceSMS_Minute">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrDest" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="repeatTotal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendVoiceSMS_MinuteResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendVoiceSMS_MinuteResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendVoiceSMS_Bulk">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrDest" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="repeatTotal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendVoiceSMS_BulkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendVoiceSMS_BulkResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusVoiceSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceSMSID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="intPageNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusVoiceSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StatusVoiceSMSResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRemainVoiceCredit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetRemainVoiceCreditResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetRemainVoiceCreditResult" type="s:double" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPollVoiceSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrDest" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrAnswers" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="repeatTotal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendPollVoiceSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendPollVoiceSMSResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusPollVoiceSMS">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intPollVoiceSMSID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusPollVoiceSMSResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StatusPollVoiceSMSResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendMixedVoiceSMS_Synch">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intUid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrDest" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrRecords" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrNumbers" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSayMathod" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendMixedVoiceSMS_SynchResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendMixedVoiceSMS_SynchResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendVoiceSMS_Mehr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intUid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrDest" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="repeatTotal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendVoiceSMS_MehrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendVoiceSMS_MehrResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="AuthenticationSoapIn">
+    <wsdl:part name="parameters" element="tns:Authentication" />
+  </wsdl:message>
+  <wsdl:message name="AuthenticationSoapOut">
+    <wsdl:part name="parameters" element="tns:AuthenticationResponse" />
+  </wsdl:message>
+  <wsdl:message name="UploadVoiceFileSoapIn">
+    <wsdl:part name="parameters" element="tns:UploadVoiceFile" />
+  </wsdl:message>
+  <wsdl:message name="UploadVoiceFileSoapOut">
+    <wsdl:part name="parameters" element="tns:UploadVoiceFileResponse" />
+  </wsdl:message>
+  <wsdl:message name="InquiryFileNameSoapIn">
+    <wsdl:part name="parameters" element="tns:InquiryFileName" />
+  </wsdl:message>
+  <wsdl:message name="InquiryFileNameSoapOut">
+    <wsdl:part name="parameters" element="tns:InquiryFileNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMS_MinuteSoapIn">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS_Minute" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMS_MinuteSoapOut">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS_MinuteResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMS_BulkSoapIn">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS_Bulk" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMS_BulkSoapOut">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS_BulkResponse" />
+  </wsdl:message>
+  <wsdl:message name="StatusVoiceSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:StatusVoiceSMS" />
+  </wsdl:message>
+  <wsdl:message name="StatusVoiceSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:StatusVoiceSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetRemainVoiceCreditSoapIn">
+    <wsdl:part name="parameters" element="tns:GetRemainVoiceCredit" />
+  </wsdl:message>
+  <wsdl:message name="GetRemainVoiceCreditSoapOut">
+    <wsdl:part name="parameters" element="tns:GetRemainVoiceCreditResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendPollVoiceSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:SendPollVoiceSMS" />
+  </wsdl:message>
+  <wsdl:message name="SendPollVoiceSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:SendPollVoiceSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="StatusPollVoiceSMSSoapIn">
+    <wsdl:part name="parameters" element="tns:StatusPollVoiceSMS" />
+  </wsdl:message>
+  <wsdl:message name="StatusPollVoiceSMSSoapOut">
+    <wsdl:part name="parameters" element="tns:StatusPollVoiceSMSResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendMixedVoiceSMS_SynchSoapIn">
+    <wsdl:part name="parameters" element="tns:SendMixedVoiceSMS_Synch" />
+  </wsdl:message>
+  <wsdl:message name="SendMixedVoiceSMS_SynchSoapOut">
+    <wsdl:part name="parameters" element="tns:SendMixedVoiceSMS_SynchResponse" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMS_MehrSoapIn">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS_Mehr" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMS_MehrSoapOut">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS_MehrResponse" />
+  </wsdl:message>
+  <wsdl:portType name="RahyabVoiceSendSoap">
+    <wsdl:operation name="Authentication">
+      <wsdl:input message="tns:AuthenticationSoapIn" />
+      <wsdl:output message="tns:AuthenticationSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadVoiceFile">
+      <wsdl:input message="tns:UploadVoiceFileSoapIn" />
+      <wsdl:output message="tns:UploadVoiceFileSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InquiryFileName">
+      <wsdl:input message="tns:InquiryFileNameSoapIn" />
+      <wsdl:output message="tns:InquiryFileNameSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS">
+      <wsdl:input message="tns:SendVoiceSMSSoapIn" />
+      <wsdl:output message="tns:SendVoiceSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Minute">
+      <wsdl:input message="tns:SendVoiceSMS_MinuteSoapIn" />
+      <wsdl:output message="tns:SendVoiceSMS_MinuteSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Bulk">
+      <wsdl:input message="tns:SendVoiceSMS_BulkSoapIn" />
+      <wsdl:output message="tns:SendVoiceSMS_BulkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS">
+      <wsdl:input message="tns:StatusVoiceSMSSoapIn" />
+      <wsdl:output message="tns:StatusVoiceSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetRemainVoiceCredit">
+      <wsdl:input message="tns:GetRemainVoiceCreditSoapIn" />
+      <wsdl:output message="tns:GetRemainVoiceCreditSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendPollVoiceSMS">
+      <wsdl:input message="tns:SendPollVoiceSMSSoapIn" />
+      <wsdl:output message="tns:SendPollVoiceSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StatusPollVoiceSMS">
+      <wsdl:input message="tns:StatusPollVoiceSMSSoapIn" />
+      <wsdl:output message="tns:StatusPollVoiceSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMixedVoiceSMS_Synch">
+      <wsdl:input message="tns:SendMixedVoiceSMS_SynchSoapIn" />
+      <wsdl:output message="tns:SendMixedVoiceSMS_SynchSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Mehr">
+      <wsdl:input message="tns:SendVoiceSMS_MehrSoapIn" />
+      <wsdl:output message="tns:SendVoiceSMS_MehrSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="RahyabVoiceSendSoap" type="tns:RahyabVoiceSendSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Authentication">
+      <soap:operation soapAction="http://tempuri.org/Authentication" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadVoiceFile">
+      <soap:operation soapAction="http://tempuri.org/UploadVoiceFile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InquiryFileName">
+      <soap:operation soapAction="http://tempuri.org/InquiryFileName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS">
+      <soap:operation soapAction="http://tempuri.org/SendVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Minute">
+      <soap:operation soapAction="http://tempuri.org/SendVoiceSMS_Minute" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Bulk">
+      <soap:operation soapAction="http://tempuri.org/SendVoiceSMS_Bulk" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS">
+      <soap:operation soapAction="http://tempuri.org/StatusVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRemainVoiceCredit">
+      <soap:operation soapAction="http://tempuri.org/GetRemainVoiceCredit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPollVoiceSMS">
+      <soap:operation soapAction="http://tempuri.org/SendPollVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusPollVoiceSMS">
+      <soap:operation soapAction="http://tempuri.org/StatusPollVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMixedVoiceSMS_Synch">
+      <soap:operation soapAction="http://tempuri.org/SendMixedVoiceSMS_Synch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Mehr">
+      <soap:operation soapAction="http://tempuri.org/SendVoiceSMS_Mehr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="RahyabVoiceSendSoap12" type="tns:RahyabVoiceSendSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Authentication">
+      <soap12:operation soapAction="http://tempuri.org/Authentication" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadVoiceFile">
+      <soap12:operation soapAction="http://tempuri.org/UploadVoiceFile" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InquiryFileName">
+      <soap12:operation soapAction="http://tempuri.org/InquiryFileName" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Minute">
+      <soap12:operation soapAction="http://tempuri.org/SendVoiceSMS_Minute" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Bulk">
+      <soap12:operation soapAction="http://tempuri.org/SendVoiceSMS_Bulk" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS">
+      <soap12:operation soapAction="http://tempuri.org/StatusVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetRemainVoiceCredit">
+      <soap12:operation soapAction="http://tempuri.org/GetRemainVoiceCredit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendPollVoiceSMS">
+      <soap12:operation soapAction="http://tempuri.org/SendPollVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusPollVoiceSMS">
+      <soap12:operation soapAction="http://tempuri.org/StatusPollVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendMixedVoiceSMS_Synch">
+      <soap12:operation soapAction="http://tempuri.org/SendMixedVoiceSMS_Synch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Mehr">
+      <soap12:operation soapAction="http://tempuri.org/SendVoiceSMS_Mehr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="RahyabVoiceSend">
+    <wsdl:port name="RahyabVoiceSendSoap" binding="tns:RahyabVoiceSendSoap">
+      <soap:address location="http://panel.rahyab.ir/RahyabVoiceSend.asmx" />
+    </wsdl:port>
+    <wsdl:port name="RahyabVoiceSendSoap12" binding="tns:RahyabVoiceSendSoap12">
+      <soap12:address location="http://panel.rahyab.ir/RahyabVoiceSend.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

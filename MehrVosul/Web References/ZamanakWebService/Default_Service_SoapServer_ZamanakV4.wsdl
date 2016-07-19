@@ -1,0 +1,1321 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://www.zamanak.ir/api/soap-v4" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="Default_Service_SoapServer_ZamanakV4" targetNamespace="http://www.zamanak.ir/api/soap-v4" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://www.zamanak.ir/api/soap-v4" />
+  </wsdl:types>
+  <wsdl:message name="signUpIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="fname" type="xsd:string" />
+    <wsdl:part name="lname" type="xsd:string" />
+    <wsdl:part name="mobile" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="email" type="xsd:string" />
+    <wsdl:part name="captcha" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="signUpOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="signUpAgencyIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="agencyId" type="xsd:string" />
+    <wsdl:part name="fname" type="xsd:string" />
+    <wsdl:part name="lname" type="xsd:string" />
+    <wsdl:part name="mobile" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="email" type="xsd:string" />
+    <wsdl:part name="captcha" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="signUpAgencyOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="signUpAgencyDiscountIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="fname" type="xsd:string" />
+    <wsdl:part name="lname" type="xsd:string" />
+    <wsdl:part name="mobile" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="email" type="xsd:string" />
+    <wsdl:part name="discount" type="xsd:string" />
+    <wsdl:part name="discountminute" type="xsd:string" />
+    <wsdl:part name="captcha" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="signUpAgencyDiscountOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="signUpAgencySocialIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="agencyId" type="xsd:string" />
+    <wsdl:part name="fname" type="xsd:string" />
+    <wsdl:part name="lname" type="xsd:string" />
+    <wsdl:part name="mobile" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="email" type="xsd:string" />
+    <wsdl:part name="code" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="signUpAgencySocialOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="myUsersIn">
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="token" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="myUsersOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="transferIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="to" type="xsd:string" />
+    <wsdl:part name="amount" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="transferOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="captchaIn">
+    <wsdl:part name="username" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="mobile" type="xsd:string" />
+    <wsdl:part name="captcha" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="captchaOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="numberReaderIn">
+    <wsdl:part name="username" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="mobile" type="xsd:string" />
+    <wsdl:part name="numberToSay" type="xsd:string" />
+    <wsdl:part name="captcha" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="numberReaderOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="addAbzarakIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="memberid" type="xsd:string" />
+    <wsdl:part name="abzarak" type="xsd:string" />
+    <wsdl:part name="status" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="addAbzarakOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="uploadEncodedAudioIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:string" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="content" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="uploadEncodedAudioOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="authenticateIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="username" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="authenticateOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="receiveFaxIn">
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="id" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="receiveFaxOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getFaxesIn">
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getFaxesOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getUnreadFaxesIn">
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getUnreadFaxesOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getFaxesStringIn">
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getFaxesStringOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getUnreadFaxesStringIn">
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getUnreadFaxesStringOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="sentFaxesByCampIdIn">
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campId" type="xsd:int" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="sentFaxesByCampIdOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="recordingId" type="xsd:int" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignByEncodeRecIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="content" type="xsd:string" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignByEncodeRecOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignbyNumbersIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="numbers" type="soap-enc:Array" />
+    <wsdl:part name="recordingId" type="xsd:int" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignbyNumbersOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newPollCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="recordingId" type="xsd:int" />
+    <wsdl:part name="options" type="soap-enc:Array" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="newPollCampaignOut">
+    <wsdl:part name="return" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="newPollCampaignByNumbersIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="recordingId" type="xsd:int" />
+    <wsdl:part name="options" type="soap-enc:Array" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="newPollCampaignByNumbersOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getCampaignsIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getCampaignsOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getAccountInfoIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getAccountInfoOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getContactGroupsIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getContactGroupsOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getRecordingsListIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getRecordingsListOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="stopCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campaignId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="stopCampaignOut">
+    <wsdl:part name="return" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="startCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campaignId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="startCampaignOut">
+    <wsdl:part name="return" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="cancelCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campaignId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="cancelCampaignOut">
+    <wsdl:part name="return" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="calculateCostIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="recordingId" type="xsd:int" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="calculateCostOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="calculateCostByNumberIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="recordingId" type="xsd:int" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="calculateCostByNumberOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getCampaignLogsIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:anyType" />
+    <wsdl:part name="uid" type="xsd:anyType" />
+    <wsdl:part name="token" type="xsd:anyType" />
+    <wsdl:part name="campId" type="xsd:anyType" />
+    <wsdl:part name="page" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="getCampaignLogsOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getCampaignLogsExtendedIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:anyType" />
+    <wsdl:part name="uid" type="xsd:anyType" />
+    <wsdl:part name="token" type="xsd:anyType" />
+    <wsdl:part name="campId" type="xsd:anyType" />
+    <wsdl:part name="page" type="xsd:anyType" />
+  </wsdl:message>
+  <wsdl:message name="getCampaignLogsExtendedOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newContactIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="firstName" type="xsd:string" />
+    <wsdl:part name="lastName" type="xsd:string" />
+    <wsdl:part name="phoneNumber" type="xsd:string" />
+    <wsdl:part name="company" type="xsd:string" />
+    <wsdl:part name="address" type="xsd:string" />
+    <wsdl:part name="email" type="xsd:string" />
+    <wsdl:part name="Groups" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="newContactGroupIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="title" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="newContactGroupOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getContactsIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getContactsOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getContactsForLiteIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getContactsForLiteOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getNotificationIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="lastId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getNotificationOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="chargeAccountIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="amount" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="chargeAccountOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="sendFaxIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="documentId" type="xsd:int" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="sendFaxOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getFaxStatusIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campId" type="xsd:int" />
+    <wsdl:part name="page" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getFaxStatusOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getPollStatusIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getPollStatusOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="getCampaignStatusIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="getCampaignStatusOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newMixCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="contact_count" type="xsd:int" />
+    <wsdl:part name="recording_count" type="xsd:int" />
+    <wsdl:part name="numbers_count" type="xsd:int" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="recordings" type="soap-enc:Array" />
+    <wsdl:part name="numbers" type="soap-enc:Array" />
+    <wsdl:part name="sayMethod" type="xsd:string" />
+    <wsdl:part name="mixType" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="newMixCampaignOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignMinuteIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="numbers" type="soap-enc:Array" />
+    <wsdl:part name="recordingId" type="xsd:int" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignMinuteOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newLiveCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="recording_id" type="xsd:int" />
+    <wsdl:part name="max_numbers" type="xsd:int" />
+    <wsdl:part name="life_time" type="xsd:int" />
+    <wsdl:part name="repeat_total" type="xsd:int" />
+    <wsdl:part name="callback_url" type="xsd:string" />
+    <wsdl:part name="minute" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="newLiveCampaignOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newLivePollCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="recording_id" type="xsd:int" />
+    <wsdl:part name="options" type="soap-enc:Array" />
+    <wsdl:part name="max_numbers" type="xsd:int" />
+    <wsdl:part name="life_time" type="xsd:int" />
+    <wsdl:part name="repeat_total" type="xsd:int" />
+    <wsdl:part name="callback_url" type="xsd:string" />
+    <wsdl:part name="minute" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="newLivePollCampaignOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="addLiveNumbersIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campid" type="xsd:int" />
+    <wsdl:part name="numbers" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="addLiveNumbersOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="liveNumberStatusIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campid" type="xsd:int" />
+    <wsdl:part name="phone" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="liveNumberStatusOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="liveCampaignStatusIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campid" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="liveCampaignStatusOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="newLivePollSmsCampaignIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="sms" type="soap-enc:Array" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="recording_id" type="xsd:int" />
+    <wsdl:part name="options" type="soap-enc:Array" />
+    <wsdl:part name="smsOptions" type="soap-enc:Array" />
+    <wsdl:part name="max_numbers" type="xsd:int" />
+    <wsdl:part name="life_time" type="xsd:int" />
+    <wsdl:part name="repeat_total" type="xsd:int" />
+    <wsdl:part name="minute" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="newLivePollSmsCampaignOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="sendSmsIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="message" type="xsd:string" />
+    <wsdl:part name="username" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="company" type="xsd:string" />
+    <wsdl:part name="sender" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSmsOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="guarantyIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="campId" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="guarantyOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:portType name="Default_Service_SoapServer_ZamanakV4Port">
+    <wsdl:operation name="signUp">
+      <wsdl:input message="tns:signUpIn" />
+      <wsdl:output message="tns:signUpOut" />
+    </wsdl:operation>
+    <wsdl:operation name="signUpAgency">
+      <wsdl:input message="tns:signUpAgencyIn" />
+      <wsdl:output message="tns:signUpAgencyOut" />
+    </wsdl:operation>
+    <wsdl:operation name="signUpAgencyDiscount">
+      <wsdl:input message="tns:signUpAgencyDiscountIn" />
+      <wsdl:output message="tns:signUpAgencyDiscountOut" />
+    </wsdl:operation>
+    <wsdl:operation name="signUpAgencySocial">
+      <wsdl:input message="tns:signUpAgencySocialIn" />
+      <wsdl:output message="tns:signUpAgencySocialOut" />
+    </wsdl:operation>
+    <wsdl:operation name="myUsers">
+      <wsdl:input message="tns:myUsersIn" />
+      <wsdl:output message="tns:myUsersOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transfer">
+      <wsdl:input message="tns:transferIn" />
+      <wsdl:output message="tns:transferOut" />
+    </wsdl:operation>
+    <wsdl:operation name="captcha">
+      <wsdl:input message="tns:captchaIn" />
+      <wsdl:output message="tns:captchaOut" />
+    </wsdl:operation>
+    <wsdl:operation name="numberReader">
+      <wsdl:input message="tns:numberReaderIn" />
+      <wsdl:output message="tns:numberReaderOut" />
+    </wsdl:operation>
+    <wsdl:operation name="addAbzarak">
+      <wsdl:input message="tns:addAbzarakIn" />
+      <wsdl:output message="tns:addAbzarakOut" />
+    </wsdl:operation>
+    <wsdl:operation name="uploadEncodedAudio">
+      <wsdl:input message="tns:uploadEncodedAudioIn" />
+      <wsdl:output message="tns:uploadEncodedAudioOut" />
+    </wsdl:operation>
+    <wsdl:operation name="authenticate">
+      <wsdl:input message="tns:authenticateIn" />
+      <wsdl:output message="tns:authenticateOut" />
+    </wsdl:operation>
+    <wsdl:operation name="receiveFax">
+      <wsdl:input message="tns:receiveFaxIn" />
+      <wsdl:output message="tns:receiveFaxOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getFaxes">
+      <wsdl:input message="tns:getFaxesIn" />
+      <wsdl:output message="tns:getFaxesOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUnreadFaxes">
+      <wsdl:input message="tns:getUnreadFaxesIn" />
+      <wsdl:output message="tns:getUnreadFaxesOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getFaxesString">
+      <wsdl:input message="tns:getFaxesStringIn" />
+      <wsdl:output message="tns:getFaxesStringOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getUnreadFaxesString">
+      <wsdl:input message="tns:getUnreadFaxesStringIn" />
+      <wsdl:output message="tns:getUnreadFaxesStringOut" />
+    </wsdl:operation>
+    <wsdl:operation name="sentFaxesByCampId">
+      <wsdl:input message="tns:sentFaxesByCampIdIn" />
+      <wsdl:output message="tns:sentFaxesByCampIdOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newCampaign">
+      <wsdl:input message="tns:newCampaignIn" />
+      <wsdl:output message="tns:newCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newCampaignByEncodeRec">
+      <wsdl:input message="tns:newCampaignByEncodeRecIn" />
+      <wsdl:output message="tns:newCampaignByEncodeRecOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newCampaignbyNumbers">
+      <wsdl:input message="tns:newCampaignbyNumbersIn" />
+      <wsdl:output message="tns:newCampaignbyNumbersOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newPollCampaign">
+      <wsdl:input message="tns:newPollCampaignIn" />
+      <wsdl:output message="tns:newPollCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newPollCampaignByNumbers">
+      <wsdl:input message="tns:newPollCampaignByNumbersIn" />
+      <wsdl:output message="tns:newPollCampaignByNumbersOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCampaigns">
+      <wsdl:input message="tns:getCampaignsIn" />
+      <wsdl:output message="tns:getCampaignsOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getAccountInfo">
+      <wsdl:input message="tns:getAccountInfoIn" />
+      <wsdl:output message="tns:getAccountInfoOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getContactGroups">
+      <wsdl:input message="tns:getContactGroupsIn" />
+      <wsdl:output message="tns:getContactGroupsOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getRecordingsList">
+      <wsdl:input message="tns:getRecordingsListIn" />
+      <wsdl:output message="tns:getRecordingsListOut" />
+    </wsdl:operation>
+    <wsdl:operation name="stopCampaign">
+      <wsdl:input message="tns:stopCampaignIn" />
+      <wsdl:output message="tns:stopCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="startCampaign">
+      <wsdl:input message="tns:startCampaignIn" />
+      <wsdl:output message="tns:startCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="cancelCampaign">
+      <wsdl:input message="tns:cancelCampaignIn" />
+      <wsdl:output message="tns:cancelCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="calculateCost">
+      <wsdl:input message="tns:calculateCostIn" />
+      <wsdl:output message="tns:calculateCostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="calculateCostByNumber">
+      <wsdl:input message="tns:calculateCostByNumberIn" />
+      <wsdl:output message="tns:calculateCostByNumberOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCampaignLogs">
+      <wsdl:input message="tns:getCampaignLogsIn" />
+      <wsdl:output message="tns:getCampaignLogsOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCampaignLogsExtended">
+      <wsdl:input message="tns:getCampaignLogsExtendedIn" />
+      <wsdl:output message="tns:getCampaignLogsExtendedOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newContact">
+      <wsdl:input message="tns:newContactIn" />
+    </wsdl:operation>
+    <wsdl:operation name="newContactGroup">
+      <wsdl:input message="tns:newContactGroupIn" />
+      <wsdl:output message="tns:newContactGroupOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getContacts">
+      <wsdl:input message="tns:getContactsIn" />
+      <wsdl:output message="tns:getContactsOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getContactsForLite">
+      <wsdl:input message="tns:getContactsForLiteIn" />
+      <wsdl:output message="tns:getContactsForLiteOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getNotification">
+      <wsdl:input message="tns:getNotificationIn" />
+      <wsdl:output message="tns:getNotificationOut" />
+    </wsdl:operation>
+    <wsdl:operation name="chargeAccount">
+      <wsdl:input message="tns:chargeAccountIn" />
+      <wsdl:output message="tns:chargeAccountOut" />
+    </wsdl:operation>
+    <wsdl:operation name="sendFax">
+      <wsdl:input message="tns:sendFaxIn" />
+      <wsdl:output message="tns:sendFaxOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getFaxStatus">
+      <wsdl:input message="tns:getFaxStatusIn" />
+      <wsdl:output message="tns:getFaxStatusOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getPollStatus">
+      <wsdl:input message="tns:getPollStatusIn" />
+      <wsdl:output message="tns:getPollStatusOut" />
+    </wsdl:operation>
+    <wsdl:operation name="getCampaignStatus">
+      <wsdl:input message="tns:getCampaignStatusIn" />
+      <wsdl:output message="tns:getCampaignStatusOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newMixCampaign">
+      <wsdl:input message="tns:newMixCampaignIn" />
+      <wsdl:output message="tns:newMixCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newCampaignMinute">
+      <wsdl:input message="tns:newCampaignMinuteIn" />
+      <wsdl:output message="tns:newCampaignMinuteOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newLiveCampaign">
+      <wsdl:input message="tns:newLiveCampaignIn" />
+      <wsdl:output message="tns:newLiveCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newLivePollCampaign">
+      <wsdl:input message="tns:newLivePollCampaignIn" />
+      <wsdl:output message="tns:newLivePollCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="addLiveNumbers">
+      <wsdl:input message="tns:addLiveNumbersIn" />
+      <wsdl:output message="tns:addLiveNumbersOut" />
+    </wsdl:operation>
+    <wsdl:operation name="liveNumberStatus">
+      <wsdl:input message="tns:liveNumberStatusIn" />
+      <wsdl:output message="tns:liveNumberStatusOut" />
+    </wsdl:operation>
+    <wsdl:operation name="liveCampaignStatus">
+      <wsdl:input message="tns:liveCampaignStatusIn" />
+      <wsdl:output message="tns:liveCampaignStatusOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newLivePollSmsCampaign">
+      <wsdl:input message="tns:newLivePollSmsCampaignIn" />
+      <wsdl:output message="tns:newLivePollSmsCampaignOut" />
+    </wsdl:operation>
+    <wsdl:operation name="sendSms">
+      <wsdl:input message="tns:sendSmsIn" />
+      <wsdl:output message="tns:sendSmsOut" />
+    </wsdl:operation>
+    <wsdl:operation name="guaranty">
+      <wsdl:input message="tns:guarantyIn" />
+      <wsdl:output message="tns:guarantyOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="Default_Service_SoapServer_ZamanakV4Binding" type="tns:Default_Service_SoapServer_ZamanakV4Port">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="signUp">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#signUp" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signUpAgency">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#signUpAgency" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signUpAgencyDiscount">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#signUpAgencyDiscount" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="signUpAgencySocial">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#signUpAgencySocial" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="myUsers">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#myUsers" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transfer">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#transfer" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="captcha">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#captcha" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="numberReader">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#numberReader" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addAbzarak">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#addAbzarak" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="uploadEncodedAudio">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#uploadEncodedAudio" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="authenticate">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#authenticate" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="receiveFax">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#receiveFax" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFaxes">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getFaxes" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUnreadFaxes">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getUnreadFaxes" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFaxesString">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getFaxesString" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getUnreadFaxesString">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getUnreadFaxesString" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sentFaxesByCampId">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#sentFaxesByCampId" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newCampaignByEncodeRec">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newCampaignByEncodeRec" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newCampaignbyNumbers">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newCampaignbyNumbers" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newPollCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newPollCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newPollCampaignByNumbers">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newPollCampaignByNumbers" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCampaigns">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getCampaigns" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getAccountInfo">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getAccountInfo" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getContactGroups">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getContactGroups" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getRecordingsList">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getRecordingsList" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="stopCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#stopCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="startCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#startCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#cancelCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="calculateCost">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#calculateCost" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="calculateCostByNumber">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#calculateCostByNumber" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCampaignLogs">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getCampaignLogs" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCampaignLogsExtended">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getCampaignLogsExtended" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newContact">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newContact" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="newContactGroup">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newContactGroup" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getContacts">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getContacts" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getContactsForLite">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getContactsForLite" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getNotification">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getNotification" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="chargeAccount">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#chargeAccount" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendFax">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#sendFax" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getFaxStatus">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getFaxStatus" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getPollStatus">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getPollStatus" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCampaignStatus">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#getCampaignStatus" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newMixCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newMixCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newCampaignMinute">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newCampaignMinute" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newLiveCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newLiveCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newLivePollCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newLivePollCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addLiveNumbers">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#addLiveNumbers" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="liveNumberStatus">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#liveNumberStatus" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="liveCampaignStatus">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#liveCampaignStatus" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newLivePollSmsCampaign">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newLivePollSmsCampaign" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendSms">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#sendSms" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="guaranty">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#guaranty" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Default_Service_SoapServer_ZamanakV4Service">
+    <wsdl:port name="Default_Service_SoapServer_ZamanakV4Port" binding="tns:Default_Service_SoapServer_ZamanakV4Binding">
+      <soap:address location="http://www.zamanak.ir/api/soap-v4" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
