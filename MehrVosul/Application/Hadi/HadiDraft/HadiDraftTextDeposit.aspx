@@ -281,6 +281,42 @@
         
         }
 
+
+        function Move_Items(direction) {
+
+            var lstSMSText_Name = "<%=lstSMSText.ClientID%>";
+            var lstSMSText = document.getElementById(lstSMSText_Name);
+            var selIndex = lstSMSText.selectedIndex;
+
+            if (selIndex == -1) {
+                alert("Please select an option to move.");
+                return;
+            }
+
+            var increment = -1;
+            if (direction == 'up')
+                increment = -1;
+            else
+                increment = 1;
+
+            if ((selIndex + increment) < 0 ||
+                (selIndex + increment) > (lstSMSText.options.length - 1)) {
+                return;
+            }
+
+            var selValue = lstSMSText.options[selIndex].value;
+            var selText = lstSMSText.options[selIndex].text;
+            lstSMSText.options[selIndex].value = lstSMSText.options[selIndex + increment].value
+            lstSMSText.options[selIndex].text = lstSMSText.options[selIndex + increment].text
+
+            lstSMSText.options[selIndex + increment].value = selValue;
+            lstSMSText.options[selIndex + increment].text = selText;
+
+            lstSMSText.selectedIndex = selIndex + increment;
+
+            CreateSampleText();
+        }
+
   </script>
 
 
@@ -344,11 +380,14 @@
                                             </asp:ListBox>
                                            
                                                 <span class="form-group input-group-btn">
-                                                  <a  id="btnRemoveFromText" title="حذف از الگوی متن"  class="btn btn-danger" onclick="RemoveColumns();"><i class="fa fa-minus-circle fa-lg"></i></a>
-                                                </span>
+                                                  <a  id="btnRemoveFromText" title="حذف از الگوی متن"  class="btn btn-danger" onclick="RemoveColumns();"><i class="fa fa-minus-circle fa-lg"></i></a></span>
+                                         <span class="form-group input-group-btn">  <a  id="btnUP" title="بالا"  class="btn btn-success" onclick="Move_Items('up');"><i class="fa fa-caret-square-o-up fa-lg"></i></a></span>
+                                              <span class="form-group input-group-btn">    <a  id="btnDown" title="پایین"  class="btn btn-success" onclick="Move_Items('down');"><i class="fa fa-caret-square-o-down fa-lg"></i></a>
+                                           </span>  
                                         
                                             
                                         </div>
+
                                         <div>
                                              <div class="form-group has-error"> <asp:Label ID="lblCharchterCounter" runat="server" Text="70" Font-Bold="true"></asp:Label>
                                                  <asp:Label ID="lblSMSCounter" runat="server" Text="(1)" Font-Bold="true"></asp:Label>
