@@ -11,7 +11,7 @@ Imports System.Configuration
 Public Class clsSMS
 
     Public Function SendSMS_LikeToLike(ByVal Message() As String, ByVal DestinationAddress() As String, ByVal UserName As String, ByVal Password As String, ByVal strSenderNumber As String, ByVal IPAddress As String, ByVal Company As String, ByVal BatchID As String) As String()
-
+        'test
         Dim RetValue(1) As String
         RetValue(0) = "False"
         RetValue(1) = 0
