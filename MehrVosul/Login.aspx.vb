@@ -6,6 +6,7 @@
         divMessage1.Style("display") = "none"
         divMessage.Style("display") = "none"
         'Test
+        'Test
     End Sub
 
     Protected Sub btnSignin_Click(sender As Object, e As EventArgs) Handles btnSignIn.ServerClick
