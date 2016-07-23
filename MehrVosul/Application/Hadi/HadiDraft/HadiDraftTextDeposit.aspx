@@ -379,15 +379,18 @@
                                              <asp:ListBox runat="server"  CssClass="form-control"   ID="lstSMSText" Height="150px">
                                             </asp:ListBox>
                                            
-                                                <span class="form-group input-group-btn">
-                                                  <a  id="btnRemoveFromText" title="حذف از الگوی متن"  class="btn btn-danger" onclick="RemoveColumns();"><i class="fa fa-minus-circle fa-lg"></i></a></span>
+                                              
                                          <span class="form-group input-group-btn">  <a  id="btnUP" title="بالا"  class="btn btn-success" onclick="Move_Items('up');"><i class="fa fa-caret-square-o-up fa-lg"></i></a></span>
                                               <span class="form-group input-group-btn">    <a  id="btnDown" title="پایین"  class="btn btn-success" onclick="Move_Items('down');"><i class="fa fa-caret-square-o-down fa-lg"></i></a>
                                            </span>  
                                         
                                             
                                         </div>
+                                     <div>
 
+                                         <a  id="btnRemoveFromText" title="حذف از الگوی متن"  class="btn btn-danger" onclick="RemoveColumns();"><i class="fa fa-minus-circle fa-lg"></i></a>
+
+                                     </div>
                                         <div>
                                              <div class="form-group has-error"> <asp:Label ID="lblCharchterCounter" runat="server" Text="70" Font-Bold="true"></asp:Label>
                                                  <asp:Label ID="lblSMSCounter" runat="server" Text="(1)" Font-Bold="true"></asp:Label>
