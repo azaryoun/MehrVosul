@@ -88,6 +88,7 @@
 
 
         function btnAddColumns(colHref) {
+
       
             var lstSMSText_Name = "<%=lstSMSText.ClientID%>";
             var lstSMSText = document.getElementById(lstSMSText_Name);
@@ -114,6 +115,15 @@
                     break;
                 case 6:
                     option.text = "(شعبه اخذ وام)";
+                    break;
+                case 7:
+                    option.text = "(نوع وام)";
+                    break;
+                case 8:
+                    option.text = "(شماره وام)";
+                    break;
+                case 9:
+                    option.text = "(تاریخ دریافت وام)";
                     break;
 
             }
@@ -155,13 +165,22 @@
                             strSampleText += " " + "قمصری"
                             break;
                         case "4":
-                            strSampleText += " " + "578956-5653"
+                            strSampleText += " " + "578956"
                             break;
                         case "5":
                             strSampleText += " " + "23"
                             break;
                         case "6":
                             strSampleText += " " + "میدان ونک"
+                            break;
+                        case "7":
+                            strSampleText += " " + "فروش اقساطي کشاورزي"
+                            break;
+                        case "8":
+                            strSampleText += " " + "8334-2-9204086-1"
+                            break;
+                        case "9":
+                            strSampleText += " " + "94/06/12"
                             break;
 
                     }//switch
@@ -270,9 +289,43 @@
             if (lstSMSText.options[lstSMSText.selectedIndex].value=="")
             txt_ExtraMsg.value = lstSMSText.options[lstSMSText.selectedIndex].text;
 
+        }
+
 
         
-        
+        function Move_Items(direction) {
+
+            var lstSMSText_Name = "<%=lstSMSText.ClientID%>";
+            var lstSMSText = document.getElementById(lstSMSText_Name);
+            var selIndex = lstSMSText.selectedIndex;
+
+            if (selIndex == -1) {
+                alert("Please select an option to move.");
+                return;
+            }
+
+            var increment = -1;
+            if (direction == 'up')
+                increment = -1;
+            else
+                increment = 1;
+
+            if ((selIndex + increment) < 0 ||
+                (selIndex + increment) > (lstSMSText.options.length - 1)) {
+                return;
+            }
+
+            var selValue = lstSMSText.options[selIndex].value;
+            var selText = lstSMSText.options[selIndex].text;
+            lstSMSText.options[selIndex].value = lstSMSText.options[selIndex + increment].value
+            lstSMSText.options[selIndex].text = lstSMSText.options[selIndex + increment].text
+
+            lstSMSText.options[selIndex + increment].value = selValue;
+            lstSMSText.options[selIndex + increment].text = selText;
+
+            lstSMSText.selectedIndex = selIndex + increment;
+
+            CreateSampleText();
         }
 
   </script>
@@ -314,8 +367,13 @@
                                             <a href='#' onclick='return btnAddColumns(5);' >تعداد روز از دریافت وام</a>
                                            -
                                             <a href='#' onclick='return btnAddColumns(6);' >شعبه</a>
-                  
-                                          
+                                           -
+                                            <a href='#' onclick='return btnAddColumns(7);' >نوع وام</a>
+                                          -
+                                            <a href='#' onclick='return btnAddColumns(8);' >شماره وام</a>
+                                           -
+                                            <a href='#' onclick='return btnAddColumns(9);' >تاریخ دریافت وام</a>
+                                           
                                         </div>
                                           <label>متن دلخواه</label>
                                                       <div class="form-group input-group input-group-sm">
@@ -335,11 +393,16 @@
                                              <asp:ListBox runat="server"  CssClass="form-control"   ID="lstSMSText" Height="150px">
                                             </asp:ListBox>
                                            
-                                                <span class="form-group input-group-btn">
+
+                                           <span class="form-group input-group-btn">  <a  id="btnUP" title="بالا"  class="btn btn-success" onclick="Move_Items('up');"><i class="fa fa-caret-square-o-up fa-lg"></i></a></span>
+                                              <span class="form-group input-group-btn">    <a  id="btnDown" title="پایین"  class="btn btn-success" onclick="Move_Items('down');"><i class="fa fa-caret-square-o-down fa-lg"></i></a>
+                                           </span>  
+                                       
+                                        </div>
+                                        <div>
+                                               <span class="form-group input-group-btn">
                                                   <a  id="btnRemoveFromText" title="حذف از الگوی متن"  class="btn btn-danger" onclick="RemoveColumns();"><i class="fa fa-minus-circle fa-lg"></i></a>
                                                 </span>
-                                        
-                                            
                                         </div>
                                         <div>
                                              <div class="form-group has-error"> <asp:Label ID="lblCharchterCounter" runat="server" Text="70" Font-Bold="true"></asp:Label>

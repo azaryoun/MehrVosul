@@ -96,8 +96,17 @@
                             lstItem.Text = "(تعداد روز از دریافت وام)"
                             strSampleMessage &= " " & "23"
                         Case "6"
-                            lstItem.Text = "(شعبه اخذ تسهیلات)"
+                            lstItem.Text = "(شعبه اخذ وام)"
                             strSampleMessage &= " " & "میدان ونک"
+                        Case "7"
+                            lstItem.Text = "(نوع وام)"
+                            strSampleMessage &= " " & "فروش اقساطي کشاورزي"
+                        Case "8"
+                            lstItem.Text = "(شماره وام)"
+                            strSampleMessage &= " " & "8334-2-9204086-1"
+                        Case "9"
+                            lstItem.Text = "(تاریخ دریافت وام)"
+                            strSampleMessage &= " " & "94/06/12"
 
                     End Select
                     lstItem.Value = drwDraft.DraftText
@@ -153,9 +162,9 @@
 
         For i As Integer = 1 To arrOutput.Length - 1
             If arrOutput(i).StartsWith("~?") = True Then
-                qryDraft.spr_HadiDraftText_Insert(i, intHadiWarningIntervalsID, arrOutput(i).Substring(2, 1), True, -1)
+                qryDraft.spr_HadiDraftText_Insert(i, intHadiWarningIntervalsID, arrOutput(i).Substring(2, 1), True, Nothing)
             Else
-                qryDraft.spr_HadiDraftText_Insert(i, intHadiWarningIntervalsID, arrOutput(i), False, -1)
+                qryDraft.spr_HadiDraftText_Insert(i, intHadiWarningIntervalsID, arrOutput(i), False, Nothing)
             End If
         Next i
 
