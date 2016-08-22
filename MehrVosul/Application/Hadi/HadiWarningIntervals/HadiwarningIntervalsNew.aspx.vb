@@ -30,13 +30,25 @@
             Dim dtblMenuLeafList As BusinessObject.dstDeposit.spr_DepositType_List_SelectDataTable = Nothing
             dtblMenuLeafList = tadpDepositList.GetData()
 
-            Dim strchklstLoanTypeLeaves As String = ""
+            Dim strchklstDepositTypeLeaves As String = ""
 
             For Each drwMeneLeafList As BusinessObject.dstDeposit.spr_DepositType_List_SelectRow In dtblMenuLeafList.Rows
-                strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
+                strchklstDepositTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
             Next drwMeneLeafList
 
-            divchklstDepositItems.InnerHtml = strchklstLoanTypeLeaves
+            divchklstDepositItems.InnerHtml = strchklstDepositTypeLeaves
+
+            Dim tadpMLoanTypeList As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_List_SelectTableAdapter
+            Dim dtblLoanMenuLeafList As BusinessObject.dstLoanType.spr_LoanType_List_SelectDataTable = Nothing
+            dtblLoanMenuLeafList = tadpMLoanTypeList.GetData()
+
+            Dim strchklstLoanTypeLeaves As String = ""
+
+            For Each drwMeneLeafList As BusinessObject.dstLoanType.spr_LoanType_List_SelectRow In dtblLoanMenuLeafList.Rows
+                strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='LoanchklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.LoanType & "</label></div>"
+            Next drwMeneLeafList
+
+            divchklstLoanTypeItems.InnerHtml = strchklstLoanTypeLeaves
 
 
 
@@ -99,35 +111,63 @@
 
             Dim strchklstLoanLeaves As String = ""
 
+
             For Each drwMeneLeafList As BusinessObject.dstDeposit.spr_DepositType_List_SelectRow In dtblDepositList.Rows
-
-
-                Dim boolChecked As Boolean = False
-
-                For i As Integer = 0 To Request.Form.Keys.Count - 1
-
-                    If Request.Form.Keys(i).StartsWith("chklstMenu") = True Then
-
-                        If CInt(Request.Form(i)) = drwMeneLeafList.ID Then
-                            boolChecked = True
-                            Exit For
-                        End If
-
-                    End If
-
-                Next
-
-
-                If boolChecked = True Then
-                    strchklstLoanLeaves &= "<div class='checkbox'> <label> <input type='checkbox' checked='checked' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
-                Else
-                    strchklstLoanLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
-                End If
-
-
+                strchklstLoanLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
             Next drwMeneLeafList
 
             divchklstDepositItems.InnerHtml = strchklstLoanLeaves
+
+            Dim tadpMLoanTypeList As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_List_SelectTableAdapter
+            Dim dtblLoanMenuLeafList As BusinessObject.dstLoanType.spr_LoanType_List_SelectDataTable = Nothing
+            dtblLoanMenuLeafList = tadpMLoanTypeList.GetData()
+
+            Dim strchklstLoanTypeLeaves As String = ""
+
+            For Each drwMeneLeafList As BusinessObject.dstLoanType.spr_LoanType_List_SelectRow In dtblLoanMenuLeafList.Rows
+                strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='LoanchklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.LoanType & "</label></div>"
+            Next drwMeneLeafList
+
+            divchklstLoanTypeItems.InnerHtml = strchklstLoanTypeLeaves
+
+
+            If rdoNewDeposit.Checked = True Then
+                divDeposit.Visible = True
+                divLoan.Visible = False
+            Else
+                divDeposit.Visible = False
+                divLoan.Visible = True
+
+            End If
+            'For Each drwMeneLeafList As BusinessObject.dstDeposit.spr_DepositType_List_SelectRow In dtblDepositList.Rows
+
+
+            '    Dim boolChecked As Boolean = False
+
+            '    For i As Integer = 0 To Request.Form.Keys.Count - 1
+
+            '        If Request.Form.Keys(i).StartsWith("chklstMenu") = True Then
+
+            '            If CInt(Request.Form(i)) = drwMeneLeafList.ID Then
+            '                boolChecked = True
+            '                Exit For
+            '            End If
+
+            '        End If
+
+            '    Next
+
+
+            '    If boolChecked = True Then
+            '        strchklstLoanLeaves &= "<div class='checkbox'> <label> <input type='checkbox' checked='checked' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
+            '    Else
+            '        strchklstLoanLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
+            '    End If
+
+
+            'Next drwMeneLeafList
+
+            'divchklstDepositItems.InnerHtml = strchklstLoanLeaves
 
 
         End If
@@ -177,38 +217,18 @@
 
             For i As Integer = 0 To Request.Form.Keys.Count - 1
 
-                If Request.Form.Keys(i).StartsWith("chklstMenu") = True Then
+                ''Check Deposit Overlap
+                If rdoNewDeposit.Checked = True Then
+                    If Request.Form.Keys(i).StartsWith("chklstMenu") = True Then
+                        For Each trNode As TreeNode In trState.Nodes
+                            If trNode.ChildNodes.Count = 0 Then
+                                If trNode.Checked = True Then
 
+                                    dtblBranchList = tadpBrnachList.GetData(2, trNode.Value)
 
-                    For Each trNode As TreeNode In trState.Nodes
-                        If trNode.ChildNodes.Count = 0 Then
-                            If trNode.Checked = True Then
+                                    For Each drwBranch As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList
 
-                                dtblBranchList = tadpBrnachList.GetData(2, trNode.Value)
-
-                                For Each drwBranch As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList
-
-                                    dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(1, -1, CInt(Request.Form(i)), intFromDay, intToDay, drwBranch.ID)
-
-                                    If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
-
-                                        Bootstrap_Panel1.ShowMessage("نوع سپرده " & dtblWarningIntervalOverlap.First.DepositName & " در بازه گردش کار انتخابی با گردش کار " & dtblWarningIntervalOverlap.First.WarniningTitle & " " & "تداخل دارد.", True)
-                                        Return
-
-                                    End If
-
-                                Next
-
-                            End If
-
-                        Else
-
-                            For Each trChildNode As TreeNode In trNode.ChildNodes
-
-                                If trChildNode.ChildNodes.Count = 0 Then
-                                    If trChildNode.Checked = True Then
-                                        Dim ChildID As Integer = CInt(trChildNode.Value)
-                                        dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(1, -1, CInt(Request.Form(i)), intFromDay, intToDay, ChildID)
+                                        dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(1, -1, CInt(Request.Form(i)), intFromDay, intToDay, drwBranch.ID)
 
                                         If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
 
@@ -217,17 +237,89 @@
 
                                         End If
 
-
-                                    End If
+                                    Next
 
                                 End If
 
+                            Else
 
-                            Next
+                                For Each trChildNode As TreeNode In trNode.ChildNodes
 
-                        End If
-                    Next
+                                    If trChildNode.ChildNodes.Count = 0 Then
+                                        If trChildNode.Checked = True Then
+                                            Dim ChildID As Integer = CInt(trChildNode.Value)
+                                            dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(1, -1, CInt(Request.Form(i)), intFromDay, intToDay, ChildID)
 
+                                            If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
+
+                                                Bootstrap_Panel1.ShowMessage("نوع سپرده " & dtblWarningIntervalOverlap.First.DepositName & " در بازه گردش کار انتخابی با گردش کار " & dtblWarningIntervalOverlap.First.WarniningTitle & " " & "تداخل دارد.", True)
+                                                Return
+
+                                            End If
+
+
+                                        End If
+
+                                    End If
+
+
+                                Next
+
+                            End If
+                        Next
+                    End If
+
+                Else
+
+                    If Request.Form.Keys(i).StartsWith("LoanchklstMenu") = True Then
+                        For Each trNode As TreeNode In trState.Nodes
+                            If trNode.ChildNodes.Count = 0 Then
+                                If trNode.Checked = True Then
+
+                                    dtblBranchList = tadpBrnachList.GetData(2, trNode.Value)
+
+                                    For Each drwBranch As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList
+
+                                        dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(3, -1, CInt(Request.Form(i)), intFromDay, intToDay, drwBranch.ID)
+
+                                        If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
+
+                                            Bootstrap_Panel1.ShowMessage("نوع وام " & dtblWarningIntervalOverlap.First.DepositName & " در بازه گردش کار انتخابی با گردش کار " & dtblWarningIntervalOverlap.First.WarniningTitle & " " & "تداخل دارد.", True)
+                                            Return
+
+                                        End If
+
+                                    Next
+
+                                End If
+
+                            Else
+
+                                For Each trChildNode As TreeNode In trNode.ChildNodes
+
+                                    If trChildNode.ChildNodes.Count = 0 Then
+                                        If trChildNode.Checked = True Then
+                                            Dim ChildID As Integer = CInt(trChildNode.Value)
+                                            dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(3, -1, CInt(Request.Form(i)), intFromDay, intToDay, ChildID)
+
+                                            If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
+
+                                                Bootstrap_Panel1.ShowMessage("نوع وام " & dtblWarningIntervalOverlap.First.DepositName & " در بازه گردش کار انتخابی با گردش کار " & dtblWarningIntervalOverlap.First.WarniningTitle & " " & "تداخل دارد.", True)
+                                                Return
+
+                                            End If
+
+
+                                        End If
+
+                                    End If
+
+
+                                Next
+
+                            End If
+                        Next
+                    End If
 
                 End If
 
@@ -246,6 +338,24 @@
                 End If
 
             Next i
+
+            For i As Integer = 0 To Request.Form.Keys.Count - 1
+
+                If Request.Form.Keys(i).StartsWith("LoanchklstMenu") = True Then
+
+                    Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
+                    Dim newHadiLoan As New BusinessObject.tbl_HadiWarningIntervalsLoan
+                    newHadiLoan.FK_HadiWarningIntervalsID = intHadiWarningIntervals
+                    newHadiLoan.FK_LoanTypeID = CInt(Request.Form(i))
+
+                    cntxVar.tbl_HadiWarningIntervalsLoan.Add(newHadiLoan)
+                    cntxVar.SaveChanges()
+
+                End If
+
+            Next i
+
+
 
 
             For Each trNode As TreeNode In trState.Nodes
@@ -282,6 +392,7 @@
 
 
         Catch ex As Exception
+            ' Bootstrap_Panel1.ShowMessage(ex.Message, True)
             Response.Redirect("HadiWarningIntervalsManagement.aspx?Save=NO")
             Return
         End Try
@@ -292,5 +403,21 @@
 
     End Sub
 
+    Protected Sub rdoNewDeposit_CheckedChanged(sender As Object, e As EventArgs) Handles rdoNewDeposit.CheckedChanged
+        If rdoNewDeposit.Checked = True Then
 
+            divDeposit.Visible = True
+            divLoan.Visible = False
+
+        End If
+    End Sub
+
+    Protected Sub rdoGetDeposit_CheckedChanged(sender As Object, e As EventArgs) Handles rdoGetDeposit.CheckedChanged
+        If rdoGetDeposit.Checked = True Then
+
+            divDeposit.Visible = False
+            divLoan.Visible = True
+
+        End If
+    End Sub
 End Class

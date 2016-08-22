@@ -28,7 +28,7 @@
             var chkbxVoiceMessage = document.getElementById("<%=chkbxVoiceMessage.ClientID%>");
             var chkbxSendSMS = document.getElementById("<%=chkbxSendSMS.ClientID%>");
             var divchklstDepossitItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
-            
+            var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
             
             var rdoNewDeposit = document.getElementById("<%=rdoNewDeposit.ClientID%>");
             var rdoGetDeposit = document.getElementById("<%=rdoNewDeposit.ClientID%>");
@@ -42,8 +42,13 @@
 
 
 
-            var divtmp = divchklstDepossitItems.firstChild;
-
+            var divtmp;
+            if (divchklstDepossitItems != null) {
+                divtmp = divchklstDepossitItems.firstChild;
+            }
+            else {
+                divtmp = divchklstLoanTypeItems.firstChild;
+            }
             var boolChecked = false;
 
             while (divtmp) {
@@ -152,14 +157,27 @@
         function chkSelectAll_Click() {
 
 
-            var divchklstDepositItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
-            
+          var divchklstDepositItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
+          var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
+
             var chkSelectAll = document.getElementById("chkSelectAll");
-            var divtmp = divchklstDepositItems.firstChild;
+            var chkSelectAllLoan = document.getElementById("chkSelectAllLoan");
+
+            var chkSelectAll1;
+            var divtmp;
+            if (divchklstDepositItems != null) {
+                divtmp = divchklstDepositItems.firstChild;
+                chkSelectAll1 = chkSelectAll;
+            }
+            else {
+                divtmp = divchklstLoanTypeItems.firstChild;
+                chkSelectAll1 = chkSelectAllLoan;
+            }
+
 
              while (divtmp) {
                 var chktmp = divtmp.firstChild.nextSibling.firstChild.nextSibling;
-                 chktmp.checked= chkSelectAll.checked;
+                 chktmp.checked= chkSelectAll1.checked;
      
                 divtmp = divtmp.nextSibling;
             }
@@ -196,7 +214,8 @@
                                             
                                         </div>
                                            
-                                             <div class="panel panel-default" > 
+                                    
+                                       <div id="divDeposit" runat="server"  class="panel panel-default" > 
                                            <div class="panel-heading">
                                             <label>نوع سپرده</label>
                                               </div>
@@ -208,11 +227,20 @@
                                                    </div>
                                          </div>
                                          </div>
+       
+                                     <div id="divLoan" runat="server" visible="false"   class="panel panel-default" > 
+                                           <div class="panel-heading">
+                                            <label>نوع وام</label>
+                                              </div>
+                                             
+                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
+
+                                                  <label> <input type="checkbox" value="" id="chkSelectAllLoan" onclick="return chkSelectAll_Click();"/> انتخاب/عدم انتخاب همه</label> 
+                                                   <div class="form-group" runat="server" id="divchklstLoanTypeItems">
+                                                   </div>
+                                         </div>
+                                         </div>
                                         
-                                       
-
-                                     
-
 
                                            <div class="panel panel-default" > 
                                            <div class="panel-heading">
@@ -314,7 +342,6 @@
                                         </div>
                                                 <div class="form-group">
 
-                                    
                                                <div class="panel panel-default" >
                                                 <div class="panel-heading">
                                                 <label>نوع اطلاع رسانی</label>
@@ -349,17 +376,17 @@
                  
        
                                            <div class="form-group">
-                                            <div class="panel panel-default" >
+                                            <div  class="panel panel-default" >
                                                 <div class="panel-heading">
                                                 <label>نوع گردش کار</label>
                                                 </div>
                                                  <div class="radio">
 
-                                                <asp:RadioButton ID="rdoNewDeposit" Checked="true" GroupName="rdoForDeposit" Text="تجهیز منابع" runat="server" />
+                                                <asp:RadioButton Enabled ="false"  ID="rdoNewDeposit" Checked="true" GroupName="rdoForDeposit" Text="تجهیز منابع" runat="server" />
                                             
                                             </div>
                                             <div class="radio">
-                                                 <asp:RadioButton ID="rdoGetDeposit"  GroupName="rdoForDeposit" Text="تخصیص منابع" runat="server" />
+                                                 <asp:RadioButton ID="rdoGetDeposit"  GroupName="rdoForDeposit" Enabled ="false" Text="تخصیص منابع" runat="server" />
                                             
                                                
                                             </div>

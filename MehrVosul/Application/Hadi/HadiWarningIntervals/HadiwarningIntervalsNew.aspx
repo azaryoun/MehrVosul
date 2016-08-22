@@ -28,7 +28,7 @@
             var chkbxVoiceMessage = document.getElementById("<%=chkbxVoiceMessage.ClientID%>");
             var chkbxSendSMS = document.getElementById("<%=chkbxSendSMS.ClientID%>");
             var divchklstDepossitItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
-            
+            var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
             
 
 
@@ -40,7 +40,14 @@
 
 
 
-            var divtmp = divchklstDepossitItems.firstChild;
+            var divtmp;
+            if (divchklstDepossitItems != null) {
+                divtmp = divchklstDepossitItems.firstChild;
+            }
+            else {
+                divtmp = divchklstLoanTypeItems.firstChild;
+            }
+
 
             var boolChecked = false;
 
@@ -55,7 +62,7 @@
             }
 
             if (!boolChecked) {
-                alert("حداقل یک نوع سپرده باید انتخاب شود");
+                alert("حداقل یک نوع سپرده و یا نوع وام باید انتخاب شود");
                 return false;
 
             }
@@ -140,13 +147,27 @@
 
 
             var divchklstDepositItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
+            var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
             
             var chkSelectAll = document.getElementById("chkSelectAll");
-            var divtmp = divchklstDepositItems.firstChild;
+            var chkSelectAllLoan = document.getElementById("chkSelectAllLoan");
+
+            var chkSelectAll1;
+            var divtmp;
+
+            if (divchklstDepositItems != null) {
+                divtmp = divchklstDepositItems.firstChild;
+                chkSelectAll1 = chkSelectAll;
+            }
+            else {
+                divtmp = divchklstLoanTypeItems.firstChild;
+                chkSelectAll1 = chkSelectAllLoan;
+            }
+
 
              while (divtmp) {
                 var chktmp = divtmp.firstChild.nextSibling.firstChild.nextSibling;
-                 chktmp.checked= chkSelectAll.checked;
+                 chktmp.checked= chkSelectAll1.checked;
      
                 divtmp = divtmp.nextSibling;
             }
@@ -183,7 +204,32 @@
                                             
                                         </div>
                                            
-                                             <div class="panel panel-default" > 
+                                           <div class="form-group">
+                                            <div class="panel panel-default" >
+                                                <div class="panel-heading">
+                                                <label>نوع گردش کار</label>
+                                                </div>
+                                                   <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                        <ContentTemplate>
+                                                 <div class="radio">
+
+                                                <asp:RadioButton ID="rdoNewDeposit" Checked="true" GroupName="rdoForDeposit" Text="تجهیز منابع" runat="server" AutoPostBack="True" />
+                                            
+                                            </div>
+                                            <div class="radio">
+                                                 <asp:RadioButton ID="rdoGetDeposit"  GroupName="rdoForDeposit" Text="تخصیص منابع" runat="server" AutoPostBack="True" />
+                                            
+                                               
+                                            </div>
+                                                 </ContentTemplate></asp:UpdatePanel>
+                                               
+                                                    
+                                             </div>
+                                            </div>
+
+                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                        <ContentTemplate>
+                                             <div id="divDeposit" runat="server" class="panel panel-default" > 
                                            <div class="panel-heading">
                                             <label>نوع سپرده</label>
                                               </div>
@@ -196,10 +242,24 @@
                                          </div>
                                          </div>
                                         
-                                       
+                                         </ContentTemplate></asp:UpdatePanel>
 
-                                     
+                                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                      <ContentTemplate>
+                                     <div id="divLoan" runat="server" visible="false"   class="panel panel-default" > 
+                                           <div class="panel-heading">
+                                            <label>نوع وام</label>
+                                              </div>
+                                             
+                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
 
+                                                  <label> <input type="checkbox" value="" id="chkSelectAllLoan" onclick="return chkSelectAll_Click();"/> انتخاب/عدم انتخاب همه</label> 
+                                                   <div class="form-group" runat="server" id="divchklstLoanTypeItems">
+                                                   </div>
+                                         </div>
+                                         </div>
+                                         </ContentTemplate> 
+                                      </asp:UpdatePanel>
 
                                            <div class="panel panel-default" > 
                                            <div class="panel-heading">
@@ -222,7 +282,13 @@
 
                               
                               
-                                     <div class="panel panel-default" >
+                                   
+     
+                       </div>    
+                       
+                       <div class="col-md-6">
+
+                       <div class="panel panel-default" >
                                                 <div class="panel-heading">
                                                <label>محدوده بازه</label>
                                                 </div>
@@ -246,12 +312,7 @@
                                                 
                                                     
                                         </div>
-     
-                       </div>    
-                       
-                       <div class="col-md-6">
 
-                     
                                  <div class="form-group has-error">
                                            <label>تعداد اطلاع رسانی در روز</label>
                                             <asp:DropDownList ID="cmbFrequencyInDay" runat="server" 
@@ -335,26 +396,7 @@
                                      
                  
        
-                                           <div class="form-group">
-                                            <div class="panel panel-default" >
-                                                <div class="panel-heading">
-                                                <label>نوع گردش کار</label>
-                                                </div>
-                                                 <div class="radio">
-
-                                                <asp:RadioButton ID="rdoNewDeposit" Checked="true" GroupName="rdoForDeposit" Text="تجهیز منابع" runat="server" />
-                                            
-                                            </div>
-                                            <div class="radio">
-                                                 <asp:RadioButton ID="rdoGetDeposit"  GroupName="rdoForDeposit" Text="تخصیص منابع" runat="server" />
-                                            
-                                               
-                                            </div>
-                                                 
-                                               
-                                                    
-                                             </div>
-                                            </div>
+                                    
                                              
 
                                         <div class="panel panel-default" > 
