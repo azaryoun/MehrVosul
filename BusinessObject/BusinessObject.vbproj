@@ -216,6 +216,9 @@
     <Compile Include="Context\tbl_HadiWarningIntervalsExceptionDeposit.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\tbl_HadiWarningIntervalsLoan.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\tbl_HadiWarningNotificationLog.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
