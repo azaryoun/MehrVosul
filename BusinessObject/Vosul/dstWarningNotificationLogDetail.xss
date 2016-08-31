@@ -14,8 +14,8 @@
     <Shape ID="DesignTable:spr_WarningNotificationLogDetailFirstLastLog_Select" ZOrder="5" X="641" Y="552" Height="115" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
     <Shape ID="DesignTable:spr_WarningNotificationLogDetailFirstLastLogByDate_Select" ZOrder="4" X="659" Y="689" Height="115" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
     <Shape ID="DesignTable:spr_WarningNotificationLogDetail_Pending_SMSCount_Select" ZOrder="3" X="547" Y="239" Height="96" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
-    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="1" X="60" Y="42" Height="143" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
-    <Shape ID="DesignTable:spr_SMSCountLog_Select" ZOrder="2" X="477" Y="0" Height="210" Width="289" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="159" />
+    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="2" X="60" Y="42" Height="143" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
+    <Shape ID="DesignTable:spr_SMSCountLog_Select" ZOrder="1" X="421" Y="31" Height="229" Width="289" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="178" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

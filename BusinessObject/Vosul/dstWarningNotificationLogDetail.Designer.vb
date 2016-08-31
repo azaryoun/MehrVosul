@@ -2949,6 +2949,8 @@ Partial Public Class dstWarningNotificationLogDetail
         
         Private columnLastSent As Global.System.Data.DataColumn
         
+        Private columnBITotal As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -3041,6 +3043,14 @@ Partial Public Class dstWarningNotificationLogDetail
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property BITotalColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnBITotal
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -3077,9 +3087,9 @@ Partial Public Class dstWarningNotificationLogDetail
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_SMSCountLog_SelectRow(ByVal SendDate As Date, ByVal SMSCount As Integer, ByVal STime As Date, ByVal FK_LogCurrentLCStatusID As Integer, ByVal FirstSent As Date, ByVal LastSent As Date) As spr_SMSCountLog_SelectRow
+        Public Overloads Function Addspr_SMSCountLog_SelectRow(ByVal SendDate As Date, ByVal SMSCount As Integer, ByVal STime As Date, ByVal FK_LogCurrentLCStatusID As Integer, ByVal FirstSent As Date, ByVal LastSent As Date, ByVal BITotal As Integer) As spr_SMSCountLog_SelectRow
             Dim rowspr_SMSCountLog_SelectRow As spr_SMSCountLog_SelectRow = CType(Me.NewRow,spr_SMSCountLog_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, SendDate, SMSCount, STime, FK_LogCurrentLCStatusID, FirstSent, LastSent}
+            Dim columnValuesArray() As Object = New Object() {Nothing, SendDate, SMSCount, STime, FK_LogCurrentLCStatusID, FirstSent, LastSent, BITotal}
             rowspr_SMSCountLog_SelectRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_SMSCountLog_SelectRow)
             Return rowspr_SMSCountLog_SelectRow
@@ -3115,6 +3125,7 @@ Partial Public Class dstWarningNotificationLogDetail
             Me.columnFK_LogCurrentLCStatusID = MyBase.Columns("FK_LogCurrentLCStatusID")
             Me.columnFirstSent = MyBase.Columns("FirstSent")
             Me.columnLastSent = MyBase.Columns("LastSent")
+            Me.columnBITotal = MyBase.Columns("BITotal")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3134,6 +3145,8 @@ Partial Public Class dstWarningNotificationLogDetail
             MyBase.Columns.Add(Me.columnFirstSent)
             Me.columnLastSent = New Global.System.Data.DataColumn("LastSent", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnLastSent)
+            Me.columnBITotal = New Global.System.Data.DataColumn("BITotal", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBITotal)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
@@ -4334,6 +4347,21 @@ Partial Public Class dstWarningNotificationLogDetail
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property BITotal() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SMSCountLog_Select.BITotalColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'BITotal' in table 'spr_SMSCountLog_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SMSCountLog_Select.BITotalColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsSendDateNull() As Boolean
             Return Me.IsNull(Me.tablespr_SMSCountLog_Select.SendDateColumn)
         End Function
@@ -4402,6 +4430,18 @@ Partial Public Class dstWarningNotificationLogDetail
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetLastSentNull()
             Me(Me.tablespr_SMSCountLog_Select.LastSentColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsBITotalNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SMSCountLog_Select.BITotalColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetBITotalNull()
+            Me(Me.tablespr_SMSCountLog_Select.BITotalColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -6391,6 +6431,7 @@ Namespace dstWarningNotificationLogDetailTableAdapters
             tableMapping.ColumnMappings.Add("FK_LogCurrentLCStatusID", "FK_LogCurrentLCStatusID")
             tableMapping.ColumnMappings.Add("FirstSent", "FirstSent")
             tableMapping.ColumnMappings.Add("LastSent", "LastSent")
+            tableMapping.ColumnMappings.Add("BITotal", "BITotal")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
@@ -6536,6 +6577,7 @@ Namespace dstWarningNotificationLogDetailTableAdapters
             CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_LogCurrentLCStatusID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FirstSent", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 23, 3, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LastSent", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 23, 3, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@BITotal", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -6766,7 +6808,7 @@ Namespace dstWarningNotificationLogDetailTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_SMSCountLog_Insert(ByVal SendDate As Global.System.Nullable(Of Date), ByVal SMSCount As Global.System.Nullable(Of Integer), ByVal FK_LogCurrentLCStatusID As Global.System.Nullable(Of Integer), ByVal FirstSent As Global.System.Nullable(Of Date), ByVal LastSent As Global.System.Nullable(Of Date)) As Integer
+        Public Overloads Overridable Function spr_SMSCountLog_Insert(ByVal SendDate As Global.System.Nullable(Of Date), ByVal SMSCount As Global.System.Nullable(Of Integer), ByVal FK_LogCurrentLCStatusID As Global.System.Nullable(Of Integer), ByVal FirstSent As Global.System.Nullable(Of Date), ByVal LastSent As Global.System.Nullable(Of Date), ByVal BITotal As Global.System.Nullable(Of Integer)) As Object
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(5),Global.System.Data.SqlClient.SqlCommand)
             If (SendDate.HasValue = true) Then
                 command.Parameters(1).Value = CType(SendDate.Value,Date)
@@ -6793,20 +6835,30 @@ Namespace dstWarningNotificationLogDetailTableAdapters
             Else
                 command.Parameters(5).Value = Global.System.DBNull.Value
             End If
+            If (BITotal.HasValue = true) Then
+                command.Parameters(6).Value = CType(BITotal.Value,Integer)
+            Else
+                command.Parameters(6).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 command.Connection.Open
             End If
-            Dim returnValue As Integer
+            Dim returnValue As Object
             Try 
-                returnValue = command.ExecuteNonQuery
+                returnValue = command.ExecuteScalar
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
                     command.Connection.Close
                 End If
             End Try
-            Return returnValue
+            If ((returnValue Is Nothing)  _
+                        OrElse (returnValue.GetType Is GetType(Global.System.DBNull))) Then
+                Return Nothing
+            Else
+                Return CType(returnValue,Object)
+            End If
         End Function
     End Class
     
