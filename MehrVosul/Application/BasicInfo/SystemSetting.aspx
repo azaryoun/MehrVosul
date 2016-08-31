@@ -413,13 +413,19 @@
                                             <label>وضعیت سرویسها</label>
                                               </div>
                                              
-                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
-
-                                                  <label> <input type="checkbox" runat="server"  id="chkHadiStatus"/> سرویس هادی</label> 
-                                                   </div>
+                                   
                                   <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
 
                                                   <label> <input type="checkbox" runat="server"  id="chkVosoulStatus"/> سرویس وصال</label> 
+                                                   </div>
+
+                                        <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
+
+                                                  <label> <input type="checkbox" runat="server"  id="chkHadiStatus"/>سرویس هادی تجهیز منابع(سپرده)</label> 
+                                                   </div>
+                                        <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
+
+                                                  <label> <input type="checkbox" runat="server"  id="chkHadiStatusLoan"/>سرویس هادی تخصیص منابع(وام)</label> 
                                                    </div>
                                          </div>
                                               
