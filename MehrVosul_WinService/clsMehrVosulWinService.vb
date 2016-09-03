@@ -145,8 +145,8 @@ Public Class clsMehrVosulWinService
         Dim trNotification As New Threading.Thread(AddressOf SendNotification)
         trNotification.Start()
 
-        Dim trNotification_Hadi_Loan As New Threading.Thread(AddressOf SendHadiNotification_Loan)
-        trNotification_Hadi_Loan.Start()
+        ''Dim trNotification_Hadi_Loan As New Threading.Thread(AddressOf SendHadiNotification_Loan)
+        ''trNotification_Hadi_Loan.Start()
 
     End Sub
 
