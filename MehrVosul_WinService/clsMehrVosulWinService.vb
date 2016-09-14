@@ -1060,7 +1060,7 @@ LetterL:
 
 
         'Checked
-        If Date.Now.Hour < 12 Then
+        If Date.Now.Hour < 17 Then
             Return
         End If
 
@@ -1459,6 +1459,7 @@ LetterL:
 
 
     ''End Sub
+
     Private Sub SMS_DeliveryUpdate()
 
         Do
@@ -1529,6 +1530,7 @@ LetterL:
 
 
     End Sub
+
 
     'Private Sub HadiSMS_DeliveryUpdate()
 
@@ -3722,7 +3724,7 @@ LetterL:
         Try
 
 
-            If Date.Now.Hour < 10 OrElse Date.Now.Hour > 15 Then
+            If Date.Now.Hour < 11 OrElse Date.Now.Hour > 15 Then
                 Return
             End If
 
