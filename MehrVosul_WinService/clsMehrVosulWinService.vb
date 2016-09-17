@@ -1083,10 +1083,10 @@ LetterL:
 
         Dim qrySponsorLog As New BusinessObject.dst_Sponsor_List_LogTableAdapters.QueriesTableAdapter
         Dim intLogID As Integer = qrySponsorLog.spr_Sponsor_List_Log_Insert(Date.Now.Date, Date.Now)
-        Try
 
 
-            Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+
+        Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
             cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
             cnnBuiler_BI.UserID = "deposit"
             cnnBuiler_BI.Password = "deposit"
@@ -1105,21 +1105,22 @@ LetterL:
                 Catch ex As Exception
 
                     Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed1")
+                qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_cnnBI_Connection")
 
-                    qrySponsorLog.spr_Sponsor_List_Log_Delete(intLogID)
+                qrySponsorLog.spr_Sponsor_List_Log_Delete(intLogID)
                     Return
                 End Try
 
 
                 Dim qrySposorList As New BusinessObject.dstSponsor_ListTableAdapters.QueriesTableAdapter
-                Try
-                    qrySposorList.spr_Sponsor_List_Delete()
-                Catch ex As Exception
-                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed2")
+            Try
 
-                End Try
+                qrySposorList.spr_Sponsor_List_Delete()
+            Catch ex As Exception
+                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_spr_Sponsor_List_Delete")
+                Return
+            End Try
 
 
 
@@ -1128,8 +1129,9 @@ LetterL:
 
                 Dim i As Integer = 0
                 Dim strBuilder As New Text.StringBuilder()
-                Try
-                    Do While dataReader.Read
+                Do While dataReader.Read
+                    Try
+
                         Dim stcVarSponsorInfo As stc_Sponsor_Info = Nothing
                         i += 1
 
@@ -1260,15 +1262,15 @@ LetterL:
 
 
                         End If
+                    Catch ex As Exception
+                        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_Interal Loop")
+                    Continue Do
+                    End Try
 
 
-                    Loop
+                Loop
 
-                Catch ex As Exception
-                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed3")
-
-                End Try
 
 
                 dataReader.Close()
@@ -1276,7 +1278,16 @@ LetterL:
 
                 If i <> 0 Then
                     Dim strMainInsertQuery As String = strBuilder.ToString.Substring(6)
-                    qrySposorList.spr_Sponsor_List_Bulk_Insert(strMainInsertQuery)
+                    Try
+                        qrySposorList.spr_Sponsor_List_Bulk_Insert(strMainInsertQuery)
+
+                    Catch ex As Exception
+
+                        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed spr_Sponsor_List_Bulk_Insert(external)")
+
+                End Try
+
 
                 End If
 
@@ -1285,14 +1296,6 @@ LetterL:
 
             qrySponsorLog.spr_Sponsor_List_Log_Update(intLogID, Date.Now, "Successed")
 
-        Catch ex As Exception
-
-            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed4")
-
-            qrySponsorLog.spr_Sponsor_List_Log_Update(intLogID, Date.Now, ex.Message)
-
-        End Try
 
 
     End Sub
@@ -3724,7 +3727,7 @@ LetterL:
         Try
 
 
-            If Date.Now.Hour < 11 OrElse Date.Now.Hour > 15 Then
+            If Date.Now.Hour < drwSystemSetting.UpdateTime.Hours OrElse Date.Now.Hour > 15 Then
                 Return
             End If
 

@@ -1497,7 +1497,8 @@ Namespace dstSponsor_ListTableAdapters
                 command.Connection.Open
             End If
             Dim returnValue As Integer
-            Try 
+            Try
+                command.CommandTimeout = Integer.MaxValue
                 returnValue = command.ExecuteNonQuery
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then

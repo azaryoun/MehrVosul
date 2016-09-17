@@ -863,12 +863,6 @@
     <Folder Include="Images\User\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BusinessObject\BusinessObject.vbproj">
-      <Project>{8D5A05D4-5DCF-4772-89A0-0302E85F5C9E}</Project>
-      <Name>BusinessObject</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
@@ -897,6 +891,12 @@
       <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>MehrVosul_ZamanakWebService_Default_Service_SoapServer_ZamanakV4Service</CachedSettingsPropName>
     </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BusinessObject\BusinessObject.vbproj">
+      <Project>{8d5a05d4-5dcf-4772-89a0-0302e85f5c9e}</Project>
+      <Name>BusinessObject</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
