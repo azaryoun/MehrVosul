@@ -97,6 +97,22 @@ Public Class clsMehrVosulWinService
 
     End Structure
 
+    Private Structure stc_Loan_Hadi
+
+        Public CustomerNO As String '0
+        Public LoanType As String '1
+        Public BranchCode As String '2
+        Public SerialNumber As String '3
+        Public LoanTitle As String '4
+        Public LoanState As String '5
+        Public LoanAmount As String '6
+        Public LCDateMiladi As String '7
+        Public SetelmentNumber As String '8
+        ''  Public ?? As String '9
+        Public LCDateShamsi As Integer '10
+
+    End Structure
+
     Private Structure stc_Sponsor_Info
         Public BranchCode As String '0
         Public LoanTypeCode As String '1
@@ -1057,17 +1073,10 @@ LetterL:
     Private Sub tmrSponsorList_Elapsed(ByVal sender As System.Object, ByVal e As System.Timers.ElapsedEventArgs) Handles tmrSponsorList.Elapsed
 
 
-
-
-        'Checked
-        If Date.Now.Hour < 17 Then
+        ''  Checked
+        If Date.Now.DayOfWeek <> DayOfWeek.Friday Then
             Return
         End If
-
-        If Date.Now.DayOfWeek = DayOfWeek.Saturday OrElse Date.Now.DayOfWeek = DayOfWeek.Sunday OrElse Date.Now.DayOfWeek = DayOfWeek.Tuesday OrElse Date.Now.DayOfWeek = DayOfWeek.Thursday OrElse Date.Now.DayOfWeek = DayOfWeek.Wednesday OrElse Date.Now.Date.DayOfWeek = DayOfWeek.Monday Then
-            Return
-        End If
-
 
         Dim tadpSponsorLog As New BusinessObject.dst_Sponsor_List_LogTableAdapters.spr_Sponsor_List_Log_Last_SelectTableAdapter
         Dim dtblSponsorLog As BusinessObject.dst_Sponsor_List_Log.spr_Sponsor_List_Log_Last_SelectDataTable = Nothing
@@ -1736,10 +1745,15 @@ LetterL:
 #Region "UpdateData"
 
     Public Sub UpdateBIData()
+
         Dim tadpSystemSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
         Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
         dtblSystemSetting = tadpSystemSetting.GetData()
         drwSystemSetting = dtblSystemSetting.Rows(0)
+
+        If Date.Now.DayOfWeek = DayOfWeek.Friday Then
+            Return
+        End If
 
 
         If drwSystemSetting.VosoulService = False Then
@@ -3727,7 +3741,7 @@ LetterL:
         Try
 
 
-            If Date.Now.Hour < drwSystemSetting.UpdateTime.Hours OrElse Date.Now.Hour > 15 Then
+            If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 15 Then
                 Return
             End If
 

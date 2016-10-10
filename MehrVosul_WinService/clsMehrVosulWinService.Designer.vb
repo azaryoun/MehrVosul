@@ -80,7 +80,6 @@ Partial Class clsMehrVosulWinService
         '
         'tmrUpdateData_Hadi_Loan
         '
-        Me.tmrUpdateData_Hadi_Loan.Enabled = True
         Me.tmrUpdateData_Hadi_Loan.Interval = 3600000.0R
         '
         'clsMehrVosulWinService
