@@ -3752,7 +3752,7 @@ VoiceSMS:
 
             Do
 
-                Threading.Thread.Sleep(20000)
+                Threading.Thread.Sleep(200000)
 
                 Dim tadpPendingCount As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_Pending_SMSCount_SelectTableAdapter
 
