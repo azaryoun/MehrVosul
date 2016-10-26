@@ -3740,8 +3740,11 @@ LetterL:
 
         Try
 
+            ''If Date.Now.DayOfWeek = DayOfWeek.Friday Then
+            ''    Return
+            ''End If
 
-            If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 15 Then
+            If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 15 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
                 Return
             End If
 
@@ -4178,7 +4181,7 @@ LetterL:
     Private Sub tmrVoiceSMS_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrVoiceSMS.Elapsed
 
 
-        If Date.Now.Hour <= 9 Then
+        If Date.Now.Hour <= 9 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
             Return
         End If
 
