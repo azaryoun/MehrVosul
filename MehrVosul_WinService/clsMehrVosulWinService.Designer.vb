@@ -46,11 +46,13 @@ Partial Class clsMehrVosulWinService
         Me.tmrSelfReport = New System.Timers.Timer()
         Me.tmrVoiceSMS = New System.Timers.Timer()
         Me.tmrUpdateData_Hadi_Deposit = New System.Timers.Timer()
+        Me.tmrUpdateData_Hadi_Loan = New System.Timers.Timer()
         CType(Me.tmrUpdateData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSponsorList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrVoiceSMS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrUpdateData_Hadi_Deposit, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'tmrUpdateData
         '
@@ -76,6 +78,10 @@ Partial Class clsMehrVosulWinService
         '
         Me.tmrUpdateData_Hadi_Deposit.Interval = 3600000.0R
         '
+        'tmrUpdateData_Hadi_Loan
+        '
+        Me.tmrUpdateData_Hadi_Loan.Interval = 3600000.0R
+        '
         'clsMehrVosulWinService
         '
         Me.ServiceName = "Service1"
@@ -84,6 +90,7 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrVoiceSMS, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrUpdateData_Hadi_Deposit, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents tmrUpdateData As System.Timers.Timer
@@ -91,4 +98,5 @@ Partial Class clsMehrVosulWinService
     Friend WithEvents tmrSelfReport As System.Timers.Timer
     Friend WithEvents tmrVoiceSMS As Timers.Timer
     Friend WithEvents tmrUpdateData_Hadi_Deposit As Timers.Timer
+    Friend WithEvents tmrUpdateData_Hadi_Loan As Timers.Timer
 End Class

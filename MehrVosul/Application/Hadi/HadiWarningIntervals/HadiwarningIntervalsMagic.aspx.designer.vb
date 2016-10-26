@@ -68,6 +68,24 @@ Partial Public Class HadiwarningIntervalsMagic
     Protected WithEvents txtWarningIntervalsName As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''UpdatePanel2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''divDeposit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divDeposit As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''divchklstDepositItems control.
     '''</summary>
     '''<remarks>
@@ -75,6 +93,33 @@ Partial Public Class HadiwarningIntervalsMagic
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divchklstDepositItems As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''UpdatePanel3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''divLoan control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divLoan As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''divchklstLoanTypeItems control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divchklstLoanTypeItems As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''divTree control.
@@ -147,4 +192,13 @@ Partial Public Class HadiwarningIntervalsMagic
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hdnAction As Global.System.Web.UI.WebControls.HiddenField
+    
+    '''<summary>
+    '''hdnForDeposit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hdnForDeposit As Global.System.Web.UI.WebControls.HiddenField
 End Class

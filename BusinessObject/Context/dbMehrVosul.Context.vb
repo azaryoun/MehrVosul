@@ -77,5 +77,6 @@ Partial Public Class dbMehrVosulEntities1
     Public Overridable Property tbl_HadiWarningIntervalsExceptionBranch() As DbSet(Of tbl_HadiWarningIntervalsExceptionBranch)
     Public Overridable Property tbl_HadiWarningIntervalsExceptionDeposit() As DbSet(Of tbl_HadiWarningIntervalsExceptionDeposit)
     Public Overridable Property tbl_VoiceSMS_Report_Log() As DbSet(Of tbl_VoiceSMS_Report_Log)
+    Public Overridable Property tbl_HadiWarningIntervalsLoan() As DbSet(Of tbl_HadiWarningIntervalsLoan)
 
 End Class

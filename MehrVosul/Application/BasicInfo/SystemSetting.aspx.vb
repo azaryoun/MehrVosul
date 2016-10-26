@@ -102,13 +102,14 @@
         Dim intLoanTryIntervalHour As Integer = CInt(cmbLoanTryIntervalHour.SelectedValue)
         Dim strVoiceSMSUID As String = txtVoiceSMSUID.Text.Trim()
         Dim strVoiceSMSToken As String = txtVoiceSMSToken.Text.Trim()
-        Dim blnHadiStatus As Boolean = chkHadiStatus.Checked
-        Dim blnVosoulStatus As Boolean = chkVosoulStatus.Checked
 
+        Dim blnVosoulStatus As Boolean = chkVosoulStatus.Checked
+        Dim blnHadiStatus As Boolean = chkHadiStatus.Checked
+        Dim blnHadiStatusLoan As Boolean = chkHadiStatusLoan.Checked
 
         Try
             Dim qrySystemSetting As New BusinessObject.dstSystemSettingTableAdapters.QueriesTableAdapter
-            qrySystemSetting.spr_SystemSetting_Update(intEditSystemSettingID, strNumberGateway, strCompanyGateway, strGatewayUserName, strGatewayPassword, strGatewayIP, strEmailUserName, strEmailHost, strEmailPassword, strEmail, strTell, timeUpdateTime, inttryTime, inttryIntervalHour, drwUserLogin.ID, DepositTimeUpdateTime, intDeposittryTime, intDepositTryIntervalHour, LoanTimeUpdateTime, intLoanbtryTime, intLoanTryIntervalHour, strVoiceSMSUID, strVoiceSMSToken, blnVosoulStatus, blnHadiStatus)
+            qrySystemSetting.spr_SystemSetting_Update(intEditSystemSettingID, strNumberGateway, strCompanyGateway, strGatewayUserName, strGatewayPassword, strGatewayIP, strEmailUserName, strEmailHost, strEmailPassword, strEmail, strTell, timeUpdateTime, inttryTime, inttryIntervalHour, drwUserLogin.ID, DepositTimeUpdateTime, intDeposittryTime, intDepositTryIntervalHour, LoanTimeUpdateTime, intLoanbtryTime, intLoanTryIntervalHour, strVoiceSMSUID, strVoiceSMSToken, blnVosoulStatus, blnHadiStatus, blnHadiStatusLoan)
             Bootstrap_Panel1.ShowMessage("تنظیمات سیستم با موفقیت تغییر کرد", False)
             Return
 

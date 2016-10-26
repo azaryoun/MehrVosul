@@ -9,8 +9,8 @@
     <Shape ID="DesignTable:tbl_Temp" ZOrder="5" X="327" Y="169" Height="96" Width="198" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
     <Shape ID="DesignTable:spr_WarningNotificationLogDetailFirstLastLog_Select" ZOrder="4" X="464" Y="338" Height="153" Width="427" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
     <Shape ID="DesignTable:spr_WarningIntervals_Inerval_List_Select" ZOrder="3" X="815" Y="188" Height="115" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignTable:spr_HadiWarningIntervals_Inerval_List_Select" ZOrder="2" X="693" Y="50" Height="115" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="1" X="148" Y="278" Height="49" Width="429" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="45" />
+    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="2" X="148" Y="278" Height="49" Width="429" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="45" />
+    <Shape ID="DesignTable:spr_HadiWarningIntervals_Inerval_List_Select" ZOrder="1" X="677" Y="39" Height="115" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

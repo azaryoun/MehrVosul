@@ -17,5 +17,6 @@ Partial Public Class tbl_WarningIntervalsBranch
 
     Public Overridable Property tbl_Branch As tbl_Branch
     Public Overridable Property tbl_WarningIntervalsExceptionBranch As ICollection(Of tbl_WarningIntervalsExceptionBranch) = New HashSet(Of tbl_WarningIntervalsExceptionBranch)
+    Public Overridable Property tbl_WarningIntervals As tbl_WarningIntervals
 
 End Class

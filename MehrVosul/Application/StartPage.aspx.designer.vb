@@ -203,6 +203,24 @@ Partial Public Class StartPage
     Protected WithEvents lblTodaySMSCount As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblBILastDayCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBILastDayCount As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblBITodayCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBITodayCount As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lblLastDaySendTime control.
     '''</summary>
     '''<remarks>

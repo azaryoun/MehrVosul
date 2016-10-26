@@ -60,29 +60,72 @@
 
                 End With
 
-                Dim tadpDepositList As New BusinessObject.dstDepositTableAdapters.spr_DepositType_List_SelectTableAdapter
-                Dim dtblDepositList As BusinessObject.dstDeposit.spr_DepositType_List_SelectDataTable = Nothing
-                dtblDepositList = tadpDepositList.GetData()
+                If drwHadiwarningIntervals.ForDeposit = True Then
 
-                Dim tadpwarningDeposit As New BusinessObject.dstHadiWarningIntervalsDepositTableAdapters.spr_HadiWarningIntervalsDeposit_SelectTableAdapter
-                Dim dtbWarningDeposit As BusinessObject.dstHadiWarningIntervalsDeposit.spr_HadiWarningIntervalsDeposit_SelectDataTable = Nothing
-                dtbWarningDeposit = tadpwarningDeposit.GetData(3, -1, intEditHadiwarningIntervalsID)
+                    divDeposit.Visible = True
+                    divLoan.Visible = False
 
-                Dim strchklstDepositLeaves As String = ""
+                    Dim tadpDepositList As New BusinessObject.dstDepositTableAdapters.spr_DepositType_List_SelectTableAdapter
+                    Dim dtblDepositList As BusinessObject.dstDeposit.spr_DepositType_List_SelectDataTable = Nothing
+                    dtblDepositList = tadpDepositList.GetData()
 
-                For Each drwMeneLeafList As BusinessObject.dstDeposit.spr_DepositType_List_SelectRow In dtblDepositList.Rows
+                    Dim tadpwarningDeposit As New BusinessObject.dstHadiWarningIntervalsDepositTableAdapters.spr_HadiWarningIntervalsDeposit_SelectTableAdapter
+                    Dim dtbWarningDeposit As BusinessObject.dstHadiWarningIntervalsDeposit.spr_HadiWarningIntervalsDeposit_SelectDataTable = Nothing
+                    dtbWarningDeposit = tadpwarningDeposit.GetData(3, -1, intEditHadiwarningIntervalsID)
 
-                    If dtbWarningDeposit.Select("FK_DepositTypeID=" & drwMeneLeafList.ID).Length > 0 Then
-                        strchklstDepositLeaves &= "<div class='checkbox'> <label> <input type='checkbox' checked='checked' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
-                    Else
-                        strchklstDepositLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
+                    Dim strchklstDepositLeaves As String = ""
+
+                    For Each drwMeneLeafList As BusinessObject.dstDeposit.spr_DepositType_List_SelectRow In dtblDepositList.Rows
+
+                        If dtbWarningDeposit.Select("FK_DepositTypeID=" & drwMeneLeafList.ID).Length > 0 Then
+                            strchklstDepositLeaves &= "<div class='checkbox'> <label> <input type='checkbox' checked='checked' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
+                        Else
+                            strchklstDepositLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.Deposit & "</label></div>"
+                        End If
+
+
+                    Next drwMeneLeafList
+
+                    divchklstDepositItems.InnerHtml = strchklstDepositLeaves
+
+                Else
+
+                    divDeposit.Visible = False
+                    divLoan.Visible = True
+
+                    Dim tadpMLoanTypeList As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_List_SelectTableAdapter
+                    Dim dtblLoanMenuLeafList As BusinessObject.dstLoanType.spr_LoanType_List_SelectDataTable = Nothing
+                    dtblLoanMenuLeafList = tadpMLoanTypeList.GetData()
+                    Dim strchklstLoanTypeLeaves As String = ""
+
+                    Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
+
+                    Dim lnqHadiWarningIntervalsLaon = cntxVar.tbl_HadiWarningIntervalsLoan.Where(Function(x) x.FK_HadiWarningIntervalsID = intEditHadiwarningIntervalsID)
+                    Dim blnIsChecked As Boolean = False
+
+                    If lnqHadiWarningIntervalsLaon.Count > 0 Then
+
+                        Dim lnqHadiWarningIntervalsLaonList = lnqHadiWarningIntervalsLaon.ToList()
+
+                        For Each drwMeneLeafList As BusinessObject.dstLoanType.spr_LoanType_List_SelectRow In dtblLoanMenuLeafList.Rows
+                            For Each lnqHadiWarningIntervalsLaonListItem In lnqHadiWarningIntervalsLaonList
+
+                                If drwMeneLeafList.ID = lnqHadiWarningIntervalsLaonListItem.FK_LoanTypeID Then
+                                    strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' checked='checked' value='" & drwMeneLeafList.ID & "' name='LoanchklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.LoanType & "</label></div>"
+                                    blnIsChecked = True
+                                End If
+
+                            Next
+                            If blnIsChecked = False Then
+                                strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='LoanchklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.LoanType & "</label></div>"
+                            End If
+                            blnIsChecked = False
+                        Next drwMeneLeafList
+
+                        divchklstLoanTypeItems.InnerHtml = strchklstLoanTypeLeaves
                     End If
 
-
-                Next drwMeneLeafList
-
-                divchklstDepositItems.InnerHtml = strchklstDepositLeaves
-
+                End If
 
 
                 ''Fill Branch Tree
@@ -264,38 +307,19 @@
 
             For i As Integer = 0 To Request.Form.Keys.Count - 1
 
-                If Request.Form.Keys(i).StartsWith("chklstMenu") = True Then
+                If rdoNewDeposit.Checked = True Then
 
+                    If Request.Form.Keys(i).StartsWith("chklstMenu") = True Then
 
-                    For Each trNode As TreeNode In trState.Nodes
-                        If trNode.ChildNodes.Count = 0 Then
-                            If trNode.Checked = True Then
+                        For Each trNode As TreeNode In trState.Nodes
+                            If trNode.ChildNodes.Count = 0 Then
+                                If trNode.Checked = True Then
 
-                                dtblBranchList = tadpBrnachList.GetData(2, trNode.Value)
+                                    dtblBranchList = tadpBrnachList.GetData(2, trNode.Value)
 
-                                For Each drwBranch As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList
+                                    For Each drwBranch As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList
 
-                                    dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(2, intEditHadiwarningIntervalsID, CInt(Request.Form(i)), intFromDay, intToDay, drwBranch.ID)
-
-                                    If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
-
-                                        Bootstrap_Panel1.ShowMessage("نوع سپرده " & dtblWarningIntervalOverlap.First.DepositName & " در بازه گردش کار انتخابی با گردش کار " & dtblWarningIntervalOverlap.First.WarniningTitle & " " & "تداخل دارد.", True)
-                                        Return
-
-                                    End If
-
-                                Next
-
-                            End If
-
-                        Else
-
-                            For Each trChildNode As TreeNode In trNode.ChildNodes
-
-                                If trChildNode.ChildNodes.Count = 0 Then
-                                    If trChildNode.Checked = True Then
-                                        Dim ChildID As Integer = CInt(trChildNode.Value)
-                                        dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(2, intEditHadiwarningIntervalsID, CInt(Request.Form(i)), intFromDay, intToDay, ChildID)
+                                        dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(2, intEditHadiwarningIntervalsID, CInt(Request.Form(i)), intFromDay, intToDay, drwBranch.ID)
 
                                         If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
 
@@ -304,21 +328,97 @@
 
                                         End If
 
-
-                                    End If
+                                    Next
 
                                 End If
 
+                            Else
 
-                            Next
+                                For Each trChildNode As TreeNode In trNode.ChildNodes
 
-                        End If
-                    Next
+                                    If trChildNode.ChildNodes.Count = 0 Then
+                                        If trChildNode.Checked = True Then
+                                            Dim ChildID As Integer = CInt(trChildNode.Value)
+                                            dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(2, intEditHadiwarningIntervalsID, CInt(Request.Form(i)), intFromDay, intToDay, ChildID)
 
+                                            If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
+
+                                                Bootstrap_Panel1.ShowMessage("نوع سپرده " & dtblWarningIntervalOverlap.First.DepositName & " در بازه گردش کار انتخابی با گردش کار " & dtblWarningIntervalOverlap.First.WarniningTitle & " " & "تداخل دارد.", True)
+                                                Return
+
+                                            End If
+
+
+                                        End If
+
+                                    End If
+
+
+                                Next
+
+                            End If
+                        Next
+
+
+                    End If
+
+                Else
+
+                    If Request.Form.Keys(i).StartsWith("LoanchklstMenu") = True Then
+                        For Each trNode As TreeNode In trState.Nodes
+                            If trNode.ChildNodes.Count = 0 Then
+                                If trNode.Checked = True Then
+
+                                    dtblBranchList = tadpBrnachList.GetData(2, trNode.Value)
+
+                                    For Each drwBranch As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList
+
+                                        dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(4, intEditHadiwarningIntervalsID, CInt(Request.Form(i)), intFromDay, intToDay, drwBranch.ID)
+
+                                        If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
+
+                                            Bootstrap_Panel1.ShowMessage("نوع وام " & dtblWarningIntervalOverlap.First.DepositName & " در بازه گردش کار انتخابی با گردش کار " & dtblWarningIntervalOverlap.First.WarniningTitle & " " & "تداخل دارد.", True)
+                                            Return
+
+                                        End If
+
+                                    Next
+
+                                End If
+
+                            Else
+
+                                For Each trChildNode As TreeNode In trNode.ChildNodes
+
+                                    If trChildNode.ChildNodes.Count = 0 Then
+                                        If trChildNode.Checked = True Then
+                                            Dim ChildID As Integer = CInt(trChildNode.Value)
+                                            dtblWarningIntervalOverlap = tadpWarningIntervalOverlap.GetData(4, intEditHadiwarningIntervalsID, CInt(Request.Form(i)), intFromDay, intToDay, ChildID)
+
+                                            If dtblWarningIntervalOverlap.Rows.Count <> 0 Then
+
+                                                Bootstrap_Panel1.ShowMessage("نوع وام " & dtblWarningIntervalOverlap.First.DepositName & " در بازه گردش کار انتخابی با گردش کار " & dtblWarningIntervalOverlap.First.WarniningTitle & " " & "تداخل دارد.", True)
+                                                Return
+
+                                            End If
+
+
+                                        End If
+
+                                    End If
+
+
+                                Next
+
+                            End If
+                        Next
+                    End If
 
                 End If
 
             Next i
+
+
 
             Dim qryHadiwarningIntervals As New BusinessObject.dstHadiWarningIntervalsTableAdapters.QueriesTableAdapter
             qryHadiwarningIntervals.spr_HadiWarningIntervals_Update(intEditHadiwarningIntervalsID, intFromDay, intToDay, strWarniningTitle, intFrequencyInDay, timeStartTime, intFrequencyperiodHour, blnSendSMS, blnCallTelephone, blnVoiceMessage, blnForDeposit, drwUserLogin.ID, blnStatus)
@@ -326,6 +426,17 @@
 
             Dim qryHadiwarningIntervalsDeposit As New BusinessObject.dstHadiWarningIntervalsDepositTableAdapters.QueriesTableAdapter
             qryHadiwarningIntervalsDeposit.spr_HadiWarningIntervalsDeposit_WarningInterval_Delete(intEditHadiwarningIntervalsID)
+
+
+            Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
+
+            Dim WarningIntervalsLoan = cntxVar.tbl_HadiWarningIntervalsLoan.Where(Function(x) x.FK_HadiWarningIntervalsID = intEditHadiwarningIntervalsID)
+
+            If WarningIntervalsLoan IsNot Nothing Then
+                cntxVar.tbl_HadiWarningIntervalsLoan.RemoveRange(WarningIntervalsLoan)
+                cntxVar.SaveChanges()
+            End If
+
 
             Dim qryWarningIntervalBracnh As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.QueriesTableAdapter
             qryWarningIntervalBracnh.spr_HadiWarningIntervalsBranch_Delete(intEditHadiwarningIntervalsID)
@@ -339,6 +450,20 @@
                     qryHadiwarningIntervalsDeposit.spr_HadiWarningIntervalsDeposit_Insert(intEditHadiwarningIntervalsID, CInt(Request.Form(i)))
 
                 End If
+
+                If Request.Form.Keys(i).StartsWith("LoanchklstMenu") = True Then
+
+
+                    Dim newHadiLoan As New BusinessObject.tbl_HadiWarningIntervalsLoan
+                    newHadiLoan.FK_HadiWarningIntervalsID = intEditHadiwarningIntervalsID
+                    newHadiLoan.FK_LoanTypeID = CInt(Request.Form(i))
+
+                    cntxVar.tbl_HadiWarningIntervalsLoan.Add(newHadiLoan)
+                    cntxVar.SaveChanges()
+
+
+                End If
+
 
             Next
 

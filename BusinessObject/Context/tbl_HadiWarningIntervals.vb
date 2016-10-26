@@ -33,5 +33,6 @@ Partial Public Class tbl_HadiWarningIntervals
     Public Overridable Property tbl_HadiWarningIntervalsDeposit As ICollection(Of tbl_HadiWarningIntervalsDeposit) = New HashSet(Of tbl_HadiWarningIntervalsDeposit)
     Public Overridable Property tbl_HadiWarningNotificationLog As ICollection(Of tbl_HadiWarningNotificationLog) = New HashSet(Of tbl_HadiWarningNotificationLog)
     Public Overridable Property tbl_HadiWarningIntervalsException As ICollection(Of tbl_HadiWarningIntervalsException) = New HashSet(Of tbl_HadiWarningIntervalsException)
+    Public Overridable Property tbl_HadiWarningIntervalsLoan As ICollection(Of tbl_HadiWarningIntervalsLoan) = New HashSet(Of tbl_HadiWarningIntervalsLoan)
 
 End Class

@@ -221,6 +221,15 @@ Partial Public Class SystemSetting
     Protected WithEvents txtVoiceSMSToken As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''chkVosoulStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkVosoulStatus As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    
+    '''<summary>
     '''chkHadiStatus control.
     '''</summary>
     '''<remarks>
@@ -230,13 +239,13 @@ Partial Public Class SystemSetting
     Protected WithEvents chkHadiStatus As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
     
     '''<summary>
-    '''chkVosoulStatus control.
+    '''chkHadiStatusLoan control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkVosoulStatus As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    Protected WithEvents chkHadiStatusLoan As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
     
     '''<summary>
     '''hdnAction control.

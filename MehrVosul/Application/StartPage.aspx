@@ -110,6 +110,12 @@
                                               <th><asp:Label ID="lblLastDaySMSCount" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
                                              <th><asp:Label ID="lblTodaySMSCount" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
                                         </tr>
+                                         <tr>
+                                            
+                                            <th>تعداد BI</th>
+                                              <th><asp:Label ID="lblBILastDayCount" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
+                                             <th><asp:Label ID="lblBITodayCount" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
+                                        </tr>
                                         <tr>
                                             
                                             <th>مدت ارسال</th>

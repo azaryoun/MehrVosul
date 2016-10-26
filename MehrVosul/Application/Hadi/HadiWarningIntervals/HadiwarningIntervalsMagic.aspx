@@ -17,16 +17,24 @@
 
        
         function SaveOperation_Validate() {
-
+            
             var txtWarningIntervalsName = document.getElementById("<%=txtWarningIntervalsName.ClientID%>");
            
             var txtFrom = document.getElementById("<%=txtFrom.ClientID%>");
             var txtTo = document.getElementById("<%=txtTo.ClientID%>");
         
             var divchklstDepossitItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
+            var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
             
+            var cmbHadiWarningIntervals = document.getElementById("<%=cmbHadiWarningIntervals.ClientID%>");
+            var hdnForDeposit = document.getElementById("<%=hdnForDeposit.ClientID%>");
             
 
+            if (cmbHadiWarningIntervals.value == -1) {
+                alert("نوع گردش کار را مشخص نمایید", "خطا");
+                cmbHadiWarningIntervals.focus();
+                return false;
+            }
 
             if (trimall(txtWarningIntervalsName.value) == "") {
                 alert("عنوان گردش کار را وارد نمایید");
@@ -35,27 +43,37 @@
             }
 
 
+            var divtmp
+            if (divchklstDepossitItems != null)
+            {
+                 divtmp = divchklstDepossitItems.firstChild;
+            }
+            else
+            {
+                divtmp = divchklstLoanTypeItems.firstChild;
+            }
 
-            var divtmp = divchklstDepossitItems.firstChild;
 
-            var boolChecked = false;
+             
 
-            while (divtmp) {
-                var chktmp = divtmp.firstChild.nextSibling.firstChild.nextSibling;
-                if (chktmp.checked) {
-                    boolChecked = true;
-                    break;
+                var boolChecked = false;
+
+                while (divtmp) {
+                    var chktmp = divtmp.firstChild.nextSibling.firstChild.nextSibling;
+                    if (chktmp.checked) {
+                        boolChecked = true;
+                        break;
+                    }
+
+                    divtmp = divtmp.nextSibling;
                 }
 
-                divtmp = divtmp.nextSibling;
-            }
+                if (!boolChecked) {
+                    alert("حداقل یک نوع سپرده و یا نوع وام باید انتخاب شود");
+                    return false;
 
-            if (!boolChecked) {
-                alert("حداقل یک نوع سپرده باید انتخاب شود");
-                return false;
-
-            }
-
+                }
+         
             
             var branchBoolChecked = false;
             var treeView = document.getElementById("<%= trState.ClientID %>");
@@ -107,13 +125,26 @@
 
 
             var divchklstDepositItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
-            
+            var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
+
             var chkSelectAll = document.getElementById("chkSelectAll");
-            var divtmp = divchklstDepositItems.firstChild;
+            var chkSelectAllLoan = document.getElementById("chkSelectAllLoan");
+
+            var chkSelectAll1;
+            var divtmp;
+            if (divchklstDepositItems != null) {
+                divtmp = divchklstDepositItems.firstChild;
+                chkSelectAll1 = chkSelectAll;
+            }
+            else {
+                divtmp = divchklstLoanTypeItems.firstChild;
+                chkSelectAll1 = chkSelectAllLoan;
+            }
+
 
              while (divtmp) {
                 var chktmp = divtmp.firstChild.nextSibling.firstChild.nextSibling;
-                 chktmp.checked= chkSelectAll.checked;
+                 chktmp.checked= chkSelectAll1.checked;
      
                 divtmp = divtmp.nextSibling;
             }
@@ -159,7 +190,7 @@
                                         <ContentTemplate>
                                             <asp:DropDownList ID="cmbHadiWarningIntervals" runat="server" CssClass="form-control" 
                                 DataSourceID="odcHadiWarningList" DataTextField="WarniningTitle" 
-                            DataValueField="ID">
+                            DataValueField="ID" AutoPostBack="True">
                                             </asp:DropDownList>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
@@ -172,7 +203,9 @@
                                             
                                         </div>
                                            
-                                             <div class="panel panel-default" > 
+                                      <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                        <ContentTemplate>
+                                             <div  id="divDeposit" runat="server"  visible="false"  class="panel panel-default" > 
                                            <div class="panel-heading">
                                             <label>نوع سپرده</label>
                                               </div>
@@ -184,11 +217,25 @@
                                                    </div>
                                          </div>
                                          </div>
-                                        
-                                       
+                                            </ContentTemplate>
+                                        </asp:UpdatePanel>
 
-                                     
+                                   <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                     <ContentTemplate>
+                                     <div id="divLoan" runat="server" visible="false"  class="panel panel-default" > 
+                                           <div class="panel-heading">
+                                            <label>نوع وام</label>
+                                              </div>
+                                             
+                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
 
+                                                  <label> <input type="checkbox" value="" id="chkSelectAllLoan" onclick="return chkSelectAll_Click();"/> انتخاب/عدم انتخاب همه</label> 
+                                                   <div class="form-group" runat="server" id="divchklstLoanTypeItems">
+                                                   </div>
+                                         </div>
+                                         </div>
+                                       </ContentTemplate>
+                                       </asp:UpdatePanel>
 
                                            <div class="panel panel-default" > 
                                            <div class="panel-heading">
@@ -264,5 +311,6 @@
      <label> <input type="checkbox" value="" id="chkBranchSelectAll" style="visibility:hidden" /></label>
 
     <asp:HiddenField ID="hdnAction" runat="server" />
+    <asp:HiddenField ID="hdnForDeposit" runat="server" />
      
 </asp:Content>

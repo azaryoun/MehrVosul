@@ -102,7 +102,7 @@
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_DepositType" Width="1.5" PointX="2.25" PointY="22" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsException" Width="3.375" PointX="9.75" PointY="27.125" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsExceptionBranch" Width="1.5" PointX="18" PointY="27.75" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsExceptionDeposit" Width="1.5" PointX="17.375" PointY="12.75" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsExceptionDeposit" Width="2.375" PointX="17.375" PointY="12.75" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_Branch" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_DepositType" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_File" />
@@ -113,6 +113,10 @@
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsExceptionBranch_tbl_HadiWarningIntervalsBranch" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsExceptionBranch_tbl_HadiWarningIntervalsException" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_VoiceSMS_Report_Log" Width="1.5" PointX="19.375" PointY="0.75" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsLoan" Width="1.5" PointX="17.75" PointY="31.375" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

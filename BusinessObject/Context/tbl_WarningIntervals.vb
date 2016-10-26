@@ -39,5 +39,6 @@ Partial Public Class tbl_WarningIntervals
     Public Overridable Property tbl_WarningIntervalsLoanType As ICollection(Of tbl_WarningIntervalsLoanType) = New HashSet(Of tbl_WarningIntervalsLoanType)
     Public Overridable Property tbl_WarningIntervalsException As ICollection(Of tbl_WarningIntervalsException) = New HashSet(Of tbl_WarningIntervalsException)
     Public Overridable Property tbl_WarningNotificationLog As ICollection(Of tbl_WarningNotificationLog) = New HashSet(Of tbl_WarningNotificationLog)
+    Public Overridable Property tbl_WarningIntervalsBranch As ICollection(Of tbl_WarningIntervalsBranch) = New HashSet(Of tbl_WarningIntervalsBranch)
 
 End Class

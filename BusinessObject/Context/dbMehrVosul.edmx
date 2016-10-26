@@ -111,6 +111,8 @@
           <Property Name="tryIntervalHour_Loan" Type="int" />
           <Property Name="VoiceSMSUID" Type="nvarchar" MaxLength="50" />
           <Property Name="VoiceSMSToken" Type="nvarchar" MaxLength="50" />
+          <Property Name="VosoulService" Type="bit" />
+          <Property Name="HadiService" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -151,7 +153,7 @@
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="DepositCode" Type="nvarchar" MaxLength="50" />
-          <Property Name="DepositName" Type="nvarchar" MaxLength="50" />
+          <Property Name="DepositName" Type="nvarchar" MaxLength="500" />
           <Property Name="FK_CUserID" Type="int" />
           <Property Name="STime" Type="datetime" />
         </EntityType>
@@ -283,6 +285,14 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FK_HadiWarningIntervalsExceptionID" Type="int" />
           <Property Name="FK_HadiWariningIntervalDepositID" Type="int" />
+        </EntityType>
+        <EntityType Name="tbl_HadiWarningIntervalsLoan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_HadiWarningIntervalsID" Type="int" />
+          <Property Name="FK_LoanTypeID" Type="int" />
         </EntityType>
         <EntityType Name="tbl_HadiWarningNotificationLog">
           <Key>
@@ -961,32 +971,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_HadiWarningIntervals_tbl_HadiWarningIntervals">
-          <End Role="tbl_HadiWarningIntervals" Type="Self.tbl_HadiWarningIntervals" Multiplicity="0..1" />
-          <End Role="tbl_HadiDraftText" Type="Self.tbl_HadiDraftText" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_HadiWarningIntervals">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_HadiDraftText">
-              <PropertyRef Name="FK_HadiWarningIntervalsID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervals">
-          <End Role="tbl_HadiWarningIntervals" Type="Self.tbl_HadiWarningIntervals" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Role="tbl_HadiWarningIntervalsBranch" Type="Self.tbl_HadiWarningIntervalsBranch" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_HadiWarningIntervals">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_HadiWarningIntervalsBranch">
-              <PropertyRef Name="FK_HadiWarningIntervalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervalsBranch">
           <End Role="tbl_Branch" Type="Self.tbl_Branch" Multiplicity="0..1" />
           <End Role="tbl_HadiWarningIntervalsBranch" Type="Self.tbl_HadiWarningIntervalsBranch" Multiplicity="*" />
@@ -1058,6 +1042,30 @@
             </Principal>
             <Dependent Role="tbl_HadiWarningIntervalsExceptionBranch">
               <PropertyRef Name="FK_HadiWarningIntervalsExceptionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals">
+          <End Role="tbl_HadiWarningIntervals" Type="Self.tbl_HadiWarningIntervals" Multiplicity="0..1" />
+          <End Role="tbl_HadiWarningIntervalsLoan" Type="Self.tbl_HadiWarningIntervalsLoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_HadiWarningIntervals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiWarningIntervalsLoan">
+              <PropertyRef Name="FK_HadiWarningIntervalsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType">
+          <End Role="tbl_LoanType" Type="Self.tbl_LoanType" Multiplicity="0..1" />
+          <End Role="tbl_HadiWarningIntervalsLoan" Type="Self.tbl_HadiWarningIntervalsLoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_LoanType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiWarningIntervalsLoan">
+              <PropertyRef Name="FK_LoanTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1255,6 +1263,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals">
+          <End Role="tbl_WarningIntervals" Type="Self.tbl_WarningIntervals" Multiplicity="0..1" />
+          <End Role="tbl_WarningIntervalsBranch" Type="Self.tbl_WarningIntervalsBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_WarningIntervals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_WarningIntervalsBranch">
+              <PropertyRef Name="FK_WarningIntervalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_WarningIntervalsException_tbl_WarningIntervals">
           <End Role="tbl_WarningIntervals" Type="Self.tbl_WarningIntervals" Multiplicity="0..1" />
           <End Role="tbl_WarningIntervalsException" Type="Self.tbl_WarningIntervalsException" Multiplicity="*" />
@@ -1390,6 +1410,7 @@
           <EntitySet Name="tbl_HadiWarningIntervalsException" EntityType="Self.tbl_HadiWarningIntervalsException" Schema="Hadi" store:Type="Tables" />
           <EntitySet Name="tbl_HadiWarningIntervalsExceptionBranch" EntityType="Self.tbl_HadiWarningIntervalsExceptionBranch" Schema="Hadi" store:Type="Tables" />
           <EntitySet Name="tbl_HadiWarningIntervalsExceptionDeposit" EntityType="Self.tbl_HadiWarningIntervalsExceptionDeposit" Schema="Hadi" store:Type="Tables" />
+          <EntitySet Name="tbl_HadiWarningIntervalsLoan" EntityType="Self.tbl_HadiWarningIntervalsLoan" Schema="Hadi" store:Type="Tables" />
           <EntitySet Name="tbl_HadiWarningNotificationLog" EntityType="Self.tbl_HadiWarningNotificationLog" Schema="Hadi" store:Type="Tables" />
           <EntitySet Name="tbl_HadiWarningNotificationLogDetail" EntityType="Self.tbl_HadiWarningNotificationLogDetail" Schema="Hadi" store:Type="Tables" />
           <EntitySet Name="tbl_Date" EntityType="Self.tbl_Date" Schema="Lookup" store:Type="Tables" />
@@ -1503,14 +1524,6 @@
             <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
             <End Role="tbl_HadiOperation_Loan1" EntitySet="tbl_HadiOperation_Loan" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_HadiWarningIntervals_tbl_HadiWarningIntervals" Association="Self.FK_tbl_HadiWarningIntervals_tbl_HadiWarningIntervals">
-            <End Role="tbl_HadiWarningIntervals" EntitySet="tbl_HadiWarningIntervals" />
-            <End Role="tbl_HadiDraftText" EntitySet="tbl_HadiDraftText" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervals" Association="Self.FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervals">
-            <End Role="tbl_HadiWarningIntervals" EntitySet="tbl_HadiWarningIntervals" />
-            <End Role="tbl_HadiWarningIntervalsBranch" EntitySet="tbl_HadiWarningIntervalsBranch" />
-          </AssociationSet>
           <AssociationSet Name="FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervalsBranch" Association="Self.FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervalsBranch">
             <End Role="tbl_Branch" EntitySet="tbl_Branch" />
             <End Role="tbl_HadiWarningIntervalsBranch" EntitySet="tbl_HadiWarningIntervalsBranch" />
@@ -1534,6 +1547,14 @@
           <AssociationSet Name="FK_tbl_HadiWarningIntervalsExceptionBranch_tbl_HadiWarningIntervalsException" Association="Self.FK_tbl_HadiWarningIntervalsExceptionBranch_tbl_HadiWarningIntervalsException">
             <End Role="tbl_HadiWarningIntervalsException" EntitySet="tbl_HadiWarningIntervalsException" />
             <End Role="tbl_HadiWarningIntervalsExceptionBranch" EntitySet="tbl_HadiWarningIntervalsExceptionBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals" Association="Self.FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals">
+            <End Role="tbl_HadiWarningIntervals" EntitySet="tbl_HadiWarningIntervals" />
+            <End Role="tbl_HadiWarningIntervalsLoan" EntitySet="tbl_HadiWarningIntervalsLoan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" Association="Self.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType">
+            <End Role="tbl_LoanType" EntitySet="tbl_LoanType" />
+            <End Role="tbl_HadiWarningIntervalsLoan" EntitySet="tbl_HadiWarningIntervalsLoan" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_HadiWarningNotificationLog_tbl_File" Association="Self.FK_tbl_HadiWarningNotificationLog_tbl_File">
             <End Role="tbl_File" EntitySet="tbl_File" />
@@ -1597,6 +1618,10 @@
           </AssociationSet>
           <AssociationSet Name="FK_tbl_WarningIntervalsBranch_tbl_Branch" Association="Self.FK_tbl_WarningIntervalsBranch_tbl_Branch">
             <End Role="tbl_Branch" EntitySet="tbl_Branch" />
+            <End Role="tbl_WarningIntervalsBranch" EntitySet="tbl_WarningIntervalsBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals" Association="Self.FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals">
+            <End Role="tbl_WarningIntervals" EntitySet="tbl_WarningIntervals" />
             <End Role="tbl_WarningIntervalsBranch" EntitySet="tbl_WarningIntervalsBranch" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_WarningIntervalsException_tbl_WarningIntervals" Association="Self.FK_tbl_WarningIntervalsException_tbl_WarningIntervals">
@@ -1761,6 +1786,8 @@
           <Property Name="tryIntervalHour_Loan" Type="Int32" />
           <Property Name="VoiceSMSUID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VoiceSMSToken" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VosoulService" Type="Boolean" />
+          <Property Name="HadiService" Type="Boolean" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1880,6 +1907,7 @@
           <NavigationProperty Name="tbl_HadiWarningIntervalsDeposit" Relationship="Self.FK_tbl_HadiWarningIntervalsDeposit_tbl_HadiWarningIntervals" FromRole="tbl_HadiWarningIntervals" ToRole="tbl_HadiWarningIntervalsDeposit" />
           <NavigationProperty Name="tbl_HadiWarningNotificationLog" Relationship="Self.FK_tbl_HadiWarningNotificationLog_tbl_HadiWarningIntervals" FromRole="tbl_HadiWarningIntervals" ToRole="tbl_HadiWarningNotificationLog" />
           <NavigationProperty Name="tbl_HadiWarningIntervalsException" Relationship="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsException_tbl_HadiWarningIntervals" FromRole="tbl_HadiWarningIntervals" ToRole="tbl_HadiWarningIntervalsException" />
+          <NavigationProperty Name="tbl_HadiWarningIntervalsLoan" Relationship="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals" FromRole="tbl_HadiWarningIntervals" ToRole="tbl_HadiWarningIntervalsLoan" />
         </EntityType>
         <EntityType Name="tbl_HadiWarningIntervalsBranch">
           <Key>
@@ -2170,6 +2198,7 @@
           <Property Name="Section" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_Loan_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_Loan" />
           <NavigationProperty Name="tbl_WarningIntervalsLoanType" Relationship="Self.FK_tbl_WarningIntervalLoanType_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_WarningIntervalsLoanType" />
+          <NavigationProperty Name="tbl_HadiWarningIntervalsLoan" Relationship="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_HadiWarningIntervalsLoan" />
         </EntityType>
         <EntityType Name="tbl_LogCurrentLCStatus_H">
           <Key>
@@ -2299,6 +2328,7 @@
           <NavigationProperty Name="tbl_WarningIntervalsLoanType" Relationship="Self.FK_tbl_WarningIntervalLoanType_tbl_WarningIntervals" FromRole="tbl_WarningIntervals" ToRole="tbl_WarningIntervalsLoanType" />
           <NavigationProperty Name="tbl_WarningIntervalsException" Relationship="Self.FK_tbl_WarningIntervalsException_tbl_WarningIntervals" FromRole="tbl_WarningIntervals" ToRole="tbl_WarningIntervalsException" />
           <NavigationProperty Name="tbl_WarningNotificationLog" Relationship="Self.FK_tbl_WarningNotificationLog_tbl_WarningIntervals" FromRole="tbl_WarningIntervals" ToRole="tbl_WarningNotificationLog" />
+          <NavigationProperty Name="tbl_WarningIntervalsBranch" Relationship="dbMehrVosulModel.FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals" FromRole="tbl_WarningIntervals" ToRole="tbl_WarningIntervalsBranch" />
         </EntityType>
         <EntityType Name="tbl_WarningIntervalsBranch">
           <Key>
@@ -2309,6 +2339,7 @@
           <Property Name="FK_BranchID" Type="Int32" />
           <NavigationProperty Name="tbl_Branch" Relationship="Self.FK_tbl_WarningIntervalsBranch_tbl_Branch" FromRole="tbl_WarningIntervalsBranch" ToRole="tbl_Branch" />
           <NavigationProperty Name="tbl_WarningIntervalsExceptionBranch" Relationship="Self.FK_tbl_WarningIntervalsExceptionBranch_tbl_WarningIntervalsBranch" FromRole="tbl_WarningIntervalsBranch" ToRole="tbl_WarningIntervalsExceptionBranch" />
+          <NavigationProperty Name="tbl_WarningIntervals" Relationship="dbMehrVosulModel.FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals" FromRole="tbl_WarningIntervalsBranch" ToRole="tbl_WarningIntervals" />
         </EntityType>
         <EntityType Name="tbl_WarningIntervalsException">
           <Key>
@@ -3201,6 +3232,19 @@
             <End Role="tbl_HadiWarningIntervalsExceptionBranch" EntitySet="tbl_HadiWarningIntervalsExceptionBranch" />
           </AssociationSet>
           <EntitySet Name="tbl_VoiceSMS_Report_Log" EntityType="dbMehrVosulModel.tbl_VoiceSMS_Report_Log" />
+          <EntitySet Name="tbl_HadiWarningIntervalsLoan" EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsLoan" />
+          <AssociationSet Name="FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals" Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals">
+            <End Role="tbl_HadiWarningIntervals" EntitySet="tbl_HadiWarningIntervals" />
+            <End Role="tbl_HadiWarningIntervalsLoan" EntitySet="tbl_HadiWarningIntervalsLoan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType">
+            <End Role="tbl_LoanType" EntitySet="tbl_LoanType" />
+            <End Role="tbl_HadiWarningIntervalsLoan" EntitySet="tbl_HadiWarningIntervalsLoan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals" Association="dbMehrVosulModel.FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals">
+            <End Role="tbl_WarningIntervals" EntitySet="tbl_WarningIntervals" />
+            <End Role="tbl_WarningIntervalsBranch" EntitySet="tbl_WarningIntervalsBranch" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tbl_Deposits">
           <Key>
@@ -3225,7 +3269,7 @@
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="DepositCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="DepositName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DepositName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="FK_CUserID" Type="Int32" />
           <Property Name="STime" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_Deposits" Relationship="dbMehrVosulModel.FK_tbl_Deposits_tbl_DepositType" FromRole="tbl_DepositType" ToRole="tbl_Deposits" />
@@ -3377,6 +3421,52 @@
           <Property Name="Date" Type="DateTime" Precision="0" />
           <Property Name="STime" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="tbl_HadiWarningIntervalsLoan">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_HadiWarningIntervalsID" Type="Int32" />
+          <Property Name="FK_LoanTypeID" Type="Int32" />
+          <NavigationProperty Name="tbl_HadiWarningIntervals" Relationship="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals" FromRole="tbl_HadiWarningIntervalsLoan" ToRole="tbl_HadiWarningIntervals" />
+          <NavigationProperty Name="tbl_LoanType" Relationship="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" FromRole="tbl_HadiWarningIntervalsLoan" ToRole="tbl_LoanType" />
+        </EntityType>
+        <Association Name="FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals">
+          <End Type="dbMehrVosulModel.tbl_HadiWarningIntervals" Role="tbl_HadiWarningIntervals" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_HadiWarningIntervalsLoan" Role="tbl_HadiWarningIntervalsLoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_HadiWarningIntervals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiWarningIntervalsLoan">
+              <PropertyRef Name="FK_HadiWarningIntervalsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType">
+          <End Type="dbMehrVosulModel.tbl_LoanType" Role="tbl_LoanType" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_HadiWarningIntervalsLoan" Role="tbl_HadiWarningIntervalsLoan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_LoanType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiWarningIntervalsLoan">
+              <PropertyRef Name="FK_LoanTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals">
+          <End Type="dbMehrVosulModel.tbl_WarningIntervals" Role="tbl_WarningIntervals" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_WarningIntervalsBranch" Role="tbl_WarningIntervalsBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_WarningIntervals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_WarningIntervalsBranch">
+              <PropertyRef Name="FK_WarningIntervalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3470,6 +3560,8 @@
           <EntitySetMapping Name="tbl_SystemSetting">
             <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_SystemSetting">
               <MappingFragment StoreEntitySet="tbl_SystemSetting">
+                <ScalarProperty Name="HadiService" ColumnName="HadiService" />
+                <ScalarProperty Name="VosoulService" ColumnName="VosoulService" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="GatewayNumber" ColumnName="GatewayNumber" />
                 <ScalarProperty Name="GatewayCompany" ColumnName="GatewayCompany" />
@@ -4144,6 +4236,15 @@
               <MappingFragment StoreEntitySet="tbl_VoiceSMS_Report_Log">
                 <ScalarProperty Name="STime" ColumnName="STime" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_HadiWarningIntervalsLoan">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_HadiWarningIntervalsLoan">
+              <MappingFragment StoreEntitySet="tbl_HadiWarningIntervalsLoan">
+                <ScalarProperty Name="FK_LoanTypeID" ColumnName="FK_LoanTypeID" />
+                <ScalarProperty Name="FK_HadiWarningIntervalsID" ColumnName="FK_HadiWarningIntervalsID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
