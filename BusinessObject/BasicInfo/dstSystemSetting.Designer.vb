@@ -337,6 +337,8 @@ Partial Public Class dstSystemSetting
         
         Private columnHadiServiceLoan As Global.System.Data.DataColumn
         
+        Private columnVoiceService As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -589,6 +591,14 @@ Partial Public Class dstSystemSetting
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property VoiceServiceColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnVoiceService
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -652,9 +662,10 @@ Partial Public Class dstSystemSetting
                     ByVal VoiceSMSToken As String,  _
                     ByVal VosoulService As Boolean,  _
                     ByVal HadiService As Boolean,  _
-                    ByVal HadiServiceLoan As Boolean) As spr_SystemSetting_SelectRow
+                    ByVal HadiServiceLoan As Boolean,  _
+                    ByVal VoiceService As Boolean) As spr_SystemSetting_SelectRow
             Dim rowspr_SystemSetting_SelectRow As spr_SystemSetting_SelectRow = CType(Me.NewRow,spr_SystemSetting_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {ID, GatewayNumber, GatewayCompany, GatewayUsername, GatewayPassword, GatewayIP, EmailUsername, EmailHost, EmailPassword, Email, TelephoneNumber, UpdateTime, tryTime, tryIntervalHour, ETime, FK_EUserID, UpdateTime_Deposit, tryTime_Deposit, tryIntervalHour_Deposit, UpdateTime_Loan, tryTime_Loan, tryIntervalHour_Loan, VoiceSMSUID, VoiceSMSToken, VosoulService, HadiService, HadiServiceLoan}
+            Dim columnValuesArray() As Object = New Object() {ID, GatewayNumber, GatewayCompany, GatewayUsername, GatewayPassword, GatewayIP, EmailUsername, EmailHost, EmailPassword, Email, TelephoneNumber, UpdateTime, tryTime, tryIntervalHour, ETime, FK_EUserID, UpdateTime_Deposit, tryTime_Deposit, tryIntervalHour_Deposit, UpdateTime_Loan, tryTime_Loan, tryIntervalHour_Loan, VoiceSMSUID, VoiceSMSToken, VosoulService, HadiService, HadiServiceLoan, VoiceService}
             rowspr_SystemSetting_SelectRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_SystemSetting_SelectRow)
             Return rowspr_SystemSetting_SelectRow
@@ -710,6 +721,7 @@ Partial Public Class dstSystemSetting
             Me.columnVosoulService = MyBase.Columns("VosoulService")
             Me.columnHadiService = MyBase.Columns("HadiService")
             Me.columnHadiServiceLoan = MyBase.Columns("HadiServiceLoan")
+            Me.columnVoiceService = MyBase.Columns("VoiceService")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -769,6 +781,8 @@ Partial Public Class dstSystemSetting
             MyBase.Columns.Add(Me.columnHadiService)
             Me.columnHadiServiceLoan = New Global.System.Data.DataColumn("HadiServiceLoan", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnHadiServiceLoan)
+            Me.columnVoiceService = New Global.System.Data.DataColumn("VoiceService", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnVoiceService)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AllowDBNull = false
             Me.columnID.Unique = true
@@ -1351,6 +1365,22 @@ Partial Public Class dstSystemSetting
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property VoiceService() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SystemSetting_Select.VoiceServiceColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'VoiceService' in table 'spr_SystemSetting_Select' is DBNull"& _ 
+                            ".", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SystemSetting_Select.VoiceServiceColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsGatewayNumberNull() As Boolean
             Return Me.IsNull(Me.tablespr_SystemSetting_Select.GatewayNumberColumn)
         End Function
@@ -1660,6 +1690,18 @@ Partial Public Class dstSystemSetting
         Public Sub SetHadiServiceLoanNull()
             Me(Me.tablespr_SystemSetting_Select.HadiServiceLoanColumn) = Global.System.Convert.DBNull
         End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsVoiceServiceNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SystemSetting_Select.VoiceServiceColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetVoiceServiceNull()
+            Me(Me.tablespr_SystemSetting_Select.VoiceServiceColumn) = Global.System.Convert.DBNull
+        End Sub
     End Class
     
     '''<summary>
@@ -1855,6 +1897,7 @@ Namespace dstSystemSettingTableAdapters
             tableMapping.ColumnMappings.Add("VosoulService", "VosoulService")
             tableMapping.ColumnMappings.Add("HadiService", "HadiService")
             tableMapping.ColumnMappings.Add("HadiServiceLoan", "HadiServiceLoan")
+            tableMapping.ColumnMappings.Add("VoiceService", "VoiceService")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
@@ -1961,6 +2004,7 @@ Namespace dstSystemSettingTableAdapters
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@VosoulService", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@HadiService", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@HadiServiceLoan", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@VoiceService", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1992,7 +2036,8 @@ Namespace dstSystemSettingTableAdapters
                     ByVal VoiceSMSToken As String,  _
                     ByVal VosoulService As Global.System.Nullable(Of Boolean),  _
                     ByVal HadiService As Global.System.Nullable(Of Boolean),  _
-                    ByVal HadiServiceLoan As Global.System.Nullable(Of Boolean)) As Object
+                    ByVal HadiServiceLoan As Global.System.Nullable(Of Boolean),  _
+                    ByVal VoiceService As Global.System.Nullable(Of Boolean)) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(0),Global.System.Data.SqlClient.SqlCommand)
             If (ID.HasValue = true) Then
                 command.Parameters(1).Value = CType(ID.Value,Integer)
@@ -2124,25 +2169,25 @@ Namespace dstSystemSettingTableAdapters
             Else
                 command.Parameters(26).Value = Global.System.DBNull.Value
             End If
+            If (VoiceService.HasValue = true) Then
+                command.Parameters(27).Value = CType(VoiceService.Value,Boolean)
+            Else
+                command.Parameters(27).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 command.Connection.Open
             End If
-            Dim returnValue As Object
+            Dim returnValue As Integer
             Try 
-                returnValue = command.ExecuteScalar
+                returnValue = command.ExecuteNonQuery
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
                     command.Connection.Close
                 End If
             End Try
-            If ((returnValue Is Nothing)  _
-                        OrElse (returnValue.GetType Is GetType(Global.System.DBNull))) Then
-                Return Nothing
-            Else
-                Return CType(returnValue,Object)
-            End If
+            Return returnValue
         End Function
     End Class
     

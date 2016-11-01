@@ -43,6 +43,8 @@ Partial Public Class dstWarningNotificationLogDetail
     
     Private tablespr_SMSCountLog_Select As spr_SMSCountLog_SelectDataTable
     
+    Private tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable
+    
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -98,6 +100,9 @@ Partial Public Class dstWarningNotificationLogDetail
             End If
             If (Not (ds.Tables("spr_SMSCountLog_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_SMSCountLog_SelectDataTable(ds.Tables("spr_SMSCountLog_Select")))
+            End If
+            If (Not (ds.Tables("spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable(ds.Tables("spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -208,6 +213,16 @@ Partial Public Class dstWarningNotificationLogDetail
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List() As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable
+        Get
+            Return Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.BrowsableAttribute(true),  _
      Global.System.ComponentModel.DesignerSerializationVisibilityAttribute(Global.System.ComponentModel.DesignerSerializationVisibility.Visible)>  _
     Public Overrides Property SchemaSerializationMode() As Global.System.Data.SchemaSerializationMode
@@ -300,6 +315,9 @@ Partial Public Class dstWarningNotificationLogDetail
             If (Not (ds.Tables("spr_SMSCountLog_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_SMSCountLog_SelectDataTable(ds.Tables("spr_SMSCountLog_Select")))
             End If
+            If (Not (ds.Tables("spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable(ds.Tables("spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List")))
+            End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
             Me.Namespace = ds.Namespace
@@ -386,6 +404,12 @@ Partial Public Class dstWarningNotificationLogDetail
                 Me.tablespr_SMSCountLog_Select.InitVars
             End If
         End If
+        Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List = CType(MyBase.Tables("spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List"),spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List) Is Nothing) Then
+                Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.InitVars
+            End If
+        End If
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -414,6 +438,8 @@ Partial Public Class dstWarningNotificationLogDetail
         MyBase.Tables.Add(Me.tablespr_WarningNotificationLogDetail_Pending_SMSCount_Select)
         Me.tablespr_SMSCountLog_Select = New spr_SMSCountLog_SelectDataTable()
         MyBase.Tables.Add(Me.tablespr_SMSCountLog_Select)
+        Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List = New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable()
+        MyBase.Tables.Add(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -467,6 +493,12 @@ Partial Public Class dstWarningNotificationLogDetail
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializespr_SMSCountLog_Select() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List() As Boolean
         Return false
     End Function
     
@@ -554,6 +586,9 @@ Partial Public Class dstWarningNotificationLogDetail
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub spr_SMSCountLog_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_SMSCountLog_SelectRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -3284,6 +3319,339 @@ Partial Public Class dstWarningNotificationLogDetail
     End Class
     
     '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable
+        Inherits Global.System.Data.TypedTableBase(Of spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+        
+        Private columnNotificationTypeID As Global.System.Data.DataColumn
+        
+        Private columnSendStatus As Global.System.Data.DataColumn
+        
+        Private columnID As Global.System.Data.DataColumn
+        
+        Private columnSenderInfo As Global.System.Data.DataColumn
+        
+        Private columnReceiverInfo As Global.System.Data.DataColumn
+        
+        Private columnstrMessage As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property NotificationTypeIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnNotificationTypeID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property SendStatusColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSendStatus
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property SenderInfoColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSenderInfo
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ReceiverInfoColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnReceiverInfo
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property strMessageColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnstrMessage
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow
+            Get
+                Return CType(Me.Rows(index),spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChanging As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChanged As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowDeleting As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowDeleted As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub Addspr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow(ByVal row As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function Addspr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow(ByVal NotificationTypeID As Byte, ByVal SendStatus As Byte, ByVal SenderInfo As String, ByVal ReceiverInfo As String, ByVal strMessage As String) As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow
+            Dim rowspr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow = CType(Me.NewRow,spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+            Dim columnValuesArray() As Object = New Object() {NotificationTypeID, SendStatus, Nothing, SenderInfo, ReceiverInfo, strMessage}
+            rowspr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowspr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+            Return rowspr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function FindByID(ByVal ID As Integer) As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow
+            Return CType(Me.Rows.Find(New Object() {ID}),spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable = CType(MyBase.Clone,spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnNotificationTypeID = MyBase.Columns("NotificationTypeID")
+            Me.columnSendStatus = MyBase.Columns("SendStatus")
+            Me.columnID = MyBase.Columns("ID")
+            Me.columnSenderInfo = MyBase.Columns("SenderInfo")
+            Me.columnReceiverInfo = MyBase.Columns("ReceiverInfo")
+            Me.columnstrMessage = MyBase.Columns("strMessage")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnNotificationTypeID = New Global.System.Data.DataColumn("NotificationTypeID", GetType(Byte), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnNotificationTypeID)
+            Me.columnSendStatus = New Global.System.Data.DataColumn("SendStatus", GetType(Byte), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSendStatus)
+            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnID)
+            Me.columnSenderInfo = New Global.System.Data.DataColumn("SenderInfo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSenderInfo)
+            Me.columnReceiverInfo = New Global.System.Data.DataColumn("ReceiverInfo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnReceiverInfo)
+            Me.columnstrMessage = New Global.System.Data.DataColumn("strMessage", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnstrMessage)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
+            Me.columnID.AutoIncrement = true
+            Me.columnID.AutoIncrementSeed = -1
+            Me.columnID.AutoIncrementStep = -1
+            Me.columnID.AllowDBNull = false
+            Me.columnID.ReadOnly = true
+            Me.columnID.Unique = true
+            Me.columnSenderInfo.MaxLength = 500
+            Me.columnReceiverInfo.MaxLength = 70
+            Me.columnstrMessage.MaxLength = 2147483647
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function Newspr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow() As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow
+            Return CType(Me.NewRow,spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangedEvent) Is Nothing) Then
+                RaiseEvent spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChanged(Me, New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEvent(CType(e.Row,spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangingEvent) Is Nothing) Then
+                RaiseEvent spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChanging(Me, New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEvent(CType(e.Row,spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowDeletedEvent) Is Nothing) Then
+                RaiseEvent spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowDeleted(Me, New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEvent(CType(e.Row,spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowDeletingEvent) Is Nothing) Then
+                RaiseEvent spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowDeleting(Me, New spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEvent(CType(e.Row,spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub Removespr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow(ByVal row As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dstWarningNotificationLogDetail = New dstWarningNotificationLogDetail()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
     Partial Public Class spr_WarningNotificationLogDetail_NotSend_SMS_ListRow
@@ -4446,6 +4814,173 @@ Partial Public Class dstWarningNotificationLogDetail
     End Class
     
     '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List = CType(Me.Table,spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property NotificationTypeID() As Byte
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.NotificationTypeIDColumn),Byte)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'NotificationTypeID' in table 'spr_WarningNotificationLogDet"& _ 
+                            "ail_NotSend_VoiceSMS_List' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.NotificationTypeIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property SendStatus() As Byte
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.SendStatusColumn),Byte)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'SendStatus' in table 'spr_WarningNotificationLogDetail_NotS"& _ 
+                            "end_VoiceSMS_List' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.SendStatusColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ID() As Integer
+            Get
+                Return CType(Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.IDColumn),Integer)
+            End Get
+            Set
+                Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.IDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property SenderInfo() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.SenderInfoColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'SenderInfo' in table 'spr_WarningNotificationLogDetail_NotS"& _ 
+                            "end_VoiceSMS_List' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.SenderInfoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ReceiverInfo() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.ReceiverInfoColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ReceiverInfo' in table 'spr_WarningNotificationLogDetail_No"& _ 
+                            "tSend_VoiceSMS_List' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.ReceiverInfoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property strMessage() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.strMessageColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'strMessage' in table 'spr_WarningNotificationLogDetail_NotS"& _ 
+                            "end_VoiceSMS_List' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.strMessageColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsNotificationTypeIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.NotificationTypeIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetNotificationTypeIDNull()
+            Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.NotificationTypeIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSendStatusNull() As Boolean
+            Return Me.IsNull(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.SendStatusColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSendStatusNull()
+            Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.SendStatusColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSenderInfoNull() As Boolean
+            Return Me.IsNull(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.SenderInfoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSenderInfoNull()
+            Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.SenderInfoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsReceiverInfoNull() As Boolean
+            Return Me.IsNull(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.ReceiverInfoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetReceiverInfoNull()
+            Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.ReceiverInfoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsstrMessageNull() As Boolean
+            Return Me.IsNull(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.strMessageColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetstrMessageNull()
+            Me(Me.tablespr_WarningNotificationLogDetail_NotSend_VoiceSMS_List.strMessageColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -4755,6 +5290,42 @@ Partial Public Class dstWarningNotificationLogDetail
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Row() As spr_SMSCountLog_SelectRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow
             Get
                 Return Me.eventRow
             End Get
@@ -6484,6 +7055,185 @@ Namespace dstWarningNotificationLogDetailTableAdapters
                 Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
             End If
             Dim dataTable As dstWarningNotificationLogDetail.spr_SMSCountLog_SelectDataTable = New dstWarningNotificationLogDetail.spr_SMSCountLog_SelectDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the connection and commands used to retrieve and save data.
+    '''</summary>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+    Partial Public Class spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListTableAdapter
+        Inherits Global.System.ComponentModel.Component
+        
+        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
+        
+        Private _connection As Global.System.Data.SqlClient.SqlConnection
+        
+        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
+        
+        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
+        
+        Private _clearBeforeFill As Boolean
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.ClearBeforeFill = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
+            Get
+                If (Me._adapter Is Nothing) Then
+                    Me.InitAdapter
+                End If
+                Return Me._adapter
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
+            Get
+                If (Me._connection Is Nothing) Then
+                    Me.InitConnection
+                End If
+                Return Me._connection
+            End Get
+            Set
+                Me._connection = value
+                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
+                    Me.Adapter.InsertCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
+                    Me.Adapter.DeleteCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
+                    Me.Adapter.UpdateCommand.Connection = value
+                End If
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
+                    End If
+                    i = (i + 1)
+                Loop
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
+            Get
+                Return Me._transaction
+            End Get
+            Set
+                Me._transaction = value
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    Me.CommandCollection(i).Transaction = Me._transaction
+                    i = (i + 1)
+                Loop
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
+                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
+                    Me.Adapter.InsertCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
+                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
+                End If
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
+            Get
+                If (Me._commandCollection Is Nothing) Then
+                    Me.InitCommandCollection
+                End If
+                Return Me._commandCollection
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ClearBeforeFill() As Boolean
+            Get
+                Return Me._clearBeforeFill
+            End Get
+            Set
+                Me._clearBeforeFill = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitAdapter()
+            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
+            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
+            tableMapping.SourceTable = "Table"
+            tableMapping.DataSetTable = "spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List"
+            tableMapping.ColumnMappings.Add("NotificationTypeID", "NotificationTypeID")
+            tableMapping.ColumnMappings.Add("SendStatus", "SendStatus")
+            tableMapping.ColumnMappings.Add("ID", "ID")
+            tableMapping.ColumnMappings.Add("SenderInfo", "SenderInfo")
+            tableMapping.ColumnMappings.Add("ReceiverInfo", "ReceiverInfo")
+            tableMapping.ColumnMappings.Add("strMessage", "strMessage")
+            Me._adapter.TableMappings.Add(tableMapping)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitConnection()
+            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
+            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitCommandCollection()
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
+            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(0).Connection = Me.Connection
+            Me._commandCollection(0).CommandText = "dbo.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List"
+            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Dim dataTable As dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable = New dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function

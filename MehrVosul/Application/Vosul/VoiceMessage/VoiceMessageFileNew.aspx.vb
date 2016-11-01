@@ -119,7 +119,8 @@ Public Class VoiceMessageFileNew
                 'End If
 
                 ''Dim intVoiceID As Integer = clsZamanak.UploadAudio(intUid, strToken, fileBytes, strRefMessage)
-                Dim intVoiceID As Integer = oVoiceSMS.UploadVoiceFile("09121485002", "ati6077", fileBytes, strFileName, strExt, duration, MaxSize, strRefMessage)
+                'Dim intVoiceID As Integer = oVoiceSMS.UploadVoiceFile("09121485002", "ati6077", fileBytes, strFileName, strExt, duration, MaxSize, strRefMessage)
+                Dim intVoiceID As Integer = oVoiceSMS.UploadVoiceFile("09905389810", "mehrvosul", fileBytes, strFileName, strExt, duration, MaxSize, strRefMessage)
                 Dim strVoiceFileName As String = txtVoiceMessageName.Text
                 If strRefMessage = "" Then
                     Dim intRecordID As Integer = qryZamanak.spr_VoiceRecords_Insert(intVoiceID, strVoiceFileName, fileBytes, duration, Math.Round(MaxSize / 1024) & strFileSize, drwUserLogin.ID, strRawFileName)

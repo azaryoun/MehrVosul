@@ -427,9 +427,14 @@
 
                                                   <label> <input type="checkbox" runat="server"  id="chkHadiStatusLoan"/>سرویس هادی تخصیص منابع(وام)</label> 
                                                    </div>
-                                         </div>
+                                     
                                               
+                           <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
 
+                                                  <label> <input type="checkbox" runat="server"  id="chkVoiceMessageService"/>سرویس پیامک صوتی</label> 
+                                                   </div>
+                                         </div>
+                                  </div>
                                 </div> </div> </div>        
                                 
                     </div>

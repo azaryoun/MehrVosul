@@ -248,6 +248,15 @@ Partial Public Class SystemSetting
     Protected WithEvents chkHadiStatusLoan As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
     
     '''<summary>
+    '''chkVoiceMessageService control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkVoiceMessageService As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    
+    '''<summary>
     '''hdnAction control.
     '''</summary>
     '''<remarks>

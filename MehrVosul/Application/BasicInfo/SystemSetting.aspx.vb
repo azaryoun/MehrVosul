@@ -106,10 +106,11 @@
         Dim blnVosoulStatus As Boolean = chkVosoulStatus.Checked
         Dim blnHadiStatus As Boolean = chkHadiStatus.Checked
         Dim blnHadiStatusLoan As Boolean = chkHadiStatusLoan.Checked
+        Dim blnVoiceMessage As Boolean = chkVoiceMessageService.Checked
 
         Try
             Dim qrySystemSetting As New BusinessObject.dstSystemSettingTableAdapters.QueriesTableAdapter
-            qrySystemSetting.spr_SystemSetting_Update(intEditSystemSettingID, strNumberGateway, strCompanyGateway, strGatewayUserName, strGatewayPassword, strGatewayIP, strEmailUserName, strEmailHost, strEmailPassword, strEmail, strTell, timeUpdateTime, inttryTime, inttryIntervalHour, drwUserLogin.ID, DepositTimeUpdateTime, intDeposittryTime, intDepositTryIntervalHour, LoanTimeUpdateTime, intLoanbtryTime, intLoanTryIntervalHour, strVoiceSMSUID, strVoiceSMSToken, blnVosoulStatus, blnHadiStatus, blnHadiStatusLoan)
+            qrySystemSetting.spr_SystemSetting_Update(intEditSystemSettingID, strNumberGateway, strCompanyGateway, strGatewayUserName, strGatewayPassword, strGatewayIP, strEmailUserName, strEmailHost, strEmailPassword, strEmail, strTell, timeUpdateTime, inttryTime, inttryIntervalHour, drwUserLogin.ID, DepositTimeUpdateTime, intDeposittryTime, intDepositTryIntervalHour, LoanTimeUpdateTime, intLoanbtryTime, intLoanTryIntervalHour, strVoiceSMSUID, strVoiceSMSToken, blnVosoulStatus, blnHadiStatus, blnHadiStatusLoan, blnVoiceMessage)
             Bootstrap_Panel1.ShowMessage("تنظیمات سیستم با موفقیت تغییر کرد", False)
             Return
 
