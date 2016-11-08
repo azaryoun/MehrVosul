@@ -24,7 +24,7 @@ Imports System.Xml.Serialization
 Namespace VoiceSMS
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
      System.Web.Services.WebServiceBindingAttribute(Name:="RahyabVoiceSendSoap", [Namespace]:="http://tempuri.org/"),  _
@@ -46,6 +46,8 @@ Namespace VoiceSMS
         
         Private StatusVoiceSMSOperationCompleted As System.Threading.SendOrPostCallback
         
+        Private StatusVoiceSMS_DetailsOperationCompleted As System.Threading.SendOrPostCallback
+        
         Private GetRemainVoiceCreditOperationCompleted As System.Threading.SendOrPostCallback
         
         Private SendPollVoiceSMSOperationCompleted As System.Threading.SendOrPostCallback
@@ -55,6 +57,12 @@ Namespace VoiceSMS
         Private SendMixedVoiceSMS_SynchOperationCompleted As System.Threading.SendOrPostCallback
         
         Private SendVoiceSMS_MehrOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private RefundWarrantyCreditOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private PaymentVoiceBillOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private DecodeTextOperationCompleted As System.Threading.SendOrPostCallback
         
         Private useDefaultCredentialsSetExplicitly As Boolean
         
@@ -116,6 +124,9 @@ Namespace VoiceSMS
         Public Event StatusVoiceSMSCompleted As StatusVoiceSMSCompletedEventHandler
         
         '''<remarks/>
+        Public Event StatusVoiceSMS_DetailsCompleted As StatusVoiceSMS_DetailsCompletedEventHandler
+        
+        '''<remarks/>
         Public Event GetRemainVoiceCreditCompleted As GetRemainVoiceCreditCompletedEventHandler
         
         '''<remarks/>
@@ -129,6 +140,15 @@ Namespace VoiceSMS
         
         '''<remarks/>
         Public Event SendVoiceSMS_MehrCompleted As SendVoiceSMS_MehrCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event RefundWarrantyCreditCompleted As RefundWarrantyCreditCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event PaymentVoiceBillCompleted As PaymentVoiceBillCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event DecodeTextCompleted As DecodeTextCompletedEventHandler
         
         '''<remarks/>
         <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/Authentication", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
@@ -300,29 +320,57 @@ Namespace VoiceSMS
         
         '''<remarks/>
         <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/StatusVoiceSMS", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
-        Public Function StatusVoiceSMS(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByRef strMessage As String) As String
-            Dim results() As Object = Me.Invoke("StatusVoiceSMS", New Object() {strUsername, strPassword, intVoiceSMSID, intPageNo, strMessage})
+        Public Function StatusVoiceSMS(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByRef strMessage As String) As String()
+            Dim results() As Object = Me.Invoke("StatusVoiceSMS", New Object() {strUsername, strPassword, intVoiceSMSID, strMessage})
             strMessage = CType(results(1),String)
-            Return CType(results(0),String)
+            Return CType(results(0),String())
         End Function
         
         '''<remarks/>
-        Public Overloads Sub StatusVoiceSMSAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByVal strMessage As String)
-            Me.StatusVoiceSMSAsync(strUsername, strPassword, intVoiceSMSID, intPageNo, strMessage, Nothing)
+        Public Overloads Sub StatusVoiceSMSAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal strMessage As String)
+            Me.StatusVoiceSMSAsync(strUsername, strPassword, intVoiceSMSID, strMessage, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub StatusVoiceSMSAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByVal strMessage As String, ByVal userState As Object)
+        Public Overloads Sub StatusVoiceSMSAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal strMessage As String, ByVal userState As Object)
             If (Me.StatusVoiceSMSOperationCompleted Is Nothing) Then
                 Me.StatusVoiceSMSOperationCompleted = AddressOf Me.OnStatusVoiceSMSOperationCompleted
             End If
-            Me.InvokeAsync("StatusVoiceSMS", New Object() {strUsername, strPassword, intVoiceSMSID, intPageNo, strMessage}, Me.StatusVoiceSMSOperationCompleted, userState)
+            Me.InvokeAsync("StatusVoiceSMS", New Object() {strUsername, strPassword, intVoiceSMSID, strMessage}, Me.StatusVoiceSMSOperationCompleted, userState)
         End Sub
         
         Private Sub OnStatusVoiceSMSOperationCompleted(ByVal arg As Object)
             If (Not (Me.StatusVoiceSMSCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
                 RaiseEvent StatusVoiceSMSCompleted(Me, New StatusVoiceSMSCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/StatusVoiceSMS_Details", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function StatusVoiceSMS_Details(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByRef strMessage As String) As <System.Xml.Serialization.XmlArrayItemAttribute(IsNullable:=false)> STC_Status()
+            Dim results() As Object = Me.Invoke("StatusVoiceSMS_Details", New Object() {strUsername, strPassword, intVoiceSMSID, intPageNo, strMessage})
+            strMessage = CType(results(1),String)
+            Return CType(results(0),STC_Status())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub StatusVoiceSMS_DetailsAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByVal strMessage As String)
+            Me.StatusVoiceSMS_DetailsAsync(strUsername, strPassword, intVoiceSMSID, intPageNo, strMessage, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub StatusVoiceSMS_DetailsAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByVal strMessage As String, ByVal userState As Object)
+            If (Me.StatusVoiceSMS_DetailsOperationCompleted Is Nothing) Then
+                Me.StatusVoiceSMS_DetailsOperationCompleted = AddressOf Me.OnStatusVoiceSMS_DetailsOperationCompleted
+            End If
+            Me.InvokeAsync("StatusVoiceSMS_Details", New Object() {strUsername, strPassword, intVoiceSMSID, intPageNo, strMessage}, Me.StatusVoiceSMS_DetailsOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnStatusVoiceSMS_DetailsOperationCompleted(ByVal arg As Object)
+            If (Not (Me.StatusVoiceSMS_DetailsCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent StatusVoiceSMS_DetailsCompleted(Me, New StatusVoiceSMS_DetailsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -467,6 +515,89 @@ Namespace VoiceSMS
         End Sub
         
         '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/RefundWarrantyCredit", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function RefundWarrantyCredit(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByRef strMessage As String) As Integer()
+            Dim results() As Object = Me.Invoke("RefundWarrantyCredit", New Object() {strUsername, strPassword, intVoiceSMSID, strMessage})
+            strMessage = CType(results(1),String)
+            Return CType(results(0),Integer())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub RefundWarrantyCreditAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal strMessage As String)
+            Me.RefundWarrantyCreditAsync(strUsername, strPassword, intVoiceSMSID, strMessage, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub RefundWarrantyCreditAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intVoiceSMSID As Integer, ByVal strMessage As String, ByVal userState As Object)
+            If (Me.RefundWarrantyCreditOperationCompleted Is Nothing) Then
+                Me.RefundWarrantyCreditOperationCompleted = AddressOf Me.OnRefundWarrantyCreditOperationCompleted
+            End If
+            Me.InvokeAsync("RefundWarrantyCredit", New Object() {strUsername, strPassword, intVoiceSMSID, strMessage}, Me.RefundWarrantyCreditOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnRefundWarrantyCreditOperationCompleted(ByVal arg As Object)
+            If (Not (Me.RefundWarrantyCreditCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent RefundWarrantyCreditCompleted(Me, New RefundWarrantyCreditCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/PaymentVoiceBill", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function PaymentVoiceBill(ByVal strUsername As String, ByVal strPassword As String, ByVal strName As String, ByVal arrDest() As String, ByVal arrBillID() As String, ByVal arrPayID() As String, ByVal arrAmount() As String, ByVal repeatTotal As Integer, ByRef strMessage As String) As Integer
+            Dim results() As Object = Me.Invoke("PaymentVoiceBill", New Object() {strUsername, strPassword, strName, arrDest, arrBillID, arrPayID, arrAmount, repeatTotal, strMessage})
+            strMessage = CType(results(1),String)
+            Return CType(results(0),Integer)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub PaymentVoiceBillAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal strName As String, ByVal arrDest() As String, ByVal arrBillID() As String, ByVal arrPayID() As String, ByVal arrAmount() As String, ByVal repeatTotal As Integer, ByVal strMessage As String)
+            Me.PaymentVoiceBillAsync(strUsername, strPassword, strName, arrDest, arrBillID, arrPayID, arrAmount, repeatTotal, strMessage, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub PaymentVoiceBillAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal strName As String, ByVal arrDest() As String, ByVal arrBillID() As String, ByVal arrPayID() As String, ByVal arrAmount() As String, ByVal repeatTotal As Integer, ByVal strMessage As String, ByVal userState As Object)
+            If (Me.PaymentVoiceBillOperationCompleted Is Nothing) Then
+                Me.PaymentVoiceBillOperationCompleted = AddressOf Me.OnPaymentVoiceBillOperationCompleted
+            End If
+            Me.InvokeAsync("PaymentVoiceBill", New Object() {strUsername, strPassword, strName, arrDest, arrBillID, arrPayID, arrAmount, repeatTotal, strMessage}, Me.PaymentVoiceBillOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnPaymentVoiceBillOperationCompleted(ByVal arg As Object)
+            If (Not (Me.PaymentVoiceBillCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent PaymentVoiceBillCompleted(Me, New PaymentVoiceBillCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DecodeText", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function DecodeText(ByVal strText As String) As String
+            Dim results() As Object = Me.Invoke("DecodeText", New Object() {strText})
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub DecodeTextAsync(ByVal strText As String)
+            Me.DecodeTextAsync(strText, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub DecodeTextAsync(ByVal strText As String, ByVal userState As Object)
+            If (Me.DecodeTextOperationCompleted Is Nothing) Then
+                Me.DecodeTextOperationCompleted = AddressOf Me.OnDecodeTextOperationCompleted
+            End If
+            Me.InvokeAsync("DecodeText", New Object() {strText}, Me.DecodeTextOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnDecodeTextOperationCompleted(ByVal arg As Object)
+            If (Not (Me.DecodeTextCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent DecodeTextCompleted(Me, New DecodeTextCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
         Public Shadows Sub CancelAsync(ByVal userState As Object)
             MyBase.CancelAsync(userState)
         End Sub
@@ -486,11 +617,68 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0"),  _
+     System.SerializableAttribute(),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     System.Xml.Serialization.XmlTypeAttribute([Namespace]:="http://tempuri.org/")>  _
+    Partial Public Class STC_Status
+        
+        Private receiverNumberField As String
+        
+        Private statusField As String
+        
+        Private answerDurationField As Integer
+        
+        Private responseField As String
+        
+        '''<remarks/>
+        Public Property ReceiverNumber() As String
+            Get
+                Return Me.receiverNumberField
+            End Get
+            Set
+                Me.receiverNumberField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Status() As String
+            Get
+                Return Me.statusField
+            End Get
+            Set
+                Me.statusField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property AnswerDuration() As Integer
+            Get
+                Return Me.answerDurationField
+            End Get
+            Set
+                Me.answerDurationField = value
+            End Set
+        End Property
+        
+        '''<remarks/>
+        Public Property Response() As String
+            Get
+                Return Me.responseField
+            End Get
+            Set
+                Me.responseField = value
+            End Set
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub AuthenticationCompletedEventHandler(ByVal sender As Object, ByVal e As AuthenticationCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class AuthenticationCompletedEventArgs
@@ -521,11 +709,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub UploadVoiceFileCompletedEventHandler(ByVal sender As Object, ByVal e As UploadVoiceFileCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class UploadVoiceFileCompletedEventArgs
@@ -556,11 +744,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub InquiryFileNameCompletedEventHandler(ByVal sender As Object, ByVal e As InquiryFileNameCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class InquiryFileNameCompletedEventArgs
@@ -591,11 +779,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub SendVoiceSMSCompletedEventHandler(ByVal sender As Object, ByVal e As SendVoiceSMSCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SendVoiceSMSCompletedEventArgs
@@ -626,11 +814,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub SendVoiceSMS_MinuteCompletedEventHandler(ByVal sender As Object, ByVal e As SendVoiceSMS_MinuteCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SendVoiceSMS_MinuteCompletedEventArgs
@@ -661,11 +849,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub SendVoiceSMS_BulkCompletedEventHandler(ByVal sender As Object, ByVal e As SendVoiceSMS_BulkCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SendVoiceSMS_BulkCompletedEventArgs
@@ -696,11 +884,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub StatusVoiceSMSCompletedEventHandler(ByVal sender As Object, ByVal e As StatusVoiceSMSCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class StatusVoiceSMSCompletedEventArgs
@@ -714,10 +902,10 @@ Namespace VoiceSMS
         End Sub
         
         '''<remarks/>
-        Public ReadOnly Property Result() As String
+        Public ReadOnly Property Result() As String()
             Get
                 Me.RaiseExceptionIfNecessary
-                Return CType(Me.results(0),String)
+                Return CType(Me.results(0),String())
             End Get
         End Property
         
@@ -731,11 +919,46 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub StatusVoiceSMS_DetailsCompletedEventHandler(ByVal sender As Object, ByVal e As StatusVoiceSMS_DetailsCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class StatusVoiceSMS_DetailsCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As STC_Status()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),STC_Status())
+            End Get
+        End Property
+        
+        '''<remarks/>
+        Public ReadOnly Property strMessage() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(1),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub GetRemainVoiceCreditCompletedEventHandler(ByVal sender As Object, ByVal e As GetRemainVoiceCreditCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class GetRemainVoiceCreditCompletedEventArgs
@@ -766,11 +989,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub SendPollVoiceSMSCompletedEventHandler(ByVal sender As Object, ByVal e As SendPollVoiceSMSCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SendPollVoiceSMSCompletedEventArgs
@@ -801,11 +1024,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub StatusPollVoiceSMSCompletedEventHandler(ByVal sender As Object, ByVal e As StatusPollVoiceSMSCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class StatusPollVoiceSMSCompletedEventArgs
@@ -836,11 +1059,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub SendMixedVoiceSMS_SynchCompletedEventHandler(ByVal sender As Object, ByVal e As SendMixedVoiceSMS_SynchCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SendMixedVoiceSMS_SynchCompletedEventArgs
@@ -871,11 +1094,11 @@ Namespace VoiceSMS
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub SendVoiceSMS_MehrCompletedEventHandler(ByVal sender As Object, ByVal e As SendVoiceSMS_MehrCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.79.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SendVoiceSMS_MehrCompletedEventArgs
@@ -901,6 +1124,103 @@ Namespace VoiceSMS
             Get
                 Me.RaiseExceptionIfNecessary
                 Return CType(Me.results(1),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub RefundWarrantyCreditCompletedEventHandler(ByVal sender As Object, ByVal e As RefundWarrantyCreditCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class RefundWarrantyCreditCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Integer()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Integer())
+            End Get
+        End Property
+        
+        '''<remarks/>
+        Public ReadOnly Property strMessage() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(1),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub PaymentVoiceBillCompletedEventHandler(ByVal sender As Object, ByVal e As PaymentVoiceBillCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class PaymentVoiceBillCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Integer
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Integer)
+            End Get
+        End Property
+        
+        '''<remarks/>
+        Public ReadOnly Property strMessage() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(1),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub DecodeTextCompletedEventHandler(ByVal sender As Object, ByVal e As DecodeTextCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class DecodeTextCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),String)
             End Get
         End Property
     End Class

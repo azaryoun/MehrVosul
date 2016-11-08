@@ -1634,77 +1634,77 @@ LetterL:
 
 #Region "VoiceMessage"
 
-    Private Sub SendVoiceMessage()
+    'Private Sub SendVoiceMessage()
 
-        If drwSystemSetting.VoiceService = True Then
+    '    If drwSystemSetting.VoiceService = True Then
 
-            Do
-                Try
-                    Dim tadpSMSList As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListTableAdapter
-                    Dim dtblSMSList As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable = Nothing
-                    dtblSMSList = tadpSMSList.GetData()
+    '        Do
+    '            Try
+    '                Dim tadpSMSList As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListTableAdapter
+    '                Dim dtblSMSList As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListDataTable = Nothing
+    '                dtblSMSList = tadpSMSList.GetData()
 
-                    Dim arrSMSMessages() As String = Nothing
-                    Dim arrSMSDestination() As String = Nothing
+    '                Dim arrSMSMessages() As String = Nothing
+    '                Dim arrSMSDestination() As String = Nothing
 
-                    Dim intFirstID As Integer = -1
-                    If dtblSMSList.Rows.Count = 0 Then
-                        Threading.Thread.Sleep(5000)
-                        Continue Do
-                    Else
-                        intFirstID = dtblSMSList.First.ID
-                    End If
-                    Dim intLastID As Integer = -1
-
-
-                    For Each drwSMSList As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow In dtblSMSList.Rows
-
-                        If drwSMSList.ReceiverInfo.Length <> 11 Then
-                            Continue For
-                        End If
-
-                        If arrSMSDestination Is Nothing Then
-                            ReDim arrSMSDestination(0)
-                            ReDim arrSMSMessages(0)
-                        Else
-                            ReDim Preserve arrSMSDestination(arrSMSDestination.Length)
-                            ReDim Preserve arrSMSMessages(arrSMSMessages.Length)
-                        End If
-                        arrSMSDestination(arrSMSDestination.Length - 1) = drwSMSList.ReceiverInfo
-                        arrSMSMessages(arrSMSMessages.Length - 1) = drwSMSList.strMessage
-                        intLastID = drwSMSList.ID
+    '                Dim intFirstID As Integer = -1
+    '                If dtblSMSList.Rows.Count = 0 Then
+    '                    Threading.Thread.Sleep(5000)
+    '                    Continue Do
+    '                Else
+    '                    intFirstID = dtblSMSList.First.ID
+    '                End If
+    '                Dim intLastID As Integer = -1
 
 
+    '                For Each drwSMSList As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_ListRow In dtblSMSList.Rows
 
+    '                    If drwSMSList.ReceiverInfo.Length <> 11 Then
+    '                        Continue For
+    '                    End If
 
-                    Next drwSMSList
+    '                    If arrSMSDestination Is Nothing Then
+    '                        ReDim arrSMSDestination(0)
+    '                        ReDim arrSMSMessages(0)
+    '                    Else
+    '                        ReDim Preserve arrSMSDestination(arrSMSDestination.Length)
+    '                        ReDim Preserve arrSMSMessages(arrSMSMessages.Length)
+    '                    End If
+    '                    arrSMSDestination(arrSMSDestination.Length - 1) = drwSMSList.ReceiverInfo
+    '                    arrSMSMessages(arrSMSMessages.Length - 1) = drwSMSList.strMessage
+    '                    intLastID = drwSMSList.ID
 
 
 
 
-                    Dim strBatch As String = "MVosul+" & drwSystemSetting.GatewayCompany & "+" & Date.Now.ToString("yyMMddHHmmss") & Date.Now.Millisecond.ToString
-
-
-                    Dim objSMS As New clsSMS
-                    objSMS.SendSMS_LikeToLike(arrSMSMessages, arrSMSDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, strBatch)
-
-                    Dim qryLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                    qryLogDetail.spr_WarningNotificationLogDetail_Batch_Update(intFirstID, intLastID, strBatch)
-
-                Catch ex As Exception
-                    Continue Do
-                End Try
-
-            Loop
+    '                Next drwSMSList
 
 
 
 
+    '                Dim strBatch As String = "MVosul+" & drwSystemSetting.GatewayCompany & "+" & Date.Now.ToString("yyMMddHHmmss") & Date.Now.Millisecond.ToString
 
-        End If
+
+    '                Dim objSMS As New clsSMS
+    '                objSMS.SendSMS_LikeToLike(arrSMSMessages, arrSMSDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, strBatch)
+
+    '                Dim qryLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+    '                qryLogDetail.spr_WarningNotificationLogDetail_Batch_Update(intFirstID, intLastID, strBatch)
+
+    '            Catch ex As Exception
+    '                Continue Do
+    '            End Try
+
+    '        Loop
 
 
-    End Sub
+
+
+
+    '    End If
+
+
+    'End Sub
 
 
 #End Region
@@ -3138,7 +3138,7 @@ LetterL:
 
             Dim strBranchQuery As String = ""
             For Each drwWarningIntervalBranchList As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_List_SelectRow In dtblWarningIntervalBranchList.Rows
-                strBranchQuery &= "or ABRNCHCOD='" & drwWarningIntervalBranchList.BrnachCode & "'"
+                strBranchQuery &= "or branch_code='" & drwWarningIntervalBranchList.BrnachCode & "'"
 
             Next drwWarningIntervalBranchList
 
@@ -4171,13 +4171,26 @@ LetterL:
     End Sub
 
 
-    Private Sub GetVoiceSMSArrays_Vesal(ByVal warningIntervalId As Integer, toSponsor As Boolean, ByRef records() As String, ByRef numbers() As String)
+    Public Sub GetVoiceSMSArrays_Vesal(ByVal warningIntervalId As Integer, toSponsor As Boolean, ByRef records() As String, ByRef numbers() As String)
 
         Dim cntxMehrVosul As New BusinessObject.dbMehrVosulEntities1
 
-        Dim lnqDraftText = cntxMehrVosul.tbl_DraftText.Where(Function(x) x.FK_WarningIntervalsID = warningIntervalId And x.ToSponsor = toSponsor)
+        Dim lnqDraftText = cntxMehrVosul.tbl_DraftText.Where(Function(x) x.FK_WarningIntervalsID = warningIntervalId AndAlso x.ToSponsor = toSponsor)
 
-        records = lnqDraftText.Where(Function(x) x.IsDynamic = False).OrderBy(Function(x) x.OrderInLevel).Select(Function(x) New With {.RecordID = x.FK_VoiceRecordID}).ToArray().Select(Function(x) x.RecordID.ToString)
+        'records = lnqDraftText.Where(Function(x) x.IsDynamic = False).OrderBy(Function(x) x.OrderInLevel).Select(Function(x) New With {.RecordID = x.FK_VoiceRecordID}).ToArray().Select(Function(x) x.RecordID.ToString())
+
+        Dim lnqrecords = lnqDraftText.Where(Function(x) x.IsDynamic = False).OrderBy(Function(x) x.OrderInLevel)
+
+        For Each itm In lnqrecords
+            If records Is Nothing Then
+                ReDim records(0)
+            Else
+                ReDim Preserve records(records.Length)
+            End If
+            records(records.Length - 1) = itm.FK_VoiceRecordID.Value.ToString()
+
+        Next
+
 
 
         numbers = lnqDraftText.Where(Function(x) x.IsDynamic = True).OrderBy(Function(x) x.OrderInLevel).Select(Function(x) x.DraftText).ToArray()

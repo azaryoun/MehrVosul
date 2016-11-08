@@ -849,6 +849,9 @@
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.vb</LastGenOutput>
     </None>
+    <Content Include="Web References\VoiceSMS\STC_Status.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </Content>
     <None Include="Web References\ZamanakWebService\Default_Service_SoapServer_ZamanakV4.wsdl" />
     <Content Include="Web References\ZamanakWebService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>

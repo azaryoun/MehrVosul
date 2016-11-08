@@ -133,7 +133,6 @@
             <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="intVoiceSMSID" type="s:int" />
-            <s:element minOccurs="1" maxOccurs="1" name="intPageNo" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
           </s:sequence>
         </s:complexType>
@@ -141,11 +140,43 @@
       <s:element name="StatusVoiceSMSResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="StatusVoiceSMSResult" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="StatusVoiceSMSResult" type="tns:ArrayOfString" />
             <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="StatusVoiceSMS_Details">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceSMSID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="intPageNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusVoiceSMS_DetailsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StatusVoiceSMS_DetailsResult" type="tns:ArrayOfSTC_Status" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfSTC_Status">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="STC_Status" type="tns:STC_Status" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="STC_Status">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ReceiverNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Status" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="AnswerDuration" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="Response" type="s:string" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetRemainVoiceCredit">
         <s:complexType>
           <s:sequence>
@@ -255,6 +286,66 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="RefundWarrantyCredit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceSMSID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="RefundWarrantyCreditResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RefundWarrantyCreditResult" type="tns:ArrayOfInt" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PaymentVoiceBill">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrDest" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrBillID" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrPayID" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrAmount" type="tns:ArrayOfString" />
+            <s:element minOccurs="1" maxOccurs="1" name="repeatTotal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PaymentVoiceBillResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="PaymentVoiceBillResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecodeText">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strText" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DecodeTextResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DecodeTextResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
     </s:schema>
   </wsdl:types>
   <wsdl:message name="AuthenticationSoapIn">
@@ -299,6 +390,12 @@
   <wsdl:message name="StatusVoiceSMSSoapOut">
     <wsdl:part name="parameters" element="tns:StatusVoiceSMSResponse" />
   </wsdl:message>
+  <wsdl:message name="StatusVoiceSMS_DetailsSoapIn">
+    <wsdl:part name="parameters" element="tns:StatusVoiceSMS_Details" />
+  </wsdl:message>
+  <wsdl:message name="StatusVoiceSMS_DetailsSoapOut">
+    <wsdl:part name="parameters" element="tns:StatusVoiceSMS_DetailsResponse" />
+  </wsdl:message>
   <wsdl:message name="GetRemainVoiceCreditSoapIn">
     <wsdl:part name="parameters" element="tns:GetRemainVoiceCredit" />
   </wsdl:message>
@@ -329,6 +426,24 @@
   <wsdl:message name="SendVoiceSMS_MehrSoapOut">
     <wsdl:part name="parameters" element="tns:SendVoiceSMS_MehrResponse" />
   </wsdl:message>
+  <wsdl:message name="RefundWarrantyCreditSoapIn">
+    <wsdl:part name="parameters" element="tns:RefundWarrantyCredit" />
+  </wsdl:message>
+  <wsdl:message name="RefundWarrantyCreditSoapOut">
+    <wsdl:part name="parameters" element="tns:RefundWarrantyCreditResponse" />
+  </wsdl:message>
+  <wsdl:message name="PaymentVoiceBillSoapIn">
+    <wsdl:part name="parameters" element="tns:PaymentVoiceBill" />
+  </wsdl:message>
+  <wsdl:message name="PaymentVoiceBillSoapOut">
+    <wsdl:part name="parameters" element="tns:PaymentVoiceBillResponse" />
+  </wsdl:message>
+  <wsdl:message name="DecodeTextSoapIn">
+    <wsdl:part name="parameters" element="tns:DecodeText" />
+  </wsdl:message>
+  <wsdl:message name="DecodeTextSoapOut">
+    <wsdl:part name="parameters" element="tns:DecodeTextResponse" />
+  </wsdl:message>
   <wsdl:portType name="RahyabVoiceSendSoap">
     <wsdl:operation name="Authentication">
       <wsdl:input message="tns:AuthenticationSoapIn" />
@@ -358,6 +473,10 @@
       <wsdl:input message="tns:StatusVoiceSMSSoapIn" />
       <wsdl:output message="tns:StatusVoiceSMSSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Details">
+      <wsdl:input message="tns:StatusVoiceSMS_DetailsSoapIn" />
+      <wsdl:output message="tns:StatusVoiceSMS_DetailsSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetRemainVoiceCredit">
       <wsdl:input message="tns:GetRemainVoiceCreditSoapIn" />
       <wsdl:output message="tns:GetRemainVoiceCreditSoapOut" />
@@ -377,6 +496,18 @@
     <wsdl:operation name="SendVoiceSMS_Mehr">
       <wsdl:input message="tns:SendVoiceSMS_MehrSoapIn" />
       <wsdl:output message="tns:SendVoiceSMS_MehrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RefundWarrantyCredit">
+      <wsdl:input message="tns:RefundWarrantyCreditSoapIn" />
+      <wsdl:output message="tns:RefundWarrantyCreditSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PaymentVoiceBill">
+      <wsdl:input message="tns:PaymentVoiceBillSoapIn" />
+      <wsdl:output message="tns:PaymentVoiceBillSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DecodeText">
+      <wsdl:input message="tns:DecodeTextSoapIn" />
+      <wsdl:output message="tns:DecodeTextSoapOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="RahyabVoiceSendSoap" type="tns:RahyabVoiceSendSoap">
@@ -444,6 +575,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Details">
+      <soap:operation soapAction="http://tempuri.org/StatusVoiceSMS_Details" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetRemainVoiceCredit">
       <soap:operation soapAction="http://tempuri.org/GetRemainVoiceCredit" style="document" />
       <wsdl:input>
@@ -482,6 +622,33 @@
     </wsdl:operation>
     <wsdl:operation name="SendVoiceSMS_Mehr">
       <soap:operation soapAction="http://tempuri.org/SendVoiceSMS_Mehr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefundWarrantyCredit">
+      <soap:operation soapAction="http://tempuri.org/RefundWarrantyCredit" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PaymentVoiceBill">
+      <soap:operation soapAction="http://tempuri.org/PaymentVoiceBill" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecodeText">
+      <soap:operation soapAction="http://tempuri.org/DecodeText" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -555,6 +722,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Details">
+      <soap12:operation soapAction="http://tempuri.org/StatusVoiceSMS_Details" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetRemainVoiceCredit">
       <soap12:operation soapAction="http://tempuri.org/GetRemainVoiceCredit" style="document" />
       <wsdl:input>
@@ -593,6 +769,33 @@
     </wsdl:operation>
     <wsdl:operation name="SendVoiceSMS_Mehr">
       <soap12:operation soapAction="http://tempuri.org/SendVoiceSMS_Mehr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RefundWarrantyCredit">
+      <soap12:operation soapAction="http://tempuri.org/RefundWarrantyCredit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PaymentVoiceBill">
+      <soap12:operation soapAction="http://tempuri.org/PaymentVoiceBill" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DecodeText">
+      <soap12:operation soapAction="http://tempuri.org/DecodeText" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
