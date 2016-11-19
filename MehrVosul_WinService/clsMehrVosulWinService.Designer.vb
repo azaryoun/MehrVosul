@@ -57,7 +57,7 @@ Partial Class clsMehrVosulWinService
         'tmrUpdateData
         '
         Me.tmrUpdateData.Enabled = True
-        Me.tmrUpdateData.Interval = 3600000.0R
+        Me.tmrUpdateData.Interval = 1800000.0R
         '
         'tmrSponsorList
         '

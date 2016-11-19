@@ -195,7 +195,7 @@
                                                    <asp:ListItem Value="3">دعوت نامه</asp:ListItem>
                                                    <asp:ListItem Value="4">اخطاریه</asp:ListItem>
                                                    <asp:ListItem Value="5">اظهارنامه</asp:ListItem>
-                                               
+                                                 <asp:ListItem Value="6">پیامک صوتی</asp:ListItem>
                                                 </asp:DropDownList>
 
                                         </div>

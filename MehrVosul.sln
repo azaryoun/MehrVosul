@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "BusinessObject", "BusinessObject\BusinessObject.vbproj", "{8D5A05D4-5DCF-4772-89A0-0302E85F5C9E}"
 EndProject
@@ -86,23 +86,5 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 5
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = http://tfs2013:8080/tfs/smart
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = BusinessObject\\BusinessObject.vbproj
-		SccProjectName1 = BusinessObject
-		SccLocalPath1 = BusinessObject
-		SccProjectUniqueName2 = MehrVosul\\MehrVosul.vbproj
-		SccProjectName2 = MehrVosul
-		SccLocalPath2 = MehrVosul
-		SccProjectUniqueName3 = MehrVosul_WinService\\MehrVosul_WinService.vbproj
-		SccProjectName3 = MehrVosul_WinService
-		SccLocalPath3 = MehrVosul_WinService
-		SccProjectUniqueName4 = UnitTestProject1\\UnitTestProject1.vbproj
-		SccProjectName4 = UnitTestProject1
-		SccLocalPath4 = UnitTestProject1
 	EndGlobalSection
 EndGlobal
