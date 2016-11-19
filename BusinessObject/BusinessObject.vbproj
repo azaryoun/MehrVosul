@@ -123,11 +123,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstSystemSetting.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Context\dbMehrVosul.Context.vb">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbMehrVosul.Context.tt</DependentUpon>
-    </Compile>
     <Compile Include="Context\dbMehrVosul.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -995,10 +990,15 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="Context\dbMehrVosul.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbMehrVosul.Context.tt</DependentUpon>
+    </Content>
     <Content Include="Context\dbMehrVosul.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbMehrVosul.edmx</DependentUpon>
-      <LastGenOutput>dbMehrVosul.Context.vb</LastGenOutput>
+      <LastGenOutput>dbMehrVosul.Context.cs</LastGenOutput>
     </Content>
     <Content Include="Context\dbMehrVosul.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
