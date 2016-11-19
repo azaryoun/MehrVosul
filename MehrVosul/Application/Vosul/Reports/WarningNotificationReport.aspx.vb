@@ -251,7 +251,8 @@ Public Class WarningNotificationReport
 
 
         Dim dtFromDate As Date = Bootstrap_PersianDateTimePicker_From.GergorainDateTime
-        Dim dteToDate As Date = Bootstrap_PersianDateTimePicker_To.GergorainDateTime
+        Dim dteToDate As Date = If(Bootstrap_PersianDateTimePicker_To.GergorainDateTime.Hour < 14, Bootstrap_PersianDateTimePicker_To.GergorainDateTime.AddHours(8), Bootstrap_PersianDateTimePicker_To.GergorainDateTime)
+        'Bootstrap_PersianDateTimePicker_To.GergorainDateTime
 
 
         Dim ctxMehr As New BusinessObject.dbMehrVosulEntities1
