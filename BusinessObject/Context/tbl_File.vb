@@ -43,5 +43,6 @@ Partial Public Class tbl_File
     Public Overridable Property tbl_Loan As ICollection(Of tbl_Loan) = New HashSet(Of tbl_Loan)
     Public Overridable Property tbl_WarningNotificationLog As ICollection(Of tbl_WarningNotificationLog) = New HashSet(Of tbl_WarningNotificationLog)
     Public Overridable Property tbl_Deposits As ICollection(Of tbl_Deposits) = New HashSet(Of tbl_Deposits)
+    Public Overridable Property tbl_HadiOperation_Loan As ICollection(Of tbl_HadiOperation_Loan) = New HashSet(Of tbl_HadiOperation_Loan)
 
 End Class

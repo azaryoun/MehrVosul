@@ -113,6 +113,8 @@
           <Property Name="VoiceSMSToken" Type="nvarchar" MaxLength="50" />
           <Property Name="VosoulService" Type="bit" />
           <Property Name="HadiService" Type="bit" />
+          <Property Name="HadiServiceLoan" Type="bit" />
+          <Property Name="VoiceService" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -209,20 +211,15 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Date_p" Type="date" />
-          <Property Name="LCProfit" Type="money" />
           <Property Name="LCAamountPaid" Type="money" />
           <Property Name="AmountDefferd" Type="money" />
           <Property Name="Status" Type="char" MaxLength="2" />
-          <Property Name="NotPaidDurationDay" Type="int" />
-          <Property Name="NoDelayInstallment" Type="int" />
-          <Property Name="LCBalance" Type="money" />
-          <Property Name="Amount_MustPay" Type="money" />
           <Property Name="FK_FileID" Type="int" />
-          <Property Name="FK_DepositTypeID" Type="int" />
-          <Property Name="NoPaidInstallment" Type="int" />
+          <Property Name="FK_LoanTypeID" Type="int" />
           <Property Name="Process" Type="bit" />
           <Property Name="FK_BranchID" Type="int" />
+          <Property Name="LCDate" Type="datetime" />
+          <Property Name="FK_LoanID" Type="int" />
         </EntityType>
         <EntityType Name="tbl_HadiWarningIntervals">
           <Key>
@@ -564,6 +561,8 @@
           <Property Name="FK_LogCurrentLCStatusID" Type="int" />
           <Property Name="FirstSent" Type="datetime" />
           <Property Name="LastSent" Type="datetime" />
+          <Property Name="BITotal" Type="int" />
+          <Property Name="SMSVoice" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Sponsor_List_Log">
           <Key>
@@ -959,20 +958,58 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan">
-          <End Role="tbl_HadiOperation_Loan" Type="Self.tbl_HadiOperation_Loan" Multiplicity="1" />
-          <End Role="tbl_HadiOperation_Loan1" Type="Self.tbl_HadiOperation_Loan" Multiplicity="0..1" />
+        <Association Name="FK_tbl_HadiOperation_Loan_tbl_Branch">
+          <End Role="tbl_Branch" Type="Self.tbl_Branch" Multiplicity="0..1" />
+          <End Role="tbl_HadiOperation_Loan" Type="Self.tbl_HadiOperation_Loan" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="tbl_HadiOperation_Loan">
+            <Principal Role="tbl_Branch">
               <PropertyRef Name="ID" />
             </Principal>
-            <Dependent Role="tbl_HadiOperation_Loan1">
+            <Dependent Role="tbl_HadiOperation_Loan">
+              <PropertyRef Name="FK_BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiOperation_Loan_tbl_File">
+          <End Role="tbl_File" Type="Self.tbl_File" Multiplicity="0..1" />
+          <End Role="tbl_HadiOperation_Loan" Type="Self.tbl_HadiOperation_Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_File">
               <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiOperation_Loan">
+              <PropertyRef Name="FK_FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan">
+          <End Role="tbl_Loan" Type="Self.tbl_Loan" Multiplicity="0..1" />
+          <End Role="tbl_HadiOperation_Loan" Type="Self.tbl_HadiOperation_Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Loan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiOperation_Loan">
+              <PropertyRef Name="FK_LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiOperation_Loan_tbl_LoanType">
+          <End Role="tbl_LoanType" Type="Self.tbl_LoanType" Multiplicity="0..1" />
+          <End Role="tbl_HadiOperation_Loan" Type="Self.tbl_HadiOperation_Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_LoanType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiOperation_Loan">
+              <PropertyRef Name="FK_LoanTypeID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervalsBranch">
-          <End Role="tbl_Branch" Type="Self.tbl_Branch" Multiplicity="0..1" />
+          <End Role="tbl_Branch" Type="Self.tbl_Branch" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tbl_HadiWarningIntervalsBranch" Type="Self.tbl_HadiWarningIntervalsBranch" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_Branch">
@@ -1046,7 +1083,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals">
-          <End Role="tbl_HadiWarningIntervals" Type="Self.tbl_HadiWarningIntervals" Multiplicity="0..1" />
+          <End Role="tbl_HadiWarningIntervals" Type="Self.tbl_HadiWarningIntervals" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="tbl_HadiWarningIntervalsLoan" Type="Self.tbl_HadiWarningIntervalsLoan" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="tbl_HadiWarningIntervals">
@@ -1520,9 +1559,21 @@
             <End Role="tbl_DepositType" EntitySet="tbl_DepositType" />
             <End Role="tbl_HadiOperation_Deposit" EntitySet="tbl_HadiOperation_Deposit" />
           </AssociationSet>
-          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan" Association="Self.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan">
+          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_Branch" Association="Self.FK_tbl_HadiOperation_Loan_tbl_Branch">
+            <End Role="tbl_Branch" EntitySet="tbl_Branch" />
             <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
-            <End Role="tbl_HadiOperation_Loan1" EntitySet="tbl_HadiOperation_Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_File" Association="Self.FK_tbl_HadiOperation_Loan_tbl_File">
+            <End Role="tbl_File" EntitySet="tbl_File" />
+            <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan" Association="Self.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan">
+            <End Role="tbl_Loan" EntitySet="tbl_Loan" />
+            <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_LoanType" Association="Self.FK_tbl_HadiOperation_Loan_tbl_LoanType">
+            <End Role="tbl_LoanType" EntitySet="tbl_LoanType" />
+            <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervalsBranch" Association="Self.FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervalsBranch">
             <End Role="tbl_Branch" EntitySet="tbl_Branch" />
@@ -1788,6 +1839,8 @@
           <Property Name="VoiceSMSToken" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="VosoulService" Type="Boolean" />
           <Property Name="HadiService" Type="Boolean" />
+          <Property Name="HadiServiceLoan" Type="Boolean" />
+          <Property Name="VoiceService" Type="Boolean" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -1865,22 +1918,21 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date_p" Type="DateTime" Precision="0" />
-          <Property Name="LCProfit" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="LCAamountPaid" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="AmountDefferd" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="Status" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
-          <Property Name="NotPaidDurationDay" Type="Int32" />
-          <Property Name="NoDelayInstallment" Type="Int32" />
-          <Property Name="LCBalance" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Amount_MustPay" Type="Decimal" Precision="19" Scale="4" />
           <Property Name="FK_FileID" Type="Int32" />
-          <Property Name="FK_DepositTypeID" Type="Int32" />
-          <Property Name="NoPaidInstallment" Type="Int32" />
           <Property Name="Process" Type="Boolean" />
           <Property Name="FK_BranchID" Type="Int32" />
           <NavigationProperty Name="tbl_HadiOperation_Loan1" Relationship="Self.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan" FromRole="tbl_HadiOperation_Loan" ToRole="tbl_HadiOperation_Loan1" />
           <NavigationProperty Name="tbl_HadiOperation_Loan2" Relationship="Self.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan" FromRole="tbl_HadiOperation_Loan1" ToRole="tbl_HadiOperation_Loan" />
+          <Property Name="FK_LoanTypeID" Type="Int32" />
+          <Property Name="LCDate" Type="DateTime" Precision="3" />
+          <Property Name="FK_LoanID" Type="Int32" />
+          <NavigationProperty Name="tbl_Branch" Relationship="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_Branch" FromRole="tbl_HadiOperation_Loan" ToRole="tbl_Branch" />
+          <NavigationProperty Name="tbl_File" Relationship="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_File" FromRole="tbl_HadiOperation_Loan" ToRole="tbl_File" />
+          <NavigationProperty Name="tbl_Loan" Relationship="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan1" FromRole="tbl_HadiOperation_Loan" ToRole="tbl_Loan" />
+          <NavigationProperty Name="tbl_LoanType" Relationship="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_LoanType" FromRole="tbl_HadiOperation_Loan" ToRole="tbl_LoanType" />
         </EntityType>
         <EntityType Name="tbl_HadiWarningIntervals">
           <Key>
@@ -2028,6 +2080,7 @@
           <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_Loan_tbl_Branch" FromRole="tbl_Branch" ToRole="tbl_Loan" />
           <NavigationProperty Name="tbl_WarningIntervalsBranch" Relationship="Self.FK_tbl_WarningIntervalsBranch_tbl_Branch" FromRole="tbl_Branch" ToRole="tbl_WarningIntervalsBranch" />
           <NavigationProperty Name="tbl_Deposits" Relationship="dbMehrVosulModel.FK_tbl_Deposits_tbl_Branch" FromRole="tbl_Branch" ToRole="tbl_Deposits" />
+          <NavigationProperty Name="tbl_HadiOperation_Loan" Relationship="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_Branch" FromRole="tbl_Branch" ToRole="tbl_HadiOperation_Loan" />
         </EntityType>
         <EntityType Name="tbl_Commitment_Active">
           <Key>
@@ -2122,6 +2175,7 @@
           <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_Loan_tbl_File" FromRole="tbl_File" ToRole="tbl_Loan" />
           <NavigationProperty Name="tbl_WarningNotificationLog" Relationship="Self.FK_tbl_WarningNotificationLog_tbl_File" FromRole="tbl_File" ToRole="tbl_WarningNotificationLog" />
           <NavigationProperty Name="tbl_Deposits" Relationship="dbMehrVosulModel.FK_tbl_Deposits_tbl_File" FromRole="tbl_File" ToRole="tbl_Deposits" />
+          <NavigationProperty Name="tbl_HadiOperation_Loan" Relationship="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_File" FromRole="tbl_File" ToRole="tbl_HadiOperation_Loan" />
         </EntityType>
         <EntityType Name="tbl_HandyFollow">
           <Key>
@@ -2163,6 +2217,7 @@
           <NavigationProperty Name="tbl_LoanType" Relationship="Self.FK_tbl_Loan_tbl_LoanType" FromRole="tbl_Loan" ToRole="tbl_LoanType" />
           <NavigationProperty Name="tbl_LoanSponsor" Relationship="Self.FK_tbl_LoanSponsor_tbl_Loan" FromRole="tbl_Loan" ToRole="tbl_LoanSponsor" />
           <NavigationProperty Name="tbl_WarningNotificationLog" Relationship="Self.FK_tbl_WarningNotificationLog_tbl_Loan" FromRole="tbl_Loan" ToRole="tbl_WarningNotificationLog" />
+          <NavigationProperty Name="tbl_HadiOperation_Loan" Relationship="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan1" FromRole="tbl_Loan" ToRole="tbl_HadiOperation_Loan" />
         </EntityType>
         <EntityType Name="tbl_LoanSponsor">
           <Key>
@@ -2199,6 +2254,7 @@
           <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_Loan_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_Loan" />
           <NavigationProperty Name="tbl_WarningIntervalsLoanType" Relationship="Self.FK_tbl_WarningIntervalLoanType_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_WarningIntervalsLoanType" />
           <NavigationProperty Name="tbl_HadiWarningIntervalsLoan" Relationship="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_HadiWarningIntervalsLoan" />
+          <NavigationProperty Name="tbl_HadiOperation_Loan" Relationship="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_HadiOperation_Loan" />
         </EntityType>
         <EntityType Name="tbl_LogCurrentLCStatus_H">
           <Key>
@@ -2241,6 +2297,8 @@
           <Property Name="FK_LogCurrentLCStatusID" Type="Int32" />
           <Property Name="FirstSent" Type="DateTime" Precision="3" />
           <Property Name="LastSent" Type="DateTime" Precision="3" />
+          <Property Name="BITotal" Type="Int32" />
+          <Property Name="SMSVoice" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Sponsor_List_Log">
           <Key>
@@ -3245,6 +3303,22 @@
             <End Role="tbl_WarningIntervals" EntitySet="tbl_WarningIntervals" />
             <End Role="tbl_WarningIntervalsBranch" EntitySet="tbl_WarningIntervalsBranch" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_Branch" Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_Branch">
+            <End Role="tbl_Branch" EntitySet="tbl_Branch" />
+            <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_File" Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_File">
+            <End Role="tbl_File" EntitySet="tbl_File" />
+            <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan1" Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan1">
+            <End Role="tbl_Loan" EntitySet="tbl_Loan" />
+            <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HadiOperation_Loan_tbl_LoanType" Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_LoanType">
+            <End Role="tbl_LoanType" EntitySet="tbl_LoanType" />
+            <End Role="tbl_HadiOperation_Loan" EntitySet="tbl_HadiOperation_Loan" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="tbl_Deposits">
           <Key>
@@ -3467,6 +3541,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_HadiOperation_Loan_tbl_Branch">
+          <End Type="dbMehrVosulModel.tbl_Branch" Role="tbl_Branch" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_HadiOperation_Loan" Role="tbl_HadiOperation_Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Branch">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiOperation_Loan">
+              <PropertyRef Name="FK_BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiOperation_Loan_tbl_File">
+          <End Type="dbMehrVosulModel.tbl_File" Role="tbl_File" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_HadiOperation_Loan" Role="tbl_HadiOperation_Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_File">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiOperation_Loan">
+              <PropertyRef Name="FK_FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan1">
+          <End Type="dbMehrVosulModel.tbl_Loan" Role="tbl_Loan" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_HadiOperation_Loan" Role="tbl_HadiOperation_Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Loan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiOperation_Loan">
+              <PropertyRef Name="FK_LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HadiOperation_Loan_tbl_LoanType">
+          <End Type="dbMehrVosulModel.tbl_LoanType" Role="tbl_LoanType" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_HadiOperation_Loan" Role="tbl_HadiOperation_Loan" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_LoanType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HadiOperation_Loan">
+              <PropertyRef Name="FK_LoanTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3560,6 +3682,8 @@
           <EntitySetMapping Name="tbl_SystemSetting">
             <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_SystemSetting">
               <MappingFragment StoreEntitySet="tbl_SystemSetting">
+                <ScalarProperty Name="VoiceService" ColumnName="VoiceService" />
+                <ScalarProperty Name="HadiServiceLoan" ColumnName="HadiServiceLoan" />
                 <ScalarProperty Name="HadiService" ColumnName="HadiService" />
                 <ScalarProperty Name="VosoulService" ColumnName="VosoulService" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
@@ -3665,19 +3789,14 @@
           <EntitySetMapping Name="tbl_HadiOperation_Loan">
             <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_HadiOperation_Loan">
               <MappingFragment StoreEntitySet="tbl_HadiOperation_Loan">
+                <ScalarProperty Name="FK_LoanID" ColumnName="FK_LoanID" />
+                <ScalarProperty Name="LCDate" ColumnName="LCDate" />
+                <ScalarProperty Name="FK_LoanTypeID" ColumnName="FK_LoanTypeID" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Date_p" ColumnName="Date_p" />
-                <ScalarProperty Name="LCProfit" ColumnName="LCProfit" />
                 <ScalarProperty Name="LCAamountPaid" ColumnName="LCAamountPaid" />
                 <ScalarProperty Name="AmountDefferd" ColumnName="AmountDefferd" />
                 <ScalarProperty Name="Status" ColumnName="Status" />
-                <ScalarProperty Name="NotPaidDurationDay" ColumnName="NotPaidDurationDay" />
-                <ScalarProperty Name="NoDelayInstallment" ColumnName="NoDelayInstallment" />
-                <ScalarProperty Name="LCBalance" ColumnName="LCBalance" />
-                <ScalarProperty Name="Amount_MustPay" ColumnName="Amount_MustPay" />
                 <ScalarProperty Name="FK_FileID" ColumnName="FK_FileID" />
-                <ScalarProperty Name="FK_DepositTypeID" ColumnName="FK_DepositTypeID" />
-                <ScalarProperty Name="NoPaidInstallment" ColumnName="NoPaidInstallment" />
                 <ScalarProperty Name="Process" ColumnName="Process" />
                 <ScalarProperty Name="FK_BranchID" ColumnName="FK_BranchID" />
               </MappingFragment>
@@ -4004,6 +4123,8 @@
           <EntitySetMapping Name="tbl_SMSCountLog">
             <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_SMSCountLog">
               <MappingFragment StoreEntitySet="tbl_SMSCountLog">
+                <ScalarProperty Name="SMSVoice" ColumnName="SMSVoice" />
+                <ScalarProperty Name="BITotal" ColumnName="BITotal" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SendDate" ColumnName="SendDate" />
                 <ScalarProperty Name="SMSCount" ColumnName="SMSCount" />

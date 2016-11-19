@@ -21,5 +21,6 @@ Partial Public Class tbl_LoanType
     Public Overridable Property tbl_Loan As ICollection(Of tbl_Loan) = New HashSet(Of tbl_Loan)
     Public Overridable Property tbl_WarningIntervalsLoanType As ICollection(Of tbl_WarningIntervalsLoanType) = New HashSet(Of tbl_WarningIntervalsLoanType)
     Public Overridable Property tbl_HadiWarningIntervalsLoan As ICollection(Of tbl_HadiWarningIntervalsLoan) = New HashSet(Of tbl_HadiWarningIntervalsLoan)
+    Public Overridable Property tbl_HadiOperation_Loan As ICollection(Of tbl_HadiOperation_Loan) = New HashSet(Of tbl_HadiOperation_Loan)
 
 End Class

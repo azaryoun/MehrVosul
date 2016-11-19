@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="063c593aa0eb47f7ae8c019e1f507a97" Name="Diagram1" ZoomLevel="78">
+      <Diagram DiagramId="063c593aa0eb47f7ae8c019e1f507a97" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Accessgroup" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_AccessgroupMenu" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_AccessgroupUser" Width="1.5" PointX="9.75" PointY="13.25" IsExpanded="true" />
@@ -18,7 +18,7 @@
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiLogCurrentLCStatus_H" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiLogLoanStatus" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiOperation_Deposit" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiOperation_Loan" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiOperation_Loan" Width="3.375" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervals" Width="1.5" PointX="7.5" PointY="28.625" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsBranch" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsDeposit" Width="2.75" PointX="9.75" PointY="30" IsExpanded="true" />
@@ -41,7 +41,7 @@
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LogCurrentLCStatus_H" Width="1.5" PointX="14.75" PointY="5.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_NotificationTarif" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Province" Width="1.5" PointX="0.75" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SMSCountLog" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SMSCountLog" Width="2.125" PointX="16.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Sponsor_List_Log" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Sponsors_List" Width="1.5" PointX="16.75" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SystemLoginLog" Width="1.5" PointX="7.5" PointY="20.125" IsExpanded="true" />
@@ -117,6 +117,10 @@
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_Branch" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_File" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan1" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_LoanType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
