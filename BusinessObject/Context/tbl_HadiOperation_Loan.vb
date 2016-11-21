@@ -12,22 +12,19 @@ Imports System.Collections.Generic
 
 Partial Public Class tbl_HadiOperation_Loan
     Public Property ID As Integer
-    Public Property Date_p As Nullable(Of Date)
-    Public Property LCProfit As Nullable(Of Decimal)
     Public Property LCAamountPaid As Nullable(Of Decimal)
     Public Property AmountDefferd As Nullable(Of Decimal)
     Public Property Status As String
-    Public Property NotPaidDurationDay As Nullable(Of Integer)
-    Public Property NoDelayInstallment As Nullable(Of Integer)
-    Public Property LCBalance As Nullable(Of Decimal)
-    Public Property Amount_MustPay As Nullable(Of Decimal)
     Public Property FK_FileID As Nullable(Of Integer)
-    Public Property FK_DepositTypeID As Nullable(Of Integer)
-    Public Property NoPaidInstallment As Nullable(Of Integer)
+    Public Property FK_LoanTypeID As Nullable(Of Integer)
     Public Property Process As Nullable(Of Boolean)
     Public Property FK_BranchID As Nullable(Of Integer)
+    Public Property LCDate As Nullable(Of Date)
+    Public Property FK_LoanID As Nullable(Of Integer)
 
-    Public Overridable Property tbl_HadiOperation_Loan1 As tbl_HadiOperation_Loan
-    Public Overridable Property tbl_HadiOperation_Loan2 As tbl_HadiOperation_Loan
+    Public Overridable Property tbl_Branch As tbl_Branch
+    Public Overridable Property tbl_File As tbl_File
+    Public Overridable Property tbl_Loan As tbl_Loan
+    Public Overridable Property tbl_LoanType As tbl_LoanType
 
 End Class

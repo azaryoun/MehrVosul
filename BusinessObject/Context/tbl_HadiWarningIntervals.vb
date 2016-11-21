@@ -28,11 +28,9 @@ Partial Public Class tbl_HadiWarningIntervals
     Public Property ETime As Nullable(Of Date)
     Public Property IsActive As Nullable(Of Boolean)
 
-    Public Overridable Property tbl_HadiDraftText As ICollection(Of tbl_HadiDraftText) = New HashSet(Of tbl_HadiDraftText)
-    Public Overridable Property tbl_HadiWarningIntervalsBranch As ICollection(Of tbl_HadiWarningIntervalsBranch) = New HashSet(Of tbl_HadiWarningIntervalsBranch)
     Public Overridable Property tbl_HadiWarningIntervalsDeposit As ICollection(Of tbl_HadiWarningIntervalsDeposit) = New HashSet(Of tbl_HadiWarningIntervalsDeposit)
-    Public Overridable Property tbl_HadiWarningNotificationLog As ICollection(Of tbl_HadiWarningNotificationLog) = New HashSet(Of tbl_HadiWarningNotificationLog)
     Public Overridable Property tbl_HadiWarningIntervalsException As ICollection(Of tbl_HadiWarningIntervalsException) = New HashSet(Of tbl_HadiWarningIntervalsException)
     Public Overridable Property tbl_HadiWarningIntervalsLoan As ICollection(Of tbl_HadiWarningIntervalsLoan) = New HashSet(Of tbl_HadiWarningIntervalsLoan)
+    Public Overridable Property tbl_HadiWarningNotificationLog As ICollection(Of tbl_HadiWarningNotificationLog) = New HashSet(Of tbl_HadiWarningNotificationLog)
 
 End Class

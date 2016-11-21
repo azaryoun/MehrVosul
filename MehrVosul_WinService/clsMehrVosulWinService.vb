@@ -3638,8 +3638,9 @@ LetterL:
 
         Next drwSponsorList
 
+        Dim lnq = obj_stc_Sponsor_Waranty.GroupBy(Function(x) New With {.Key1 = x.SponsorID})
 
-        Return obj_stc_Sponsor_Waranty
+        Return lnq
 
 
     End Function
@@ -3923,7 +3924,7 @@ LetterL:
                                 End Try
 
 
-                                qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, drwSMSCount.Expr1, drwLCLog.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount)
+                                qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, drwSMSCount.Expr1, drwLCLog.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount, 1)
 
 
                             Catch ex As Exception
@@ -4127,6 +4128,7 @@ LetterL:
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
+            Threading.Thread.Sleep(125)
             oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
             Return True
         Catch ex As Exception

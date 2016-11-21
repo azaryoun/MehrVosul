@@ -22,10 +22,11 @@ Partial Public Class tbl_Branch
     Public Property Fk_ProvinceID As Nullable(Of Integer)
 
     Public Overridable Property tbl_User As ICollection(Of tbl_User) = New HashSet(Of tbl_User)
+    Public Overridable Property tbl_Deposits As ICollection(Of tbl_Deposits) = New HashSet(Of tbl_Deposits)
+    Public Overridable Property tbl_HadiOperation_Loan As ICollection(Of tbl_HadiOperation_Loan) = New HashSet(Of tbl_HadiOperation_Loan)
     Public Overridable Property tbl_HadiWarningIntervalsBranch As ICollection(Of tbl_HadiWarningIntervalsBranch) = New HashSet(Of tbl_HadiWarningIntervalsBranch)
     Public Overridable Property tbl_Province As tbl_Province
     Public Overridable Property tbl_Loan As ICollection(Of tbl_Loan) = New HashSet(Of tbl_Loan)
     Public Overridable Property tbl_WarningIntervalsBranch As ICollection(Of tbl_WarningIntervalsBranch) = New HashSet(Of tbl_WarningIntervalsBranch)
-    Public Overridable Property tbl_Deposits As ICollection(Of tbl_Deposits) = New HashSet(Of tbl_Deposits)
 
 End Class

@@ -18,5 +18,7 @@ Partial Public Class tbl_SMSCountLog
     Public Property FK_LogCurrentLCStatusID As Nullable(Of Integer)
     Public Property FirstSent As Nullable(Of Date)
     Public Property LastSent As Nullable(Of Date)
+    Public Property BITotal As Nullable(Of Integer)
+    Public Property SMSVoice As Nullable(Of Integer)
 
 End Class

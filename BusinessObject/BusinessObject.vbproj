@@ -123,6 +123,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstSystemSetting.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Context\dbMehrVosul.Context.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbMehrVosul.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\dbMehrVosul.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -131,6 +136,330 @@
     <Compile Include="Context\dbMehrVosul.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\fnc_Menu_Childs_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\fnc_Menu_Parents_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_AccessgroupUser_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Accessgroup_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Accessgroup_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Accessgroup_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Branch_ByCode_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Branch_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Branch_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Branch_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_CommitmentActive_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_CommitmentManagement_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_CurrentLCStatus_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_CurrentLCStatus_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Deposits_ByDepositNumber_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Deposits_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_DepositType_byCode_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_DepositType_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_DepositType_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_DepositType_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_DraftText_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_DraftText_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_FileChanges_Report_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_FileRequests_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_File_CustomerNo_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_File_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_File_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_File_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiDraftText_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiDraftText_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiLogCurrentLCStatus_H_ForDate_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiLogLoanStatus_ForDate_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiOperationDeposit_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiOperationDeposit_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervalsBranch_SelectByIntervalID_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervalsDeposit_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervals_CheckOverlap_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervals_Check_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervals_Inerval_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervals_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervals_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervals_MinMaxFromTo_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningIntervals_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningNotificationLogDetail_NotSend_SMS_List_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningNotificationLogDetail_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HadiWarningNotificationLog_Check_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HandyFollow_CheckFileLoan_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_HandyFollow_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_IncompleteFileInfo_Report_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LoanSponsor_CheckFile_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LoanSponsor_Check_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LoanSponsor_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LoanType_byCode_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LoanType_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LoanType_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LoanType_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Loan_ByLoanNumber_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Loan_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LogCurrentLCStatus_H_ForDate_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_LogCurrentLCStatus_Report_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Menu_CheckUserAccess_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Menu_ChildSelect_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Menu_Leaf_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Menu_PageTitle_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Menu_Parent_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_NotificationCharge_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_NotificationTarif_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_NotificationTarif_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_NotPiadDurationDay_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_ProvinceList_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Province_Check_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Record_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Report_CurrentLCStatus_MaxLoanType_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Report_CurrentLCStatus_NewArrivalWarningInterval_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Report_HandyFollow_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Report_WarningNotificationLogDetail_Summary_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_SMSCountLog_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Sponsors_List_ByLoanNumber_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_Sponsor_List_Log_Last_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_SystemLoginLog_Report_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_SystemSetting_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_tbl_WarningNotificationLogDetail_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_User_CheckBranch_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_User_Login_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_User_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_User_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_VoiceRecords_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervalsBranch_SelectByIntervalID_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervalsLoanType_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervals_CheckOverlap_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervals_Check_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervals_Inerval_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervals_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervals_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervals_MinMaxFromTo_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningIntervals_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningNotificationLogDetailFirstLastLogByDate_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningNotificationLogDetailFirstLastLog_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningNotificationLogDetail_NotSend_SMS_List_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningNotificationLogDetail_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningNotificationLogSummary_Report_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningNotificationLog_Check_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_WarningNotificationLog_Report_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr__WarningNotificationLogDetail_ShowDetail_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\sp_helpdiagramdefinition_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\sp_helpdiagrams_Result.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\sysdiagram.vb">
@@ -988,17 +1317,11 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Context\dbMehrVosul.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>dbMehrVosul.Context.tt</DependentUpon>
-    </Content>
     <Content Include="Context\dbMehrVosul.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>dbMehrVosul.edmx</DependentUpon>
-      <LastGenOutput>dbMehrVosul.Context.cs</LastGenOutput>
+      <LastGenOutput>dbMehrVosul.Context.vb</LastGenOutput>
     </Content>
     <Content Include="Context\dbMehrVosul.tt">
       <Generator>TextTemplatingFileGenerator</Generator>

@@ -35,6 +35,8 @@ Partial Public Class tbl_File
     Public Overridable Property tbl_User As tbl_User
     Public Overridable Property tbl_User1 As tbl_User
     Public Overridable Property tbl_User2 As tbl_User
+    Public Overridable Property tbl_Deposits As ICollection(Of tbl_Deposits) = New HashSet(Of tbl_Deposits)
+    Public Overridable Property tbl_HadiOperation_Loan As ICollection(Of tbl_HadiOperation_Loan) = New HashSet(Of tbl_HadiOperation_Loan)
     Public Overridable Property tbl_HadiWarningNotificationLog As ICollection(Of tbl_HadiWarningNotificationLog) = New HashSet(Of tbl_HadiWarningNotificationLog)
     Public Overridable Property tbl_File1 As ICollection(Of tbl_File) = New HashSet(Of tbl_File)
     Public Overridable Property tbl_File2 As tbl_File
@@ -42,6 +44,5 @@ Partial Public Class tbl_File
     Public Overridable Property tbl_HandyFollow As ICollection(Of tbl_HandyFollow) = New HashSet(Of tbl_HandyFollow)
     Public Overridable Property tbl_Loan As ICollection(Of tbl_Loan) = New HashSet(Of tbl_Loan)
     Public Overridable Property tbl_WarningNotificationLog As ICollection(Of tbl_WarningNotificationLog) = New HashSet(Of tbl_WarningNotificationLog)
-    Public Overridable Property tbl_Deposits As ICollection(Of tbl_Deposits) = New HashSet(Of tbl_Deposits)
 
 End Class

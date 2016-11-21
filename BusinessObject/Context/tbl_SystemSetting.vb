@@ -37,5 +37,7 @@ Partial Public Class tbl_SystemSetting
     Public Property VoiceSMSToken As String
     Public Property VosoulService As Nullable(Of Boolean)
     Public Property HadiService As Nullable(Of Boolean)
+    Public Property HadiServiceLoan As Nullable(Of Boolean)
+    Public Property VoiceService As Nullable(Of Boolean)
 
 End Class
