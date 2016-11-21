@@ -16,14 +16,12 @@ Partial Public Class tbl_HadiOperation_Loan
     Public Property AmountDefferd As Nullable(Of Decimal)
     Public Property Status As String
     Public Property FK_FileID As Nullable(Of Integer)
+    Public Property FK_LoanTypeID As Nullable(Of Integer)
     Public Property Process As Nullable(Of Boolean)
     Public Property FK_BranchID As Nullable(Of Integer)
-    Public Property FK_LoanTypeID As Nullable(Of Integer)
     Public Property LCDate As Nullable(Of Date)
     Public Property FK_LoanID As Nullable(Of Integer)
 
-    Public Overridable Property tbl_HadiOperation_Loan1 As tbl_HadiOperation_Loan
-    Public Overridable Property tbl_HadiOperation_Loan2 As tbl_HadiOperation_Loan
     Public Overridable Property tbl_Branch As tbl_Branch
     Public Overridable Property tbl_File As tbl_File
     Public Overridable Property tbl_Loan As tbl_Loan

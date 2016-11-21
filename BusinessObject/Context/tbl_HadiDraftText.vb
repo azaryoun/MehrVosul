@@ -19,6 +19,5 @@ Partial Public Class tbl_HadiDraftText
     Public Property FK_VoiceRecordID As Nullable(Of Integer)
 
     Public Overridable Property tbl_VoiceRecords As tbl_VoiceRecords
-    Public Overridable Property tbl_HadiWarningIntervals As tbl_HadiWarningIntervals
 
 End Class

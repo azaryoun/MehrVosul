@@ -15,7 +15,7 @@ Partial Public Class tbl_HadiWarningIntervalsDeposit
     Public Property FK_HadiWarningIntervalID As Nullable(Of Integer)
     Public Property FK_DepositTypeID As Nullable(Of Integer)
 
-    Public Overridable Property tbl_HadiWarningIntervals As tbl_HadiWarningIntervals
     Public Overridable Property tbl_DepositType As tbl_DepositType
+    Public Overridable Property tbl_HadiWarningIntervals As tbl_HadiWarningIntervals
 
 End Class

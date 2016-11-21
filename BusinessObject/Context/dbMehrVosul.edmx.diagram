@@ -4,56 +4,63 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="063c593aa0eb47f7ae8c019e1f507a97" Name="Diagram1" ZoomLevel="93">
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Accessgroup" Width="1.5" PointX="7.5" PointY="9.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_AccessgroupMenu" Width="1.5" PointX="9.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_AccessgroupUser" Width="1.5" PointX="9.75" PointY="13.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Menu" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SelfReport" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_User" Width="1.5" PointX="5.25" PointY="12.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SystemSetting" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+      <Diagram DiagramId="86e4d26f15664611a7e091970db51f4d" Name="Diagram1">
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Accessgroup" Width="1.5" PointX="7.5" PointY="14.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_AccessgroupMenu" Width="1.5" PointX="9.75" PointY="14.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_AccessgroupUser" Width="1.5" PointX="9.75" PointY="18.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Menu" Width="1.5" PointX="7.5" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SelfReport" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_User" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SystemSetting" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.sysdiagram" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_ErrorLog" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiDraftText" Width="1.5" PointX="15" PointY="30.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Deposits" Width="1.5" PointX="9.75" PointY="21.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_DepositType" Width="1.5" PointX="7.5" PointY="30.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiDraftText" Width="1.5" PointX="18" PointY="1.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiLogCurrentLCStatus_H" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiLogLoanStatus" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiOperation_Deposit" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiOperation_Loan" Width="3.375" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervals" Width="1.5" PointX="7.5" PointY="28.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsBranch" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsDeposit" Width="2.75" PointX="9.75" PointY="30" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningNotificationLog" Width="1.5" PointX="9.75" PointY="16.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningNotificationLogDetail" Width="1.5" PointX="12" PointY="9.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Date" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarnatyType" Width="1.5" PointX="15" PointY="14" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_AlcatelLog" Width="1.5" PointX="0.75" PointY="10.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Branch" Width="1.5" PointX="3" PointY="15.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Commitment_Active" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Commitment_Archive" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_CurrentLCStatus" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_DraftText" Width="1.5" PointX="15" PointY="26.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_File" Width="1.5" PointX="7.5" PointY="12.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HandyFollow" Width="1.5" PointX="12.75" PointY="14.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Loan" Width="1.5" PointX="12.75" PointY="19" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LoanSponsor" Width="1.5" PointX="15" PointY="16.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LoanSponsor_WarantyType" Width="1.5" PointX="17.25" PointY="16.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LoanType" Width="1.5" PointX="10.5" PointY="20.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LogCurrentLCStatus_H" Width="1.5" PointX="14.75" PointY="5.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_NotificationTarif" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Province" Width="1.5" PointX="0.75" PointY="16.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SMSCountLog" Width="2.125" PointX="16.75" PointY="1.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Sponsor_List_Log" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Sponsors_List" Width="1.5" PointX="16.75" PointY="7.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SystemLoginLog" Width="1.5" PointX="7.5" PointY="20.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_VoiceRecords" Width="1.5" PointX="12.75" PointY="32.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervals" Width="1.5" PointX="12.75" PointY="24.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsBranch" Width="1.5" PointX="5.25" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsException" Width="1.5" PointX="5.25" PointY="28.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsExceptionBranch" Width="1.5" PointX="7.5" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsExceptionLoanType" Width="1.5" PointX="20.25" PointY="26.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsLoanType" Width="1.5" PointX="18" PointY="24.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningNotificationLog" Width="1.5" PointX="15" PointY="20.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningNotificationLogDetail" Width="1.5" PointX="17.25" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiLogLoanStatus" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiOperation_Deposit" Width="1.5" PointX="15" PointY="24.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiOperation_Loan" Width="1.5" PointX="12.75" PointY="19.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervals" Width="1.5" PointX="10.5" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsBranch" Width="1.5" PointX="5.25" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsDeposit" Width="1.5" PointX="17.75" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsException" Width="1.5" PointX="5.25" PointY="24.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsExceptionBranch" Width="1.5" PointX="7.5" PointY="27.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsExceptionDeposit" Width="1.5" PointX="4.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsLoan" Width="1.5" PointX="18.75" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningNotificationLog" Width="1.5" PointX="12.75" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningNotificationLogDetail" Width="1.5" PointX="15" PointY="14.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Date" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarnatyType" Width="1.5" PointX="18" PointY="23.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_AlcatelLog" Width="1.5" PointX="0.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Branch" Width="1.5" PointX="3" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Commitment_Active" Width="1.5" PointX="2.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Commitment_Archive" Width="1.5" PointX="4.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_CurrentLCStatus" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_DraftText" Width="1.5" PointX="18" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_File" Width="1.5" PointX="7.5" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HandyFollow" Width="1.5" PointX="12.75" PointY="24" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Loan" Width="1.5" PointX="15.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LoanSponsor" Width="1.5" PointX="18" PointY="19.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LoanSponsor_WarantyType" Width="1.5" PointX="20.25" PointY="20" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LoanType" Width="1.5" PointX="13.5" PointY="10.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LogCurrentLCStatus_H" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_NotificationTarif" Width="1.5" PointX="6.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Province" Width="1.5" PointX="0.75" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SMSCountLog" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Sponsor_List_Log" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Sponsors_List" Width="1.5" PointX="20.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_SystemLoginLog" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_VoiceRecords" Width="1.5" PointX="15.75" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_VoiceSMS_Report_Log" Width="1.5" PointX="12.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervals" Width="1.5" PointX="15.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsBranch" Width="1.5" PointX="10.25" PointY="25.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsException" Width="1.5" PointX="10.25" PointY="29.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsExceptionBranch" Width="1.5" PointX="12.5" PointY="29" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsExceptionLoanType" Width="1.5" PointX="23.25" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningIntervalsLoanType" Width="1.5" PointX="21" PointY="9" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningNotificationLog" Width="1.5" PointX="18" PointY="15.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_WarningNotificationLogDetail" Width="1.5" PointX="20.25" PointY="15.125" IsExpanded="true" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Accessgroup_tbl_User" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_AccessGroup_User_tbl_AccessGroup" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_AccessgroupARibbon_tbl_AccessGroup" ManuallyRouted="false" />
@@ -64,13 +71,25 @@
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_File_tbl_User2" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_SystemLoginLog_tbl_User" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_User_tbl_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_DepositType" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_File" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Deposit_tbl_Deposits" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Deposit_tbl_DepositType" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsDeposit_tbl_Deposit" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiDraftText_tbl_VoiceRecords" ManuallyRouted="false" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervals_tbl_HadiWarningIntervals" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_Branch" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_File" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan" ManuallyRouted="false" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervals" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_LoanType" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsDeposit_tbl_HadiWarningIntervals" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsException_tbl_HadiWarningIntervals" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningNotificationLog_tbl_HadiWarningIntervals" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervalsBranch" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsExceptionBranch_tbl_HadiWarningIntervalsBranch" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsExceptionBranch_tbl_HadiWarningIntervalsException" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningNotificationLog_tbl_File" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningNotificationLogDetail_tbl_HadiWarningNotificationLog" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_LoanSponsor_WarantyType_tbl_WarnatyType" ManuallyRouted="false" />
@@ -91,6 +110,7 @@
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_LoanSponsor_WarantyType_tbl_LoanSponsor" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalLoanType_tbl_LoanType" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalLoanType_tbl_WarningIntervals" ManuallyRouted="false" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsException_tbl_WarningIntervals" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningNotificationLog_tbl_WarningIntervals" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsExceptionBranch_tbl_WarningIntervalsBranch" ManuallyRouted="false" />
@@ -98,29 +118,6 @@
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsExceptionLoanType_tbl_WarningIntervalsException" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsExceptionLoanType_tbl_LoanType" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningNotificationLogDetail_tbl_WarningNotificationLog" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_Deposits" Width="1.5" PointX="6.5" PointY="38.375" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_DepositType" Width="1.5" PointX="2.25" PointY="22" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsException" Width="3.375" PointX="9.75" PointY="27.125" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsExceptionBranch" Width="1.5" PointX="18" PointY="27.75" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsExceptionDeposit" Width="2.375" PointX="17.375" PointY="12.75" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_Branch" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_DepositType" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_Deposits_tbl_File" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Deposit_tbl_Deposits" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Deposit_tbl_DepositType" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsDeposit_tbl_Deposit1" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsException_tbl_HadiWarningIntervals" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsExceptionBranch_tbl_HadiWarningIntervalsBranch" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsExceptionBranch_tbl_HadiWarningIntervalsException" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_VoiceSMS_Report_Log" Width="1.5" PointX="19.375" PointY="0.75" />
-        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_HadiWarningIntervalsLoan" Width="1.5" PointX="17.75" PointY="31.375" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_HadiWarningIntervals" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsBranch_tbl_WarningIntervals" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_Branch" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_File" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_HadiOperation_Loan1" />
-        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HadiOperation_Loan_tbl_LoanType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -22,12 +22,12 @@ Partial Public Class tbl_Loan
     Public Property STime As Nullable(Of Date)
     Public Property TotalInstallment As Nullable(Of Integer)
 
+    Public Overridable Property tbl_HadiOperation_Loan As ICollection(Of tbl_HadiOperation_Loan) = New HashSet(Of tbl_HadiOperation_Loan)
     Public Overridable Property tbl_Branch As tbl_Branch
     Public Overridable Property tbl_File As tbl_File
     Public Overridable Property tbl_HandyFollow As ICollection(Of tbl_HandyFollow) = New HashSet(Of tbl_HandyFollow)
     Public Overridable Property tbl_LoanType As tbl_LoanType
     Public Overridable Property tbl_LoanSponsor As ICollection(Of tbl_LoanSponsor) = New HashSet(Of tbl_LoanSponsor)
     Public Overridable Property tbl_WarningNotificationLog As ICollection(Of tbl_WarningNotificationLog) = New HashSet(Of tbl_WarningNotificationLog)
-    Public Overridable Property tbl_HadiOperation_Loan As ICollection(Of tbl_HadiOperation_Loan) = New HashSet(Of tbl_HadiOperation_Loan)
 
 End Class

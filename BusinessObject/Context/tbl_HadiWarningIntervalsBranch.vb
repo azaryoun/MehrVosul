@@ -15,7 +15,6 @@ Partial Public Class tbl_HadiWarningIntervalsBranch
     Public Property FK_HadiWarningIntervalID As Nullable(Of Integer)
     Public Property FK_BranchID As Nullable(Of Integer)
 
-    Public Overridable Property tbl_HadiWarningIntervals As tbl_HadiWarningIntervals
     Public Overridable Property tbl_Branch As tbl_Branch
     Public Overridable Property tbl_HadiWarningIntervalsExceptionBranch As ICollection(Of tbl_HadiWarningIntervalsExceptionBranch) = New HashSet(Of tbl_HadiWarningIntervalsExceptionBranch)
 

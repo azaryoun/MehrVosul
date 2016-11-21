@@ -18,8 +18,8 @@ Partial Public Class tbl_HadiOperation_Deposit
     Public Property FK_BranchID As Nullable(Of Integer)
     Public Property DepositNO As String
     Public Property FK_DepositTypeID As Nullable(Of Integer)
-    Public Property Process As Nullable(Of Boolean)
     Public Property FK_DepositID As Nullable(Of Integer)
+    Public Property Process As Nullable(Of Boolean)
 
     Public Overridable Property tbl_Deposits As tbl_Deposits
     Public Overridable Property tbl_DepositType As tbl_DepositType
