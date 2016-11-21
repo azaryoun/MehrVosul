@@ -203,6 +203,24 @@ Partial Public Class StartPage
     Protected WithEvents lblTodaySMSCount As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblLastDaySMSVoice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblLastDaySMSVoice As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblTodaySMSVoice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTodaySMSVoice As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lblBILastDayCount control.
     '''</summary>
     '''<remarks>

@@ -190,6 +190,9 @@
                             lblLastDaySendTime.Text = Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m"
                             lblLastDaySMSCount.Text = drwSMSCount.SMSCount.ToString("n0")
                             lblBILastDayCount.Text = drwSMSCount.BITotal.ToString("n0")
+                            lblLastDaySMSVoice.Text = drwSMSCount.SMSVoice.ToString("n0")
+
+
                         End If
 
 
@@ -244,6 +247,7 @@
                             lblTodaySendTime.Text = Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m"
                             lblTodaySMSCount.Text = drwSMSCount.SMSCount.ToString("n0")
                             lblBITodayCount.Text = drwSMSCount.BITotal.ToString("n0")
+                            lblTodaySMSVoice.Text = drwSMSCount.SMSVoice.ToString("n0")
                         End If
 
 

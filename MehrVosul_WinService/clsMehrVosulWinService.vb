@@ -183,7 +183,7 @@ Public Class clsMehrVosulWinService
 
             Try
 
-                Dim tadpLCStatus As New BusinessObject.dstCurrentLCStatusTableAdapters.spr_CurrentLCStatus_List_SelectTableAdapterm
+                Dim tadpLCStatus As New BusinessObject.dstCurrentLCStatusTableAdapters.spr_CurrentLCStatus_List_SelectTableAdapter
                 Dim dtblLCStaus As BusinessObject.dstCurrentLCStatus.spr_CurrentLCStatus_List_SelectDataTable = Nothing
                 dtblLCStaus = tadpLCStatus.GetData()
 
@@ -3915,16 +3915,25 @@ LetterL:
                                 strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
                                 strResultMessage &= " تعداد پیامک ارسال شده: " & drwSMSCount.Expr1.ToString("n0")
 
+
                                 Dim intTotalCount As Integer = 0
+                                Dim intVoiceSMSCount As Integer = 0
                                 Try
                                     Dim oDbContext As New BusinessObject.dbMehrVosulEntities1
                                     intTotalCount = oDbContext.tbl_CurrentLCStatus.Count()
+
+
+                                    Dim dteToday As Date = Date.Now.Date
+
+                                    Dim lnqWarningNotificationLogDetail = oDbContext.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 6 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
+                                    intVoiceSMSCount = lnqWarningNotificationLogDetail.Count
+
                                 Catch ex As Exception
 
                                 End Try
 
 
-                                qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, drwSMSCount.Expr1, drwLCLog.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount, 1)
+                                qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, drwSMSCount.Expr1, drwLCLog.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount, intVoiceSMSCount)
 
 
                             Catch ex As Exception
@@ -4015,14 +4024,17 @@ LetterL:
                     Dim oDbContext As New BusinessObject.dbMehrVosulEntities1
                     Dim dteToday As Date = Date.Now.Date
 
-                    Dim lnqWarningNotificationLogDetail = oDbContext.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 7 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
-                    Dim intVoiceSMSCount = lnqWarningNotificationLogDetail.Count
-                    If intVoiceSMSCount = 0 Then
-                        Return
-                    End If
+                    'Dim lnqWarningNotificationLogDetail = oDbContext.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 6 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
+                    'Dim intVoiceSMSCount = lnqWarningNotificationLogDetail.Count
+                    'If intVoiceSMSCount = 0 Then
+                    '    Return
+                    'End If
 
-                    Dim dteFirstSend = lnqWarningNotificationLogDetail.Min(Function(x) x.SendDate)
-                    Dim dteLastSend = lnqWarningNotificationLogDetail.Max(Function(x) x.SendDate)
+                    Dim lnqSMSCount = oDbContext.tbl_SMSCountLog.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
+                    Dim lnqSMSCountList = lnqSMSCount.ToList(0)
+                    Dim intVoiceSMSCount = lnqSMSCountList.SMSVoice
+                    Dim dteFirstSend = lnqSMSCountList.FirstSent
+                    Dim dteLastSend = lnqSMSCountList.LastSent
 
 
                     Dim tmSpan As TimeSpan = dteLastSend.Value.Subtract(dteFirstSend.Value)
@@ -4128,7 +4140,7 @@ LetterL:
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-            Threading.Thread.Sleep(125)
+            '' Threading.Thread.Sleep(125)
             oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
             Return True
         Catch ex As Exception
