@@ -183,7 +183,7 @@ Public Class clsMehrVosulWinService
 
             Try
 
-                Dim tadpLCStatus As New BusinessObject.dstCurrentLCStatusTableAdapters.spr_CurrentLCStatus_List_SelectTableAdapter
+                Dim tadpLCStatus As New BusinessObject.dstCurrentLCStatusTableAdapters.spr_CurrentLCStatus_List_SelectTableAdapterm
                 Dim dtblLCStaus As BusinessObject.dstCurrentLCStatus.spr_CurrentLCStatus_List_SelectDataTable = Nothing
                 dtblLCStaus = tadpLCStatus.GetData()
 
