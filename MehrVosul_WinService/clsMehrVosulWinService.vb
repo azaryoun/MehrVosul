@@ -10,7 +10,7 @@ Imports System.Xml
 Imports System.Configuration
 Imports System.Data.OracleClient
 Imports System.Data.Entity
-
+Imports System.Threading.Tasks
 
 
 Public Class clsMehrVosulWinService
@@ -21,6 +21,18 @@ Public Class clsMehrVosulWinService
     'Dim arrTempNumbers() As String = {"09128165662", "09122764983", "09363738886", "09128439051", "09128165662", "09122473046", "09125010426", "09122336256", "09128165662", "09125470419", "09128165662", "09128165662", "09128165662", "09128165662", "09128165662", "09128439051", "09128439051", "09128439051", "09128439051", "09128439051", "09128439051", "09128439051", "09128439051", "09128439051"}
     'Dim rndTempVar As New Random
     Private drwSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectRow = Nothing
+
+    Private Structure VoiceSMSParams
+        Public uId As Integer
+        Public token As String
+        Public name As String
+        Public tos() As Object
+        Public records() As Object
+        Public numbers() As String
+        Public sayMathod As String
+        Public WarningNotifcationLogId As Integer
+    End Structure
+    Private _VoiceSMSs As New List(Of VoiceSMSParams)
 
 
     Private Structure stc_Loan_Info
@@ -165,11 +177,36 @@ Public Class clsMehrVosulWinService
         Dim trNotification As New Threading.Thread(AddressOf SendNotification)
         trNotification.Start()
 
+        Dim trSMSSendVOICE As New Threading.Thread(AddressOf SendNotification_VoiceSMS)
+        trSMSSendVOICE.Start()
         ''Dim trNotification_Hadi_Loan As New Threading.Thread(AddressOf SendHadiNotification_Loan)
         ''trNotification_Hadi_Loan.Start()
 
     End Sub
 
+    Private Sub SendNotification_VoiceSMS()
+        Do
+            Try
+                Threading.Thread.Sleep(250)
+                If _VoiceSMSs.Count = 0 Then
+                    Threading.Thread.Sleep(2000)
+                    Continue Do
+                End If
+
+                Dim stcVoice As VoiceSMSParams = _VoiceSMSs(0)
+                SendVoiceMixedSMS(stcVoice.uId, stcVoice.token, stcVoice.name, stcVoice.tos, stcVoice.records, stcVoice.numbers, stcVoice.sayMathod)
+
+                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(stcVoice.WarningNotifcationLogId, "Voice SMS", stcVoice.tos(0).ToString, True, "ارسال پیامک صوتی به موبایل وام گیرنده", "", Date.Now, "", 8, 6, Date.Now)
+
+                _VoiceSMSs.RemoveAt(0)
+
+            Catch ex As Exception
+                Threading.Thread.Sleep(250)
+                Continue Do
+            End Try
+        Loop
+    End Sub
 
     Protected Overrides Sub OnStop()
         ' Add code here to perform any tear-down necessary to stop your service.
@@ -296,14 +333,24 @@ VoiceSMS:
                                     Next k
 
                                     Try
-                                        SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, strVoiceSMS_Name, arrTo, arrRecords, arrNumbers, strSayMethod)
+
+                                        Dim stcVoice As VoiceSMSParams
+                                        stcVoice.uId = drwSystemSetting.VoiceSMSUID
+                                        stcVoice.token = drwSystemSetting.VoiceSMSToken
+                                        stcVoice.name = strVoiceSMS_Name
+                                        stcVoice.tos = arrTo
+                                        stcVoice.records = arrRecords
+                                        stcVoice.numbers = arrNumbers
+                                        stcVoice.sayMathod = strSayMethod
+                                        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
+
+                                        _VoiceSMSs.Add(stcVoice)
+
 
                                     Catch ex As Exception
 
                                     End Try
-
-                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "Voice SMS", drwLCStaus.MobileNo, True, "ارسال پیامک صوتی به موبایل وام گیرنده", "", Date.Now, "", 8, 6, Date.Now)
+                                    'Must Modified
 
 
                                 End If
@@ -1076,32 +1123,32 @@ LetterL:
 
 
         Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
-            cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
-            cnnBuiler_BI.UserID = "deposit"
-            cnnBuiler_BI.Password = "deposit"
-            cnnBuiler_BI.Unicode = True
+        cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+        cnnBuiler_BI.UserID = "deposit"
+        cnnBuiler_BI.Password = "deposit"
+        cnnBuiler_BI.Unicode = True
 
-            Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+        Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
 
-                Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+            Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
 
-                Dim strSponsorList As String = "SELECT * from KWV_NRB_LOAN_STARS2"
+            Dim strSponsorList As String = "SELECT * from KWV_NRB_LOAN_STARS2"
 
-                cmd_BI.CommandText = strSponsorList
+            cmd_BI.CommandText = strSponsorList
 
-                Try
-                    cnnBI_Connection.Open()
-                Catch ex As Exception
+            Try
+                cnnBI_Connection.Open()
+            Catch ex As Exception
 
-                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
                 qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_cnnBI_Connection")
 
                 qrySponsorLog.spr_Sponsor_List_Log_Delete(intLogID)
-                    Return
-                End Try
+                Return
+            End Try
 
 
-                Dim qrySposorList As New BusinessObject.dstSponsor_ListTableAdapters.QueriesTableAdapter
+            Dim qrySposorList As New BusinessObject.dstSponsor_ListTableAdapters.QueriesTableAdapter
             Try
 
                 qrySposorList.spr_Sponsor_List_Delete()
@@ -1113,177 +1160,177 @@ LetterL:
 
 
 
-                Dim dataReader As OracleDataReader = Nothing
-                dataReader = cmd_BI.ExecuteReader()
+            Dim dataReader As OracleDataReader = Nothing
+            dataReader = cmd_BI.ExecuteReader()
 
-                Dim i As Integer = 0
-                Dim strBuilder As New Text.StringBuilder()
-                Do While dataReader.Read
-                    Try
+            Dim i As Integer = 0
+            Dim strBuilder As New Text.StringBuilder()
+            Do While dataReader.Read
+                Try
 
-                        Dim stcVarSponsorInfo As stc_Sponsor_Info = Nothing
-                        i += 1
+                    Dim stcVarSponsorInfo As stc_Sponsor_Info = Nothing
+                    i += 1
 
-                        If dataReader.GetValue(0) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarSponsorInfo.BranchCode = CStr(dataReader.GetValue(0)).Trim
-                        End If
+                    If dataReader.GetValue(0) Is DBNull.Value Then
+                        i -= 1
+                        Continue Do
+                    Else
+                        stcVarSponsorInfo.BranchCode = CStr(dataReader.GetValue(0)).Trim
+                    End If
 
-                        If dataReader.GetValue(1) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarSponsorInfo.LoanTypeCode = CStr(dataReader.GetValue(1)).Trim
-                        End If
+                    If dataReader.GetValue(1) Is DBNull.Value Then
+                        i -= 1
+                        Continue Do
+                    Else
+                        stcVarSponsorInfo.LoanTypeCode = CStr(dataReader.GetValue(1)).Trim
+                    End If
 
-                        If dataReader.GetValue(2) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarSponsorInfo.BorrowerCustomerNo = CStr(dataReader.GetValue(2)).Trim
-                        End If
+                    If dataReader.GetValue(2) Is DBNull.Value Then
+                        i -= 1
+                        Continue Do
+                    Else
+                        stcVarSponsorInfo.BorrowerCustomerNo = CStr(dataReader.GetValue(2)).Trim
+                    End If
 
-                        If dataReader.GetValue(3) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarSponsorInfo.LoanSerial = CInt(dataReader.GetValue(3))
-                        End If
+                    If dataReader.GetValue(3) Is DBNull.Value Then
+                        i -= 1
+                        Continue Do
+                    Else
+                        stcVarSponsorInfo.LoanSerial = CInt(dataReader.GetValue(3))
+                    End If
 
-                        'If dataReader.GetValue(4) Is DBNull.Value Then
-                        '    stcVarSponsorInfo.LCNo = ""
-                        'Else
-                        '    stcVarSponsorInfo.LCNo = CStr(dataReader.GetValue(4)).Trim
-                        'End If
+                    'If dataReader.GetValue(4) Is DBNull.Value Then
+                    '    stcVarSponsorInfo.LCNo = ""
+                    'Else
+                    '    stcVarSponsorInfo.LCNo = CStr(dataReader.GetValue(4)).Trim
+                    'End If
 
-                        If dataReader.GetValue(5) Is DBNull.Value Then
-                            stcVarSponsorInfo.FullName = ""
-                        Else
-                            stcVarSponsorInfo.FullName = CStr(dataReader.GetValue(5)).Replace("'", "")
-                        End If
+                    If dataReader.GetValue(5) Is DBNull.Value Then
+                        stcVarSponsorInfo.FullName = ""
+                    Else
+                        stcVarSponsorInfo.FullName = CStr(dataReader.GetValue(5)).Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(6) Is DBNull.Value Then
-                            stcVarSponsorInfo.FatherName = ""
-                        Else
-                            stcVarSponsorInfo.FatherName = CStr(dataReader.GetValue(6)).Replace("'", "")
-                        End If
+                    If dataReader.GetValue(6) Is DBNull.Value Then
+                        stcVarSponsorInfo.FatherName = ""
+                    Else
+                        stcVarSponsorInfo.FatherName = CStr(dataReader.GetValue(6)).Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(7) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarSponsorInfo.SponsorCustomerNo = CStr(dataReader.GetValue(7)).Trim
-                        End If
+                    If dataReader.GetValue(7) Is DBNull.Value Then
+                        i -= 1
+                        Continue Do
+                    Else
+                        stcVarSponsorInfo.SponsorCustomerNo = CStr(dataReader.GetValue(7)).Trim
+                    End If
 
-                        If dataReader.GetValue(8) Is DBNull.Value Then
-                            stcVarSponsorInfo.NationalNo = ""
-                        Else
-                            stcVarSponsorInfo.NationalNo = CStr(dataReader.GetValue(8)).Replace("'", "")
-                        End If
+                    If dataReader.GetValue(8) Is DBNull.Value Then
+                        stcVarSponsorInfo.NationalNo = ""
+                    Else
+                        stcVarSponsorInfo.NationalNo = CStr(dataReader.GetValue(8)).Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(9) Is DBNull.Value Then
-                            stcVarSponsorInfo.NationalID = ""
-                        Else
-                            stcVarSponsorInfo.NationalID = CStr(dataReader.GetValue(9)).Replace("'", "")
-                        End If
+                    If dataReader.GetValue(9) Is DBNull.Value Then
+                        stcVarSponsorInfo.NationalID = ""
+                    Else
+                        stcVarSponsorInfo.NationalID = CStr(dataReader.GetValue(9)).Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(10) Is DBNull.Value Then
-                            stcVarSponsorInfo.HomeTel = ""
-                        Else
-                            stcVarSponsorInfo.HomeTel = CStr(dataReader.GetValue(10)).Trim.Replace("'", "")
-                        End If
+                    If dataReader.GetValue(10) Is DBNull.Value Then
+                        stcVarSponsorInfo.HomeTel = ""
+                    Else
+                        stcVarSponsorInfo.HomeTel = CStr(dataReader.GetValue(10)).Trim.Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(11) Is DBNull.Value Then
-                            stcVarSponsorInfo.WorkTel = ""
-                        Else
-                            stcVarSponsorInfo.WorkTel = CStr(dataReader.GetValue(11)).Trim.Replace("'", "")
-                        End If
+                    If dataReader.GetValue(11) Is DBNull.Value Then
+                        stcVarSponsorInfo.WorkTel = ""
+                    Else
+                        stcVarSponsorInfo.WorkTel = CStr(dataReader.GetValue(11)).Trim.Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(12) Is DBNull.Value Then
-                            stcVarSponsorInfo.Mobile = ""
-                        Else
-                            stcVarSponsorInfo.Mobile = CStr(dataReader.GetValue(12)).Trim.Replace("'", "")
-                        End If
+                    If dataReader.GetValue(12) Is DBNull.Value Then
+                        stcVarSponsorInfo.Mobile = ""
+                    Else
+                        stcVarSponsorInfo.Mobile = CStr(dataReader.GetValue(12)).Trim.Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(13) Is DBNull.Value Then
-                            stcVarSponsorInfo.HomeAddress = ""
-                        Else
-                            stcVarSponsorInfo.HomeAddress = CStr(dataReader.GetValue(13)).Replace("'", "")
-                        End If
+                    If dataReader.GetValue(13) Is DBNull.Value Then
+                        stcVarSponsorInfo.HomeAddress = ""
+                    Else
+                        stcVarSponsorInfo.HomeAddress = CStr(dataReader.GetValue(13)).Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(14) Is DBNull.Value Then
-                            stcVarSponsorInfo.WorkAddress = ""
-                        Else
-                            stcVarSponsorInfo.WorkAddress = CStr(dataReader.GetValue(14)).Replace("'", "")
-                        End If
+                    If dataReader.GetValue(14) Is DBNull.Value Then
+                        stcVarSponsorInfo.WorkAddress = ""
+                    Else
+                        stcVarSponsorInfo.WorkAddress = CStr(dataReader.GetValue(14)).Replace("'", "")
+                    End If
 
-                        If dataReader.GetValue(15) Is DBNull.Value Then
-                            stcVarSponsorInfo.WarantyTypeDesc = ""
-                        Else
-                            stcVarSponsorInfo.WarantyTypeDesc = CStr(dataReader.GetValue(15)).Trim.Replace("'", "")
-                        End If
+                    If dataReader.GetValue(15) Is DBNull.Value Then
+                        stcVarSponsorInfo.WarantyTypeDesc = ""
+                    Else
+                        stcVarSponsorInfo.WarantyTypeDesc = CStr(dataReader.GetValue(15)).Trim.Replace("'", "")
+                    End If
 
-                        stcVarSponsorInfo.UpdateDate = ""
+                    stcVarSponsorInfo.UpdateDate = ""
 
-                        'If dataReader.GetValue(16) Is DBNull.Value Then
-                        '    stcVarSponsorInfo.UpdateDate = ""
-                        'Else
-                        '    stcVarSponsorInfo.UpdateDate = CStr(dataReader.GetValue(16)).Trim
-                        'End If
-
-
-
-                        Dim strTempSelectQuery As String = " union select '" & stcVarSponsorInfo.BranchCode & "','" & stcVarSponsorInfo.LoanTypeCode & "','" & stcVarSponsorInfo.BorrowerCustomerNo & "'," & stcVarSponsorInfo.LoanSerial
-                        strTempSelectQuery &= ",'" & stcVarSponsorInfo.SponsorCustomerNo & "','" & stcVarSponsorInfo.FullName & "','" & stcVarSponsorInfo.FatherName & "','" & stcVarSponsorInfo.Mobile & "','" & stcVarSponsorInfo.NationalID
-                        strTempSelectQuery &= "','" & stcVarSponsorInfo.NationalNo & "','" & stcVarSponsorInfo.WorkAddress & "/" & stcVarSponsorInfo.HomeAddress & "','" & stcVarSponsorInfo.HomeTel & "','" & stcVarSponsorInfo.WorkTel & "','" & stcVarSponsorInfo.WarantyTypeDesc & "'"
-
-                        strBuilder.Append(strTempSelectQuery)
-
-
-                        If i >= 700 Then
-                            Dim strMainInsertQuery As String = strBuilder.ToString.Substring(7)
-                            qrySposorList.spr_Sponsor_List_Bulk_Insert(strMainInsertQuery)
-
-                            i = 0
-                            strBuilder.Clear()
-
-
-                        End If
-                    Catch ex As Exception
-                        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_Interal Loop")
-                    Continue Do
-                    End Try
-
-
-                Loop
+                    'If dataReader.GetValue(16) Is DBNull.Value Then
+                    '    stcVarSponsorInfo.UpdateDate = ""
+                    'Else
+                    '    stcVarSponsorInfo.UpdateDate = CStr(dataReader.GetValue(16)).Trim
+                    'End If
 
 
 
-                dataReader.Close()
-                cnnBI_Connection.Close()
+                    Dim strTempSelectQuery As String = " union select '" & stcVarSponsorInfo.BranchCode & "','" & stcVarSponsorInfo.LoanTypeCode & "','" & stcVarSponsorInfo.BorrowerCustomerNo & "'," & stcVarSponsorInfo.LoanSerial
+                    strTempSelectQuery &= ",'" & stcVarSponsorInfo.SponsorCustomerNo & "','" & stcVarSponsorInfo.FullName & "','" & stcVarSponsorInfo.FatherName & "','" & stcVarSponsorInfo.Mobile & "','" & stcVarSponsorInfo.NationalID
+                    strTempSelectQuery &= "','" & stcVarSponsorInfo.NationalNo & "','" & stcVarSponsorInfo.WorkAddress & "/" & stcVarSponsorInfo.HomeAddress & "','" & stcVarSponsorInfo.HomeTel & "','" & stcVarSponsorInfo.WorkTel & "','" & stcVarSponsorInfo.WarantyTypeDesc & "'"
 
-                If i <> 0 Then
-                    Dim strMainInsertQuery As String = strBuilder.ToString.Substring(6)
-                    Try
+                    strBuilder.Append(strTempSelectQuery)
+
+
+                    If i >= 700 Then
+                        Dim strMainInsertQuery As String = strBuilder.ToString.Substring(7)
                         qrySposorList.spr_Sponsor_List_Bulk_Insert(strMainInsertQuery)
 
-                    Catch ex As Exception
+                        i = 0
+                        strBuilder.Clear()
 
-                        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+
+                    End If
+                Catch ex As Exception
+                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_Interal Loop")
+                    Continue Do
+                End Try
+
+
+            Loop
+
+
+
+            dataReader.Close()
+            cnnBI_Connection.Close()
+
+            If i <> 0 Then
+                Dim strMainInsertQuery As String = strBuilder.ToString.Substring(6)
+                Try
+                    qrySposorList.spr_Sponsor_List_Bulk_Insert(strMainInsertQuery)
+
+                Catch ex As Exception
+
+                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
                     qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed spr_Sponsor_List_Bulk_Insert(external)")
 
                 End Try
 
 
-                End If
+            End If
 
 
-            End Using
+        End Using
 
-            qrySponsorLog.spr_Sponsor_List_Log_Update(intLogID, Date.Now, "Successed")
+        qrySponsorLog.spr_Sponsor_List_Log_Update(intLogID, Date.Now, "Successed")
 
 
 
@@ -3202,25 +3249,25 @@ LetterL:
 
                         Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
                         Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
-                        dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarLoanInfo.CustomerNo)
+                        dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarLoanInfo.CustomerNO)
                         Dim intBorrowerFileID As Integer = -1
 
 
                         ''check if Customer Number is double or not, if it is then skip it
                         If i = 1 Then
 
-                            listOperationLoan.Add(stcVarLoanInfo.CustomerNo)
+                            listOperationLoan.Add(stcVarLoanInfo.CustomerNO)
 
                         Else
 
 
                             For Each obj In listOperationLoan
-                                If obj = stcVarLoanInfo.CustomerNo Then
+                                If obj = stcVarLoanInfo.CustomerNO Then
                                     Continue Do
                                 End If
                             Next
 
-                            listOperationLoan.Add(stcVarLoanInfo.CustomerNo)
+                            listOperationLoan.Add(stcVarLoanInfo.CustomerNO)
 
                         End If
 
@@ -3774,7 +3821,7 @@ LetterL:
 
             arrMessage(0) = strResultMessage
             'arrDestination(0) = "09122764983"
-              arrDestination(0) = "09125781487"
+            arrDestination(0) = "09125781487"
             arrMessage(1) = strResultMessage
             arrDestination(1) = "09125470419"
             arrMessage(2) = strResultMessage
@@ -4128,7 +4175,6 @@ LetterL:
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-            Threading.Thread.Sleep(125)
             oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
             Return True
         Catch ex As Exception
@@ -4136,6 +4182,37 @@ LetterL:
         End Try
 
     End Function
+
+
+    'Public Sub SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String)
+
+    '    Try
+
+    '        Dim tsk = Task.Factory.StartNew(Sub() SendVoiceMixedSMS_Internal(uId, token, name, tos, records, numbers, sayMathod))
+    '        Return
+
+    '    Catch ex As Exception
+
+    '        Return
+
+    '    End Try
+
+    'End Sub
+
+    'Public Function SendVoiceMixedSMS_Internal(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Boolean
+
+    '    Try
+    '        Threading.Thread.Sleep(125)
+    '        Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
+    '        Dim strMessage As String = ""
+    '        oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+    '        Return True
+    '    Catch ex As Exception
+    '        Return False
+    '    End Try
+
+    'End Function
+
 
     Private Sub tmrVoiceSMS_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrVoiceSMS.Elapsed
 
