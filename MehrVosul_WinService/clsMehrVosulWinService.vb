@@ -4005,12 +4005,12 @@ LetterL:
 
 
             Dim objSMS As New clsSMS
-            Dim arrMessage(5) As String
-            Dim arrDestination(5) As String
+            Dim arrMessage(6) As String
+            Dim arrDestination(6) As String
 
             arrMessage(0) = strResultMessage
-            ''  arrDestination(0) = "09122764983"
             arrDestination(0) = "09125781487"
+
             arrMessage(1) = strResultMessage
             arrDestination(1) = "09125470419"
             arrMessage(2) = strResultMessage
@@ -4025,6 +4025,9 @@ LetterL:
 
             arrMessage(5) = strResultMessage
             arrDestination(5) = "09355066075"
+
+            arrDestination(6) = strResultMessage
+            arrDestination(6) = "09122764983"
 
             objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -4102,11 +4105,15 @@ LetterL:
 
 
             Dim objSMS As New clsSMS
-            Dim arrMessage(0) As String
-            Dim arrDestination(0) As String
+            Dim arrMessage(1) As String
+            Dim arrDestination(1) As String
 
             arrMessage(0) = strResultMessage
             arrDestination(0) = "09123201844"
+
+            arrDestination(1) = strResultMessage
+            arrDestination(1) = "09122764983"
+
 
             ''Dim arrMessage(5) As String
             ''Dim arrDestination(5) As String
@@ -4187,7 +4194,7 @@ LetterL:
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-            Threading.Thread.Sleep(125)
+
             oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
             Return True
         Catch ex As Exception
