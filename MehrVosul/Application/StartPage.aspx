@@ -106,9 +106,15 @@
                                         </tr>
                                         <tr>
                                             
-                                            <th>تعداد ارسال</th>
+                                            <th>تعداد ارسال پیامک</th>
                                               <th><asp:Label ID="lblLastDaySMSCount" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
                                              <th><asp:Label ID="lblTodaySMSCount" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
+                                        </tr>
+                                        <tr>
+                                            
+                                            <th>تعداد ارسال پیامک صوتی</th>
+                                             <th><asp:Label ID="lblLastDaySMSVoice" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
+                                             <th><asp:Label ID="lblTodaySMSVoice" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
                                         </tr>
                                          <tr>
                                             
