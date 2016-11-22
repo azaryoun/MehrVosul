@@ -4187,7 +4187,6 @@ LetterL:
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-            Threading.Thread.Sleep(125)
             oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
             Return True
         Catch ex As Exception

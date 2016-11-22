@@ -175,7 +175,7 @@
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
             ''Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
-            oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+            Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
 
             If strMessage = "" Then
                 Return True
