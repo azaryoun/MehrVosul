@@ -198,19 +198,19 @@ Public Class clsMehrVosulWinService
                 Dim strSayMethod As String = "9"
 
                 Dim arrPhoneNumbers(74) As String
-                Dim numbers(74) As String
+                Dim arrnumbers(74) As String
 
                 For i As Integer = 0 To 74
                     arrPhoneNumbers(i) = _VoiceSMSs(i).tophonenumber
-                    numbers(i) = _VoiceSMSs(i).numbers(0)
+                    arrnumbers(i) = _VoiceSMSs(i).numbers(0)
                 Next i
 
 
-                Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, numbers, strSayMethod)
+                Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, arrnumbers, strSayMethod)
 
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
                 For i As Integer = 0 To 74
-                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", _VoiceSMSs(i).tophonenumber(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
                 Next
 
                 For i As Integer = 0 To 74
@@ -250,7 +250,7 @@ Public Class clsMehrVosulWinService
 
             Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
             For i As Integer = 0 To _VoiceSMSs.Count - 1
-                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", _VoiceSMSs(i).tophonenumber(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
             Next
 
             _VoiceSMSs.Clear()
