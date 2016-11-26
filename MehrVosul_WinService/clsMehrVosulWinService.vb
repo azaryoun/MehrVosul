@@ -23,15 +23,16 @@ Public Class clsMehrVosulWinService
     Private drwSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectRow = Nothing
 
     Private Structure VoiceSMSParams
-        Public uId As Integer
-        Public token As String
+        '   Public uId As Integer
+        '  Public token As String
         Public name As String
-        Public tos() As Object
+        Public tophonenumber As String
         Public records() As Object
         Public numbers() As String
-        Public sayMathod As String
+        '  Public sayMathod As String
         Public WarningNotifcationLogId As Integer
     End Structure
+
     Private _VoiceSMSs As New List(Of VoiceSMSParams)
 
 
@@ -187,19 +188,35 @@ Public Class clsMehrVosulWinService
     Private Sub SendNotification_VoiceSMS()
         Do
             Try
-                Threading.Thread.Sleep(250)
-                If _VoiceSMSs.Count = 0 Then
+                If _VoiceSMSs.Count < 75 Then
                     Threading.Thread.Sleep(2000)
                     Continue Do
                 End If
 
-                Dim stcVoice As VoiceSMSParams = _VoiceSMSs(0)
-                SendVoiceMixedSMS(stcVoice.uId, stcVoice.token, stcVoice.name, stcVoice.tos, stcVoice.records, stcVoice.numbers, stcVoice.sayMathod)
+                Dim uId As String = drwSystemSetting.VoiceSMSUID
+                Dim token As String = drwSystemSetting.VoiceSMSToken
+                Dim strSayMethod As String = "9"
+
+                Dim arrPhoneNumbers(74) As String
+                Dim numbers(74) As String
+
+                For i As Integer = 0 To 74
+                    arrPhoneNumbers(i) = _VoiceSMSs(i).tophonenumber
+                    numbers(i) = _VoiceSMSs(i).numbers(0)
+                Next i
+
+
+                Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, numbers, strSayMethod)
 
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(stcVoice.WarningNotifcationLogId, "Voice SMS", stcVoice.tos(0).ToString, True, "ارسال پیامک صوتی به موبایل وام گیرنده", "", Date.Now, "", 8, 6, Date.Now)
+                For i As Integer = 0 To 74
+                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", _VoiceSMSs(i).tophonenumber(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                Next
 
-                _VoiceSMSs.RemoveAt(0)
+                For i As Integer = 0 To 74
+                    _VoiceSMSs.RemoveAt(0)
+                Next
+
 
             Catch ex As Exception
                 Threading.Thread.Sleep(250)
@@ -207,6 +224,44 @@ Public Class clsMehrVosulWinService
             End Try
         Loop
     End Sub
+    Private Sub VoiceSMS_EmptyList()
+        Try
+            If _VoiceSMSs.Count = 0 Then
+                Return
+            End If
+
+            Dim uId As String = drwSystemSetting.VoiceSMSUID
+            Dim token As String = drwSystemSetting.VoiceSMSToken
+            Dim strSayMethod As String = "9"
+
+            Dim arrPhoneNumbers() As String
+            Dim numbers() As String
+            ReDim arrPhoneNumbers(_VoiceSMSs.Count - 1)
+            ReDim numbers(_VoiceSMSs.Count - 1)
+
+
+            For i As Integer = 0 To _VoiceSMSs.Count - 1
+                arrPhoneNumbers(i) = _VoiceSMSs(i).tophonenumber
+                numbers(i) = _VoiceSMSs(i).numbers(0)
+            Next i
+
+
+            Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, numbers, strSayMethod)
+
+            Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+            For i As Integer = 0 To _VoiceSMSs.Count - 1
+                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", _VoiceSMSs(i).tophonenumber(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+            Next
+
+            _VoiceSMSs.Clear()
+
+        Catch ex As Exception
+        End Try
+    End Sub
+
+
+
+
 
     Protected Overrides Sub OnStop()
         ' Add code here to perform any tear-down necessary to stop your service.
@@ -335,13 +390,10 @@ VoiceSMS:
                                     Try
 
                                         Dim stcVoice As VoiceSMSParams
-                                        stcVoice.uId = drwSystemSetting.VoiceSMSUID
-                                        stcVoice.token = drwSystemSetting.VoiceSMSToken
                                         stcVoice.name = strVoiceSMS_Name
-                                        stcVoice.tos = arrTo
+                                        stcVoice.tophonenumber = arrTo(0)
                                         stcVoice.records = arrRecords
                                         stcVoice.numbers = arrNumbers
-                                        stcVoice.sayMathod = strSayMethod
                                         stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
 
                                         _VoiceSMSs.Add(stcVoice)
@@ -4189,19 +4241,19 @@ LetterL:
 
     End Sub
 
-    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Boolean
+    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Integer
 
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-
-            oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
-            Return True
+            Dim intCampaignID = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+            Return intCampaignID
         Catch ex As Exception
-            Return False
+            Return -1
         End Try
 
     End Function
+
 
 
     'Public Sub SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String)
@@ -4259,7 +4311,7 @@ LetterL:
             End If
 
             Dim arrDestination(1) As String
-            arrDestination(0) = "09122075899"
+            arrDestination(0) = "09122764983"
             arrDestination(1) = "09123201844"
 
             ''Dim arrDestination(5) As String
