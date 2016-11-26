@@ -23,13 +23,13 @@ Public Class clsMehrVosulWinService
     Private drwSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectRow = Nothing
 
     Private Structure VoiceSMSParams
-        '   Public uId As Integer
-        '  Public token As String
+        Public uId As Integer
+        Public token As String
         Public name As String
-        Public tophonenumber As String
+        Public tos() As Object
         Public records() As Object
         Public numbers() As String
-        '  Public sayMathod As String
+        Public sayMathod As String
         Public WarningNotifcationLogId As Integer
     End Structure
     Private _VoiceSMSs As New List(Of VoiceSMSParams)
@@ -187,77 +187,25 @@ Public Class clsMehrVosulWinService
     Private Sub SendNotification_VoiceSMS()
         Do
             Try
-                If _VoiceSMSs.Count < 75 Then
+                Threading.Thread.Sleep(250)
+                If _VoiceSMSs.Count = 0 Then
                     Threading.Thread.Sleep(2000)
                     Continue Do
                 End If
 
-                Dim uId As String = drwSystemSetting.VoiceSMSUID
-                Dim token As String = drwSystemSetting.VoiceSMSToken
-                Dim strSayMethod As String = "9"
-
-                Dim arrPhoneNumbers(74) As String
-                Dim numbers(74) As String
-
-                For i As Integer = 0 To 74
-                    arrPhoneNumbers(i) = _VoiceSMSs(i).tophonenumber
-                    numbers(i) = _VoiceSMSs(i).numbers(0)
-                Next i
-
-
-                Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, numbers, strSayMethod)
+                Dim stcVoice As VoiceSMSParams = _VoiceSMSs(0)
+                SendVoiceMixedSMS(stcVoice.uId, stcVoice.token, stcVoice.name, stcVoice.tos, stcVoice.records, stcVoice.numbers, stcVoice.sayMathod)
 
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                For i As Integer = 0 To 74
-                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", _VoiceSMSs(i).tophonenumber(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
-                Next
+                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(stcVoice.WarningNotifcationLogId, "Voice SMS", stcVoice.tos(0).ToString, True, "ارسال پیامک صوتی به موبایل وام گیرنده", "", Date.Now, "", 8, 6, Date.Now)
 
-                For i As Integer = 0 To 74
-                    _VoiceSMSs.RemoveAt(0)
-                Next
-
+                _VoiceSMSs.RemoveAt(0)
 
             Catch ex As Exception
                 Threading.Thread.Sleep(250)
                 Continue Do
             End Try
         Loop
-    End Sub
-
-
-    Private Sub VoiceSMS_EmptyList()
-        Try
-            If _VoiceSMSs.Count = 0 Then
-                Return
-            End If
-
-            Dim uId As String = drwSystemSetting.VoiceSMSUID
-            Dim token As String = drwSystemSetting.VoiceSMSToken
-            Dim strSayMethod As String = "9"
-
-            Dim arrPhoneNumbers() As String
-            Dim numbers() As String
-            ReDim arrPhoneNumbers(_VoiceSMSs.Count - 1)
-            ReDim numbers(_VoiceSMSs.Count - 1)
-
-
-            For i As Integer = 0 To _VoiceSMSs.Count - 1
-                arrPhoneNumbers(i) = _VoiceSMSs(i).tophonenumber
-                numbers(i) = _VoiceSMSs(i).numbers(0)
-            Next i
-
-
-            Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, numbers, strSayMethod)
-
-            Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-            For i As Integer = 0 To _VoiceSMSs.Count - 1
-                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", _VoiceSMSs(i).tophonenumber(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
-            Next
-
-            _VoiceSMSs.Clear()
-
-        Catch ex As Exception
-        End Try
     End Sub
 
     Protected Overrides Sub OnStop()
@@ -367,6 +315,7 @@ VoiceSMS:
                                     Dim arrTo() As String = {drwLCStaus.MobileNo}
                                     Dim arrRecords() As String = Nothing
                                     Dim arrNumbers() As String = Nothing
+                                    Dim strSayMethod As String = "9"
                                     Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
                                     GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, False, arrRecords, arrNumbers)
 
@@ -386,10 +335,13 @@ VoiceSMS:
                                     Try
 
                                         Dim stcVoice As VoiceSMSParams
+                                        stcVoice.uId = drwSystemSetting.VoiceSMSUID
+                                        stcVoice.token = drwSystemSetting.VoiceSMSToken
                                         stcVoice.name = strVoiceSMS_Name
-                                        stcVoice.tophonenumber = arrTo(0)
+                                        stcVoice.tos = arrTo
                                         stcVoice.records = arrRecords
                                         stcVoice.numbers = arrNumbers
+                                        stcVoice.sayMathod = strSayMethod
                                         stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
 
                                         _VoiceSMSs.Add(stcVoice)
@@ -4053,12 +4005,12 @@ LetterL:
 
 
             Dim objSMS As New clsSMS
-            Dim arrMessage(5) As String
-            Dim arrDestination(5) As String
+            Dim arrMessage(6) As String
+            Dim arrDestination(6) As String
 
             arrMessage(0) = strResultMessage
-            ''  arrDestination(0) = "09122764983"
             arrDestination(0) = "09125781487"
+
             arrMessage(1) = strResultMessage
             arrDestination(1) = "09125470419"
             arrMessage(2) = strResultMessage
@@ -4073,6 +4025,9 @@ LetterL:
 
             arrMessage(5) = strResultMessage
             arrDestination(5) = "09355066075"
+
+            arrDestination(6) = strResultMessage
+            arrDestination(6) = "09122764983"
 
             objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -4139,7 +4094,7 @@ LetterL:
                     strResultMessage &= "پیامک صوتی" & ControlChars.NewLine
                     strResultMessage &= " زمان اولین ارسال: " & dteFirstSend.Value.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال: " & dteLastSend.Value.ToString("HH:mm") & ControlChars.NewLine
                     strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
-                    strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString("n0")
+                    strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString ''("n0")
 
 
 
@@ -4150,11 +4105,15 @@ LetterL:
 
 
             Dim objSMS As New clsSMS
-            Dim arrMessage(0) As String
-            Dim arrDestination(0) As String
+            Dim arrMessage(1) As String
+            Dim arrDestination(1) As String
 
             arrMessage(0) = strResultMessage
             arrDestination(0) = "09123201844"
+
+            arrDestination(1) = strResultMessage
+            arrDestination(1) = "09122764983"
+
 
             ''Dim arrMessage(5) As String
             ''Dim arrDestination(5) As String
@@ -4230,15 +4189,16 @@ LetterL:
 
     End Sub
 
-    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Integer
+    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Boolean
 
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-            Dim intCampaignID = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
-            Return intCampaignID
+
+            oVoiceSMS.SendMixedVoiceSMS_SynchAsync("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+            Return True
         Catch ex As Exception
-            Return -1
+            Return False
         End Try
 
     End Function

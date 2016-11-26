@@ -147,7 +147,7 @@ Public Class HandyFollowReport
 
             End If
 
-            strWhere = strWhere & " Administration.tbl_User.FK_BrnachID= " & cmbBranch.SelectedValue
+            strWhere = strWhere & " Vosul.tbl_Loan.FK_BranchID = " & cmbBranch.SelectedValue
 
 
         ElseIf cmbProvince.SelectedIndex <> 0 Then
@@ -223,7 +223,7 @@ Public Class HandyFollowReport
 
         Else
 
-            strWhere = strWhere & " and Vosul.tbl_HandyFollow.ContactDate between " & "convert(datetime,'" & dtFromDate & "')   and  convert(datetime,'" & dteToDate.Date & "')"
+            strWhere = strWhere & " and Vosul.tbl_HandyFollow.ContactDate between " & "convert(datetime,'" & dtFromDate & "')   and  convert(datetime,'" & dteToDate.Date & " 23:00:00 ')"
 
             dtblReport = tadpReport.GetData(2, dtFromDate, dteToDate, strWhere)
 
