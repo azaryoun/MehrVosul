@@ -4094,7 +4094,7 @@ LetterL:
                     strResultMessage &= "پیامک صوتی" & ControlChars.NewLine
                     strResultMessage &= " زمان اولین ارسال: " & dteFirstSend.Value.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال: " & dteLastSend.Value.ToString("HH:mm") & ControlChars.NewLine
                     strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
-                    strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString("n0")
+                    strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString ''("n0")
 
 
 
