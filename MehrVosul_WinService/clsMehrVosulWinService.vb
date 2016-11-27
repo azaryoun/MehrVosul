@@ -205,8 +205,13 @@ Public Class clsMehrVosulWinService
                     arrnumbers(i) = _VoiceSMSs(i).numbers(0)
                 Next i
 
+                Dim intCampaignID As Integer = -1
 
-                Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, arrnumbers, strSayMethod)
+                Try
+                    intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, arrnumbers, strSayMethod)
+                Catch ex As Exception
+
+                End Try
 
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
                 For i As Integer = 0 To 74
