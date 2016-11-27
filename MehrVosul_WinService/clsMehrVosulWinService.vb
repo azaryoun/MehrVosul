@@ -3762,7 +3762,7 @@ LetterL:
 
         ''   Call tmrSelfReport_Elapsed(Nothing, Nothing)
 
-        Call tmrVoiceSMS_Elapsed(Nothing, Nothing)
+        ''  Call tmrVoiceSMS_Elapsed(Nothing, Nothing)
 
 
 
@@ -3868,8 +3868,8 @@ LetterL:
 
 
             Dim objSMS As New clsSMS
-            Dim arrMessage(5) As String
-            Dim arrDestination(5) As String
+            Dim arrMessage(6) As String
+            Dim arrDestination(6) As String
 
             arrMessage(0) = strResultMessage
             'arrDestination(0) = "09122764983"
@@ -3888,6 +3888,10 @@ LetterL:
 
             arrMessage(5) = strResultMessage
             arrDestination(5) = "09355066075"
+
+
+            arrMessage(6) = strResultMessage
+            arrDestination(6) = "09123201844"
 
             objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -4105,6 +4109,8 @@ LetterL:
 
         Try
 
+            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+            qryErrorLog.spr_ErrorLog_Insert("Voice1", 2, "SendAdministratioSMSMessage_ForVoice1")
 
             Dim strResultMessage As String = ""
 
