@@ -3744,9 +3744,10 @@ LetterL:
 
         Next drwSponsorList
 
-        Dim lnq = obj_stc_Sponsor_Waranty.GroupBy(Function(x) New With {.Key1 = x.SponsorID})
+        '' Dim lnq = obj_stc_Sponsor_Waranty.GroupBy(Function(x) New With {.Key1 = x.SponsorID})
 
-        Return lnq
+
+        Return obj_stc_Sponsor_Waranty
 
 
     End Function
