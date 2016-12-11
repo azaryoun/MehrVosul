@@ -2518,7 +2518,6 @@ LetterL:
                 If i <> 0 Then
                     Dim strMainInsertQuery As String = strBuilder.ToString.Substring(6)
                     qryCurrentLCStatus.spr_CurrentLCStatus_Bulk_Insert(strMainInsertQuery)
-
                 End If
 
 
