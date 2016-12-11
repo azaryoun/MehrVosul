@@ -332,8 +332,12 @@ Public Class clsMehrVosulWinService
 
                                 strMessage = CreateMessage(1, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True)
 
-                                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwLCStaus.MobileNo, True, strMessage, "", Date.Now, "", 1, 1, Date.Now)
+                                If strMessage.Trim <> "" Then
+                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwLCStaus.MobileNo, True, strMessage, "", Date.Now, "", 1, 1, Date.Now)
+
+                                End If
+
 
 
 
