@@ -97,6 +97,10 @@
     End Sub
 
     Private Sub Bootstrap_Panel1_Panel_Display_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Display_Click
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
         Dim tadpReport As New BusinessObject.dstReportTableAdapters.spr_Report_CurrentLCStatus_MaxLoanType_SelectTableAdapter
         Dim dtblReport As BusinessObject.dstReport.spr_Report_CurrentLCStatus_MaxLoanType_SelectDataTable = Nothing
 
@@ -191,7 +195,8 @@
 
                 TbCell = New HtmlTableCell
                 TbCell.InnerHtml = drwReport.FName & " " & drwReport.LName
-                TbCell.NoWrap = True
+                TbCell.NoWrap = False
+                TbCell.Width = "100px"
                 TbCell.Align = "center"
                 TbRow.Cells.Add(TbCell)
 
@@ -214,24 +219,125 @@
                 TbCell = New HtmlTableCell
                 TbCell.InnerHtml = drwReport.NotPiadDurationDay
                 TbCell.NoWrap = True
+                TbCell.Width = "50px"
                 TbCell.Align = "center"
                 TbRow.Cells.Add(TbCell)
 
                 TbCell = New HtmlTableCell
                 TbCell.InnerHtml = drwReport.Branch
                 TbCell.NoWrap = False
+                TbCell.Width = "120px"
                 TbCell.Align = "center"
                 TbRow.Cells.Add(TbCell)
 
 
-                TbCell = New HtmlTableCell
-                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & drwReport.FileID & "," & drwReport.LoanID & ")>ثبت پیگیری</a>"
-                TbCell.NoWrap = True
-                TbCell.Align = "center"
-                TbRow.Cells.Add(TbCell)
+                Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
 
 
-                tblResult.Rows.Add(TbRow)
+
+                If drwUserLogin.IsDataUserAdmin = False Then
+
+
+                    Dim intLogCount = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID).Count()
+                    If intLogCount = 0 Then
+
+
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & drwReport.FileID & "," & drwReport.LoanID & ")>ثبت پیگیری</a>"
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = "---"
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+                    Else
+
+                        Dim intLogCountByUser = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID And x.FK_UserID = drwUserLogin.ID).Count()
+
+                        If intLogCountByUser = 0 Then
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = "ثبت پیگیری"
+                            TbCell.NoWrap = False
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+                            Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID)
+                            If lnqDetail.Count > 0 Then
+                                Dim lnqDetailList = lnqDetail.ToList(0)
+                                Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+
+                                TbCell = New HtmlTableCell
+                                TbCell.InnerHtml = lnqUser.Username
+                                TbCell.NoWrap = True
+                                TbCell.Align = "center"
+                                TbRow.Cells.Add(TbCell)
+
+                            End If
+                        Else
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & drwReport.FileID & "," & drwReport.LoanID & ")>ثبت پیگیری</a>"
+                            TbCell.NoWrap = True
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+                            Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID)
+                            If lnqDetail.Count > 0 Then
+                                Dim lnqDetailList = lnqDetail.ToList(0)
+                                Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+
+                                TbCell = New HtmlTableCell
+                                TbCell.InnerHtml = lnqUser.Username
+                                TbCell.NoWrap = True
+                                TbCell.Align = "center"
+                                TbRow.Cells.Add(TbCell)
+
+                            End If
+
+                        End If
+
+
+
+                    End If
+                Else
+
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & drwReport.FileID & "," & drwReport.LoanID & ")>ثبت پیگیری</a>"
+                    TbCell.NoWrap = True
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
+
+                    Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID)
+                    Dim followingUserName As String = "---"
+                    If lnqDetail.Count > 0 Then
+                        Dim lnqDetailList = lnqDetail.ToList(0)
+
+                        Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+                        followingUserName = lnqUser.Username
+                    End If
+
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = followingUserName
+                    TbCell.NoWrap = True
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
+
+                End If
+
+
+
+
+                    tblResult.Rows.Add(TbRow)
 
             Next
 

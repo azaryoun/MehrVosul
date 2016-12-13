@@ -58,14 +58,14 @@
 
 
         Dim strAccessgrouptitle As String = txtAccessgrouptitle.Text.Trim
+        Dim blnVisibility As Boolean = chkVisibility.Checked
 
-        
+
 
         Try
 
             Dim qryAccessgroup As New BusinessObject.dstAccessgroupTableAdapters.QueriesTableAdapter
-            Dim intAccessgroupID As Integer = qryAccessgroup.spr_Accessgroup_Insert(strAccessgrouptitle, Date.Now, drwUserLogin.ID)
-
+            Dim intAccessgroupID As Integer = qryAccessgroup.spr_Accessgroup_Insert(strAccessgrouptitle, Date.Now, drwUserLogin.ID, blnVisibility)
 
 
             For i As Integer = 0 To Request.Form.Keys.Count - 1

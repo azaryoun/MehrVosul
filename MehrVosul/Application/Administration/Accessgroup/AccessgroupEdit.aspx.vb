@@ -45,7 +45,7 @@
 
             Dim drwAccessgroup As BusinessObject.dstAccessgroup.spr_Accessgroup_SelectRow = dtblAccessgroup.Rows(0)
             txtAccessgrouptitle.Text = drwAccessgroup.Desp
-
+            chkVisibility.Checked = drwAccessgroup.Visiblity
 
             Dim tadpMenuLeafList As New BusinessObject.dstMenuTableAdapters.spr_Menu_Leaf_List_SelectTableAdapter
             Dim dtblMenuLeafList As BusinessObject.dstMenu.spr_Menu_Leaf_List_SelectDataTable = Nothing
@@ -92,13 +92,13 @@
 
 
         Dim strAccessgrouptitle As String = txtAccessgrouptitle.Text.Trim
-
+        Dim blnVisibility As Boolean = chkVisibility.Checked
 
 
         Try
 
             Dim qryAccessgroup As New BusinessObject.dstAccessgroupTableAdapters.QueriesTableAdapter
-            qryAccessgroup.spr_Accessgroup_Update(intAccessgroupID, strAccessgrouptitle, Date.Now, drwUserLogin.ID)
+            qryAccessgroup.spr_Accessgroup_Update(intAccessgroupID, strAccessgrouptitle, Date.Now, drwUserLogin.ID, blnVisibility)
 
 
             Dim qryAccessgroupMenu As New BusinessObject.dstAccessgroupMenuTableAdapters.QueriesTableAdapter

@@ -10,15 +10,12 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class tbl_Accessgroup
+Partial Public Class tbl_PreWarningLogCurrentStatus_H
     Public Property ID As Integer
-    Public Property Desp As String
+    Public Property [Date] As Nullable(Of Date)
     Public Property STime As Nullable(Of Date)
-    Public Property FK_UserID As Nullable(Of Integer)
-    Public Property Visiblity As Nullable(Of Boolean)
-
-    Public Overridable Property tbl_User As tbl_User
-    Public Overridable Property tbl_AccessgroupUser As ICollection(Of tbl_AccessgroupUser) = New HashSet(Of tbl_AccessgroupUser)
-    Public Overridable Property tbl_AccessgroupMenu As ICollection(Of tbl_AccessgroupMenu) = New HashSet(Of tbl_AccessgroupMenu)
+    Public Property Success As Nullable(Of Boolean)
+    Public Property Remarks As String
+    Public Property tryTime As Nullable(Of Integer)
 
 End Class

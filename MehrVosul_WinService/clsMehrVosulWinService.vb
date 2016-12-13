@@ -85,6 +85,8 @@ Public Class clsMehrVosulWinService
 
     End Structure
 
+
+
     Private Structure stc_Deposit_Info
 
         Public CSTTYPDESC As String '0  مشتری حقیقی یا حقوقی
@@ -332,14 +334,15 @@ Public Class clsMehrVosulWinService
 
                                 strMessage = CreateMessage(1, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True)
 
-                                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwLCStaus.MobileNo, True, strMessage, "", Date.Now, "", 1, 1, Date.Now)
-
+                                If strMessage.Trim() <> "" Then
+                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwLCStaus.MobileNo, True, strMessage, "", Date.Now, "", 1, 1, Date.Now)
+                                End If
 
 
                             End If
 
-                            If drwWarningIntervalCheck.ToSponsor = True Then
+                                If drwWarningIntervalCheck.ToSponsor = True Then
 
                                 Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
                                 Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
@@ -354,9 +357,11 @@ Public Class clsMehrVosulWinService
 
                                     strMessage = CreateMessage(1, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, True, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, drwSponsorList.FName, drwSponsorList.LName, drwSponsorList.IsMale)
 
+                                    If strMessage.Trim() <> "" Then
+                                        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                                        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwSponsorList.MobileNo, False, strMessage, "", Date.Now, "", 1, 1, Date.Now)
+                                    End If
 
-                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwSponsorList.MobileNo, False, strMessage, "", Date.Now, "", 1, 1, Date.Now)
                                 Next drwSponsorList
 
 
@@ -606,198 +611,198 @@ VoiceSMS:
 
 Telephone:
 
-                        If drwWarningIntervalCheck.CallTelephone = True Then
+                        ''If drwWarningIntervalCheck.CallTelephone = True Then
 
-                            If drwWarningIntervalCheck.ToBorrower = True Then
+                        ''    If drwWarningIntervalCheck.ToBorrower = True Then
 
-                                Dim qryInput As New BusinessObject.dstInputTableAdapters.QueriesTableAdapter
-
-
-                                If drwLCStaus.IsMobileNoNull = False AndAlso drwLCStaus.MobileNo.Trim <> "" Then
-                                    qryInput.spr_INPUT_Insert(drwLCStaus.MobileNo, "T1", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwLCStaus.FName & " " & drwLCStaus.LName, "وام گیرنده", Nothing, Nothing, Nothing)
-                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwLCStaus.MobileNo, True, "تماس تلفنی با موبایل وام گیرنده", "", Date.Now, "", 8, 2, Date.Now)
-                                End If
-
-                                If drwLCStaus.IsTelephoneHomeNull = False AndAlso drwLCStaus.TelephoneHome.Trim <> "" Then
-                                    qryInput.spr_INPUT_Insert(drwLCStaus.TelephoneHome, "T1", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwLCStaus.FName & " " & drwLCStaus.LName, "وام گیرنده", Nothing, Nothing, Nothing)
-                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwLCStaus.TelephoneHome, True, "تماس تلفنی با تلفن منزل وام گیرنده", "", Date.Now, "", 8, 2, Date.Now)
-                                End If
-
-                                If drwLCStaus.IsTelephoneWorkNull = False AndAlso drwLCStaus.TelephoneWork.Trim <> "" Then
-                                    qryInput.spr_INPUT_Insert(drwLCStaus.TelephoneWork, "T1", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwLCStaus.FName & " " & drwLCStaus.LName, "وام گیرنده", Nothing, Nothing, Nothing)
-                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwLCStaus.TelephoneWork, True, "تماس تلفنی با تلفن محل کار وام گیرنده", "", Date.Now, "", 8, 2, Date.Now)
-                                End If
+                        ''        Dim qryInput As New BusinessObject.dstInputTableAdapters.QueriesTableAdapter
 
 
+                        ''        If drwLCStaus.IsMobileNoNull = False AndAlso drwLCStaus.MobileNo.Trim <> "" Then
+                        ''            qryInput.spr_INPUT_Insert(drwLCStaus.MobileNo, "T1", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwLCStaus.FName & " " & drwLCStaus.LName, "وام گیرنده", Nothing, Nothing, Nothing)
+                        ''            Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''            qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwLCStaus.MobileNo, True, "تماس تلفنی با موبایل وام گیرنده", "", Date.Now, "", 8, 2, Date.Now)
+                        ''        End If
 
+                        ''        If drwLCStaus.IsTelephoneHomeNull = False AndAlso drwLCStaus.TelephoneHome.Trim <> "" Then
+                        ''            qryInput.spr_INPUT_Insert(drwLCStaus.TelephoneHome, "T1", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwLCStaus.FName & " " & drwLCStaus.LName, "وام گیرنده", Nothing, Nothing, Nothing)
+                        ''            Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''            qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwLCStaus.TelephoneHome, True, "تماس تلفنی با تلفن منزل وام گیرنده", "", Date.Now, "", 8, 2, Date.Now)
+                        ''        End If
 
-                            End If
-                            If drwWarningIntervalCheck.ToSponsor = True Then
+                        ''        If drwLCStaus.IsTelephoneWorkNull = False AndAlso drwLCStaus.TelephoneWork.Trim <> "" Then
+                        ''            qryInput.spr_INPUT_Insert(drwLCStaus.TelephoneWork, "T1", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwLCStaus.FName & " " & drwLCStaus.LName, "وام گیرنده", Nothing, Nothing, Nothing)
+                        ''            Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''            qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwLCStaus.TelephoneWork, True, "تماس تلفنی با تلفن محل کار وام گیرنده", "", Date.Now, "", 8, 2, Date.Now)
+                        ''        End If
 
 
 
-                                Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
-                                Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
 
-                                dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
-
-                                For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
+                        ''    End If
+                        ''    If drwWarningIntervalCheck.ToSponsor = True Then
 
 
 
-                                    Dim qryInput As New BusinessObject.dstInputTableAdapters.QueriesTableAdapter
+                        ''        Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
+                        ''        Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
+
+                        ''        dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
+
+                        ''        For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
 
 
-                                    If drwSponsorList.IsMobileNoNull = False AndAlso drwSponsorList.MobileNo.Trim <> "" Then
-                                        qryInput.spr_INPUT_Insert(drwSponsorList.MobileNo, "T3", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwSponsorList.FName & " " & drwSponsorList.LName, "ضامن", Nothing, Nothing, Nothing)
-                                        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwSponsorList.MobileNo, False, "تماس تلفنی با موبایل ضامن", "", Date.Now, "", 8, 2, Date.Now)
-                                    End If
 
-                                    If drwSponsorList.IsTelephoneHomeNull = False AndAlso drwSponsorList.TelephoneHome.Trim <> "" Then
-                                        qryInput.spr_INPUT_Insert(drwSponsorList.TelephoneHome, "T3", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwSponsorList.FName & " " & drwSponsorList.LName, "ضامن", Nothing, Nothing, Nothing)
-                                        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwSponsorList.TelephoneHome, False, "تماس تلفنی با تلفن منزل ضامن", "", Date.Now, "", 8, 2, Date.Now)
-                                    End If
-
-                                    If drwSponsorList.IsTelephoneWorkNull = False AndAlso drwSponsorList.TelephoneWork.Trim <> "" Then
-                                        qryInput.spr_INPUT_Insert(drwSponsorList.TelephoneWork, "T3", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwSponsorList.FName & " " & drwSponsorList.LName, "ضامن", Nothing, Nothing, Nothing)
-                                        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwSponsorList.TelephoneWork, False, "تماس تلفنی با تلفن محل کار ضامن", "", Date.Now, "", 8, 2, Date.Now)
-                                    End If
+                        ''            Dim qryInput As New BusinessObject.dstInputTableAdapters.QueriesTableAdapter
 
 
-                                Next drwSponsorList
+                        ''            If drwSponsorList.IsMobileNoNull = False AndAlso drwSponsorList.MobileNo.Trim <> "" Then
+                        ''                qryInput.spr_INPUT_Insert(drwSponsorList.MobileNo, "T3", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwSponsorList.FName & " " & drwSponsorList.LName, "ضامن", Nothing, Nothing, Nothing)
+                        ''                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwSponsorList.MobileNo, False, "تماس تلفنی با موبایل ضامن", "", Date.Now, "", 8, 2, Date.Now)
+                        ''            End If
 
-                            End If
+                        ''            If drwSponsorList.IsTelephoneHomeNull = False AndAlso drwSponsorList.TelephoneHome.Trim <> "" Then
+                        ''                qryInput.spr_INPUT_Insert(drwSponsorList.TelephoneHome, "T3", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwSponsorList.FName & " " & drwSponsorList.LName, "ضامن", Nothing, Nothing, Nothing)
+                        ''                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwSponsorList.TelephoneHome, False, "تماس تلفنی با تلفن منزل ضامن", "", Date.Now, "", 8, 2, Date.Now)
+                        ''            End If
+
+                        ''            If drwSponsorList.IsTelephoneWorkNull = False AndAlso drwSponsorList.TelephoneWork.Trim <> "" Then
+                        ''                qryInput.spr_INPUT_Insert(drwSponsorList.TelephoneWork, "T3", drwLCStaus.LoanNumber, drwLCStaus.AmounDefferd, drwLCStaus.NotPiadDurationDay, drwLCStaus.NotPiadDurationDay, drwLCStaus.BrnachCode, Nothing, Nothing, Nothing, Nothing, 0, "pending", True, False, Nothing, Nothing, Nothing, Nothing, Nothing, "", Nothing, drwSponsorList.FName & " " & drwSponsorList.LName, "ضامن", Nothing, Nothing, Nothing)
+                        ''                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.TelephoneNumber, drwSponsorList.TelephoneWork, False, "تماس تلفنی با تلفن محل کار ضامن", "", Date.Now, "", 8, 2, Date.Now)
+                        ''            End If
 
 
-                        End If
+                        ''        Next drwSponsorList
+
+                        ''    End If
+
+
+                        ''End If
 LetterL:
 
-                        If drwWarningIntervalCheck.IssueIntroductionLetter = True Then
+                        ''If drwWarningIntervalCheck.IssueIntroductionLetter = True Then
 
-                            If drwWarningIntervalCheck.ToBorrower = True Then
-                                Dim strMessage As String = ""
+                        ''    If drwWarningIntervalCheck.ToBorrower = True Then
+                        ''        Dim strMessage As String = ""
 
-                                strMessage = CreateMessage(3, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True)
-
-
-                                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", True, strMessage, "", Date.Now, "", 5, 3, Nothing)
+                        ''        strMessage = CreateMessage(3, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True)
 
 
-                            End If
-                            If drwWarningIntervalCheck.ToSponsor = True Then
+                        ''        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", True, strMessage, "", Date.Now, "", 5, 3, Nothing)
 
 
-                                Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
-                                Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
-
-                                dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
-
-                                For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
+                        ''    End If
+                        ''    If drwWarningIntervalCheck.ToSponsor = True Then
 
 
-                                    Dim strMessage As String = ""
+                        ''        Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
+                        ''        Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
 
-                                    strMessage = CreateMessage(3, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, True, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, drwSponsorList.FName, drwSponsorList.LName, drwSponsorList.IsMale)
+                        ''        dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
 
-
-                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", False, strMessage, "", Date.Now, "", 5, 3, Nothing)
-
-
-                                Next drwSponsorList
+                        ''        For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
 
 
-                            End If
+                        ''            Dim strMessage As String = ""
+
+                        ''            strMessage = CreateMessage(3, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, True, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, drwSponsorList.FName, drwSponsorList.LName, drwSponsorList.IsMale)
 
 
-                        End If
-
-                        If drwWarningIntervalCheck.IssueNotice = True Then
-
-                            If drwWarningIntervalCheck.ToBorrower = True Then
-                                Dim strMessage As String = ""
-
-                                strMessage = CreateMessage(4, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True)
+                        ''            Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''            qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", False, strMessage, "", Date.Now, "", 5, 3, Nothing)
 
 
-                                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", True, strMessage, "", Date.Now, "", 5, 4, Nothing)
-
-                            End If
-                            If drwWarningIntervalCheck.ToSponsor = True Then
+                        ''        Next drwSponsorList
 
 
-                                Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
-                                Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
-
-                                dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
-
-                                For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
+                        ''    End If
 
 
-                                    Dim strMessage As String = ""
+                        ''End If
 
-                                    strMessage = CreateMessage(4, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, True, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, drwSponsorList.FName, drwSponsorList.LName, drwSponsorList.IsMale)
+                        ''If drwWarningIntervalCheck.IssueNotice = True Then
 
+                        ''    If drwWarningIntervalCheck.ToBorrower = True Then
+                        ''        Dim strMessage As String = ""
 
-                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", False, strMessage, "", Date.Now, "", 5, 4, Nothing)
-
-
-                                Next drwSponsorList
+                        ''        strMessage = CreateMessage(4, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True)
 
 
-                            End If
+                        ''        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", True, strMessage, "", Date.Now, "", 5, 4, Nothing)
+
+                        ''    End If
+                        ''    If drwWarningIntervalCheck.ToSponsor = True Then
 
 
-                        End If
+                        ''        Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
+                        ''        Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
 
-                        If drwWarningIntervalCheck.IssueManifest = True Then
+                        ''        dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
 
-                            If drwWarningIntervalCheck.ToBorrower = True Then
-                                Dim strMessage As String = ""
-
-                                strMessage = CreateMessage(5, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True)
+                        ''        For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
 
 
-                                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", True, strMessage, "", Date.Now, "", 5, 5, Nothing)
+                        ''            Dim strMessage As String = ""
 
-                            End If
-                            If drwWarningIntervalCheck.ToSponsor = True Then
+                        ''            strMessage = CreateMessage(4, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, True, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, drwSponsorList.FName, drwSponsorList.LName, drwSponsorList.IsMale)
 
 
-                                Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
-                                Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
-
-                                dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
-
-                                For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
+                        ''            Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''            qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", False, strMessage, "", Date.Now, "", 5, 4, Nothing)
 
 
-                                    Dim strMessage As String = ""
-
-                                    strMessage = CreateMessage(5, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, True, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, drwSponsorList.FName, drwSponsorList.LName, drwSponsorList.IsMale)
+                        ''        Next drwSponsorList
 
 
-                                    Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", False, strMessage, "", Date.Now, "", 5, 5, Nothing)
+                        ''    End If
 
 
-                                Next drwSponsorList
+                        ''End If
+
+                        ''If drwWarningIntervalCheck.IssueManifest = True Then
+
+                        ''    If drwWarningIntervalCheck.ToBorrower = True Then
+                        ''        Dim strMessage As String = ""
+
+                        ''        strMessage = CreateMessage(5, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True)
 
 
-                            End If
+                        ''        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", True, strMessage, "", Date.Now, "", 5, 5, Nothing)
+
+                        ''    End If
+                        ''    If drwWarningIntervalCheck.ToSponsor = True Then
 
 
-                        End If
+                        ''        Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
+                        ''        Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
+
+                        ''        dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
+
+                        ''        For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
+
+
+                        ''            Dim strMessage As String = ""
+
+                        ''            strMessage = CreateMessage(5, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, True, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, drwSponsorList.FName, drwSponsorList.LName, drwSponsorList.IsMale)
+
+
+                        ''            Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                        ''            qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "", "", False, strMessage, "", Date.Now, "", 5, 5, Nothing)
+
+
+                        ''        Next drwSponsorList
+
+
+                        ''    End If
+
+
+                        ''End If
 
                     Catch ex As Exception
 
@@ -3504,6 +3509,475 @@ LetterL:
         ''   Call SendAdministratioSMSMessage()
     End Sub
 
+    'Public Sub preWarning_Laon()
+
+    '    Dim tadpSystemSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
+    '    Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
+    '    dtblSystemSetting = tadpSystemSetting.GetData()
+    '    drwSystemSetting = dtblSystemSetting.Rows(0)
+
+    '    If drwSystemSetting.PreNotification = False Then
+    '        Return
+    '    End If
+    '    If drwSystemSetting.tryTime_PreNotify = 0 Then
+    '        Return
+    '    End If
+
+    '    If drwSystemSetting.UpdateTime_PreNotify > Date.Now.TimeOfDay Then
+    '        Return
+    '    End If
+
+    '    Dim dteThisDate As Date = Date.Now 'Date.Now.AddDays(-1)
+
+
+
+    '    Dim tadpLogHeader As New BusinessObject.dstPreWarningIntervalTableAdapters.spr_tbl_PreWarningLogCurrentStatusH_ForDate_SelectTableAdapter
+    '    Dim dtblLogHeader As BusinessObject.dstPreWarningInterval.spr_tbl_PreWarningLogCurrentStatusH_ForDate_SelectDataTable = Nothing
+    '    dtblLogHeader = tadpLogHeader.GetData(dteThisDate)
+
+    '    Dim intCurrentTryTime As Integer = 0
+
+    '    If dtblLogHeader.Rows.Count > 0 Then
+    '        Dim drwLogHeader As BusinessObject.dstPreWarningInterval.spr_tbl_PreWarningLogCurrentStatusH_ForDate_SelectRow = dtblLogHeader.Rows(0)
+    '        If drwLogHeader.Success = True Then
+    '            Return
+    '        End If
+
+    '        If drwLogHeader.tryTime >= drwSystemSetting.tryTime_Loan Then
+    '            Return
+    '        End If
+
+    '        If Date.Now.Subtract(drwLogHeader.STime).TotalHours < drwSystemSetting.tryIntervalHour_Loan Then
+    '            Return
+    '        End If
+
+    '        intCurrentTryTime = drwLogHeader.tryTime
+
+    '    End If
+
+
+    '    Dim tadpIntervalList As New DataSet1TableAdapters.spr_PreWarningIntervals_Inerval_List_SelectTableAdapter
+    '    Dim dtblIntervalList As DataSet1.spr_PreWarningIntervals_Inerval_List_SelectDataTable = Nothing
+    '    dtblIntervalList = tadpIntervalList.GetData()
+
+    '    Dim strIntervalText As String = ""
+
+    '    ''For Each drwIntervalList As DataSet1.spr_PreWarningIntervals_Inerval_List_SelectRow In dtblIntervalList.Rows
+
+
+    '    ''    strIntervalText &= " Or (lc_date  between " & "to_date('" & stronDate & "','yyyymmdd')" & " And " & "to_date('" & strFromDate & "','yyyymmdd')" & ")"
+
+
+
+    '    ''Next drwIntervalList
+
+    '    For Each drwIntervalList As DataSet1.spr_PreWarningIntervals_Inerval_List_SelectRow In dtblIntervalList.Rows
+    '        Dim stronDate As String = Date.Now.AddDays(-drwIntervalList.onDay)
+
+    '        strIntervalText &= " or (FirstNoPaidDate = " & stronDate & " )"
+    '    Next drwIntervalList
+
+    '    strIntervalText = strIntervalText.Substring(3)
+
+
+    '    intCurrentTryTime += 1
+
+
+    '    Dim qryPreWarning As New BusinessObject.dstPreWarningIntervalTableAdapters.QueriesTableAdapter
+
+
+    '    Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
+
+    '    Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+    '    cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+    '    cnnBuiler_BI.UserID = "deposit"
+    '    cnnBuiler_BI.Password = "deposit"
+    '    cnnBuiler_BI.Unicode = True
+
+    '    Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+
+    '        Dim tadpWarningIntervalBranchList As New BusinessObject.dstPreWarningIntervalTableAdapters.spr_PreWarningIntervalsBranch_List_SelectTableAdapter
+    '        Dim dtblWarningIntervalBranchList As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervalsBranch_List_SelectDataTable = Nothing
+    '        dtblWarningIntervalBranchList = tadpWarningIntervalBranchList.GetData()
+
+    '        If dtblWarningIntervalBranchList.Rows.Count = 0 Then
+    '            cnnBI_Connection.Close()
+    '            qryPreWarning.spr_PreWarningLogCurrentStatus_H_Insert(dteThisDate, Date.Now, False, "گردش کارهای تعریف شده ناقص هستند", intCurrentTryTime)
+
+    '            Return
+    '        End If
+
+
+    '        Dim strLoan_Info_Query As String = "SELECT * from loan_info where state in ('3') and (" & strIntervalText & ") and ("
+
+
+
+    '        Dim strBranchQuery As String = ""
+    '        For Each drwWarningIntervalBranchList As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervalsBranch_List_SelectRow In dtblWarningIntervalBranchList.Rows
+    '            strBranchQuery &= "or ABRNCHCOD='" & drwWarningIntervalBranchList.BrnachCode & "'"
+
+    '        Next drwWarningIntervalBranchList
+
+    '        strLoan_Info_Query &= strBranchQuery.Substring(3) & ")"
+
+
+    '        Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+
+    '        Try
+    '            cnnBI_Connection.Open()
+    '        Catch ex As Exception
+
+    '            qryPreWarning.spr_PreWarningLogCurrentStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
+    '            Return
+    '        End Try
+    '        Dim dataReader As OracleDataReader = Nothing
+
+    '        Try
+    '            dataReader = cmd_BI.ExecuteReader()
+    '        Catch ex As Exception
+
+    '            qryPreWarning.spr_PreWarningLogCurrentStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
+    '            cnnBI_Connection.Close()
+
+    '            Return
+    '        End Try
+
+    '        Try
+    '            If dataReader.Read = False Then
+
+    '                qryPreWarning.spr_PreWarningLogCurrentStatus_H_Insert(dteThisDate, Date.Now, False, "اطلاعات مربوط به مورخ " & mdlGeneral.GetPersianDate(dteThisDate) & " بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید", intCurrentTryTime)
+    '                dataReader.Close()
+    '                cnnBI_Connection.Close()
+
+    '                Return
+    '            End If
+
+    '            Dim intLogHeaderID As Integer = qryPreWarning.spr_PreWarningLogCurrentStatus_H_Insert(dteThisDate, Date.Now, True, "", intCurrentTryTime)
+    '            qryPreWarning.spr_PreNotifiyCurrentLCStatus_Delete()
+
+    '            Dim i As Integer = 0
+    '            Dim strBuilder As New Text.StringBuilder()
+
+    '            Dim listOperationLoan As New ArrayList
+
+    '            Do
+    '                i += 1
+    '                Try
+    '                    Dim stcVarLoanInfo As stc_Loan_Info
+
+    '                    If dataReader.GetValue(0) Is DBNull.Value Then
+    '                        stcVarLoanInfo.FullName = ""
+    '                    Else
+    '                        stcVarLoanInfo.FullName = CStr(dataReader.GetValue(0)).Replace("'", "")
+    '                    End If
+
+    '                    If dataReader.GetValue(1) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Address = ""
+    '                    Else
+    '                        stcVarLoanInfo.Address = CStr(dataReader.GetValue(1)).Replace("'", "")
+    '                    End If
+
+    '                    If dataReader.GetValue(2) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Telephone = ""
+    '                    Else
+    '                        stcVarLoanInfo.Telephone = CStr(dataReader.GetValue(2)).Trim.Replace("'", "")
+    '                    End If
+
+
+    '                    If dataReader.GetValue(4) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Mobile = ""
+    '                    Else
+    '                        stcVarLoanInfo.Mobile = CStr(dataReader.GetValue(4)).Trim.Replace("'", "")
+    '                    End If
+
+    '                    stcVarLoanInfo.Date_P = CStr(dataReader.GetValue(5))
+
+
+
+    '                    If dataReader.GetValue(6) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(6)).Trim.Replace("'", "")
+    '                    End If
+
+
+    '                    If dataReader.GetValue(7) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.BranchCode = CStr(dataReader.GetValue(7)).Trim
+    '                    End If
+
+
+    '                    If dataReader.GetValue(8) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.LoanTypeCode = CStr(dataReader.GetValue(8)).Trim
+    '                    End If
+
+    '                    If dataReader.GetValue(9) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(9)).Trim.Replace("'", "")
+    '                    End If
+
+
+    '                    If dataReader.GetValue(10) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.LoanSerial = CInt(dataReader.GetValue(10))
+    '                    End If
+
+    '                    If dataReader.GetValue(11) Is DBNull.Value Then
+    '                        stcVarLoanInfo.LCDate = ""
+    '                    Else
+    '                        stcVarLoanInfo.LCDate = CStr(dataReader.GetValue(11)).Trim
+    '                    End If
+
+    '                    If dataReader.GetValue(12) Is DBNull.Value Then
+    '                        stcVarLoanInfo.LCAmount = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.LCAmount = CDbl(dataReader.GetValue(12))
+    '                    End If
+
+
+
+    '                    If dataReader.GetValue(14) Is DBNull.Value Then
+    '                        stcVarLoanInfo.IstlNum = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.IstlNum = CInt(dataReader.GetValue(14))
+    '                    End If
+
+
+    '                    If dataReader.GetValue(19) Is DBNull.Value Then
+    '                        stcVarLoanInfo.FirstNoPaidDate = ""
+    '                    Else
+    '                        stcVarLoanInfo.FirstNoPaidDate = CStr(dataReader.GetValue(19)).Trim
+    '                    End If
+
+    '                    stcVarLoanInfo.Status = CStr(dataReader.GetValue(20)).Trim
+
+
+
+    '                    If dataReader.GetValue(22) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.LCBalance = CDbl(dataReader.GetValue(22))
+    '                    End If
+
+
+
+
+    '                    If dataReader.GetValue(30) Is DBNull.Value Then
+    '                        stcVarLoanInfo.NationalID = ""
+    '                    Else
+    '                        stcVarLoanInfo.NationalID = CStr(dataReader.GetValue(30)).Replace("'", "")
+    '                    End If
+
+
+    '                    If dataReader.GetValue(31) Is DBNull.Value Then
+    '                        stcVarLoanInfo.NationalNo = ""
+    '                    Else
+    '                        stcVarLoanInfo.NationalNo = CStr(dataReader.GetValue(31)).Replace("'", "")
+    '                    End If
+
+
+    '                    If dataReader.GetValue(32) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Sex = ""
+    '                    Else
+    '                        stcVarLoanInfo.Sex = CStr(dataReader.GetValue(32)).Trim.Replace("'", "")
+    '                    End If
+
+
+    '                    Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
+    '                    Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
+    '                    dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarLoanInfo.CustomerNO)
+    '                    Dim intBorrowerFileID As Integer = -1
+
+
+    '                    ''check if Customer Number is double or not, if it is then skip it
+    '                    If i = 1 Then
+
+    '                        listOperationLoan.Add(stcVarLoanInfo.CustomerNO)
+
+    '                    Else
+
+
+    '                        For Each obj In listOperationLoan
+    '                            If obj = stcVarLoanInfo.CustomerNO Then
+    '                                Continue Do
+    '                            End If
+    '                        Next
+
+    '                        listOperationLoan.Add(stcVarLoanInfo.CustomerNO)
+
+    '                    End If
+
+
+    '                    If dtblFilebyCustomerNo.Rows.Count = 0 Then
+
+    '                        Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+
+
+    '                        Dim arrFullName() As String = stcVarLoanInfo.FullName.Split("*")
+    '                        Dim strFatherName As String = arrFullName(0)
+    '                        Dim strFName As String = arrFullName(1)
+    '                        Dim strLName As String = arrFullName(2)
+
+
+    '                        Dim blnIsMale As Boolean = If(stcVarLoanInfo.Sex = "زن", False, True)
+    '                        intBorrowerFileID = qryFile.spr_File_Insert(stcVarLoanInfo.CustomerNo, strFName, strLName, strFatherName, stcVarLoanInfo.Mobile, stcVarLoanInfo.NationalID, stcVarLoanInfo.NationalNo, "", stcVarLoanInfo.Address, stcVarLoanInfo.Telephone, stcVarLoanInfo.Telephone, blnIsMale, 2, 1, Nothing, Nothing)
+
+    '                    Else
+
+    '                        Dim drwFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectRow = dtblFilebyCustomerNo.Rows(0)
+    '                        intBorrowerFileID = drwFilebyCustomerNo.ID
+
+
+    '                    End If
+
+
+    '                    Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+    '                    Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+    '                    dtblLoanByNumber = tadpLoanByNumber.GetData(stcVarLoanInfo.LC_No, intBorrowerFileID)
+
+
+    '                    Dim intLoanID As Integer = -1
+    '                    Dim intBranchID As Integer = -1
+    '                    Dim intLoanTypeID As Integer = -1
+
+    '                    If dtblLoanByNumber.Rows.Count = 0 Then
+    '                        Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
+
+
+    '                        Dim dteLoanDate? As Date = Nothing
+    '                        Try
+    '                            stcVarLoanInfo.LCDate = stcVarLoanInfo.LCDate.Insert(4, "/")
+    '                            stcVarLoanInfo.LCDate = stcVarLoanInfo.LCDate.Insert(7, "/")
+    '                            dteLoanDate = mdlGeneral.GetGregorianDate(stcVarLoanInfo.LCDate)
+    '                        Catch ex As Exception
+    '                            dteLoanDate = Nothing
+    '                        End Try
+
+    '                        Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
+    '                        Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
+    '                        dtblBranchbyCode = tadpBranchbyCode.GetData(stcVarLoanInfo.BranchCode)
+
+
+
+    '                        If dtblBranchbyCode.Rows.Count = 0 Then
+
+
+    '                            Dim obj_stc_BranchInfo As stc_Branch_Info = GetBarnchName(stcVarLoanInfo.BranchCode)
+
+
+    '                            Dim qryBranch As New BusinessObject.dstBranchTableAdapters.QueriesTableAdapter
+
+    '                            intBranchID = qryBranch.spr_Branch_Insert(stcVarLoanInfo.BranchCode, obj_stc_BranchInfo.BranchName, obj_stc_BranchInfo.BranchAddress, 2, Nothing, "", 1) 'UserID=2 is System User
+
+
+
+    '                        Else
+    '                            Dim drwBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectRow = dtblBranchbyCode.Rows(0)
+    '                            intBranchID = drwBranchbyCode.ID
+
+    '                        End If
+
+
+    '                        Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+    '                        Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+    '                        dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(stcVarLoanInfo.LoanTypeCode)
+
+
+    '                        If dtblLoanTypeByCode.Rows.Count = 0 Then
+
+    '                            Dim strLoanTypeName As String = GetLoanTypeName(stcVarLoanInfo.LoanTypeCode)
+    '                            Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
+    '                            intLoanTypeID = qryLoanType.spr_LoanType_Insert(stcVarLoanInfo.LoanTypeCode, strLoanTypeName, 2, "")
+
+
+    '                        Else
+    '                            Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
+    '                            intLoanTypeID = drwLoanTypeByCode.ID
+
+
+    '                        End If
+
+
+    '                        intLoanID = qryLoan.spr_Loan_Insert(intBorrowerFileID, intLoanTypeID, intBranchID, dteLoanDate, stcVarLoanInfo.LC_No, stcVarLoanInfo.LoanSerial, Date.Now, stcVarLoanInfo.LCAmount, stcVarLoanInfo.IstlNum)
+
+
+
+    '                    Else
+
+
+    '                        Dim drwLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectRow = dtblLoanByNumber.Rows(0)
+    '                        intLoanID = drwLoanByNumber.ID
+
+    '                        intLoanTypeID = drwLoanByNumber.FK_LoanTypeID
+    '                        intBranchID = drwLoanByNumber.FK_BranchID
+
+
+
+    '                    End If
+
+
+
+    '                    With stcVarLoanInfo
+
+
+    '                        Dim strTempInsertQuery As String = " union select '" & intBorrowerFileID.ToString & "'," & .FirstNoPaidDate.ToString & "," & intBranchID.ToString
+    '                        strTempInsertQuery &= "," & intLoanID.ToString & ",'" & dteThisDate & "'"
+    '                        strBuilder.Append(strTempInsertQuery)
+
+
+    '                        If i >= 500 Then
+    '                            Dim strMainIntertQuery As String = strBuilder.ToString.Substring(7)
+    '                            qryPreWarning.spr_PreNotifiyCurrentLCStatus_Bulk_Insert(strMainIntertQuery)
+    '                            i = 0
+    '                            strBuilder.Clear()
+
+    '                        End If
+
+
+
+    '                    End With
+
+
+
+    '                Catch ex As Exception
+    '                    Continue Do
+    '                End Try
+
+
+    '            Loop While dataReader.Read()
+    '            dataReader.Close()
+
+    '            If i <> 0 Then
+    '                Dim strMainInsertQuery As String = strBuilder.ToString.Substring(6)
+    '                qryPreWarning.spr_PreNotifiyCurrentLCStatus_Bulk_Insert(strMainInsertQuery)
+
+    '            End If
+
+    '            listOperationLoan.Clear()
+
+
+    '        Catch ex As Exception
+
+    '            qryPreWarning.spr_PreWarningLogCurrentStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
+    '            Return
+    '        End Try
+
+    '        cnnBI_Connection.Close()
+
+    '    End Using
+    '    ''   Call SendAdministratioSMSMessage()
+    'End Sub
 
     Private Function GetBarnchName(ByVal strBranchCode As String) As stc_Branch_Info
 
@@ -4140,29 +4614,34 @@ LetterL:
                     Dim oDbContext As New BusinessObject.dbMehrVosulEntities1
                     Dim dteToday As Date = Date.Now.Date
 
-                    'Dim lnqWarningNotificationLogDetail = oDbContext.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 6 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
-                    'Dim intVoiceSMSCount = lnqWarningNotificationLogDetail.Count
-                    'If intVoiceSMSCount = 0 Then
-                    '    Return
-                    'End If
 
                     Dim lnqSMSCount = oDbContext.tbl_SMSCountLog.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
-                    Dim lnqSMSCountList = lnqSMSCount.ToList(0)
-                    Dim intVoiceSMSCount = lnqSMSCountList.SMSVoice
-                    Dim dteFirstSend = lnqSMSCountList.FirstSent
-                    Dim dteLastSend = lnqSMSCountList.LastSent
+                    If lnqSMSCount.Count > 0 Then
 
 
-                    Dim tmSpan As TimeSpan = dteLastSend.Value.Subtract(dteFirstSend.Value)
-
-                    strResultMessage = "گزارش نهایی مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
-                    strResultMessage &= "وضعیت: OK" & ControlChars.NewLine
-                    strResultMessage &= "پیامک صوتی" & ControlChars.NewLine
-                    strResultMessage &= " زمان اولین ارسال: " & dteFirstSend.Value.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال: " & dteLastSend.Value.ToString("HH:mm") & ControlChars.NewLine
-                    strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
-                    strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString ''("n0")
+                        Dim lnqSMSCountList = lnqSMSCount.ToList(0)
+                        Dim intVoiceSMSCount = lnqSMSCountList.SMSVoice
+                        Dim dteFirstSend = lnqSMSCountList.FirstSent
+                        Dim dteLastSend = lnqSMSCountList.LastSent
 
 
+
+                        Dim tmSpan As TimeSpan = dteLastSend.Value.Subtract(dteFirstSend.Value)
+
+                        strResultMessage = "گزارش نهایی مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
+                        strResultMessage &= "وضعیت: OK" & ControlChars.NewLine
+                        strResultMessage &= "پیامک صوتی" & ControlChars.NewLine
+                        strResultMessage &= " زمان اولین ارسال: " & dteFirstSend.Value.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال: " & dteLastSend.Value.ToString("HH:mm") & ControlChars.NewLine
+                        strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
+                        strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString ''("n0")
+
+                    Else
+
+
+                        qryErrorLog.spr_ErrorLog_Insert("3", 3, "SendAdministratioSMSMessage_ForVoice")
+                        Exit Sub
+
+                    End If
 
                 End If
             End If

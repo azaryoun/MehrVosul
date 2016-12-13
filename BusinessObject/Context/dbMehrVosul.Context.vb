@@ -80,6 +80,11 @@ Partial Public Class dbMehrVosulEntities1
     Public Overridable Property tbl_WarningIntervalsLoanType() As DbSet(Of tbl_WarningIntervalsLoanType)
     Public Overridable Property tbl_WarningNotificationLog() As DbSet(Of tbl_WarningNotificationLog)
     Public Overridable Property tbl_WarningNotificationLogDetail() As DbSet(Of tbl_WarningNotificationLogDetail)
+    Public Overridable Property tbl_PreNotifiyCurrentLCStatus() As DbSet(Of tbl_PreNotifiyCurrentLCStatus)
+    Public Overridable Property tbl_PreWarningIntervals() As DbSet(Of tbl_PreWarningIntervals)
+    Public Overridable Property tbl_PreWarningIntervalsBranch() As DbSet(Of tbl_PreWarningIntervalsBranch)
+    Public Overridable Property tbl_PreWarningIntervalsLoanType() As DbSet(Of tbl_PreWarningIntervalsLoanType)
+    Public Overridable Property tbl_PreWarningLogCurrentStatus_H() As DbSet(Of tbl_PreWarningLogCurrentStatus_H)
 
     <DbFunction("dbMehrVosulEntities1", "fnc_Menu_Childs")>
     Public Overridable Function fnc_Menu_Childs(parentID As Nullable(Of Integer)) As IQueryable(Of fnc_Menu_Childs_Result)
@@ -185,14 +190,16 @@ Partial Public Class dbMehrVosulEntities1
         Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_Accessgroup_Delete", iDParameter)
     End Function
 
-    Public Overridable Function spr_Accessgroup_Insert(desp As String, sTime As Nullable(Of Date), fK_UserID As Nullable(Of Integer)) As ObjectResult(Of Nullable(Of Decimal))
+    Public Overridable Function spr_Accessgroup_Insert(desp As String, sTime As Nullable(Of Date), fK_UserID As Nullable(Of Integer), visiblity As Nullable(Of Boolean)) As ObjectResult(Of Nullable(Of Decimal))
         Dim despParameter As ObjectParameter = If(desp IsNot Nothing, New ObjectParameter("Desp", desp), New ObjectParameter("Desp", GetType(String)))
 
         Dim sTimeParameter As ObjectParameter = If(sTime.HasValue, New ObjectParameter("STime", sTime), New ObjectParameter("STime", GetType(Date)))
 
         Dim fK_UserIDParameter As ObjectParameter = If(fK_UserID.HasValue, New ObjectParameter("FK_UserID", fK_UserID), New ObjectParameter("FK_UserID", GetType(Integer)))
 
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Decimal))("spr_Accessgroup_Insert", despParameter, sTimeParameter, fK_UserIDParameter)
+        Dim visiblityParameter As ObjectParameter = If(visiblity.HasValue, New ObjectParameter("Visiblity", visiblity), New ObjectParameter("Visiblity", GetType(Boolean)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Decimal))("spr_Accessgroup_Insert", despParameter, sTimeParameter, fK_UserIDParameter, visiblityParameter)
     End Function
 
     Public Overridable Function spr_Accessgroup_List_Select(action As Nullable(Of Integer), userID As Nullable(Of Integer)) As ObjectResult(Of spr_Accessgroup_List_Select_Result)
@@ -221,7 +228,7 @@ Partial Public Class dbMehrVosulEntities1
         Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_Accessgroup_Select_Result)("spr_Accessgroup_Select", iDParameter)
     End Function
 
-    Public Overridable Function spr_Accessgroup_Update(iD As Nullable(Of Integer), desp As String, sTime As Nullable(Of Date), fK_UserID As Nullable(Of Integer)) As Integer
+    Public Overridable Function spr_Accessgroup_Update(iD As Nullable(Of Integer), desp As String, sTime As Nullable(Of Date), fK_UserID As Nullable(Of Integer), visiblity As Nullable(Of Boolean)) As Integer
         Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
 
         Dim despParameter As ObjectParameter = If(desp IsNot Nothing, New ObjectParameter("Desp", desp), New ObjectParameter("Desp", GetType(String)))
@@ -230,7 +237,9 @@ Partial Public Class dbMehrVosulEntities1
 
         Dim fK_UserIDParameter As ObjectParameter = If(fK_UserID.HasValue, New ObjectParameter("FK_UserID", fK_UserID), New ObjectParameter("FK_UserID", GetType(Integer)))
 
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_Accessgroup_Update", iDParameter, despParameter, sTimeParameter, fK_UserIDParameter)
+        Dim visiblityParameter As ObjectParameter = If(visiblity.HasValue, New ObjectParameter("Visiblity", visiblity), New ObjectParameter("Visiblity", GetType(Boolean)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_Accessgroup_Update", iDParameter, despParameter, sTimeParameter, fK_UserIDParameter, visiblityParameter)
     End Function
 
     Public Overridable Function spr_AccessgroupMenu_Accessgroup_Delete(fK_AccessGroupID As Nullable(Of Integer)) As Integer

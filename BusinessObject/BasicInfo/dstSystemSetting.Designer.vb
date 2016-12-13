@@ -339,6 +339,12 @@ Partial Public Class dstSystemSetting
         
         Private columnVoiceService As Global.System.Data.DataColumn
         
+        Private columnPreNotification As Global.System.Data.DataColumn
+        
+        Private columnUpdateTime_PreNotify As Global.System.Data.DataColumn
+        
+        Private columntryTime_PreNotify As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -599,6 +605,30 @@ Partial Public Class dstSystemSetting
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property PreNotificationColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPreNotification
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property UpdateTime_PreNotifyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnUpdateTime_PreNotify
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryTime_PreNotifyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryTime_PreNotify
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -663,9 +693,12 @@ Partial Public Class dstSystemSetting
                     ByVal VosoulService As Boolean,  _
                     ByVal HadiService As Boolean,  _
                     ByVal HadiServiceLoan As Boolean,  _
-                    ByVal VoiceService As Boolean) As spr_SystemSetting_SelectRow
+                    ByVal VoiceService As Boolean,  _
+                    ByVal PreNotification As Boolean,  _
+                    ByVal UpdateTime_PreNotify As System.TimeSpan,  _
+                    ByVal tryTime_PreNotify As Integer) As spr_SystemSetting_SelectRow
             Dim rowspr_SystemSetting_SelectRow As spr_SystemSetting_SelectRow = CType(Me.NewRow,spr_SystemSetting_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {ID, GatewayNumber, GatewayCompany, GatewayUsername, GatewayPassword, GatewayIP, EmailUsername, EmailHost, EmailPassword, Email, TelephoneNumber, UpdateTime, tryTime, tryIntervalHour, ETime, FK_EUserID, UpdateTime_Deposit, tryTime_Deposit, tryIntervalHour_Deposit, UpdateTime_Loan, tryTime_Loan, tryIntervalHour_Loan, VoiceSMSUID, VoiceSMSToken, VosoulService, HadiService, HadiServiceLoan, VoiceService}
+            Dim columnValuesArray() As Object = New Object() {ID, GatewayNumber, GatewayCompany, GatewayUsername, GatewayPassword, GatewayIP, EmailUsername, EmailHost, EmailPassword, Email, TelephoneNumber, UpdateTime, tryTime, tryIntervalHour, ETime, FK_EUserID, UpdateTime_Deposit, tryTime_Deposit, tryIntervalHour_Deposit, UpdateTime_Loan, tryTime_Loan, tryIntervalHour_Loan, VoiceSMSUID, VoiceSMSToken, VosoulService, HadiService, HadiServiceLoan, VoiceService, PreNotification, UpdateTime_PreNotify, tryTime_PreNotify}
             rowspr_SystemSetting_SelectRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_SystemSetting_SelectRow)
             Return rowspr_SystemSetting_SelectRow
@@ -722,6 +755,9 @@ Partial Public Class dstSystemSetting
             Me.columnHadiService = MyBase.Columns("HadiService")
             Me.columnHadiServiceLoan = MyBase.Columns("HadiServiceLoan")
             Me.columnVoiceService = MyBase.Columns("VoiceService")
+            Me.columnPreNotification = MyBase.Columns("PreNotification")
+            Me.columnUpdateTime_PreNotify = MyBase.Columns("UpdateTime_PreNotify")
+            Me.columntryTime_PreNotify = MyBase.Columns("tryTime_PreNotify")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -783,6 +819,12 @@ Partial Public Class dstSystemSetting
             MyBase.Columns.Add(Me.columnHadiServiceLoan)
             Me.columnVoiceService = New Global.System.Data.DataColumn("VoiceService", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnVoiceService)
+            Me.columnPreNotification = New Global.System.Data.DataColumn("PreNotification", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPreNotification)
+            Me.columnUpdateTime_PreNotify = New Global.System.Data.DataColumn("UpdateTime_PreNotify", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnUpdateTime_PreNotify)
+            Me.columntryTime_PreNotify = New Global.System.Data.DataColumn("tryTime_PreNotify", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryTime_PreNotify)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AllowDBNull = false
             Me.columnID.Unique = true
@@ -1381,6 +1423,54 @@ Partial Public Class dstSystemSetting
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property PreNotification() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SystemSetting_Select.PreNotificationColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PreNotification' in table 'spr_SystemSetting_Select' is DBN"& _ 
+                            "ull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SystemSetting_Select.PreNotificationColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property UpdateTime_PreNotify() As System.TimeSpan
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SystemSetting_Select.UpdateTime_PreNotifyColumn),Global.System.TimeSpan)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'UpdateTime_PreNotify' in table 'spr_SystemSetting_Select' i"& _ 
+                            "s DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SystemSetting_Select.UpdateTime_PreNotifyColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property tryTime_PreNotify() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SystemSetting_Select.tryTime_PreNotifyColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'tryTime_PreNotify' in table 'spr_SystemSetting_Select' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SystemSetting_Select.tryTime_PreNotifyColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsGatewayNumberNull() As Boolean
             Return Me.IsNull(Me.tablespr_SystemSetting_Select.GatewayNumberColumn)
         End Function
@@ -1702,6 +1792,42 @@ Partial Public Class dstSystemSetting
         Public Sub SetVoiceServiceNull()
             Me(Me.tablespr_SystemSetting_Select.VoiceServiceColumn) = Global.System.Convert.DBNull
         End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsPreNotificationNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SystemSetting_Select.PreNotificationColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetPreNotificationNull()
+            Me(Me.tablespr_SystemSetting_Select.PreNotificationColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsUpdateTime_PreNotifyNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SystemSetting_Select.UpdateTime_PreNotifyColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetUpdateTime_PreNotifyNull()
+            Me(Me.tablespr_SystemSetting_Select.UpdateTime_PreNotifyColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IstryTime_PreNotifyNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SystemSetting_Select.tryTime_PreNotifyColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SettryTime_PreNotifyNull()
+            Me(Me.tablespr_SystemSetting_Select.tryTime_PreNotifyColumn) = Global.System.Convert.DBNull
+        End Sub
     End Class
     
     '''<summary>
@@ -1898,6 +2024,9 @@ Namespace dstSystemSettingTableAdapters
             tableMapping.ColumnMappings.Add("HadiService", "HadiService")
             tableMapping.ColumnMappings.Add("HadiServiceLoan", "HadiServiceLoan")
             tableMapping.ColumnMappings.Add("VoiceService", "VoiceService")
+            tableMapping.ColumnMappings.Add("PreNotification", "PreNotification")
+            tableMapping.ColumnMappings.Add("UpdateTime_PreNotify", "UpdateTime_PreNotify")
+            tableMapping.ColumnMappings.Add("tryTime_PreNotify", "tryTime_PreNotify")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         

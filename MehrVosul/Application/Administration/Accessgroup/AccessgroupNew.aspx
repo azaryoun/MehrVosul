@@ -70,7 +70,16 @@
                         </div>
                       
                     </div>
+                   <div class="panel panel-default" > 
+                                           <div class="panel-heading">
+                                            <label>وضعیت</label>
+                                              </div>
+                                             
+                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
 
+                                                  <label> <input type="checkbox" runat="server"  id="chkVisibility" checked="checked"/> نمایش به کاربر</label> 
+                                                   </div>
+                                         </div>
 
                      </div>
                             </div>

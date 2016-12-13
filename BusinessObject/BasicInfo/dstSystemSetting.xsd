@@ -49,6 +49,9 @@
               <Mapping SourceColumn="HadiService" DataSetColumn="HadiService" />
               <Mapping SourceColumn="HadiServiceLoan" DataSetColumn="HadiServiceLoan" />
               <Mapping SourceColumn="VoiceService" DataSetColumn="VoiceService" />
+              <Mapping SourceColumn="PreNotification" DataSetColumn="PreNotification" />
+              <Mapping SourceColumn="UpdateTime_PreNotify" DataSetColumn="UpdateTime_PreNotify" />
+              <Mapping SourceColumn="tryTime_PreNotify" DataSetColumn="tryTime_PreNotify" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -207,6 +210,9 @@
               <xs:element name="HadiService" msprop:Generator_ColumnVarNameInTable="columnHadiService" msprop:Generator_ColumnPropNameInRow="HadiService" msprop:Generator_ColumnPropNameInTable="HadiServiceColumn" msprop:Generator_UserColumnName="HadiService" type="xs:boolean" minOccurs="0" />
               <xs:element name="HadiServiceLoan" msprop:Generator_ColumnVarNameInTable="columnHadiServiceLoan" msprop:Generator_ColumnPropNameInRow="HadiServiceLoan" msprop:Generator_ColumnPropNameInTable="HadiServiceLoanColumn" msprop:Generator_UserColumnName="HadiServiceLoan" type="xs:boolean" minOccurs="0" />
               <xs:element name="VoiceService" msprop:Generator_ColumnVarNameInTable="columnVoiceService" msprop:Generator_ColumnPropNameInRow="VoiceService" msprop:Generator_ColumnPropNameInTable="VoiceServiceColumn" msprop:Generator_UserColumnName="VoiceService" type="xs:boolean" minOccurs="0" />
+              <xs:element name="PreNotification" msprop:Generator_ColumnVarNameInTable="columnPreNotification" msprop:Generator_ColumnPropNameInRow="PreNotification" msprop:Generator_ColumnPropNameInTable="PreNotificationColumn" msprop:Generator_UserColumnName="PreNotification" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdateTime_PreNotify" msprop:Generator_ColumnVarNameInTable="columnUpdateTime_PreNotify" msprop:Generator_ColumnPropNameInRow="UpdateTime_PreNotify" msprop:Generator_ColumnPropNameInTable="UpdateTime_PreNotifyColumn" msprop:Generator_UserColumnName="UpdateTime_PreNotify" type="xs:duration" minOccurs="0" />
+              <xs:element name="tryTime_PreNotify" msprop:Generator_ColumnVarNameInTable="columntryTime_PreNotify" msprop:Generator_ColumnPropNameInRow="tryTime_PreNotify" msprop:Generator_ColumnPropNameInTable="tryTime_PreNotifyColumn" msprop:Generator_UserColumnName="tryTime_PreNotify" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

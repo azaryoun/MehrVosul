@@ -573,6 +573,21 @@
     <Compile Include="Context\tbl_NotificationTarif.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\tbl_PreNotifiyCurrentLCStatus.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_PreWarningIntervals.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_PreWarningIntervalsBranch.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_PreWarningIntervalsLoanType.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_PreWarningLogCurrentStatus_H.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\tbl_Province.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
@@ -774,6 +789,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dstLoginLog.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstPreWarningInterval.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstPreWarningInterval.xsd</DependentUpon>
     </Compile>
     <Compile Include="Vosul\dstReport.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1202,6 +1222,17 @@
     </None>
     <None Include="Vosul\dstLoginLog.xss">
       <DependentUpon>dstLoginLog.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstPreWarningInterval.xsc">
+      <DependentUpon>dstPreWarningInterval.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstPreWarningInterval.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstPreWarningInterval.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstPreWarningInterval.xss">
+      <DependentUpon>dstPreWarningInterval.xsd</DependentUpon>
     </None>
     <None Include="Vosul\dstReport.xsc">
       <DependentUpon>dstReport.xsd</DependentUpon>

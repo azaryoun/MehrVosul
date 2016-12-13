@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class AccessgroupEdit
-
+    
     '''<summary>
     '''Bootstrap_Panel1 control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class AccessgroupEdit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Bootstrap_Panel1 As Global.MehrVosul.Bootstrap_Panel
-
+    
     '''<summary>
     '''lblInnerPageTitle control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class AccessgroupEdit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblInnerPageTitle As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''txtAccessgrouptitle control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class AccessgroupEdit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtAccessgrouptitle As Global.System.Web.UI.WebControls.TextBox
-
+    
     '''<summary>
     '''divchklstMenuItems control.
     '''</summary>
@@ -48,7 +48,16 @@ Partial Public Class AccessgroupEdit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divchklstMenuItems As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
+    '''<summary>
+    '''chkVisibility control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkVisibility As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    
     '''<summary>
     '''hdnAction control.
     '''</summary>

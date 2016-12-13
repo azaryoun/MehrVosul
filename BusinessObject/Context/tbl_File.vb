@@ -31,6 +31,7 @@ Partial Public Class tbl_File
     Public Property State As Nullable(Of Byte)
     Public Property FK_OriginalFileID As Nullable(Of Integer)
     Public Property FK_RequestUserID As Nullable(Of Integer)
+    Public Property BirthDate As Nullable(Of Date)
 
     Public Overridable Property tbl_User As tbl_User
     Public Overridable Property tbl_User1 As tbl_User
@@ -44,5 +45,6 @@ Partial Public Class tbl_File
     Public Overridable Property tbl_HandyFollow As ICollection(Of tbl_HandyFollow) = New HashSet(Of tbl_HandyFollow)
     Public Overridable Property tbl_Loan As ICollection(Of tbl_Loan) = New HashSet(Of tbl_Loan)
     Public Overridable Property tbl_WarningNotificationLog As ICollection(Of tbl_WarningNotificationLog) = New HashSet(Of tbl_WarningNotificationLog)
+    Public Overridable Property tbl_PreNotifiyCurrentLCStatus As ICollection(Of tbl_PreNotifiyCurrentLCStatus) = New HashSet(Of tbl_PreNotifiyCurrentLCStatus)
 
 End Class

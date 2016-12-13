@@ -118,6 +118,18 @@
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsExceptionLoanType_tbl_WarningIntervalsException" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsExceptionLoanType_tbl_LoanType" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningNotificationLogDetail_tbl_WarningNotificationLog" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_PreNotifiyCurrentLCStatus" Width="1.5" PointX="23.125" PointY="24.125" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_PreWarningIntervals" Width="1.5" PointX="20.625" PointY="29.625" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_PreWarningIntervalsBranch" Width="1.5" PointX="22.875" PointY="28" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_PreWarningIntervalsLoanType" Width="1.5" PointX="22.875" PointY="12.625" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_PreWarningLogCurrentStatus_H" Width="1.5" PointX="5.5" PointY="14.25" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreWarningIntervalsBranch_tbl_Branch" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_File" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

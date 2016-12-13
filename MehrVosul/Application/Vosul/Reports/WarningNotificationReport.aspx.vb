@@ -648,7 +648,7 @@ Public Class WarningNotificationReport
                         Case 7
                             TbCell.InnerHtml = "تحویل شده"
                         Case 8
-                            TbCell.InnerHtml = "بدون پاسخ"
+                            TbCell.InnerHtml = "تماس برقرار شده"
                         Case 9
                             TbCell.InnerHtml = "پاسخ داده شده"
                     End Select

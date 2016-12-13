@@ -29,5 +29,6 @@ Partial Public Class tbl_Loan
     Public Overridable Property tbl_LoanType As tbl_LoanType
     Public Overridable Property tbl_LoanSponsor As ICollection(Of tbl_LoanSponsor) = New HashSet(Of tbl_LoanSponsor)
     Public Overridable Property tbl_WarningNotificationLog As ICollection(Of tbl_WarningNotificationLog) = New HashSet(Of tbl_WarningNotificationLog)
+    Public Overridable Property tbl_PreNotifiyCurrentLCStatus As ICollection(Of tbl_PreNotifiyCurrentLCStatus) = New HashSet(Of tbl_PreNotifiyCurrentLCStatus)
 
 End Class
