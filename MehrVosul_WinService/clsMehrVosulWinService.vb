@@ -33,7 +33,8 @@ Public Class clsMehrVosulWinService
         Public WarningNotifcationLogId As Integer
     End Structure
 
-    Private _VoiceSMSs As New List(Of VoiceSMSParams)
+    Private _VoiceSMSs_Borrower As New List(Of VoiceSMSParams)
+    Private _VoiceSMSs_Sponser As New List(Of VoiceSMSParams)
 
 
     Private Structure stc_Loan_Info
@@ -180,17 +181,20 @@ Public Class clsMehrVosulWinService
         Dim trNotification As New Threading.Thread(AddressOf SendNotification)
         trNotification.Start()
 
-        Dim trSMSSendVOICE As New Threading.Thread(AddressOf SendNotification_VoiceSMS)
-        trSMSSendVOICE.Start()
+        Dim trSMSSendVOICE_Borrower As New Threading.Thread(AddressOf SendNotification_VoiceSMS_Borrower)
+        trSMSSendVOICE_Borrower.Start()
+
+        Dim trSMSSendVOICE_Sponser As New Threading.Thread(AddressOf SendNotification_VoiceSMS_Sponsor)
+        trSMSSendVOICE_Sponser.Start()
         ''Dim trNotification_Hadi_Loan As New Threading.Thread(AddressOf SendHadiNotification_Loan)
         ''trNotification_Hadi_Loan.Start()
 
     End Sub
 
-    Private Sub SendNotification_VoiceSMS()
+    Private Sub SendNotification_VoiceSMS_Borrower()
         Do
             Try
-                If _VoiceSMSs.Count < 75 Then
+                If _VoiceSMSs_Borrower.Count < 75 Then
                     Threading.Thread.Sleep(2000)
                     Continue Do
                 End If
@@ -203,25 +207,68 @@ Public Class clsMehrVosulWinService
                 Dim arrnumbers(74) As String
 
                 For i As Integer = 0 To 74
-                    arrPhoneNumbers(i) = _VoiceSMSs(i).tophonenumber
-                    arrnumbers(i) = _VoiceSMSs(i).numbers(0)
+                    arrPhoneNumbers(i) = _VoiceSMSs_Borrower(i).tophonenumber
+                    arrnumbers(i) = _VoiceSMSs_Borrower(i).numbers(0)
                 Next i
 
                 Dim intCampaignID As Integer = -1
 
                 Try
-                    intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, arrnumbers, strSayMethod)
+                    intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Borrower(0).name, arrPhoneNumbers, _VoiceSMSs_Borrower(0).records, arrnumbers, strSayMethod)
                 Catch ex As Exception
 
                 End Try
 
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
                 For i As Integer = 0 To 74
-                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Borrower(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
                 Next
 
                 For i As Integer = 0 To 74
-                    _VoiceSMSs.RemoveAt(0)
+                    _VoiceSMSs_Borrower.RemoveAt(0)
+                Next
+
+
+            Catch ex As Exception
+                Threading.Thread.Sleep(250)
+                Continue Do
+            End Try
+        Loop
+    End Sub
+
+    Private Sub SendNotification_VoiceSMS_Sponsor()
+        Do
+            Try
+                If _VoiceSMSs_Sponser.Count < 20 Then
+                    Threading.Thread.Sleep(2000)
+                    Continue Do
+                End If
+
+                Dim uId As String = drwSystemSetting.VoiceSMSUID
+                Dim token As String = drwSystemSetting.VoiceSMSToken
+                Dim strSayMethod As String = "9"
+
+                Dim arrPhoneNumbers(19) As String
+
+                For i As Integer = 0 To 19
+                    arrPhoneNumbers(i) = _VoiceSMSs_Sponser(i).tophonenumber
+                Next i
+
+                Dim intCampaignID As Integer = -1
+
+                Try
+                    '''''      intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records, arrnumbers, strSayMethod)
+                Catch ex As Exception
+
+                End Try
+
+                Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                For i As Integer = 0 To 19
+                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Sponser(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), False, "ارسال پیامک صوتی به موبایل وام ضامن" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                Next
+
+                For i As Integer = 0 To 19
+                    _VoiceSMSs_Sponser.RemoveAt(0)
                 Next
 
 
@@ -235,7 +282,7 @@ Public Class clsMehrVosulWinService
 
     Private Sub VoiceSMS_EmptyList()
         Try
-            If _VoiceSMSs.Count = 0 Then
+            If _VoiceSMSs_Borrower.Count = 0 Then
                 Return
             End If
 
@@ -245,24 +292,24 @@ Public Class clsMehrVosulWinService
 
             Dim arrPhoneNumbers() As String
             Dim numbers() As String
-            ReDim arrPhoneNumbers(_VoiceSMSs.Count - 1)
-            ReDim numbers(_VoiceSMSs.Count - 1)
+            ReDim arrPhoneNumbers(_VoiceSMSs_Borrower.Count - 1)
+            ReDim numbers(_VoiceSMSs_Borrower.Count - 1)
 
 
-            For i As Integer = 0 To _VoiceSMSs.Count - 1
-                arrPhoneNumbers(i) = _VoiceSMSs(i).tophonenumber
-                numbers(i) = _VoiceSMSs(i).numbers(0)
+            For i As Integer = 0 To _VoiceSMSs_Borrower.Count - 1
+                arrPhoneNumbers(i) = _VoiceSMSs_Borrower(i).tophonenumber
+                numbers(i) = _VoiceSMSs_Borrower(i).numbers(0)
             Next i
 
 
-            Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs(0).name, arrPhoneNumbers, _VoiceSMSs(0).records, numbers, strSayMethod)
+            Dim intCampaignID As Integer = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Borrower(0).name, arrPhoneNumbers, _VoiceSMSs_Borrower(0).records, numbers, strSayMethod)
 
             Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-            For i As Integer = 0 To _VoiceSMSs.Count - 1
-                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+            For i As Integer = 0 To _VoiceSMSs_Borrower.Count - 1
+                qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Borrower(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
             Next
 
-            _VoiceSMSs.Clear()
+            _VoiceSMSs_Borrower.Clear()
 
         Catch ex As Exception
         End Try
@@ -342,7 +389,7 @@ Public Class clsMehrVosulWinService
 
                             End If
 
-                                If drwWarningIntervalCheck.ToSponsor = True Then
+                            If drwWarningIntervalCheck.ToSponsor = True Then
 
                                 Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
                                 Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
@@ -408,7 +455,7 @@ VoiceSMS:
                                         stcVoice.numbers = arrNumbers
                                         stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
 
-                                        _VoiceSMSs.Add(stcVoice)
+                                        _VoiceSMSs_Borrower.Add(stcVoice)
 
 
                                     Catch ex As Exception
@@ -419,88 +466,88 @@ VoiceSMS:
 
                                 End If
 
-                                If drwLCStaus.IsTelephoneHomeNull = False AndAlso drwLCStaus.TelephoneHome.Trim <> "" Then
+                                'If drwLCStaus.IsTelephoneHomeNull = False AndAlso drwLCStaus.TelephoneHome.Trim <> "" Then
 
-                                    Dim arrTo() As String = {drwLCStaus.TelephoneHome}
-                                    Dim arrRecords() As String = Nothing
-                                    Dim arrNumbers() As String = Nothing
-                                    Dim strSayMethod As String = "9"
-                                    Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
-                                    GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, False, arrRecords, arrNumbers)
+                                '    Dim arrTo() As String = {drwLCStaus.TelephoneHome}
+                                '    Dim arrRecords() As String = Nothing
+                                '    Dim arrNumbers() As String = Nothing
+                                '    Dim strSayMethod As String = "9"
+                                '    Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
+                                '    GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, False, arrRecords, arrNumbers)
 
-                                    If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
-                                        Continue For
-                                    End If
+                                '    If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
+                                '        Continue For
+                                '    End If
 
-                                    For k As Integer = 0 To arrNumbers.Length - 1
+                                '    For k As Integer = 0 To arrNumbers.Length - 1
 
-                                        If arrNumbers(k) = 1 Then
-                                            arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
-                                        Else
-                                            arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
-                                        End If
-                                    Next k
-
-
-                                    Try
-
-                                        Dim stcVoice As VoiceSMSParams
-                                        stcVoice.name = strVoiceSMS_Name
-                                        stcVoice.tophonenumber = arrTo(0)
-                                        stcVoice.records = arrRecords
-                                        stcVoice.numbers = arrNumbers
-                                        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
-
-                                        _VoiceSMSs.Add(stcVoice)
+                                '        If arrNumbers(k) = 1 Then
+                                '            arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
+                                '        Else
+                                '            arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
+                                '        End If
+                                '    Next k
 
 
-                                    Catch ex As Exception
+                                '    Try
 
-                                    End Try
+                                '        Dim stcVoice As VoiceSMSParams
+                                '        stcVoice.name = strVoiceSMS_Name
+                                '        stcVoice.tophonenumber = arrTo(0)
+                                '        stcVoice.records = arrRecords
+                                '        stcVoice.numbers = arrNumbers
+                                '        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
 
-                                End If
-
-                                If drwLCStaus.IsTelephoneWorkNull = False AndAlso drwLCStaus.TelephoneWork.Trim <> "" Then
-
-
-                                    Dim arrTo() As String = {drwLCStaus.TelephoneWork}
-                                    Dim arrRecords() As String = Nothing
-                                    Dim arrNumbers() As String = Nothing
-                                    Dim strSayMethod As String = "9"
-                                    Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
-                                    GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, False, arrRecords, arrNumbers)
-
-                                    If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
-                                        Continue For
-                                    End If
-
-                                    For k As Integer = 0 To arrNumbers.Length - 1
-
-                                        If arrNumbers(k) = 1 Then
-                                            arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
-                                        Else
-                                            arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
-                                        End If
-                                    Next k
+                                '        _VoiceSMSs_Borrower.Add(stcVoice)
 
 
-                                    Try
+                                '    Catch ex As Exception
 
-                                        Dim stcVoice As VoiceSMSParams
-                                        stcVoice.name = strVoiceSMS_Name
-                                        stcVoice.tophonenumber = arrTo(0)
-                                        stcVoice.records = arrRecords
-                                        stcVoice.numbers = arrNumbers
-                                        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
+                                '    End Try
 
-                                        _VoiceSMSs.Add(stcVoice)
+                                'End If
+
+                                'If drwLCStaus.IsTelephoneWorkNull = False AndAlso drwLCStaus.TelephoneWork.Trim <> "" Then
 
 
-                                    Catch ex As Exception
+                                '    Dim arrTo() As String = {drwLCStaus.TelephoneWork}
+                                '    Dim arrRecords() As String = Nothing
+                                '    Dim arrNumbers() As String = Nothing
+                                '    Dim strSayMethod As String = "9"
+                                '    Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
+                                '    GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, False, arrRecords, arrNumbers)
 
-                                    End Try
+                                '    If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
+                                '        Continue For
+                                '    End If
 
-                                End If
+                                '    For k As Integer = 0 To arrNumbers.Length - 1
+
+                                '        If arrNumbers(k) = 1 Then
+                                '            arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
+                                '        Else
+                                '            arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
+                                '        End If
+                                '    Next k
+
+
+                                '    Try
+
+                                '        Dim stcVoice As VoiceSMSParams
+                                '        stcVoice.name = strVoiceSMS_Name
+                                '        stcVoice.tophonenumber = arrTo(0)
+                                '        stcVoice.records = arrRecords
+                                '        stcVoice.numbers = arrNumbers
+                                '        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
+
+                                '        _VoiceSMSs_Borrower.Add(stcVoice)
+
+
+                                '    Catch ex As Exception
+
+                                '    End Try
+
+                                'End If
 
 
 
@@ -510,116 +557,121 @@ VoiceSMS:
 
 
 
-                                ''Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
-                                ''Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
+                                Dim tadpSponsorList As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter
+                                Dim dtblSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectDataTable = Nothing
 
-                                ''dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
+                                dtblSponsorList = tadpSponsorList.GetData(drwLCStaus.FK_LoanID)
 
-                                ''For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
-
-
-
-                                ''    Dim qryInput As New BusinessObject.dstInputTableAdapters.QueriesTableAdapter
-
-
-                                ''    If drwSponsorList.IsMobileNoNull = False AndAlso drwSponsorList.MobileNo.Trim <> "" Then
-
-
-                                ''        Dim arrTo() As String = {drwSponsorList.MobileNo}
-                                ''        Dim arrRecords() As String = Nothing
-                                ''        Dim arrNumbers() As String = Nothing
-                                ''        Dim strSayMethod As String = "9"
-                                ''        Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
-                                ''        GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, True, arrRecords, arrNumbers)
-
-                                ''        If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
-                                ''            Continue For
-                                ''        End If
-
-                                ''        For k As Integer = 0 To arrNumbers.Length - 1
-
-                                ''            If arrNumbers(k) = 1 Then
-                                ''                arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
-                                ''            Else
-                                ''                arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
-                                ''            End If
-                                ''        Next k
-
-                                ''        SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, strVoiceSMS_Name, arrTo, arrRecords, arrNumbers, strSayMethod)
-
-                                ''        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                ''        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "Voice SMS", arrTo(0), True, "ارسال پیامک صوتی به موبایل ضامن", "", Date.Now, "", 8, 6, Date.Now)
-
-                                ''    End If
-
-                                ''    If drwSponsorList.IsTelephoneHomeNull = False AndAlso drwSponsorList.TelephoneHome.Trim <> "" Then
-
-                                ''        Dim arrTo() As String = {drwSponsorList.TelephoneHome}
-                                ''        Dim arrRecords() As String = Nothing
-                                ''        Dim arrNumbers() As String = Nothing
-                                ''        Dim strSayMethod As String = "9"
-                                ''        Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
-                                ''        GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, True, arrRecords, arrNumbers)
-
-                                ''        If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
-                                ''            Continue For
-                                ''        End If
-
-
-                                ''        For k As Integer = 0 To arrNumbers.Length - 1
-
-                                ''            If arrNumbers(k) = 1 Then
-                                ''                arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
-                                ''            Else
-                                ''                arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
-                                ''            End If
-                                ''        Next k
-
-                                ''        SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, strVoiceSMS_Name, arrTo, arrRecords, arrNumbers, strSayMethod)
-
-                                ''        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                ''        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "Voice SMS", arrTo(0), True, "ارسال پیامک صوتی به تلفن منزل ضامن", "", Date.Now, "", 8, 6, Date.Now)
+                                For Each drwSponsorList As BusinessObject.dstLoanSponsor.spr_LoanSponsor_List_SelectRow In dtblSponsorList.Rows
 
 
 
-
-                                ''    End If
-
-                                ''    If drwSponsorList.IsTelephoneWorkNull = False AndAlso drwSponsorList.TelephoneWork.Trim <> "" Then
-
-                                ''        Dim arrTo() As String = {drwSponsorList.TelephoneWork}
-                                ''        Dim arrRecords() As String = Nothing
-                                ''        Dim arrNumbers() As String = Nothing
-                                ''        Dim strSayMethod As String = "9"
-                                ''        Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
-                                ''        GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, True, arrRecords, arrNumbers)
+                                    Dim qryInput As New BusinessObject.dstInputTableAdapters.QueriesTableAdapter
 
 
-                                ''        If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
-                                ''            Continue For
-                                ''        End If
+                                    If drwSponsorList.IsMobileNoNull = False AndAlso drwSponsorList.MobileNo.Trim <> "" Then
 
 
-                                ''        For k As Integer = 0 To arrNumbers.Length - 1
+                                        Dim arrTo() As String = {drwSponsorList.MobileNo}
+                                        Dim arrRecords() As String = Nothing
+                                        Dim arrNumbers() As String = Nothing
+                                        Dim strSayMethod As String = "9"
+                                        Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
+                                        GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, True, arrRecords, arrNumbers)
 
-                                ''            If arrNumbers(k) = 1 Then
-                                ''                arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
-                                ''            Else
-                                ''                arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
-                                ''            End If
-                                ''        Next k
+                                        If arrRecords Is Nothing Then
+                                            Continue For
+                                        End If
 
-                                ''        SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, strVoiceSMS_Name, arrTo, arrRecords, arrNumbers, strSayMethod)
+                                        'For k As Integer = 0 To arrNumbers.Length - 1
 
-                                ''        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                ''        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "Voice SMS", arrTo(0), True, "ارسال پیامک صوتی به تلفن محل کار ضامن", "", Date.Now, "", 8, 6, Date.Now)
+                                        '    If arrNumbers(k) = 1 Then
+                                        '        arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
+                                        '    Else
+                                        '        arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
+                                        '    End If
+                                        'Next k
+
+                                        Dim stcVoice As VoiceSMSParams
+                                        stcVoice.name = strVoiceSMS_Name
+                                        stcVoice.tophonenumber = arrTo(0)
+                                        stcVoice.records = arrRecords
+                                        stcVoice.numbers = Nothing
+                                        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
+
+                                        _VoiceSMSs_Sponser.Add(stcVoice)
+
+
+                                    End If
+
+                                    ''    If drwSponsorList.IsTelephoneHomeNull = False AndAlso drwSponsorList.TelephoneHome.Trim <> "" Then
+
+                                    ''        Dim arrTo() As String = {drwSponsorList.TelephoneHome}
+                                    ''        Dim arrRecords() As String = Nothing
+                                    ''        Dim arrNumbers() As String = Nothing
+                                    ''        Dim strSayMethod As String = "9"
+                                    ''        Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
+                                    ''        GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, True, arrRecords, arrNumbers)
+
+                                    ''        If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
+                                    ''            Continue For
+                                    ''        End If
+
+
+                                    ''        For k As Integer = 0 To arrNumbers.Length - 1
+
+                                    ''            If arrNumbers(k) = 1 Then
+                                    ''                arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
+                                    ''            Else
+                                    ''                arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
+                                    ''            End If
+                                    ''        Next k
+
+                                    ''        SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, strVoiceSMS_Name, arrTo, arrRecords, arrNumbers, strSayMethod)
+
+                                    ''        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                                    ''        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "Voice SMS", arrTo(0), True, "ارسال پیامک صوتی به تلفن منزل ضامن", "", Date.Now, "", 8, 6, Date.Now)
 
 
 
-                                ''    End If
+
+                                    ''    End If
+
+                                    ''    If drwSponsorList.IsTelephoneWorkNull = False AndAlso drwSponsorList.TelephoneWork.Trim <> "" Then
+
+                                    ''        Dim arrTo() As String = {drwSponsorList.TelephoneWork}
+                                    ''        Dim arrRecords() As String = Nothing
+                                    ''        Dim arrNumbers() As String = Nothing
+                                    ''        Dim strSayMethod As String = "9"
+                                    ''        Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
+                                    ''        GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, True, arrRecords, arrNumbers)
 
 
-                                ''Next drwSponsorList
+                                    ''        If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
+                                    ''            Continue For
+                                    ''        End If
+
+
+                                    ''        For k As Integer = 0 To arrNumbers.Length - 1
+
+                                    ''            If arrNumbers(k) = 1 Then
+                                    ''                arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
+                                    ''            Else
+                                    ''                arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
+                                    ''            End If
+                                    ''        Next k
+
+                                    ''        SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, strVoiceSMS_Name, arrTo, arrRecords, arrNumbers, strSayMethod)
+
+                                    ''        Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                                    ''        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, "Voice SMS", arrTo(0), True, "ارسال پیامک صوتی به تلفن محل کار ضامن", "", Date.Now, "", 8, 6, Date.Now)
+
+
+
+                                    ''    End If
+
+
+                                Next drwSponsorList
 
                             End If
 
