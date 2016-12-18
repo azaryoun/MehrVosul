@@ -263,6 +263,7 @@ Public Class clsMehrVosulWinService
 
                 End Try
 
+
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
                 For i As Integer = 0 To 19
                     qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Sponser(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), False, "ارسال پیامک صوتی به موبایل وام ضامن" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
@@ -554,6 +555,8 @@ VoiceSMS:
 
 
                             End If
+
+
                             If drwWarningIntervalCheck.ToSponsor = True Then
 
 
@@ -577,7 +580,7 @@ VoiceSMS:
                                         Dim arrRecords() As String = Nothing
                                         Dim arrNumbers() As String = Nothing
                                         Dim strSayMethod As String = "9"
-                                        Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
+                                        Dim strVoiceSMS_Name As String = "VoiceSMS_S_" & Date.Now.Millisecond
                                         GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, True, arrRecords, arrNumbers)
 
                                         If arrRecords Is Nothing Then
@@ -4825,7 +4828,7 @@ LetterL:
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-            Dim intCampaignID = oVoiceSMS.SendVoiceSMS_Mehr("vesal", "matchautoreplay123", uId, token, name, tos, records, 3, strMessage)
+            Dim intCampaignID = oVoiceSMS.SendVoiceSMS_Mehr("vesal", "matchautoreplay123", uId, token, name, tos, records, 4, strMessage)
             Return intCampaignID
         Catch ex As Exception
             Return -1
