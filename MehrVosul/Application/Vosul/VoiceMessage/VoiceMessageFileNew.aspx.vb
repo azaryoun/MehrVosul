@@ -79,6 +79,7 @@ Public Class VoiceMessageFileNew
                         Dim pcmStream As WaveStream = WaveFormatConversionStream.CreatePcmStream(reader)
                         WaveFileWriter.CreateWaveFile(strListenPath, pcmStream)
                         duration = reader.TotalTime.TotalSeconds
+
                     Case Else
                         Bootstrap_Panel1.ShowMessage("فایل بارگذاری شده به فرمت صوتی معتبر نمی باشد.", True)
                         Exit Sub

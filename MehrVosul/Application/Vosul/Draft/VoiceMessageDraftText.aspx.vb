@@ -175,7 +175,15 @@
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
             ''Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
-            Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+
+            If ViewState("blnToSponsor") <> "True" Then
+                Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+            Else
+
+                Dim id As Integer = oVoiceSMS.SendVoiceSMS_Mehr("vesal", "matchautoreplay123", uId, token, "send", tos, records(0), 1, strMessage)
+            End If
+
+
 
             If strMessage = "" Then
                 Return True
@@ -234,7 +242,10 @@
                 arrNumbers(0) &= "," & intTemp
             Next k
 
-            arrNumbers(0) = arrNumbers(0).Substring(1)
+            If Not arrNumbers(0) Is Nothing Then
+                arrNumbers(0) = arrNumbers(0).Substring(1)
+            End If
+
 
             If SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, "VoiceSMS_Test", arrTo, arrRecords, arrNumbers, "9") = True Then
 

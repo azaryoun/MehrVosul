@@ -258,6 +258,7 @@ Public Class clsMehrVosulWinService
 
                 Try
                     '''''      intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records, arrnumbers, strSayMethod)
+                    intCampaignID = SendVoiceSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records(0), strSayMethod)
                 Catch ex As Exception
 
                 End Try
@@ -4812,6 +4813,19 @@ LetterL:
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
             Dim intCampaignID = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+            Return intCampaignID
+        Catch ex As Exception
+            Return -1
+        End Try
+
+    End Function
+
+    Public Function SendVoiceSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records As Integer, ByVal sayMathod As String) As Integer
+
+        Try
+            Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
+            Dim strMessage As String = ""
+            Dim intCampaignID = oVoiceSMS.SendVoiceSMS_Mehr("vesal", "matchautoreplay123", uId, token, name, tos, records, 3, strMessage)
             Return intCampaignID
         Catch ex As Exception
             Return -1
