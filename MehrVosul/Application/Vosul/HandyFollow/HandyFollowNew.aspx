@@ -76,7 +76,16 @@
                              
                                     <div class="col-md-6">
                                  
-
+                                         <div class="form-group">
+                                            <label>تلفن منزل وام گیرنده:&nbsp;&nbsp;&nbsp; </label>
+                                                 <label runat="server" style="font-weight:bold;" id="lblBorrowerHomePhone">"---"</label></div>
+                                          <div class="form-group">
+                                            <label>تلفن محل کار وام گیرنده:&nbsp;&nbsp;&nbsp; </label>
+                                              <label style="font-weight:bold;" runat="server" id="lblBorrowerPhone">"---"</label></div>
+                                          <div class="form-group">
+                                            <label>موبایل وام گیرنده:&nbsp;&nbsp;&nbsp; </label>
+                                                 <label runat="server" style="font-weight:bold;" id="lblBorrowerMobile">"---"</label></div>
+                                          
                                         <div class="form-group has-error">
                                             <label>نوع اطلاع رسانی</label>
                                           
@@ -184,14 +193,49 @@
                                             </SelectParameters>
                                             </asp:ObjectDataSource>
                                             <label>ضامن ها</label>
-&nbsp;<asp:DropDownList ID="cmbSponsor" runat="server" 
+&nbsp;<div >
+                                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                                    <ContentTemplate>
+                                                        <asp:DropDownList ID="cmbSponsor" runat="server" 
                                                CssClass="form-control" DataSourceID="odcSponsor" 
-                                                DataTextField="FileName" DataValueField="FK_SponsorID">
-                 
-                                                </asp:DropDownList>
+                                                DataTextField="FileName" DataValueField="FK_SponsorID" AutoPostBack="True">
+                                                        </asp:DropDownList>
+                                                    </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                                <div>
+                                                    <br />
+                                            <label>تلفن منزل ضامن:</label>
+                                               
+                                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                                       <ContentTemplate>
+                                                      <label runat="server" id="lblSponsorPhone"></label>
+                                                           </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                               </div>
+                                              <div>
+                                            <label>تلفن محل کار ضامن:</label>
+                                               
+                                                <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                                       <ContentTemplate>
+                                                      <label runat="server" id="lblSponsorPhoneWork"></label>
+                                                           </ContentTemplate>
+                                                </asp:UpdatePanel>
+                                               </div>
+                                             
+                                          <div >
                                             
-                                        </div>
+                                            <label>موبایل ضامن:</label>
 
+                                                 
+                                              <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                                   <ContentTemplate>
+                                                  <label runat="server" id="lblSponsorMobile">   </label>
+                                                </ContentTemplate>
+                                              </asp:UpdatePanel>
+                                           
+                                              </div>
+                                        </div>
+                                       </div>
                                  <div class="form-group has-error">
                                 <label>توضیحات</label>
                                           

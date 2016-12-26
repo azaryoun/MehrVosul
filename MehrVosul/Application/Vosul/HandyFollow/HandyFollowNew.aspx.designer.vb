@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class HandyFollowNew
-
+    
     '''<summary>
     '''Bootstrap_Panel1 control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Bootstrap_Panel1 As Global.MehrVosul.Bootstrap_Panel
-
+    
     '''<summary>
     '''lblInnerPageTitle control.
     '''</summary>
@@ -30,7 +30,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblInnerPageTitle As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''divResult control.
     '''</summary>
@@ -39,7 +39,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divResult As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''tblResult control.
     '''</summary>
@@ -48,7 +48,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblResult As Global.System.Web.UI.HtmlControls.HtmlTable
-
+    
     '''<summary>
     '''Label1 control.
     '''</summary>
@@ -57,7 +57,34 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
-
+    
+    '''<summary>
+    '''lblBorrowerHomePhone control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBorrowerHomePhone As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''lblBorrowerPhone control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBorrowerPhone As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''lblBorrowerMobile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBorrowerMobile As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
     '''<summary>
     '''cmbNotificationType control.
     '''</summary>
@@ -66,7 +93,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cmbNotificationType As Global.System.Web.UI.WebControls.DropDownList
-
+    
     '''<summary>
     '''rdbListAnswered control.
     '''</summary>
@@ -75,7 +102,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents rdbListAnswered As Global.System.Web.UI.WebControls.RadioButtonList
-
+    
     '''<summary>
     '''rdbListNotificationStatus control.
     '''</summary>
@@ -84,7 +111,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents rdbListNotificationStatus As Global.System.Web.UI.WebControls.RadioButtonList
-
+    
     '''<summary>
     '''Bootstrap_PersianDateTimePicker_From control.
     '''</summary>
@@ -93,7 +120,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Bootstrap_PersianDateTimePicker_From As Global.MehrVosul.Bootstrap_PersianDateTimePicker
-
+    
     '''<summary>
     '''Bootstrap_PersianDateTimePicker_TO control.
     '''</summary>
@@ -102,7 +129,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Bootstrap_PersianDateTimePicker_TO As Global.MehrVosul.Bootstrap_PersianDateTimePicker
-
+    
     '''<summary>
     '''rdboToSponsor control.
     '''</summary>
@@ -111,7 +138,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents rdboToSponsor As Global.System.Web.UI.WebControls.RadioButtonList
-
+    
     '''<summary>
     '''odcSponsor control.
     '''</summary>
@@ -120,7 +147,16 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents odcSponsor As Global.System.Web.UI.WebControls.ObjectDataSource
-
+    
+    '''<summary>
+    '''UpdatePanel1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
+    
     '''<summary>
     '''cmbSponsor control.
     '''</summary>
@@ -129,7 +165,61 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cmbSponsor As Global.System.Web.UI.WebControls.DropDownList
-
+    
+    '''<summary>
+    '''UpdatePanel2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''lblSponsorPhone control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblSponsorPhone As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''UpdatePanel4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel4 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''lblSponsorPhoneWork control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblSponsorPhoneWork As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''UpdatePanel3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''lblSponsorMobile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblSponsorMobile As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
     '''<summary>
     '''txtRemark control.
     '''</summary>
@@ -138,7 +228,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtRemark As Global.System.Web.UI.WebControls.TextBox
-
+    
     '''<summary>
     '''btnAddToText control.
     '''</summary>
@@ -147,7 +237,7 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnAddToText As Global.System.Web.UI.WebControls.LinkButton
-
+    
     '''<summary>
     '''hdnAction control.
     '''</summary>

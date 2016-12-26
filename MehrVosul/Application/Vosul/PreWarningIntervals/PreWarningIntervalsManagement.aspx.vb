@@ -1,4 +1,4 @@
-﻿Public Class WarningIntervalsManagement
+﻿Public Class PreWarningIntervalsManagement
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -44,20 +44,20 @@
         End If
 
         If hdnAction.Value.StartsWith("E") = True Then
-            Dim intWarningIntervalsTypeID As Integer = CInt(hdnAction.Value.Split(";")(1))
-            Session("intEditWarningIntervalsID") = CObj(intWarningIntervalsTypeID)
-            Response.Redirect("WarningIntervalsEdit.aspx")
+            Dim intPreWarningIntervalTypeID As Integer = CInt(hdnAction.Value.Split(";")(1))
+            Session("intEditPreWarningIntervalID") = CObj(intPreWarningIntervalTypeID)
+            Response.Redirect("PreWarningIntervalsEdit.aspx")
 
         ElseIf hdnAction.Value.StartsWith("C") = True Then
 
-            Dim intEditWarningIntervalsID As Long = CInt(hdnAction.Value.Split(";")(1))
-            Session("intEditWarningIntervalsID") = CObj(intEditWarningIntervalsID)
+            Dim intEditPreWarningIntervalID As Long = CInt(hdnAction.Value.Split(";")(1))
+            Session("intEditPreWarningIntervalID") = CObj(intEditPreWarningIntervalID)
 
             ''chek if telephon call select then redirect to related form
-            Dim tadpWarningIntreval As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervals_SelectTableAdapter
-            Dim dtblWarningInterval As BusinessObject.dstWarningIntervals.spr_WarningIntervals_SelectDataTable = Nothing
+            Dim tadpWarningIntreval As New BusinessObject.dstPreWarningIntervalTableAdapters.spr_PreWarningIntervals_SelectTableAdapter
+            Dim dtblWarningInterval As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_SelectDataTable = Nothing
 
-            dtblWarningInterval = tadpWarningIntreval.GetData(intEditWarningIntervalsID)
+            dtblWarningInterval = tadpWarningIntreval.GetData(intEditPreWarningIntervalID)
             If dtblWarningInterval.First.VoiceMessage = True Then
 
                 ' Response.Redirect("../VoiceMessage/VoiceMessageFileNew.aspx")
@@ -70,9 +70,10 @@
             End If
 
         ElseIf hdnAction.Value.StartsWith("X") = True Then
-            Dim intWarningIntervalsTypeID As Integer = CInt(hdnAction.Value.Split(";")(1))
-            Session("intEditWarningIntervalsID") = CObj(intWarningIntervalsTypeID)
-            Response.Redirect("WarningIntervalsException.aspx")
+
+            ''Dim intPreWarningIntervalTypeID As Integer = CInt(hdnAction.Value.Split(";")(1))
+            ''Session("intEditPrePreWarningIntervalID") = CObj(intPreWarningIntervalTypeID)
+            ''Response.Redirect("PreWarningIntervalException.aspx")
 
         End If
 
@@ -89,11 +90,11 @@
         For i As Integer = 0 To theKeys.Length - 1
             Dim intPKey As Integer = CInt(theKeys(i))
 
-            Dim qryWarningIntervals As New BusinessObject.dstWarningIntervalsTableAdapters.QueriesTableAdapter
+            Dim qryPreWarningInterval As New BusinessObject.dstPreWarningIntervalTableAdapters.QueriesTableAdapter
             Try
 
 
-                qryWarningIntervals.spr_WarningIntervals_Delete(intPKey)
+                qryPreWarningInterval.spr_PreWarningIntervals_Delete(intPKey)
 
 
             Catch ex As Exception
@@ -134,45 +135,45 @@
                     intAction = 4
                 End If
             End If
-          
+
 
             Dim intToIndex As Integer = intPageNo * mdlGeneral.cnst_RowsCountInPage
             Dim intFromIndex As Integer = (intToIndex - mdlGeneral.cnst_RowsCountInPage) + 1
-            Dim tadpWarningIntervalsManagement As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervals_Management_SelectTableAdapter
-            Dim dtblWarningIntervalsManagement As BusinessObject.dstWarningIntervals.spr_WarningIntervals_Management_SelectDataTable = Nothing
-            dtblWarningIntervalsManagement = tadpWarningIntervalsManagement.GetData(intAction, intFromIndex, intToIndex, strFilter, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID)
+            Dim tadpPreWarningIntervalManagement As New BusinessObject.dstPreWarningIntervalTableAdapters.spr_PreWarningIntervals_Management_SelectTableAdapter
+            Dim dtblPreWarningIntervalManagement As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_Management_SelectDataTable = Nothing
+            dtblPreWarningIntervalManagement = tadpPreWarningIntervalManagement.GetData(intAction, intFromIndex, intToIndex, strFilter, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID)
 
             Dim strResult As String = ""
-            Dim intColumnCount As Integer = dtblWarningIntervalsManagement.Columns.Count
+            Dim intColumnCount As Integer = dtblPreWarningIntervalManagement.Columns.Count
 
             If intAction = 1 Or intAction = 3 Or intAction = 5 Then
-                For Each drwWarningIntervalsManagement As BusinessObject.dstWarningIntervals.spr_WarningIntervals_Management_SelectRow In dtblWarningIntervalsManagement.Rows
+                For Each drwPreWarningIntervalManagement As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_Management_SelectRow In dtblPreWarningIntervalManagement.Rows
 
 
-                    strResult &= ";n;;@;" & CStr(drwWarningIntervalsManagement.Item(0))
+                    strResult &= ";n;;@;" & CStr(drwPreWarningIntervalManagement.Item(0))
                     For i As Integer = 1 To intColumnCount - 1
-                        strResult &= ";@;" & CStr(drwWarningIntervalsManagement.Item(i))
+                        strResult &= ";@;" & CStr(drwPreWarningIntervalManagement.Item(i))
                     Next
 
 
-                Next drwWarningIntervalsManagement
+                Next drwPreWarningIntervalManagement
             Else
 
-                For Each drwWarningIntervalsManagement As BusinessObject.dstWarningIntervals.spr_WarningIntervals_Management_SelectRow In dtblWarningIntervalsManagement.Rows
+                For Each drwPreWarningIntervalManagement As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_Management_SelectRow In dtblPreWarningIntervalManagement.Rows
 
 
-                    strResult &= ";n;;@;" & CStr(drwWarningIntervalsManagement.Item(0))
-                    strResult &= ";@;" & CStr(drwWarningIntervalsManagement.Item(1))
+                    strResult &= ";n;;@;" & CStr(drwPreWarningIntervalManagement.Item(0))
+                    strResult &= ";@;" & CStr(drwPreWarningIntervalManagement.Item(1))
 
                     For i As Integer = 2 To intColumnCount - 1
-                        strResult &= ";@;" & CStr(drwWarningIntervalsManagement.Item(i)).ToLower.Replace(strFilter.ToLower, "<b><font color='#0F17FF'>" & strFilter & "</font></b>")
+                        strResult &= ";@;" & CStr(drwPreWarningIntervalManagement.Item(i)).ToLower.Replace(strFilter.ToLower, "<b><font color='#0F17FF'>" & strFilter & "</font></b>")
                     Next
 
 
-                Next drwWarningIntervalsManagement
+                Next drwPreWarningIntervalManagement
 
             End If
-            
+
 
 
 
@@ -211,13 +212,13 @@
         End If
 
 
-        Dim tadpWarningIntervalsCount As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervals_Count_SelectTableAdapter
-        Dim dtblWarningIntervalsCount As BusinessObject.dstWarningIntervals.spr_WarningIntervals_Count_SelectDataTable = Nothing
-        dtblWarningIntervalsCount = tadpWarningIntervalsCount.GetData(intAction, strFilter, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID)
-        Dim drwWarningIntervalsCount As BusinessObject.dstWarningIntervals.spr_WarningIntervals_Count_SelectRow = dtblWarningIntervalsCount.Rows(0)
-        Dim intPageCount As Integer = Math.Ceiling(drwWarningIntervalsCount.WarningIntervalsCount / mdlGeneral.cnst_RowsCountInPage)
+        Dim tadpPreWarningIntervalCount As New BusinessObject.dstPreWarningIntervalTableAdapters.spr_PreWarningIntervals_Count_SelectTableAdapter
+        Dim dtblPreWarningIntervalCount As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_Count_SelectDataTable = Nothing
+        dtblPreWarningIntervalCount = tadpPreWarningIntervalCount.GetData(intAction, strFilter, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID)
+        Dim drwPreWarningIntervalCount As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_Count_SelectRow = dtblPreWarningIntervalCount.Rows(0)
+        Dim intPageCount As Integer = Math.Ceiling(drwPreWarningIntervalCount.PreWarningIntervalsCount / mdlGeneral.cnst_RowsCountInPage)
         Dim arrResult(1) As Integer
-        arrResult(0) = drwWarningIntervalsCount.WarningIntervalsCount
+        arrResult(0) = drwPreWarningIntervalCount.PreWarningIntervalsCount
         arrResult(1) = intPageCount
         Return arrResult
 
@@ -226,7 +227,7 @@
 #End Region
 
     Private Sub Bootstrap_Panel1_Panel_New_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_New_Click
-        Response.Redirect("WarningIntervalsNew.aspx")
+        Response.Redirect("PreWarningIntervalsNew.aspx")
         Return
     End Sub
 End Class

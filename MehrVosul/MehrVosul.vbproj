@@ -164,6 +164,9 @@
     <Content Include="Application\Vosul\LoanType\LoanTypeEdit.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeManagement.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeNew.aspx" />
+    <Content Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsEdit.aspx" />
+    <Content Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsManagement.aspx" />
+    <Content Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsNew.aspx" />
     <Content Include="Application\Vosul\Reports\CurrentLCStatusMaxLoanTypeReport.aspx" />
     <Content Include="Application\Vosul\Reports\CurrentLCStatusNewArrivalReport.aspx" />
     <Content Include="Application\Vosul\Reports\FileChanges_Report.aspx" />
@@ -556,6 +559,27 @@
     </Compile>
     <Compile Include="Application\Vosul\LoanType\LoanTypeNew.aspx.vb">
       <DependentUpon>LoanTypeNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsEdit.aspx.designer.vb">
+      <DependentUpon>PreWarningIntervalsEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsEdit.aspx.vb">
+      <DependentUpon>PreWarningIntervalsEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsManagement.aspx.designer.vb">
+      <DependentUpon>PreWarningIntervalsManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsManagement.aspx.vb">
+      <DependentUpon>PreWarningIntervalsManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsNew.aspx.designer.vb">
+      <DependentUpon>PreWarningIntervalsNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsNew.aspx.vb">
+      <DependentUpon>PreWarningIntervalsNew.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\Reports\CurrentLCStatusMaxLoanTypeReport.aspx.designer.vb">

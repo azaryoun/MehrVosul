@@ -433,9 +433,8 @@ VoiceSMS:
                                     Dim strSayMethod As String = "9"
                                     Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
                                     GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, False, arrRecords, arrNumbers)
-
-                                    If arrRecords Is Nothing AndAlso arrNumbers Is Nothing Then
-                                        Continue For
+                                    If arrRecords Is Nothing OrElse arrNumbers Is Nothing OrElse arrNumbers.Length = 0 Then
+                                        GoTo Sponsor_Voice
                                     End If
 
                                     For k As Integer = 0 To arrNumbers.Length - 1
@@ -554,6 +553,9 @@ VoiceSMS:
 
 
                             End If
+
+Sponsor_Voice:
+
                             If drwWarningIntervalCheck.ToSponsor = True Then
 
 
@@ -2580,8 +2582,6 @@ LetterL:
 
 
 
-
-
                         End With
 
 
@@ -2611,9 +2611,9 @@ LetterL:
         End Using
 
 
-        Call SendAdministratioSMSMessage_ForSMS()
+        ''Call SendAdministratioSMSMessage_ForSMS()
 
-        Call SendAdministratioSMSMessage_ForVoice()
+
 
     End Sub
 
@@ -4384,31 +4384,31 @@ LetterL:
                             strResultMessage &= ControlChars.NewLine & "ولی هیچ پیامکی تاکنون ارسال نشده است مشکل در سرویس ارسال" & ControlChars.NewLine & "code:2"
                         Else
 
-                            Dim tadpWarningNotificationLogDetailFirstLastLogSelect As New DataSet1TableAdapters.spr_WarningNotificationLogDetailFirstLastLog_SelectTableAdapter
-                            Dim dtblWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectDataTable = Nothing
+                            '                'Dim tadpWarningNotificationLogDetailFirstLastLogSelect As New DataSet1TableAdapters.spr_WarningNotificationLogDetailFirstLastLog_SelectTableAdapter
+                            ''Dim dtblWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectDataTable = Nothing
 
-                            dtblWarningNotificationLogDetailFirstLastLog = tadpWarningNotificationLogDetailFirstLastLogSelect.GetData()
+                            ''dtblWarningNotificationLogDetailFirstLastLog = tadpWarningNotificationLogDetailFirstLastLogSelect.GetData()
 
-                            Dim drwWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectRow = dtblWarningNotificationLogDetailFirstLastLog.Rows(0)
+                            ''Dim drwWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectRow = dtblWarningNotificationLogDetailFirstLastLog.Rows(0)
 
-                            Try
-
-
-                                Dim tmSpan As TimeSpan = drwWarningNotificationLogDetailFirstLastLog.Last.Subtract(drwWarningNotificationLogDetailFirstLastLog.First)
-
-                                strResultMessage = "مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
-                                strResultMessage &= "وضعیت: OK" & ControlChars.NewLine
-                                strResultMessage &= "ساعت خواندن اطلاعات از BI:" & drwLCLog.STime.ToString("HH:mm") & ControlChars.NewLine
-                                strResultMessage &= " زمان اولین ارسال: " & drwWarningNotificationLogDetailFirstLastLog.First.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال تا این لحظه: " & drwWarningNotificationLogDetailFirstLastLog.Last.ToString("HH:mm") & ControlChars.NewLine
-                                strResultMessage &= " کل مدت زمان ارسال تا این لحظه: " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
-                                strResultMessage &= " تعداد پیامک ارسال شده تا این لحظه: " & drwSMSCount.Expr1.ToString("n0")
-                                qrySelfReport.spr_SelfReport_Insert(Date.Now.Date, Date.Now, strResultMessage)
-
-                            Catch ex As Exception
+                            ''Try
 
 
+                            ''    Dim tmSpan As TimeSpan = drwWarningNotificationLogDetailFirstLastLog.Last.Subtract(drwWarningNotificationLogDetailFirstLastLog.First)
 
-                            End Try
+                            ''    strResultMessage = "مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
+                            ''    strResultMessage &= "وضعیت: OK" & ControlChars.NewLine
+                            ''    strResultMessage &= "ساعت خواندن اطلاعات از BI:" & drwLCLog.STime.ToString("HH:mm") & ControlChars.NewLine
+                            ''    strResultMessage &= " زمان اولین ارسال: " & drwWarningNotificationLogDetailFirstLastLog.First.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال تا این لحظه: " & drwWarningNotificationLogDetailFirstLastLog.Last.ToString("HH:mm") & ControlChars.NewLine
+                            ''    strResultMessage &= " کل مدت زمان ارسال تا این لحظه: " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
+                            ''    strResultMessage &= " تعداد پیامک ارسال شده تا این لحظه: " & drwSMSCount.Expr1.ToString("n0")
+                            ''    qrySelfReport.spr_SelfReport_Insert(Date.Now.Date, Date.Now, strResultMessage)
+
+                            ''    Catch ex As Exception
+
+
+
+                            ''  End Try
 
 
 
@@ -4420,7 +4420,9 @@ LetterL:
             End If
 
 
-
+            If strResultMessage = "" Then
+                Return
+            End If
 
             Dim objSMS As New clsSMS
             Dim arrMessage(6) As String
@@ -4429,8 +4431,10 @@ LetterL:
             arrMessage(0) = strResultMessage
             'arrDestination(0) = "09122764983"
             arrDestination(0) = "09125781487"
+
             arrMessage(1) = strResultMessage
             arrDestination(1) = "09125470419"
+
             arrMessage(2) = strResultMessage
             arrDestination(2) = "09363738886"
 
@@ -4472,298 +4476,186 @@ LetterL:
     End Sub
 
 
-    Public Sub SendAdministratioSMSMessage_ForSMS()
+    ''Public Sub SendAdministratioSMSMessage_ForSMS()
 
-        Dim qryWarningNotificationLog As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+    ''    Dim qryWarningNotificationLog As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
 
 
-        If Date.Now.DayOfWeek = DayOfWeek.Friday Then
-            Return
-        End If
+    ''    If Date.Now.DayOfWeek = DayOfWeek.Friday Then
+    ''        Return
+    ''    End If
 
-        Try
+    ''    Try
 
-            Do
+    ''        Do
 
-                Threading.Thread.Sleep(200000)
+    ''            Threading.Thread.Sleep(200000)
 
-                Dim tadpPendingCount As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_Pending_SMSCount_SelectTableAdapter
+    ''            Dim tadpPendingCount As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_Pending_SMSCount_SelectTableAdapter
 
-                tadpPendingCount.ClearBeforeFill = True
-                Dim dtblPendingCount As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Pending_SMSCount_SelectDataTable = Nothing
+    ''            tadpPendingCount.ClearBeforeFill = True
+    ''            Dim dtblPendingCount As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Pending_SMSCount_SelectDataTable = Nothing
 
-                dtblPendingCount = tadpPendingCount.GetData(Date.Now.Date)
+    ''            dtblPendingCount = tadpPendingCount.GetData(Date.Now.Date)
 
 
-                If dtblPendingCount.Rows.Count > 0 Then
+    ''            If dtblPendingCount.Rows.Count > 0 Then
 
-                    Dim drwPendingCount As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Pending_SMSCount_SelectRow = dtblPendingCount.Rows(0)
-                    If drwPendingCount.IsExpr1Null = False Then
-                        If drwPendingCount.Expr1 > 0 Then
-                            Continue Do
-                        End If
-                    End If
-                End If
-                Exit Do
-            Loop
+    ''                Dim drwPendingCount As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Pending_SMSCount_SelectRow = dtblPendingCount.Rows(0)
+    ''                If drwPendingCount.IsExpr1Null = False Then
+    ''                    If drwPendingCount.Expr1 > 0 Then
+    ''                        Continue Do
+    ''                    End If
+    ''                End If
+    ''            End If
+    ''            Exit Do
+    ''        Loop
 
-        Catch ex As Exception
+    ''    Catch ex As Exception
 
-            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendAdministratioSMSMessage_ForSMS1")
+    ''        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+    ''        qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendAdministratioSMSMessage_ForSMS1")
 
 
-        End Try
+    ''    End Try
 
 
 
 
-        Try
+    ''    Try
 
 
-            Dim strResultMessage As String = ""
+    ''        Dim strResultMessage As String = ""
 
 
 
-            Dim tadpLCLog As New BusinessObject.dstLogCurrentLCStatus_HTableAdapters.spr_LogCurrentLCStatus_H_ForDate_SelectTableAdapter
-            Dim dtblLCLog As BusinessObject.dstLogCurrentLCStatus_H.spr_LogCurrentLCStatus_H_ForDate_SelectDataTable = Nothing
+    ''        Dim tadpLCLog As New BusinessObject.dstLogCurrentLCStatus_HTableAdapters.spr_LogCurrentLCStatus_H_ForDate_SelectTableAdapter
+    ''        Dim dtblLCLog As BusinessObject.dstLogCurrentLCStatus_H.spr_LogCurrentLCStatus_H_ForDate_SelectDataTable = Nothing
 
-            dtblLCLog = tadpLCLog.GetData(Date.Now.AddDays(-1).Date)
+    ''        dtblLCLog = tadpLCLog.GetData(Date.Now.AddDays(-1).Date)
 
 
-            If dtblLCLog.Rows.Count = 0 Then
-                Return
-            Else
-                Dim drwLCLog As BusinessObject.dstLogCurrentLCStatus_H.spr_LogCurrentLCStatus_H_ForDate_SelectRow = dtblLCLog.Rows(0)
-                If drwLCLog.Success = False Then
+    ''        If dtblLCLog.Rows.Count = 0 Then
+    ''            Return
+    ''        Else
+    ''            Dim drwLCLog As BusinessObject.dstLogCurrentLCStatus_H.spr_LogCurrentLCStatus_H_ForDate_SelectRow = dtblLCLog.Rows(0)
+    ''            If drwLCLog.Success = False Then
 
-                    Return
-                Else
+    ''                Return
+    ''            Else
 
-                    Dim tadpSMSCount As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_SMSCount_SelectTableAdapter
-                    Dim dtblSMSCount As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_SMSCount_SelectDataTable = Nothing
-                    dtblSMSCount = tadpSMSCount.GetData(Date.Now.Date)
+    ''                Dim tadpSMSCount As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_SMSCount_SelectTableAdapter
+    ''                Dim dtblSMSCount As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_SMSCount_SelectDataTable = Nothing
+    ''                dtblSMSCount = tadpSMSCount.GetData(Date.Now.Date)
 
-                    If dtblSMSCount.Rows.Count = 0 Then
-                        Return
+    ''                If dtblSMSCount.Rows.Count = 0 Then
+    ''                    Return
 
-                    Else
-                        Dim drwSMSCount As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_SMSCount_SelectRow = dtblSMSCount.Rows(0)
-                        If drwSMSCount.IsExpr1Null = True OrElse drwSMSCount.Expr1 = 0 Then
-                            Return
+    ''                Else
+    ''                    Dim drwSMSCount As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_SMSCount_SelectRow = dtblSMSCount.Rows(0)
+    ''                    If drwSMSCount.IsExpr1Null = True OrElse drwSMSCount.Expr1 = 0 Then
+    ''                        Return
 
-                        Else
-                            Try
-                                Dim tadpWarningNotificationLogDetailFirstLastLogSelect As New DataSet1TableAdapters.spr_WarningNotificationLogDetailFirstLastLog_SelectTableAdapter
-                                Dim dtblWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectDataTable = Nothing
+    ''                    Else
+    ''                        Try
+    ''                            Dim tadpWarningNotificationLogDetailFirstLastLogSelect As New DataSet1TableAdapters.spr_WarningNotificationLogDetailFirstLastLog_SelectTableAdapter
+    ''                            Dim dtblWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectDataTable = Nothing
 
-                                dtblWarningNotificationLogDetailFirstLastLog = tadpWarningNotificationLogDetailFirstLastLogSelect.GetData()
+    ''                            dtblWarningNotificationLogDetailFirstLastLog = tadpWarningNotificationLogDetailFirstLastLogSelect.GetData()
 
-                                Dim drwWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectRow = dtblWarningNotificationLogDetailFirstLastLog.Rows(0)
+    ''                            Dim drwWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectRow = dtblWarningNotificationLogDetailFirstLastLog.Rows(0)
 
 
 
 
-                                Dim tmSpan As TimeSpan = drwWarningNotificationLogDetailFirstLastLog.Last.Subtract(drwWarningNotificationLogDetailFirstLastLog.First)
+    ''                            Dim tmSpan As TimeSpan = drwWarningNotificationLogDetailFirstLastLog.Last.Subtract(drwWarningNotificationLogDetailFirstLastLog.First)
 
-                                strResultMessage = "گزارش نهایی مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
-                                strResultMessage &= "وضعیت: OK" & ControlChars.NewLine
-                                strResultMessage &= "ساعت خواندن اطلاعات از BI:" & drwLCLog.STime.ToString("HH:mm") & ControlChars.NewLine
-                                strResultMessage &= " زمان اولین ارسال: " & drwWarningNotificationLogDetailFirstLastLog.First.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال: " & drwWarningNotificationLogDetailFirstLastLog.Last.ToString("HH:mm") & ControlChars.NewLine
-                                strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
-                                strResultMessage &= " تعداد پیامک ارسال شده: " & drwSMSCount.Expr1.ToString("n0")
+    ''                            strResultMessage = "گزارش نهایی مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
+    ''                            strResultMessage &= "وضعیت: OK" & ControlChars.NewLine
+    ''                            strResultMessage &= "ساعت خواندن اطلاعات از BI:" & drwLCLog.STime.ToString("HH:mm") & ControlChars.NewLine
+    ''                            strResultMessage &= " زمان اولین ارسال: " & drwWarningNotificationLogDetailFirstLastLog.First.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال: " & drwWarningNotificationLogDetailFirstLastLog.Last.ToString("HH:mm") & ControlChars.NewLine
+    ''                            strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
+    ''                            strResultMessage &= " تعداد پیامک ارسال شده: " & drwSMSCount.Expr1.ToString("n0")
 
 
-                                Dim intTotalCount As Integer = 0
-                                Dim intVoiceSMSCount As Integer = 0
-                                Try
-                                    Dim oDbContext As New BusinessObject.dbMehrVosulEntities1
-                                    intTotalCount = oDbContext.tbl_CurrentLCStatus.Count()
+    ''                            Dim intTotalCount As Integer = 0
+    ''                            Dim intVoiceSMSCount As Integer = 0
+    ''                            Try
+    ''                                Dim oDbContext As New BusinessObject.dbMehrVosulEntities1
+    ''                                intTotalCount = oDbContext.tbl_CurrentLCStatus.Count()
 
 
-                                    Dim dteToday As Date = Date.Now.Date
+    ''                                Dim dteToday As Date = Date.Now.Date
 
-                                    Dim lnqWarningNotificationLogDetail = oDbContext.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 6 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
-                                    intVoiceSMSCount = lnqWarningNotificationLogDetail.Count
+    ''                                Dim lnqWarningNotificationLogDetail = oDbContext.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 6 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
+    ''                                intVoiceSMSCount = lnqWarningNotificationLogDetail.Count
 
-                                Catch ex As Exception
+    ''                            Catch ex As Exception
 
-                                End Try
+    ''                            End Try
 
 
-                                qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, drwSMSCount.Expr1, drwLCLog.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount, intVoiceSMSCount)
+    ''                            qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, drwSMSCount.Expr1, drwLCLog.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount, intVoiceSMSCount)
 
 
-                            Catch ex As Exception
+    ''                        Catch ex As Exception
 
-                                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-                                qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendAdministratioSMSMessage_ForSMS2")
+    ''                            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+    ''                            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendAdministratioSMSMessage_ForSMS2")
 
-                                Return
+    ''                            Return
 
-                            End Try
+    ''                        End Try
 
 
 
 
 
-                        End If
-                    End If
-                End If
-            End If
+    ''                    End If
+    ''                End If
+    ''            End If
+    ''        End If
 
 
 
 
-            Dim objSMS As New clsSMS
-            Dim arrMessage(6) As String
-            Dim arrDestination(6) As String
+    ''        Dim objSMS As New clsSMS
+    ''        Dim arrMessage(6) As String
+    ''        Dim arrDestination(6) As String
 
-            arrMessage(0) = strResultMessage
-            arrDestination(0) = "09125781487"
+    ''        arrMessage(0) = strResultMessage
+    ''        arrDestination(0) = "09125781487"
 
-            arrMessage(1) = strResultMessage
-            arrDestination(1) = "09125470419"
-            arrMessage(2) = strResultMessage
-            arrDestination(2) = "09363738886"
+    ''        arrMessage(1) = strResultMessage
+    ''        arrDestination(1) = "09125470419"
+    ''        arrMessage(2) = strResultMessage
+    ''        arrDestination(2) = "09363738886"
 
-            arrMessage(3) = strResultMessage
-            arrDestination(3) = "09123201844"
+    ''        arrMessage(3) = strResultMessage
+    ''        arrDestination(3) = "09123201844"
 
-            arrMessage(4) = strResultMessage
-            arrDestination(4) = "09128165662"
+    ''        arrMessage(4) = strResultMessage
+    ''        arrDestination(4) = "09128165662"
 
 
-            arrMessage(5) = strResultMessage
-            arrDestination(5) = "09355066075"
+    ''        arrMessage(5) = strResultMessage
+    ''        arrDestination(5) = "09355066075"
 
-            arrDestination(6) = strResultMessage
-            arrDestination(6) = "09122764983"
+    ''        arrDestination(6) = strResultMessage
+    ''        arrDestination(6) = "09122764983"
 
-            objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
+    ''        objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
 
-        Catch ex As Exception
-            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendAdministratioSMSMessage_ForSMS3")
-            Dim m As Integer = 3
-        End Try
+    ''    Catch ex As Exception
+    ''        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+    ''        qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendAdministratioSMSMessage_ForSMS3")
+    ''        Dim m As Integer = 3
+    ''    End Try
 
 
-    End Sub
+    ''End Sub
 
-
-    Public Sub SendAdministratioSMSMessage_ForVoice()
-
-        Dim qryWarningNotificationLog As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-
-
-        If Date.Now.DayOfWeek = DayOfWeek.Friday Then
-            Return
-        End If
-
-        Try
-
-            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-            qryErrorLog.spr_ErrorLog_Insert("Voice1", 2, "SendAdministratioSMSMessage_ForVoice1")
-
-            Dim strResultMessage As String = ""
-
-
-            Dim tadpLCLog As New BusinessObject.dstLogCurrentLCStatus_HTableAdapters.spr_LogCurrentLCStatus_H_ForDate_SelectTableAdapter
-            Dim dtblLCLog As BusinessObject.dstLogCurrentLCStatus_H.spr_LogCurrentLCStatus_H_ForDate_SelectDataTable = Nothing
-
-            dtblLCLog = tadpLCLog.GetData(Date.Now.AddDays(-1).Date)
-
-
-            If dtblLCLog.Rows.Count = 0 Then
-                Return
-            Else
-                Dim drwLCLog As BusinessObject.dstLogCurrentLCStatus_H.spr_LogCurrentLCStatus_H_ForDate_SelectRow = dtblLCLog.Rows(0)
-                If drwLCLog.Success = False Then
-                    Return
-                Else
-
-                    Dim oDbContext As New BusinessObject.dbMehrVosulEntities1
-                    Dim dteToday As Date = Date.Now.Date
-
-
-                    Dim lnqSMSCount = oDbContext.tbl_SMSCountLog.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
-                    If lnqSMSCount.Count > 0 Then
-
-
-                        Dim lnqSMSCountList = lnqSMSCount.ToList(0)
-                        Dim intVoiceSMSCount = lnqSMSCountList.SMSVoice
-                        Dim dteFirstSend = lnqSMSCountList.FirstSent
-                        Dim dteLastSend = lnqSMSCountList.LastSent
-
-
-
-                        Dim tmSpan As TimeSpan = dteLastSend.Value.Subtract(dteFirstSend.Value)
-
-                        strResultMessage = "گزارش نهایی مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
-                        strResultMessage &= "وضعیت: OK" & ControlChars.NewLine
-                        strResultMessage &= "پیامک صوتی" & ControlChars.NewLine
-                        strResultMessage &= " زمان اولین ارسال: " & dteFirstSend.Value.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال: " & dteLastSend.Value.ToString("HH:mm") & ControlChars.NewLine
-                        strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
-                        strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString ''("n0")
-
-                    Else
-
-
-                        qryErrorLog.spr_ErrorLog_Insert("3", 3, "SendAdministratioSMSMessage_ForVoice")
-                        Exit Sub
-
-                    End If
-
-                End If
-            End If
-
-
-
-
-            Dim objSMS As New clsSMS
-            Dim arrMessage(1) As String
-            Dim arrDestination(1) As String
-
-            arrMessage(0) = strResultMessage
-            arrDestination(0) = "09123201844"
-
-            arrDestination(1) = strResultMessage
-            arrDestination(1) = "09122764983"
-
-
-            ''Dim arrMessage(5) As String
-            ''Dim arrDestination(5) As String
-
-            ''arrMessage(0) = strResultMessage
-            ''arrDestination(0) = "09125781487"
-            ''arrMessage(1) = strResultMessage
-            ''arrDestination(1) = "09125470419"
-            ''arrMessage(2) = strResultMessage
-            ''arrDestination(2) = "09363738886"
-
-            ''arrMessage(3) = strResultMessage
-            ''arrDestination(3) = "09123201844"
-
-            ''arrMessage(4) = strResultMessage
-            ''arrDestination(4) = "09128165662"
-
-
-            ''arrMessage(5) = strResultMessage
-            ''arrDestination(5) = "09355066075"
-
-            objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
-
-
-        Catch ex As Exception
-            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendAdministratioSMSMessage_ForVoice")
-            Dim m As Integer = 3
-        End Try
-
-
-    End Sub
 
 
     Public Sub GetVoiceSMSArrays_Vesal(ByVal warningIntervalId As Integer, toSponsor As Boolean, ByRef records() As String, ByRef numbers() As String)
@@ -4937,5 +4829,182 @@ LetterL:
 
     Private Sub tmrUpdateData_Hadi_Loan_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrUpdateData_Hadi_Loan.Elapsed
         'Call Hadi_BI_Laon()
+    End Sub
+
+    Private Sub tmrFinalReport_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrFinalReport.Elapsed
+
+        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 17 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+            Return
+        End If
+
+
+        Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
+        Dim dteToday As Date = Date.Now.Date
+
+        Dim lnqSMSCount = cntxVar.tbl_SMSCountLog.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
+        If lnqSMSCount.Count <> 0 Then
+            Return
+        End If
+
+        Dim lnqSelfReport = cntxVar.tbl_SelfReport.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
+        If lnqSelfReport.Count <> 0 Then
+            Return
+        End If
+
+        Dim intLogCount = cntxVar.tbl_LogCurrentLCStatus_H.Where(Function(x) x.STime >= dteToday.Date And x.Success = True).Count()
+        If intLogCount > 0 Then
+
+            Dim intCurrentLogCount As Integer = cntxVar.tbl_CurrentLCStatus.Where(Function(x) x.Process = 0).Count()
+
+            If intCurrentLogCount <> 0 Then
+                Return
+
+            Else
+
+                Dim strResultMessage As String = ""
+
+                Try
+
+                    Dim lnqWarningNotificationLogDetail = cntxVar.tbl_WarningNotificationLogDetail.Where(Function(x) x.STime >= dteToday.Date)
+                    If lnqWarningNotificationLogDetail.Count > 0 Then
+
+                        Dim lnqWarningNotificationLogDetailGroup1 = lnqWarningNotificationLogDetail.GroupBy(Function(x) x.ID).OrderByDescending(Function(x) x.Key).First()
+
+                        Threading.Thread.Sleep(30000)
+
+                        Dim lnqWarningNotificationLogDetailGroup2 = lnqWarningNotificationLogDetail.GroupBy(Function(x) x.ID).OrderByDescending(Function(x) x.Key).First()
+
+                        If lnqWarningNotificationLogDetailGroup1.Key <> lnqWarningNotificationLogDetailGroup2.Key Then
+
+                            Return
+
+                        Else
+
+
+
+                            Dim lnqLCLog = cntxVar.tbl_LogCurrentLCStatus_H.Where(Function(x) x.STime >= dteToday.Date And x.Success = True).First()
+
+                            strResultMessage = "اطلاعات برای مورخ " & mdlGeneral.GetPersianDate(Date.Now.AddDays(-1)) & " با موفقیت در ساعت " & lnqLCLog.STime.Value.Hour & " از BI خوانده شده است"
+
+
+                            Dim tadpWarningNotificationLogDetailFirstLastLogSelect As New DataSet1TableAdapters.spr_WarningNotificationLogDetailFirstLastLog_SelectTableAdapter
+                            Dim dtblWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectDataTable = Nothing
+                            dtblWarningNotificationLogDetailFirstLastLog = tadpWarningNotificationLogDetailFirstLastLogSelect.GetData()
+
+                            Dim drwWarningNotificationLogDetailFirstLastLog As DataSet1.spr_WarningNotificationLogDetailFirstLastLog_SelectRow = dtblWarningNotificationLogDetailFirstLastLog.Rows(0)
+
+
+                            Dim intTotalCount As Integer = cntxVar.tbl_CurrentLCStatus.Count()
+
+                            Dim intVoiceSMSCount As Integer = 0
+                            Dim intMessageCount As Integer = 0
+
+
+
+                            Try
+
+
+                                Dim lnqWarningNotificationLogDetailVoiceSMS = cntxVar.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 6 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
+                                intVoiceSMSCount = lnqWarningNotificationLogDetailVoiceSMS.Count
+
+                                Dim lnqWarningNotificationLogDetailSMS = cntxVar.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 1 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
+                                intMessageCount = lnqWarningNotificationLogDetailSMS.Count
+
+
+
+                            Catch ex As Exception
+
+                                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                                qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "SendAdministratioSMSMessage_ForSMS1")
+
+                                Return
+                            End Try
+
+                            ''lnqWarningNotificationLogDetail.Max(Function(x) x.STime)
+
+                            Dim tmSpan As TimeSpan = drwWarningNotificationLogDetailFirstLastLog.Last.Subtract(drwWarningNotificationLogDetailFirstLastLog.First)
+
+                            strResultMessage = "گزارش نهایی مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
+                            strResultMessage &= "وضعیت: OK" & ControlChars.NewLine
+                            strResultMessage &= "ساعت خواندن اطلاعات از BI:" & lnqLCLog.STime.Value.ToString("HH:mm") & ControlChars.NewLine
+                            strResultMessage &= " زمان اولین ارسال: " & drwWarningNotificationLogDetailFirstLastLog.First.ToString("HH:mm") & ControlChars.NewLine & " زمان آخرین ارسال: " & drwWarningNotificationLogDetailFirstLastLog.Last.ToString("HH:mm") & ControlChars.NewLine
+                            strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
+                            strResultMessage &= " تعداد پیامک ارسال شده: " & intMessageCount.ToString("n0")
+                            strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString("n0")
+
+
+                            Dim lnqCurrentLogID = cntxVar.tbl_LogCurrentLCStatus_H.Where(Function(x) x.STime >= dteToday.Date And x.Success = True).First()
+
+
+                            Dim qryWarningNotificationLog As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+
+                            qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, intMessageCount, lnqCurrentLogID.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount, intVoiceSMSCount)
+
+
+
+
+
+                        End If
+
+                        If strResultMessage = "" Then
+                            Return
+                        End If
+
+                        Dim sobjSMS As New clsSMS
+                        Dim arrMessage(6) As String
+                        Dim arrDestination(6) As String
+
+
+
+                        arrMessage(0) = strResultMessage
+                        arrDestination(0) = "09125781487"
+
+                        arrMessage(1) = strResultMessage
+                        arrDestination(1) = "09125470419"
+
+                        arrMessage(2) = strResultMessage
+                        arrDestination(2) = "09363738886"
+
+                        arrMessage(3) = strResultMessage
+                        arrDestination(3) = "09123201844"
+
+                        arrMessage(4) = strResultMessage
+                        arrDestination(4) = "09128165662"
+
+
+                        arrMessage(5) = strResultMessage
+                        arrDestination(5) = "09355066075"
+
+                        arrMessage(6) = strResultMessage
+                        arrDestination(6) = "09122764983"
+
+                        sobjSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
+
+                        Dim qrySelfReport As New BusinessObject.dstSelfReportTableAdapters.QueriesTableAdapter
+                        qrySelfReport.spr_SelfReport_Insert(Date.Now.Date, Date.Now, strResultMessage)
+
+
+                    Else
+                        '' strResultMessage &= ControlChars.NewLine & "ولی هیچ پیامکی تاکنون ارسال نشده است مشکل در سرویس ارسال" & ControlChars.NewLine & "code:2"
+                    End If
+
+
+                Catch ex As Exception
+
+                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendAdministratioSMSMessage_ForSMS2")
+
+                    Return
+
+                End Try
+
+            End If
+
+        End If
+
+
+
+
+
     End Sub
 End Class

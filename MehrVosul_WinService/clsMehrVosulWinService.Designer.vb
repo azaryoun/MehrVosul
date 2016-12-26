@@ -47,12 +47,14 @@ Partial Class clsMehrVosulWinService
         Me.tmrVoiceSMS = New System.Timers.Timer()
         Me.tmrUpdateData_Hadi_Deposit = New System.Timers.Timer()
         Me.tmrUpdateData_Hadi_Loan = New System.Timers.Timer()
+        Me.tmrFinalReport = New System.Timers.Timer()
         CType(Me.tmrUpdateData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSponsorList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrVoiceSMS, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrUpdateData_Hadi_Deposit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tmrFinalReport, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'tmrUpdateData
         '
@@ -82,6 +84,11 @@ Partial Class clsMehrVosulWinService
         '
         Me.tmrUpdateData_Hadi_Loan.Interval = 3600000.0R
         '
+        'tmrFinalReport
+        '
+        Me.tmrFinalReport.Enabled = True
+        Me.tmrFinalReport.Interval = 3600000.0R
+        '
         'clsMehrVosulWinService
         '
         Me.ServiceName = "Service1"
@@ -91,6 +98,7 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrVoiceSMS, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrUpdateData_Hadi_Deposit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tmrFinalReport, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents tmrUpdateData As System.Timers.Timer
@@ -99,4 +107,5 @@ Partial Class clsMehrVosulWinService
     Friend WithEvents tmrVoiceSMS As Timers.Timer
     Friend WithEvents tmrUpdateData_Hadi_Deposit As Timers.Timer
     Friend WithEvents tmrUpdateData_Hadi_Loan As Timers.Timer
+    Friend WithEvents tmrFinalReport As Timers.Timer
 End Class

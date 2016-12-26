@@ -30,18 +30,34 @@
                 cmbSponsor.DataBind()
 
                 Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
-              
+
                 ''    Bootstrap_PersianDateTimePicker_From.PickerLabel = "زمان ثبت پیگیری"
+
+                Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+
+                dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")))
+
+                If dtblFile.First.IsTelephoneWorkNull = False Then
+                    lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
+                End If
+                If dtblFile.First.IsTelephoneHomeNull = False Then
+                    lblBorrowerHomePhone.InnerText = dtblFile.First.TelephoneHome
+                End If
+
+                If dtblFile.First.IsMobileNoNull = False Then
+                    lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
+                End If
 
 
                 GetHandyFollowList()
 
 
 
-            Else
+                Else
 
 
-                Response.Redirect("HandyFollowSearch.aspx")
+                    Response.Redirect("HandyFollowSearch.aspx")
             End If
           
 
@@ -214,6 +230,38 @@
 
 
         Next
+
+
+    End Sub
+
+    Protected Sub cmbSponsor_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbSponsor.SelectedIndexChanged
+
+
+        If cmbSponsor.SelectedValue <> -1 Then
+
+            Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+            Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+
+            dtblFile = tadpFile.GetData(1, CInt(cmbSponsor.SelectedValue))
+
+            If dtblFile.First.IsTelephoneHomeNull = False Then
+                lblSponsorPhone.InnerText = dtblFile.First.TelephoneHome
+            End If
+
+            If dtblFile.First.IsTelephoneWorkNull = False Then
+                lblSponsorPhoneWork.InnerText = dtblFile.First.TelephoneWork
+            End If
+
+            If dtblFile.First.IsMobileNoNull = False Then
+                lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
+            End If
+
+        Else
+            lblSponsorPhone.InnerText = ""
+            lblSponsorPhoneWork.InnerText = ""
+            lblBorrowerMobile.InnerText = ""
+
+        End If
 
 
     End Sub
