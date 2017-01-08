@@ -18,6 +18,7 @@ Partial Public Class dbMehrVosulEntities1
 
     Public Sub New()
         MyBase.New("name=dbMehrVosulEntities1")
+        MyBase.Configuration.LazyLoadingEnabled = False
     End Sub
 
     Protected Overrides Sub OnModelCreating(modelBuilder As DbModelBuilder)
