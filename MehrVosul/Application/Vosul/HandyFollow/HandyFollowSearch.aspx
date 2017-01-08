@@ -16,7 +16,9 @@
         function DisplayOperation_Validate() {
 
             var txt_InstallmentCount = document.getElementById("<%=txt_InstallmentCount.ClientID%>");
-            if (trimall(txt_InstallmentCount.value) == "") {
+            var txtCustomerNO= document.getElementById("<%=txtCustomerNO.ClientID%>");
+
+            if (trimall(txt_InstallmentCount.value) == "" && trimall(txtCustomerNO.value)== "") {
                 alert("تعداد اقساط معوق را وارد نمایید");
                 txt_InstallmentCount.focus();
                 return false;
@@ -27,10 +29,10 @@
 
     
 
-        function btnFollwoing_ClientClick(Pkey, Pkey1) {
+        function btnFollwoing_ClientClick(Pkey, Pkey1,Pkey2) {
             var hdnAction_Name = "<%=hdnAction.ClientID%>";
             var hdnAction = document.getElementById(hdnAction_Name);
-            hdnAction.value = "S;" + Pkey + ";" + Pkey1;
+            hdnAction.value = "S;" + Pkey + ";" + Pkey1 + ";" + Pkey2 + ";";
             window.document.forms[0].submit();
             return false;
         }
@@ -55,6 +57,9 @@
                             <div class="row">
                                 
 
+                                <asp:Button ID="Button1" runat="server" Text="Button" />
+                                
+
                            <div class="col-md-12">
 
                               <label>استان</label>
@@ -67,9 +72,7 @@
                              
                                     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                         <ContentTemplate>
-                                            <asp:DropDownList ID="cmbProvince" runat="server" CssClass="form-control" 
-                                DataSourceID="odcProvince" DataTextField="Province" 
-                            DataValueField="ID" AutoPostBack="True">
+                                            <asp:DropDownList ID="cmbProvince" runat="server" CssClass="form-control" AutoPostBack="True">
                                             </asp:DropDownList>
                                         </ContentTemplate>
                                     </asp:UpdatePanel>
@@ -109,7 +112,6 @@
                                   <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                       <ContentTemplate>
                                           <asp:DropDownList ID="cmbLoanType" runat="server" CssClass="form-control" 
-                                              DataSourceID="odsLoanType" DataTextField="LoanType" DataValueField="ID" 
                                               AutoPostBack="True">
                                           </asp:DropDownList>
                                       </ContentTemplate>
@@ -132,6 +134,20 @@
                                               
 
                                         </div>
+
+
+                                <div class="form-group">
+                                            <label>شماره مشتری</label>
+                                            <asp:UpdatePanel ID="UpdatePanel5" runat="server">
+                                                <ContentTemplate>
+                                                    <asp:TextBox ID="txtCustomerNO"  CssClass="form-control"  
+                                                runat="server"  
+    placeholder="شماره مشتری را وارد نمایید" AutoPostBack="True" ></asp:TextBox>
+                                                </ContentTemplate>
+                                            </asp:UpdatePanel>
+                                              
+
+                                        </div>
                             </div>
                             </div>
                         </div>
@@ -147,7 +163,7 @@
                                         <tr>
                                            
                                             <th>#</th>
-                                            <th> مشتری</th>
+                                            <th>شماره مشتری</th>
                                             <th>نام و نام خانوادگی</th>
                                              <th>تسهیلات</th>
                                               <th>همراه</th>

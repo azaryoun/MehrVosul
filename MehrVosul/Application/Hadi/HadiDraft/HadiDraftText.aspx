@@ -108,7 +108,7 @@
                     option.text = "(نام خانوادگی وام گیرنده)";
                     break;
                 case 4:
-                    option.text = "(شماره پرونده)";
+                    option.text = "(شماره مشتری)";
                     break;
                 case 5:
                     option.text = "(تعداد روز از دریافت وام)";
@@ -362,7 +362,7 @@
                                              -
                                             <a  href='#' onclick='return btnAddColumns(3);' >نام خانوادگی(وام گیرنده)</a>
                                            -
-                                            <a href='#' onclick='return btnAddColumns(4);'>شماره پرونده</a>
+                                            <a href='#' onclick='return btnAddColumns(4);'>شماره مشتری</a>
                                           -
                                             <a href='#' onclick='return btnAddColumns(5);' >تعداد روز از دریافت وام</a>
                                            -

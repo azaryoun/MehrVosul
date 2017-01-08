@@ -27,14 +27,42 @@
         If Page.IsPostBack = False Then
             ''get warning intervals title 
 
-            Dim intEditWarningIntervalsID As Integer = Session("intEditWarningIntervalsID")
-            Dim tadpwarning As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervals_SelectTableAdapter
-            Dim dtblWarning As BusinessObject.dstWarningIntervals.spr_WarningIntervals_SelectDataTable = Nothing
+            If Request.QueryString("PreDraft") Is Nothing Then
+                Response.Redirect("../WarningIntervals/WarningIntervalsManagement.aspx")
+                Return
+            End If
 
-            dtblWarning = tadpwarning.GetData(intEditWarningIntervalsID)
+
+            If Request.QueryString("PreDraft") = "True" Then
+                Session("PreDraft") = True
+
+                Dim intEditWarningIntervalsID As Integer = Session("intEditPreWarningIntervalID")
+                Dim tadpwarning As New BusinessObject.dstPreWarningIntervalTableAdapters.spr_PreWarningIntervals_SelectTableAdapter
+                Dim dtblWarning As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_SelectDataTable = Nothing
+
+                dtblWarning = tadpwarning.GetData(intEditWarningIntervalsID)
 
 
-            lblInnerPageTitle.Text = lblInnerPageTitle.Text & " (گردش کار " & dtblWarning.First.WarniningTitle & ")"
+                lblInnerPageTitle.Text = lblInnerPageTitle.Text & " (گردش کار " & dtblWarning.First.WarniningTitle & ")"
+
+            Else
+
+                Session("PreDraft") = False
+
+
+                Dim intEditWarningIntervalsID As Integer = Session("intEditWarningIntervalsID")
+                Dim tadpwarning As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervals_SelectTableAdapter
+                Dim dtblWarning As BusinessObject.dstWarningIntervals.spr_WarningIntervals_SelectDataTable = Nothing
+
+                dtblWarning = tadpwarning.GetData(intEditWarningIntervalsID)
+
+
+                lblInnerPageTitle.Text = lblInnerPageTitle.Text & " (گردش کار " & dtblWarning.First.WarniningTitle & ")"
+
+            End If
+
+
+
 
         End If
 
@@ -55,7 +83,12 @@
 
 
     Private Sub Bootstrap_Panel1_Panel_Up_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Up_Click
-        Response.Redirect("../WarningIntervals/WarningIntervalsManagement.aspx")
+        If Session("PreDraft") = True Then
+            Response.Redirect("../PreWarningIntervals/PreWarningIntervalsManagement.aspx")
+        Else
+            Response.Redirect("../WarningIntervals/WarningIntervalsManagement.aspx")
+        End If
+
     End Sub
 
     Protected Sub lnkbtnIntroductionBorrower_Click(sender As Object, e As EventArgs) Handles lnkbtnIntroductionBorrower.Click

@@ -13,5 +13,8 @@ Imports System.Collections.Generic
 Partial Public Class spr_Accessgroup_Select_Result
     Public Property ID As Integer
     Public Property Desp As String
+    Public Property STime As Nullable(Of Date)
+    Public Property FK_UserID As Nullable(Of Integer)
+    Public Property Visiblity As Nullable(Of Boolean)
 
 End Class

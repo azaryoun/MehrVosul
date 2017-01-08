@@ -25,6 +25,7 @@ Partial Public Class tbl_PreWarningIntervals
     Public Property InstalmentAmount As Nullable(Of Decimal)
     Public Property IsActive As Nullable(Of Boolean)
 
+    Public Overridable Property tbl_PreDraftText As ICollection(Of tbl_PreDraftText) = New HashSet(Of tbl_PreDraftText)
     Public Overridable Property tbl_PreWarningIntervalsBranch As ICollection(Of tbl_PreWarningIntervalsBranch) = New HashSet(Of tbl_PreWarningIntervalsBranch)
     Public Overridable Property tbl_PreWarningIntervalsLoanType As ICollection(Of tbl_PreWarningIntervalsLoanType) = New HashSet(Of tbl_PreWarningIntervalsLoanType)
 

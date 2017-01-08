@@ -90,7 +90,7 @@
                             strSampleMessage &= " " & "قمصری"
 
                         Case "4"
-                            lstItem.Text = "(شماره پرونده)"
+                            lstItem.Text = "(شماره مشتری)"
                             strSampleMessage &= " " & "578956-5653"
                         Case "5"
                             lstItem.Text = "(تعداد روز از دریافت وام)"

@@ -51,77 +51,143 @@
                 Return
             End If
 
-            If Session("intEditWarningIntervalsID") Is Nothing Then
+            If Session("intEditWarningIntervalsID") Is Nothing AndAlso Session("intEditPreWarningIntervalID") Is Nothing Then
                 Response.Redirect("../WarningIntervals/WarningIntervalsManagement.aspx")
                 Return
             End If
 
 
-            Dim intWarningIntervalsID As Integer = Session("intEditWarningIntervalsID")
+            Dim intWarningIntervalsID As Integer
+
             intDraftTypeID = CInt(Request.QueryString("Type"))
             blnToSponsor = If(Request.QueryString("ToSponsor") = "True", True, False)
 
             ViewState("intDraftTypeID") = intDraftTypeID
             ViewState("blnToSponsor") = blnToSponsor
 
-
-            Dim tadpwarning As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervals_SelectTableAdapter
-            Dim dtblWarning As BusinessObject.dstWarningIntervals.spr_WarningIntervals_SelectDataTable = Nothing
-            dtblWarning = tadpwarning.GetData(intWarningIntervalsID)
-
-
-            lblTitle.Text = "(" & " گردش کار " & dtblWarning.First.WarniningTitle & ""
-            If blnToSponsor = True Then
-                lblTitle.Text = lblTitle.Text & "-ضامن" & ")"
-
-            Else
-                lblTitle.Text = lblTitle.Text & "-وام گیرنده" & ")"
-            End If
-
-
-            Dim tadpDraft As New BusinessObject.dstDraftTableAdapters.spr_DraftText_SelectTableAdapter
-            Dim dtblDraft As BusinessObject.dstDraft.spr_DraftText_SelectDataTable = Nothing
-
-            dtblDraft = tadpDraft.GetData(4, -1, intDraftTypeID, intWarningIntervalsID, blnToSponsor)
-
-            Dim tadpVoiceRecord As New BusinessObject.dstZamanakTableAdapters.spr_Record_List_SelectTableAdapter
-            Dim dtblVoiceRecord As BusinessObject.dstZamanak.spr_Record_List_SelectDataTable = Nothing
-
-
             Dim strSampleMessage As String = ""
 
-            For Each drwDraft As BusinessObject.dstDraft.spr_DraftText_SelectRow In dtblDraft
-                Dim lstItem As New ListItem
 
-                If drwDraft.IsDynamic Then
-                    Select Case drwDraft.DraftText
+            If Session("PreDraft") = "True" Then
 
-                        Case "1"
-                            lstItem.Text = "(شماره تسهیلات)"
-                            strSampleMessage &= " " & "578956-5653"
-                        Case "2"
-                            lstItem.Text = "(تعداد روز تاخیر)"
-                            strSampleMessage &= " " & "23"
-                    End Select
-                    lstItem.Value = drwDraft.DraftText
+                intWarningIntervalsID = Session("intEditPreWarningIntervalID")
+
+
+                Dim tadpwarning As New BusinessObject.dstPreWarningIntervalTableAdapters.spr_PreWarningIntervals_SelectTableAdapter
+                Dim dtblWarning As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_SelectDataTable = Nothing
+                dtblWarning = tadpwarning.GetData(intWarningIntervalsID)
+
+
+                lblTitle.Text = "(" & " گردش کار " & dtblWarning.First.WarniningTitle & ""
+                lblTitle.Text = lblTitle.Text & "-وام گیرنده" & ")"
+
+
+
+                Dim tadpDraft As New BusinessObject.dstPreDraftTableAdapters.spr_PreDraftText_SelectTableAdapter
+                Dim dtblDraft As BusinessObject.dstPreDraft.spr_PreDraftText_SelectDataTable = Nothing
+
+                dtblDraft = tadpDraft.GetData(4, -1, intDraftTypeID, intWarningIntervalsID)
+
+                Dim tadpVoiceRecord As New BusinessObject.dstZamanakTableAdapters.spr_Record_List_SelectTableAdapter
+                Dim dtblVoiceRecord As BusinessObject.dstZamanak.spr_Record_List_SelectDataTable = Nothing
+
+
+
+
+                For Each drwDraft As BusinessObject.dstPreDraft.spr_PreDraftText_SelectRow In dtblDraft
+                    Dim lstItem As New ListItem
+
+                    If drwDraft.IsDynamic Then
+                        Select Case drwDraft.DraftText
+
+                            Case "1"
+                                lstItem.Text = "(شماره تسهیلات)"
+                                strSampleMessage &= " " & "578956-5653"
+                            Case "2"
+                                lstItem.Text = "(تعداد روز تاخیر)"
+                                strSampleMessage &= " " & "23"
+                        End Select
+                        lstItem.Value = drwDraft.DraftText
+                    Else
+
+                        lstItem.Value = drwDraft.FK_VoiceRecordID
+
+                        dtblVoiceRecord = tadpVoiceRecord.GetData(2, -1, drwDraft.FK_VoiceRecordID, "", -1)
+                        lstItem.Text = dtblVoiceRecord.First.Name
+                        strSampleMessage &= dtblVoiceRecord.First.Name & " " & drwDraft.DraftText
+                    End If
+
+
+                    lstSMSText.Items.Add(lstItem)
+                Next
+
+
+
+            Else
+
+                intWarningIntervalsID = Session("intEditWarningIntervalsID")
+
+                Dim tadpwarning As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervals_SelectTableAdapter
+                Dim dtblWarning As BusinessObject.dstWarningIntervals.spr_WarningIntervals_SelectDataTable = Nothing
+                dtblWarning = tadpwarning.GetData(intWarningIntervalsID)
+
+
+                lblTitle.Text = "(" & " گردش کار " & dtblWarning.First.WarniningTitle & ""
+                If blnToSponsor = True Then
+                    lblTitle.Text = lblTitle.Text & "-ضامن" & ")"
+
                 Else
-
-                    lstItem.Value = drwDraft.FK_VoiceRecordID
-
-                    dtblVoiceRecord = tadpVoiceRecord.GetData(2, -1, drwDraft.FK_VoiceRecordID, "", -1)
-                    lstItem.Text = dtblVoiceRecord.First.Name
-                    strSampleMessage &= dtblVoiceRecord.First.Name & " " & drwDraft.DraftText
+                    lblTitle.Text = lblTitle.Text & "-وام گیرنده" & ")"
                 End If
 
 
-                lstSMSText.Items.Add(lstItem)
-            Next
+                Dim tadpDraft As New BusinessObject.dstDraftTableAdapters.spr_DraftText_SelectTableAdapter
+                Dim dtblDraft As BusinessObject.dstDraft.spr_DraftText_SelectDataTable = Nothing
+
+                dtblDraft = tadpDraft.GetData(4, -1, intDraftTypeID, intWarningIntervalsID, blnToSponsor)
+
+                Dim tadpVoiceRecord As New BusinessObject.dstZamanakTableAdapters.spr_Record_List_SelectTableAdapter
+                Dim dtblVoiceRecord As BusinessObject.dstZamanak.spr_Record_List_SelectDataTable = Nothing
+
+
+
+
+                For Each drwDraft As BusinessObject.dstDraft.spr_DraftText_SelectRow In dtblDraft
+                    Dim lstItem As New ListItem
+
+                    If drwDraft.IsDynamic Then
+                        Select Case drwDraft.DraftText
+
+                            Case "1"
+                                lstItem.Text = "(شماره تسهیلات)"
+                                strSampleMessage &= " " & "578956-5653"
+                            Case "2"
+                                lstItem.Text = "(تعداد روز تاخیر)"
+                                strSampleMessage &= " " & "23"
+                        End Select
+                        lstItem.Value = drwDraft.DraftText
+                    Else
+
+                        lstItem.Value = drwDraft.FK_VoiceRecordID
+
+                        dtblVoiceRecord = tadpVoiceRecord.GetData(2, -1, drwDraft.FK_VoiceRecordID, "", -1)
+                        lstItem.Text = dtblVoiceRecord.First.Name
+                        strSampleMessage &= dtblVoiceRecord.First.Name & " " & drwDraft.DraftText
+                    End If
+
+
+                    lstSMSText.Items.Add(lstItem)
+                Next
+
+
+            End If
+
+
             strSampleMessage = strSampleMessage.Trim
             div_Msg.InnerText = strSampleMessage
 
             Dim intSMSCount As Integer = Math.Ceiling(strSampleMessage.Length / 68)
             lblSMSCounter.Text = "(" & intSMSCount.ToString & ")"
-
 
             lblCharchterCounter.Text = 68 * intSMSCount - strSampleMessage.Length
             If intSMSCount > 1 Then
@@ -142,31 +208,62 @@
 
         Dim intDraftTypeID As Integer = CInt(ViewState("intDraftTypeID"))
         Dim blnToSponsor As Boolean = CBool(ViewState("blnToSponsor"))
-        Dim intWarningIntervalsID As Integer = Session("intEditWarningIntervalsID")
 
-        Dim qryDraft As New BusinessObject.dstDraftTableAdapters.QueriesTableAdapter
-        qryDraft.spr_DraftText_Delete(intWarningIntervalsID, intDraftTypeID, blnToSponsor)
+        Dim intWarningIntervalsID As Integer
+
+        If Session("PreDraft") = "True" Then
+
+            intWarningIntervalsID = Session("intEditPreWarningIntervalID")
+
+            Dim qryDraft As New BusinessObject.dstPreDraftTableAdapters.QueriesTableAdapter
+            qryDraft.spr_PreDraftText_Delete(intWarningIntervalsID, intDraftTypeID)
 
 
-        Dim strOutput As String = hdnColumnNumbers.Value
+            Dim strOutput As String = hdnColumnNumbers.Value
 
-        Dim arrOutput() As String = strOutput.Split(";")
+            Dim arrOutput() As String = strOutput.Split(";")
 
-        For i As Integer = 1 To arrOutput.Length - 1
-            If arrOutput(i).StartsWith("~?") = True Then
-                qryDraft.spr_DraftText_Insert(i, intWarningIntervalsID, arrOutput(i).Substring(2, 1), True, intDraftTypeID, blnToSponsor, Nothing)
-            Else
-                qryDraft.spr_DraftText_Insert(i, intWarningIntervalsID, "", False, intDraftTypeID, blnToSponsor, CInt(arrOutput(i)))
-            End If
-        Next i
+            For i As Integer = 1 To arrOutput.Length - 1
+                If arrOutput(i).StartsWith("~?") = True Then
+                    qryDraft.spr_PreDraftText_Insert(i, intWarningIntervalsID, arrOutput(i).Substring(2, 1), True, intDraftTypeID, Nothing)
+                Else
+                    qryDraft.spr_PreDraftText_Insert(i, intWarningIntervalsID, "", False, intDraftTypeID, CInt(arrOutput(i)))
+                End If
+            Next i
 
+        Else
+
+            intWarningIntervalsID = Session("intEditWarningIntervalsID")
+
+            Dim qryDraft As New BusinessObject.dstDraftTableAdapters.QueriesTableAdapter
+            qryDraft.spr_DraftText_Delete(intWarningIntervalsID, intDraftTypeID, blnToSponsor)
+
+
+            Dim strOutput As String = hdnColumnNumbers.Value
+
+            Dim arrOutput() As String = strOutput.Split(";")
+
+            For i As Integer = 1 To arrOutput.Length - 1
+                If arrOutput(i).StartsWith("~?") = True Then
+                    qryDraft.spr_DraftText_Insert(i, intWarningIntervalsID, arrOutput(i).Substring(2, 1), True, intDraftTypeID, blnToSponsor, Nothing)
+                Else
+                    qryDraft.spr_DraftText_Insert(i, intWarningIntervalsID, "", False, intDraftTypeID, blnToSponsor, CInt(arrOutput(i)))
+                End If
+            Next i
+
+
+        End If
 
         Bootstrap_Panel1.ShowMessage("الگو با موفقیت ذخیره شد", False)
 
     End Sub
 
     Private Sub Bootstrap_Panel1_Panel_Up_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Up_Click
-        Response.Redirect("DraftManagement.aspx")
+        If Session("PreDraft") = "True" Then
+            Response.Redirect("DraftManagement.aspx?PreDraft=True")
+        Else
+            Response.Redirect("DraftManagement.aspx?PreDraft=False")
+        End If
     End Sub
 
     Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Boolean

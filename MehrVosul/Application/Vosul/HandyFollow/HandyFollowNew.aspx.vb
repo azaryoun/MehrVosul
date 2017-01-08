@@ -41,6 +41,7 @@
                 If dtblFile.First.IsTelephoneWorkNull = False Then
                     lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
                 End If
+
                 If dtblFile.First.IsTelephoneHomeNull = False Then
                     lblBorrowerHomePhone.InnerText = dtblFile.First.TelephoneHome
                 End If
@@ -50,11 +51,17 @@
                 End If
 
 
+
                 GetHandyFollowList()
-
-
+                If Not Session("AmountDeffed") Is Nothing Then
+                    lblAmountDefferd.InnerText = CInt(Session("AmountDeffed")).ToString("N0")
 
                 Else
+                    lblAmountDefferd.InnerText = "--"
+
+                End If
+
+            Else
 
 
                     Response.Redirect("HandyFollowSearch.aspx")
@@ -144,7 +151,15 @@
     End Sub
 
     Private Sub Bootstrap_Panel1_Panel_Up_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Up_Click
-        Response.Redirect("HandyFollowSearch.aspx")
+        If Not Session("Installment") Is Nothing Then
+
+            Response.Redirect("HandyFollowSearch.aspx?Installment=" & Session("Installment").ToString() & "&Branch=" & Session("Branch").ToString & "&LoanType=" & Session("LoanType").ToString() & "&Province=" & Session("Province").ToString & "&CustomerNo=" & Session("customerNO").ToString())
+        Else
+
+            Response.Redirect("HandyFollowSearch.aspx")
+        End If
+
+
     End Sub
 
     Protected Sub cmbSponsor_DataBound(sender As Object, e As EventArgs) Handles cmbSponsor.DataBound
@@ -253,7 +268,7 @@
             End If
 
             If dtblFile.First.IsMobileNoNull = False Then
-                lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
+                lblSponsorPhoneWork.InnerText = dtblFile.First.MobileNo
             End If
 
         Else

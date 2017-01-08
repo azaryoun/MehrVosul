@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="dbMehrVosulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="dbMehrVosulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_Accessgroup">
           <Key>
             <PropertyRef Name="ID" />
@@ -56,6 +56,8 @@
           <Property Name="theDay" Type="date" />
           <Property Name="STime" Type="datetime" />
           <Property Name="theMessage" Type="nvarchar" MaxLength="500" />
+          <Property Name="ReportError" Type="bit" />
+          <Property Name="FinalReport" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_User">
           <Key>
@@ -116,6 +118,9 @@
           <Property Name="HadiService" Type="bit" />
           <Property Name="HadiServiceLoan" Type="bit" />
           <Property Name="VoiceService" Type="bit" />
+          <Property Name="PreNotification" Type="bit" />
+          <Property Name="UpdateTime_PreNotify" Type="time" Precision="7" />
+          <Property Name="tryTime_PreNotify" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -544,17 +549,29 @@
           <Property Name="ToDate" Type="date" />
           <Property Name="Amount" Type="money" />
         </EntityType>
+        <EntityType Name="tbl_PreDraftText">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_PreWarningIntervalsID" Type="int" />
+          <Property Name="OrderInLevel" Type="int" />
+          <Property Name="DraftText" Type="nvarchar" MaxLength="500" />
+          <Property Name="IsDynamic" Type="bit" />
+          <Property Name="DraftType" Type="tinyint" />
+          <Property Name="FK_VoiceRecordID" Type="int" />
+        </EntityType>
         <EntityType Name="tbl_PreNotifiyCurrentLCStatus">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FK_FileID" Type="int" />
-          <Property Name="InstallmentDate" Type="datetime" />
+          <Property Name="FirstNoPaidDate" Type="datetime" />
           <Property Name="FK_BranchID" Type="int" />
           <Property Name="FK_LoanID" Type="int" />
-          <Property Name="InstallmentAmount" Type="money" />
           <Property Name="Process" Type="bit" />
+          <Property Name="Date_P" Type="date" />
         </EntityType>
         <EntityType Name="tbl_PreWarningIntervals">
           <Key>
@@ -1299,6 +1316,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_PreDraftText_tbl_PreWarningIntervals">
+          <End Role="tbl_PreWarningIntervals" Type="Self.tbl_PreWarningIntervals" Multiplicity="0..1" />
+          <End Role="tbl_PreDraftText" Type="Self.tbl_PreDraftText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PreWarningIntervals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreDraftText">
+              <PropertyRef Name="FK_PreWarningIntervalsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_File">
           <End Role="tbl_File" Type="Self.tbl_File" Multiplicity="0..1" />
           <End Role="tbl_PreNotifiyCurrentLCStatus" Type="Self.tbl_PreNotifiyCurrentLCStatus" Multiplicity="*" />
@@ -1596,6 +1625,9 @@
         <Function Name="fnc_GetNotificationTarif" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="money">
           <Parameter Name="NotificationTypeID" Type="int" Mode="In" />
         </Function>
+        <Function Name="fnc_GetPreBranchListName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="WarningIntervalID" Type="int" Mode="In" />
+        </Function>
         <Function Name="fnc_GetUserTypeDescription" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
           <Parameter Name="IsItemAdmin" Type="bit" Mode="In" />
           <Parameter Name="IsDateAdmin" Type="bit" Mode="In" />
@@ -1625,6 +1657,9 @@
         </Function>
         <Function Name="fnc_MiladiToShamsi" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="char">
           <Parameter Name="Indate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="fnc_PreGetLoanTypeListName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="nvarchar">
+          <Parameter Name="WarningIntervalID" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -2448,6 +2483,140 @@
         <Function Name="spr_NotPiadDurationDay_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="LoanID" Type="int" Mode="In" />
         </Function>
+        <Function Name="spr_PreDraftText_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_PreWarningIntervalsID" Type="int" Mode="In" />
+          <Parameter Name="DraftType" Type="tinyint" Mode="In" />
+        </Function>
+        <Function Name="spr_PreDraftText_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OrderInLevel" Type="int" Mode="In" />
+          <Parameter Name="PreWarningIntervalsID" Type="int" Mode="In" />
+          <Parameter Name="DraftText" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsDynamic" Type="bit" Mode="In" />
+          <Parameter Name="DraftType" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_VoiceRecordID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreDraftText_List_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="DraftTypeID" Type="int" Mode="In" />
+          <Parameter Name="PreWarningIntervalID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreDraftText_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Action" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="DraftType" Type="tinyint" Mode="In" />
+          <Parameter Name="PreWarningIntervalsID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreDraftText_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="PreWarningIntervalsID" Type="int" Mode="In" />
+          <Parameter Name="OrderInLevel" Type="int" Mode="In" />
+          <Parameter Name="DraftText" Type="nvarchar" Mode="In" />
+          <Parameter Name="IsDynamic" Type="bit" Mode="In" />
+          <Parameter Name="DraftType" Type="tinyint" Mode="In" />
+          <Parameter Name="FK_VoiceRecordID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreNotifiyCurrentLCStatus_Bulk_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="SelectStatement" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="spr_PreNotifiyCurrentLCStatus_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spr_PreNotifiyCurrentLCStatus_List_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spr_PreNotifiyCurrentLCStatus_Process_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FromID" Type="int" Mode="In" />
+          <Parameter Name="ToID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervals_Check_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_LoanTypeID" Type="int" Mode="In" />
+          <Parameter Name="FirstNoPaidDate" Type="datetime" Mode="In" />
+          <Parameter Name="BranchID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervals_CheckOverlap_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Action" Type="int" Mode="In" />
+          <Parameter Name="WarningIntervalsID" Type="int" Mode="In" />
+          <Parameter Name="LoanTypeID" Type="int" Mode="In" />
+          <Parameter Name="FromDay" Type="int" Mode="In" />
+          <Parameter Name="BranchID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervals_Count_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Action" Type="int" Mode="In" />
+          <Parameter Name="SEARCHSTR" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="BranchID" Type="int" Mode="In" />
+          <Parameter Name="provinceID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervals_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervals_Inerval_List_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spr_PreWarningIntervals_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="OnDay" Type="int" Mode="In" />
+          <Parameter Name="WarniningTitle" Type="nvarchar" Mode="In" />
+          <Parameter Name="SendSMS" Type="bit" Mode="In" />
+          <Parameter Name="VoiceMessage" Type="bit" Mode="In" />
+          <Parameter Name="FK_CUserID" Type="int" Mode="In" />
+          <Parameter Name="MinimumAmount" Type="money" Mode="In" />
+          <Parameter Name="LoanAmount" Type="money" Mode="In" />
+          <Parameter Name="InstalmentAmount" Type="money" Mode="In" />
+          <Parameter Name="ISActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervals_Management_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Action" Type="int" Mode="In" />
+          <Parameter Name="FromIndex" Type="int" Mode="In" />
+          <Parameter Name="ToIndex" Type="int" Mode="In" />
+          <Parameter Name="SEARCHSTR" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="BranchID" Type="int" Mode="In" />
+          <Parameter Name="ProvinceID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervals_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervals_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="OnDay" Type="int" Mode="In" />
+          <Parameter Name="WarniningTitle" Type="nvarchar" Mode="In" />
+          <Parameter Name="SendSMS" Type="bit" Mode="In" />
+          <Parameter Name="VoiceMessage" Type="bit" Mode="In" />
+          <Parameter Name="FK_EUserID" Type="int" Mode="In" />
+          <Parameter Name="MinimumAmount" Type="money" Mode="In" />
+          <Parameter Name="LoanAmount" Type="money" Mode="In" />
+          <Parameter Name="InstalmentAmount" Type="money" Mode="In" />
+          <Parameter Name="ISActive" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervalsBranch_Check_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WarningIntervalID" Type="int" Mode="In" />
+          <Parameter Name="BranchID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervalsBranch_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_PreWarningIntervalID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervalsBranch_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_PreWarningIntervalID" Type="int" Mode="In" />
+          <Parameter Name="FK_BranchID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervalsBranch_List_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spr_PreWarningIntervalsBranchProvince_Check_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="WarningIntervalID" Type="int" Mode="In" />
+          <Parameter Name="ProvinceID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervalsLoanType_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FK_PreWarningIntervalID" Type="int" Mode="In" />
+          <Parameter Name="FK_LoanTypeID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervalsLoanType_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Action" Type="int" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="WarningIntervalID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningIntervalsLoanType_WarningInterval_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="PreWarningIntervalID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningLogCurrentStatus_H_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Date" Type="date" Mode="In" />
+          <Parameter Name="STime" Type="datetime" Mode="In" />
+          <Parameter Name="Success" Type="bit" Mode="In" />
+          <Parameter Name="Remarks" Type="nvarchar" Mode="In" />
+          <Parameter Name="tryTime" Type="int" Mode="In" />
+        </Function>
+        <Function Name="spr_PreWarningLogCurrentStatusH_ForDate_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Date" Type="date" Mode="In" />
+        </Function>
         <Function Name="spr_Province_Check_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="BranchID" Type="int" Mode="In" />
         </Function>
@@ -2465,6 +2634,7 @@
           <Parameter Name="LoanTypeID" Type="int" Mode="In" />
           <Parameter Name="InstallmentCount" Type="int" Mode="In" />
           <Parameter Name="ProvinceID" Type="int" Mode="In" />
+          <Parameter Name="CustomerNO" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Action" Type="int" Mode="In" />
@@ -2490,6 +2660,8 @@
           <Parameter Name="theDay" Type="date" Mode="In" />
           <Parameter Name="STime" Type="datetime" Mode="In" />
           <Parameter Name="theMessage" Type="nvarchar" Mode="In" />
+          <Parameter Name="ReportError" Type="bit" Mode="In" />
+          <Parameter Name="FinalReport" Type="bit" Mode="In" />
         </Function>
         <Function Name="spr_SelfReport_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spr_SMSCountLog_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -2901,6 +3073,9 @@
           <Parameter Name="strMessage" Type="nvarchar(max)" Mode="In" />
           <Parameter Name="SendDate" Type="datetime" Mode="In" />
         </Function>
+        <Function Name="spr_WarningNotificationLogDetail_VoiceSMSCount_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="theDay" Type="date" Mode="In" />
+        </Function>
         <Function Name="spr_WarningNotificationLogDetailFirstLastLog_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="spr_WarningNotificationLogDetailFirstLastLogByDate_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Date" Type="date" Mode="In" />
@@ -2953,6 +3128,7 @@
           <EntitySet Name="tbl_LoanType" EntityType="Self.tbl_LoanType" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_LogCurrentLCStatus_H" EntityType="Self.tbl_LogCurrentLCStatus_H" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_NotificationTarif" EntityType="Self.tbl_NotificationTarif" Schema="Vosul" store:Type="Tables" />
+          <EntitySet Name="tbl_PreDraftText" EntityType="Self.tbl_PreDraftText" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_PreNotifiyCurrentLCStatus" EntityType="Self.tbl_PreNotifiyCurrentLCStatus" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_PreWarningIntervals" EntityType="Self.tbl_PreWarningIntervals" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_PreWarningIntervalsBranch" EntityType="Self.tbl_PreWarningIntervalsBranch" Schema="Vosul" store:Type="Tables" />
@@ -3141,6 +3317,10 @@
             <End Role="tbl_WarnatyType" EntitySet="tbl_WarnatyType" />
             <End Role="tbl_LoanSponsor_WarantyType" EntitySet="tbl_LoanSponsor_WarantyType" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreDraftText_tbl_PreWarningIntervals" Association="Self.FK_tbl_PreDraftText_tbl_PreWarningIntervals">
+            <End Role="tbl_PreWarningIntervals" EntitySet="tbl_PreWarningIntervals" />
+            <End Role="tbl_PreDraftText" EntitySet="tbl_PreDraftText" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_File" Association="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_File">
             <End Role="tbl_File" EntitySet="tbl_File" />
             <End Role="tbl_PreNotifiyCurrentLCStatus" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
@@ -3230,7 +3410,8 @@
             <End Role="tbl_WarningNotificationLogDetail" EntitySet="tbl_WarningNotificationLogDetail" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbMehrVosulModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3251,10 +3432,10 @@
           <Property Name="Desp" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="STime" Type="DateTime" Precision="3" />
           <Property Name="FK_UserID" Type="Int32" />
+          <Property Name="Visiblity" Type="Boolean" />
           <NavigationProperty Name="tbl_User" Relationship="Self.FK_tbl_Accessgroup_tbl_User" FromRole="tbl_Accessgroup" ToRole="tbl_User" />
           <NavigationProperty Name="tbl_AccessgroupUser" Relationship="Self.FK_tbl_AccessGroup_User_tbl_AccessGroup" FromRole="tbl_Accessgroup" ToRole="tbl_AccessgroupUser" />
           <NavigationProperty Name="tbl_AccessgroupMenu" Relationship="Self.FK_tbl_AccessgroupARibbon_tbl_AccessGroup" FromRole="tbl_Accessgroup" ToRole="tbl_AccessgroupMenu" />
-          <Property Name="Visiblity" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbl_AccessgroupMenu">
           <Key>
@@ -3302,6 +3483,8 @@
           <Property Name="theDay" Type="DateTime" Precision="0" />
           <Property Name="STime" Type="DateTime" Precision="3" />
           <Property Name="theMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReportError" Type="Boolean" />
+          <Property Name="FinalReport" Type="Boolean" />
         </EntityType>
         <EntityType Name="tbl_User">
           <Key>
@@ -3369,6 +3552,9 @@
           <Property Name="HadiService" Type="Boolean" />
           <Property Name="HadiServiceLoan" Type="Boolean" />
           <Property Name="VoiceService" Type="Boolean" />
+          <Property Name="PreNotification" Type="Boolean" />
+          <Property Name="UpdateTime_PreNotify" Type="Time" Precision="7" />
+          <Property Name="tryTime_PreNotify" Type="Int32" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -3671,8 +3857,8 @@
           <NavigationProperty Name="tbl_HadiWarningIntervalsBranch" Relationship="Self.FK_tbl_HadiWarningIntervalsBranch_tbl_HadiWarningIntervalsBranch" FromRole="tbl_Branch" ToRole="tbl_HadiWarningIntervalsBranch" />
           <NavigationProperty Name="tbl_Province" Relationship="Self.FK_tbl_Branch_tbl_Province" FromRole="tbl_Branch" ToRole="tbl_Province" />
           <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_Loan_tbl_Branch" FromRole="tbl_Branch" ToRole="tbl_Loan" />
+          <NavigationProperty Name="tbl_PreWarningIntervalsBranch" Relationship="Self.FK_tbl_PreWarningIntervalsBranch_tbl_Branch" FromRole="tbl_Branch" ToRole="tbl_PreWarningIntervalsBranch" />
           <NavigationProperty Name="tbl_WarningIntervalsBranch" Relationship="Self.FK_tbl_WarningIntervalsBranch_tbl_Branch" FromRole="tbl_Branch" ToRole="tbl_WarningIntervalsBranch" />
-          <NavigationProperty Name="tbl_PreWarningIntervalsBranch" Relationship="dbMehrVosulModel.FK_tbl_PreWarningIntervalsBranch_tbl_Branch" FromRole="tbl_Branch" ToRole="tbl_PreWarningIntervalsBranch" />
         </EntityType>
         <EntityType Name="tbl_Commitment_Active">
           <Key>
@@ -3756,6 +3942,7 @@
           <Property Name="State" Type="Byte" />
           <Property Name="FK_OriginalFileID" Type="Int32" />
           <Property Name="FK_RequestUserID" Type="Int32" />
+          <Property Name="BirthDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="tbl_User" Relationship="Self.FK_tbl_File_tbl_User" FromRole="tbl_File" ToRole="tbl_User" />
           <NavigationProperty Name="tbl_User1" Relationship="Self.FK_tbl_File_tbl_User1" FromRole="tbl_File" ToRole="tbl_User" />
           <NavigationProperty Name="tbl_User2" Relationship="Self.FK_tbl_File_tbl_User2" FromRole="tbl_File" ToRole="tbl_User" />
@@ -3767,9 +3954,8 @@
           <NavigationProperty Name="tbl_LoanSponsor" Relationship="Self.FK_tbl_FileSponsor_tbl_File1" FromRole="tbl_File" ToRole="tbl_LoanSponsor" />
           <NavigationProperty Name="tbl_HandyFollow" Relationship="Self.FK_tbl_HandyFollow_tbl_File" FromRole="tbl_File" ToRole="tbl_HandyFollow" />
           <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_Loan_tbl_File" FromRole="tbl_File" ToRole="tbl_Loan" />
+          <NavigationProperty Name="tbl_PreNotifiyCurrentLCStatus" Relationship="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_File" FromRole="tbl_File" ToRole="tbl_PreNotifiyCurrentLCStatus" />
           <NavigationProperty Name="tbl_WarningNotificationLog" Relationship="Self.FK_tbl_WarningNotificationLog_tbl_File" FromRole="tbl_File" ToRole="tbl_WarningNotificationLog" />
-          <Property Name="BirthDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="tbl_PreNotifiyCurrentLCStatus" Relationship="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_File" FromRole="tbl_File" ToRole="tbl_PreNotifiyCurrentLCStatus" />
         </EntityType>
         <EntityType Name="tbl_HandyFollow">
           <Key>
@@ -3811,8 +3997,8 @@
           <NavigationProperty Name="tbl_HandyFollow" Relationship="Self.FK_tbl_HandyFollow_tbl_Loan" FromRole="tbl_Loan" ToRole="tbl_HandyFollow" />
           <NavigationProperty Name="tbl_LoanType" Relationship="Self.FK_tbl_Loan_tbl_LoanType" FromRole="tbl_Loan" ToRole="tbl_LoanType" />
           <NavigationProperty Name="tbl_LoanSponsor" Relationship="Self.FK_tbl_LoanSponsor_tbl_Loan" FromRole="tbl_Loan" ToRole="tbl_LoanSponsor" />
+          <NavigationProperty Name="tbl_PreNotifiyCurrentLCStatus" Relationship="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan" FromRole="tbl_Loan" ToRole="tbl_PreNotifiyCurrentLCStatus" />
           <NavigationProperty Name="tbl_WarningNotificationLog" Relationship="Self.FK_tbl_WarningNotificationLog_tbl_Loan" FromRole="tbl_Loan" ToRole="tbl_WarningNotificationLog" />
-          <NavigationProperty Name="tbl_PreNotifiyCurrentLCStatus" Relationship="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan" FromRole="tbl_Loan" ToRole="tbl_PreNotifiyCurrentLCStatus" />
         </EntityType>
         <EntityType Name="tbl_LoanSponsor">
           <Key>
@@ -3849,8 +4035,8 @@
           <NavigationProperty Name="tbl_HadiOperation_Loan" Relationship="Self.FK_tbl_HadiOperation_Loan_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_HadiOperation_Loan" />
           <NavigationProperty Name="tbl_HadiWarningIntervalsLoan" Relationship="Self.FK_tbl_HadiWarningIntervalsLoan_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_HadiWarningIntervalsLoan" />
           <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_Loan_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_Loan" />
+          <NavigationProperty Name="tbl_PreWarningIntervalsLoanType" Relationship="Self.FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_PreWarningIntervalsLoanType" />
           <NavigationProperty Name="tbl_WarningIntervalsLoanType" Relationship="Self.FK_tbl_WarningIntervalLoanType_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_WarningIntervalsLoanType" />
-          <NavigationProperty Name="tbl_PreWarningIntervalsLoanType" Relationship="dbMehrVosulModel.FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType" FromRole="tbl_LoanType" ToRole="tbl_PreWarningIntervalsLoanType" />
         </EntityType>
         <EntityType Name="tbl_LogCurrentLCStatus_H">
           <Key>
@@ -3872,6 +4058,87 @@
           <Property Name="FromDate" Type="DateTime" Precision="0" />
           <Property Name="ToDate" Type="DateTime" Precision="0" />
           <Property Name="Amount" Type="Decimal" Precision="19" Scale="4" />
+        </EntityType>
+        <EntityType Name="tbl_PreDraftText">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PreWarningIntervalsID" Type="Int32" />
+          <Property Name="OrderInLevel" Type="Int32" />
+          <Property Name="DraftText" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="IsDynamic" Type="Boolean" />
+          <Property Name="DraftType" Type="Byte" />
+          <Property Name="FK_VoiceRecordID" Type="Int32" />
+          <NavigationProperty Name="tbl_PreWarningIntervals" Relationship="Self.FK_tbl_PreDraftText_tbl_PreWarningIntervals" FromRole="tbl_PreDraftText" ToRole="tbl_PreWarningIntervals" />
+        </EntityType>
+        <EntityType Name="tbl_PreNotifiyCurrentLCStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_FileID" Type="Int32" />
+          <Property Name="FirstNoPaidDate" Type="DateTime" Precision="3" />
+          <Property Name="FK_BranchID" Type="Int32" />
+          <Property Name="FK_LoanID" Type="Int32" />
+          <Property Name="Process" Type="Boolean" />
+          <Property Name="Date_P" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="tbl_File" Relationship="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_File" FromRole="tbl_PreNotifiyCurrentLCStatus" ToRole="tbl_File" />
+          <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan" FromRole="tbl_PreNotifiyCurrentLCStatus" ToRole="tbl_Loan" />
+          <NavigationProperty Name="tbl_PreNotifiyCurrentLCStatus1" Relationship="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus" FromRole="tbl_PreNotifiyCurrentLCStatus" ToRole="tbl_PreNotifiyCurrentLCStatus1" />
+          <NavigationProperty Name="tbl_PreNotifiyCurrentLCStatus2" Relationship="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus" FromRole="tbl_PreNotifiyCurrentLCStatus1" ToRole="tbl_PreNotifiyCurrentLCStatus" />
+        </EntityType>
+        <EntityType Name="tbl_PreWarningIntervals">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="onDay" Type="Int32" />
+          <Property Name="WarniningTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="SendSMS" Type="Boolean" />
+          <Property Name="VoiceMessage" Type="Boolean" />
+          <Property Name="FK_CUserID" Type="Int32" />
+          <Property Name="FK_EUserID" Type="Int32" />
+          <Property Name="CTime" Type="DateTime" Precision="3" />
+          <Property Name="ETime" Type="DateTime" Precision="3" />
+          <Property Name="MinimumAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="LoanAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="InstalmentAmount" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="IsActive" Type="Boolean" />
+          <NavigationProperty Name="tbl_PreDraftText" Relationship="Self.FK_tbl_PreDraftText_tbl_PreWarningIntervals" FromRole="tbl_PreWarningIntervals" ToRole="tbl_PreDraftText" />
+          <NavigationProperty Name="tbl_PreWarningIntervalsBranch" Relationship="Self.FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals" FromRole="tbl_PreWarningIntervals" ToRole="tbl_PreWarningIntervalsBranch" />
+          <NavigationProperty Name="tbl_PreWarningIntervalsLoanType" Relationship="Self.FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType" FromRole="tbl_PreWarningIntervals" ToRole="tbl_PreWarningIntervalsLoanType" />
+        </EntityType>
+        <EntityType Name="tbl_PreWarningIntervalsBranch">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PreWarningIntervalID" Type="Int32" />
+          <Property Name="FK_BranchID" Type="Int32" />
+          <NavigationProperty Name="tbl_Branch" Relationship="Self.FK_tbl_PreWarningIntervalsBranch_tbl_Branch" FromRole="tbl_PreWarningIntervalsBranch" ToRole="tbl_Branch" />
+          <NavigationProperty Name="tbl_PreWarningIntervals" Relationship="Self.FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals" FromRole="tbl_PreWarningIntervalsBranch" ToRole="tbl_PreWarningIntervals" />
+        </EntityType>
+        <EntityType Name="tbl_PreWarningIntervalsLoanType">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PreWarningIntervalID" Type="Int32" />
+          <Property Name="FK_LoanTypeID" Type="Int32" />
+          <NavigationProperty Name="tbl_LoanType" Relationship="Self.FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType" FromRole="tbl_PreWarningIntervalsLoanType" ToRole="tbl_LoanType" />
+          <NavigationProperty Name="tbl_PreWarningIntervals" Relationship="Self.FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType" FromRole="tbl_PreWarningIntervalsLoanType" ToRole="tbl_PreWarningIntervals" />
+        </EntityType>
+        <EntityType Name="tbl_PreWarningLogCurrentStatus_H">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="STime" Type="DateTime" Precision="3" />
+          <Property Name="Success" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="tryTime" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Province">
           <Key>
@@ -4500,6 +4767,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_PreWarningIntervalsBranch_tbl_Branch">
+          <End Role="tbl_Branch" Type="Self.tbl_Branch" Multiplicity="0..1" />
+          <End Role="tbl_PreWarningIntervalsBranch" Type="Self.tbl_PreWarningIntervalsBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Branch">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreWarningIntervalsBranch">
+              <PropertyRef Name="FK_BranchID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_WarningIntervalsBranch_tbl_Branch">
           <End Role="tbl_Branch" Type="Self.tbl_Branch" Multiplicity="0..1" />
           <End Role="tbl_WarningIntervalsBranch" Type="Self.tbl_WarningIntervalsBranch" Multiplicity="*" />
@@ -4586,6 +4865,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_File">
+          <End Role="tbl_File" Type="Self.tbl_File" Multiplicity="0..1" />
+          <End Role="tbl_PreNotifiyCurrentLCStatus" Type="Self.tbl_PreNotifiyCurrentLCStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_File">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreNotifiyCurrentLCStatus">
+              <PropertyRef Name="FK_FileID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_WarningNotificationLog_tbl_File">
           <End Role="tbl_File" Type="Self.tbl_File" Multiplicity="0..1" />
           <End Role="tbl_WarningNotificationLog" Type="Self.tbl_WarningNotificationLog" Multiplicity="*" />
@@ -4634,6 +4925,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan">
+          <End Role="tbl_Loan" Type="Self.tbl_Loan" Multiplicity="0..1" />
+          <End Role="tbl_PreNotifiyCurrentLCStatus" Type="Self.tbl_PreNotifiyCurrentLCStatus" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_Loan">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreNotifiyCurrentLCStatus">
+              <PropertyRef Name="FK_LoanID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_WarningNotificationLog_tbl_Loan">
           <End Role="tbl_Loan" Type="Self.tbl_Loan" Multiplicity="0..1" />
           <End Role="tbl_WarningNotificationLog" Type="Self.tbl_WarningNotificationLog" Multiplicity="*" />
@@ -4658,6 +4961,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType">
+          <End Role="tbl_LoanType" Type="Self.tbl_LoanType" Multiplicity="0..1" />
+          <End Role="tbl_PreWarningIntervalsLoanType" Type="Self.tbl_PreWarningIntervalsLoanType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_LoanType">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreWarningIntervalsLoanType">
+              <PropertyRef Name="FK_LoanTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_WarningIntervalLoanType_tbl_LoanType">
           <End Role="tbl_LoanType" Type="Self.tbl_LoanType" Multiplicity="0..1" />
           <End Role="tbl_WarningIntervalsLoanType" Type="Self.tbl_WarningIntervalsLoanType" Multiplicity="*" />
@@ -4667,6 +4982,54 @@
             </Principal>
             <Dependent Role="tbl_WarningIntervalsLoanType">
               <PropertyRef Name="FK_LoanTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_PreDraftText_tbl_PreWarningIntervals">
+          <End Role="tbl_PreWarningIntervals" Type="Self.tbl_PreWarningIntervals" Multiplicity="0..1" />
+          <End Role="tbl_PreDraftText" Type="Self.tbl_PreDraftText" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PreWarningIntervals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreDraftText">
+              <PropertyRef Name="FK_PreWarningIntervalsID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus">
+          <End Role="tbl_PreNotifiyCurrentLCStatus" Type="Self.tbl_PreNotifiyCurrentLCStatus" Multiplicity="1" />
+          <End Role="tbl_PreNotifiyCurrentLCStatus1" Type="Self.tbl_PreNotifiyCurrentLCStatus" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PreNotifiyCurrentLCStatus">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreNotifiyCurrentLCStatus1">
+              <PropertyRef Name="ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals">
+          <End Role="tbl_PreWarningIntervals" Type="Self.tbl_PreWarningIntervals" Multiplicity="0..1" />
+          <End Role="tbl_PreWarningIntervalsBranch" Type="Self.tbl_PreWarningIntervalsBranch" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PreWarningIntervals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreWarningIntervalsBranch">
+              <PropertyRef Name="FK_PreWarningIntervalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType">
+          <End Role="tbl_PreWarningIntervals" Type="Self.tbl_PreWarningIntervals" Multiplicity="0..1" />
+          <End Role="tbl_PreWarningIntervalsLoanType" Type="Self.tbl_PreWarningIntervalsLoanType" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PreWarningIntervals">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreWarningIntervalsLoanType">
+              <PropertyRef Name="FK_PreWarningIntervalID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4826,6 +5189,12 @@
           <EntitySet Name="tbl_LoanType" EntityType="Self.tbl_LoanType" />
           <EntitySet Name="tbl_LogCurrentLCStatus_H" EntityType="Self.tbl_LogCurrentLCStatus_H" />
           <EntitySet Name="tbl_NotificationTarif" EntityType="Self.tbl_NotificationTarif" />
+          <EntitySet Name="tbl_PreDraftText" EntityType="Self.tbl_PreDraftText" />
+          <EntitySet Name="tbl_PreNotifiyCurrentLCStatus" EntityType="Self.tbl_PreNotifiyCurrentLCStatus" />
+          <EntitySet Name="tbl_PreWarningIntervals" EntityType="Self.tbl_PreWarningIntervals" />
+          <EntitySet Name="tbl_PreWarningIntervalsBranch" EntityType="Self.tbl_PreWarningIntervalsBranch" />
+          <EntitySet Name="tbl_PreWarningIntervalsLoanType" EntityType="Self.tbl_PreWarningIntervalsLoanType" />
+          <EntitySet Name="tbl_PreWarningLogCurrentStatus_H" EntityType="Self.tbl_PreWarningLogCurrentStatus_H" />
           <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" />
           <EntitySet Name="tbl_SMSCountLog" EntityType="Self.tbl_SMSCountLog" />
           <EntitySet Name="tbl_Sponsor_List_Log" EntityType="Self.tbl_Sponsor_List_Log" />
@@ -4977,6 +5346,10 @@
             <End Role="tbl_Branch" EntitySet="tbl_Branch" />
             <End Role="tbl_Loan" EntitySet="tbl_Loan" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreWarningIntervalsBranch_tbl_Branch" Association="Self.FK_tbl_PreWarningIntervalsBranch_tbl_Branch">
+            <End Role="tbl_Branch" EntitySet="tbl_Branch" />
+            <End Role="tbl_PreWarningIntervalsBranch" EntitySet="tbl_PreWarningIntervalsBranch" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_WarningIntervalsBranch_tbl_Branch" Association="Self.FK_tbl_WarningIntervalsBranch_tbl_Branch">
             <End Role="tbl_Branch" EntitySet="tbl_Branch" />
             <End Role="tbl_WarningIntervalsBranch" EntitySet="tbl_WarningIntervalsBranch" />
@@ -5005,6 +5378,10 @@
             <End Role="tbl_File" EntitySet="tbl_File" />
             <End Role="tbl_Loan" EntitySet="tbl_Loan" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_File" Association="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_File">
+            <End Role="tbl_File" EntitySet="tbl_File" />
+            <End Role="tbl_PreNotifiyCurrentLCStatus" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_WarningNotificationLog_tbl_File" Association="Self.FK_tbl_WarningNotificationLog_tbl_File">
             <End Role="tbl_File" EntitySet="tbl_File" />
             <End Role="tbl_WarningNotificationLog" EntitySet="tbl_WarningNotificationLog" />
@@ -5021,6 +5398,10 @@
             <End Role="tbl_Loan" EntitySet="tbl_Loan" />
             <End Role="tbl_LoanSponsor" EntitySet="tbl_LoanSponsor" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan" Association="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan">
+            <End Role="tbl_Loan" EntitySet="tbl_Loan" />
+            <End Role="tbl_PreNotifiyCurrentLCStatus" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_WarningNotificationLog_tbl_Loan" Association="Self.FK_tbl_WarningNotificationLog_tbl_Loan">
             <End Role="tbl_Loan" EntitySet="tbl_Loan" />
             <End Role="tbl_WarningNotificationLog" EntitySet="tbl_WarningNotificationLog" />
@@ -5029,9 +5410,29 @@
             <End Role="tbl_LoanSponsor" EntitySet="tbl_LoanSponsor" />
             <End Role="tbl_LoanSponsor_WarantyType" EntitySet="tbl_LoanSponsor_WarantyType" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType" Association="Self.FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType">
+            <End Role="tbl_LoanType" EntitySet="tbl_LoanType" />
+            <End Role="tbl_PreWarningIntervalsLoanType" EntitySet="tbl_PreWarningIntervalsLoanType" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_WarningIntervalLoanType_tbl_LoanType" Association="Self.FK_tbl_WarningIntervalLoanType_tbl_LoanType">
             <End Role="tbl_LoanType" EntitySet="tbl_LoanType" />
             <End Role="tbl_WarningIntervalsLoanType" EntitySet="tbl_WarningIntervalsLoanType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreDraftText_tbl_PreWarningIntervals" Association="Self.FK_tbl_PreDraftText_tbl_PreWarningIntervals">
+            <End Role="tbl_PreWarningIntervals" EntitySet="tbl_PreWarningIntervals" />
+            <End Role="tbl_PreDraftText" EntitySet="tbl_PreDraftText" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus" Association="Self.FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus">
+            <End Role="tbl_PreNotifiyCurrentLCStatus" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
+            <End Role="tbl_PreNotifiyCurrentLCStatus1" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals" Association="Self.FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals">
+            <End Role="tbl_PreWarningIntervals" EntitySet="tbl_PreWarningIntervals" />
+            <End Role="tbl_PreWarningIntervalsBranch" EntitySet="tbl_PreWarningIntervalsBranch" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType" Association="Self.FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType">
+            <End Role="tbl_PreWarningIntervals" EntitySet="tbl_PreWarningIntervals" />
+            <End Role="tbl_PreWarningIntervalsLoanType" EntitySet="tbl_PreWarningIntervalsLoanType" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_WarningIntervalLoanType_tbl_WarningIntervals" Association="Self.FK_tbl_WarningIntervalLoanType_tbl_WarningIntervals">
             <End Role="tbl_WarningIntervals" EntitySet="tbl_WarningIntervals" />
@@ -5070,10 +5471,10 @@
             <End Role="tbl_WarningNotificationLogDetail" EntitySet="tbl_WarningNotificationLogDetail" />
           </AssociationSet>
           <FunctionImport Name="fnc_Menu_Childs" IsComposable="true" ReturnType="Collection(dbMehrVosulModel.fnc_Menu_Childs_Result)">
-          <Parameter Name="ParentID" Mode="In" Type="Int32" />
+            <Parameter Name="ParentID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="fnc_Menu_Parents" IsComposable="true" ReturnType="Collection(dbMehrVosulModel.fnc_Menu_Parents_Result)">
-          <Parameter Name="Child" Mode="In" Type="Int32" />
+            <Parameter Name="Child" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -5117,7 +5518,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Accessgroup_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Accessgroup_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Desp" Mode="In" Type="String" />
@@ -5136,7 +5537,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Accessgroup_Select" ReturnType="Collection(dbMehrVosulModel.spr_Accessgroup_Select_Result)">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Accessgroup_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5146,10 +5547,10 @@
             <Parameter Name="Visiblity" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupMenu_Accessgroup_Delete">
-          <Parameter Name="FK_AccessGroupID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_AccessGroupID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupMenu_AccessGroup_Select" ReturnType="Collection(Int32)">
-          <Parameter Name="AccessgroupID" Mode="In" Type="Int32" />
+            <Parameter Name="AccessgroupID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupMenu_Insert">
             <Parameter Name="FK_AccessGroupID" Mode="In" Type="Int32" />
@@ -5160,24 +5561,24 @@
             <Parameter Name="FK_AccessGroupID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupUser_List_Select" ReturnType="Collection(Int32)">
-          <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupUser_Select" ReturnType="Collection(dbMehrVosulModel.spr_AccessgroupUser_Select_Result)">
-          <Parameter Name="UserID" Mode="In" Type="Int32" />
+            <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupUser_User_Delete">
-          <Parameter Name="FK_UserID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Agent_List_Select" />
           <FunctionImport Name="spr_Branch_ByCode_Select" ReturnType="Collection(dbMehrVosulModel.spr_Branch_ByCode_Select_Result)">
-          <Parameter Name="BarnchCode" Mode="In" Type="String" />
+            <Parameter Name="BarnchCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Count_Select" ReturnType="Collection(Int32)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="BrnachCode" Mode="In" Type="String" />
@@ -5199,7 +5600,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Select" ReturnType="Collection(dbMehrVosulModel.spr_Branch_Select_Result)">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5221,7 +5622,7 @@
             <Parameter Name="FK_LoanID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_CommitmentActive_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_CommitmentActive_Insert">
             <Parameter Name="FK_FileID" Mode="In" Type="Int32" />
@@ -5245,7 +5646,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_Country_List_Select" />
           <FunctionImport Name="spr_CurrentLCStatus_Bulk_Insert">
-          <Parameter Name="SelectStatement" Mode="In" Type="String" />
+            <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_CurrentLCStatus_Delete" />
           <FunctionImport Name="spr_CurrentLCStatus_Insert">
@@ -5266,7 +5667,7 @@
             <Parameter Name="ToID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_CurrentLCStatus_Select" ReturnType="Collection(dbMehrVosulModel.spr_CurrentLCStatus_Select_Result)">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Deposits_ByDepositNumber_Select" ReturnType="Collection(dbMehrVosulModel.spr_Deposits_ByDepositNumber_Select_Result)">
             <Parameter Name="DepositNumber" Mode="In" Type="String" />
@@ -5287,14 +5688,14 @@
             <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_DepositType_byCode_Select" ReturnType="Collection(dbMehrVosulModel.spr_DepositType_byCode_Select_Result)">
-          <Parameter Name="DepositTypeCode" Mode="In" Type="String" />
+            <Parameter Name="DepositTypeCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_DepositType_Count_Select" ReturnType="Collection(Int32)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_DepositType_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_DepositType_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="DepositCode" Mode="In" Type="String" />
@@ -5366,10 +5767,10 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_File_CustomerNo_Select" ReturnType="Collection(dbMehrVosulModel.spr_File_CustomerNo_Select_Result)">
-          <Parameter Name="CustomerNo" Mode="In" Type="String" />
+            <Parameter Name="CustomerNo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_File_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_File_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="CustomerNo" Mode="In" Type="String" />
@@ -5431,7 +5832,7 @@
             <Parameter Name="State" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="spr_File_UpdateOrginalFile">
-          <Parameter Name="FileID" Mode="In" Type="Int32" />
+            <Parameter Name="FileID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_FileChanges_Report" ReturnType="Collection(dbMehrVosulModel.spr_FileChanges_Report_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5460,7 +5861,7 @@
             <Parameter Name="FK_OriginalFileID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiDraftText_Delete">
-          <Parameter Name="FK_HadiWarningIntervalsID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_HadiWarningIntervalsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiDraftText_Insert">
             <Parameter Name="OrderInLevel" Mode="In" Type="Int32" />
@@ -5470,7 +5871,7 @@
             <Parameter Name="FK_VoiceRecordID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiDraftText_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiDraftText_List_Select_Result)">
-          <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiDraftText_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiDraftText_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5486,7 +5887,7 @@
             <Parameter Name="FK_VoiceRecordID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiLogCurrentLCStatus_H_ForDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiLogCurrentLCStatus_H_ForDate_Select_Result)">
-          <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiLogCurrentLCStatus_H_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -5496,7 +5897,7 @@
             <Parameter Name="tryTime" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiLogLoanStatus_ForDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiLogLoanStatus_ForDate_Select_Result)">
-          <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiLogLoanStatus_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -5506,7 +5907,7 @@
             <Parameter Name="tryTime" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperation_Deposit_Bulk_Insert">
-          <Parameter Name="SelectStatement" Mode="In" Type="String" />
+            <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperation_Deposit_Delete" />
           <FunctionImport Name="spr_HadiOperation_Deposit_Insert">
@@ -5534,7 +5935,7 @@
             <Parameter Name="FK_BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperation_Loan_Bulk_Insert">
-          <Parameter Name="SelectStatement" Mode="In" Type="String" />
+            <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperation_Loan_Delete" />
           <FunctionImport Name="spr_HadiOperationDeposit_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiOperationDeposit_List_Select_Result)" />
@@ -5543,10 +5944,10 @@
             <Parameter Name="ToID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperationDeposit_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiOperationDeposit_Select_Result)">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperationDeposit_SelectByFileID" ReturnType="Collection(Int32)">
-          <Parameter Name="FileID" Mode="In" Type="Int32" />
+            <Parameter Name="FileID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperationLoan_List_Select" />
           <FunctionImport Name="spr_HadiOperationLoan_Process_Update">
@@ -5554,7 +5955,7 @@
             <Parameter Name="ToID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperationLoan_Select">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Check_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_Check_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5577,10 +5978,10 @@
             <Parameter Name="provinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Inerval_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_Inerval_List_Select_Result)">
-          <Parameter Name="Action" Mode="In" Type="Byte" />
+            <Parameter Name="Action" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="FromDay" Mode="In" Type="Int32" />
@@ -5597,7 +5998,7 @@
             <Parameter Name="ISActive" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_List_Select_Result)">
-          <Parameter Name="FKCUserID" Mode="In" Type="Int32" />
+            <Parameter Name="FKCUserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Management_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_Management_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5609,7 +6010,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_MinMaxFromTo_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_MinMaxFromTo_Select_Result)" />
           <FunctionImport Name="spr_HadiWarningIntervals_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_Select_Result)">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5631,7 +6032,7 @@
             <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsBranch_Delete">
-          <Parameter Name="FK_HadiWarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_HadiWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsBranch_Insert">
             <Parameter Name="FK_HadiWarningIntervalID" Mode="In" Type="Int32" />
@@ -5647,7 +6048,7 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsBranchProvince_SelectByIntervalID" ReturnType="Collection(Int32)">
-          <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsDeposit_Check_Select" ReturnType="Collection(Int32)">
             <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
@@ -5663,7 +6064,7 @@
             <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsDeposit_WarningInterval_Delete">
-          <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLog_Check_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningNotificationLog_Check_Select_Result)">
             <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
@@ -5706,14 +6107,14 @@
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_NotSend_SMS_List" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningNotificationLogDetail_NotSend_SMS_List_Result)" />
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_Pending_SMSCount_Select" ReturnType="Collection(Int32)">
-          <Parameter Name="theDay" Mode="In" Type="DateTime" />
+            <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningNotificationLogDetail_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_SMSCount_Select" ReturnType="Collection(Int32)">
-          <Parameter Name="theDay" Mode="In" Type="DateTime" />
+            <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_Status_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5777,7 +6178,7 @@
             <Parameter Name="SponsorID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanSponsor_CheckFile_Select" ReturnType="Collection(dbMehrVosulModel.spr_LoanSponsor_CheckFile_Select_Result)">
-          <Parameter Name="LoanID" Mode="In" Type="Int32" />
+            <Parameter Name="LoanID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanSponsor_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="FK_LoanID" Mode="In" Type="Int32" />
@@ -5785,17 +6186,17 @@
             <Parameter Name="WarantyTypeDesc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanSponsor_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_LoanSponsor_List_Select_Result)">
-          <Parameter Name="LoanID" Mode="In" Type="Int32" />
+            <Parameter Name="LoanID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_byCode_Select" ReturnType="Collection(dbMehrVosulModel.spr_LoanType_byCode_Select_Result)">
-          <Parameter Name="LoanTypeCode" Mode="In" Type="String" />
+            <Parameter Name="LoanTypeCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Count_Select" ReturnType="Collection(Int32)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="LoanTypeCode" Mode="In" Type="String" />
@@ -5811,7 +6212,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Select" ReturnType="Collection(dbMehrVosulModel.spr_LoanType_Select_Result)">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5827,7 +6228,7 @@
             <Parameter Name="Remarks" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LogCurrentLCStatus_H_ForDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_LogCurrentLCStatus_H_ForDate_Select_Result)">
-          <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_LogCurrentLCStatus_H_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -5853,7 +6254,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_Menu_Leaf_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_Menu_Leaf_List_Select_Result)" />
           <FunctionImport Name="spr_Menu_PageTitle_Select" ReturnType="Collection(dbMehrVosulModel.spr_Menu_PageTitle_Select_Result)">
-          <Parameter Name="ClassName" Mode="In" Type="String" />
+            <Parameter Name="ClassName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Menu_Parent_Select" ReturnType="Collection(dbMehrVosulModel.spr_Menu_Parent_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5869,7 +6270,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_NotificationTarif_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_NotificationTarif_Insert">
             <Parameter Name="NotificationTypeID" Mode="In" Type="Int32" />
@@ -5895,10 +6296,144 @@
             <Parameter Name="Amount" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="spr_NotPiadDurationDay_Select" ReturnType="Collection(dbMehrVosulModel.spr_NotPiadDurationDay_Select_Result)">
-          <Parameter Name="LoanID" Mode="In" Type="Int32" />
+            <Parameter Name="LoanID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreDraftText_Delete">
+            <Parameter Name="FK_PreWarningIntervalsID" Mode="In" Type="Int32" />
+            <Parameter Name="DraftType" Mode="In" Type="Byte" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreDraftText_Insert">
+            <Parameter Name="OrderInLevel" Mode="In" Type="Int32" />
+            <Parameter Name="PreWarningIntervalsID" Mode="In" Type="Int32" />
+            <Parameter Name="DraftText" Mode="In" Type="String" />
+            <Parameter Name="IsDynamic" Mode="In" Type="Boolean" />
+            <Parameter Name="DraftType" Mode="In" Type="Byte" />
+            <Parameter Name="FK_VoiceRecordID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreDraftText_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreDraftText_List_Select_Result)">
+            <Parameter Name="DraftTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="PreWarningIntervalID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreDraftText_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreDraftText_Select_Result)">
+            <Parameter Name="Action" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="DraftType" Mode="In" Type="Byte" />
+            <Parameter Name="PreWarningIntervalsID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreDraftText_Update">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="PreWarningIntervalsID" Mode="In" Type="Int32" />
+            <Parameter Name="OrderInLevel" Mode="In" Type="Int32" />
+            <Parameter Name="DraftText" Mode="In" Type="String" />
+            <Parameter Name="IsDynamic" Mode="In" Type="Boolean" />
+            <Parameter Name="DraftType" Mode="In" Type="Byte" />
+            <Parameter Name="FK_VoiceRecordID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreNotifiyCurrentLCStatus_Bulk_Insert">
+            <Parameter Name="SelectStatement" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreNotifiyCurrentLCStatus_Delete" />
+          <FunctionImport Name="spr_PreNotifiyCurrentLCStatus_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreNotifiyCurrentLCStatus_List_Select_Result)" />
+          <FunctionImport Name="spr_PreNotifiyCurrentLCStatus_Process_Update">
+            <Parameter Name="FromID" Mode="In" Type="Int32" />
+            <Parameter Name="ToID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervals_Check_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreWarningIntervals_Check_Select_Result)">
+            <Parameter Name="FK_LoanTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="FirstNoPaidDate" Mode="In" Type="DateTime" />
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervals_CheckOverlap_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreWarningIntervals_CheckOverlap_Select_Result)">
+            <Parameter Name="Action" Mode="In" Type="Int32" />
+            <Parameter Name="WarningIntervalsID" Mode="In" Type="Int32" />
+            <Parameter Name="LoanTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="FromDay" Mode="In" Type="Int32" />
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervals_Count_Select" ReturnType="Collection(Int32)">
+            <Parameter Name="Action" Mode="In" Type="Int32" />
+            <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+            <Parameter Name="provinceID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervals_Delete">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervals_Inerval_List_Select" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="spr_PreWarningIntervals_Insert" ReturnType="Collection(Decimal)">
+            <Parameter Name="OnDay" Mode="In" Type="Int32" />
+            <Parameter Name="WarniningTitle" Mode="In" Type="String" />
+            <Parameter Name="SendSMS" Mode="In" Type="Boolean" />
+            <Parameter Name="VoiceMessage" Mode="In" Type="Boolean" />
+            <Parameter Name="FK_CUserID" Mode="In" Type="Int32" />
+            <Parameter Name="MinimumAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="LoanAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="InstalmentAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="ISActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervals_Management_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreWarningIntervals_Management_Select_Result)">
+            <Parameter Name="Action" Mode="In" Type="Int32" />
+            <Parameter Name="FromIndex" Mode="In" Type="Int32" />
+            <Parameter Name="ToIndex" Mode="In" Type="Int32" />
+            <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+            <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervals_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreWarningIntervals_Select_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervals_Update">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="OnDay" Mode="In" Type="Int32" />
+            <Parameter Name="WarniningTitle" Mode="In" Type="String" />
+            <Parameter Name="SendSMS" Mode="In" Type="Boolean" />
+            <Parameter Name="VoiceMessage" Mode="In" Type="Boolean" />
+            <Parameter Name="FK_EUserID" Mode="In" Type="Int32" />
+            <Parameter Name="MinimumAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="LoanAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="InstalmentAmount" Mode="In" Type="Decimal" />
+            <Parameter Name="ISActive" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervalsBranch_Check_Select" ReturnType="Collection(Int32)">
+            <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervalsBranch_Delete">
+            <Parameter Name="FK_PreWarningIntervalID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervalsBranch_Insert">
+            <Parameter Name="FK_PreWarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_BranchID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervalsBranch_List_Select" ReturnType="Collection(String)" />
+          <FunctionImport Name="spr_PreWarningIntervalsBranchProvince_Check_Select" ReturnType="Collection(Int32)">
+            <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervalsLoanType_Insert">
+            <Parameter Name="FK_PreWarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_LoanTypeID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervalsLoanType_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreWarningIntervalsLoanType_Select_Result)">
+            <Parameter Name="Action" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningIntervalsLoanType_WarningInterval_Delete">
+            <Parameter Name="PreWarningIntervalID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningLogCurrentStatus_H_Insert" ReturnType="Collection(Decimal)">
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="STime" Mode="In" Type="DateTime" />
+            <Parameter Name="Success" Mode="In" Type="Boolean" />
+            <Parameter Name="Remarks" Mode="In" Type="String" />
+            <Parameter Name="tryTime" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="spr_PreWarningLogCurrentStatusH_ForDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreWarningLogCurrentStatusH_ForDate_Select_Result)">
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_Province_Check_Select" ReturnType="Collection(dbMehrVosulModel.spr_Province_Check_Select_Result)">
-          <Parameter Name="BranchID" Mode="In" Type="Int32" />
+            <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_ProvinceList_Select" ReturnType="Collection(dbMehrVosulModel.spr_ProvinceList_Select_Result)" />
           <FunctionImport Name="spr_Record_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_Record_List_Select_Result)">
@@ -5914,6 +6449,7 @@
             <Parameter Name="LoanTypeID" Mode="In" Type="Int32" />
             <Parameter Name="InstallmentCount" Mode="In" Type="Int32" />
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
+            <Parameter Name="CustomerNO" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select" ReturnType="Collection(dbMehrVosulModel.spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5939,8 +6475,10 @@
             <Parameter Name="theDay" Mode="In" Type="DateTime" />
             <Parameter Name="STime" Mode="In" Type="DateTime" />
             <Parameter Name="theMessage" Mode="In" Type="String" />
+            <Parameter Name="ReportError" Mode="In" Type="Boolean" />
+            <Parameter Name="FinalReport" Mode="In" Type="Boolean" />
           </FunctionImport>
-          <FunctionImport Name="spr_SelfReport_Select" ReturnType="Collection(DateTime)" />
+          <FunctionImport Name="spr_SelfReport_Select" ReturnType="Collection(dbMehrVosulModel.spr_SelfReport_Select_Result)" />
           <FunctionImport Name="spr_SMSCountLog_Insert">
             <Parameter Name="SendDate" Mode="In" Type="DateTime" />
             <Parameter Name="SMSCount" Mode="In" Type="Int32" />
@@ -5951,10 +6489,10 @@
             <Parameter Name="SMSVoice" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_SMSCountLog_Select" ReturnType="Collection(dbMehrVosulModel.spr_SMSCountLog_Select_Result)">
-          <Parameter Name="theDay" Mode="In" Type="DateTime" />
+            <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_Sponsor_List_Bulk_Insert">
-          <Parameter Name="SelectStatement" Mode="In" Type="String" />
+            <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Sponsor_List_Delete" />
           <FunctionImport Name="spr_Sponsor_List_Insert">
@@ -5974,7 +6512,7 @@
             <Parameter Name="WarantyTypeDesc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Sponsor_List_Log_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Sponsor_List_Log_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="theDay" Mode="In" Type="DateTime" />
@@ -5993,7 +6531,7 @@
             <Parameter Name="LoanSerial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_SystemLoginLog_Insert">
-          <Parameter Name="FK_UserUD" Mode="In" Type="Int32" />
+            <Parameter Name="FK_UserUD" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_SystemLoginLog_Report" ReturnType="Collection(dbMehrVosulModel.spr_SystemLoginLog_Report_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -6041,7 +6579,7 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_CheckUsername_Select" ReturnType="Collection(Int32)">
-          <Parameter Name="Username" Mode="In" Type="String" />
+            <Parameter Name="Username" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Count_Select" ReturnType="Collection(Int32)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -6050,7 +6588,7 @@
             <Parameter Name="FK_ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Username" Mode="In" Type="String" />
@@ -6096,7 +6634,7 @@
             <Parameter Name="UserPhoto" Mode="In" Type="Binary" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Select" ReturnType="Collection(dbMehrVosulModel.spr_User_Select_Result)">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6125,7 +6663,7 @@
             <Parameter Name="FK_UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_VoiceRecords_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_VoiceRecords_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="RecordID" Mode="In" Type="Int32" />
@@ -6164,7 +6702,7 @@
             <Parameter Name="provinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervals_Delete">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervals_Inerval_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningIntervals_Inerval_List_Select_Result)" />
           <FunctionImport Name="spr_WarningIntervals_Insert" ReturnType="Collection(Decimal)">
@@ -6199,7 +6737,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervals_MinMaxFromTo_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningIntervals_MinMaxFromTo_Select_Result)" />
           <FunctionImport Name="spr_WarningIntervals_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningIntervals_Select_Result)">
-          <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervals_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6228,7 +6766,7 @@
             <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsBranch_Delete">
-          <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsBranch_Insert">
             <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
@@ -6244,7 +6782,7 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsBranchProvince_SelectByIntervalID" ReturnType="Collection(Int32)">
-          <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsLoanType_Check_Select" ReturnType="Collection(Int32)">
             <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
@@ -6260,10 +6798,10 @@
             <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsLoanType_WarningInterval_Delete">
-          <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
+            <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsSMSText_Delete">
-          <Parameter Name="WarningIntervalsID" Mode="In" Type="Int32" />
+            <Parameter Name="WarningIntervalsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsSMSText_Insert">
             <Parameter Name="FK_WarningIntervalsID" Mode="In" Type="Int32" />
@@ -6334,14 +6872,14 @@
           <FunctionImport Name="spr_WarningNotificationLogDetail_NotSend_SMS_List" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetail_NotSend_SMS_List_Result)" />
           <FunctionImport Name="spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List_Result)" />
           <FunctionImport Name="spr_WarningNotificationLogDetail_Pending_SMSCount_Select" ReturnType="Collection(Int32)">
-          <Parameter Name="theDay" Mode="In" Type="DateTime" />
+            <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetail_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetail_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetail_SMSCount_Select" ReturnType="Collection(Int32)">
-          <Parameter Name="theDay" Mode="In" Type="DateTime" />
+            <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetail_Status_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6350,9 +6888,12 @@
             <Parameter Name="strMessage" Mode="In" Type="String" />
             <Parameter Name="SendDate" Mode="In" Type="DateTime" />
           </FunctionImport>
+          <FunctionImport Name="spr_WarningNotificationLogDetail_VoiceSMSCount_Select" ReturnType="Collection(Int32)">
+            <Parameter Name="theDay" Mode="In" Type="DateTime" />
+          </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetailFirstLastLog_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetailFirstLastLog_Select_Result)" />
           <FunctionImport Name="spr_WarningNotificationLogDetailFirstLastLogByDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetailFirstLastLogByDate_Select_Result)">
-          <Parameter Name="Date" Mode="In" Type="DateTime" />
+            <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogSummary_Report" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogSummary_Report_Result)">
             <Parameter Name="ACTION" Mode="In" Type="Int32" />
@@ -6360,39 +6901,6 @@
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
             <Parameter Name="Parameter" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="tbl_PreNotifiyCurrentLCStatus" EntityType="dbMehrVosulModel.tbl_PreNotifiyCurrentLCStatus" />
-          <EntitySet Name="tbl_PreWarningIntervals" EntityType="dbMehrVosulModel.tbl_PreWarningIntervals" />
-          <EntitySet Name="tbl_PreWarningIntervalsBranch" EntityType="dbMehrVosulModel.tbl_PreWarningIntervalsBranch" />
-          <EntitySet Name="tbl_PreWarningIntervalsLoanType" EntityType="dbMehrVosulModel.tbl_PreWarningIntervalsLoanType" />
-          <EntitySet Name="tbl_PreWarningLogCurrentStatus_H" EntityType="dbMehrVosulModel.tbl_PreWarningLogCurrentStatus_H" />
-          <AssociationSet Name="FK_tbl_PreWarningIntervalsBranch_tbl_Branch" Association="dbMehrVosulModel.FK_tbl_PreWarningIntervalsBranch_tbl_Branch">
-            <End Role="tbl_Branch" EntitySet="tbl_Branch" />
-            <End Role="tbl_PreWarningIntervalsBranch" EntitySet="tbl_PreWarningIntervalsBranch" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_File" Association="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_File">
-            <End Role="tbl_File" EntitySet="tbl_File" />
-            <End Role="tbl_PreNotifiyCurrentLCStatus" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan" Association="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan">
-            <End Role="tbl_Loan" EntitySet="tbl_Loan" />
-            <End Role="tbl_PreNotifiyCurrentLCStatus" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType" Association="dbMehrVosulModel.FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType">
-            <End Role="tbl_LoanType" EntitySet="tbl_LoanType" />
-            <End Role="tbl_PreWarningIntervalsLoanType" EntitySet="tbl_PreWarningIntervalsLoanType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus" Association="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus">
-            <End Role="tbl_PreNotifiyCurrentLCStatus" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
-            <End Role="tbl_PreNotifiyCurrentLCStatus1" EntitySet="tbl_PreNotifiyCurrentLCStatus" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals" Association="dbMehrVosulModel.FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals">
-            <End Role="tbl_PreWarningIntervals" EntitySet="tbl_PreWarningIntervals" />
-            <End Role="tbl_PreWarningIntervalsBranch" EntitySet="tbl_PreWarningIntervalsBranch" />
-          </AssociationSet>
-          <AssociationSet Name="FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType" Association="dbMehrVosulModel.FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType">
-            <End Role="tbl_PreWarningIntervals" EntitySet="tbl_PreWarningIntervals" />
-            <End Role="tbl_PreWarningIntervalsLoanType" EntitySet="tbl_PreWarningIntervalsLoanType" />
-          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -6424,6 +6932,9 @@
         <ComplexType Name="spr_Accessgroup_Select_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="Desp" Nullable="true" MaxLength="100" />
+          <Property Type="DateTime" Name="STime" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="FK_UserID" Nullable="true" />
+          <Property Type="Boolean" Name="Visiblity" Nullable="true" />
         </ComplexType>
         <ComplexType Name="spr_AccessgroupUser_Select_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -6613,6 +7124,7 @@
           <Property Type="Byte" Name="State" Nullable="true" />
           <Property Type="Int32" Name="FK_OriginalFileID" Nullable="true" />
           <Property Type="Int32" Name="FK_RequestUserID" Nullable="true" />
+          <Property Type="DateTime" Name="BirthDate" Nullable="true" Precision="23" />
         </ComplexType>
         <ComplexType Name="spr_FileChanges_Report_Result">
           <Property Type="String" Name="CustomerNo" Nullable="true" MaxLength="100" />
@@ -7009,6 +7521,93 @@
           <Property Type="Int32" Name="NoDelayInstallment" Nullable="false" />
           <Property Type="Int32" Name="NoPaidInstallment" Nullable="false" />
         </ComplexType>
+        <ComplexType Name="spr_PreDraftText_List_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="OrderInLevel" Nullable="true" />
+          <Property Type="String" Name="DraftText" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="IsDynamic" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spr_PreDraftText_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="FK_PreWarningIntervalsID" Nullable="true" />
+          <Property Type="Int32" Name="OrderInLevel" Nullable="true" />
+          <Property Type="String" Name="DraftText" Nullable="true" MaxLength="500" />
+          <Property Type="Boolean" Name="IsDynamic" Nullable="true" />
+          <Property Type="Byte" Name="DraftType" Nullable="true" />
+          <Property Type="Int32" Name="FK_VoiceRecordID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spr_PreNotifiyCurrentLCStatus_List_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="Date_P" Nullable="true" />
+          <Property Type="Int32" Name="FK_FileID" Nullable="true" />
+          <Property Type="Int32" Name="FK_LoanID" Nullable="true" />
+          <Property Type="Int32" Name="FK_LoanTypeID" Nullable="true" />
+          <Property Type="String" Name="LoanNumber" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BrnachCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CustomerNo" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="FName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="LName" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="MobileNo" Nullable="true" MaxLength="50" />
+          <Property Type="Boolean" Name="IsMale" Nullable="true" />
+          <Property Type="Int32" Name="FK_BranchID" Nullable="true" />
+          <Property Type="Boolean" Name="Process" Nullable="true" />
+          <Property Type="DateTime" Name="FirstNoPaidDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="spr_PreWarningIntervals_Check_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="onDay" Nullable="true" />
+          <Property Type="Boolean" Name="SendSMS" Nullable="true" />
+          <Property Type="String" Name="WarniningTitle" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="FK_BranchID" Nullable="true" />
+          <Property Type="Boolean" Name="VoiceMessage" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spr_PreWarningIntervals_CheckOverlap_Select_Result">
+          <Property Type="Int32" Name="FK_LoanTypeID" Nullable="true" />
+          <Property Type="Int32" Name="onDay" Nullable="true" />
+          <Property Type="String" Name="WarniningTitle" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="LoanTypeName" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="FK_BranchID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spr_PreWarningIntervals_Management_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int64" Name="RowNumber" Nullable="true" />
+          <Property Type="String" Name="WarniningTitle" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Intervals" Nullable="true" MaxLength="30" />
+          <Property Type="String" Name="LoanTypeName" Nullable="true" MaxLength="3000" />
+          <Property Type="String" Name="WarningForm" Nullable="true" MaxLength="22" />
+          <Property Type="String" Name="BranchName" Nullable="true" MaxLength="3000" />
+          <Property Type="String" Name="ISActive" Nullable="false" MaxLength="8" />
+        </ComplexType>
+        <ComplexType Name="spr_PreWarningIntervals_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="WarniningTitle" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="onDay" Nullable="true" />
+          <Property Type="Boolean" Name="SendSMS" Nullable="true" />
+          <Property Type="Int32" Name="FK_CUserID" Nullable="true" />
+          <Property Type="Int32" Name="FK_EUserID" Nullable="true" />
+          <Property Type="DateTime" Name="CTime" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="ETime" Nullable="true" Precision="23" />
+          <Property Type="Decimal" Name="MinimumAmount" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="LoanAmount" Nullable="false" Precision="19" />
+          <Property Type="Decimal" Name="InstalmentAmount" Nullable="false" Precision="19" />
+          <Property Type="Boolean" Name="ISActive" Nullable="true" />
+          <Property Type="Boolean" Name="VoiceMessage" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spr_PreWarningIntervalsLoanType_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="FK_PreWarningIntervalID" Nullable="true" />
+          <Property Type="Int32" Name="FK_LoanTypeID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spr_PreWarningLogCurrentStatusH_ForDate_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="true" />
+          <Property Type="DateTime" Name="STime" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="Success" Nullable="true" />
+          <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
+          <Property Type="Int32" Name="tryTime" Nullable="true" />
+        </ComplexType>
         <ComplexType Name="spr_Province_Check_Select_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="String" Name="ProvinceName" Nullable="true" MaxLength="50" />
@@ -7041,6 +7640,7 @@
           <Property Type="String" Name="Branch" Nullable="true" MaxLength="102" />
           <Property Type="Int32" Name="LoanID" Nullable="false" />
           <Property Type="Int32" Name="FileID" Nullable="false" />
+          <Property Type="Decimal" Name="AmounDefferd" Nullable="true" Precision="19" />
         </ComplexType>
         <ComplexType Name="spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select_Result">
           <Property Type="String" Name="CustomerNo" Nullable="true" MaxLength="100" />
@@ -7077,6 +7677,7 @@
           <Property Type="Boolean" Name="ToSponsor" Nullable="true" />
           <Property Type="String" Name="Remarks" Nullable="true" MaxLength="500" />
           <Property Type="DateTime" Name="DutyDate" Nullable="true" />
+          <Property Type="String" Name="PersonCode" Nullable="true" MaxLength="50" />
         </ComplexType>
         <ComplexType Name="spr_Report_WarningNotificationLogDetail_Summary_Select_Result">
           <Property Type="DateTime" Name="theDay" Nullable="true" />
@@ -7084,6 +7685,10 @@
           <Property Type="String" Name="SendStatus" Nullable="true" MaxLength="10" />
           <Property Type="Int32" Name="ID" Nullable="false" />
           <Property Type="Byte" Name="SendStatusID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="spr_SelfReport_Select_Result">
+          <Property Type="DateTime" Name="theDay" Nullable="true" />
+          <Property Type="Boolean" Name="ReportError" Nullable="true" />
         </ComplexType>
         <ComplexType Name="spr_SMSCountLog_Select_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -7157,6 +7762,9 @@
           <Property Type="Boolean" Name="HadiService" Nullable="true" />
           <Property Type="Boolean" Name="HadiServiceLoan" Nullable="true" />
           <Property Type="Boolean" Name="VoiceService" Nullable="true" />
+          <Property Type="Boolean" Name="PreNotification" Nullable="true" />
+          <Property Type="Time" Name="UpdateTime_PreNotify" Nullable="true" />
+          <Property Type="Int32" Name="tryTime_PreNotify" Nullable="true" />
         </ComplexType>
         <ComplexType Name="spr_tbl_WarningNotificationLogDetail_Select_Result">
           <Property Type="Int32" Name="ID" Nullable="false" />
@@ -7380,157 +7988,6 @@
           <Property Type="Int32" Name="SMSCount" Nullable="true" />
           <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
         </ComplexType>
-        <EntityType Name="tbl_PreNotifiyCurrentLCStatus">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_FileID" Type="Int32" />
-          <Property Name="InstallmentDate" Type="DateTime" Precision="3" />
-          <Property Name="FK_BranchID" Type="Int32" />
-          <Property Name="FK_LoanID" Type="Int32" />
-          <Property Name="InstallmentAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="Process" Type="Boolean" />
-          <NavigationProperty Name="tbl_File" Relationship="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_File" FromRole="tbl_PreNotifiyCurrentLCStatus" ToRole="tbl_File" />
-          <NavigationProperty Name="tbl_Loan" Relationship="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan" FromRole="tbl_PreNotifiyCurrentLCStatus" ToRole="tbl_Loan" />
-          <NavigationProperty Name="tbl_PreNotifiyCurrentLCStatus1" Relationship="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus" FromRole="tbl_PreNotifiyCurrentLCStatus" ToRole="tbl_PreNotifiyCurrentLCStatus1" />
-          <NavigationProperty Name="tbl_PreNotifiyCurrentLCStatus2" Relationship="dbMehrVosulModel.FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus" FromRole="tbl_PreNotifiyCurrentLCStatus1" ToRole="tbl_PreNotifiyCurrentLCStatus" />
-        </EntityType>
-        <EntityType Name="tbl_PreWarningIntervals">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="onDay" Type="Int32" />
-          <Property Name="WarniningTitle" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="SendSMS" Type="Boolean" />
-          <Property Name="VoiceMessage" Type="Boolean" />
-          <Property Name="FK_CUserID" Type="Int32" />
-          <Property Name="FK_EUserID" Type="Int32" />
-          <Property Name="CTime" Type="DateTime" Precision="3" />
-          <Property Name="ETime" Type="DateTime" Precision="3" />
-          <Property Name="MinimumAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="LoanAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="InstalmentAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="IsActive" Type="Boolean" />
-          <NavigationProperty Name="tbl_PreWarningIntervalsBranch" Relationship="dbMehrVosulModel.FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals" FromRole="tbl_PreWarningIntervals" ToRole="tbl_PreWarningIntervalsBranch" />
-          <NavigationProperty Name="tbl_PreWarningIntervalsLoanType" Relationship="dbMehrVosulModel.FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType" FromRole="tbl_PreWarningIntervals" ToRole="tbl_PreWarningIntervalsLoanType" />
-        </EntityType>
-        <EntityType Name="tbl_PreWarningIntervalsBranch">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_PreWarningIntervalID" Type="Int32" />
-          <Property Name="FK_BranchID" Type="Int32" />
-          <NavigationProperty Name="tbl_Branch" Relationship="dbMehrVosulModel.FK_tbl_PreWarningIntervalsBranch_tbl_Branch" FromRole="tbl_PreWarningIntervalsBranch" ToRole="tbl_Branch" />
-          <NavigationProperty Name="tbl_PreWarningIntervals" Relationship="dbMehrVosulModel.FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals" FromRole="tbl_PreWarningIntervalsBranch" ToRole="tbl_PreWarningIntervals" />
-        </EntityType>
-        <EntityType Name="tbl_PreWarningIntervalsLoanType">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FK_PreWarningIntervalID" Type="Int32" />
-          <Property Name="FK_LoanTypeID" Type="Int32" />
-          <NavigationProperty Name="tbl_LoanType" Relationship="dbMehrVosulModel.FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType" FromRole="tbl_PreWarningIntervalsLoanType" ToRole="tbl_LoanType" />
-          <NavigationProperty Name="tbl_PreWarningIntervals" Relationship="dbMehrVosulModel.FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType" FromRole="tbl_PreWarningIntervalsLoanType" ToRole="tbl_PreWarningIntervals" />
-        </EntityType>
-        <EntityType Name="tbl_PreWarningLogCurrentStatus_H">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Date" Type="DateTime" Precision="0" />
-          <Property Name="STime" Type="DateTime" Precision="3" />
-          <Property Name="Success" Type="Boolean" />
-          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="tryTime" Type="Int32" />
-        </EntityType>
-        <Association Name="FK_tbl_PreWarningIntervalsBranch_tbl_Branch">
-          <End Type="dbMehrVosulModel.tbl_Branch" Role="tbl_Branch" Multiplicity="0..1" />
-          <End Type="dbMehrVosulModel.tbl_PreWarningIntervalsBranch" Role="tbl_PreWarningIntervalsBranch" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Branch">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_PreWarningIntervalsBranch">
-              <PropertyRef Name="FK_BranchID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_File">
-          <End Type="dbMehrVosulModel.tbl_File" Role="tbl_File" Multiplicity="0..1" />
-          <End Type="dbMehrVosulModel.tbl_PreNotifiyCurrentLCStatus" Role="tbl_PreNotifiyCurrentLCStatus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_File">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_PreNotifiyCurrentLCStatus">
-              <PropertyRef Name="FK_FileID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_Loan">
-          <End Type="dbMehrVosulModel.tbl_Loan" Role="tbl_Loan" Multiplicity="0..1" />
-          <End Type="dbMehrVosulModel.tbl_PreNotifiyCurrentLCStatus" Role="tbl_PreNotifiyCurrentLCStatus" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_Loan">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_PreNotifiyCurrentLCStatus">
-              <PropertyRef Name="FK_LoanID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_PreWarningIntervalsLoanType_tbl_LoanType">
-          <End Type="dbMehrVosulModel.tbl_LoanType" Role="tbl_LoanType" Multiplicity="0..1" />
-          <End Type="dbMehrVosulModel.tbl_PreWarningIntervalsLoanType" Role="tbl_PreWarningIntervalsLoanType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_LoanType">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_PreWarningIntervalsLoanType">
-              <PropertyRef Name="FK_LoanTypeID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_PreNotifiyCurrentLCStatus_tbl_PreNotifiyCurrentLCStatus">
-          <End Type="dbMehrVosulModel.tbl_PreNotifiyCurrentLCStatus" Role="tbl_PreNotifiyCurrentLCStatus" Multiplicity="1" />
-          <End Type="dbMehrVosulModel.tbl_PreNotifiyCurrentLCStatus" Role="tbl_PreNotifiyCurrentLCStatus1" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_PreNotifiyCurrentLCStatus">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_PreNotifiyCurrentLCStatus1">
-              <PropertyRef Name="ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_PreWarningIntervalsBranch_tbl_PreWarningIntervals">
-          <End Type="dbMehrVosulModel.tbl_PreWarningIntervals" Role="tbl_PreWarningIntervals" Multiplicity="0..1" />
-          <End Type="dbMehrVosulModel.tbl_PreWarningIntervalsBranch" Role="tbl_PreWarningIntervalsBranch" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_PreWarningIntervals">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_PreWarningIntervalsBranch">
-              <PropertyRef Name="FK_PreWarningIntervalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType">
-          <End Type="dbMehrVosulModel.tbl_PreWarningIntervals" Role="tbl_PreWarningIntervals" Multiplicity="0..1" />
-          <End Type="dbMehrVosulModel.tbl_PreWarningIntervalsLoanType" Role="tbl_PreWarningIntervalsLoanType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="tbl_PreWarningIntervals">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="tbl_PreWarningIntervalsLoanType">
-              <PropertyRef Name="FK_PreWarningIntervalID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -7540,11 +7997,11 @@
           <EntitySetMapping Name="tbl_Accessgroup">
             <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_Accessgroup">
               <MappingFragment StoreEntitySet="tbl_Accessgroup">
-                <ScalarProperty Name="Visiblity" ColumnName="Visiblity" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Desp" ColumnName="Desp" />
                 <ScalarProperty Name="STime" ColumnName="STime" />
                 <ScalarProperty Name="FK_UserID" ColumnName="FK_UserID" />
+                <ScalarProperty Name="Visiblity" ColumnName="Visiblity" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7591,6 +8048,8 @@
                 <ScalarProperty Name="theDay" ColumnName="theDay" />
                 <ScalarProperty Name="STime" ColumnName="STime" />
                 <ScalarProperty Name="theMessage" ColumnName="theMessage" />
+                <ScalarProperty Name="ReportError" ColumnName="ReportError" />
+                <ScalarProperty Name="FinalReport" ColumnName="FinalReport" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -7653,6 +8112,9 @@
                 <ScalarProperty Name="HadiService" ColumnName="HadiService" />
                 <ScalarProperty Name="HadiServiceLoan" ColumnName="HadiServiceLoan" />
                 <ScalarProperty Name="VoiceService" ColumnName="VoiceService" />
+                <ScalarProperty Name="PreNotification" ColumnName="PreNotification" />
+                <ScalarProperty Name="UpdateTime_PreNotify" ColumnName="UpdateTime_PreNotify" />
+                <ScalarProperty Name="tryTime_PreNotify" ColumnName="tryTime_PreNotify" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8004,7 +8466,6 @@
           <EntitySetMapping Name="tbl_File">
             <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_File">
               <MappingFragment StoreEntitySet="tbl_File">
-                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="CustomerNo" ColumnName="CustomerNo" />
                 <ScalarProperty Name="FName" ColumnName="FName" />
@@ -8025,6 +8486,7 @@
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="FK_OriginalFileID" ColumnName="FK_OriginalFileID" />
                 <ScalarProperty Name="FK_RequestUserID" ColumnName="FK_RequestUserID" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8114,6 +8576,81 @@
                 <ScalarProperty Name="FromDate" ColumnName="FromDate" />
                 <ScalarProperty Name="ToDate" ColumnName="ToDate" />
                 <ScalarProperty Name="Amount" ColumnName="Amount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PreDraftText">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreDraftText">
+              <MappingFragment StoreEntitySet="tbl_PreDraftText">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_PreWarningIntervalsID" ColumnName="FK_PreWarningIntervalsID" />
+                <ScalarProperty Name="OrderInLevel" ColumnName="OrderInLevel" />
+                <ScalarProperty Name="DraftText" ColumnName="DraftText" />
+                <ScalarProperty Name="IsDynamic" ColumnName="IsDynamic" />
+                <ScalarProperty Name="DraftType" ColumnName="DraftType" />
+                <ScalarProperty Name="FK_VoiceRecordID" ColumnName="FK_VoiceRecordID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PreNotifiyCurrentLCStatus">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreNotifiyCurrentLCStatus">
+              <MappingFragment StoreEntitySet="tbl_PreNotifiyCurrentLCStatus">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_FileID" ColumnName="FK_FileID" />
+                <ScalarProperty Name="FirstNoPaidDate" ColumnName="FirstNoPaidDate" />
+                <ScalarProperty Name="FK_BranchID" ColumnName="FK_BranchID" />
+                <ScalarProperty Name="FK_LoanID" ColumnName="FK_LoanID" />
+                <ScalarProperty Name="Process" ColumnName="Process" />
+                <ScalarProperty Name="Date_P" ColumnName="Date_P" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PreWarningIntervals">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningIntervals">
+              <MappingFragment StoreEntitySet="tbl_PreWarningIntervals">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="onDay" ColumnName="onDay" />
+                <ScalarProperty Name="WarniningTitle" ColumnName="WarniningTitle" />
+                <ScalarProperty Name="SendSMS" ColumnName="SendSMS" />
+                <ScalarProperty Name="VoiceMessage" ColumnName="VoiceMessage" />
+                <ScalarProperty Name="FK_CUserID" ColumnName="FK_CUserID" />
+                <ScalarProperty Name="FK_EUserID" ColumnName="FK_EUserID" />
+                <ScalarProperty Name="CTime" ColumnName="CTime" />
+                <ScalarProperty Name="ETime" ColumnName="ETime" />
+                <ScalarProperty Name="MinimumAmount" ColumnName="MinimumAmount" />
+                <ScalarProperty Name="LoanAmount" ColumnName="LoanAmount" />
+                <ScalarProperty Name="InstalmentAmount" ColumnName="InstalmentAmount" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PreWarningIntervalsBranch">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningIntervalsBranch">
+              <MappingFragment StoreEntitySet="tbl_PreWarningIntervalsBranch">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_PreWarningIntervalID" ColumnName="FK_PreWarningIntervalID" />
+                <ScalarProperty Name="FK_BranchID" ColumnName="FK_BranchID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PreWarningIntervalsLoanType">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningIntervalsLoanType">
+              <MappingFragment StoreEntitySet="tbl_PreWarningIntervalsLoanType">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_PreWarningIntervalID" ColumnName="FK_PreWarningIntervalID" />
+                <ScalarProperty Name="FK_LoanTypeID" ColumnName="FK_LoanTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PreWarningLogCurrentStatus_H">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningLogCurrentStatus_H">
+              <MappingFragment StoreEntitySet="tbl_PreWarningLogCurrentStatus_H">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="STime" ColumnName="STime" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="tryTime" ColumnName="tryTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -8391,6 +8928,9 @@
               <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_Accessgroup_Select_Result">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Desp" ColumnName="Desp" />
+                <ScalarProperty Name="STime" ColumnName="STime" />
+                <ScalarProperty Name="FK_UserID" ColumnName="FK_UserID" />
+                <ScalarProperty Name="Visiblity" ColumnName="Visiblity" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -8698,6 +9238,7 @@
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="FK_OriginalFileID" ColumnName="FK_OriginalFileID" />
                 <ScalarProperty Name="FK_RequestUserID" ColumnName="FK_RequestUserID" />
+                <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -9323,6 +9864,148 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreDraftText_Delete" FunctionName="dbMehrVosulModel.Store.spr_PreDraftText_Delete" />
+          <FunctionImportMapping FunctionImportName="spr_PreDraftText_Insert" FunctionName="dbMehrVosulModel.Store.spr_PreDraftText_Insert" />
+          <FunctionImportMapping FunctionImportName="spr_PreDraftText_List_Select" FunctionName="dbMehrVosulModel.Store.spr_PreDraftText_List_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreDraftText_List_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="OrderInLevel" ColumnName="OrderInLevel" />
+                <ScalarProperty Name="DraftText" ColumnName="DraftText" />
+                <ScalarProperty Name="IsDynamic" ColumnName="IsDynamic" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreDraftText_Select" FunctionName="dbMehrVosulModel.Store.spr_PreDraftText_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreDraftText_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_PreWarningIntervalsID" ColumnName="FK_PreWarningIntervalsID" />
+                <ScalarProperty Name="OrderInLevel" ColumnName="OrderInLevel" />
+                <ScalarProperty Name="DraftText" ColumnName="DraftText" />
+                <ScalarProperty Name="IsDynamic" ColumnName="IsDynamic" />
+                <ScalarProperty Name="DraftType" ColumnName="DraftType" />
+                <ScalarProperty Name="FK_VoiceRecordID" ColumnName="FK_VoiceRecordID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreDraftText_Update" FunctionName="dbMehrVosulModel.Store.spr_PreDraftText_Update" />
+          <FunctionImportMapping FunctionImportName="spr_PreNotifiyCurrentLCStatus_Bulk_Insert" FunctionName="dbMehrVosulModel.Store.spr_PreNotifiyCurrentLCStatus_Bulk_Insert" />
+          <FunctionImportMapping FunctionImportName="spr_PreNotifiyCurrentLCStatus_Delete" FunctionName="dbMehrVosulModel.Store.spr_PreNotifiyCurrentLCStatus_Delete" />
+          <FunctionImportMapping FunctionImportName="spr_PreNotifiyCurrentLCStatus_List_Select" FunctionName="dbMehrVosulModel.Store.spr_PreNotifiyCurrentLCStatus_List_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreNotifiyCurrentLCStatus_List_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date_P" ColumnName="Date_P" />
+                <ScalarProperty Name="FK_FileID" ColumnName="FK_FileID" />
+                <ScalarProperty Name="FK_LoanID" ColumnName="FK_LoanID" />
+                <ScalarProperty Name="FK_LoanTypeID" ColumnName="FK_LoanTypeID" />
+                <ScalarProperty Name="LoanNumber" ColumnName="LoanNumber" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="BrnachCode" ColumnName="BrnachCode" />
+                <ScalarProperty Name="CustomerNo" ColumnName="CustomerNo" />
+                <ScalarProperty Name="FName" ColumnName="FName" />
+                <ScalarProperty Name="LName" ColumnName="LName" />
+                <ScalarProperty Name="MobileNo" ColumnName="MobileNo" />
+                <ScalarProperty Name="IsMale" ColumnName="IsMale" />
+                <ScalarProperty Name="FK_BranchID" ColumnName="FK_BranchID" />
+                <ScalarProperty Name="Process" ColumnName="Process" />
+                <ScalarProperty Name="FirstNoPaidDate" ColumnName="FirstNoPaidDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreNotifiyCurrentLCStatus_Process_Update" FunctionName="dbMehrVosulModel.Store.spr_PreNotifiyCurrentLCStatus_Process_Update" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_Check_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_Check_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreWarningIntervals_Check_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="onDay" ColumnName="onDay" />
+                <ScalarProperty Name="SendSMS" ColumnName="SendSMS" />
+                <ScalarProperty Name="WarniningTitle" ColumnName="WarniningTitle" />
+                <ScalarProperty Name="FK_BranchID" ColumnName="FK_BranchID" />
+                <ScalarProperty Name="VoiceMessage" ColumnName="VoiceMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_CheckOverlap_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_CheckOverlap_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreWarningIntervals_CheckOverlap_Select_Result">
+                <ScalarProperty Name="FK_LoanTypeID" ColumnName="FK_LoanTypeID" />
+                <ScalarProperty Name="onDay" ColumnName="onDay" />
+                <ScalarProperty Name="WarniningTitle" ColumnName="WarniningTitle" />
+                <ScalarProperty Name="LoanTypeName" ColumnName="LoanTypeName" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="FK_BranchID" ColumnName="FK_BranchID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_Count_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_Count_Select" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_Delete" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_Delete" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_Inerval_List_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_Inerval_List_Select" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_Insert" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_Insert" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_Management_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_Management_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreWarningIntervals_Management_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="RowNumber" ColumnName="RowNumber" />
+                <ScalarProperty Name="WarniningTitle" ColumnName="WarniningTitle" />
+                <ScalarProperty Name="Intervals" ColumnName="Intervals" />
+                <ScalarProperty Name="LoanTypeName" ColumnName="LoanTypeName" />
+                <ScalarProperty Name="WarningForm" ColumnName="WarningForm" />
+                <ScalarProperty Name="BranchName" ColumnName="BranchName" />
+                <ScalarProperty Name="ISActive" ColumnName="ISActive" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreWarningIntervals_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="WarniningTitle" ColumnName="WarniningTitle" />
+                <ScalarProperty Name="onDay" ColumnName="onDay" />
+                <ScalarProperty Name="SendSMS" ColumnName="SendSMS" />
+                <ScalarProperty Name="FK_CUserID" ColumnName="FK_CUserID" />
+                <ScalarProperty Name="FK_EUserID" ColumnName="FK_EUserID" />
+                <ScalarProperty Name="CTime" ColumnName="CTime" />
+                <ScalarProperty Name="ETime" ColumnName="ETime" />
+                <ScalarProperty Name="MinimumAmount" ColumnName="MinimumAmount" />
+                <ScalarProperty Name="LoanAmount" ColumnName="LoanAmount" />
+                <ScalarProperty Name="InstalmentAmount" ColumnName="InstalmentAmount" />
+                <ScalarProperty Name="ISActive" ColumnName="ISActive" />
+                <ScalarProperty Name="VoiceMessage" ColumnName="VoiceMessage" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervals_Update" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervals_Update" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervalsBranch_Check_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervalsBranch_Check_Select" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervalsBranch_Delete" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervalsBranch_Delete" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervalsBranch_Insert" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervalsBranch_Insert" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervalsBranch_List_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervalsBranch_List_Select" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervalsBranchProvince_Check_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervalsBranchProvince_Check_Select" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervalsLoanType_Insert" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervalsLoanType_Insert" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervalsLoanType_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervalsLoanType_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreWarningIntervalsLoanType_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="FK_PreWarningIntervalID" ColumnName="FK_PreWarningIntervalID" />
+                <ScalarProperty Name="FK_LoanTypeID" ColumnName="FK_LoanTypeID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="spr_PreWarningIntervalsLoanType_WarningInterval_Delete" FunctionName="dbMehrVosulModel.Store.spr_PreWarningIntervalsLoanType_WarningInterval_Delete" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningLogCurrentStatus_H_Insert" FunctionName="dbMehrVosulModel.Store.spr_PreWarningLogCurrentStatus_H_Insert" />
+          <FunctionImportMapping FunctionImportName="spr_PreWarningLogCurrentStatusH_ForDate_Select" FunctionName="dbMehrVosulModel.Store.spr_PreWarningLogCurrentStatusH_ForDate_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_PreWarningLogCurrentStatusH_ForDate_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="STime" ColumnName="STime" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="tryTime" ColumnName="tryTime" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spr_Province_Check_Select" FunctionName="dbMehrVosulModel.Store.spr_Province_Check_Select">
             <ResultMapping>
               <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_Province_Check_Select_Result">
@@ -9369,6 +10052,7 @@
                 <ScalarProperty Name="Branch" ColumnName="Branch" />
                 <ScalarProperty Name="LoanID" ColumnName="LoanID" />
                 <ScalarProperty Name="FileID" ColumnName="FileID" />
+                <ScalarProperty Name="AmounDefferd" ColumnName="AmounDefferd" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -9417,6 +10101,7 @@
                 <ScalarProperty Name="ToSponsor" ColumnName="ToSponsor" />
                 <ScalarProperty Name="Remarks" ColumnName="Remarks" />
                 <ScalarProperty Name="DutyDate" ColumnName="DutyDate" />
+                <ScalarProperty Name="PersonCode" ColumnName="PersonCode" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -9432,7 +10117,14 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spr_SelfReport_Insert" FunctionName="dbMehrVosulModel.Store.spr_SelfReport_Insert" />
-          <FunctionImportMapping FunctionImportName="spr_SelfReport_Select" FunctionName="dbMehrVosulModel.Store.spr_SelfReport_Select" />
+          <FunctionImportMapping FunctionImportName="spr_SelfReport_Select" FunctionName="dbMehrVosulModel.Store.spr_SelfReport_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_SelfReport_Select_Result">
+                <ScalarProperty Name="theDay" ColumnName="theDay" />
+                <ScalarProperty Name="ReportError" ColumnName="ReportError" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spr_SMSCountLog_Insert" FunctionName="dbMehrVosulModel.Store.spr_SMSCountLog_Insert" />
           <FunctionImportMapping FunctionImportName="spr_SMSCountLog_Select" FunctionName="dbMehrVosulModel.Store.spr_SMSCountLog_Select">
             <ResultMapping>
@@ -9531,6 +10223,9 @@
                 <ScalarProperty Name="HadiService" ColumnName="HadiService" />
                 <ScalarProperty Name="HadiServiceLoan" ColumnName="HadiServiceLoan" />
                 <ScalarProperty Name="VoiceService" ColumnName="VoiceService" />
+                <ScalarProperty Name="PreNotification" ColumnName="PreNotification" />
+                <ScalarProperty Name="UpdateTime_PreNotify" ColumnName="UpdateTime_PreNotify" />
+                <ScalarProperty Name="tryTime_PreNotify" ColumnName="tryTime_PreNotify" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
@@ -9861,6 +10556,7 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spr_WarningNotificationLogDetail_SMSCount_Select" FunctionName="dbMehrVosulModel.Store.spr_WarningNotificationLogDetail_SMSCount_Select" />
           <FunctionImportMapping FunctionImportName="spr_WarningNotificationLogDetail_Status_Update" FunctionName="dbMehrVosulModel.Store.spr_WarningNotificationLogDetail_Status_Update" />
+          <FunctionImportMapping FunctionImportName="spr_WarningNotificationLogDetail_VoiceSMSCount_Select" FunctionName="dbMehrVosulModel.Store.spr_WarningNotificationLogDetail_VoiceSMSCount_Select" />
           <FunctionImportMapping FunctionImportName="spr_WarningNotificationLogDetailFirstLastLog_Select" FunctionName="dbMehrVosulModel.Store.spr_WarningNotificationLogDetailFirstLastLog_Select">
             <ResultMapping>
               <ComplexTypeMapping TypeName="dbMehrVosulModel.spr_WarningNotificationLogDetailFirstLastLog_Select_Result">
@@ -9885,68 +10581,6 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <EntitySetMapping Name="tbl_PreNotifiyCurrentLCStatus">
-            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreNotifiyCurrentLCStatus">
-              <MappingFragment StoreEntitySet="tbl_PreNotifiyCurrentLCStatus">
-                <ScalarProperty Name="Process" ColumnName="Process" />
-                <ScalarProperty Name="InstallmentAmount" ColumnName="InstallmentAmount" />
-                <ScalarProperty Name="FK_LoanID" ColumnName="FK_LoanID" />
-                <ScalarProperty Name="FK_BranchID" ColumnName="FK_BranchID" />
-                <ScalarProperty Name="InstallmentDate" ColumnName="InstallmentDate" />
-                <ScalarProperty Name="FK_FileID" ColumnName="FK_FileID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_PreWarningIntervals">
-            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningIntervals">
-              <MappingFragment StoreEntitySet="tbl_PreWarningIntervals">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="InstalmentAmount" ColumnName="InstalmentAmount" />
-                <ScalarProperty Name="LoanAmount" ColumnName="LoanAmount" />
-                <ScalarProperty Name="MinimumAmount" ColumnName="MinimumAmount" />
-                <ScalarProperty Name="ETime" ColumnName="ETime" />
-                <ScalarProperty Name="CTime" ColumnName="CTime" />
-                <ScalarProperty Name="FK_EUserID" ColumnName="FK_EUserID" />
-                <ScalarProperty Name="FK_CUserID" ColumnName="FK_CUserID" />
-                <ScalarProperty Name="VoiceMessage" ColumnName="VoiceMessage" />
-                <ScalarProperty Name="SendSMS" ColumnName="SendSMS" />
-                <ScalarProperty Name="WarniningTitle" ColumnName="WarniningTitle" />
-                <ScalarProperty Name="onDay" ColumnName="onDay" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_PreWarningIntervalsBranch">
-            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningIntervalsBranch">
-              <MappingFragment StoreEntitySet="tbl_PreWarningIntervalsBranch">
-                <ScalarProperty Name="FK_BranchID" ColumnName="FK_BranchID" />
-                <ScalarProperty Name="FK_PreWarningIntervalID" ColumnName="FK_PreWarningIntervalID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_PreWarningIntervalsLoanType">
-            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningIntervalsLoanType">
-              <MappingFragment StoreEntitySet="tbl_PreWarningIntervalsLoanType">
-                <ScalarProperty Name="FK_LoanTypeID" ColumnName="FK_LoanTypeID" />
-                <ScalarProperty Name="FK_PreWarningIntervalID" ColumnName="FK_PreWarningIntervalID" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="tbl_PreWarningLogCurrentStatus_H">
-            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningLogCurrentStatus_H">
-              <MappingFragment StoreEntitySet="tbl_PreWarningLogCurrentStatus_H">
-                <ScalarProperty Name="tryTime" ColumnName="tryTime" />
-                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
-                <ScalarProperty Name="Success" ColumnName="Success" />
-                <ScalarProperty Name="STime" ColumnName="STime" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

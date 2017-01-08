@@ -195,6 +195,7 @@ Public Class WarningNotificationReport
         If intTotalRecord <> 0 Then
             Session("TotalPage") = Math.Floor(intTotalRecord / 25) + 1
             Session("CurrentPage") = "1"
+
             GenerateWarningListReport()
         Else
             Session("TotalPage") = "0"
@@ -519,7 +520,7 @@ Public Class WarningNotificationReport
 
             End If
 
-
+            rdbReportType.Items(1).Enabled = True
 
         Else
             'Detail
@@ -616,7 +617,11 @@ Public Class WarningNotificationReport
 
 
                     TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = mdlGeneral.GetPersianDate(lnqWarningNotificationLogDetailListItem.SendDate)
+                    If Not lnqWarningNotificationLogDetailListItem.SendDate Is Nothing Then
+                        TbCell.InnerHtml = mdlGeneral.GetPersianDate(lnqWarningNotificationLogDetailListItem.SendDate)
+                    Else
+                        TbCell.InnerHtml = ""
+                    End If
 
                     TbCell.NoWrap = True
                     TbCell.Align = "center"

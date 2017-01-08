@@ -72,11 +72,13 @@
                            <asp:Label ID="Label1" runat="server" Text="ثبت پیگیری"></asp:Label>
                 </div>
                         <div class="panel-body">
-                            <div class="row">
-                             
+                     
                                     <div class="col-md-6">
                                  
                                          <div class="form-group">
+                                                <label>مبلغ معوق:&nbsp;&nbsp;&nbsp; </label>
+                                                 <label runat="server" style="font-weight:bold;" id="lblAmountDefferd">"---"</label></div>
+                                   <div class="form-group">
                                             <label>تلفن منزل وام گیرنده:&nbsp;&nbsp;&nbsp; </label>
                                                  <label runat="server" style="font-weight:bold;" id="lblBorrowerHomePhone">"---"</label></div>
                                           <div class="form-group">
@@ -147,8 +149,8 @@
                                                     
                                           </div>
                                         </div>               
-                              
-                          </div>
+                              </div>
+                      
                                   <div class="col-md-6">
                           
                                     <div class="form-group has-error">

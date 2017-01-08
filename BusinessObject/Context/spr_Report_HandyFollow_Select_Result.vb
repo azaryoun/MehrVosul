@@ -22,5 +22,6 @@ Partial Public Class spr_Report_HandyFollow_Select_Result
     Public Property ToSponsor As Nullable(Of Boolean)
     Public Property Remarks As String
     Public Property DutyDate As Nullable(Of Date)
+    Public Property PersonCode As String
 
 End Class

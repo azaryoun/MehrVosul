@@ -27,7 +27,7 @@ Partial Public Class tbl_Branch
     Public Overridable Property tbl_HadiWarningIntervalsBranch As ICollection(Of tbl_HadiWarningIntervalsBranch) = New HashSet(Of tbl_HadiWarningIntervalsBranch)
     Public Overridable Property tbl_Province As tbl_Province
     Public Overridable Property tbl_Loan As ICollection(Of tbl_Loan) = New HashSet(Of tbl_Loan)
-    Public Overridable Property tbl_WarningIntervalsBranch As ICollection(Of tbl_WarningIntervalsBranch) = New HashSet(Of tbl_WarningIntervalsBranch)
     Public Overridable Property tbl_PreWarningIntervalsBranch As ICollection(Of tbl_PreWarningIntervalsBranch) = New HashSet(Of tbl_PreWarningIntervalsBranch)
+    Public Overridable Property tbl_WarningIntervalsBranch As ICollection(Of tbl_WarningIntervalsBranch) = New HashSet(Of tbl_WarningIntervalsBranch)
 
 End Class

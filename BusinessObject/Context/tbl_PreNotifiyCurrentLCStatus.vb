@@ -13,11 +13,11 @@ Imports System.Collections.Generic
 Partial Public Class tbl_PreNotifiyCurrentLCStatus
     Public Property ID As Integer
     Public Property FK_FileID As Nullable(Of Integer)
-    Public Property InstallmentDate As Nullable(Of Date)
+    Public Property FirstNoPaidDate As Nullable(Of Date)
     Public Property FK_BranchID As Nullable(Of Integer)
     Public Property FK_LoanID As Nullable(Of Integer)
-    Public Property InstallmentAmount As Nullable(Of Decimal)
     Public Property Process As Nullable(Of Boolean)
+    Public Property Date_P As Nullable(Of Date)
 
     Public Overridable Property tbl_File As tbl_File
     Public Overridable Property tbl_Loan As tbl_Loan

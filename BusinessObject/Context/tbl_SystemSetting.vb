@@ -39,5 +39,8 @@ Partial Public Class tbl_SystemSetting
     Public Property HadiService As Nullable(Of Boolean)
     Public Property HadiServiceLoan As Nullable(Of Boolean)
     Public Property VoiceService As Nullable(Of Boolean)
+    Public Property PreNotification As Nullable(Of Boolean)
+    Public Property UpdateTime_PreNotify As Nullable(Of System.TimeSpan)
+    Public Property tryTime_PreNotify As Nullable(Of Integer)
 
 End Class

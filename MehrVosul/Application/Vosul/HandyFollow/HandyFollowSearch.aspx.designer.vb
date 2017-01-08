@@ -12,7 +12,7 @@ Option Explicit On
 
 
 Partial Public Class HandyFollowSearch
-
+    
     '''<summary>
     '''Bootstrap_Panel1 control.
     '''</summary>
@@ -21,7 +21,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Bootstrap_Panel1 As Global.MehrVosul.Bootstrap_Panel
-
+    
     '''<summary>
     '''lblInnerPageTitle control.
     '''</summary>
@@ -30,7 +30,16 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblInnerPageTitle As Global.System.Web.UI.WebControls.Label
-
+    
+    '''<summary>
+    '''Button1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
+    
     '''<summary>
     '''odcProvince control.
     '''</summary>
@@ -39,7 +48,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents odcProvince As Global.System.Web.UI.WebControls.ObjectDataSource
-
+    
     '''<summary>
     '''UpdatePanel1 control.
     '''</summary>
@@ -48,7 +57,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
-
+    
     '''<summary>
     '''cmbProvince control.
     '''</summary>
@@ -57,7 +66,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cmbProvince As Global.System.Web.UI.WebControls.DropDownList
-
+    
     '''<summary>
     '''odsBranch control.
     '''</summary>
@@ -66,7 +75,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents odsBranch As Global.System.Web.UI.WebControls.ObjectDataSource
-
+    
     '''<summary>
     '''UpdatePanel2 control.
     '''</summary>
@@ -75,7 +84,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
-
+    
     '''<summary>
     '''cmbBranch control.
     '''</summary>
@@ -84,7 +93,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cmbBranch As Global.System.Web.UI.WebControls.DropDownList
-
+    
     '''<summary>
     '''odsLoanType control.
     '''</summary>
@@ -93,7 +102,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents odsLoanType As Global.System.Web.UI.WebControls.ObjectDataSource
-
+    
     '''<summary>
     '''UpdatePanel3 control.
     '''</summary>
@@ -102,7 +111,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
-
+    
     '''<summary>
     '''cmbLoanType control.
     '''</summary>
@@ -111,7 +120,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents cmbLoanType As Global.System.Web.UI.WebControls.DropDownList
-
+    
     '''<summary>
     '''UpdatePanel4 control.
     '''</summary>
@@ -120,7 +129,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents UpdatePanel4 As Global.System.Web.UI.UpdatePanel
-
+    
     '''<summary>
     '''txt_InstallmentCount control.
     '''</summary>
@@ -129,7 +138,25 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txt_InstallmentCount As Global.System.Web.UI.WebControls.TextBox
-
+    
+    '''<summary>
+    '''UpdatePanel5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel5 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''txtCustomerNO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCustomerNO As Global.System.Web.UI.WebControls.TextBox
+    
     '''<summary>
     '''divResult control.
     '''</summary>
@@ -138,7 +165,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divResult As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''tblResult control.
     '''</summary>
@@ -147,7 +174,7 @@ Partial Public Class HandyFollowSearch
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblResult As Global.System.Web.UI.HtmlControls.HtmlTable
-
+    
     '''<summary>
     '''hdnAction control.
     '''</summary>

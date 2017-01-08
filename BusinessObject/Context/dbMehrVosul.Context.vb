@@ -65,6 +65,12 @@ Partial Public Class dbMehrVosulEntities1
     Public Overridable Property tbl_LoanType() As DbSet(Of tbl_LoanType)
     Public Overridable Property tbl_LogCurrentLCStatus_H() As DbSet(Of tbl_LogCurrentLCStatus_H)
     Public Overridable Property tbl_NotificationTarif() As DbSet(Of tbl_NotificationTarif)
+    Public Overridable Property tbl_PreDraftText() As DbSet(Of tbl_PreDraftText)
+    Public Overridable Property tbl_PreNotifiyCurrentLCStatus() As DbSet(Of tbl_PreNotifiyCurrentLCStatus)
+    Public Overridable Property tbl_PreWarningIntervals() As DbSet(Of tbl_PreWarningIntervals)
+    Public Overridable Property tbl_PreWarningIntervalsBranch() As DbSet(Of tbl_PreWarningIntervalsBranch)
+    Public Overridable Property tbl_PreWarningIntervalsLoanType() As DbSet(Of tbl_PreWarningIntervalsLoanType)
+    Public Overridable Property tbl_PreWarningLogCurrentStatus_H() As DbSet(Of tbl_PreWarningLogCurrentStatus_H)
     Public Overridable Property tbl_Province() As DbSet(Of tbl_Province)
     Public Overridable Property tbl_SMSCountLog() As DbSet(Of tbl_SMSCountLog)
     Public Overridable Property tbl_Sponsor_List_Log() As DbSet(Of tbl_Sponsor_List_Log)
@@ -80,11 +86,6 @@ Partial Public Class dbMehrVosulEntities1
     Public Overridable Property tbl_WarningIntervalsLoanType() As DbSet(Of tbl_WarningIntervalsLoanType)
     Public Overridable Property tbl_WarningNotificationLog() As DbSet(Of tbl_WarningNotificationLog)
     Public Overridable Property tbl_WarningNotificationLogDetail() As DbSet(Of tbl_WarningNotificationLogDetail)
-    Public Overridable Property tbl_PreNotifiyCurrentLCStatus() As DbSet(Of tbl_PreNotifiyCurrentLCStatus)
-    Public Overridable Property tbl_PreWarningIntervals() As DbSet(Of tbl_PreWarningIntervals)
-    Public Overridable Property tbl_PreWarningIntervalsBranch() As DbSet(Of tbl_PreWarningIntervalsBranch)
-    Public Overridable Property tbl_PreWarningIntervalsLoanType() As DbSet(Of tbl_PreWarningIntervalsLoanType)
-    Public Overridable Property tbl_PreWarningLogCurrentStatus_H() As DbSet(Of tbl_PreWarningLogCurrentStatus_H)
 
     <DbFunction("dbMehrVosulEntities1", "fnc_Menu_Childs")>
     Public Overridable Function fnc_Menu_Childs(parentID As Nullable(Of Integer)) As IQueryable(Of fnc_Menu_Childs_Result)
@@ -1778,6 +1779,282 @@ Partial Public Class dbMehrVosulEntities1
         Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_NotPiadDurationDay_Select_Result)("spr_NotPiadDurationDay_Select", loanIDParameter)
     End Function
 
+    Public Overridable Function spr_PreDraftText_Delete(fK_PreWarningIntervalsID As Nullable(Of Integer), draftType As Nullable(Of Byte)) As Integer
+        Dim fK_PreWarningIntervalsIDParameter As ObjectParameter = If(fK_PreWarningIntervalsID.HasValue, New ObjectParameter("FK_PreWarningIntervalsID", fK_PreWarningIntervalsID), New ObjectParameter("FK_PreWarningIntervalsID", GetType(Integer)))
+
+        Dim draftTypeParameter As ObjectParameter = If(draftType.HasValue, New ObjectParameter("DraftType", draftType), New ObjectParameter("DraftType", GetType(Byte)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreDraftText_Delete", fK_PreWarningIntervalsIDParameter, draftTypeParameter)
+    End Function
+
+    Public Overridable Function spr_PreDraftText_Insert(orderInLevel As Nullable(Of Integer), preWarningIntervalsID As Nullable(Of Integer), draftText As String, isDynamic As Nullable(Of Boolean), draftType As Nullable(Of Byte), fK_VoiceRecordID As Nullable(Of Integer)) As Integer
+        Dim orderInLevelParameter As ObjectParameter = If(orderInLevel.HasValue, New ObjectParameter("OrderInLevel", orderInLevel), New ObjectParameter("OrderInLevel", GetType(Integer)))
+
+        Dim preWarningIntervalsIDParameter As ObjectParameter = If(preWarningIntervalsID.HasValue, New ObjectParameter("PreWarningIntervalsID", preWarningIntervalsID), New ObjectParameter("PreWarningIntervalsID", GetType(Integer)))
+
+        Dim draftTextParameter As ObjectParameter = If(draftText IsNot Nothing, New ObjectParameter("DraftText", draftText), New ObjectParameter("DraftText", GetType(String)))
+
+        Dim isDynamicParameter As ObjectParameter = If(isDynamic.HasValue, New ObjectParameter("IsDynamic", isDynamic), New ObjectParameter("IsDynamic", GetType(Boolean)))
+
+        Dim draftTypeParameter As ObjectParameter = If(draftType.HasValue, New ObjectParameter("DraftType", draftType), New ObjectParameter("DraftType", GetType(Byte)))
+
+        Dim fK_VoiceRecordIDParameter As ObjectParameter = If(fK_VoiceRecordID.HasValue, New ObjectParameter("FK_VoiceRecordID", fK_VoiceRecordID), New ObjectParameter("FK_VoiceRecordID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreDraftText_Insert", orderInLevelParameter, preWarningIntervalsIDParameter, draftTextParameter, isDynamicParameter, draftTypeParameter, fK_VoiceRecordIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreDraftText_List_Select(draftTypeID As Nullable(Of Integer), preWarningIntervalID As Nullable(Of Integer)) As ObjectResult(Of spr_PreDraftText_List_Select_Result)
+        Dim draftTypeIDParameter As ObjectParameter = If(draftTypeID.HasValue, New ObjectParameter("DraftTypeID", draftTypeID), New ObjectParameter("DraftTypeID", GetType(Integer)))
+
+        Dim preWarningIntervalIDParameter As ObjectParameter = If(preWarningIntervalID.HasValue, New ObjectParameter("PreWarningIntervalID", preWarningIntervalID), New ObjectParameter("PreWarningIntervalID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreDraftText_List_Select_Result)("spr_PreDraftText_List_Select", draftTypeIDParameter, preWarningIntervalIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreDraftText_Select(action As Nullable(Of Integer), iD As Nullable(Of Integer), draftType As Nullable(Of Byte), preWarningIntervalsID As Nullable(Of Integer)) As ObjectResult(Of spr_PreDraftText_Select_Result)
+        Dim actionParameter As ObjectParameter = If(action.HasValue, New ObjectParameter("Action", action), New ObjectParameter("Action", GetType(Integer)))
+
+        Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
+
+        Dim draftTypeParameter As ObjectParameter = If(draftType.HasValue, New ObjectParameter("DraftType", draftType), New ObjectParameter("DraftType", GetType(Byte)))
+
+        Dim preWarningIntervalsIDParameter As ObjectParameter = If(preWarningIntervalsID.HasValue, New ObjectParameter("PreWarningIntervalsID", preWarningIntervalsID), New ObjectParameter("PreWarningIntervalsID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreDraftText_Select_Result)("spr_PreDraftText_Select", actionParameter, iDParameter, draftTypeParameter, preWarningIntervalsIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreDraftText_Update(iD As Nullable(Of Integer), preWarningIntervalsID As Nullable(Of Integer), orderInLevel As Nullable(Of Integer), draftText As String, isDynamic As Nullable(Of Boolean), draftType As Nullable(Of Byte), fK_VoiceRecordID As Nullable(Of Integer)) As Integer
+        Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
+
+        Dim preWarningIntervalsIDParameter As ObjectParameter = If(preWarningIntervalsID.HasValue, New ObjectParameter("PreWarningIntervalsID", preWarningIntervalsID), New ObjectParameter("PreWarningIntervalsID", GetType(Integer)))
+
+        Dim orderInLevelParameter As ObjectParameter = If(orderInLevel.HasValue, New ObjectParameter("OrderInLevel", orderInLevel), New ObjectParameter("OrderInLevel", GetType(Integer)))
+
+        Dim draftTextParameter As ObjectParameter = If(draftText IsNot Nothing, New ObjectParameter("DraftText", draftText), New ObjectParameter("DraftText", GetType(String)))
+
+        Dim isDynamicParameter As ObjectParameter = If(isDynamic.HasValue, New ObjectParameter("IsDynamic", isDynamic), New ObjectParameter("IsDynamic", GetType(Boolean)))
+
+        Dim draftTypeParameter As ObjectParameter = If(draftType.HasValue, New ObjectParameter("DraftType", draftType), New ObjectParameter("DraftType", GetType(Byte)))
+
+        Dim fK_VoiceRecordIDParameter As ObjectParameter = If(fK_VoiceRecordID.HasValue, New ObjectParameter("FK_VoiceRecordID", fK_VoiceRecordID), New ObjectParameter("FK_VoiceRecordID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreDraftText_Update", iDParameter, preWarningIntervalsIDParameter, orderInLevelParameter, draftTextParameter, isDynamicParameter, draftTypeParameter, fK_VoiceRecordIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreNotifiyCurrentLCStatus_Bulk_Insert(selectStatement As String) As Integer
+        Dim selectStatementParameter As ObjectParameter = If(selectStatement IsNot Nothing, New ObjectParameter("SelectStatement", selectStatement), New ObjectParameter("SelectStatement", GetType(String)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreNotifiyCurrentLCStatus_Bulk_Insert", selectStatementParameter)
+    End Function
+
+    Public Overridable Function spr_PreNotifiyCurrentLCStatus_Delete() As Integer
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreNotifiyCurrentLCStatus_Delete")
+    End Function
+
+    Public Overridable Function spr_PreNotifiyCurrentLCStatus_List_Select() As ObjectResult(Of spr_PreNotifiyCurrentLCStatus_List_Select_Result)
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreNotifiyCurrentLCStatus_List_Select_Result)("spr_PreNotifiyCurrentLCStatus_List_Select")
+    End Function
+
+    Public Overridable Function spr_PreNotifiyCurrentLCStatus_Process_Update(fromID As Nullable(Of Integer), toID As Nullable(Of Integer)) As Integer
+        Dim fromIDParameter As ObjectParameter = If(fromID.HasValue, New ObjectParameter("FromID", fromID), New ObjectParameter("FromID", GetType(Integer)))
+
+        Dim toIDParameter As ObjectParameter = If(toID.HasValue, New ObjectParameter("ToID", toID), New ObjectParameter("ToID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreNotifiyCurrentLCStatus_Process_Update", fromIDParameter, toIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_Check_Select(fK_LoanTypeID As Nullable(Of Integer), firstNoPaidDate As Nullable(Of Date), branchID As Nullable(Of Integer)) As ObjectResult(Of spr_PreWarningIntervals_Check_Select_Result)
+        Dim fK_LoanTypeIDParameter As ObjectParameter = If(fK_LoanTypeID.HasValue, New ObjectParameter("FK_LoanTypeID", fK_LoanTypeID), New ObjectParameter("FK_LoanTypeID", GetType(Integer)))
+
+        Dim firstNoPaidDateParameter As ObjectParameter = If(firstNoPaidDate.HasValue, New ObjectParameter("FirstNoPaidDate", firstNoPaidDate), New ObjectParameter("FirstNoPaidDate", GetType(Date)))
+
+        Dim branchIDParameter As ObjectParameter = If(branchID.HasValue, New ObjectParameter("BranchID", branchID), New ObjectParameter("BranchID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreWarningIntervals_Check_Select_Result)("spr_PreWarningIntervals_Check_Select", fK_LoanTypeIDParameter, firstNoPaidDateParameter, branchIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_CheckOverlap_Select(action As Nullable(Of Integer), warningIntervalsID As Nullable(Of Integer), loanTypeID As Nullable(Of Integer), fromDay As Nullable(Of Integer), branchID As Nullable(Of Integer)) As ObjectResult(Of spr_PreWarningIntervals_CheckOverlap_Select_Result)
+        Dim actionParameter As ObjectParameter = If(action.HasValue, New ObjectParameter("Action", action), New ObjectParameter("Action", GetType(Integer)))
+
+        Dim warningIntervalsIDParameter As ObjectParameter = If(warningIntervalsID.HasValue, New ObjectParameter("WarningIntervalsID", warningIntervalsID), New ObjectParameter("WarningIntervalsID", GetType(Integer)))
+
+        Dim loanTypeIDParameter As ObjectParameter = If(loanTypeID.HasValue, New ObjectParameter("LoanTypeID", loanTypeID), New ObjectParameter("LoanTypeID", GetType(Integer)))
+
+        Dim fromDayParameter As ObjectParameter = If(fromDay.HasValue, New ObjectParameter("FromDay", fromDay), New ObjectParameter("FromDay", GetType(Integer)))
+
+        Dim branchIDParameter As ObjectParameter = If(branchID.HasValue, New ObjectParameter("BranchID", branchID), New ObjectParameter("BranchID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreWarningIntervals_CheckOverlap_Select_Result)("spr_PreWarningIntervals_CheckOverlap_Select", actionParameter, warningIntervalsIDParameter, loanTypeIDParameter, fromDayParameter, branchIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_Count_Select(action As Nullable(Of Integer), sEARCHSTR As String, branchID As Nullable(Of Integer), provinceID As Nullable(Of Integer)) As ObjectResult(Of Nullable(Of Integer))
+        Dim actionParameter As ObjectParameter = If(action.HasValue, New ObjectParameter("Action", action), New ObjectParameter("Action", GetType(Integer)))
+
+        Dim sEARCHSTRParameter As ObjectParameter = If(sEARCHSTR IsNot Nothing, New ObjectParameter("SEARCHSTR", sEARCHSTR), New ObjectParameter("SEARCHSTR", GetType(String)))
+
+        Dim branchIDParameter As ObjectParameter = If(branchID.HasValue, New ObjectParameter("BranchID", branchID), New ObjectParameter("BranchID", GetType(Integer)))
+
+        Dim provinceIDParameter As ObjectParameter = If(provinceID.HasValue, New ObjectParameter("provinceID", provinceID), New ObjectParameter("provinceID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Integer))("spr_PreWarningIntervals_Count_Select", actionParameter, sEARCHSTRParameter, branchIDParameter, provinceIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_Delete(iD As Nullable(Of Integer)) As Integer
+        Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreWarningIntervals_Delete", iDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_Inerval_List_Select() As ObjectResult(Of Nullable(Of Integer))
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Integer))("spr_PreWarningIntervals_Inerval_List_Select")
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_Insert(onDay As Nullable(Of Integer), warniningTitle As String, sendSMS As Nullable(Of Boolean), voiceMessage As Nullable(Of Boolean), fK_CUserID As Nullable(Of Integer), minimumAmount As Nullable(Of Decimal), loanAmount As Nullable(Of Decimal), instalmentAmount As Nullable(Of Decimal), iSActive As Nullable(Of Boolean)) As ObjectResult(Of Nullable(Of Decimal))
+        Dim onDayParameter As ObjectParameter = If(onDay.HasValue, New ObjectParameter("OnDay", onDay), New ObjectParameter("OnDay", GetType(Integer)))
+
+        Dim warniningTitleParameter As ObjectParameter = If(warniningTitle IsNot Nothing, New ObjectParameter("WarniningTitle", warniningTitle), New ObjectParameter("WarniningTitle", GetType(String)))
+
+        Dim sendSMSParameter As ObjectParameter = If(sendSMS.HasValue, New ObjectParameter("SendSMS", sendSMS), New ObjectParameter("SendSMS", GetType(Boolean)))
+
+        Dim voiceMessageParameter As ObjectParameter = If(voiceMessage.HasValue, New ObjectParameter("VoiceMessage", voiceMessage), New ObjectParameter("VoiceMessage", GetType(Boolean)))
+
+        Dim fK_CUserIDParameter As ObjectParameter = If(fK_CUserID.HasValue, New ObjectParameter("FK_CUserID", fK_CUserID), New ObjectParameter("FK_CUserID", GetType(Integer)))
+
+        Dim minimumAmountParameter As ObjectParameter = If(minimumAmount.HasValue, New ObjectParameter("MinimumAmount", minimumAmount), New ObjectParameter("MinimumAmount", GetType(Decimal)))
+
+        Dim loanAmountParameter As ObjectParameter = If(loanAmount.HasValue, New ObjectParameter("LoanAmount", loanAmount), New ObjectParameter("LoanAmount", GetType(Decimal)))
+
+        Dim instalmentAmountParameter As ObjectParameter = If(instalmentAmount.HasValue, New ObjectParameter("InstalmentAmount", instalmentAmount), New ObjectParameter("InstalmentAmount", GetType(Decimal)))
+
+        Dim iSActiveParameter As ObjectParameter = If(iSActive.HasValue, New ObjectParameter("ISActive", iSActive), New ObjectParameter("ISActive", GetType(Boolean)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Decimal))("spr_PreWarningIntervals_Insert", onDayParameter, warniningTitleParameter, sendSMSParameter, voiceMessageParameter, fK_CUserIDParameter, minimumAmountParameter, loanAmountParameter, instalmentAmountParameter, iSActiveParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_Management_Select(action As Nullable(Of Integer), fromIndex As Nullable(Of Integer), toIndex As Nullable(Of Integer), sEARCHSTR As String, branchID As Nullable(Of Integer), provinceID As Nullable(Of Integer)) As ObjectResult(Of spr_PreWarningIntervals_Management_Select_Result)
+        Dim actionParameter As ObjectParameter = If(action.HasValue, New ObjectParameter("Action", action), New ObjectParameter("Action", GetType(Integer)))
+
+        Dim fromIndexParameter As ObjectParameter = If(fromIndex.HasValue, New ObjectParameter("FromIndex", fromIndex), New ObjectParameter("FromIndex", GetType(Integer)))
+
+        Dim toIndexParameter As ObjectParameter = If(toIndex.HasValue, New ObjectParameter("ToIndex", toIndex), New ObjectParameter("ToIndex", GetType(Integer)))
+
+        Dim sEARCHSTRParameter As ObjectParameter = If(sEARCHSTR IsNot Nothing, New ObjectParameter("SEARCHSTR", sEARCHSTR), New ObjectParameter("SEARCHSTR", GetType(String)))
+
+        Dim branchIDParameter As ObjectParameter = If(branchID.HasValue, New ObjectParameter("BranchID", branchID), New ObjectParameter("BranchID", GetType(Integer)))
+
+        Dim provinceIDParameter As ObjectParameter = If(provinceID.HasValue, New ObjectParameter("ProvinceID", provinceID), New ObjectParameter("ProvinceID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreWarningIntervals_Management_Select_Result)("spr_PreWarningIntervals_Management_Select", actionParameter, fromIndexParameter, toIndexParameter, sEARCHSTRParameter, branchIDParameter, provinceIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_Select(iD As Nullable(Of Integer)) As ObjectResult(Of spr_PreWarningIntervals_Select_Result)
+        Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreWarningIntervals_Select_Result)("spr_PreWarningIntervals_Select", iDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervals_Update(iD As Nullable(Of Integer), onDay As Nullable(Of Integer), warniningTitle As String, sendSMS As Nullable(Of Boolean), voiceMessage As Nullable(Of Boolean), fK_EUserID As Nullable(Of Integer), minimumAmount As Nullable(Of Decimal), loanAmount As Nullable(Of Decimal), instalmentAmount As Nullable(Of Decimal), iSActive As Nullable(Of Boolean)) As Integer
+        Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
+
+        Dim onDayParameter As ObjectParameter = If(onDay.HasValue, New ObjectParameter("OnDay", onDay), New ObjectParameter("OnDay", GetType(Integer)))
+
+        Dim warniningTitleParameter As ObjectParameter = If(warniningTitle IsNot Nothing, New ObjectParameter("WarniningTitle", warniningTitle), New ObjectParameter("WarniningTitle", GetType(String)))
+
+        Dim sendSMSParameter As ObjectParameter = If(sendSMS.HasValue, New ObjectParameter("SendSMS", sendSMS), New ObjectParameter("SendSMS", GetType(Boolean)))
+
+        Dim voiceMessageParameter As ObjectParameter = If(voiceMessage.HasValue, New ObjectParameter("VoiceMessage", voiceMessage), New ObjectParameter("VoiceMessage", GetType(Boolean)))
+
+        Dim fK_EUserIDParameter As ObjectParameter = If(fK_EUserID.HasValue, New ObjectParameter("FK_EUserID", fK_EUserID), New ObjectParameter("FK_EUserID", GetType(Integer)))
+
+        Dim minimumAmountParameter As ObjectParameter = If(minimumAmount.HasValue, New ObjectParameter("MinimumAmount", minimumAmount), New ObjectParameter("MinimumAmount", GetType(Decimal)))
+
+        Dim loanAmountParameter As ObjectParameter = If(loanAmount.HasValue, New ObjectParameter("LoanAmount", loanAmount), New ObjectParameter("LoanAmount", GetType(Decimal)))
+
+        Dim instalmentAmountParameter As ObjectParameter = If(instalmentAmount.HasValue, New ObjectParameter("InstalmentAmount", instalmentAmount), New ObjectParameter("InstalmentAmount", GetType(Decimal)))
+
+        Dim iSActiveParameter As ObjectParameter = If(iSActive.HasValue, New ObjectParameter("ISActive", iSActive), New ObjectParameter("ISActive", GetType(Boolean)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreWarningIntervals_Update", iDParameter, onDayParameter, warniningTitleParameter, sendSMSParameter, voiceMessageParameter, fK_EUserIDParameter, minimumAmountParameter, loanAmountParameter, instalmentAmountParameter, iSActiveParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervalsBranch_Check_Select(warningIntervalID As Nullable(Of Integer), branchID As Nullable(Of Integer)) As ObjectResult(Of Nullable(Of Integer))
+        Dim warningIntervalIDParameter As ObjectParameter = If(warningIntervalID.HasValue, New ObjectParameter("WarningIntervalID", warningIntervalID), New ObjectParameter("WarningIntervalID", GetType(Integer)))
+
+        Dim branchIDParameter As ObjectParameter = If(branchID.HasValue, New ObjectParameter("BranchID", branchID), New ObjectParameter("BranchID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Integer))("spr_PreWarningIntervalsBranch_Check_Select", warningIntervalIDParameter, branchIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervalsBranch_Delete(fK_PreWarningIntervalID As Nullable(Of Integer)) As Integer
+        Dim fK_PreWarningIntervalIDParameter As ObjectParameter = If(fK_PreWarningIntervalID.HasValue, New ObjectParameter("FK_PreWarningIntervalID", fK_PreWarningIntervalID), New ObjectParameter("FK_PreWarningIntervalID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreWarningIntervalsBranch_Delete", fK_PreWarningIntervalIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervalsBranch_Insert(fK_PreWarningIntervalID As Nullable(Of Integer), fK_BranchID As Nullable(Of Integer)) As Integer
+        Dim fK_PreWarningIntervalIDParameter As ObjectParameter = If(fK_PreWarningIntervalID.HasValue, New ObjectParameter("FK_PreWarningIntervalID", fK_PreWarningIntervalID), New ObjectParameter("FK_PreWarningIntervalID", GetType(Integer)))
+
+        Dim fK_BranchIDParameter As ObjectParameter = If(fK_BranchID.HasValue, New ObjectParameter("FK_BranchID", fK_BranchID), New ObjectParameter("FK_BranchID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreWarningIntervalsBranch_Insert", fK_PreWarningIntervalIDParameter, fK_BranchIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervalsBranch_List_Select() As ObjectResult(Of String)
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of String)("spr_PreWarningIntervalsBranch_List_Select")
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervalsBranchProvince_Check_Select(warningIntervalID As Nullable(Of Integer), provinceID As Nullable(Of Integer)) As ObjectResult(Of Nullable(Of Integer))
+        Dim warningIntervalIDParameter As ObjectParameter = If(warningIntervalID.HasValue, New ObjectParameter("WarningIntervalID", warningIntervalID), New ObjectParameter("WarningIntervalID", GetType(Integer)))
+
+        Dim provinceIDParameter As ObjectParameter = If(provinceID.HasValue, New ObjectParameter("ProvinceID", provinceID), New ObjectParameter("ProvinceID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Integer))("spr_PreWarningIntervalsBranchProvince_Check_Select", warningIntervalIDParameter, provinceIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervalsLoanType_Insert(fK_PreWarningIntervalID As Nullable(Of Integer), fK_LoanTypeID As Nullable(Of Integer)) As Integer
+        Dim fK_PreWarningIntervalIDParameter As ObjectParameter = If(fK_PreWarningIntervalID.HasValue, New ObjectParameter("FK_PreWarningIntervalID", fK_PreWarningIntervalID), New ObjectParameter("FK_PreWarningIntervalID", GetType(Integer)))
+
+        Dim fK_LoanTypeIDParameter As ObjectParameter = If(fK_LoanTypeID.HasValue, New ObjectParameter("FK_LoanTypeID", fK_LoanTypeID), New ObjectParameter("FK_LoanTypeID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreWarningIntervalsLoanType_Insert", fK_PreWarningIntervalIDParameter, fK_LoanTypeIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervalsLoanType_Select(action As Nullable(Of Integer), iD As Nullable(Of Integer), warningIntervalID As Nullable(Of Integer)) As ObjectResult(Of spr_PreWarningIntervalsLoanType_Select_Result)
+        Dim actionParameter As ObjectParameter = If(action.HasValue, New ObjectParameter("Action", action), New ObjectParameter("Action", GetType(Integer)))
+
+        Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
+
+        Dim warningIntervalIDParameter As ObjectParameter = If(warningIntervalID.HasValue, New ObjectParameter("WarningIntervalID", warningIntervalID), New ObjectParameter("WarningIntervalID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreWarningIntervalsLoanType_Select_Result)("spr_PreWarningIntervalsLoanType_Select", actionParameter, iDParameter, warningIntervalIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningIntervalsLoanType_WarningInterval_Delete(preWarningIntervalID As Nullable(Of Integer)) As Integer
+        Dim preWarningIntervalIDParameter As ObjectParameter = If(preWarningIntervalID.HasValue, New ObjectParameter("PreWarningIntervalID", preWarningIntervalID), New ObjectParameter("PreWarningIntervalID", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_PreWarningIntervalsLoanType_WarningInterval_Delete", preWarningIntervalIDParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningLogCurrentStatus_H_Insert([date] As Nullable(Of Date), sTime As Nullable(Of Date), success As Nullable(Of Boolean), remarks As String, tryTime As Nullable(Of Integer)) As ObjectResult(Of Nullable(Of Decimal))
+        Dim dateParameter As ObjectParameter = If([date].HasValue, New ObjectParameter("Date", [date]), New ObjectParameter("Date", GetType(Date)))
+
+        Dim sTimeParameter As ObjectParameter = If(sTime.HasValue, New ObjectParameter("STime", sTime), New ObjectParameter("STime", GetType(Date)))
+
+        Dim successParameter As ObjectParameter = If(success.HasValue, New ObjectParameter("Success", success), New ObjectParameter("Success", GetType(Boolean)))
+
+        Dim remarksParameter As ObjectParameter = If(remarks IsNot Nothing, New ObjectParameter("Remarks", remarks), New ObjectParameter("Remarks", GetType(String)))
+
+        Dim tryTimeParameter As ObjectParameter = If(tryTime.HasValue, New ObjectParameter("tryTime", tryTime), New ObjectParameter("tryTime", GetType(Integer)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Decimal))("spr_PreWarningLogCurrentStatus_H_Insert", dateParameter, sTimeParameter, successParameter, remarksParameter, tryTimeParameter)
+    End Function
+
+    Public Overridable Function spr_PreWarningLogCurrentStatusH_ForDate_Select([date] As Nullable(Of Date)) As ObjectResult(Of spr_PreWarningLogCurrentStatusH_ForDate_Select_Result)
+        Dim dateParameter As ObjectParameter = If([date].HasValue, New ObjectParameter("Date", [date]), New ObjectParameter("Date", GetType(Date)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_PreWarningLogCurrentStatusH_ForDate_Select_Result)("spr_PreWarningLogCurrentStatusH_ForDate_Select", dateParameter)
+    End Function
+
     Public Overridable Function spr_Province_Check_Select(branchID As Nullable(Of Integer)) As ObjectResult(Of spr_Province_Check_Select_Result)
         Dim branchIDParameter As ObjectParameter = If(branchID.HasValue, New ObjectParameter("BranchID", branchID), New ObjectParameter("BranchID", GetType(Integer)))
 
@@ -1802,7 +2079,7 @@ Partial Public Class dbMehrVosulEntities1
         Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_Record_List_Select_Result)("spr_Record_List_Select", actionParameter, fK_UserIDParameter, iDParameter, nameParameter, recordIDParameter)
     End Function
 
-    Public Overridable Function spr_Report_CurrentLCStatus_MaxLoanType_Select(action As Nullable(Of Integer), branchID As Nullable(Of Integer), loanTypeID As Nullable(Of Integer), installmentCount As Nullable(Of Integer), provinceID As Nullable(Of Integer)) As ObjectResult(Of spr_Report_CurrentLCStatus_MaxLoanType_Select_Result)
+    Public Overridable Function spr_Report_CurrentLCStatus_MaxLoanType_Select(action As Nullable(Of Integer), branchID As Nullable(Of Integer), loanTypeID As Nullable(Of Integer), installmentCount As Nullable(Of Integer), provinceID As Nullable(Of Integer), customerNO As String) As ObjectResult(Of spr_Report_CurrentLCStatus_MaxLoanType_Select_Result)
         Dim actionParameter As ObjectParameter = If(action.HasValue, New ObjectParameter("Action", action), New ObjectParameter("Action", GetType(Integer)))
 
         Dim branchIDParameter As ObjectParameter = If(branchID.HasValue, New ObjectParameter("BranchID", branchID), New ObjectParameter("BranchID", GetType(Integer)))
@@ -1813,7 +2090,9 @@ Partial Public Class dbMehrVosulEntities1
 
         Dim provinceIDParameter As ObjectParameter = If(provinceID.HasValue, New ObjectParameter("ProvinceID", provinceID), New ObjectParameter("ProvinceID", GetType(Integer)))
 
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_Report_CurrentLCStatus_MaxLoanType_Select_Result)("spr_Report_CurrentLCStatus_MaxLoanType_Select", actionParameter, branchIDParameter, loanTypeIDParameter, installmentCountParameter, provinceIDParameter)
+        Dim customerNOParameter As ObjectParameter = If(customerNO IsNot Nothing, New ObjectParameter("CustomerNO", customerNO), New ObjectParameter("CustomerNO", GetType(String)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_Report_CurrentLCStatus_MaxLoanType_Select_Result)("spr_Report_CurrentLCStatus_MaxLoanType_Select", actionParameter, branchIDParameter, loanTypeIDParameter, installmentCountParameter, provinceIDParameter, customerNOParameter)
     End Function
 
     Public Overridable Function spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select(action As Nullable(Of Integer), parameter As String) As ObjectResult(Of spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select_Result)
@@ -1856,18 +2135,22 @@ Partial Public Class dbMehrVosulEntities1
         Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_Report_WarningNotificationLogDetail_Summary_Select_Result)("spr_Report_WarningNotificationLogDetail_Summary_Select", fromParameter, toParameter, notificationTypeIDParameter, lonaIDParameter)
     End Function
 
-    Public Overridable Function spr_SelfReport_Insert(theDay As Nullable(Of Date), sTime As Nullable(Of Date), theMessage As String) As Integer
+    Public Overridable Function spr_SelfReport_Insert(theDay As Nullable(Of Date), sTime As Nullable(Of Date), theMessage As String, reportError As Nullable(Of Boolean), finalReport As Nullable(Of Boolean)) As Integer
         Dim theDayParameter As ObjectParameter = If(theDay.HasValue, New ObjectParameter("theDay", theDay), New ObjectParameter("theDay", GetType(Date)))
 
         Dim sTimeParameter As ObjectParameter = If(sTime.HasValue, New ObjectParameter("STime", sTime), New ObjectParameter("STime", GetType(Date)))
 
         Dim theMessageParameter As ObjectParameter = If(theMessage IsNot Nothing, New ObjectParameter("theMessage", theMessage), New ObjectParameter("theMessage", GetType(String)))
 
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_SelfReport_Insert", theDayParameter, sTimeParameter, theMessageParameter)
+        Dim reportErrorParameter As ObjectParameter = If(reportError.HasValue, New ObjectParameter("ReportError", reportError), New ObjectParameter("ReportError", GetType(Boolean)))
+
+        Dim finalReportParameter As ObjectParameter = If(finalReport.HasValue, New ObjectParameter("FinalReport", finalReport), New ObjectParameter("FinalReport", GetType(Boolean)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_SelfReport_Insert", theDayParameter, sTimeParameter, theMessageParameter, reportErrorParameter, finalReportParameter)
     End Function
 
-    Public Overridable Function spr_SelfReport_Select() As ObjectResult(Of Nullable(Of Date))
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Date))("spr_SelfReport_Select")
+    Public Overridable Function spr_SelfReport_Select() As ObjectResult(Of spr_SelfReport_Select_Result)
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_SelfReport_Select_Result)("spr_SelfReport_Select")
     End Function
 
     Public Overridable Function spr_SMSCountLog_Insert(sendDate As Nullable(Of Date), sMSCount As Nullable(Of Integer), fK_LogCurrentLCStatusID As Nullable(Of Integer), firstSent As Nullable(Of Date), lastSent As Nullable(Of Date), bITotal As Nullable(Of Integer), sMSVoice As Nullable(Of Integer)) As Integer
@@ -2706,6 +2989,12 @@ Partial Public Class dbMehrVosulEntities1
         Dim sendDateParameter As ObjectParameter = If(sendDate.HasValue, New ObjectParameter("SendDate", sendDate), New ObjectParameter("SendDate", GetType(Date)))
 
         Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_WarningNotificationLogDetail_Status_Update", iDParameter, remarksParameter, sendStatusParameter, strMessageParameter, sendDateParameter)
+    End Function
+
+    Public Overridable Function spr_WarningNotificationLogDetail_VoiceSMSCount_Select(theDay As Nullable(Of Date)) As ObjectResult(Of Nullable(Of Integer))
+        Dim theDayParameter As ObjectParameter = If(theDay.HasValue, New ObjectParameter("theDay", theDay), New ObjectParameter("theDay", GetType(Date)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of Nullable(Of Integer))("spr_WarningNotificationLogDetail_VoiceSMSCount_Select", theDayParameter)
     End Function
 
     Public Overridable Function spr_WarningNotificationLogDetailFirstLastLog_Select() As ObjectResult(Of spr_WarningNotificationLogDetailFirstLastLog_Select_Result)

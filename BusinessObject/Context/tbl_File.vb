@@ -44,7 +44,7 @@ Partial Public Class tbl_File
     Public Overridable Property tbl_LoanSponsor As ICollection(Of tbl_LoanSponsor) = New HashSet(Of tbl_LoanSponsor)
     Public Overridable Property tbl_HandyFollow As ICollection(Of tbl_HandyFollow) = New HashSet(Of tbl_HandyFollow)
     Public Overridable Property tbl_Loan As ICollection(Of tbl_Loan) = New HashSet(Of tbl_Loan)
-    Public Overridable Property tbl_WarningNotificationLog As ICollection(Of tbl_WarningNotificationLog) = New HashSet(Of tbl_WarningNotificationLog)
     Public Overridable Property tbl_PreNotifiyCurrentLCStatus As ICollection(Of tbl_PreNotifiyCurrentLCStatus) = New HashSet(Of tbl_PreNotifiyCurrentLCStatus)
+    Public Overridable Property tbl_WarningNotificationLog As ICollection(Of tbl_WarningNotificationLog) = New HashSet(Of tbl_WarningNotificationLog)
 
 End Class

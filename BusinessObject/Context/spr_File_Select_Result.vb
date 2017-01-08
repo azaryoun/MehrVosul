@@ -31,5 +31,6 @@ Partial Public Class spr_File_Select_Result
     Public Property State As Nullable(Of Byte)
     Public Property FK_OriginalFileID As Nullable(Of Integer)
     Public Property FK_RequestUserID As Nullable(Of Integer)
+    Public Property BirthDate As Nullable(Of Date)
 
 End Class

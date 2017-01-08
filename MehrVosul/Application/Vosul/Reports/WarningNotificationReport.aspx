@@ -152,12 +152,12 @@
                                         </div>
                           
                                           <div class="form-group">
-                                            <label>پرونده
+                                            <label>شماره مشتری
                                             
                                               </label>
                                               
                                             <asp:TextBox ID="txtFile" runat="server" cssclass="form-control" MaxLength="50" 
-                                                  placeholder="شماره پرونده را وارد کنید"></asp:TextBox>
+                                                  placeholder="شماره مشتری را وارد کنید"></asp:TextBox>
                                             
                                          </div>
 
@@ -176,7 +176,7 @@
                                           <div class="radio" >
                                              <asp:RadioButtonList ID="rdbReportType" runat="server">
                                             <asp:ListItem Selected="True" Value="0">خلاصه</asp:ListItem>
-                                            <asp:ListItem Value="1">جزئیات</asp:ListItem>
+                                            <asp:ListItem Value="1" Enabled ="false" >جزئیات</asp:ListItem>
                                         </asp:RadioButtonList>
                                            </div> </div>
                             

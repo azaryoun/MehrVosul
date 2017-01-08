@@ -107,7 +107,7 @@
                     option.text = "(نام خانوادگی صاحب سپرده)";
                     break;
                 case 4:
-                    option.text = "(شماره پرونده)";
+                    option.text = "(شماره مشتری)";
                     break;
                 case 5:
                     option.text = "(تعداد روز از افتتاح حساب)";
@@ -351,7 +351,7 @@
                                              -
                                             <a  href='#' onclick='return btnAddColumns(3);' >نام خانوادگی(صاحب سپرده)</a>
                                            -
-                                            <a href='#' onclick='return btnAddColumns(4);'>شماره پرونده</a>
+                                            <a href='#' onclick='return btnAddColumns(4);'>شماره مشتری</a>
                                           -
                                             <a href='#' onclick='return btnAddColumns(5);' >تعداد روز از افتتاح حساب</a>
                                            -

@@ -65,7 +65,7 @@
 
             Else
 
-                Response.Redirect("../Draft/DraftManagement.aspx")
+                Response.Redirect("../Draft/DraftManagement.aspx?PreDraft=False")
 
             End If
 

@@ -328,7 +328,7 @@
                                              -
                                             <a  href='#' onclick='return btnAddColumns(3);' >نام خانوادگی(وام گیرنده)</a>
                                            -
-                                            <a href='#' onclick='return btnAddColumns(4);' >شماره پرونده</a>
+                                            <a href='#' onclick='return btnAddColumns(4);' >شماره مشتری</a>
                                           -
                                             <a href='#' onclick='return btnAddColumns(5);' >تعداد روز تاخیر</a>
                                            -

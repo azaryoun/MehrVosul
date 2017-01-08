@@ -15,5 +15,7 @@ Partial Public Class tbl_SelfReport
     Public Property theDay As Nullable(Of Date)
     Public Property STime As Nullable(Of Date)
     Public Property theMessage As String
+    Public Property ReportError As Nullable(Of Boolean)
+    Public Property FinalReport As Nullable(Of Boolean)
 
 End Class

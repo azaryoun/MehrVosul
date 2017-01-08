@@ -22,19 +22,38 @@
             }
 
 
-            if (trimall(txtLastName.value) == "") {
-                alert("نام خانوادگی را وارد نمایید");
-                txtLastName.focus();
+             var ListBox = document.getElementById('<%=lstAccessGroups.ClientID %>');
+            var length = ListBox.length;
+            var i = 0;
+            var SelectedItemCount = 0;
+            var isSelected = false;
+
+            for (i = 0; i < length; i++) {
+                if (ListBox.options[i].selected == true) {
+                    isSelected = true
+                }
+            }
+            if (isSelected == false)
+            {
+                alert("گروه دسترسی را مشخص نمائید", "خطا");
+              
                 return false;
             }
 
+            
+            
+            if (cmbProvince.options[cmbProvince.selectedIndex].value == 0) {
+                alert("استان را مشخص نمائید", "خطا");
+                cmbProvince.focus();
+                return false;
+            }
 
-            if (cmbBranch.options(cmbBranch.selectedIndex).value == -1) {
+            
+            if (cmbBranch.options[cmbBranch.selectedIndex].value == 0) {
                 alert("کد شعبه را مشخص نمائید", "خطا");
                 cmbBranch.focus();
                 return false;
             }
-
 
 
             if (trimall(txtMobile.value) == "") {

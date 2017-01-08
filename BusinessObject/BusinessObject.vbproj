@@ -345,6 +345,33 @@
     <Compile Include="Context\spr_NotPiadDurationDay_Select_Result.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\spr_PreDraftText_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_PreDraftText_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_PreNotifiyCurrentLCStatus_List_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_PreWarningIntervalsLoanType_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_PreWarningIntervals_CheckOverlap_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_PreWarningIntervals_Check_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_PreWarningIntervals_Management_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_PreWarningIntervals_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_PreWarningLogCurrentStatusH_ForDate_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\spr_ProvinceList_Select_Result.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
@@ -367,6 +394,9 @@
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\spr_Report_WarningNotificationLogDetail_Summary_Select_Result.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\spr_SelfReport_Select_Result.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\spr_SMSCountLog_Select_Result.vb">
@@ -571,6 +601,9 @@
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\tbl_NotificationTarif.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_PreDraftText.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\tbl_PreNotifiyCurrentLCStatus.vb">
@@ -790,10 +823,25 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstLoginLog.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Vosul\dstPreDraft.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstPreDraft.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstPreNotifiyCurrentLCStatus.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstPreNotifiyCurrentLCStatus.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Vosul\dstPreWarningInterval.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dstPreWarningInterval.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstPreWarningNotificationLog.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstPreWarningNotificationLog.xsd</DependentUpon>
     </Compile>
     <Compile Include="Vosul\dstReport.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -853,6 +901,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dst_Sponsor_List_Log.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\PreWarningNotificationLogDetail.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PreWarningNotificationLogDetail.xsd</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -1223,6 +1276,28 @@
     <None Include="Vosul\dstLoginLog.xss">
       <DependentUpon>dstLoginLog.xsd</DependentUpon>
     </None>
+    <None Include="Vosul\dstPreDraft.xsc">
+      <DependentUpon>dstPreDraft.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstPreDraft.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstPreDraft.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstPreDraft.xss">
+      <DependentUpon>dstPreDraft.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstPreNotifiyCurrentLCStatus.xsc">
+      <DependentUpon>dstPreNotifiyCurrentLCStatus.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstPreNotifiyCurrentLCStatus.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstPreNotifiyCurrentLCStatus.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstPreNotifiyCurrentLCStatus.xss">
+      <DependentUpon>dstPreNotifiyCurrentLCStatus.xsd</DependentUpon>
+    </None>
     <None Include="Vosul\dstPreWarningInterval.xsc">
       <DependentUpon>dstPreWarningInterval.xsd</DependentUpon>
     </None>
@@ -1233,6 +1308,17 @@
     </None>
     <None Include="Vosul\dstPreWarningInterval.xss">
       <DependentUpon>dstPreWarningInterval.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstPreWarningNotificationLog.xsc">
+      <DependentUpon>dstPreWarningNotificationLog.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstPreWarningNotificationLog.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstPreWarningNotificationLog.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstPreWarningNotificationLog.xss">
+      <DependentUpon>dstPreWarningNotificationLog.xsd</DependentUpon>
     </None>
     <None Include="Vosul\dstReport.xsc">
       <DependentUpon>dstReport.xsd</DependentUpon>
@@ -1343,6 +1429,17 @@
     </None>
     <None Include="Vosul\dst_Sponsor_List_Log.xss">
       <DependentUpon>dst_Sponsor_List_Log.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\PreWarningNotificationLogDetail.xsc">
+      <DependentUpon>PreWarningNotificationLogDetail.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\PreWarningNotificationLogDetail.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>PreWarningNotificationLogDetail.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\PreWarningNotificationLogDetail.xss">
+      <DependentUpon>PreWarningNotificationLogDetail.xsd</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>

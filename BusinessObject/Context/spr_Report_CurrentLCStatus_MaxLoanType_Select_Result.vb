@@ -22,5 +22,6 @@ Partial Public Class spr_Report_CurrentLCStatus_MaxLoanType_Select_Result
     Public Property Branch As String
     Public Property LoanID As Integer
     Public Property FileID As Integer
+    Public Property AmounDefferd As Nullable(Of Decimal)
 
 End Class
