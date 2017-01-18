@@ -1,7 +1,5 @@
 ﻿Imports System.Data.OracleClient
-Imports System.Data.Entity
-
-Public Class HandyFollowSearch
+Public Class HandyFollowFileSearch
     Inherits System.Web.UI.Page
     Private Structure stc_Loan_Info
 
@@ -27,9 +25,7 @@ Public Class HandyFollowSearch
         Public BranchName As String
         Public BranchAddress As String
     End Structure
-
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
-
         Page.Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
         Bootstrap_Panel1.CanNew = False
@@ -44,8 +40,6 @@ Public Class HandyFollowSearch
         Bootstrap_Panel1.CanDisplay = True
         Bootstrap_Panel1.CanExcel = False
         Bootstrap_Panel1.Enable_Display_Client_Validate = True
-        txtFrom.Attributes.Add("onkeypress", "return numbersonly(event, false);")
-        txtTo.Attributes.Add("onkeypress", "return numbersonly(event, false);")
 
         If Page.IsPostBack = False Then
 
@@ -54,118 +48,11 @@ Public Class HandyFollowSearch
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-
-            odcProvince.DataBind()
-
-            cmbProvince.DataSourceID = "odcProvince"
-            cmbProvince.DataTextField = "Province"
-            cmbProvince.DataValueField = "ID"
-            cmbProvince.DataBind()
-
-            odsLoanType.DataBind()
-
-            cmbLoanType.DataSourceID = "odsLoanType"
-            cmbLoanType.DataTextField = "LoanType"
-            cmbLoanType.DataValueField = "ID"
-            cmbLoanType.DataBind()
-
-            If drwUserLogin.IsDataAdmin = True Then
-                If CInt(Request.QueryString("Province")) <> -1 Then
-                    cmbProvince.SelectedValue = CInt(Request.QueryString("Province"))
-                Else
-                    cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
-                End If
-
-                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
-                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
-                odsBranch.DataBind()
-
-                cmbBranch.DataSourceID = "odsBranch"
-                cmbBranch.DataTextField = "BrnachCode"
-                cmbBranch.DataValueField = "ID"
-                cmbBranch.DataBind()
-
-                If CInt(Request.QueryString("Branch")) <> -1 Then
-                    cmbBranch.SelectedValue = CInt(Request.QueryString("Branch"))
-                Else
-                    cmbBranch.SelectedValue = -1
-                End If
+            If Not Request.QueryString("CustomerNo") Is Nothing Then
 
 
 
-            ElseIf drwUserLogin.IsDataAdmin = False And drwUserLogin.IsDataUserAdmin = False Then
-
-                cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
-
-                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
-                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
-                odsBranch.DataBind()
-
-                cmbBranch.DataSourceID = "odsBranch"
-                cmbBranch.DataTextField = "BrnachCode"
-                cmbBranch.DataValueField = "ID"
-
-                If CInt(Request.QueryString("Branch")) <> -1 AndAlso Not Request.QueryString("Branch") Is Nothing Then
-                    cmbBranch.SelectedValue = CInt(Request.QueryString("Branch"))
-                Else
-                    cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
-                End If
-
-                cmbBranch.DataBind()
-                cmbBranch.Enabled = False
-                cmbProvince.Enabled = False
-
-            ElseIf drwUserLogin.IsDataAdmin = False And drwUserLogin.IsDataUserAdmin = True Then
-
-                cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
-
-                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
-                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
-                odsBranch.DataBind()
-
-                cmbBranch.DataSourceID = "odsBranch"
-                cmbBranch.DataTextField = "BrnachCode"
-                cmbBranch.DataValueField = "ID"
-                cmbBranch.DataBind()
-
-                If CInt(Request.QueryString("Branch")) <> -1 AndAlso Not Request.QueryString("Branch") Is Nothing Then
-
-                    cmbBranch.SelectedValue = CInt(Request.QueryString("Branch"))
-
-                Else
-                    cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
-
-                End If
-
-                cmbProvince.Enabled = False
-
-            End If
-
-
-
-            If Not Request.QueryString("From") Is Nothing Then
-
-                txtFrom.Text = Request.QueryString("From")
-
-                txtTo.Text = Request.QueryString("To")
-
-                If CInt(Request.QueryString("Province")) <> -1 Then
-                    cmbProvince.SelectedValue = CInt(Request.QueryString("Province"))
-                Else
-                    cmbProvince.SelectedValue = -1
-                End If
-
-                If CInt(Request.QueryString("Branch")) <> -1 Then
-                    cmbBranch.SelectedValue = CInt(Request.QueryString("Branch"))
-                Else
-                    cmbBranch.SelectedValue = -1
-                End If
-
-                If CInt(Request.QueryString("LoanType")) <> -1 Then
-                    cmbLoanType.SelectedValue = CInt(Request.QueryString("LoanType"))
-                Else
-                    cmbLoanType.SelectedValue = -1
-                End If
+                txtCustomerNO.Text = Request.QueryString("CustomerNo")
 
 
                 DisplayFileList()
@@ -173,343 +60,23 @@ Public Class HandyFollowSearch
             End If
 
 
-
         End If
 
         If hdnAction.Value.StartsWith("S") = True Then
-
-
             Dim intFileID As Integer = CInt(hdnAction.Value.Split(";")(1))
             Dim intLoanID As Integer = CInt(hdnAction.Value.Split(";")(2))
             Session("AmountDeffed") = hdnAction.Value.Split(";")(3)
             Session("intFileID") = CObj(intFileID)
             Session("intLoanID") = CObj(intLoanID)
 
-            Session("Province") = CObj(cmbProvince.SelectedValue)
-            Session("Branch") = CObj(cmbBranch.SelectedValue)
-            Session("LoanType") = CObj(cmbLoanType.SelectedValue)
-            Session("From") = CObj(txtFrom.Text)
-            Session("TO") = CObj(txtTo.Text)
+
+            Session("customerNO") = CObj(txtCustomerNO.Text)
             Response.Redirect("HandyFollowNew.aspx")
-
         End If
-
     End Sub
-
-    Private Sub Bootstrap_Panel1_Panel_Display_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Display_Click
-
-        DisplayFileList()
-
-    End Sub
-
-    'Private Sub DisplayFileList()
-
-
-    '    Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-    '    Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
-
-    '    Dim tadpReport As New BusinessObject.dstReportTableAdapters.spr_Report_CurrentLCStatus_MaxLoanType_SelectTableAdapter
-    '    Dim dtblReport As BusinessObject.dstReport.spr_Report_CurrentLCStatus_MaxLoanType_SelectDataTable = Nothing
-
-
-    '    If txtCustomerNO.Text.Trim() = "" Then
-
-    '        Dim intInstallmentCount As Integer = CInt(txt_InstallmentCount.Text)
-
-    '        If cmbBranch.SelectedValue = -1 And cmbLoanType.SelectedValue = -1 And cmbProvince.SelectedValue = -1 Then
-
-    '            dtblReport = tadpReport.GetData(1, -1, -1, intInstallmentCount, -1, -1)
-
-    '        ElseIf cmbProvince.SelectedValue = -1 And cmbBranch.SelectedValue <> -1 And cmbLoanType.SelectedValue = -1 Then
-
-    '            Dim intBranch As Integer = CInt(cmbBranch.SelectedValue)
-    '            dtblReport = tadpReport.GetData(2, intBranch, -1, intInstallmentCount, -1, -1)
-
-    '        ElseIf cmbProvince.SelectedValue = -1 And cmbBranch.SelectedValue = -1 And cmbLoanType.SelectedValue <> -1 Then
-
-    '            Dim intLoanTypeID As Integer = CInt(cmbLoanType.SelectedValue)
-    '            dtblReport = tadpReport.GetData(3, -1, intLoanTypeID, intInstallmentCount, -1, -1)
-
-    '        ElseIf cmbProvince.SelectedValue = -1 And cmbBranch.SelectedValue <> -1 And cmbLoanType.SelectedValue <> -1 Then
-
-    '            Dim intLoanTypeID As Integer = CInt(cmbLoanType.SelectedValue)
-    '            Dim intBranch As Integer = CInt(cmbBranch.SelectedValue)
-    '            dtblReport = tadpReport.GetData(4, intBranch, intLoanTypeID, intInstallmentCount, -1, -1)
-
-    '        ElseIf cmbProvince.SelectedValue <> -1 And cmbBranch.SelectedValue = -1 And cmbLoanType.SelectedValue = -1 Then
-
-    '            Dim intProvince As Integer = CInt(cmbProvince.SelectedValue)
-    '            dtblReport = tadpReport.GetData(5, -1, -1, intInstallmentCount, intProvince, -1)
-
-    '        ElseIf cmbProvince.SelectedValue <> -1 And cmbBranch.SelectedValue = -1 And cmbLoanType.SelectedValue <> -1 Then
-
-    '            Dim intProvince As Integer = CInt(cmbProvince.SelectedValue)
-    '            Dim intLoanTypeID As Integer = CInt(cmbLoanType.SelectedValue)
-    '            dtblReport = tadpReport.GetData(6, -1, intLoanTypeID, intInstallmentCount, intProvince, -1)
-
-    '        ElseIf cmbProvince.SelectedValue <> -1 And cmbBranch.SelectedValue <> -1 And cmbLoanType.SelectedValue <> -1 Then
-
-    '            Dim intBranch As Integer = CInt(cmbBranch.SelectedValue)
-    '            Dim intProvince As Integer = CInt(cmbProvince.SelectedValue)
-    '            Dim intLoanTypeID As Integer = CInt(cmbLoanType.SelectedValue)
-    '            dtblReport = tadpReport.GetData(7, intBranch, intLoanTypeID, intInstallmentCount, intProvince, -1)
-
-    '        ElseIf cmbProvince.SelectedValue <> -1 And cmbBranch.SelectedValue <> -1 And cmbLoanType.SelectedValue = -1 Then
-
-    '            Dim intBranch As Integer = CInt(cmbBranch.SelectedValue)
-    '            Dim intProvince As Integer = CInt(cmbProvince.SelectedValue)
-    '            Dim intLoanTypeID As Integer = CInt(cmbLoanType.SelectedValue)
-    '            dtblReport = tadpReport.GetData(8, intBranch, intLoanTypeID, intInstallmentCount, intProvince, -1)
-
-    '        End If
-
-    '    Else
-
-
-    '        dtblReport = tadpReport.GetData(9, -1, -1, -1, -1, txtCustomerNO.Text.Trim())
-
-    '    End If
-
-
-    '    If dtblReport.Rows.Count > 0 Then
-
-    '        divResult.Visible = True
-
-    '        ''get total report
-    '        Dim intCount As Integer = 0
-
-    '        Dim strchklstMenuLeaves As String = ""
-    '        For Each drwReport As BusinessObject.dstReport.spr_Report_CurrentLCStatus_MaxLoanType_SelectRow In dtblReport.Rows
-
-    '            intCount += 1
-    '            Dim TbRow As New HtmlTableRow
-    '            Dim TbCell As HtmlTableCell
-
-
-    '            ''strchklstMenuLeaves = "<input type='checkbox' value='" & drwReport.ID & "' name='chklstMenu" & drwReport.MobileNo & "'>"
-
-    '            ''TbCell = New HtmlTableCell
-    '            ''TbCell.InnerHtml = strchklstMenuLeaves
-    '            ''TbCell.Align = "center"
-    '            ''TbCell.NoWrap = True
-    '            ''TbRow.Cells.Add(TbCell)
-
-
-
-    '            TbCell = New HtmlTableCell
-    '            TbCell.InnerHtml = CStr(intCount)
-    '            TbCell.Align = "center"
-    '            TbCell.NoWrap = True
-    '            TbRow.Cells.Add(TbCell)
-
-
-    '            TbCell = New HtmlTableCell
-    '            TbCell.InnerHtml = drwReport.CustomerNo
-    '            TbCell.NoWrap = True
-    '            TbCell.Align = "center"
-    '            TbRow.Cells.Add(TbCell)
-
-    '            TbCell = New HtmlTableCell
-    '            TbCell.InnerHtml = drwReport.FName & " " & drwReport.LName
-    '            TbCell.NoWrap = False
-    '            TbCell.Width = "100px"
-    '            TbCell.Align = "center"
-    '            TbRow.Cells.Add(TbCell)
-
-
-    '            TbCell = New HtmlTableCell
-    '            TbCell.InnerHtml = drwReport.Loan
-    '            TbCell.NoWrap = True
-    '            TbCell.Align = "center"
-    '            TbRow.Cells.Add(TbCell)
-
-
-
-    '            TbCell = New HtmlTableCell
-    '            TbCell.InnerHtml = drwReport.MobileNo
-    '            TbCell.NoWrap = True
-    '            TbCell.Align = "center"
-    '            TbRow.Cells.Add(TbCell)
-
-
-    '            TbCell = New HtmlTableCell
-    '            TbCell.InnerHtml = drwReport.NotPiadDurationDay
-    '            TbCell.NoWrap = True
-    '            TbCell.Width = "50px"
-    '            TbCell.Align = "center"
-    '            TbRow.Cells.Add(TbCell)
-
-    '            TbCell = New HtmlTableCell
-    '            TbCell.InnerHtml = drwReport.Branch
-    '            TbCell.NoWrap = False
-    '            TbCell.Width = "120px"
-    '            TbCell.Align = "center"
-    '            TbRow.Cells.Add(TbCell)
-
-
-    '            Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
-
-
-
-    '            If drwUserLogin.IsDataUserAdmin = False Then
-
-
-    '                Dim intLogCount = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID).Count()
-    '                If intLogCount = 0 Then
-
-
-
-    '                    TbCell = New HtmlTableCell
-    '                    TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & drwReport.FileID & "," & drwReport.LoanID & "," & drwReport.AmounDefferd & ")>ثبت پیگیری</a>"
-    '                    TbCell.NoWrap = True
-    '                    TbCell.Align = "center"
-    '                    TbRow.Cells.Add(TbCell)
-
-    '                    TbCell = New HtmlTableCell
-    '                    TbCell.InnerHtml = "---"
-    '                    TbCell.NoWrap = True
-    '                    TbCell.Align = "center"
-    '                    TbRow.Cells.Add(TbCell)
-
-    '                Else
-
-    '                    Dim intLogCountByUser = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID And x.FK_UserID = drwUserLogin.ID).Count()
-
-    '                    If intLogCountByUser = 0 Then
-
-    '                        TbCell = New HtmlTableCell
-    '                        TbCell.InnerHtml = "ثبت پیگیری"
-    '                        TbCell.NoWrap = False
-    '                        TbCell.Align = "center"
-    '                        TbRow.Cells.Add(TbCell)
-
-    '                        Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID)
-    '                        If lnqDetail.Count > 0 Then
-    '                            Dim lnqDetailList = lnqDetail.ToList(0)
-    '                            Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
-
-    '                            TbCell = New HtmlTableCell
-    '                            TbCell.InnerHtml = lnqUser.Username
-    '                            TbCell.NoWrap = True
-    '                            TbCell.Align = "center"
-    '                            TbRow.Cells.Add(TbCell)
-
-    '                        End If
-    '                    Else
-
-    '                        TbCell = New HtmlTableCell
-    '                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & drwReport.FileID & "," & drwReport.LoanID & drwReport.AmounDefferd & ")>ثبت پیگیری</a>"
-    '                        TbCell.NoWrap = True
-    '                        TbCell.Align = "center"
-    '                        TbRow.Cells.Add(TbCell)
-
-    '                        Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID)
-    '                        If lnqDetail.Count > 0 Then
-    '                            Dim lnqDetailList = lnqDetail.ToList(0)
-    '                            Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
-
-    '                            TbCell = New HtmlTableCell
-    '                            TbCell.InnerHtml = lnqUser.Username
-    '                            TbCell.NoWrap = True
-    '                            TbCell.Align = "center"
-    '                            TbRow.Cells.Add(TbCell)
-
-    '                        End If
-
-    '                    End If
-
-
-
-    '                End If
-    '            Else
-
-
-    '                TbCell = New HtmlTableCell
-    '                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & drwReport.FileID & "," & drwReport.LoanID & "," & drwReport.AmounDefferd & ")>ثبت پیگیری</a>"
-    '                TbCell.NoWrap = True
-    '                TbCell.Align = "center"
-    '                TbRow.Cells.Add(TbCell)
-
-
-    '                Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = drwReport.FileID And x.FK_LoanID = drwReport.LoanID)
-    '                Dim followingUserName As String = "---"
-    '                If lnqDetail.Count > 0 Then
-    '                    Dim lnqDetailList = lnqDetail.ToList(0)
-
-    '                    Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
-    '                    followingUserName = lnqUser.Username
-    '                End If
-
-
-    '                TbCell = New HtmlTableCell
-    '                TbCell.InnerHtml = followingUserName
-    '                TbCell.NoWrap = True
-    '                TbCell.Align = "center"
-    '                TbRow.Cells.Add(TbCell)
-
-
-    '            End If
-
-
-
-
-    '            tblResult.Rows.Add(TbRow)
-
-    '        Next
-
-
-    '    Else
-
-    '        divResult.Visible = False
-
-
-    '    End If
-
-    'End Sub
-
-
-    Protected Sub cmbLoanType_DataBound(sender As Object, e As EventArgs) Handles cmbLoanType.DataBound
-        Dim li As New ListItem
-        li.Text = "(همه انواع وام)"
-        li.Value = -1
-        cmbLoanType.Items.Insert(0, li)
-
-    End Sub
-
-    Protected Sub cmbBranch_DataBound(sender As Object, e As EventArgs) Handles cmbBranch.DataBound
-        Dim li As New ListItem
-        li.Text = "---"
-        li.Value = -1
-        cmbBranch.Items.Insert(0, li)
-    End Sub
-
-    Protected Sub cmbProvince_DataBound(sender As Object, e As EventArgs) Handles cmbProvince.DataBound
-        Dim li As New ListItem
-        li.Text = "---"
-        li.Value = -1
-        cmbProvince.Items.Insert(0, li)
-    End Sub
-
-    Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
-
-        odsBranch.SelectParameters.Item("Action").DefaultValue = 2
-        odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
-        odsBranch.DataBind()
-
-        cmbBranch.DataSourceID = "odsBranch"
-        cmbBranch.DataTextField = "BrnachCode"
-        cmbBranch.DataValueField = "ID"
-
-
-        cmbBranch.DataBind()
-
-
-    End Sub
-
 
     Protected Sub DisplayFileList()
 
-        Bootstrap_Panel1.ClearMessage()
 
         Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
         cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
@@ -524,32 +91,14 @@ Public Class HandyFollowSearch
 
             Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
 
-            Dim strLoan_Info_Query As String = "SELECT * from loan_info where Date_P='" & strThisDatePersian & "' and state in ('3','4','5','F')  and ("
 
-            Dim strBranchQuery As String = ""
             Dim ctxMehr As New BusinessObject.dbMehrVosulEntities1
 
 
-            If cmbBranch.SelectedValue <> -1 Then
-                Dim lnqBranchCode = ctxMehr.tbl_Branch.Where(Function(x) x.ID = cmbBranch.SelectedValue).First
-                strLoan_Info_Query &= " ABRNCHCOD='" & lnqBranchCode.BrnachCode & "' )  "
-            End If
-
-
-            If cmbLoanType.SelectedValue <> -1 Then
-                Dim lnqLoanTypeCode = ctxMehr.tbl_LoanType.Where(Function(x) x.ID = cmbLoanType.SelectedValue).First
-                strLoan_Info_Query &= "  and ( LNMINORTP='" & lnqLoanTypeCode.LoanTypeCode & "' )  "
-
-            End If
-
-            Dim strFromDay As String = txtFrom.Text
-            Dim strToDay As String = txtTo.Text
-
-            strLoan_Info_Query &= " and (NPDURATION between " & strFromDay & " and " & strToDay & " )"
-
-
+            Dim strLoan_Info_Query As String = "SELECT * from loan_info where Date_P='" & strThisDatePersian & "' and state in ('3','4','5','F')  and ( CFCIFNO ='" & txtCustomerNO.Text.Trim() & "')"
 
             cmd_BI.CommandText = strLoan_Info_Query
+
 
             Try
                 cnnBI_Connection.Open()
@@ -565,7 +114,7 @@ Public Class HandyFollowSearch
 
                 If dataReader.Read = False Then
 
-                    Bootstrap_Panel1.ShowMessage(" موردی یافت نشد ", True)
+                    Bootstrap_Panel1.ShowMessage(" اطلاعات مربوط  بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید ", True)
 
                     dataReader.Close()
                     cnnBI_Connection.Close()
@@ -945,8 +494,7 @@ Public Class HandyFollowSearch
 
 
                     Catch ex As Exception
-
-                        qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, drwUserLogin.ID.ToString())
+                        '' qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "5")
                         Continue Do
 
                     End Try
@@ -1036,5 +584,7 @@ Public Class HandyFollowSearch
         End Try
     End Function
 
-
+    Private Sub Bootstrap_Panel1_Panel_Display_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Display_Click
+        DisplayFileList()
+    End Sub
 End Class

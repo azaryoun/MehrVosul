@@ -221,6 +221,24 @@ Partial Public Class StartPage
     Protected WithEvents lblTodaySMSVoice As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblLastDayPreSMS control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblLastDayPreSMS As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblTodayPreSMS control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTodayPreSMS As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lblBILastDayCount control.
     '''</summary>
     '''<remarks>

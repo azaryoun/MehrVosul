@@ -3321,6 +3321,8 @@ Partial Public Class dstWarningNotificationLogDetail
         
         Private columnSMSVoice As Global.System.Data.DataColumn
         
+        Private columnPreNotifySMS As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -3429,6 +3431,14 @@ Partial Public Class dstWarningNotificationLogDetail
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property PreNotifySMSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPreNotifySMS
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -3465,9 +3475,9 @@ Partial Public Class dstWarningNotificationLogDetail
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_SMSCountLog_SelectRow(ByVal SendDate As Date, ByVal SMSCount As Integer, ByVal STime As Date, ByVal FK_LogCurrentLCStatusID As Integer, ByVal FirstSent As Date, ByVal LastSent As Date, ByVal BITotal As Integer, ByVal SMSVoice As Integer) As spr_SMSCountLog_SelectRow
+        Public Overloads Function Addspr_SMSCountLog_SelectRow(ByVal SendDate As Date, ByVal SMSCount As Integer, ByVal STime As Date, ByVal FK_LogCurrentLCStatusID As Integer, ByVal FirstSent As Date, ByVal LastSent As Date, ByVal BITotal As Integer, ByVal SMSVoice As Integer, ByVal PreNotifySMS As Integer) As spr_SMSCountLog_SelectRow
             Dim rowspr_SMSCountLog_SelectRow As spr_SMSCountLog_SelectRow = CType(Me.NewRow,spr_SMSCountLog_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, SendDate, SMSCount, STime, FK_LogCurrentLCStatusID, FirstSent, LastSent, BITotal, SMSVoice}
+            Dim columnValuesArray() As Object = New Object() {Nothing, SendDate, SMSCount, STime, FK_LogCurrentLCStatusID, FirstSent, LastSent, BITotal, SMSVoice, PreNotifySMS}
             rowspr_SMSCountLog_SelectRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_SMSCountLog_SelectRow)
             Return rowspr_SMSCountLog_SelectRow
@@ -3505,6 +3515,7 @@ Partial Public Class dstWarningNotificationLogDetail
             Me.columnLastSent = MyBase.Columns("LastSent")
             Me.columnBITotal = MyBase.Columns("BITotal")
             Me.columnSMSVoice = MyBase.Columns("SMSVoice")
+            Me.columnPreNotifySMS = MyBase.Columns("PreNotifySMS")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -3528,6 +3539,8 @@ Partial Public Class dstWarningNotificationLogDetail
             MyBase.Columns.Add(Me.columnBITotal)
             Me.columnSMSVoice = New Global.System.Data.DataColumn("SMSVoice", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnSMSVoice)
+            Me.columnPreNotifySMS = New Global.System.Data.DataColumn("PreNotifySMS", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPreNotifySMS)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
@@ -4925,6 +4938,21 @@ Partial Public Class dstWarningNotificationLogDetail
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property PreNotifySMS() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SMSCountLog_Select.PreNotifySMSColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'PreNotifySMS' in table 'spr_SMSCountLog_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SMSCountLog_Select.PreNotifySMSColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsSendDateNull() As Boolean
             Return Me.IsNull(Me.tablespr_SMSCountLog_Select.SendDateColumn)
         End Function
@@ -5017,6 +5045,18 @@ Partial Public Class dstWarningNotificationLogDetail
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetSMSVoiceNull()
             Me(Me.tablespr_SMSCountLog_Select.SMSVoiceColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsPreNotifySMSNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SMSCountLog_Select.PreNotifySMSColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetPreNotifySMSNull()
+            Me(Me.tablespr_SMSCountLog_Select.PreNotifySMSColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -7223,6 +7263,7 @@ Namespace dstWarningNotificationLogDetailTableAdapters
             tableMapping.ColumnMappings.Add("LastSent", "LastSent")
             tableMapping.ColumnMappings.Add("BITotal", "BITotal")
             tableMapping.ColumnMappings.Add("SMSVoice", "SMSVoice")
+            tableMapping.ColumnMappings.Add("PreNotifySMS", "PreNotifySMS")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         

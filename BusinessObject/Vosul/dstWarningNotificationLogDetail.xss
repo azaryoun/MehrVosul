@@ -16,7 +16,7 @@
     <Shape ID="DesignTable:spr_WarningNotificationLogDetail_Pending_SMSCount_Select" ZOrder="4" X="547" Y="239" Height="96" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
     <Shape ID="DesignTable:spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List" ZOrder="3" X="194" Y="751" Height="191" Width="371" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
     <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="2" X="60" Y="42" Height="143" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
-    <Shape ID="DesignTable:spr_SMSCountLog_Select" ZOrder="1" X="429" Y="37" Height="248" Width="289" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="197" />
+    <Shape ID="DesignTable:spr_SMSCountLog_Select" ZOrder="1" X="422" Y="5" Height="267" Width="289" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

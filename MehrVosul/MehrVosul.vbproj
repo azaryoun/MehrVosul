@@ -39,7 +39,7 @@
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>MehrVosul.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -160,6 +160,7 @@
     <Content Include="Application\Vosul\File\Temp\MehrLogo.jpg" />
     <Content Include="Application\Vosul\File\WhiteListManagement.aspx" />
     <Content Include="Application\Vosul\File\WhiteListNew.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeEdit.aspx" />
@@ -525,6 +526,13 @@
     </Compile>
     <Compile Include="Application\Vosul\File\WhiteListNew.aspx.vb">
       <DependentUpon>WhiteListNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx.designer.vb">
+      <DependentUpon>HandyFollowFileSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx.vb">
+      <DependentUpon>HandyFollowFileSearch.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx.designer.vb">

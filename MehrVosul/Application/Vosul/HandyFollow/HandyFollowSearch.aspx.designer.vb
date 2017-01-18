@@ -32,15 +32,6 @@ Partial Public Class HandyFollowSearch
     Protected WithEvents lblInnerPageTitle As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''Button1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Button1 As Global.System.Web.UI.WebControls.Button
-    
-    '''<summary>
     '''odcProvince control.
     '''</summary>
     '''<remarks>
@@ -122,40 +113,22 @@ Partial Public Class HandyFollowSearch
     Protected WithEvents cmbLoanType As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''UpdatePanel4 control.
+    '''txtFrom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UpdatePanel4 As Global.System.Web.UI.UpdatePanel
+    Protected WithEvents txtFrom As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''txt_InstallmentCount control.
+    '''txtTo control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txt_InstallmentCount As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''UpdatePanel5 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanel5 As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''txtCustomerNO control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtCustomerNO As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtTo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''divResult control.

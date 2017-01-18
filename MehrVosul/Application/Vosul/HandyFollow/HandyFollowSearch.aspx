@@ -15,12 +15,12 @@
 
         function DisplayOperation_Validate() {
 
-            var txt_InstallmentCount = document.getElementById("<%=txt_InstallmentCount.ClientID%>");
-            var txtCustomerNO= document.getElementById("<%=txtCustomerNO.ClientID%>");
+            var txtFrom = document.getElementById("<%=txtFrom.ClientID%>");
+            var txtTo= document.getElementById("<%=txtTo.ClientID%>");
 
-            if (trimall(txt_InstallmentCount.value) == "" && trimall(txtCustomerNO.value)== "") {
-                alert("تعداد اقساط معوق را وارد نمایید");
-                txt_InstallmentCount.focus();
+            if (trimall(txtFrom.value) == "" || trimall(txtTo.value) == "") {
+                alert("بازه را وارد نمایید");
+                txtFrom.focus();
                 return false;
             }
 
@@ -55,9 +55,6 @@
                 </div>
                         <div class="panel-body">
                             <div class="row">
-                                
-
-                                <asp:Button ID="Button1" runat="server" Text="Button" />
                                 
 
                            <div class="col-md-12">
@@ -122,32 +119,38 @@
                     </div>
 
                     </div>
-                       <div class="form-group has-error">
-                                            <label>تعداد اقساط معوق</label>
-                                            <asp:UpdatePanel ID="UpdatePanel4" runat="server">
-                                                <ContentTemplate>
-                                                    <asp:TextBox ID="txt_InstallmentCount"  CssClass="form-control"  
-                                                runat="server"  
-    placeholder="تعداد اقساط معوق را وارد نمایید" AutoPostBack="True" ></asp:TextBox>
-                                                </ContentTemplate>
-                                            </asp:UpdatePanel>
-                                              
+                      
 
+                                       <div class="form-group has-error" >
+                                       <div class="panel panel-default" >
+                                                <div class="panel-heading">
+                                               <label>محدوده بازه</label>
+                                                </div>
+                                                <div class="panel-body" style="max-height: 200px;">
+
+                                                      <div class="form-group input-group input-group-sm">
+                                            <span class="input-group-addon">از </span>
+                                            <asp:TextBox ID="txtFrom"  CssClass="form-control"  runat="server"  placeholder="شروع بازه را وارد نمایید" ></asp:TextBox>
+                                            <span class="input-group-addon"> روز </span>
+                                            </div>
+
+                                            
+                                            <div class="form-group input-group input-group-sm">
+                                            <span class="input-group-addon">تا </span>
+                                            <asp:TextBox ID="txtTo" runat="server" CssClass="form-control" placeholder="پایان بازه را وارد نمایید"></asp:TextBox>
+                                            <span class="input-group-addon"> روز </span>
+                                            </div>
+                                           
+                                            </div> 
+                                                 
+                                                
+                                                    
                                         </div>
 
+                                            </div>
 
-                                <div class="form-group">
-                                            <label>شماره مشتری</label>
-                                            <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-                                                <ContentTemplate>
-                                                    <asp:TextBox ID="txtCustomerNO"  CssClass="form-control"  
-                                                runat="server"  
-    placeholder="شماره مشتری را وارد نمایید" AutoPostBack="True" ></asp:TextBox>
-                                                </ContentTemplate>
-                                            </asp:UpdatePanel>
-                                              
 
-                                        </div>
+                   
                             </div>
                             </div>
                         </div>

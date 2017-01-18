@@ -175,11 +175,17 @@ Public Class clsMehrVosulWinService
         Dim trSMSSend As New Threading.Thread(AddressOf SendSMS)
         trSMSSend.Start()
 
+        Dim trPreSMSSend As New Threading.Thread(AddressOf SendPreSMS)
+        trPreSMSSend.Start()
+
         'Dim trSMSDelivery As New Threading.Thread(AddressOf SMS_DeliveryUpdate)
         'trSMSDelivery.Start()
 
         Dim trNotification As New Threading.Thread(AddressOf SendNotification)
         trNotification.Start()
+
+        Dim trPreNotification As New Threading.Thread(AddressOf SendPreNotification)
+        trPreNotification.Start()
 
         Dim trSMSSendVOICE_Borrower As New Threading.Thread(AddressOf SendNotification_VoiceSMS_Borrower)
         trSMSSendVOICE_Borrower.Start()
@@ -945,9 +951,7 @@ LetterL:
     ''' <summary>
     ''' '''''''Pre Notification '''''''''''''
     ''' </summary>
-    Public Sub SendPreNotification()
-
-
+    Private Sub SendPreNotification()
 
         Do
 
@@ -962,8 +966,6 @@ LetterL:
                     Continue Do
                 End If
 
-
-
                 For Each drwPreLCStaus As BusinessObject.dstPreNotifiyCurrentLCStatus.spr_PreNotifiyCurrentLCStatus_List_SelectRow In dtblPreLCStaus.Rows
                     Try
 
@@ -977,17 +979,11 @@ LetterL:
                         End If
 
 
-
-
                         Dim drwPreWarningIntervalCheck As BusinessObject.dstPreWarningInterval.spr_PreWarningIntervals_Check_SelectRow = dtblPreWarningIntervalCheck.Rows(0)
-
-
 
 
                         Dim qryPreWarningNotificationLog As New BusinessObject.dstPreWarningNotificationLogTableAdapters.QueriesTableAdapter
                         Dim intWarningNotifcationLogID As Integer = qryPreWarningNotificationLog.spr_PreWarningNotificationLog_Insert(drwPreLCStaus.FK_LoanID, drwPreLCStaus.FK_FileID, Nothing, drwPreLCStaus.Date_P, Date.Now, False)
-
-
 
 
                         If drwPreWarningIntervalCheck.SendSMS = True Then
@@ -995,8 +991,6 @@ LetterL:
                             If drwPreLCStaus.IsMobileNoNull = True OrElse drwPreLCStaus.MobileNo.Length <> 11 Then
                                 ''  GoTo VoiceSMS
                             End If
-
-
 
 
                             Dim strMessage As String = ""
@@ -1064,30 +1058,20 @@ VoiceSMS:
                         'End If
 
 
-
-
                     Catch ex As Exception
 
                         SendTestSMS("Mehr Vosul For Error:" & ex.Message)
-
-
                         Exit For
 
                     End Try
 
-
-
                 Next drwPreLCStaus
-
-
 
                 Dim lngFirstID As Long = dtblPreLCStaus.First.ID
                 Dim lngLastID As Long = dtblPreLCStaus.Last.ID
 
                 Dim qryLCStatus As New BusinessObject.dstPreNotifiyCurrentLCStatusTableAdapters.QueriesTableAdapter
                 qryLCStatus.spr_PreNotifiyCurrentLCStatus_Process_Update(lngFirstID, lngLastID)
-
-
 
 
             Catch ex As Exception
@@ -1100,8 +1084,6 @@ VoiceSMS:
             End Try
 
         Loop
-
-
 
     End Sub
 
@@ -4708,32 +4690,32 @@ VoiceSMS:
             End If
 
             Dim objSMS As New clsSMS
-            Dim arrMessage(6) As String
-            Dim arrDestination(6) As String
+            Dim arrMessage(5) As String
+            Dim arrDestination(5) As String
 
             arrMessage(0) = strResultMessage
             'arrDestination(0) = "09122764983"
             arrDestination(0) = "09125781487"
 
+            'arrMessage(1) = strResultMessage
+            'arrDestination(1) = "09125470419"
+
             arrMessage(1) = strResultMessage
-            arrDestination(1) = "09125470419"
+            arrDestination(1) = "09363738886"
 
             arrMessage(2) = strResultMessage
-            arrDestination(2) = "09363738886"
+            arrDestination(2) = "09125010426"
 
             arrMessage(3) = strResultMessage
-            arrDestination(3) = "09125010426"
+            arrDestination(3) = "09128165662"
+
 
             arrMessage(4) = strResultMessage
-            arrDestination(4) = "09128165662"
+            arrDestination(4) = "09355066075"
 
 
             arrMessage(5) = strResultMessage
-            arrDestination(5) = "09355066075"
-
-
-            arrMessage(6) = strResultMessage
-            arrDestination(6) = "09123201844"
+            arrDestination(5) = "09123201844"
 
             objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -4981,6 +4963,8 @@ VoiceSMS:
                                 Dim lnqWarningNotificationLogDetailSMS = cntxVar.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 1 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
                                 intMessageCount = lnqWarningNotificationLogDetailSMS.Count
 
+                                ''dim lnqWarningNotificationLogDetailPreNotifySMS = cntxVar.tbl_pre
+
 
 
                             Catch ex As Exception
@@ -5022,32 +5006,31 @@ VoiceSMS:
                         End If
 
                         Dim sobjSMS As New clsSMS
-                        Dim arrMessage(6) As String
-                        Dim arrDestination(6) As String
+                        Dim arrMessage(5) As String
+                        Dim arrDestination(5) As String
 
 
 
                         arrMessage(0) = strResultMessage
                         arrDestination(0) = "09125781487"
 
+                        'arrMessage(1) = strResultMessage
+                        'arrDestination(1) = "09125470419"
+
                         arrMessage(1) = strResultMessage
-                        arrDestination(1) = "09125470419"
+                        arrDestination(1) = "09363738886"
 
                         arrMessage(2) = strResultMessage
-                        arrDestination(2) = "09363738886"
+                        arrDestination(2) = "09123201844"
 
                         arrMessage(3) = strResultMessage
-                        arrDestination(3) = "09123201844"
+                        arrDestination(3) = "09128165662"
 
                         arrMessage(4) = strResultMessage
-                        arrDestination(4) = "09128165662"
-
+                        arrDestination(4) = "09355066075"
 
                         arrMessage(5) = strResultMessage
-                        arrDestination(5) = "09355066075"
-
-                        arrMessage(6) = strResultMessage
-                        arrDestination(6) = "09122764983"
+                        arrDestination(5) = "09122764983"
 
                         sobjSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -5079,5 +5062,13 @@ VoiceSMS:
 
     End Sub
 
+    Private Sub UpdatePreWarning_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles UpdatePreWarning.Elapsed
 
+        Try
+            Call preWarning_Laon()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 End Class

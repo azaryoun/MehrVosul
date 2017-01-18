@@ -48,6 +48,7 @@ Partial Class clsMehrVosulWinService
         Me.tmrUpdateData_Hadi_Deposit = New System.Timers.Timer()
         Me.tmrUpdateData_Hadi_Loan = New System.Timers.Timer()
         Me.tmrFinalReport = New System.Timers.Timer()
+        Me.UpdatePreWarning = New System.Timers.Timer()
         CType(Me.tmrUpdateData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSponsorList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -55,6 +56,7 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrUpdateData_Hadi_Deposit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrFinalReport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.UpdatePreWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'tmrUpdateData
         '
@@ -89,6 +91,11 @@ Partial Class clsMehrVosulWinService
         Me.tmrFinalReport.Enabled = True
         Me.tmrFinalReport.Interval = 3600000.0R
         '
+        'UpdatePreWarning
+        '
+        Me.UpdatePreWarning.Enabled = True
+        Me.UpdatePreWarning.Interval = 1800000.0R
+        '
         'clsMehrVosulWinService
         '
         Me.ServiceName = "Service1"
@@ -99,6 +106,7 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrUpdateData_Hadi_Deposit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrFinalReport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.UpdatePreWarning, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents tmrUpdateData As System.Timers.Timer
@@ -108,4 +116,5 @@ Partial Class clsMehrVosulWinService
     Friend WithEvents tmrUpdateData_Hadi_Deposit As Timers.Timer
     Friend WithEvents tmrUpdateData_Hadi_Loan As Timers.Timer
     Friend WithEvents tmrFinalReport As Timers.Timer
+    Friend WithEvents UpdatePreWarning As Timers.Timer
 End Class

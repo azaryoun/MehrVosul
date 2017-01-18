@@ -192,6 +192,8 @@
                             lblBILastDayCount.Text = drwSMSCount.BITotal.ToString("n0")
                             lblLastDaySMSVoice.Text = drwSMSCount.SMSVoice.ToString("n0")
 
+                            lblLastDayPreSMS.Text = If(drwSMSCount.IsPreNotifySMSNull <> True, drwSMSCount.PreNotifySMS.ToString("n0"), "0")
+
 
                         End If
 
@@ -248,6 +250,8 @@
                             lblTodaySMSCount.Text = drwSMSCount.SMSCount.ToString("n0")
                             lblBITodayCount.Text = drwSMSCount.BITotal.ToString("n0")
                             lblTodaySMSVoice.Text = drwSMSCount.SMSVoice.ToString("n0")
+                            lblTodayPreSMS.Text = If(drwSMSCount.IsPreNotifySMSNull <> True, drwSMSCount.PreNotifySMS.ToString("n0"), "0")
+
                         End If
 
 

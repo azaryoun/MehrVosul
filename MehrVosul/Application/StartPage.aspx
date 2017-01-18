@@ -116,6 +116,12 @@
                                              <th><asp:Label ID="lblLastDaySMSVoice" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
                                              <th><asp:Label ID="lblTodaySMSVoice" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
                                         </tr>
+                                           <tr>
+                                            
+                                            <th>تعداد ارسال پیامک یادآوری پرداخت قسط</th>
+                                             <th><asp:Label ID="lblLastDayPreSMS" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
+                                             <th><asp:Label ID="lblTodayPreSMS" runat="server" Text="---" style="color:#31708f"></asp:Label></th>
+                                        </tr>
                                          <tr>
                                             
                                             <th>تعداد BI</th>
