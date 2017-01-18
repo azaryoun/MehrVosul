@@ -5147,7 +5147,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="dbMehrVosulEntities1" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="dbMehrVosulEntities1" annotation:LazyLoadingEnabled="false">
           <EntitySet Name="tbl_Accessgroup" EntityType="Self.tbl_Accessgroup" />
           <EntitySet Name="tbl_AccessgroupMenu" EntityType="Self.tbl_AccessgroupMenu" />
           <EntitySet Name="tbl_AccessgroupUser" EntityType="Self.tbl_AccessgroupUser" />
