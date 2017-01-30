@@ -622,6 +622,12 @@
     <Compile Include="Context\tbl_PreWarningLogCurrentStatus_H.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\tbl_PreWarningNotificationLog.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_PreWarningNotificationLogDetail.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\tbl_Province.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>

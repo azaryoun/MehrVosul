@@ -300,13 +300,13 @@ Public Class WarningNotificationReport
             lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = cmbNotification.SelectedValue)
         End If
 
-        If cmbWarningType.SelectedIndex <> 0 Then
+        ''If cmbWarningType.SelectedIndex <> 0 Then
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.FK_WarningIntervalID = cmbWarningType.SelectedValue)
+        ''    lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.FK_WarningIntervalID = cmbWarningType.SelectedValue)
 
 
 
-        End If
+        ''End If
 
 
         If blnProvince = False Then

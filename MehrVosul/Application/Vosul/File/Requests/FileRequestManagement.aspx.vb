@@ -60,7 +60,7 @@
 
             Try
 
-                dtblFile = tadpFile.GetData(1, intPKey)
+                dtblFile = tadpFile.GetData(1, intPKey, "")
                 If dtblFile.First.State = 2 Or dtblFile.First.State = 5 And dtblFile.First.State = 8 Then
                     qryFile.spr_File_Delete(intPKey)
                 Else

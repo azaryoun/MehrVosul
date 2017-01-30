@@ -82,39 +82,65 @@ Public Class HandyFollowNew
                 GetHandyFollowList()
 
                 If Not Session("AmountDeffed") Is Nothing Then
-                    lblAmountDefferd.InnerText = CInt(Session("AmountDeffed")).ToString("N0")
+                    lblAmountDefferd.InnerText = CLng(Session("AmountDeffed")).ToString("N0")
 
                 Else
                     lblAmountDefferd.InnerText = "--"
 
                 End If
 
+                Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+
+
                 If Session("intFileID") = -1 AndAlso Not Session("CustomerNO") Is Nothing Then
 
+                    dtblFile = tadpFile.GetData(3, -1, Session("CustomerNO"))
 
-                    GetCustomerInfo(Session("CustomerNO"))
+
+                    If dtblFile.Rows.Count > 0 Then
+
+                        Session("intFileID") = dtblFile.First.ID
+
+                        If dtblFile.First.IsTelephoneWorkNull = False Then
+                            lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
+                        End If
+
+                        If dtblFile.First.IsTelephoneHomeNull = False Then
+                            lblBorrowerHomePhone.InnerText = dtblFile.First.TelephoneHome
+                        End If
+
+                        If dtblFile.First.IsMobileNoNull = False Then
+                            lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
+                        End If
+
+                    Else
+
+                        GetCustomerInfo(Session("CustomerNO"))
+
+
+                        dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")), "")
+
+                        If dtblFile.First.IsTelephoneWorkNull = False Then
+                            lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
+                        End If
+
+                        If dtblFile.First.IsTelephoneHomeNull = False Then
+                            lblBorrowerHomePhone.InnerText = dtblFile.First.TelephoneHome
+                        End If
+
+                        If dtblFile.First.IsMobileNoNull = False Then
+                            lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
+                        End If
+                    End If
+
 
                     odcSponsor.SelectParameters.Item("LoanID").DefaultValue = CInt(Session("intLoanID"))
 
                     cmbSponsor.DataBind()
 
 
-                    Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
-                    Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-                    dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")))
-
-                    If dtblFile.First.IsTelephoneWorkNull = False Then
-                        lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
-                    End If
-
-                    If dtblFile.First.IsTelephoneHomeNull = False Then
-                        lblBorrowerHomePhone.InnerText = dtblFile.First.TelephoneHome
-                    End If
-
-                    If dtblFile.First.IsMobileNoNull = False Then
-                        lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
-                    End If
 
 
                 Else
@@ -124,10 +150,8 @@ Public Class HandyFollowNew
                     cmbSponsor.DataBind()
 
 
-                    Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
-                    Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-                    dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")))
+                    dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")), "")
 
                     If dtblFile.First.IsTelephoneWorkNull = False Then
                         lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
@@ -151,7 +175,20 @@ Public Class HandyFollowNew
             End If
 
 
-            End If
+        End If
+
+        If hdnAction.Value.StartsWith("D") = True Then
+
+
+            Dim intHandFollowID As Integer = CInt(hdnAction.Value.Split(";")(1))
+            ''Delete
+            Dim qryHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+            qryHandyFollow.spr_HandyFollow_Delete(intHandFollowID)
+
+            GetHandyFollowList()
+
+
+        End If
 
         Bootstrap_PersianDateTimePicker_From.ShowTimePicker = True
         Bootstrap_PersianDateTimePicker_TO.ShowTimePicker = False
@@ -328,7 +365,11 @@ Public Class HandyFollowNew
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
 
-
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = "<a ID='lnkbtnHandyDelete' href='#'  onclick= lnkbtnHandyDelete_ClientClick(" & drwHandyFollow.ID & ")>حذف</a>"
+            TbCell.NoWrap = False
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
 
             tblResult.Rows.Add(TbRow)
 
@@ -348,7 +389,7 @@ Public Class HandyFollowNew
             Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
             Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-            dtblFile = tadpFile.GetData(1, CInt(cmbSponsor.SelectedValue))
+            dtblFile = tadpFile.GetData(1, CInt(cmbSponsor.SelectedValue), "")
 
             If dtblFile.First.IsTelephoneHomeNull = False Then
                 lblSponsorPhone.InnerText = dtblFile.First.TelephoneHome

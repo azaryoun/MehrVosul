@@ -10,10 +10,17 @@
 
         function SaveOperation_Validate() {
 
+            var txtUsername = document.getElementById("<%=txtUsername.ClientID%>");
             var txtFirstName = document.getElementById("<%=txtFirstName.ClientID%>");
             var txtLastName = document.getElementById("<%=txtLastName.ClientID%>");
             var cmbBranch = document.getElementById("<%=cmbBranch.ClientID%>");
             var txtMobile = document.getElementById("<%=txtMobile.ClientID%>");
+
+            if (trimall(txtUsername.value) == "") {
+                alert("نام کاربری را وارد نمایید");
+                txtUsername.focus();
+                return false;
+            }
 
             if (trimall(txtFirstName.value) == "") {
                 alert("نام را وارد نمایید");
@@ -87,11 +94,11 @@
                                 <div class="col-md-6">
                                    
                                  
-                                        <div class="form-group has-success">
+                                        <div class="form-group has-error">
                                             <label>نام کاربری</label>
                                           
                                             <asp:TextBox ID="txtUsername" runat="server" cssclass="form-control" 
-                                                MaxLength="50" placeholder="Enter username" ReadOnly="True"></asp:TextBox>
+                                                MaxLength="50" placeholder="Enter username" ></asp:TextBox>
                                         </div>
                                          
                                           <div class="form-group has-error">

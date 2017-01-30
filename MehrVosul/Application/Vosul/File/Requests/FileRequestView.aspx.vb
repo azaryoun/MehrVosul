@@ -41,7 +41,7 @@
             Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
             Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-            dtblFile = tadpFile.GetData(1, intFileRequestID)
+            dtblFile = tadpFile.GetData(1, intFileRequestID, "")
 
             Dim drwFile As BusinessObject.dstFile.spr_File_SelectRow = dtblFile.Rows(0)
 
@@ -130,7 +130,7 @@
 
                 If drwFile.State = 5 Then
 
-                    dtblFile = tadpFile.GetData(1, drwFile.FK_OriginalFileID)
+                    dtblFile = tadpFile.GetData(1, drwFile.FK_OriginalFileID, "")
                     Dim drwOrginalFile As BusinessObject.dstFile.spr_File_SelectRow = dtblFile.Rows(0)
 
 
@@ -224,7 +224,7 @@
         Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
         Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-        dtblFile = tadpFile.GetData(1, intFileRequestID)
+        dtblFile = tadpFile.GetData(1, intFileRequestID, "")
 
 
         Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter

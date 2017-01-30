@@ -27,5 +27,6 @@ Partial Public Class tbl_HandyFollow
 
     Public Overridable Property tbl_File As tbl_File
     Public Overridable Property tbl_Loan As tbl_Loan
+    Public Overridable Property tbl_User As tbl_User
 
 End Class

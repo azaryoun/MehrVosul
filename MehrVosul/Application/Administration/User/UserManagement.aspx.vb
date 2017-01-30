@@ -10,7 +10,7 @@
         Bootstrap_Panel1.CanSearch = True
         Bootstrap_Panel1.CanCancel = False
         Bootstrap_Panel1.CanUp = False
-        Bootstrap_Panel1.CanWizard = False
+        Bootstrap_Panel1.CanWizard = True
         Bootstrap_Panel1.CanConfirmRequest = False
         Bootstrap_Panel1.CanReject = False
         Bootstrap_Panel1.CanDisplay = False
@@ -208,6 +208,13 @@
 
     Private Sub Bootstrap_Panel1_Panel_New_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_New_Click
         Response.Redirect("UserNew.aspx")
+        Return
+    End Sub
+
+
+
+    Private Sub Bootstrap_Panel1_Panel_Wizard_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Wizard_Click
+        Response.Redirect("UserMagic.aspx")
         Return
     End Sub
 End Class

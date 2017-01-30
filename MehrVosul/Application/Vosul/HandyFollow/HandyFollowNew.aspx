@@ -12,7 +12,18 @@
             return true;
         }
 
+           
+        function lnkbtnHandyDelete_ClientClick(Pkey) {
 
+            if (!confirm("حذف شدن رکوردانتخاب شده را تایید نمایید"))
+                return false;
+
+            var hdnAction_Name = "<%=hdnAction.ClientID%>";
+            var hdnAction = document.getElementById(hdnAction_Name);
+            hdnAction.value = "D;" + Pkey + ";";
+            window.document.forms[0].submit();
+            return false;
+        }
        
   </script>
 
@@ -50,6 +61,7 @@
                                            <th>وضعیت تماس </th>
                                            <th>نتیجه تماس</th>
                                            <th>ملاحظات</th>
+                                              <th>حذف</th>
                                         </tr>
                                     </thead>
                              
@@ -94,7 +106,7 @@
                                             <asp:DropDownList ID="cmbNotificationType" runat="server" 
                                                CssClass="form-control">
                                               
-                                                <asp:ListItem Value="1"> ارسال پیامک</asp:ListItem>
+                                            
                                                 <asp:ListItem Value="2" Selected ="True"> تماس تلفنی</asp:ListItem>
                                                 <asp:ListItem Value="3">دعوت نامه</asp:ListItem>
                                                 <asp:ListItem Value="4">اخطاریه</asp:ListItem>
@@ -257,7 +269,7 @@
                     
 
             </div>  </div>
-
+    
                               <span class="form-group input-group-btn">
                                                           
                                                 
@@ -266,9 +278,9 @@
                                                 </span>
                       
                    
-    </div>
+  
 
      
     <asp:HiddenField ID="hdnAction" runat="server" />
-
+    
 </asp:Content>

@@ -33,7 +33,7 @@
             Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
             Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-            dtblFile = tadpFile.GetData(1, intEditFileID)
+            dtblFile = tadpFile.GetData(1, intEditFileID, "")
 
             Dim drwFile As BusinessObject.dstFile.spr_File_SelectRow = dtblFile.Rows(0)
 
@@ -102,7 +102,7 @@
                 Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
                 Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-                dtblFile = tadpFile.GetData(2, intEditFileID)
+                dtblFile = tadpFile.GetData(2, intEditFileID, "")
                 Dim blnHasChanged As Boolean = False
                 Dim intCUserID As Integer
 
@@ -110,8 +110,8 @@
 
                     If dtblFile.First.State <> 2 AndAlso dtblFile.First.State <> 5 AndAlso dtblFile.First.State <> 8 Then
 
-                        dtblFile = tadpFile.GetData(1, intEditFileID)
-                   
+                        dtblFile = tadpFile.GetData(1, intEditFileID, "")
+
                         Dim drwFile As BusinessObject.dstFile.spr_File_SelectRow = dtblFile.Rows(0)
                         intCUserID = drwFile.FK_CUserID
 
@@ -179,7 +179,7 @@
                 Else
 
 
-                    dtblFile = tadpFile.GetData(1, intEditFileID)
+                    dtblFile = tadpFile.GetData(1, intEditFileID, "")
 
                     Dim drwFile As BusinessObject.dstFile.spr_File_SelectRow = dtblFile.Rows(0)
 

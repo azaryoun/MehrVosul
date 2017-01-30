@@ -41,5 +41,6 @@ Partial Public Class tbl_User
     Public Overridable Property tbl_File2 As ICollection(Of tbl_File) = New HashSet(Of tbl_File)
     Public Overridable Property tbl_SystemLoginLog As ICollection(Of tbl_SystemLoginLog) = New HashSet(Of tbl_SystemLoginLog)
     Public Overridable Property tbl_Branch As tbl_Branch
+    Public Overridable Property tbl_HandyFollow As ICollection(Of tbl_HandyFollow) = New HashSet(Of tbl_HandyFollow)
 
 End Class

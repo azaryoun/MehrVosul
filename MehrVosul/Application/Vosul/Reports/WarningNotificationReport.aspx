@@ -208,8 +208,7 @@
                                         </div>
 
                              <div class="form-group">
-                                            <label>نوع اخطار</label>
-                                            <asp:ObjectDataSource ID="odsWarningType" runat="server" 
+                                            &nbsp;<asp:ObjectDataSource ID="odsWarningType" runat="server" 
                                                 OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" 
 
                                                   
@@ -220,7 +219,7 @@
                                               
                                               <asp:DropDownList ID="cmbWarningType" runat="server" CssClass="form-control" 
                                                   DataSourceID="odsWarningType" DataTextField="WarniningTitle" 
-                                                DataValueField="ID">
+                                                DataValueField="ID" Visible="False">
                                                
                                                 </asp:DropDownList>
 

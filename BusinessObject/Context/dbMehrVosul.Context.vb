@@ -87,6 +87,8 @@ Partial Public Class dbMehrVosulEntities1
     Public Overridable Property tbl_WarningIntervalsLoanType() As DbSet(Of tbl_WarningIntervalsLoanType)
     Public Overridable Property tbl_WarningNotificationLog() As DbSet(Of tbl_WarningNotificationLog)
     Public Overridable Property tbl_WarningNotificationLogDetail() As DbSet(Of tbl_WarningNotificationLogDetail)
+    Public Overridable Property tbl_PreWarningNotificationLog() As DbSet(Of tbl_PreWarningNotificationLog)
+    Public Overridable Property tbl_PreWarningNotificationLogDetail() As DbSet(Of tbl_PreWarningNotificationLogDetail)
 
     <DbFunction("dbMehrVosulEntities1", "fnc_Menu_Childs")>
     Public Overridable Function fnc_Menu_Childs(parentID As Nullable(Of Integer)) As IQueryable(Of fnc_Menu_Childs_Result)

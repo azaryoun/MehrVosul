@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="dbMehrVosulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="dbMehrVosulModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="tbl_Accessgroup">
           <Key>
             <PropertyRef Name="ID" />
@@ -618,6 +618,35 @@
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="tryTime" Type="int" />
         </EntityType>
+        <EntityType Name="tbl_PreWarningNotificationLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_LoanID" Type="int" />
+          <Property Name="FK_FileID" Type="int" />
+          <Property Name="FK_PreWarningIntervalID" Type="int" />
+          <Property Name="theDay" Type="date" />
+          <Property Name="STime" Type="datetime" />
+          <Property Name="IsHandy" Type="bit" />
+        </EntityType>
+        <EntityType Name="tbl_PreWarningNotificationLogDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FK_PreWarningNotificationLogID" Type="int" />
+          <Property Name="SenderInfo" Type="nvarchar" MaxLength="500" />
+          <Property Name="ReceiverInfo" Type="nvarchar" MaxLength="70" />
+          <Property Name="strMessage" Type="nvarchar(max)" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="STime" Type="datetime" />
+          <Property Name="BatchID" Type="nvarchar" MaxLength="50" />
+          <Property Name="SendStatus" Type="tinyint" />
+          <Property Name="NotificationTypeID" Type="tinyint" />
+          <Property Name="DeliveryDate" Type="datetime" />
+          <Property Name="SendDate" Type="datetime" />
+        </EntityType>
         <EntityType Name="tbl_Province">
           <Key>
             <PropertyRef Name="ID" />
@@ -639,6 +668,7 @@
           <Property Name="LastSent" Type="datetime" />
           <Property Name="BITotal" Type="int" />
           <Property Name="SMSVoice" Type="int" />
+          <Property Name="PreNotifySMS" Type="int" />
         </EntityType>
         <EntityType Name="tbl_Sponsor_List_Log">
           <Key>
@@ -1244,6 +1274,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tbl_HandyFollow_tbl_User">
+          <End Role="tbl_User" Type="Self.tbl_User" Multiplicity="0..1" />
+          <End Role="tbl_HandyFollow" Type="Self.tbl_HandyFollow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HandyFollow">
+              <PropertyRef Name="FK_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_tbl_Loan_tbl_Branch">
           <End Role="tbl_Branch" Type="Self.tbl_Branch" Multiplicity="0..1" />
           <End Role="tbl_Loan" Type="Self.tbl_Loan" Multiplicity="*" />
@@ -1408,6 +1450,18 @@
               <PropertyRef Name="ID" />
             </Principal>
             <Dependent Role="tbl_PreWarningIntervalsLoanType">
+              <PropertyRef Name="FK_PreWarningIntervalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog">
+          <End Role="tbl_PreWarningNotificationLog" Type="Self.tbl_PreWarningNotificationLog" Multiplicity="0..1" />
+          <End Role="tbl_PreWarningNotificationLog1" Type="Self.tbl_PreWarningNotificationLog" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PreWarningNotificationLog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreWarningNotificationLog1">
               <PropertyRef Name="FK_PreWarningIntervalID" />
             </Dependent>
           </ReferentialConstraint>
@@ -3134,6 +3188,8 @@
           <EntitySet Name="tbl_PreWarningIntervalsBranch" EntityType="Self.tbl_PreWarningIntervalsBranch" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_PreWarningIntervalsLoanType" EntityType="Self.tbl_PreWarningIntervalsLoanType" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_PreWarningLogCurrentStatus_H" EntityType="Self.tbl_PreWarningLogCurrentStatus_H" Schema="Vosul" store:Type="Tables" />
+          <EntitySet Name="tbl_PreWarningNotificationLog" EntityType="Self.tbl_PreWarningNotificationLog" Schema="Vosul" store:Type="Tables" />
+          <EntitySet Name="tbl_PreWarningNotificationLogDetail" EntityType="Self.tbl_PreWarningNotificationLogDetail" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_Province" EntityType="Self.tbl_Province" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_SMSCountLog" EntityType="Self.tbl_SMSCountLog" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_Sponsor_List_Log" EntityType="Self.tbl_Sponsor_List_Log" Schema="Vosul" store:Type="Tables" />
@@ -3293,6 +3349,10 @@
             <End Role="tbl_Loan" EntitySet="tbl_Loan" />
             <End Role="tbl_HandyFollow" EntitySet="tbl_HandyFollow" />
           </AssociationSet>
+          <AssociationSet Name="FK_tbl_HandyFollow_tbl_User" Association="Self.FK_tbl_HandyFollow_tbl_User">
+            <End Role="tbl_User" EntitySet="tbl_User" />
+            <End Role="tbl_HandyFollow" EntitySet="tbl_HandyFollow" />
+          </AssociationSet>
           <AssociationSet Name="FK_tbl_Loan_tbl_Branch" Association="Self.FK_tbl_Loan_tbl_Branch">
             <End Role="tbl_Branch" EntitySet="tbl_Branch" />
             <End Role="tbl_Loan" EntitySet="tbl_Loan" />
@@ -3348,6 +3408,10 @@
           <AssociationSet Name="FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType" Association="Self.FK_tbl_PreWarningIntervalsLoanType_tbl_PreWarningIntervalsLoanType">
             <End Role="tbl_PreWarningIntervals" EntitySet="tbl_PreWarningIntervals" />
             <End Role="tbl_PreWarningIntervalsLoanType" EntitySet="tbl_PreWarningIntervalsLoanType" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog" Association="Self.FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog">
+            <End Role="tbl_PreWarningNotificationLog" EntitySet="tbl_PreWarningNotificationLog" />
+            <End Role="tbl_PreWarningNotificationLog1" EntitySet="tbl_PreWarningNotificationLog" />
           </AssociationSet>
           <AssociationSet Name="FK_tbl_SystemLoginLog_tbl_User" Association="Self.FK_tbl_SystemLoginLog_tbl_User">
             <End Role="tbl_User" EntitySet="tbl_User" />
@@ -3410,8 +3474,7 @@
             <End Role="tbl_WarningNotificationLogDetail" EntitySet="tbl_WarningNotificationLogDetail" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="dbMehrVosulModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -3519,6 +3582,7 @@
           <NavigationProperty Name="tbl_File2" Relationship="Self.FK_tbl_File_tbl_User2" FromRole="tbl_User" ToRole="tbl_File" />
           <NavigationProperty Name="tbl_SystemLoginLog" Relationship="Self.FK_tbl_SystemLoginLog_tbl_User" FromRole="tbl_User" ToRole="tbl_SystemLoginLog" />
           <NavigationProperty Name="tbl_Branch" Relationship="Self.FK_tbl_User_tbl_Branch" FromRole="tbl_User" ToRole="tbl_Branch" />
+          <NavigationProperty Name="tbl_HandyFollow" Relationship="dbMehrVosulModel.FK_tbl_HandyFollow_tbl_User" FromRole="tbl_User" ToRole="tbl_HandyFollow" />
         </EntityType>
         <EntityType Name="tbl_SystemSetting">
           <Key>
@@ -3976,6 +4040,7 @@
           <Property Name="DutyDate" Type="DateTime" Precision="0" />
           <NavigationProperty Name="tbl_File" Relationship="Self.FK_tbl_HandyFollow_tbl_File" FromRole="tbl_HandyFollow" ToRole="tbl_File" />
           <NavigationProperty Name="tbl_Loan" Relationship="Self.FK_tbl_HandyFollow_tbl_Loan" FromRole="tbl_HandyFollow" ToRole="tbl_Loan" />
+          <NavigationProperty Name="tbl_User" Relationship="dbMehrVosulModel.FK_tbl_HandyFollow_tbl_User" FromRole="tbl_HandyFollow" ToRole="tbl_User" />
         </EntityType>
         <EntityType Name="tbl_Loan">
           <Key>
@@ -4162,6 +4227,7 @@
           <Property Name="LastSent" Type="DateTime" Precision="3" />
           <Property Name="BITotal" Type="Int32" />
           <Property Name="SMSVoice" Type="Int32" />
+          <Property Name="PreNotifySMS" Type="Int32" />
         </EntityType>
         <EntityType Name="tbl_Sponsor_List_Log">
           <Key>
@@ -5471,10 +5537,10 @@
             <End Role="tbl_WarningNotificationLogDetail" EntitySet="tbl_WarningNotificationLogDetail" />
           </AssociationSet>
           <FunctionImport Name="fnc_Menu_Childs" IsComposable="true" ReturnType="Collection(dbMehrVosulModel.fnc_Menu_Childs_Result)">
-            <Parameter Name="ParentID" Mode="In" Type="Int32" />
+          <Parameter Name="ParentID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="fnc_Menu_Parents" IsComposable="true" ReturnType="Collection(dbMehrVosulModel.fnc_Menu_Parents_Result)">
-            <Parameter Name="Child" Mode="In" Type="Int32" />
+          <Parameter Name="Child" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -5518,7 +5584,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Accessgroup_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Accessgroup_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Desp" Mode="In" Type="String" />
@@ -5537,7 +5603,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Accessgroup_Select" ReturnType="Collection(dbMehrVosulModel.spr_Accessgroup_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Accessgroup_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5547,10 +5613,10 @@
             <Parameter Name="Visiblity" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupMenu_Accessgroup_Delete">
-            <Parameter Name="FK_AccessGroupID" Mode="In" Type="Int32" />
+          <Parameter Name="FK_AccessGroupID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupMenu_AccessGroup_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="AccessgroupID" Mode="In" Type="Int32" />
+          <Parameter Name="AccessgroupID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupMenu_Insert">
             <Parameter Name="FK_AccessGroupID" Mode="In" Type="Int32" />
@@ -5561,24 +5627,24 @@
             <Parameter Name="FK_AccessGroupID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupUser_List_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupUser_Select" ReturnType="Collection(dbMehrVosulModel.spr_AccessgroupUser_Select_Result)">
-            <Parameter Name="UserID" Mode="In" Type="Int32" />
+          <Parameter Name="UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_AccessgroupUser_User_Delete">
-            <Parameter Name="FK_UserID" Mode="In" Type="Int32" />
+          <Parameter Name="FK_UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Agent_List_Select" />
           <FunctionImport Name="spr_Branch_ByCode_Select" ReturnType="Collection(dbMehrVosulModel.spr_Branch_ByCode_Select_Result)">
-            <Parameter Name="BarnchCode" Mode="In" Type="String" />
+          <Parameter Name="BarnchCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Count_Select" ReturnType="Collection(Int32)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="BrnachCode" Mode="In" Type="String" />
@@ -5600,7 +5666,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Select" ReturnType="Collection(dbMehrVosulModel.spr_Branch_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Branch_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -5622,7 +5688,7 @@
             <Parameter Name="FK_LoanID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_CommitmentActive_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_CommitmentActive_Insert">
             <Parameter Name="FK_FileID" Mode="In" Type="Int32" />
@@ -5646,7 +5712,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_Country_List_Select" />
           <FunctionImport Name="spr_CurrentLCStatus_Bulk_Insert">
-            <Parameter Name="SelectStatement" Mode="In" Type="String" />
+          <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_CurrentLCStatus_Delete" />
           <FunctionImport Name="spr_CurrentLCStatus_Insert">
@@ -5667,7 +5733,7 @@
             <Parameter Name="ToID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_CurrentLCStatus_Select" ReturnType="Collection(dbMehrVosulModel.spr_CurrentLCStatus_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Deposits_ByDepositNumber_Select" ReturnType="Collection(dbMehrVosulModel.spr_Deposits_ByDepositNumber_Select_Result)">
             <Parameter Name="DepositNumber" Mode="In" Type="String" />
@@ -5688,14 +5754,14 @@
             <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_DepositType_byCode_Select" ReturnType="Collection(dbMehrVosulModel.spr_DepositType_byCode_Select_Result)">
-            <Parameter Name="DepositTypeCode" Mode="In" Type="String" />
+          <Parameter Name="DepositTypeCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_DepositType_Count_Select" ReturnType="Collection(Int32)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_DepositType_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_DepositType_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="DepositCode" Mode="In" Type="String" />
@@ -5767,10 +5833,10 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_File_CustomerNo_Select" ReturnType="Collection(dbMehrVosulModel.spr_File_CustomerNo_Select_Result)">
-            <Parameter Name="CustomerNo" Mode="In" Type="String" />
+          <Parameter Name="CustomerNo" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_File_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_File_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="CustomerNo" Mode="In" Type="String" />
@@ -5832,7 +5898,7 @@
             <Parameter Name="State" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="spr_File_UpdateOrginalFile">
-            <Parameter Name="FileID" Mode="In" Type="Int32" />
+          <Parameter Name="FileID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_FileChanges_Report" ReturnType="Collection(dbMehrVosulModel.spr_FileChanges_Report_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5861,7 +5927,7 @@
             <Parameter Name="FK_OriginalFileID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiDraftText_Delete">
-            <Parameter Name="FK_HadiWarningIntervalsID" Mode="In" Type="Int32" />
+          <Parameter Name="FK_HadiWarningIntervalsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiDraftText_Insert">
             <Parameter Name="OrderInLevel" Mode="In" Type="Int32" />
@@ -5871,7 +5937,7 @@
             <Parameter Name="FK_VoiceRecordID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiDraftText_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiDraftText_List_Select_Result)">
-            <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiDraftText_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiDraftText_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5887,7 +5953,7 @@
             <Parameter Name="FK_VoiceRecordID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiLogCurrentLCStatus_H_ForDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiLogCurrentLCStatus_H_ForDate_Select_Result)">
-            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiLogCurrentLCStatus_H_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -5897,7 +5963,7 @@
             <Parameter Name="tryTime" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiLogLoanStatus_ForDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiLogLoanStatus_ForDate_Select_Result)">
-            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiLogLoanStatus_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -5907,7 +5973,7 @@
             <Parameter Name="tryTime" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperation_Deposit_Bulk_Insert">
-            <Parameter Name="SelectStatement" Mode="In" Type="String" />
+          <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperation_Deposit_Delete" />
           <FunctionImport Name="spr_HadiOperation_Deposit_Insert">
@@ -5935,7 +6001,7 @@
             <Parameter Name="FK_BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperation_Loan_Bulk_Insert">
-            <Parameter Name="SelectStatement" Mode="In" Type="String" />
+          <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperation_Loan_Delete" />
           <FunctionImport Name="spr_HadiOperationDeposit_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiOperationDeposit_List_Select_Result)" />
@@ -5944,10 +6010,10 @@
             <Parameter Name="ToID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperationDeposit_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiOperationDeposit_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperationDeposit_SelectByFileID" ReturnType="Collection(Int32)">
-            <Parameter Name="FileID" Mode="In" Type="Int32" />
+          <Parameter Name="FileID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperationLoan_List_Select" />
           <FunctionImport Name="spr_HadiOperationLoan_Process_Update">
@@ -5955,7 +6021,7 @@
             <Parameter Name="ToID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiOperationLoan_Select">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Check_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_Check_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -5978,10 +6044,10 @@
             <Parameter Name="provinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Inerval_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_Inerval_List_Select_Result)">
-            <Parameter Name="Action" Mode="In" Type="Byte" />
+          <Parameter Name="Action" Mode="In" Type="Byte" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="FromDay" Mode="In" Type="Int32" />
@@ -5998,7 +6064,7 @@
             <Parameter Name="ISActive" Mode="In" Type="Boolean" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_List_Select_Result)">
-            <Parameter Name="FKCUserID" Mode="In" Type="Int32" />
+          <Parameter Name="FKCUserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Management_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_Management_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -6010,7 +6076,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_MinMaxFromTo_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_MinMaxFromTo_Select_Result)" />
           <FunctionImport Name="spr_HadiWarningIntervals_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningIntervals_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervals_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6032,7 +6098,7 @@
             <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsBranch_Delete">
-            <Parameter Name="FK_HadiWarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="FK_HadiWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsBranch_Insert">
             <Parameter Name="FK_HadiWarningIntervalID" Mode="In" Type="Int32" />
@@ -6048,7 +6114,7 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsBranchProvince_SelectByIntervalID" ReturnType="Collection(Int32)">
-            <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsDeposit_Check_Select" ReturnType="Collection(Int32)">
             <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
@@ -6064,7 +6130,7 @@
             <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningIntervalsDeposit_WarningInterval_Delete">
-            <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLog_Check_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningNotificationLog_Check_Select_Result)">
             <Parameter Name="HadiWarningIntervalID" Mode="In" Type="Int32" />
@@ -6107,14 +6173,14 @@
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_NotSend_SMS_List" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningNotificationLogDetail_NotSend_SMS_List_Result)" />
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_Pending_SMSCount_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="theDay" Mode="In" Type="DateTime" />
+          <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_Select" ReturnType="Collection(dbMehrVosulModel.spr_HadiWarningNotificationLogDetail_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_SMSCount_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="theDay" Mode="In" Type="DateTime" />
+          <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_HadiWarningNotificationLogDetail_Status_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6178,7 +6244,7 @@
             <Parameter Name="SponsorID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanSponsor_CheckFile_Select" ReturnType="Collection(dbMehrVosulModel.spr_LoanSponsor_CheckFile_Select_Result)">
-            <Parameter Name="LoanID" Mode="In" Type="Int32" />
+          <Parameter Name="LoanID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanSponsor_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="FK_LoanID" Mode="In" Type="Int32" />
@@ -6186,17 +6252,17 @@
             <Parameter Name="WarantyTypeDesc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanSponsor_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_LoanSponsor_List_Select_Result)">
-            <Parameter Name="LoanID" Mode="In" Type="Int32" />
+          <Parameter Name="LoanID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_byCode_Select" ReturnType="Collection(dbMehrVosulModel.spr_LoanType_byCode_Select_Result)">
-            <Parameter Name="LoanTypeCode" Mode="In" Type="String" />
+          <Parameter Name="LoanTypeCode" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Count_Select" ReturnType="Collection(Int32)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="LoanTypeCode" Mode="In" Type="String" />
@@ -6212,7 +6278,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Select" ReturnType="Collection(dbMehrVosulModel.spr_LoanType_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_LoanType_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6228,7 +6294,7 @@
             <Parameter Name="Remarks" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_LogCurrentLCStatus_H_ForDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_LogCurrentLCStatus_H_ForDate_Select_Result)">
-            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_LogCurrentLCStatus_H_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -6254,7 +6320,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_Menu_Leaf_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_Menu_Leaf_List_Select_Result)" />
           <FunctionImport Name="spr_Menu_PageTitle_Select" ReturnType="Collection(dbMehrVosulModel.spr_Menu_PageTitle_Select_Result)">
-            <Parameter Name="ClassName" Mode="In" Type="String" />
+          <Parameter Name="ClassName" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Menu_Parent_Select" ReturnType="Collection(dbMehrVosulModel.spr_Menu_Parent_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -6270,7 +6336,7 @@
             <Parameter Name="SEARCHSTR" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_NotificationTarif_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_NotificationTarif_Insert">
             <Parameter Name="NotificationTypeID" Mode="In" Type="Int32" />
@@ -6296,7 +6362,7 @@
             <Parameter Name="Amount" Mode="In" Type="Decimal" />
           </FunctionImport>
           <FunctionImport Name="spr_NotPiadDurationDay_Select" ReturnType="Collection(dbMehrVosulModel.spr_NotPiadDurationDay_Select_Result)">
-            <Parameter Name="LoanID" Mode="In" Type="Int32" />
+          <Parameter Name="LoanID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreDraftText_Delete">
             <Parameter Name="FK_PreWarningIntervalsID" Mode="In" Type="Int32" />
@@ -6330,7 +6396,7 @@
             <Parameter Name="FK_VoiceRecordID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreNotifiyCurrentLCStatus_Bulk_Insert">
-            <Parameter Name="SelectStatement" Mode="In" Type="String" />
+          <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_PreNotifiyCurrentLCStatus_Delete" />
           <FunctionImport Name="spr_PreNotifiyCurrentLCStatus_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreNotifiyCurrentLCStatus_List_Select_Result)" />
@@ -6357,7 +6423,7 @@
             <Parameter Name="provinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningIntervals_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningIntervals_Inerval_List_Select" ReturnType="Collection(Int32)" />
           <FunctionImport Name="spr_PreWarningIntervals_Insert" ReturnType="Collection(Decimal)">
@@ -6380,7 +6446,7 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningIntervals_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreWarningIntervals_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningIntervals_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6399,7 +6465,7 @@
             <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningIntervalsBranch_Delete">
-            <Parameter Name="FK_PreWarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="FK_PreWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningIntervalsBranch_Insert">
             <Parameter Name="FK_PreWarningIntervalID" Mode="In" Type="Int32" />
@@ -6420,7 +6486,7 @@
             <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningIntervalsLoanType_WarningInterval_Delete">
-            <Parameter Name="PreWarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="PreWarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningLogCurrentStatus_H_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Date" Mode="In" Type="DateTime" />
@@ -6430,10 +6496,10 @@
             <Parameter Name="tryTime" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_PreWarningLogCurrentStatusH_ForDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_PreWarningLogCurrentStatusH_ForDate_Select_Result)">
-            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_Province_Check_Select" ReturnType="Collection(dbMehrVosulModel.spr_Province_Check_Select_Result)">
-            <Parameter Name="BranchID" Mode="In" Type="Int32" />
+          <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_ProvinceList_Select" ReturnType="Collection(dbMehrVosulModel.spr_ProvinceList_Select_Result)" />
           <FunctionImport Name="spr_Record_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_Record_List_Select_Result)">
@@ -6489,10 +6555,10 @@
             <Parameter Name="SMSVoice" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_SMSCountLog_Select" ReturnType="Collection(dbMehrVosulModel.spr_SMSCountLog_Select_Result)">
-            <Parameter Name="theDay" Mode="In" Type="DateTime" />
+          <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_Sponsor_List_Bulk_Insert">
-            <Parameter Name="SelectStatement" Mode="In" Type="String" />
+          <Parameter Name="SelectStatement" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Sponsor_List_Delete" />
           <FunctionImport Name="spr_Sponsor_List_Insert">
@@ -6512,7 +6578,7 @@
             <Parameter Name="WarantyTypeDesc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_Sponsor_List_Log_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_Sponsor_List_Log_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="theDay" Mode="In" Type="DateTime" />
@@ -6531,7 +6597,7 @@
             <Parameter Name="LoanSerial" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_SystemLoginLog_Insert">
-            <Parameter Name="FK_UserUD" Mode="In" Type="Int32" />
+          <Parameter Name="FK_UserUD" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_SystemLoginLog_Report" ReturnType="Collection(dbMehrVosulModel.spr_SystemLoginLog_Report_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -6579,7 +6645,7 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_CheckUsername_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="Username" Mode="In" Type="String" />
+          <Parameter Name="Username" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Count_Select" ReturnType="Collection(Int32)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
@@ -6588,7 +6654,7 @@
             <Parameter Name="FK_ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="Username" Mode="In" Type="String" />
@@ -6634,7 +6700,7 @@
             <Parameter Name="UserPhoto" Mode="In" Type="Binary" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Select" ReturnType="Collection(dbMehrVosulModel.spr_User_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6663,7 +6729,7 @@
             <Parameter Name="FK_UserID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_VoiceRecords_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_VoiceRecords_Insert" ReturnType="Collection(Decimal)">
             <Parameter Name="RecordID" Mode="In" Type="Int32" />
@@ -6702,7 +6768,7 @@
             <Parameter Name="provinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervals_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervals_Inerval_List_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningIntervals_Inerval_List_Select_Result)" />
           <FunctionImport Name="spr_WarningIntervals_Insert" ReturnType="Collection(Decimal)">
@@ -6737,7 +6803,7 @@
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervals_MinMaxFromTo_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningIntervals_MinMaxFromTo_Select_Result)" />
           <FunctionImport Name="spr_WarningIntervals_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningIntervals_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervals_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6766,7 +6832,7 @@
             <Parameter Name="BranchID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsBranch_Delete">
-            <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsBranch_Insert">
             <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
@@ -6782,7 +6848,7 @@
             <Parameter Name="ProvinceID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsBranchProvince_SelectByIntervalID" ReturnType="Collection(Int32)">
-            <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="FK_WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsLoanType_Check_Select" ReturnType="Collection(Int32)">
             <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
@@ -6798,10 +6864,10 @@
             <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsLoanType_WarningInterval_Delete">
-            <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
+          <Parameter Name="WarningIntervalID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsSMSText_Delete">
-            <Parameter Name="WarningIntervalsID" Mode="In" Type="Int32" />
+          <Parameter Name="WarningIntervalsID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningIntervalsSMSText_Insert">
             <Parameter Name="FK_WarningIntervalsID" Mode="In" Type="Int32" />
@@ -6872,14 +6938,14 @@
           <FunctionImport Name="spr_WarningNotificationLogDetail_NotSend_SMS_List" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetail_NotSend_SMS_List_Result)" />
           <FunctionImport Name="spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetail_NotSend_VoiceSMS_List_Result)" />
           <FunctionImport Name="spr_WarningNotificationLogDetail_Pending_SMSCount_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="theDay" Mode="In" Type="DateTime" />
+          <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetail_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetail_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetail_SMSCount_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="theDay" Mode="In" Type="DateTime" />
+          <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetail_Status_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6889,11 +6955,11 @@
             <Parameter Name="SendDate" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetail_VoiceSMSCount_Select" ReturnType="Collection(Int32)">
-            <Parameter Name="theDay" Mode="In" Type="DateTime" />
+          <Parameter Name="theDay" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogDetailFirstLastLog_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetailFirstLastLog_Select_Result)" />
           <FunctionImport Name="spr_WarningNotificationLogDetailFirstLastLogByDate_Select" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogDetailFirstLastLogByDate_Select_Result)">
-            <Parameter Name="Date" Mode="In" Type="DateTime" />
+          <Parameter Name="Date" Mode="In" Type="DateTime" />
           </FunctionImport>
           <FunctionImport Name="spr_WarningNotificationLogSummary_Report" ReturnType="Collection(dbMehrVosulModel.spr_WarningNotificationLogSummary_Report_Result)">
             <Parameter Name="ACTION" Mode="In" Type="Int32" />
@@ -6901,6 +6967,16 @@
             <Parameter Name="ToDate" Mode="In" Type="DateTime" />
             <Parameter Name="Parameter" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="tbl_PreWarningNotificationLog" EntityType="dbMehrVosulModel.tbl_PreWarningNotificationLog" />
+          <EntitySet Name="tbl_PreWarningNotificationLogDetail" EntityType="dbMehrVosulModel.tbl_PreWarningNotificationLogDetail" />
+          <AssociationSet Name="FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog" Association="dbMehrVosulModel.FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog">
+            <End Role="tbl_PreWarningNotificationLog" EntitySet="tbl_PreWarningNotificationLog" />
+            <End Role="tbl_PreWarningNotificationLog1" EntitySet="tbl_PreWarningNotificationLog" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tbl_HandyFollow_tbl_User" Association="dbMehrVosulModel.FK_tbl_HandyFollow_tbl_User">
+            <End Role="tbl_User" EntitySet="tbl_User" />
+            <End Role="tbl_HandyFollow" EntitySet="tbl_HandyFollow" />
+          </AssociationSet>
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -7988,6 +8064,61 @@
           <Property Type="Int32" Name="SMSCount" Nullable="true" />
           <Property Type="String" Name="BranchName" Nullable="true" MaxLength="50" />
         </ComplexType>
+        <EntityType Name="tbl_PreWarningNotificationLog">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_LoanID" Type="Int32" />
+          <Property Name="FK_FileID" Type="Int32" />
+          <Property Name="FK_PreWarningIntervalID" Type="Int32" />
+          <Property Name="theDay" Type="DateTime" Precision="0" />
+          <Property Name="STime" Type="DateTime" Precision="3" />
+          <Property Name="IsHandy" Type="Boolean" />
+          <NavigationProperty Name="tbl_PreWarningNotificationLog1" Relationship="dbMehrVosulModel.FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog" FromRole="tbl_PreWarningNotificationLog" ToRole="tbl_PreWarningNotificationLog1" />
+          <NavigationProperty Name="tbl_PreWarningNotificationLog2" Relationship="dbMehrVosulModel.FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog" FromRole="tbl_PreWarningNotificationLog1" ToRole="tbl_PreWarningNotificationLog" />
+        </EntityType>
+        <EntityType Name="tbl_PreWarningNotificationLogDetail">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FK_PreWarningNotificationLogID" Type="Int32" />
+          <Property Name="SenderInfo" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ReceiverInfo" Type="String" MaxLength="70" FixedLength="false" Unicode="true" />
+          <Property Name="strMessage" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="STime" Type="DateTime" Precision="3" />
+          <Property Name="BatchID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SendStatus" Type="Byte" />
+          <Property Name="NotificationTypeID" Type="Byte" />
+          <Property Name="DeliveryDate" Type="DateTime" Precision="3" />
+          <Property Name="SendDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog">
+          <End Type="dbMehrVosulModel.tbl_PreWarningNotificationLog" Role="tbl_PreWarningNotificationLog" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_PreWarningNotificationLog" Role="tbl_PreWarningNotificationLog1" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_PreWarningNotificationLog">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_PreWarningNotificationLog1">
+              <PropertyRef Name="FK_PreWarningIntervalID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tbl_HandyFollow_tbl_User">
+          <End Type="dbMehrVosulModel.tbl_User" Role="tbl_User" Multiplicity="0..1" />
+          <End Type="dbMehrVosulModel.tbl_HandyFollow" Role="tbl_HandyFollow" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_User">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="tbl_HandyFollow">
+              <PropertyRef Name="FK_UserID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8666,6 +8797,7 @@
           <EntitySetMapping Name="tbl_SMSCountLog">
             <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_SMSCountLog">
               <MappingFragment StoreEntitySet="tbl_SMSCountLog">
+                <ScalarProperty Name="PreNotifySMS" ColumnName="PreNotifySMS" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="SendDate" ColumnName="SendDate" />
                 <ScalarProperty Name="SMSCount" ColumnName="SMSCount" />
@@ -10581,6 +10713,37 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="tbl_PreWarningNotificationLog">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningNotificationLog">
+              <MappingFragment StoreEntitySet="tbl_PreWarningNotificationLog">
+                <ScalarProperty Name="IsHandy" ColumnName="IsHandy" />
+                <ScalarProperty Name="STime" ColumnName="STime" />
+                <ScalarProperty Name="theDay" ColumnName="theDay" />
+                <ScalarProperty Name="FK_PreWarningIntervalID" ColumnName="FK_PreWarningIntervalID" />
+                <ScalarProperty Name="FK_FileID" ColumnName="FK_FileID" />
+                <ScalarProperty Name="FK_LoanID" ColumnName="FK_LoanID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_PreWarningNotificationLogDetail">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_PreWarningNotificationLogDetail">
+              <MappingFragment StoreEntitySet="tbl_PreWarningNotificationLogDetail">
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="DeliveryDate" ColumnName="DeliveryDate" />
+                <ScalarProperty Name="NotificationTypeID" ColumnName="NotificationTypeID" />
+                <ScalarProperty Name="SendStatus" ColumnName="SendStatus" />
+                <ScalarProperty Name="BatchID" ColumnName="BatchID" />
+                <ScalarProperty Name="STime" ColumnName="STime" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="strMessage" ColumnName="strMessage" />
+                <ScalarProperty Name="ReceiverInfo" ColumnName="ReceiverInfo" />
+                <ScalarProperty Name="SenderInfo" ColumnName="SenderInfo" />
+                <ScalarProperty Name="FK_PreWarningNotificationLogID" ColumnName="FK_PreWarningNotificationLogID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

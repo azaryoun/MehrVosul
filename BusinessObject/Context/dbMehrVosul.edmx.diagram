@@ -132,6 +132,10 @@
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsExceptionLoanType_tbl_WarningIntervalsException" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningIntervalsExceptionLoanType_tbl_LoanType" ManuallyRouted="false" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_WarningNotificationLogDetail_tbl_WarningNotificationLog" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_PreWarningNotificationLog" Width="1.5" PointX="3.375" PointY="14.75" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_PreWarningNotificationLogDetail" Width="1.5" PointX="16.375" PointY="0.75" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog" />
+        <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HandyFollow_tbl_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -33,7 +33,7 @@ Public Class HandyFollowReport
             Bootstrap_PersianDateTimePicker_To.PickerLabel = "تا"
 
 
-   
+
             If drwUserLogin.IsDataAdmin = True Then
 
                 odsBranch.SelectParameters.Item("Action").DefaultValue = 1
@@ -110,9 +110,9 @@ Public Class HandyFollowReport
 
 
 
-   
 
-       
+
+
 
         End If
 
@@ -216,7 +216,7 @@ Public Class HandyFollowReport
 
 
         End If
-  
+
         If strWhere = "" Then
 
             dtblReport = tadpReport.GetData(1, dtFromDate, dteToDate, "")
@@ -408,7 +408,7 @@ Public Class HandyFollowReport
 
         cmbPerson.DataBind()
 
-       
+
     End Sub
 
     Protected Sub cmbProvince_DataBound(sender As Object, e As EventArgs) Handles cmbProvince.DataBound

@@ -222,6 +222,8 @@ Public Class clsMehrVosulWinService
                 Try
                     intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Borrower(0).name, arrPhoneNumbers, _VoiceSMSs_Borrower(0).records, arrnumbers, strSayMethod)
                 Catch ex As Exception
+                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "VoiceSMS_Borrower")
 
                 End Try
 
@@ -237,6 +239,9 @@ Public Class clsMehrVosulWinService
 
             Catch ex As Exception
                 Threading.Thread.Sleep(250)
+                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "VoiceSMS_Borrower")
+
                 Continue Do
             End Try
         Loop
@@ -266,7 +271,8 @@ Public Class clsMehrVosulWinService
                     '''''      intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records, arrnumbers, strSayMethod)
                     intCampaignID = SendVoiceSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records(0), strSayMethod)
                 Catch ex As Exception
-
+                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "VoiceSMS_Sponsor")
                 End Try
 
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
@@ -281,6 +287,8 @@ Public Class clsMehrVosulWinService
 
             Catch ex As Exception
                 Threading.Thread.Sleep(250)
+                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "VoiceSMS_Sponsor")
                 Continue Do
             End Try
         Loop
@@ -464,6 +472,9 @@ VoiceSMS:
 
                                     Catch ex As Exception
 
+                                        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                                        qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "SendVoice")
+
                                     End Try
                                     'Must Modified
 
@@ -598,16 +609,23 @@ Sponsor_Voice:
                                         '        arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
                                         '    End If
                                         'Next k
+                                        Try
 
-                                        Dim stcVoice As VoiceSMSParams
-                                        stcVoice.name = strVoiceSMS_Name
-                                        stcVoice.tophonenumber = arrTo(0)
-                                        stcVoice.records = arrRecords
-                                        stcVoice.numbers = Nothing
-                                        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
 
-                                        _VoiceSMSs_Sponser.Add(stcVoice)
+                                            Dim stcVoice As VoiceSMSParams
+                                            stcVoice.name = strVoiceSMS_Name
+                                            stcVoice.tophonenumber = arrTo(0)
+                                            stcVoice.records = arrRecords
+                                            stcVoice.numbers = Nothing
+                                            stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
 
+                                            _VoiceSMSs_Sponser.Add(stcVoice)
+
+                                        Catch ex As Exception
+
+                                            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                                            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "SendVoiceSponsor")
+                                        End Try
 
                                     End If
 
@@ -4744,29 +4762,45 @@ VoiceSMS:
 
     Public Sub GetVoiceSMSArrays_Vesal(ByVal warningIntervalId As Integer, toSponsor As Boolean, ByRef records() As String, ByRef numbers() As String)
 
-        Dim cntxMehrVosul As New BusinessObject.dbMehrVosulEntities1
+        Try
+            Dim cntxMehrVosul As New BusinessObject.dbMehrVosulEntities1
 
-        Dim lnqDraftText = cntxMehrVosul.tbl_DraftText.Where(Function(x) x.FK_WarningIntervalsID = warningIntervalId AndAlso x.ToSponsor = toSponsor AndAlso x.DraftType = 5)
 
-        'records = lnqDraftText.Where(Function(x) x.IsDynamic = False).OrderBy(Function(x) x.OrderInLevel).Select(Function(x) New With {.RecordID = x.FK_VoiceRecordID}).ToArray().Select(Function(x) x.RecordID.ToString())
+            Dim lnqDraftText = cntxMehrVosul.tbl_DraftText.Where(Function(x) x.FK_WarningIntervalsID = warningIntervalId AndAlso x.ToSponsor = toSponsor AndAlso x.DraftType = 5)
 
-        Dim lnqrecords = lnqDraftText.Where(Function(x) x.IsDynamic = False).OrderBy(Function(x) x.OrderInLevel)
+            'records = lnqDraftText.Where(Function(x) x.IsDynamic = False).OrderBy(Function(x) x.OrderInLevel).Select(Function(x) New With {.RecordID = x.FK_VoiceRecordID}).ToArray().Select(Function(x) x.RecordID.ToString())
 
-        For Each itm In lnqrecords
-            If records Is Nothing Then
-                ReDim records(0)
-            Else
-                ReDim Preserve records(records.Length)
-            End If
-            ''    records(records.Length - 1) = itm.FK_VoiceRecordID.Value.ToString()
-            records(records.Length - 1) = itm.tbl_VoiceRecords.RecordID.Value.ToString()
-
-        Next
+            '   Dim lnqrecords = lnqDraftText.Where(Function(x) x.IsDynamic = False).OrderBy(Function(x) x.OrderInLevel)
+            Dim lnqrecords = lnqDraftText.Where(Function(x) x.IsDynamic = False).Include(Function(x) x.tbl_VoiceRecords).OrderBy(Function(x) x.OrderInLevel)
 
 
 
-        numbers = lnqDraftText.Where(Function(x) x.IsDynamic = True).OrderBy(Function(x) x.OrderInLevel).Select(Function(x) x.DraftText).ToArray()
+            For Each itm In lnqrecords
+                If records Is Nothing Then
+                    ReDim records(0)
+                Else
+                    ReDim Preserve records(records.Length)
+                End If
+                ''    records(records.Length - 1) = itm.FK_VoiceRecordID.Value.ToString()
+                records(records.Length - 1) = itm.tbl_VoiceRecords.RecordID.Value.ToString()
 
+
+            Next
+
+
+
+            numbers = lnqDraftText.Where(Function(x) x.IsDynamic = True).OrderBy(Function(x) x.OrderInLevel).Select(Function(x) x.DraftText).ToArray()
+
+
+
+        Catch ex As Exception
+
+
+            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "GetVoiceSMSArrays_Vesal")
+
+
+        End Try
 
     End Sub
 
@@ -4951,6 +4985,7 @@ VoiceSMS:
 
                             Dim intVoiceSMSCount As Integer = 0
                             Dim intMessageCount As Integer = 0
+                            Dim intPreMessageCount As Integer = 0
 
 
 
@@ -4963,8 +4998,8 @@ VoiceSMS:
                                 Dim lnqWarningNotificationLogDetailSMS = cntxVar.tbl_WarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = 1 AndAlso DbFunctions.TruncateTime(x.STime) = dteToday)
                                 intMessageCount = lnqWarningNotificationLogDetailSMS.Count
 
-                                ''dim lnqWarningNotificationLogDetailPreNotifySMS = cntxVar.tbl_pre
-
+                                Dim lnqWarningNotificationLogDetailPreNotifySMS = cntxVar.tbl_PreWarningNotificationLogDetail.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
+                                intPreMessageCount = lnqWarningNotificationLogDetailPreNotifySMS.Count
 
 
                             Catch ex As Exception
@@ -4986,6 +5021,7 @@ VoiceSMS:
                             strResultMessage &= " کل مدت زمان ارسال : " & Math.Floor(tmSpan.TotalHours) & "h" & Math.Floor(tmSpan.Minutes) & "m" & ControlChars.NewLine
                             strResultMessage &= " تعداد پیامک ارسال شده: " & intMessageCount.ToString("n0")
                             strResultMessage &= " تعداد پیامک صوتی ارسال شده: " & intVoiceSMSCount.ToString("n0")
+                            strResultMessage &= " تعداد پیامک پیش اطلاع رسانی ارسال شده: " & intPreMessageCount.ToString("n0")
 
 
                             Dim lnqCurrentLogID = cntxVar.tbl_LogCurrentLCStatus_H.Where(Function(x) x.STime >= dteToday.Date And x.Success = True).First()

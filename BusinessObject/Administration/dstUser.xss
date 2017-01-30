@@ -8,11 +8,11 @@
   <Shapes>
     <Shape ID="DesignTable:spr_User_CheckUsername_Select" ZOrder="7" X="85" Y="132" Height="96" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
     <Shape ID="DesignTable:spr_User_Select" ZOrder="6" X="111" Y="269" Height="305" Width="233" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
-    <Shape ID="DesignTable:spr_User_Count_Select" ZOrder="4" X="536" Y="343" Height="96" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
-    <Shape ID="DesignTable:spr_User_Login_Select" ZOrder="3" X="958" Y="318" Height="305" Width="271" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
-    <Shape ID="DesignTable:spr_User_CheckBranch_Select" ZOrder="2" X="460" Y="509" Height="115" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="5" X="982" Y="107" Height="124" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="120" />
-    <Shape ID="DesignTable:spr_User_Management_Select" ZOrder="1" X="498" Y="72" Height="267" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
+    <Shape ID="DesignTable:spr_User_Count_Select" ZOrder="5" X="536" Y="343" Height="96" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
+    <Shape ID="DesignTable:spr_User_Login_Select" ZOrder="4" X="958" Y="318" Height="305" Width="271" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
+    <Shape ID="DesignTable:spr_User_Management_Select" ZOrder="3" X="498" Y="72" Height="267" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="216" />
+    <Shape ID="DesignTable:spr_User_CheckBranch_Select" ZOrder="2" X="577" Y="506" Height="115" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
+    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="1" X="982" Y="107" Height="124" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="120" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

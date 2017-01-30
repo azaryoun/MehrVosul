@@ -10,16 +10,18 @@
 Imports System
 Imports System.Collections.Generic
 
-Partial Public Class tbl_SMSCountLog
+Partial Public Class tbl_PreWarningNotificationLogDetail
     Public Property ID As Integer
-    Public Property SendDate As Nullable(Of Date)
-    Public Property SMSCount As Nullable(Of Integer)
+    Public Property FK_PreWarningNotificationLogID As Nullable(Of Integer)
+    Public Property SenderInfo As String
+    Public Property ReceiverInfo As String
+    Public Property strMessage As String
+    Public Property Remarks As String
     Public Property STime As Nullable(Of Date)
-    Public Property FK_LogCurrentLCStatusID As Nullable(Of Integer)
-    Public Property FirstSent As Nullable(Of Date)
-    Public Property LastSent As Nullable(Of Date)
-    Public Property BITotal As Nullable(Of Integer)
-    Public Property SMSVoice As Nullable(Of Integer)
-    Public Property PreNotifySMS As Nullable(Of Integer)
+    Public Property BatchID As String
+    Public Property SendStatus As Nullable(Of Byte)
+    Public Property NotificationTypeID As Nullable(Of Byte)
+    Public Property DeliveryDate As Nullable(Of Date)
+    Public Property SendDate As Nullable(Of Date)
 
 End Class

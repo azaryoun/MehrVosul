@@ -84,7 +84,7 @@ Public Class FileLoanDetail
             dtblReport = tadpReport.GetData(intAction, -1, CInt(Session("intEditFileID")), intBranchID)
 
 
-            dtblFile = tadpFile.GetData(1, CInt(Session("intEditFileID")))
+            dtblFile = tadpFile.GetData(1, CInt(Session("intEditFileID")), "")
             If dtblFile.Rows.Count > 0 Then
 
                 lblInnerPageTitle.Text = lblInnerPageTitle.Text & " (پرونده " & dtblFile.First.CustomerNo & "/" & dtblFile.First.FName & " " & dtblFile.First.LName & ")"

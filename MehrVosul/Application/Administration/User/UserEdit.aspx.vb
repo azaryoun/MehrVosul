@@ -210,7 +210,7 @@
         Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
         Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-
+        Dim strUserName As String = txtUsername.Text.Trim
         Dim strAddress As String = txtAddress.Text.Trim
         Dim strNationalID As String = txtNationalID.Text.Trim
         Dim strNationalNo As String = txtNationalNo.Text
@@ -260,10 +260,10 @@
         Try
             Dim qryUser As New BusinessObject.dstUserTableAdapters.QueriesTableAdapter
             If blnItemAdmin = True Then
-                qryUser.spr_User_Update(intEditUserID, True, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
+                qryUser.spr_User_Update(strUserName, intEditUserID, True, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
 
             Else
-                qryUser.spr_User_Update(intEditUserID, True, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
+                qryUser.spr_User_Update(strUserName, intEditUserID, True, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
 
             End If
 

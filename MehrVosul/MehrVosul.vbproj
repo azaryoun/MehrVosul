@@ -127,6 +127,7 @@
     <Content Include="Application\Administration\User\CurrentUserChangePassword.aspx" />
     <Content Include="Application\Administration\User\UserChangePassword.aspx" />
     <Content Include="Application\Administration\User\UserEdit.aspx" />
+    <Content Include="Application\Administration\User\UserMagic.aspx" />
     <Content Include="Application\Administration\User\UserNew.aspx" />
     <Content Include="Application\Administration\User\UserManagement.aspx" />
     <Content Include="Application\BasicInfo\SystemSetting.aspx" />
@@ -172,6 +173,7 @@
     <Content Include="Application\Vosul\Reports\CurrentLCStatusMaxLoanTypeReport.aspx" />
     <Content Include="Application\Vosul\Reports\CurrentLCStatusNewArrivalReport.aspx" />
     <Content Include="Application\Vosul\Reports\FileChanges_Report.aspx" />
+    <Content Include="Application\Vosul\Reports\HandyFollowPersonReport.aspx" />
     <Content Include="Application\Vosul\Reports\HandyFollowReport.aspx" />
     <Content Include="Application\Vosul\Reports\IncompleteFileInfoReport.aspx" />
     <Content Include="Application\Vosul\Reports\LogCurrentLCStatusReport.aspx" />
@@ -251,6 +253,7 @@
     <Content Include="UserControl\Bootstrap_Panel.ascx" />
     <Content Include="UserControl\Bootstrap_PersianDateTimePicker.ascx" />
     <Content Include="UserControl\UC_TimePicker.ascx" />
+    <Content Include="Application\Administration\User\Sample\Sample.xlsx" />
     <None Include="Web References\VoiceSMS\RahyabVoiceSend.disco" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -302,6 +305,13 @@
     </Compile>
     <Compile Include="Application\Administration\User\UserEdit.aspx.vb">
       <DependentUpon>UserEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserMagic.aspx.designer.vb">
+      <DependentUpon>UserMagic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\User\UserMagic.aspx.vb">
+      <DependentUpon>UserMagic.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Administration\User\UserNew.aspx.designer.vb">
@@ -612,6 +622,13 @@
       <DependentUpon>FileChanges_Report.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Vosul\Reports\HandyFollowPersonReport.aspx.designer.vb">
+      <DependentUpon>HandyFollowPersonReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\HandyFollowPersonReport.aspx.vb">
+      <DependentUpon>HandyFollowPersonReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Vosul\Reports\HandyFollowReport.aspx.designer.vb">
       <DependentUpon>HandyFollowReport.aspx</DependentUpon>
     </Compile>
@@ -892,6 +909,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Application\Administration\User\Temp\" />
     <Folder Include="Application\Vosul\Reports\TempFile\" />
     <Folder Include="Application\Vosul\VoiceMessage\Listen\" />
     <Folder Include="Application\Vosul\VoiceMessage\Temp\" />

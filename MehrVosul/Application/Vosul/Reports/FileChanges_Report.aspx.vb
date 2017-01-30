@@ -290,7 +290,7 @@ Public Class FileChanges_Report
                     Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
                     Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-                    dtblFile = tadpFile.GetData(1, drwReport.FK_OriginalFileID)
+                    dtblFile = tadpFile.GetData(1, drwReport.FK_OriginalFileID, "")
                     Dim drwOrginalFile As BusinessObject.dstFile.spr_File_SelectRow = dtblFile.Rows(0)
 
                     If drwReport.CustomerNo <> drwOrginalFile.CustomerNo Then

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HandyFollowReport.aspx.vb" Inherits="MehrVosul.HandyFollowReport" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HandyFollowPersonReport.aspx.vb" Inherits="MehrVosul.HandyFollowPersonReport" %>
 <%@ Register src="../../../UserControl/Bootstrap_Panel.ascx" tagname="Bootstrap_Panel" tagprefix="uc1" %>
 <%@ Register src="../../../UserControl/UC_TimePicker.ascx" tagname="UC_TimePicker" tagprefix="uc3" %>
 <%@ Register src="../../../UserControl/Bootstrap_PersianDateTimePicker.ascx" tagname="Bootstrap_PersianDateTimePicker" tagprefix="uc4" %>
@@ -118,34 +118,7 @@
                                             </asp:UpdatePanel>
                                          
                                         </div>
-                                             <div class="form-group">
-                                            <label>کارشناس پیگیری</label>
-                                            <asp:ObjectDataSource ID="odsPerson" runat="server" 
-                                                OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" 
-
-                                                  
-                                                  
-                                                
-                                                
-                                                   
-                                                     TypeName="BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter">
-                                                <SelectParameters>
-                                                    <asp:Parameter Name="Action" Type="Int32" />
-                                                    <asp:Parameter Name="BranchID" Type="Int32" />
-                                                    <asp:Parameter Name="ProvinceID" Type="Int32" />
-                                                </SelectParameters>
-                                            </asp:ObjectDataSource>
-                                              
-                                                 <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-                                                     <ContentTemplate>
-                                                         <asp:DropDownList ID="cmbPerson" 
-    runat="server" CssClass="form-control" AutoPostBack="True">
-                                                         </asp:DropDownList>
-                                                     </ContentTemplate>
-                                                 </asp:UpdatePanel>
-                                              
-
-                                        </div>
+                                
 
                              <div class="form-group">
                                             <label>نوع اطلاع رسانی</label>
@@ -205,13 +178,12 @@
                                             <th>#</th>
                                             <th>تاریخ</th>
                                             <th>نوع اطلاع رسانی</th>
-                                            <th>مخاطب</th>
-                                            <th>وضعیت تماس</th>
-                                             <th>نتیجه تماس</th>
+                                            <th>تعداد تماس</th>
+                                         
                                              <th>کارشناس پیگیر</th>
-                                             <th>شعبه</th>
-                                             <th>ملاحظات</th>
-                                             <th>تاریخ تعهد پرداخت</th>
+                                           
+                                              <th>شعبه</th>
+                                         
                                         </tr>
                                     </thead>
                              

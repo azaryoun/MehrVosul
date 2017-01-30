@@ -81,16 +81,16 @@
                     Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
                     Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-                    dtblFile = tadpFile.GetData(2, intPKey)
+                    dtblFile = tadpFile.GetData(2, intPKey, "")
                     If dtblFile.Rows.Count = 0 Then
 
-                        dtblFile = tadpFile.GetData(1, intPKey)
+                        dtblFile = tadpFile.GetData(1, intPKey, "")
                         qryFile.spr_File_Insert(dtblFile.First.CustomerNo, dtblFile.First.FName, dtblFile.First.LName, dtblFile.First.FatherName, dtblFile.First.MobileNo, dtblFile.First.NationalID, dtblFile.First.IDNumber, dtblFile.First.Email, dtblFile.First.Address, dtblFile.First.TelephoneHome, dtblFile.First.TelephoneWork, dtblFile.First.IsMale, dtblFile.First.FK_CUserID, 2, intPKey, drwUserLogin.ID)
                         Return "درخواست حذف این رکورد ثبت شد"
                     Else
 
                         If dtblFile.First.State <> 2 And dtblFile.First.State <> 5 And dtblFile.First.State <> 8 Then
-                            dtblFile = tadpFile.GetData(1, intPKey)
+                            dtblFile = tadpFile.GetData(1, intPKey, "")
                             qryFile.spr_File_Insert(dtblFile.First.CustomerNo, dtblFile.First.FName, dtblFile.First.LName, dtblFile.First.FatherName, dtblFile.First.MobileNo, dtblFile.First.NationalID, dtblFile.First.IDNumber, dtblFile.First.Email, dtblFile.First.Address, dtblFile.First.TelephoneHome, dtblFile.First.TelephoneWork, dtblFile.First.IsMale, dtblFile.First.FK_CUserID, 2, intPKey, drwUserLogin.ID)
                             Return "درخواست حذف این رکورد ثبت شد"
                         Else
