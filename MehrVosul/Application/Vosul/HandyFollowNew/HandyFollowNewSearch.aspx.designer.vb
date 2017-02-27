@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class HandyFollowPersonReport
+Partial Public Class HandyFollowNewSearch
     
     '''<summary>
     '''Bootstrap_Panel1 control.
@@ -32,24 +32,6 @@ Partial Public Class HandyFollowPersonReport
     Protected WithEvents lblInnerPageTitle As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''Bootstrap_PersianDateTimePicker_From control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Bootstrap_PersianDateTimePicker_From As Global.MehrVosul.Bootstrap_PersianDateTimePicker
-    
-    '''<summary>
-    '''Bootstrap_PersianDateTimePicker_To control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Bootstrap_PersianDateTimePicker_To As Global.MehrVosul.Bootstrap_PersianDateTimePicker
-    
-    '''<summary>
     '''odcProvince control.
     '''</summary>
     '''<remarks>
@@ -59,13 +41,13 @@ Partial Public Class HandyFollowPersonReport
     Protected WithEvents odcProvince As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
-    '''UpdatePanel2 control.
+    '''UpdatePanel1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
+    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
     '''cmbProvince control.
@@ -86,13 +68,13 @@ Partial Public Class HandyFollowPersonReport
     Protected WithEvents odsBranch As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
-    '''UpdatePanel1 control.
+    '''UpdatePanel2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
+    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
     '''cmbBranch control.
@@ -104,13 +86,13 @@ Partial Public Class HandyFollowPersonReport
     Protected WithEvents cmbBranch As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''odsPerson control.
+    '''odsLoanType control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents odsPerson As Global.System.Web.UI.WebControls.ObjectDataSource
+    Protected WithEvents odsLoanType As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
     '''UpdatePanel3 control.
@@ -122,13 +104,31 @@ Partial Public Class HandyFollowPersonReport
     Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''cmbPerson control.
+    '''cmbLoanType control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmbPerson As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents cmbLoanType As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''txtFrom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtFrom As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtTo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''divResult control.
@@ -147,42 +147,6 @@ Partial Public Class HandyFollowPersonReport
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblResult As Global.System.Web.UI.HtmlControls.HtmlTable
-    
-    '''<summary>
-    '''divResult2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divResult2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''tblResult2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents tblResult2 As Global.System.Web.UI.HtmlControls.HtmlTable
-    
-    '''<summary>
-    '''divResult3 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divResult3 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''tblResult3 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents tblResult3 As Global.System.Web.UI.HtmlControls.HtmlTable
     
     '''<summary>
     '''hdnAction control.

@@ -116,9 +116,9 @@ Public Class HandyFollowNew
 
                     Else
 
-                        GetCustomerInfo(Session("CustomerNO"))
+                        '' GetCustomerInfo(Session("CustomerNO"))
 
-
+                        ''Insert to file
                         dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")), "")
 
                         If dtblFile.First.IsTelephoneWorkNull = False Then
@@ -134,21 +134,38 @@ Public Class HandyFollowNew
                         End If
                     End If
 
+                    ''get loan no
+                    Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_SelectTableAdapter
+                    Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_SelectDataTable = Nothing
 
-                    odcSponsor.SelectParameters.Item("LoanID").DefaultValue = CInt(Session("intLoanID"))
+                    dtblLoan = tadpLoan.GetData(2, CInt(Session("intLoanID")), -1, -1)
+                    If dtblLoan.Count > 0 Then
+                        odcSponsor.SelectParameters.Item("FileNO").DefaultValue = Session("CustomerNO")  'CInt(Session("intLoanID"))
+                        odcSponsor.SelectParameters.Item("LoanNO").DefaultValue = dtblLoan.First.LoanNumber
 
-                    cmbSponsor.DataBind()
+                        cmbSponsor.DataBind()
 
-
-
-
+                    End If
 
                 Else
 
-                    odcSponsor.SelectParameters.Item("LoanID").DefaultValue = CInt(Session("intLoanID"))
 
-                    cmbSponsor.DataBind()
 
+                    'odcSponsor.SelectParameters.Item("LoanID").DefaultValue = CInt(Session("intLoanID"))
+
+                    'cmbSponsor.DataBind()
+
+                    Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_SelectTableAdapter
+                    Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_SelectDataTable = Nothing
+
+                    dtblLoan = tadpLoan.GetData(2, CInt(Session("intLoanID")), -1, -1)
+                    If dtblLoan.Count > 0 Then
+                        odcSponsor.SelectParameters.Item("FileNO").DefaultValue = Session("CustomerNO")  'CInt(Session("intLoanID"))
+                        odcSponsor.SelectParameters.Item("LoanNO").DefaultValue = dtblLoan.First.LoanNumber
+
+                        cmbSponsor.DataBind()
+
+                    End If
 
 
                     dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")), "")
@@ -193,7 +210,6 @@ Public Class HandyFollowNew
         Bootstrap_PersianDateTimePicker_From.ShowTimePicker = True
         Bootstrap_PersianDateTimePicker_TO.ShowTimePicker = False
 
-
     End Sub
 
     Protected Sub btnAddToText_Click(sender As Object, e As EventArgs) Handles btnAddToText.Click
@@ -217,7 +233,17 @@ Public Class HandyFollowNew
             If blnToSponsor = True Then
                 If cmbSponsor.SelectedValue <> -1 Then
 
-                    intAudienceFileID = cmbSponsor.SelectedValue
+                    ''get file ID
+                    Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                    Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+
+                    dtblFile = tadpFile.GetData(3, -1, cmbSponsor.SelectedValue)
+
+                    If dtblFile.Rows.Count > 0 Then
+                        intAudienceFileID = dtblFile.First.ID
+                    End If
+
+
 
                 Else
 
@@ -389,19 +415,52 @@ Public Class HandyFollowNew
             Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
             Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-            dtblFile = tadpFile.GetData(1, CInt(cmbSponsor.SelectedValue), "")
+            dtblFile = tadpFile.GetData(3, -1, cmbSponsor.SelectedValue)
 
-            If dtblFile.First.IsTelephoneHomeNull = False Then
-                lblSponsorPhone.InnerText = dtblFile.First.TelephoneHome
+            If dtblFile.Rows.Count > 0 Then
+
+                If dtblFile.First.IsTelephoneHomeNull = False Then
+                    lblSponsorPhone.InnerText = dtblFile.First.TelephoneHome
+                End If
+
+                If dtblFile.First.IsTelephoneWorkNull = False Then
+                    lblSponsorPhoneWork.InnerText = dtblFile.First.TelephoneWork
+                End If
+
+                If dtblFile.First.IsMobileNoNull = False Then
+                    lblSponsorMobile.InnerText = dtblFile.First.MobileNo
+                End If
+
+            Else
+
+                ''get sponsor info
+                Dim tadpSponsor As New BusinessObject.dstSponsor_ListTableAdapters.spr_SponsorList2_SelectByFileTableAdapter
+                Dim dtblSponsor As BusinessObject.dstSponsor_List.spr_SponsorList2_SelectByFileDataTable = Nothing
+
+                dtblSponsor = tadpSponsor.GetData(cmbSponsor.SelectedValue)
+
+
+                lblSponsorPhone.InnerText = dtblSponsor.First.TelephoneHome
+
+                lblSponsorPhoneWork.InnerText = dtblSponsor.First.TelephoneWork
+
+                lblSponsorMobile.InnerText = dtblSponsor.First.MobileNo
+
+
+                ''Insert to File
+                Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+
+                Dim intFileID As Integer = qryFile.spr_File_Insert(cmbSponsor.SelectedValue, "", dtblSponsor.First.FullName, dtblSponsor.First.FatherName, dtblSponsor.First.MobileNo, "", "", "", dtblSponsor.First.Address, dtblSponsor.First.TelephoneHome, dtblSponsor.First.TelephoneWork, False, 1, Nothing, Nothing, Nothing)
+
+
+                ''Insert sponsorLoan
+                Dim qrySponsorLoan As New BusinessObject.dstLoanSponsorTableAdapters.QueriesTableAdapter
+                qrySponsorLoan.spr_LoanSponsor_Insert(CInt(Session("intLoanID")), intFileID, dtblSponsor.First.WarantyTypeDesc)
+
+
             End If
 
-            If dtblFile.First.IsTelephoneWorkNull = False Then
-                lblSponsorPhoneWork.InnerText = dtblFile.First.TelephoneWork
-            End If
 
-            If dtblFile.First.IsMobileNoNull = False Then
-                lblSponsorPhoneWork.InnerText = dtblFile.First.MobileNo
-            End If
 
         Else
             lblSponsorPhone.InnerText = ""
@@ -413,505 +472,505 @@ Public Class HandyFollowNew
 
     End Sub
 
-    Private Sub GetCustomerInfo(ByVal strCustomerNO As String)
+    'Private Sub GetCustomerInfo(ByVal strCustomerNO As String)
 
 
-        Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
-        cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
-        cnnBuiler_BI.UserID = "deposit"
-        cnnBuiler_BI.Password = "deposit"
-        cnnBuiler_BI.Unicode = True
+    '    Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+    '    cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+    '    cnnBuiler_BI.UserID = "deposit"
+    '    cnnBuiler_BI.Password = "deposit"
+    '    cnnBuiler_BI.Unicode = True
 
 
 
 
-        Dim dteThisDate As Date = Date.Now.AddDays(-1)
-        Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
+    '    Dim dteThisDate As Date = Date.Now.AddDays(-1)
+    '    Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
 
-        Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+    '    Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
 
-            Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+    '        Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
 
-            Dim strLoan_Info_Query As String = "SELECT * from loan_info where Date_P='" & strThisDatePersian & "' and state in ('3','4','5','F')  and ( CFCIFNO ='" & strCustomerNO & "')"
+    '        Dim strLoan_Info_Query As String = "SELECT * from loan_info where Date_P='" & strThisDatePersian & "' and state in ('3','4','5','F')  and ( CFCIFNO ='" & strCustomerNO & "')"
 
-            cmd_BI.CommandText = strLoan_Info_Query
+    '        cmd_BI.CommandText = strLoan_Info_Query
 
-            Try
-                cnnBI_Connection.Open()
-            Catch ex As Exception
+    '        Try
+    '            cnnBI_Connection.Open()
+    '        Catch ex As Exception
 
-                Bootstrap_Panel1.ShowMessage(ex.Message, True)
-                Return
+    '            Bootstrap_Panel1.ShowMessage(ex.Message, True)
+    '            Return
 
-            End Try
-            Dim dataReader As OracleDataReader = Nothing
+    '        End Try
+    '        Dim dataReader As OracleDataReader = Nothing
 
-            Try
-                dataReader = cmd_BI.ExecuteReader()
+    '        Try
+    '            dataReader = cmd_BI.ExecuteReader()
 
-                If dataReader.Read = False Then
+    '            If dataReader.Read = False Then
 
-                    Bootstrap_Panel1.ShowMessage(" اطلاعات مربوط  بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید ", True)
+    '                Bootstrap_Panel1.ShowMessage(" اطلاعات مربوط  بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید ", True)
 
-                    dataReader.Close()
-                    cnnBI_Connection.Close()
+    '                dataReader.Close()
+    '                cnnBI_Connection.Close()
 
-                    Return
-                End If
+    '                Return
+    '            End If
 
-                Dim i As Integer
-                Dim intCount As Integer = 0
+    '            Dim i As Integer
+    '            Dim intCount As Integer = 0
 
-                Dim stcVarLoanInfo As stc_Loan_Info
-                Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-                Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+    '            Dim stcVarLoanInfo As stc_Loan_Info
+    '            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+    '            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
 
 
-                Do
-                    i += 1
-                    Dim TbRow As HtmlTableRow
+    '            Do
+    '                i += 1
+    '                Dim TbRow As HtmlTableRow
 
 
-                    Try
+    '                Try
 
-                        If dataReader.GetValue(0) Is DBNull.Value Then
-                            stcVarLoanInfo.FullName = ""
-                        Else
-                            stcVarLoanInfo.FullName = CStr(dataReader.GetValue(0)).Replace("'", "")
-                        End If
+    '                    If dataReader.GetValue(0) Is DBNull.Value Then
+    '                        stcVarLoanInfo.FullName = ""
+    '                    Else
+    '                        stcVarLoanInfo.FullName = CStr(dataReader.GetValue(0)).Replace("'", "")
+    '                    End If
 
-                        If dataReader.GetValue(1) Is DBNull.Value Then
-                            stcVarLoanInfo.Address = ""
-                        Else
-                            stcVarLoanInfo.Address = CStr(dataReader.GetValue(1)).Replace("'", "")
-                        End If
+    '                    If dataReader.GetValue(1) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Address = ""
+    '                    Else
+    '                        stcVarLoanInfo.Address = CStr(dataReader.GetValue(1)).Replace("'", "")
+    '                    End If
 
-                        If dataReader.GetValue(2) Is DBNull.Value Then
-                            stcVarLoanInfo.Telephone = ""
-                        Else
-                            stcVarLoanInfo.Telephone = CStr(dataReader.GetValue(2)).Trim.Replace("'", "")
-                        End If
+    '                    If dataReader.GetValue(2) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Telephone = ""
+    '                    Else
+    '                        stcVarLoanInfo.Telephone = CStr(dataReader.GetValue(2)).Trim.Replace("'", "")
+    '                    End If
 
 
 
-                        If dataReader.GetValue(4) Is DBNull.Value Then
-                            stcVarLoanInfo.Mobile = ""
-                        Else
-                            stcVarLoanInfo.Mobile = CStr(dataReader.GetValue(4)).Trim.Replace("'", "")
-                        End If
+    '                    If dataReader.GetValue(4) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Mobile = ""
+    '                    Else
+    '                        stcVarLoanInfo.Mobile = CStr(dataReader.GetValue(4)).Trim.Replace("'", "")
+    '                    End If
 
-                        ''stcVarLoanInfo.Date_P = CStr(dataReader.GetValue(5))
+    '                    ''stcVarLoanInfo.Date_P = CStr(dataReader.GetValue(5))
 
 
 
-                        If dataReader.GetValue(6) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(6)).Trim.Replace("'", "")
-                        End If
+    '                    If dataReader.GetValue(6) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(6)).Trim.Replace("'", "")
+    '                    End If
 
 
-                        If dataReader.GetValue(7) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.BranchCode = CStr(dataReader.GetValue(7)).Trim
-                        End If
-
-
-                        If dataReader.GetValue(8) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.LoanTypeCode = CStr(dataReader.GetValue(8)).Trim
-                        End If
-
-                        If dataReader.GetValue(9) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(9)).Trim.Replace("'", "")
-                        End If
-
-
-                        If dataReader.GetValue(10) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.LoanSerial = CInt(dataReader.GetValue(10))
-                        End If
-
-                        If dataReader.GetValue(11) Is DBNull.Value Then
-                            stcVarLoanInfo.LCDate = ""
-                        Else
-                            stcVarLoanInfo.LCDate = CStr(dataReader.GetValue(11)).Trim
-                        End If
+    '                    If dataReader.GetValue(7) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.BranchCode = CStr(dataReader.GetValue(7)).Trim
+    '                    End If
+
+
+    '                    If dataReader.GetValue(8) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.LoanTypeCode = CStr(dataReader.GetValue(8)).Trim
+    '                    End If
+
+    '                    If dataReader.GetValue(9) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(9)).Trim.Replace("'", "")
+    '                    End If
+
+
+    '                    If dataReader.GetValue(10) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.LoanSerial = CInt(dataReader.GetValue(10))
+    '                    End If
+
+    '                    If dataReader.GetValue(11) Is DBNull.Value Then
+    '                        stcVarLoanInfo.LCDate = ""
+    '                    Else
+    '                        stcVarLoanInfo.LCDate = CStr(dataReader.GetValue(11)).Trim
+    '                    End If
 
-                        If dataReader.GetValue(12) Is DBNull.Value Then
-                            stcVarLoanInfo.LCAmount = Nothing
-                        Else
-                            stcVarLoanInfo.LCAmount = CDbl(dataReader.GetValue(12))
-                        End If
+    '                    If dataReader.GetValue(12) Is DBNull.Value Then
+    '                        stcVarLoanInfo.LCAmount = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.LCAmount = CDbl(dataReader.GetValue(12))
+    '                    End If
 
-                        If dataReader.GetValue(13) Is DBNull.Value Then
-                            stcVarLoanInfo.LCProfit = Nothing
-                        Else
-                            stcVarLoanInfo.LCProfit = CDbl(dataReader.GetValue(13))
-                        End If
+    '                    If dataReader.GetValue(13) Is DBNull.Value Then
+    '                        stcVarLoanInfo.LCProfit = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.LCProfit = CDbl(dataReader.GetValue(13))
+    '                    End If
 
-                        If dataReader.GetValue(14) Is DBNull.Value Then
-                            stcVarLoanInfo.IstlNum = Nothing
-                        Else
-                            stcVarLoanInfo.IstlNum = CInt(dataReader.GetValue(14))
-                        End If
+    '                    If dataReader.GetValue(14) Is DBNull.Value Then
+    '                        stcVarLoanInfo.IstlNum = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.IstlNum = CInt(dataReader.GetValue(14))
+    '                    End If
 
 
-                        If dataReader.GetValue(15) Is DBNull.Value Then
-                            stcVarLoanInfo.LCAmountPaid = Nothing
-                        Else
-                            stcVarLoanInfo.LCAmountPaid = CDbl(dataReader.GetValue(15))
-                        End If
+    '                    If dataReader.GetValue(15) Is DBNull.Value Then
+    '                        stcVarLoanInfo.LCAmountPaid = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.LCAmountPaid = CDbl(dataReader.GetValue(15))
+    '                    End If
 
-                        If dataReader.GetValue(16) Is DBNull.Value Then
-                            stcVarLoanInfo.IstlPaid = Nothing
-                        Else
-                            stcVarLoanInfo.IstlPaid = CInt(dataReader.GetValue(16))
-                        End If
+    '                    If dataReader.GetValue(16) Is DBNull.Value Then
+    '                        stcVarLoanInfo.IstlPaid = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.IstlPaid = CInt(dataReader.GetValue(16))
+    '                    End If
 
-                        If dataReader.GetValue(17) Is DBNull.Value Then
-                            stcVarLoanInfo.AmounDefferd = Nothing
-                        Else
-                            stcVarLoanInfo.AmounDefferd = CDbl(dataReader.GetValue(17))
-                        End If
+    '                    If dataReader.GetValue(17) Is DBNull.Value Then
+    '                        stcVarLoanInfo.AmounDefferd = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.AmounDefferd = CDbl(dataReader.GetValue(17))
+    '                    End If
 
-                        If dataReader.GetValue(18) Is DBNull.Value Then
-                            stcVarLoanInfo.GDeffered = Nothing
-                        Else
-                            stcVarLoanInfo.GDeffered = CInt(dataReader.GetValue(18))
-                        End If
+    '                    If dataReader.GetValue(18) Is DBNull.Value Then
+    '                        stcVarLoanInfo.GDeffered = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.GDeffered = CInt(dataReader.GetValue(18))
+    '                    End If
 
 
-                        stcVarLoanInfo.Status = CStr(dataReader.GetValue(20)).Trim
+    '                    stcVarLoanInfo.Status = CStr(dataReader.GetValue(20)).Trim
 
 
-                        If dataReader.GetValue(21) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.NotPiadDurationDay = CInt(dataReader.GetValue(21))
-                        End If
+    '                    If dataReader.GetValue(21) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.NotPiadDurationDay = CInt(dataReader.GetValue(21))
+    '                    End If
 
 
-                        If dataReader.GetValue(22) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.LCBalance = CDbl(dataReader.GetValue(22))
-                        End If
+    '                    If dataReader.GetValue(22) Is DBNull.Value Then
+    '                        i -= 1
+    '                        Continue Do
+    '                    Else
+    '                        stcVarLoanInfo.LCBalance = CDbl(dataReader.GetValue(22))
+    '                    End If
 
 
-                        If dataReader.GetValue(25) Is DBNull.Value Then
-                            stcVarLoanInfo.Amount_MustPay = Nothing
-                        Else
-                            stcVarLoanInfo.Amount_MustPay = CDbl(dataReader.GetValue(25))
-                        End If
+    '                    If dataReader.GetValue(25) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Amount_MustPay = Nothing
+    '                    Else
+    '                        stcVarLoanInfo.Amount_MustPay = CDbl(dataReader.GetValue(25))
+    '                    End If
 
 
-                        If dataReader.GetValue(30) Is DBNull.Value Then
-                            stcVarLoanInfo.NationalID = ""
-                        Else
-                            stcVarLoanInfo.NationalID = CStr(dataReader.GetValue(30)).Replace("'", "")
-                        End If
+    '                    If dataReader.GetValue(30) Is DBNull.Value Then
+    '                        stcVarLoanInfo.NationalID = ""
+    '                    Else
+    '                        stcVarLoanInfo.NationalID = CStr(dataReader.GetValue(30)).Replace("'", "")
+    '                    End If
 
 
-                        If dataReader.GetValue(31) Is DBNull.Value Then
-                            stcVarLoanInfo.NationalNo = ""
-                        Else
-                            stcVarLoanInfo.NationalNo = CStr(dataReader.GetValue(31)).Replace("'", "")
-                        End If
+    '                    If dataReader.GetValue(31) Is DBNull.Value Then
+    '                        stcVarLoanInfo.NationalNo = ""
+    '                    Else
+    '                        stcVarLoanInfo.NationalNo = CStr(dataReader.GetValue(31)).Replace("'", "")
+    '                    End If
 
 
-                        If dataReader.GetValue(32) Is DBNull.Value Then
-                            stcVarLoanInfo.Sex = ""
-                        Else
-                            stcVarLoanInfo.Sex = CStr(dataReader.GetValue(32)).Trim.Replace("'", "")
-                        End If
+    '                    If dataReader.GetValue(32) Is DBNull.Value Then
+    '                        stcVarLoanInfo.Sex = ""
+    '                    Else
+    '                        stcVarLoanInfo.Sex = CStr(dataReader.GetValue(32)).Trim.Replace("'", "")
+    '                    End If
 
 
 
 
-                        Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
-                        Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
-                        dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarLoanInfo.CustomerNo)
-                        Dim intBorrowerFileID As Integer = -1
+    '                    Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
+    '                    Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
+    '                    dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarLoanInfo.CustomerNo)
+    '                    Dim intBorrowerFileID As Integer = -1
 
 
-                        If dtblFilebyCustomerNo.Rows.Count = 0 Then
+    '                    If dtblFilebyCustomerNo.Rows.Count = 0 Then
 
-                            Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+    '                        Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
 
-                            Dim arrFullName() As String = stcVarLoanInfo.FullName.Split("*")
-                            Dim strFatherName As String = arrFullName(0)
-                            Dim strFName As String = arrFullName(1)
-                            Dim strLName As String = arrFullName(2)
+    '                        Dim arrFullName() As String = stcVarLoanInfo.FullName.Split("*")
+    '                        Dim strFatherName As String = arrFullName(0)
+    '                        Dim strFName As String = arrFullName(1)
+    '                        Dim strLName As String = arrFullName(2)
 
 
-                            Dim blnIsMale As Boolean = If(stcVarLoanInfo.Sex = "زن", False, True)
-                            intBorrowerFileID = qryFile.spr_File_Insert(stcVarLoanInfo.CustomerNo, strFName, strLName, strFatherName, stcVarLoanInfo.Mobile, stcVarLoanInfo.NationalID, stcVarLoanInfo.NationalNo, "", stcVarLoanInfo.Address, stcVarLoanInfo.Telephone, stcVarLoanInfo.Telephone, blnIsMale, 2, 1, Nothing, Nothing)
+    '                        Dim blnIsMale As Boolean = If(stcVarLoanInfo.Sex = "زن", False, True)
+    '                        intBorrowerFileID = qryFile.spr_File_Insert(stcVarLoanInfo.CustomerNo, strFName, strLName, strFatherName, stcVarLoanInfo.Mobile, stcVarLoanInfo.NationalID, stcVarLoanInfo.NationalNo, "", stcVarLoanInfo.Address, stcVarLoanInfo.Telephone, stcVarLoanInfo.Telephone, blnIsMale, 2, 1, Nothing, Nothing)
 
-                        Else
+    '                    Else
 
-                            Dim drwFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectRow = dtblFilebyCustomerNo.Rows(0)
-                            intBorrowerFileID = drwFilebyCustomerNo.ID
+    '                        Dim drwFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectRow = dtblFilebyCustomerNo.Rows(0)
+    '                        intBorrowerFileID = drwFilebyCustomerNo.ID
 
-                        End If
+    '                    End If
 
 
-                        Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
-                        Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
-                        dtblLoanByNumber = tadpLoanByNumber.GetData(stcVarLoanInfo.LC_No, intBorrowerFileID)
+    '                    Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+    '                    Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+    '                    dtblLoanByNumber = tadpLoanByNumber.GetData(stcVarLoanInfo.LC_No, intBorrowerFileID)
 
 
-                        Dim intLoanID As Integer = -1
+    '                    Dim intLoanID As Integer = -1
 
-                        If dtblLoanByNumber.Rows.Count = 0 Then
-                            Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
+    '                    If dtblLoanByNumber.Rows.Count = 0 Then
+    '                        Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
 
 
-                            Dim dteLoanDate? As Date = Nothing
-                            Try
-                                stcVarLoanInfo.LCDate = stcVarLoanInfo.LCDate.Insert(4, "/")
-                                stcVarLoanInfo.LCDate = stcVarLoanInfo.LCDate.Insert(7, "/")
-                                dteLoanDate = mdlGeneral.GetGregorianDate(stcVarLoanInfo.LCDate)
-                            Catch ex As Exception
-                                dteLoanDate = Nothing
-                            End Try
+    '                        Dim dteLoanDate? As Date = Nothing
+    '                        Try
+    '                            stcVarLoanInfo.LCDate = stcVarLoanInfo.LCDate.Insert(4, "/")
+    '                            stcVarLoanInfo.LCDate = stcVarLoanInfo.LCDate.Insert(7, "/")
+    '                            dteLoanDate = mdlGeneral.GetGregorianDate(stcVarLoanInfo.LCDate)
+    '                        Catch ex As Exception
+    '                            dteLoanDate = Nothing
+    '                        End Try
 
-                            Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
-                            Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
-                            dtblBranchbyCode = tadpBranchbyCode.GetData(stcVarLoanInfo.BranchCode)
+    '                        Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
+    '                        Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
+    '                        dtblBranchbyCode = tadpBranchbyCode.GetData(stcVarLoanInfo.BranchCode)
 
-                            Dim intBranchID As Integer = CInt(Session("BranchID"))
+    '                        Dim intBranchID As Integer = CInt(Session("BranchID"))
 
 
-                            Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
-                            Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
-                            dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(stcVarLoanInfo.LoanTypeCode)
+    '                        Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+    '                        Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+    '                        dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(stcVarLoanInfo.LoanTypeCode)
 
-                            Dim intLoanTypeID As Integer = -1
+    '                        Dim intLoanTypeID As Integer = -1
 
-                            If dtblLoanTypeByCode.Rows.Count = 0 Then
+    '                        If dtblLoanTypeByCode.Rows.Count = 0 Then
 
-                                Dim strLoanTypeName As String = GetLoanTypeName(stcVarLoanInfo.LoanTypeCode)
-                                Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
-                                intLoanTypeID = qryLoanType.spr_LoanType_Insert(stcVarLoanInfo.LoanTypeCode, strLoanTypeName, 2, "")
+    '                            Dim strLoanTypeName As String = GetLoanTypeName(stcVarLoanInfo.LoanTypeCode)
+    '                            Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
+    '                            intLoanTypeID = qryLoanType.spr_LoanType_Insert(stcVarLoanInfo.LoanTypeCode, strLoanTypeName, 2, "")
 
 
-                            Else
-                                Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
-                                intLoanTypeID = drwLoanTypeByCode.ID
+    '                        Else
+    '                            Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
+    '                            intLoanTypeID = drwLoanTypeByCode.ID
 
 
-                            End If
+    '                        End If
 
 
-                            intLoanID = qryLoan.spr_Loan_Insert(intBorrowerFileID, intLoanTypeID, intBranchID, dteLoanDate, stcVarLoanInfo.LC_No, stcVarLoanInfo.LoanSerial, Date.Now, stcVarLoanInfo.LCAmount, stcVarLoanInfo.IstlNum)
+    '                        intLoanID = qryLoan.spr_Loan_Insert(intBorrowerFileID, intLoanTypeID, intBranchID, dteLoanDate, stcVarLoanInfo.LC_No, stcVarLoanInfo.LoanSerial, Date.Now, stcVarLoanInfo.LCAmount, stcVarLoanInfo.IstlNum)
 
 
-                            Dim arrintFileSponsors() As stc_Sponsor_Waranty = GetSponsorsList(stcVarLoanInfo.BranchCode, stcVarLoanInfo.LoanTypeCode, stcVarLoanInfo.CustomerNo, stcVarLoanInfo.LoanSerial)
+    '                        Dim arrintFileSponsors() As stc_Sponsor_Waranty = GetSponsorsList(stcVarLoanInfo.BranchCode, stcVarLoanInfo.LoanTypeCode, stcVarLoanInfo.CustomerNo, stcVarLoanInfo.LoanSerial)
 
-                            If arrintFileSponsors IsNot Nothing Then
-                                For k As Integer = 0 To arrintFileSponsors.Length - 1
+    '                        If arrintFileSponsors IsNot Nothing Then
+    '                            For k As Integer = 0 To arrintFileSponsors.Length - 1
 
 
-                                    Dim qryLoanSponsor As New BusinessObject.dstLoanSponsorTableAdapters.QueriesTableAdapter
-                                    Dim intLoanSponsorID As Integer = qryLoanSponsor.spr_LoanSponsor_Insert(intLoanID, arrintFileSponsors(k).SponsorID, arrintFileSponsors(k).WarantyTypeDesc)
+    '                                Dim qryLoanSponsor As New BusinessObject.dstLoanSponsorTableAdapters.QueriesTableAdapter
+    '                                Dim intLoanSponsorID As Integer = qryLoanSponsor.spr_LoanSponsor_Insert(intLoanID, arrintFileSponsors(k).SponsorID, arrintFileSponsors(k).WarantyTypeDesc)
 
-                                Next k
-                            End If
+    '                            Next k
+    '                        End If
 
 
 
-                        Else
+    '                    Else
 
 
-                            Dim drwLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectRow = dtblLoanByNumber.Rows(0)
-                            intLoanID = drwLoanByNumber.ID
+    '                        Dim drwLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectRow = dtblLoanByNumber.Rows(0)
+    '                        intLoanID = drwLoanByNumber.ID
 
 
-                            'Update Sponsors
+    '                        'Update Sponsors
 
-                            Dim arrintFileSponsors() As stc_Sponsor_Waranty = GetSponsorsList(stcVarLoanInfo.BranchCode, stcVarLoanInfo.LoanTypeCode, stcVarLoanInfo.CustomerNo, stcVarLoanInfo.LoanSerial)
+    '                        Dim arrintFileSponsors() As stc_Sponsor_Waranty = GetSponsorsList(stcVarLoanInfo.BranchCode, stcVarLoanInfo.LoanTypeCode, stcVarLoanInfo.CustomerNo, stcVarLoanInfo.LoanSerial)
 
 
 
-                            If arrintFileSponsors IsNot Nothing Then
-                                For k As Integer = 0 To arrintFileSponsors.Length - 1
+    '                        If arrintFileSponsors IsNot Nothing Then
+    '                            For k As Integer = 0 To arrintFileSponsors.Length - 1
 
 
-                                    Dim tadpLoanSponsorCheck As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_Check_SelectTableAdapter
-                                    Dim dtblLoanSponsorCheck As BusinessObject.dstLoanSponsor.spr_LoanSponsor_Check_SelectDataTable = Nothing
-                                    dtblLoanSponsorCheck = tadpLoanSponsorCheck.GetData(intLoanID, arrintFileSponsors(k).SponsorID)
+    '                                Dim tadpLoanSponsorCheck As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_Check_SelectTableAdapter
+    '                                Dim dtblLoanSponsorCheck As BusinessObject.dstLoanSponsor.spr_LoanSponsor_Check_SelectDataTable = Nothing
+    '                                dtblLoanSponsorCheck = tadpLoanSponsorCheck.GetData(intLoanID, arrintFileSponsors(k).SponsorID)
 
 
-                                    If dtblFilebyCustomerNo.Rows.Count = 0 Then
+    '                                If dtblFilebyCustomerNo.Rows.Count = 0 Then
 
-                                        Dim qryLoanSponsor As New BusinessObject.dstLoanSponsorTableAdapters.QueriesTableAdapter
-                                        Dim intLoanSponsorID As Integer = qryLoanSponsor.spr_LoanSponsor_Insert(intLoanID, arrintFileSponsors(k).SponsorID, arrintFileSponsors(k).WarantyTypeDesc)
+    '                                    Dim qryLoanSponsor As New BusinessObject.dstLoanSponsorTableAdapters.QueriesTableAdapter
+    '                                    Dim intLoanSponsorID As Integer = qryLoanSponsor.spr_LoanSponsor_Insert(intLoanID, arrintFileSponsors(k).SponsorID, arrintFileSponsors(k).WarantyTypeDesc)
 
 
-                                    End If
+    '                                End If
 
-                                Next k
-                            End If
+    '                            Next k
+    '                        End If
 
 
 
 
-                        End If
+    '                    End If
 
-                        Session("intFileID") = intBorrowerFileID
-                        Session("intLoanID") = intLoanID
+    '                    Session("intFileID") = intBorrowerFileID
+    '                    Session("intLoanID") = intLoanID
 
-                    Catch ex As Exception
-                        Continue Do
-                    End Try
+    '                Catch ex As Exception
+    '                    Continue Do
+    '                End Try
 
 
 
-                Loop While dataReader.Read()
-                dataReader.Close()
+    '            Loop While dataReader.Read()
+    '            dataReader.Close()
 
 
-            Catch ex As Exception
+    '        Catch ex As Exception
 
-                Bootstrap_Panel1.ShowMessage(ex.Message, True)
+    '            Bootstrap_Panel1.ShowMessage(ex.Message, True)
 
-                cnnBI_Connection.Close()
+    '            cnnBI_Connection.Close()
 
-                Return
-            End Try
+    '            Return
+    '        End Try
 
-        End Using
+    '    End Using
 
-    End Sub
+    'End Sub
 
-    Private Function GetLoanTypeName(ByVal strLoanTypeCode As String) As String
-        Try
-            Dim strLoanTypeDesc As String = strLoanTypeCode
+    'Private Function GetLoanTypeName(ByVal strLoanTypeCode As String) As String
+    '    Try
+    '        Dim strLoanTypeDesc As String = strLoanTypeCode
 
-            Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
-            cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
-            cnnBuiler_BI.UserID = "deposit"
-            cnnBuiler_BI.Password = "deposit"
-            cnnBuiler_BI.Unicode = True
+    '        Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+    '        cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+    '        cnnBuiler_BI.UserID = "deposit"
+    '        cnnBuiler_BI.Password = "deposit"
+    '        cnnBuiler_BI.Unicode = True
 
-            Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+    '        Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
 
-                Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
-                Dim strLoanType As String = "SELECT * from lfloantyp where LNMINORTP='" & strLoanTypeCode & "'"
-                cmd_BI.CommandText = strLoanType
+    '            Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+    '            Dim strLoanType As String = "SELECT * from lfloantyp where LNMINORTP='" & strLoanTypeCode & "'"
+    '            cmd_BI.CommandText = strLoanType
 
-                Try
-                    cnnBI_Connection.Open()
-                Catch ex As Exception
-                    Return strLoanTypeDesc
-                End Try
+    '            Try
+    '                cnnBI_Connection.Open()
+    '            Catch ex As Exception
+    '                Return strLoanTypeDesc
+    '            End Try
 
-                Dim dataReader As OracleDataReader = Nothing
-                dataReader = cmd_BI.ExecuteReader()
+    '            Dim dataReader As OracleDataReader = Nothing
+    '            dataReader = cmd_BI.ExecuteReader()
 
-                If dataReader.Read = False Then
-                    dataReader.Close()
-                    cnnBI_Connection.Close()
-                    Return strLoanTypeDesc
-                End If
+    '            If dataReader.Read = False Then
+    '                dataReader.Close()
+    '                cnnBI_Connection.Close()
+    '                Return strLoanTypeDesc
+    '            End If
 
 
-                If dataReader.GetValue(3) Is DBNull.Value Then
-                    strLoanTypeDesc = strLoanTypeCode
-                Else
-                    strLoanTypeDesc = CStr(dataReader.GetValue(3)).Trim.Replace("'", "")
-                End If
+    '            If dataReader.GetValue(3) Is DBNull.Value Then
+    '                strLoanTypeDesc = strLoanTypeCode
+    '            Else
+    '                strLoanTypeDesc = CStr(dataReader.GetValue(3)).Trim.Replace("'", "")
+    '            End If
 
 
 
-                dataReader.Close()
-                cnnBI_Connection.Close()
+    '            dataReader.Close()
+    '            cnnBI_Connection.Close()
 
-            End Using
+    '        End Using
 
-            Return strLoanTypeDesc
+    '        Return strLoanTypeDesc
 
-        Catch ex As Exception
-            Return strLoanTypeCode
-        End Try
+    '    Catch ex As Exception
+    '        Return strLoanTypeCode
+    '    End Try
 
-    End Function
+    'End Function
 
-    Private Function GetSponsorsList(ByVal strBranchCode As String, ByVal strLoanTypeCode As String, ByVal strCustomerNo As String, ByVal intLoanSerial As Integer) As stc_Sponsor_Waranty()
+    'Private Function GetSponsorsList(ByVal strBranchCode As String, ByVal strLoanTypeCode As String, ByVal strCustomerNo As String, ByVal intLoanSerial As Integer) As stc_Sponsor_Waranty()
 
 
-        Dim obj_stc_Sponsor_Waranty() As stc_Sponsor_Waranty = Nothing
+    '    Dim obj_stc_Sponsor_Waranty() As stc_Sponsor_Waranty = Nothing
 
-        Dim tadpSponsorList As New BusinessObject.dstSponsor_ListTableAdapters.spr_Sponsors_List_ByLoanNumber_SelectTableAdapter
-        Dim dtblSponsorList As BusinessObject.dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable = Nothing
-        dtblSponsorList = tadpSponsorList.GetData(strBranchCode, strLoanTypeCode, strCustomerNo, intLoanSerial)
+    '    Dim tadpSponsorList As New BusinessObject.dstSponsor_ListTableAdapters.spr_Sponsors_List_ByLoanNumber_SelectTableAdapter
+    '    Dim dtblSponsorList As BusinessObject.dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable = Nothing
+    '    dtblSponsorList = tadpSponsorList.GetData(strBranchCode, strLoanTypeCode, strCustomerNo, intLoanSerial)
 
-        If dtblSponsorList.Rows.Count = 0 Then
-            Return Nothing
-        End If
+    '    If dtblSponsorList.Rows.Count = 0 Then
+    '        Return Nothing
+    '    End If
 
-        For Each drwSponsorList As BusinessObject.dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectRow In dtblSponsorList.Rows
+    '    For Each drwSponsorList As BusinessObject.dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectRow In dtblSponsorList.Rows
 
 
-            Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
-            Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
-            dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(drwSponsorList.SponsorCustomerNo)
-            Dim intSponsorID As Integer = -1
+    '        Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
+    '        Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
+    '        dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(drwSponsorList.SponsorCustomerNo)
+    '        Dim intSponsorID As Integer = -1
 
 
-            If dtblFilebyCustomerNo.Rows.Count = 0 Then
+    '        If dtblFilebyCustomerNo.Rows.Count = 0 Then
 
-                Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+    '            Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
 
-                Dim strFName As String = ""
-                Dim strLName As String = drwSponsorList.FullName
-                Dim strFatherName As String = drwSponsorList.FatherName
+    '            Dim strFName As String = ""
+    '            Dim strLName As String = drwSponsorList.FullName
+    '            Dim strFatherName As String = drwSponsorList.FatherName
 
-                Dim blnIsMale As Boolean = True
+    '            Dim blnIsMale As Boolean = True
 
-                intSponsorID = qryFile.spr_File_Insert(drwSponsorList.SponsorCustomerNo, strFName, strLName, strFatherName, drwSponsorList.MobileNo, drwSponsorList.NationalID, drwSponsorList.IDNumber, "", drwSponsorList.Address, drwSponsorList.TelephoneHome, drwSponsorList.TelephoneWork, blnIsMale, 2, 1, Nothing, Nothing)
+    '            intSponsorID = qryFile.spr_File_Insert(drwSponsorList.SponsorCustomerNo, strFName, strLName, strFatherName, drwSponsorList.MobileNo, drwSponsorList.NationalID, drwSponsorList.IDNumber, "", drwSponsorList.Address, drwSponsorList.TelephoneHome, drwSponsorList.TelephoneWork, blnIsMale, 2, 1, Nothing, Nothing)
 
 
-            Else
+    '        Else
 
-                Dim drwFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectRow = dtblFilebyCustomerNo.Rows(0)
-                intSponsorID = drwFilebyCustomerNo.ID
+    '            Dim drwFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectRow = dtblFilebyCustomerNo.Rows(0)
+    '            intSponsorID = drwFilebyCustomerNo.ID
 
 
-            End If
+    '        End If
 
 
-            If obj_stc_Sponsor_Waranty Is Nothing Then
-                ReDim obj_stc_Sponsor_Waranty(0)
-            Else
-                ReDim Preserve obj_stc_Sponsor_Waranty(obj_stc_Sponsor_Waranty.Length)
-            End If
+    '        If obj_stc_Sponsor_Waranty Is Nothing Then
+    '            ReDim obj_stc_Sponsor_Waranty(0)
+    '        Else
+    '            ReDim Preserve obj_stc_Sponsor_Waranty(obj_stc_Sponsor_Waranty.Length)
+    '        End If
 
-            obj_stc_Sponsor_Waranty(obj_stc_Sponsor_Waranty.Length - 1).SponsorID = intSponsorID
-            obj_stc_Sponsor_Waranty(obj_stc_Sponsor_Waranty.Length - 1).WarantyTypeDesc = drwSponsorList.WarantyTypeDesc
+    '        obj_stc_Sponsor_Waranty(obj_stc_Sponsor_Waranty.Length - 1).SponsorID = intSponsorID
+    '        obj_stc_Sponsor_Waranty(obj_stc_Sponsor_Waranty.Length - 1).WarantyTypeDesc = drwSponsorList.WarantyTypeDesc
 
 
-        Next drwSponsorList
+    '    Next drwSponsorList
 
-        '' Dim lnq = obj_stc_Sponsor_Waranty.GroupBy(Function(x) New With {.Key1 = x.SponsorID})
+    '    '' Dim lnq = obj_stc_Sponsor_Waranty.GroupBy(Function(x) New With {.Key1 = x.SponsorID})
 
 
-        Return obj_stc_Sponsor_Waranty
+    '    Return obj_stc_Sponsor_Waranty
 
 
-    End Function
+    'End Function
 End Class

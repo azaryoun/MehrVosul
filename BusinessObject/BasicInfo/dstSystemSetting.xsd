@@ -52,6 +52,9 @@
               <Mapping SourceColumn="PreNotification" DataSetColumn="PreNotification" />
               <Mapping SourceColumn="UpdateTime_PreNotify" DataSetColumn="UpdateTime_PreNotify" />
               <Mapping SourceColumn="tryTime_PreNotify" DataSetColumn="tryTime_PreNotify" />
+              <Mapping SourceColumn="GetTotalLC" DataSetColumn="GetTotalLC" />
+              <Mapping SourceColumn="UpdateTime_TotalLC" DataSetColumn="UpdateTime_TotalLC" />
+              <Mapping SourceColumn="tryTime_TotalLC" DataSetColumn="tryTime_TotalLC" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -213,6 +216,9 @@
               <xs:element name="PreNotification" msprop:Generator_ColumnVarNameInTable="columnPreNotification" msprop:Generator_ColumnPropNameInRow="PreNotification" msprop:Generator_ColumnPropNameInTable="PreNotificationColumn" msprop:Generator_UserColumnName="PreNotification" type="xs:boolean" minOccurs="0" />
               <xs:element name="UpdateTime_PreNotify" msprop:Generator_ColumnVarNameInTable="columnUpdateTime_PreNotify" msprop:Generator_ColumnPropNameInRow="UpdateTime_PreNotify" msprop:Generator_ColumnPropNameInTable="UpdateTime_PreNotifyColumn" msprop:Generator_UserColumnName="UpdateTime_PreNotify" type="xs:duration" minOccurs="0" />
               <xs:element name="tryTime_PreNotify" msprop:Generator_ColumnVarNameInTable="columntryTime_PreNotify" msprop:Generator_ColumnPropNameInRow="tryTime_PreNotify" msprop:Generator_ColumnPropNameInTable="tryTime_PreNotifyColumn" msprop:Generator_UserColumnName="tryTime_PreNotify" type="xs:int" minOccurs="0" />
+              <xs:element name="GetTotalLC" msprop:Generator_ColumnVarNameInTable="columnGetTotalLC" msprop:Generator_ColumnPropNameInRow="GetTotalLC" msprop:Generator_ColumnPropNameInTable="GetTotalLCColumn" msprop:Generator_UserColumnName="GetTotalLC" type="xs:boolean" minOccurs="0" />
+              <xs:element name="UpdateTime_TotalLC" msprop:Generator_ColumnVarNameInTable="columnUpdateTime_TotalLC" msprop:Generator_ColumnPropNameInRow="UpdateTime_TotalLC" msprop:Generator_ColumnPropNameInTable="UpdateTime_TotalLCColumn" msprop:Generator_UserColumnName="UpdateTime_TotalLC" type="xs:duration" minOccurs="0" />
+              <xs:element name="tryTime_TotalLC" msprop:Generator_ColumnVarNameInTable="columntryTime_TotalLC" msprop:Generator_ColumnPropNameInRow="tryTime_TotalLC" msprop:Generator_ColumnPropNameInTable="tryTime_TotalLCColumn" msprop:Generator_UserColumnName="tryTime_TotalLC" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

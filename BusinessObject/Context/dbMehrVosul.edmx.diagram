@@ -136,6 +136,8 @@
         <EntityTypeShape EntityType="dbMehrVosulModel.tbl_PreWarningNotificationLogDetail" Width="1.5" PointX="16.375" PointY="0.75" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_PreWarningNotificationLog_tbl_PreWarningNotificationLog" />
         <AssociationConnector Association="dbMehrVosulModel.FK_tbl_HandyFollow_tbl_User" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_LogTotalDeffredStatus" Width="1.5" PointX="0.75" PointY="16.75" />
+        <EntityTypeShape EntityType="dbMehrVosulModel.tbl_TotalDeffredLC" Width="1.5" PointX="16.75" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

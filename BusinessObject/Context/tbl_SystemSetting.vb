@@ -42,5 +42,8 @@ Partial Public Class tbl_SystemSetting
     Public Property PreNotification As Nullable(Of Boolean)
     Public Property UpdateTime_PreNotify As Nullable(Of System.TimeSpan)
     Public Property tryTime_PreNotify As Nullable(Of Integer)
+    Public Property GetTotalLC As Nullable(Of Boolean)
+    Public Property UpdateTime_TotalLC As Nullable(Of System.TimeSpan)
+    Public Property tryTime_TotalLC As Nullable(Of Integer)
 
 End Class

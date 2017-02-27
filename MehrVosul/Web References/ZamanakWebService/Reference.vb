@@ -24,7 +24,7 @@ Imports System.Xml.Serialization
 Namespace ZamanakWebService
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code"),  _
      System.Web.Services.WebServiceBindingAttribute(Name:="Default_Service_SoapServer_ZamanakV4Binding", [Namespace]:="http://www.zamanak.ir/api/soap-v4")>  _
@@ -133,9 +133,33 @@ Namespace ZamanakWebService
         
         Private newLivePollSmsCampaignOperationCompleted As System.Threading.SendOrPostCallback
         
+        Private sendSmsGroupOperationCompleted As System.Threading.SendOrPostCallback
+        
         Private sendSmsOperationCompleted As System.Threading.SendOrPostCallback
         
+        Private sendCaptchaSmsOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private enqueueOperationCompleted As System.Threading.SendOrPostCallback
+        
         Private guarantyOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private addDevAbzarakOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private netmonOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private secretaryOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private emailGroupOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private billPaymentOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private buyChargeOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private newCampaignbyTextOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private textToVoiceCalculatorOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private smsBalanceOperationCompleted As System.Threading.SendOrPostCallback
         
         Private useDefaultCredentialsSetExplicitly As Boolean
         
@@ -329,10 +353,46 @@ Namespace ZamanakWebService
         Public Event newLivePollSmsCampaignCompleted As newLivePollSmsCampaignCompletedEventHandler
         
         '''<remarks/>
+        Public Event sendSmsGroupCompleted As sendSmsGroupCompletedEventHandler
+        
+        '''<remarks/>
         Public Event sendSmsCompleted As sendSmsCompletedEventHandler
         
         '''<remarks/>
+        Public Event sendCaptchaSmsCompleted As sendCaptchaSmsCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event enqueueCompleted As enqueueCompletedEventHandler
+        
+        '''<remarks/>
         Public Event guarantyCompleted As guarantyCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event addDevAbzarakCompleted As addDevAbzarakCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event netmonCompleted As netmonCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event secretaryCompleted As secretaryCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event emailGroupCompleted As emailGroupCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event billPaymentCompleted As billPaymentCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event buyChargeCompleted As buyChargeCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event newCampaignbyTextCompleted As newCampaignbyTextCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event textToVoiceCalculatorCompleted As textToVoiceCalculatorCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event smsBalanceCompleted As smsBalanceCompletedEventHandler
         
         '''<remarks/>
         <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#signUp", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
@@ -1226,10 +1286,11 @@ Namespace ZamanakWebService
         End Sub
         
         '''<remarks/>
-        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#newContact", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", OneWay:=true)>  _
-        Public Sub newContact(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal firstName As String, ByVal lastName As String, ByVal phoneNumber As String, ByVal company As String, ByVal address As String, ByVal email As String, ByVal Groups As String)
-            Me.Invoke("newContact", New Object() {clientId, clientSecret, uid, token, firstName, lastName, phoneNumber, company, address, email, Groups})
-        End Sub
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#newContact", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function newContact(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal firstName As String, ByVal lastName As String, ByVal phoneNumber As String, ByVal company As String, ByVal address As String, ByVal email As String, ByVal Groups As String) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
+            Dim results() As Object = Me.Invoke("newContact", New Object() {clientId, clientSecret, uid, token, firstName, lastName, phoneNumber, company, address, email, Groups})
+            Return CType(results(0),Object())
+        End Function
         
         '''<remarks/>
         Public Overloads Sub newContactAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal firstName As String, ByVal lastName As String, ByVal phoneNumber As String, ByVal company As String, ByVal address As String, ByVal email As String, ByVal Groups As String)
@@ -1247,7 +1308,7 @@ Namespace ZamanakWebService
         Private Sub OnnewContactOperationCompleted(ByVal arg As Object)
             If (Not (Me.newContactCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
-                RaiseEvent newContactCompleted(Me, New System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+                RaiseEvent newContactCompleted(Me, New newContactCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -1496,22 +1557,22 @@ Namespace ZamanakWebService
         
         '''<remarks/>
         <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#newMixCampaign", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
-        Public Function newMixCampaign(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal contact_count As Integer, ByVal recording_count As Integer, ByVal numbers_count As Integer, ByVal [to]() As Object, ByVal recordings() As Object, ByVal numbers() As Object, ByVal sayMethod As String, ByVal mixType As String) As <System.Xml.Serialization.SoapElementAttribute("return")> String
-            Dim results() As Object = Me.Invoke("newMixCampaign", New Object() {clientId, clientSecret, uid, token, name, contact_count, recording_count, numbers_count, [to], recordings, numbers, sayMethod, mixType})
+        Public Function newMixCampaign(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal contact_count As Integer, ByVal recording_count As Integer, ByVal numbers_count As Integer, ByVal [to]() As Object, ByVal recordings() As Object, ByVal numbers() As Object, ByVal sayMethod As String, ByVal mixType As String, ByVal retry As Integer) As <System.Xml.Serialization.SoapElementAttribute("return")> String
+            Dim results() As Object = Me.Invoke("newMixCampaign", New Object() {clientId, clientSecret, uid, token, name, contact_count, recording_count, numbers_count, [to], recordings, numbers, sayMethod, mixType, retry})
             Return CType(results(0),String)
         End Function
         
         '''<remarks/>
-        Public Overloads Sub newMixCampaignAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal contact_count As Integer, ByVal recording_count As Integer, ByVal numbers_count As Integer, ByVal [to]() As Object, ByVal recordings() As Object, ByVal numbers() As Object, ByVal sayMethod As String, ByVal mixType As String)
-            Me.newMixCampaignAsync(clientId, clientSecret, uid, token, name, contact_count, recording_count, numbers_count, [to], recordings, numbers, sayMethod, mixType, Nothing)
+        Public Overloads Sub newMixCampaignAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal contact_count As Integer, ByVal recording_count As Integer, ByVal numbers_count As Integer, ByVal [to]() As Object, ByVal recordings() As Object, ByVal numbers() As Object, ByVal sayMethod As String, ByVal mixType As String, ByVal retry As Integer)
+            Me.newMixCampaignAsync(clientId, clientSecret, uid, token, name, contact_count, recording_count, numbers_count, [to], recordings, numbers, sayMethod, mixType, retry, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub newMixCampaignAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal contact_count As Integer, ByVal recording_count As Integer, ByVal numbers_count As Integer, ByVal [to]() As Object, ByVal recordings() As Object, ByVal numbers() As Object, ByVal sayMethod As String, ByVal mixType As String, ByVal userState As Object)
+        Public Overloads Sub newMixCampaignAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal contact_count As Integer, ByVal recording_count As Integer, ByVal numbers_count As Integer, ByVal [to]() As Object, ByVal recordings() As Object, ByVal numbers() As Object, ByVal sayMethod As String, ByVal mixType As String, ByVal retry As Integer, ByVal userState As Object)
             If (Me.newMixCampaignOperationCompleted Is Nothing) Then
                 Me.newMixCampaignOperationCompleted = AddressOf Me.OnnewMixCampaignOperationCompleted
             End If
-            Me.InvokeAsync("newMixCampaign", New Object() {clientId, clientSecret, uid, token, name, contact_count, recording_count, numbers_count, [to], recordings, numbers, sayMethod, mixType}, Me.newMixCampaignOperationCompleted, userState)
+            Me.InvokeAsync("newMixCampaign", New Object() {clientId, clientSecret, uid, token, name, contact_count, recording_count, numbers_count, [to], recordings, numbers, sayMethod, mixType, retry}, Me.newMixCampaignOperationCompleted, userState)
         End Sub
         
         Private Sub OnnewMixCampaignOperationCompleted(ByVal arg As Object)
@@ -1711,6 +1772,33 @@ Namespace ZamanakWebService
         End Sub
         
         '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#sendSmsGroup", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function sendSmsGroup(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal group As String, ByVal message As String, ByVal username As String, ByVal password As String, ByVal company As String, ByVal sender As String) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
+            Dim results() As Object = Me.Invoke("sendSmsGroup", New Object() {clientId, clientSecret, uid, token, name, group, message, username, password, company, sender})
+            Return CType(results(0),Object())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub sendSmsGroupAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal group As String, ByVal message As String, ByVal username As String, ByVal password As String, ByVal company As String, ByVal sender As String)
+            Me.sendSmsGroupAsync(clientId, clientSecret, uid, token, name, group, message, username, password, company, sender, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub sendSmsGroupAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal group As String, ByVal message As String, ByVal username As String, ByVal password As String, ByVal company As String, ByVal sender As String, ByVal userState As Object)
+            If (Me.sendSmsGroupOperationCompleted Is Nothing) Then
+                Me.sendSmsGroupOperationCompleted = AddressOf Me.OnsendSmsGroupOperationCompleted
+            End If
+            Me.InvokeAsync("sendSmsGroup", New Object() {clientId, clientSecret, uid, token, name, group, message, username, password, company, sender}, Me.sendSmsGroupOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnsendSmsGroupOperationCompleted(ByVal arg As Object)
+            If (Not (Me.sendSmsGroupCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent sendSmsGroupCompleted(Me, New sendSmsGroupCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
         <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#sendSms", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
         Public Function sendSms(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal [to]() As Object, ByVal message As String, ByVal username As String, ByVal password As String, ByVal company As String, ByVal sender As String) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
             Dim results() As Object = Me.Invoke("sendSms", New Object() {clientId, clientSecret, uid, token, name, [to], message, username, password, company, sender})
@@ -1738,19 +1826,73 @@ Namespace ZamanakWebService
         End Sub
         
         '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#sendCaptchaSms", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function sendCaptchaSms(ByVal username As String, ByVal password As String, ByVal mobile As String, <System.Xml.Serialization.SoapElementAttribute("captcha")> ByVal captcha1 As Integer) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
+            Dim results() As Object = Me.Invoke("sendCaptchaSms", New Object() {username, password, mobile, captcha1})
+            Return CType(results(0),Object())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub sendCaptchaSmsAsync(ByVal username As String, ByVal password As String, ByVal mobile As String, ByVal captcha1 As Integer)
+            Me.sendCaptchaSmsAsync(username, password, mobile, captcha1, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub sendCaptchaSmsAsync(ByVal username As String, ByVal password As String, ByVal mobile As String, ByVal captcha1 As Integer, ByVal userState As Object)
+            If (Me.sendCaptchaSmsOperationCompleted Is Nothing) Then
+                Me.sendCaptchaSmsOperationCompleted = AddressOf Me.OnsendCaptchaSmsOperationCompleted
+            End If
+            Me.InvokeAsync("sendCaptchaSms", New Object() {username, password, mobile, captcha1}, Me.sendCaptchaSmsOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnsendCaptchaSmsOperationCompleted(ByVal arg As Object)
+            If (Not (Me.sendCaptchaSmsCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent sendCaptchaSmsCompleted(Me, New sendCaptchaSmsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#enqueue", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function enqueue(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal message() As Object, ByVal destinations() As Object, ByVal originators() As Object, ByVal udhs() As Object) As <System.Xml.Serialization.SoapElementAttribute("return")> String
+            Dim results() As Object = Me.Invoke("enqueue", New Object() {clientId, clientSecret, uid, token, message, destinations, originators, udhs})
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub enqueueAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal message() As Object, ByVal destinations() As Object, ByVal originators() As Object, ByVal udhs() As Object)
+            Me.enqueueAsync(clientId, clientSecret, uid, token, message, destinations, originators, udhs, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub enqueueAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal message() As Object, ByVal destinations() As Object, ByVal originators() As Object, ByVal udhs() As Object, ByVal userState As Object)
+            If (Me.enqueueOperationCompleted Is Nothing) Then
+                Me.enqueueOperationCompleted = AddressOf Me.OnenqueueOperationCompleted
+            End If
+            Me.InvokeAsync("enqueue", New Object() {clientId, clientSecret, uid, token, message, destinations, originators, udhs}, Me.enqueueOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnenqueueOperationCompleted(ByVal arg As Object)
+            If (Not (Me.enqueueCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent enqueueCompleted(Me, New enqueueCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
         <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#guaranty", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
-        Public Function guaranty(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal campId As Integer) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
+        Public Function guaranty(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal campId As String) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
             Dim results() As Object = Me.Invoke("guaranty", New Object() {clientId, clientSecret, uid, token, campId})
             Return CType(results(0),Object())
         End Function
         
         '''<remarks/>
-        Public Overloads Sub guarantyAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal campId As Integer)
+        Public Overloads Sub guarantyAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal campId As String)
             Me.guarantyAsync(clientId, clientSecret, uid, token, campId, Nothing)
         End Sub
         
         '''<remarks/>
-        Public Overloads Sub guarantyAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal campId As Integer, ByVal userState As Object)
+        Public Overloads Sub guarantyAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal campId As String, ByVal userState As Object)
             If (Me.guarantyOperationCompleted Is Nothing) Then
                 Me.guarantyOperationCompleted = AddressOf Me.OnguarantyOperationCompleted
             End If
@@ -1761,6 +1903,249 @@ Namespace ZamanakWebService
             If (Not (Me.guarantyCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
                 RaiseEvent guarantyCompleted(Me, New guarantyCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#addDevAbzarak", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function addDevAbzarak(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal userId As String) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
+            Dim results() As Object = Me.Invoke("addDevAbzarak", New Object() {clientId, clientSecret, uid, token, userId})
+            Return CType(results(0),Object())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub addDevAbzarakAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal userId As String)
+            Me.addDevAbzarakAsync(clientId, clientSecret, uid, token, userId, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub addDevAbzarakAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal userId As String, ByVal userState As Object)
+            If (Me.addDevAbzarakOperationCompleted Is Nothing) Then
+                Me.addDevAbzarakOperationCompleted = AddressOf Me.OnaddDevAbzarakOperationCompleted
+            End If
+            Me.InvokeAsync("addDevAbzarak", New Object() {clientId, clientSecret, uid, token, userId}, Me.addDevAbzarakOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnaddDevAbzarakOperationCompleted(ByVal arg As Object)
+            If (Not (Me.addDevAbzarakCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent addDevAbzarakCompleted(Me, New addDevAbzarakCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#netmon", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function netmon(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
+            Dim results() As Object = Me.Invoke("netmon", New Object() {clientId, clientSecret, uid, token})
+            Return CType(results(0),Object())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub netmonAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String)
+            Me.netmonAsync(clientId, clientSecret, uid, token, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub netmonAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal userState As Object)
+            If (Me.netmonOperationCompleted Is Nothing) Then
+                Me.netmonOperationCompleted = AddressOf Me.OnnetmonOperationCompleted
+            End If
+            Me.InvokeAsync("netmon", New Object() {clientId, clientSecret, uid, token}, Me.netmonOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnnetmonOperationCompleted(ByVal arg As Object)
+            If (Not (Me.netmonCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent netmonCompleted(Me, New netmonCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#secretary", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function secretary(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal type As String, ByVal [to]() As Object, ByVal sourceNumber() As Object, ByVal recording_id As String, ByVal call_key As String, ByVal time_limit As String, ByVal retry As String, ByVal startAt As String, ByVal stopAt As String) As <System.Xml.Serialization.SoapElementAttribute("return")> String
+            Dim results() As Object = Me.Invoke("secretary", New Object() {clientId, clientSecret, uid, token, name, type, [to], sourceNumber, recording_id, call_key, time_limit, retry, startAt, stopAt})
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub secretaryAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal type As String, ByVal [to]() As Object, ByVal sourceNumber() As Object, ByVal recording_id As String, ByVal call_key As String, ByVal time_limit As String, ByVal retry As String, ByVal startAt As String, ByVal stopAt As String)
+            Me.secretaryAsync(clientId, clientSecret, uid, token, name, type, [to], sourceNumber, recording_id, call_key, time_limit, retry, startAt, stopAt, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub secretaryAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal type As String, ByVal [to]() As Object, ByVal sourceNumber() As Object, ByVal recording_id As String, ByVal call_key As String, ByVal time_limit As String, ByVal retry As String, ByVal startAt As String, ByVal stopAt As String, ByVal userState As Object)
+            If (Me.secretaryOperationCompleted Is Nothing) Then
+                Me.secretaryOperationCompleted = AddressOf Me.OnsecretaryOperationCompleted
+            End If
+            Me.InvokeAsync("secretary", New Object() {clientId, clientSecret, uid, token, name, type, [to], sourceNumber, recording_id, call_key, time_limit, retry, startAt, stopAt}, Me.secretaryOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnsecretaryOperationCompleted(ByVal arg As Object)
+            If (Not (Me.secretaryCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent secretaryCompleted(Me, New secretaryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#emailGroup", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function emailGroup(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal [to]() As Object, ByVal group As String, ByVal message As String) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
+            Dim results() As Object = Me.Invoke("emailGroup", New Object() {clientId, clientSecret, uid, token, name, [to], group, message})
+            Return CType(results(0),Object())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub emailGroupAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal [to]() As Object, ByVal group As String, ByVal message As String)
+            Me.emailGroupAsync(clientId, clientSecret, uid, token, name, [to], group, message, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub emailGroupAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal [to]() As Object, ByVal group As String, ByVal message As String, ByVal userState As Object)
+            If (Me.emailGroupOperationCompleted Is Nothing) Then
+                Me.emailGroupOperationCompleted = AddressOf Me.OnemailGroupOperationCompleted
+            End If
+            Me.InvokeAsync("emailGroup", New Object() {clientId, clientSecret, uid, token, name, [to], group, message}, Me.emailGroupOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnemailGroupOperationCompleted(ByVal arg As Object)
+            If (Not (Me.emailGroupCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent emailGroupCompleted(Me, New emailGroupCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#billPayment", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function billPayment(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal [to]() As Object, ByVal recordingIds() As Object, ByVal billType() As Object, ByVal billId() As Object, ByVal paymentId() As Object, ByVal amount() As Object, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer) As <System.Xml.Serialization.SoapElementAttribute("return")> String
+            Dim results() As Object = Me.Invoke("billPayment", New Object() {clientId, clientSecret, uid, token, name, [to], recordingIds, billType, billId, paymentId, amount, startTime, stopTime, repeatTotal})
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub billPaymentAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal [to]() As Object, ByVal recordingIds() As Object, ByVal billType() As Object, ByVal billId() As Object, ByVal paymentId() As Object, ByVal amount() As Object, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer)
+            Me.billPaymentAsync(clientId, clientSecret, uid, token, name, [to], recordingIds, billType, billId, paymentId, amount, startTime, stopTime, repeatTotal, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub billPaymentAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal [to]() As Object, ByVal recordingIds() As Object, ByVal billType() As Object, ByVal billId() As Object, ByVal paymentId() As Object, ByVal amount() As Object, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer, ByVal userState As Object)
+            If (Me.billPaymentOperationCompleted Is Nothing) Then
+                Me.billPaymentOperationCompleted = AddressOf Me.OnbillPaymentOperationCompleted
+            End If
+            Me.InvokeAsync("billPayment", New Object() {clientId, clientSecret, uid, token, name, [to], recordingIds, billType, billId, paymentId, amount, startTime, stopTime, repeatTotal}, Me.billPaymentOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnbillPaymentOperationCompleted(ByVal arg As Object)
+            If (Not (Me.billPaymentCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent billPaymentCompleted(Me, New billPaymentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#buyCharge", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function buyCharge(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal [to] As String, ByVal amount() As Object, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer) As <System.Xml.Serialization.SoapElementAttribute("return")> String
+            Dim results() As Object = Me.Invoke("buyCharge", New Object() {clientId, clientSecret, uid, token, [to], amount, startTime, stopTime, repeatTotal})
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub buyChargeAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal [to] As String, ByVal amount() As Object, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer)
+            Me.buyChargeAsync(clientId, clientSecret, uid, token, [to], amount, startTime, stopTime, repeatTotal, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub buyChargeAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal [to] As String, ByVal amount() As Object, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer, ByVal userState As Object)
+            If (Me.buyChargeOperationCompleted Is Nothing) Then
+                Me.buyChargeOperationCompleted = AddressOf Me.OnbuyChargeOperationCompleted
+            End If
+            Me.InvokeAsync("buyCharge", New Object() {clientId, clientSecret, uid, token, [to], amount, startTime, stopTime, repeatTotal}, Me.buyChargeOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnbuyChargeOperationCompleted(ByVal arg As Object)
+            If (Not (Me.buyChargeCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent buyChargeCompleted(Me, New buyChargeCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#newCampaignbyText", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function newCampaignbyText(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal numbers() As Object, ByVal text As String, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer) As <System.Xml.Serialization.SoapElementAttribute("return")> Object()
+            Dim results() As Object = Me.Invoke("newCampaignbyText", New Object() {clientId, clientSecret, uid, token, name, numbers, text, startTime, stopTime, repeatTotal})
+            Return CType(results(0),Object())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub newCampaignbyTextAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal numbers() As Object, ByVal text As String, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer)
+            Me.newCampaignbyTextAsync(clientId, clientSecret, uid, token, name, numbers, text, startTime, stopTime, repeatTotal, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub newCampaignbyTextAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal name As String, ByVal numbers() As Object, ByVal text As String, ByVal startTime As String, ByVal stopTime As String, ByVal repeatTotal As Integer, ByVal userState As Object)
+            If (Me.newCampaignbyTextOperationCompleted Is Nothing) Then
+                Me.newCampaignbyTextOperationCompleted = AddressOf Me.OnnewCampaignbyTextOperationCompleted
+            End If
+            Me.InvokeAsync("newCampaignbyText", New Object() {clientId, clientSecret, uid, token, name, numbers, text, startTime, stopTime, repeatTotal}, Me.newCampaignbyTextOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnnewCampaignbyTextOperationCompleted(ByVal arg As Object)
+            If (Not (Me.newCampaignbyTextCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent newCampaignbyTextCompleted(Me, New newCampaignbyTextCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#textToVoiceCalculator", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function textToVoiceCalculator(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal text As String) As <System.Xml.Serialization.SoapElementAttribute("return")> Integer
+            Dim results() As Object = Me.Invoke("textToVoiceCalculator", New Object() {clientId, clientSecret, uid, token, text})
+            Return CType(results(0),Integer)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub textToVoiceCalculatorAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal text As String)
+            Me.textToVoiceCalculatorAsync(clientId, clientSecret, uid, token, text, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub textToVoiceCalculatorAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal text As String, ByVal userState As Object)
+            If (Me.textToVoiceCalculatorOperationCompleted Is Nothing) Then
+                Me.textToVoiceCalculatorOperationCompleted = AddressOf Me.OntextToVoiceCalculatorOperationCompleted
+            End If
+            Me.InvokeAsync("textToVoiceCalculator", New Object() {clientId, clientSecret, uid, token, text}, Me.textToVoiceCalculatorOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OntextToVoiceCalculatorOperationCompleted(ByVal arg As Object)
+            If (Not (Me.textToVoiceCalculatorCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent textToVoiceCalculatorCompleted(Me, New textToVoiceCalculatorCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapRpcMethodAttribute("http://www.zamanak.ir/api/soap-v4#smsBalance", RequestNamespace:="http://www.zamanak.ir/api/soap-v4", ResponseNamespace:="http://www.zamanak.ir/api/soap-v4")>  _
+        Public Function smsBalance(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal username As String, ByVal password As String, ByVal company As String, ByVal sender As String) As <System.Xml.Serialization.SoapElementAttribute("return")> String
+            Dim results() As Object = Me.Invoke("smsBalance", New Object() {clientId, clientSecret, uid, token, username, password, company, sender})
+            Return CType(results(0),String)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub smsBalanceAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal username As String, ByVal password As String, ByVal company As String, ByVal sender As String)
+            Me.smsBalanceAsync(clientId, clientSecret, uid, token, username, password, company, sender, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub smsBalanceAsync(ByVal clientId As String, ByVal clientSecret As String, ByVal uid As Integer, ByVal token As String, ByVal username As String, ByVal password As String, ByVal company As String, ByVal sender As String, ByVal userState As Object)
+            If (Me.smsBalanceOperationCompleted Is Nothing) Then
+                Me.smsBalanceOperationCompleted = AddressOf Me.OnsmsBalanceOperationCompleted
+            End If
+            Me.InvokeAsync("smsBalance", New Object() {clientId, clientSecret, uid, token, username, password, company, sender}, Me.smsBalanceOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnsmsBalanceOperationCompleted(ByVal arg As Object)
+            If (Not (Me.smsBalanceCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent smsBalanceCompleted(Me, New smsBalanceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -1784,11 +2169,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub signUpCompletedEventHandler(ByVal sender As Object, ByVal e As signUpCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class signUpCompletedEventArgs
@@ -1811,11 +2196,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub signUpAgencyCompletedEventHandler(ByVal sender As Object, ByVal e As signUpAgencyCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class signUpAgencyCompletedEventArgs
@@ -1838,11 +2223,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub signUpAgencyDiscountCompletedEventHandler(ByVal sender As Object, ByVal e As signUpAgencyDiscountCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class signUpAgencyDiscountCompletedEventArgs
@@ -1865,11 +2250,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub signUpAgencySocialCompletedEventHandler(ByVal sender As Object, ByVal e As signUpAgencySocialCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class signUpAgencySocialCompletedEventArgs
@@ -1892,11 +2277,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub myUsersCompletedEventHandler(ByVal sender As Object, ByVal e As myUsersCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class myUsersCompletedEventArgs
@@ -1919,11 +2304,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub transferCompletedEventHandler(ByVal sender As Object, ByVal e As transferCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class transferCompletedEventArgs
@@ -1946,11 +2331,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub captchaCompletedEventHandler(ByVal sender As Object, ByVal e As captchaCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class captchaCompletedEventArgs
@@ -1973,11 +2358,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub numberReaderCompletedEventHandler(ByVal sender As Object, ByVal e As numberReaderCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class numberReaderCompletedEventArgs
@@ -2000,11 +2385,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub addAbzarakCompletedEventHandler(ByVal sender As Object, ByVal e As addAbzarakCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class addAbzarakCompletedEventArgs
@@ -2027,11 +2412,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub uploadEncodedAudioCompletedEventHandler(ByVal sender As Object, ByVal e As uploadEncodedAudioCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class uploadEncodedAudioCompletedEventArgs
@@ -2054,11 +2439,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub authenticateCompletedEventHandler(ByVal sender As Object, ByVal e As authenticateCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class authenticateCompletedEventArgs
@@ -2081,11 +2466,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub receiveFaxCompletedEventHandler(ByVal sender As Object, ByVal e As receiveFaxCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class receiveFaxCompletedEventArgs
@@ -2108,11 +2493,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getFaxesCompletedEventHandler(ByVal sender As Object, ByVal e As getFaxesCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getFaxesCompletedEventArgs
@@ -2135,11 +2520,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getUnreadFaxesCompletedEventHandler(ByVal sender As Object, ByVal e As getUnreadFaxesCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getUnreadFaxesCompletedEventArgs
@@ -2162,11 +2547,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getFaxesStringCompletedEventHandler(ByVal sender As Object, ByVal e As getFaxesStringCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getFaxesStringCompletedEventArgs
@@ -2189,11 +2574,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getUnreadFaxesStringCompletedEventHandler(ByVal sender As Object, ByVal e As getUnreadFaxesStringCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getUnreadFaxesStringCompletedEventArgs
@@ -2216,11 +2601,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub sentFaxesByCampIdCompletedEventHandler(ByVal sender As Object, ByVal e As sentFaxesByCampIdCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class sentFaxesByCampIdCompletedEventArgs
@@ -2243,11 +2628,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As newCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newCampaignCompletedEventArgs
@@ -2270,11 +2655,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newCampaignByEncodeRecCompletedEventHandler(ByVal sender As Object, ByVal e As newCampaignByEncodeRecCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newCampaignByEncodeRecCompletedEventArgs
@@ -2297,11 +2682,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newCampaignbyNumbersCompletedEventHandler(ByVal sender As Object, ByVal e As newCampaignbyNumbersCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newCampaignbyNumbersCompletedEventArgs
@@ -2324,11 +2709,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newPollCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As newPollCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newPollCampaignCompletedEventArgs
@@ -2351,11 +2736,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newPollCampaignByNumbersCompletedEventHandler(ByVal sender As Object, ByVal e As newPollCampaignByNumbersCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newPollCampaignByNumbersCompletedEventArgs
@@ -2378,11 +2763,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getCampaignsCompletedEventHandler(ByVal sender As Object, ByVal e As getCampaignsCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getCampaignsCompletedEventArgs
@@ -2405,11 +2790,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getAccountInfoCompletedEventHandler(ByVal sender As Object, ByVal e As getAccountInfoCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getAccountInfoCompletedEventArgs
@@ -2432,11 +2817,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getContactGroupsCompletedEventHandler(ByVal sender As Object, ByVal e As getContactGroupsCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getContactGroupsCompletedEventArgs
@@ -2459,11 +2844,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getRecordingsListCompletedEventHandler(ByVal sender As Object, ByVal e As getRecordingsListCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getRecordingsListCompletedEventArgs
@@ -2486,11 +2871,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub stopCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As stopCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class stopCampaignCompletedEventArgs
@@ -2513,11 +2898,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub startCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As startCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class startCampaignCompletedEventArgs
@@ -2540,11 +2925,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub cancelCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As cancelCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class cancelCampaignCompletedEventArgs
@@ -2567,11 +2952,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub calculateCostCompletedEventHandler(ByVal sender As Object, ByVal e As calculateCostCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class calculateCostCompletedEventArgs
@@ -2594,11 +2979,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub calculateCostByNumberCompletedEventHandler(ByVal sender As Object, ByVal e As calculateCostByNumberCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class calculateCostByNumberCompletedEventArgs
@@ -2621,11 +3006,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getCampaignLogsCompletedEventHandler(ByVal sender As Object, ByVal e As getCampaignLogsCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getCampaignLogsCompletedEventArgs
@@ -2648,11 +3033,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getCampaignLogsExtendedCompletedEventHandler(ByVal sender As Object, ByVal e As getCampaignLogsExtendedCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getCampaignLogsExtendedCompletedEventArgs
@@ -2675,15 +3060,38 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
-    Public Delegate Sub newContactCompletedEventHandler(ByVal sender As Object, ByVal e As System.ComponentModel.AsyncCompletedEventArgs)
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub newContactCompletedEventHandler(ByVal sender As Object, ByVal e As newContactCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class newContactCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Object()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newContactGroupCompletedEventHandler(ByVal sender As Object, ByVal e As newContactGroupCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newContactGroupCompletedEventArgs
@@ -2706,11 +3114,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getContactsCompletedEventHandler(ByVal sender As Object, ByVal e As getContactsCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getContactsCompletedEventArgs
@@ -2733,11 +3141,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getContactsForLiteCompletedEventHandler(ByVal sender As Object, ByVal e As getContactsForLiteCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getContactsForLiteCompletedEventArgs
@@ -2760,11 +3168,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getNotificationCompletedEventHandler(ByVal sender As Object, ByVal e As getNotificationCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getNotificationCompletedEventArgs
@@ -2787,11 +3195,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub chargeAccountCompletedEventHandler(ByVal sender As Object, ByVal e As chargeAccountCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class chargeAccountCompletedEventArgs
@@ -2814,11 +3222,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub sendFaxCompletedEventHandler(ByVal sender As Object, ByVal e As sendFaxCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class sendFaxCompletedEventArgs
@@ -2841,11 +3249,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getFaxStatusCompletedEventHandler(ByVal sender As Object, ByVal e As getFaxStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getFaxStatusCompletedEventArgs
@@ -2868,11 +3276,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getPollStatusCompletedEventHandler(ByVal sender As Object, ByVal e As getPollStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getPollStatusCompletedEventArgs
@@ -2895,11 +3303,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub getCampaignStatusCompletedEventHandler(ByVal sender As Object, ByVal e As getCampaignStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class getCampaignStatusCompletedEventArgs
@@ -2922,11 +3330,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newMixCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As newMixCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newMixCampaignCompletedEventArgs
@@ -2949,11 +3357,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newCampaignMinuteCompletedEventHandler(ByVal sender As Object, ByVal e As newCampaignMinuteCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newCampaignMinuteCompletedEventArgs
@@ -2976,11 +3384,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newLiveCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As newLiveCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newLiveCampaignCompletedEventArgs
@@ -3003,11 +3411,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newLivePollCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As newLivePollCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newLivePollCampaignCompletedEventArgs
@@ -3030,11 +3438,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub addLiveNumbersCompletedEventHandler(ByVal sender As Object, ByVal e As addLiveNumbersCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class addLiveNumbersCompletedEventArgs
@@ -3057,11 +3465,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub liveNumberStatusCompletedEventHandler(ByVal sender As Object, ByVal e As liveNumberStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class liveNumberStatusCompletedEventArgs
@@ -3084,11 +3492,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub liveCampaignStatusCompletedEventHandler(ByVal sender As Object, ByVal e As liveCampaignStatusCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class liveCampaignStatusCompletedEventArgs
@@ -3111,11 +3519,11 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub newLivePollSmsCampaignCompletedEventHandler(ByVal sender As Object, ByVal e As newLivePollSmsCampaignCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class newLivePollSmsCampaignCompletedEventArgs
@@ -3138,11 +3546,38 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub sendSmsGroupCompletedEventHandler(ByVal sender As Object, ByVal e As sendSmsGroupCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class sendSmsGroupCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Object()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub sendSmsCompletedEventHandler(ByVal sender As Object, ByVal e As sendSmsCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class sendSmsCompletedEventArgs
@@ -3165,11 +3600,65 @@ Namespace ZamanakWebService
     End Class
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0")>  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub sendCaptchaSmsCompletedEventHandler(ByVal sender As Object, ByVal e As sendCaptchaSmsCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class sendCaptchaSmsCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Object()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub enqueueCompletedEventHandler(ByVal sender As Object, ByVal e As enqueueCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class enqueueCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
     Public Delegate Sub guarantyCompletedEventHandler(ByVal sender As Object, ByVal e As guarantyCompletedEventArgs)
     
     '''<remarks/>
-    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1055.0"),  _
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class guarantyCompletedEventArgs
@@ -3187,6 +3676,249 @@ Namespace ZamanakWebService
             Get
                 Me.RaiseExceptionIfNecessary
                 Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub addDevAbzarakCompletedEventHandler(ByVal sender As Object, ByVal e As addDevAbzarakCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class addDevAbzarakCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Object()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub netmonCompletedEventHandler(ByVal sender As Object, ByVal e As netmonCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class netmonCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Object()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub secretaryCompletedEventHandler(ByVal sender As Object, ByVal e As secretaryCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class secretaryCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub emailGroupCompletedEventHandler(ByVal sender As Object, ByVal e As emailGroupCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class emailGroupCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Object()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub billPaymentCompletedEventHandler(ByVal sender As Object, ByVal e As billPaymentCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class billPaymentCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub buyChargeCompletedEventHandler(ByVal sender As Object, ByVal e As buyChargeCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class buyChargeCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub newCampaignbyTextCompletedEventHandler(ByVal sender As Object, ByVal e As newCampaignbyTextCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class newCampaignbyTextCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Object()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Object())
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub textToVoiceCalculatorCompletedEventHandler(ByVal sender As Object, ByVal e As textToVoiceCalculatorCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class textToVoiceCalculatorCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Integer
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Integer)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub smsBalanceCompletedEventHandler(ByVal sender As Object, ByVal e As smsBalanceCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class smsBalanceCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),String)
             End Get
         End Property
     End Class

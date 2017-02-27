@@ -49,6 +49,8 @@ Partial Class clsMehrVosulWinService
         Me.tmrUpdateData_Hadi_Loan = New System.Timers.Timer()
         Me.tmrFinalReport = New System.Timers.Timer()
         Me.UpdatePreWarning = New System.Timers.Timer()
+        Me.tmrTotalLC = New System.Timers.Timer()
+        Me.tmrNewSponsor = New System.Timers.Timer()
         CType(Me.tmrUpdateData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSponsorList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -57,6 +59,8 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrFinalReport, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UpdatePreWarning, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tmrTotalLC, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tmrNewSponsor, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'tmrUpdateData
         '
@@ -96,6 +100,15 @@ Partial Class clsMehrVosulWinService
         Me.UpdatePreWarning.Enabled = True
         Me.UpdatePreWarning.Interval = 1800000.0R
         '
+        'tmrTotalLC
+        '
+        Me.tmrTotalLC.Enabled = True
+        Me.tmrTotalLC.Interval = 1800000.0R
+        '
+        'tmrNewSponsor
+        '
+        Me.tmrNewSponsor.Interval = 7200000.0R
+        '
         'clsMehrVosulWinService
         '
         Me.ServiceName = "Service1"
@@ -107,6 +120,8 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrFinalReport, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UpdatePreWarning, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tmrTotalLC, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tmrNewSponsor, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents tmrUpdateData As System.Timers.Timer
@@ -117,4 +132,6 @@ Partial Class clsMehrVosulWinService
     Friend WithEvents tmrUpdateData_Hadi_Loan As Timers.Timer
     Friend WithEvents tmrFinalReport As Timers.Timer
     Friend WithEvents UpdatePreWarning As Timers.Timer
+    Friend WithEvents tmrTotalLC As Timers.Timer
+    Friend WithEvents tmrNewSponsor As Timers.Timer
 End Class

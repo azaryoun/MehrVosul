@@ -139,7 +139,7 @@
                                                  <asp:UpdatePanel ID="UpdatePanel3" runat="server">
                                                      <ContentTemplate>
                                                          <asp:DropDownList ID="cmbPerson" 
-    runat="server" CssClass="form-control" AutoPostBack="True">
+    runat="server" CssClass="form-control" AutoPostBack="True" DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID">
                                                          </asp:DropDownList>
                                                      </ContentTemplate>
                                                  </asp:UpdatePanel>

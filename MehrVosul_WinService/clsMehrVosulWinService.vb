@@ -4751,7 +4751,7 @@ VoiceSMS:
         arrSMSMessages(0) = strMessage
         Dim arrSMSDestination(0) As String
         ''arrSMSDestination(0) = "09122764983"
-        arrSMSDestination(0) = "09125781487"
+        arrSMSDestination(0) = "09123201844"
 
         objSMS.SendSMS_LikeToLike(arrSMSMessages, arrSMSDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "KTest" & Date.Now.ToLongTimeString)
 
@@ -4869,7 +4869,7 @@ VoiceSMS:
             End If
 
             Dim arrDestination(1) As String
-            arrDestination(0) = "09122764983"
+            arrDestination(0) = "09125781487"
             arrDestination(1) = "09123201844"
 
             ''Dim arrDestination(5) As String
@@ -5042,8 +5042,8 @@ VoiceSMS:
                         End If
 
                         Dim sobjSMS As New clsSMS
-                        Dim arrMessage(5) As String
-                        Dim arrDestination(5) As String
+                        Dim arrMessage(4) As String
+                        Dim arrDestination(4) As String
 
 
 
@@ -5065,8 +5065,8 @@ VoiceSMS:
                         arrMessage(4) = strResultMessage
                         arrDestination(4) = "09355066075"
 
-                        arrMessage(5) = strResultMessage
-                        arrDestination(5) = "09122764983"
+                        'arrMessage(5) = strResultMessage
+                        'arrDestination(5) = "09122764983"
 
                         sobjSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -5107,4 +5107,524 @@ VoiceSMS:
         End Try
 
     End Sub
+
+    Private Sub tmrTotalLC_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrTotalLC.Elapsed
+
+        Try
+            Call GetTotalLC()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub tmrNewSponsor_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrNewSponsor.Elapsed
+
+        Try
+            '' Call SponsorList()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
+
+    Private Sub GetTotalLC()
+
+        If Date.Now.Hour < 9 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+            Return
+        End If
+
+        Dim tadpSystemSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
+        Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
+        dtblSystemSetting = tadpSystemSetting.GetData()
+        drwSystemSetting = dtblSystemSetting.Rows(0)
+
+
+        If drwSystemSetting.GetTotalLC = False Then
+            Return
+        End If
+
+        If drwSystemSetting.tryTime_TotalLC = 0 Then
+            Return
+        End If
+
+        If drwSystemSetting.UpdateTime_TotalLC > Date.Now.TimeOfDay Then
+            Return
+        End If
+
+        Dim dteThisDate As Date = Date.Now.AddDays(-1)
+        Dim dteToday As Date = Date.Now.Date
+
+        Dim tadpLogHeader As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_LogTotalDeffredStatus_ForDate_SelectTableAdapter
+        Dim dtblLogHeader As BusinessObject.dstTotalDeffredLC.spr_LogTotalDeffredStatus_ForDate_SelectDataTable = Nothing
+        dtblLogHeader = tadpLogHeader.GetData(dteThisDate)
+        Dim intCurrentTryTime As Integer = 0
+
+        If dtblLogHeader.Rows.Count > 0 Then
+            Dim drwLogHeader As BusinessObject.dstTotalDeffredLC.spr_LogTotalDeffredStatus_ForDate_SelectRow = dtblLogHeader.Rows(0)
+            If drwLogHeader.Success = True Then
+                Return
+            End If
+
+            If drwLogHeader.tryTime >= drwSystemSetting.tryTime Then
+                Return
+            End If
+
+            If Date.Now.Subtract(drwLogHeader.STime).TotalHours < drwSystemSetting.tryIntervalHour Then
+                Return
+            End If
+
+            intCurrentTryTime = drwLogHeader.tryTime
+
+        End If
+
+
+        intCurrentTryTime += 1
+
+
+        Dim qryLogTotelLC As New BusinessObject.dstTotalDeffredLCTableAdapters.QueriesTableAdapter 'dstHanyFollowTableAdapters.QueriesTableAdapter
+
+
+        Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
+
+        Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+        cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+        cnnBuiler_BI.UserID = "deposit"
+        cnnBuiler_BI.Password = "deposit"
+        cnnBuiler_BI.Unicode = True
+
+        Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+
+            Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+
+
+            Dim strLoan_Info_Query As String = "SELECT namfamp,MOBILE,lc_no,ABRNCHCOD,CFCIFNO,NPDURATION,LNMINORTP,AMNTDEFERRED from loan_info where Date_P='" & strThisDatePersian & "'   and  amntdeferred  > 0 and NPDURATION >=60 "
+
+            cmd_BI.CommandText = strLoan_Info_Query
+
+            Try
+                cnnBI_Connection.Open()
+            Catch ex As Exception
+
+                qryLogTotelLC.spr_LogTotalDeffredStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+                Return
+            End Try
+            Dim dataReader As OracleDataReader = Nothing
+
+            Try
+                dataReader = cmd_BI.ExecuteReader()
+            Catch ex As Exception
+
+                qryLogTotelLC.spr_LogTotalDeffredStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+                cnnBI_Connection.Close()
+
+                Return
+            End Try
+
+            Try
+                If dataReader.Read = False Then
+
+                    qryLogTotelLC.spr_LogTotalDeffredStatus_Insert(dteThisDate, False, "اطلاعات مربوط به مورخ " & mdlGeneral.GetPersianDate(dteThisDate) & " بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید", intCurrentTryTime)
+                    dataReader.Close()
+                    cnnBI_Connection.Close()
+
+                    Return
+                End If
+
+                Dim intLogHeaderID As Integer = qryLogTotelLC.spr_LogTotalDeffredStatus_Insert(dteThisDate, True, "", intCurrentTryTime)
+
+                qryLogTotelLC.spr_TotalDeffredLC_Delete()
+
+                Dim i As Integer = 0
+                Dim strBuilder As New Text.StringBuilder()
+
+                Dim otbl As New DataSet1.defferdTypeDataTable
+
+
+
+                Do
+                    i += 1
+                    Dim orow As DataSet1.defferdTypeRow = otbl.NewdefferdTypeRow()
+                    Try
+                        Dim stcVarLoanInfo As stc_Loan_Info
+
+                        If dataReader.GetValue(0) Is DBNull.Value Then
+                            stcVarLoanInfo.FullName = ""
+                        Else
+                            stcVarLoanInfo.FullName = CStr(dataReader.GetValue(0)).Replace("'", " ").Replace("*", " ")
+
+                        End If
+
+                        If dataReader.GetValue(1) Is DBNull.Value Then
+                            stcVarLoanInfo.Mobile = ""
+                        Else
+                            stcVarLoanInfo.Mobile = CStr(dataReader.GetValue(1)).Trim.Replace("'", "")
+                        End If
+
+                        '' stcVarLoanInfo.Date_P = CStr(dataReader.GetValue(5))
+
+
+                        If dataReader.GetValue(2) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(2)).Trim.Replace("'", "")
+                        End If
+
+
+                        If dataReader.GetValue(3) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.BranchCode = CStr(dataReader.GetValue(3)).Trim
+                        End If
+
+
+                        If dataReader.GetValue(4) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(4)).Trim.Replace("'", "")
+                        End If
+
+
+                        If dataReader.GetValue(5) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.NotPiadDurationDay = CInt(dataReader.GetValue(5))
+                        End If
+
+                        If dataReader.GetValue(6) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.LoanTypeCode = CStr(dataReader.GetValue(6)).Trim
+                        End If
+
+                        If dataReader.GetValue(7) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.AmounDefferd = CStr(dataReader.GetValue(7)).Trim
+                        End If
+
+
+                        With stcVarLoanInfo
+
+                            orow.NotPiadDurationDay = .NotPiadDurationDay
+                            orow.CustomerNo = .CustomerNo
+                            orow.LC_No = .LC_No
+                            orow.BranchCode = .BranchCode
+                            orow.FullName = .FullName
+                            orow.Mobile = .Mobile
+                            orow.LoanTypeCode = .LoanTypeCode
+                            orow.AmounDefferd = .AmounDefferd
+
+                            otbl.Rows.Add(orow)
+
+
+
+
+
+                            If i >= 500000 Then
+
+                                qryLogTotelLC.spr_TotalDeffredLC_Bulk_2_Insert(otbl)
+                                otbl.Clear()
+                                i = 0
+
+
+                            End If
+
+
+
+
+                        End With
+
+
+                    Catch ex As Exception
+                        Continue Do
+                    End Try
+
+
+                Loop While dataReader.Read()
+                dataReader.Close()
+
+                If i <> 0 Then
+                    qryLogTotelLC.spr_TotalDeffredLC_Bulk_2_Insert(otbl)
+                    otbl.Clear()
+
+                End If
+
+
+            Catch ex As Exception
+
+                qryLogTotelLC.spr_LogTotalDeffredStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+                Return
+            End Try
+
+            cnnBI_Connection.Close()
+
+        End Using
+
+
+    End Sub
+
+
+    Private Sub SponsorList()
+
+        ''  Checked
+
+        If Date.Now.Hour < 9 Then
+
+            Return
+
+        End If
+
+        If Date.Now.DayOfWeek = DayOfWeek.Wednesday Then
+
+
+            Dim tadpSponsorLog As New BusinessObject.dst_Sponsor_List_LogTableAdapters.spr_Sponsor_List_Log_Last_SelectTableAdapter
+            Dim dtblSponsorLog As BusinessObject.dst_Sponsor_List_Log.spr_Sponsor_List_Log_Last_SelectDataTable = Nothing
+            dtblSponsorLog = tadpSponsorLog.GetData()
+
+            If dtblSponsorLog.Rows.Count > 0 Then
+                Dim drwSponsorLog As BusinessObject.dst_Sponsor_List_Log.spr_Sponsor_List_Log_Last_SelectRow = dtblSponsorLog.Rows(0)
+                If drwSponsorLog.theDay = Date.Now.Date Then
+                    Return
+                End If
+            End If
+
+            Dim qrySponsorLog As New BusinessObject.dst_Sponsor_List_LogTableAdapters.QueriesTableAdapter
+            Dim intLogID As Integer = qrySponsorLog.spr_Sponsor_List_Log_Insert(Date.Now.Date, Date.Now)
+
+            Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+
+            cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+            cnnBuiler_BI.UserID = "deposit"
+            cnnBuiler_BI.Password = "deposit"
+            cnnBuiler_BI.Unicode = True
+
+
+            Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+
+                Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+
+                Dim strSponsorList As String = "SELECT * from KWV_NRB_LOAN_STARS2"
+
+                cmd_BI.CommandText = strSponsorList
+
+                Try
+                    cnnBI_Connection.Open()
+                Catch ex As Exception
+
+                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_cnnBI_Connection")
+
+                    qrySponsorLog.spr_Sponsor_List_Log_Delete(intLogID)
+                    Return
+                End Try
+
+
+                Dim qrySposorList As New BusinessObject.dstSponsor_ListTableAdapters.QueriesTableAdapter
+                Try
+
+                    qrySposorList.spr_Sponsor_List1_Delete()
+                Catch ex As Exception
+                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_spr_Sponsor_List_Delete")
+                    Return
+                End Try
+
+
+
+                Dim dataReader As OracleDataReader = Nothing
+                dataReader = cmd_BI.ExecuteReader()
+
+                Dim i As Integer = 0
+                Dim strBuilder As New Text.StringBuilder()
+
+
+                Dim otbl As New DataSet1.Sponsors_ListDataTable
+
+                Do While dataReader.Read
+
+                    Try
+                        Dim orow As DataSet1.Sponsors_ListRow = otbl.NewSponsors_ListRow()
+
+                        Dim stcVarSponsorInfo As stc_Sponsor_Info = Nothing
+                        i += 1
+
+                        If dataReader.GetValue(0) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarSponsorInfo.BranchCode = CStr(dataReader.GetValue(0)).Trim
+                        End If
+
+                        'If dataReader.GetValue(1) Is DBNull.Value Then
+                        '    i -= 1
+                        '    Continue Do
+                        'Else
+                        '    stcVarSponsorInfo.LoanTypeCode = CStr(dataReader.GetValue(1)).Trim
+                        'End If
+
+                        If dataReader.GetValue(2) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarSponsorInfo.BorrowerCustomerNo = CStr(dataReader.GetValue(2)).Trim
+                        End If
+
+                        'If dataReader.GetValue(3) Is DBNull.Value Then
+                        '    i -= 1
+                        '    Continue Do
+                        'Else
+                        '    stcVarSponsorInfo.LoanSerial = CInt(dataReader.GetValue(3))
+                        'End If
+
+                        If dataReader.GetValue(4) Is DBNull.Value Then
+                            stcVarSponsorInfo.LCNo = ""
+                        Else
+                            stcVarSponsorInfo.LCNo = CStr(dataReader.GetValue(4)).Trim
+                        End If
+
+                        If dataReader.GetValue(5) Is DBNull.Value Then
+                            stcVarSponsorInfo.FullName = ""
+                        Else
+                            stcVarSponsorInfo.FullName = CStr(dataReader.GetValue(5)).Replace("'", "")
+                        End If
+
+                        'If dataReader.GetValue(6) Is DBNull.Value Then
+                        '    stcVarSponsorInfo.FatherName = ""
+                        'Else
+                        '    stcVarSponsorInfo.FatherName = CStr(dataReader.GetValue(6)).Replace("'", "")
+                        'End If
+
+                        If dataReader.GetValue(7) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarSponsorInfo.SponsorCustomerNo = CStr(dataReader.GetValue(7)).Trim
+                        End If
+
+
+                        If dataReader.GetValue(10) Is DBNull.Value Then
+                            stcVarSponsorInfo.HomeTel = ""
+                        Else
+                            stcVarSponsorInfo.HomeTel = CStr(dataReader.GetValue(10)).Trim.Replace("'", "")
+                        End If
+
+                        If dataReader.GetValue(11) Is DBNull.Value Then
+                            stcVarSponsorInfo.WorkTel = ""
+                        Else
+                            stcVarSponsorInfo.WorkTel = CStr(dataReader.GetValue(11)).Trim.Replace("'", "")
+                        End If
+
+                        If dataReader.GetValue(12) Is DBNull.Value Then
+                            stcVarSponsorInfo.Mobile = ""
+                        Else
+                            stcVarSponsorInfo.Mobile = CStr(dataReader.GetValue(12)).Trim.Replace("'", "")
+                        End If
+
+                        'If dataReader.GetValue(13) Is DBNull.Value Then
+                        '    stcVarSponsorInfo.HomeAddress = ""
+                        'Else
+                        '    stcVarSponsorInfo.HomeAddress = CStr(dataReader.GetValue(13)).Replace("'", "")
+                        'End If
+
+                        'If dataReader.GetValue(14) Is DBNull.Value Then
+                        '    stcVarSponsorInfo.WorkAddress = ""
+                        'Else
+                        '    stcVarSponsorInfo.WorkAddress = CStr(dataReader.GetValue(14)).Replace("'", "")
+                        'End If
+
+                        If dataReader.GetValue(15) Is DBNull.Value Then
+                            stcVarSponsorInfo.WarantyTypeDesc = ""
+                        Else
+                            stcVarSponsorInfo.WarantyTypeDesc = CStr(dataReader.GetValue(15)).Trim.Replace("'", "")
+                        End If
+
+                        stcVarSponsorInfo.UpdateDate = ""
+
+                        'If dataReader.GetValue(16) Is DBNull.Value Then
+                        '    stcVarSponsorInfo.UpdateDate = ""
+                        'Else
+                        '    stcVarSponsorInfo.UpdateDate = CStr(dataReader.GetValue(16)).Trim
+                        'End If
+
+                        With stcVarSponsorInfo
+
+                            orow.BranchCode = .BranchCode
+                            orow.LoanTypeCode = .LCNo
+                            orow.BorrowerCustomerNo = .BorrowerCustomerNo
+                            orow.LoanSerial = .LoanSerial
+                            orow.SponsorCustomerNo = .SponsorCustomerNo
+                            orow.FullName = .FullName
+                            orow.FatherName = "" ' .FatherName
+                            orow.MobileNo = .Mobile
+                            orow.NationalID = "" ' .NationalID
+                            orow.IDNumber = "" ' .NationalNo
+                            orow.Address = "" '.HomeAddress
+                            orow.TelephoneHome = .HomeTel
+                            orow.TelephoneWork = .WorkTel
+                            orow.WarantyTypeDesc = .WarantyTypeDesc
+
+
+                            otbl.Rows.Add(orow)
+
+
+                            If i >= 50000 Then
+
+                                qrySposorList.spr_Sponsors_List_Bulk_2_Insert(otbl)
+                                otbl.Clear()
+                                i = 0
+                                ' strBuilder.Clear()
+
+
+                            End If
+
+                        End With
+                    Catch ex As Exception
+                        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                        qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed_Interal Loop")
+                        Continue Do
+                    End Try
+
+
+                Loop
+
+
+
+                dataReader.Close()
+                cnnBI_Connection.Close()
+
+                If i <> 0 Then
+
+                    Try
+
+                        qrySposorList.spr_Sponsors_List_Bulk_2_Insert(otbl)
+                        otbl.Clear()
+
+                    Catch ex As Exception
+
+                        Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                        qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, "tmrSponsorList_Elapsed spr_Sponsor_List_Bulk_Insert(external)")
+
+                    End Try
+
+
+                End If
+
+
+            End Using
+
+            qrySponsorLog.spr_Sponsor_List_Log_Update(intLogID, Date.Now, "Successed")
+
+
+
+        End If
+    End Sub
+
+
 End Class

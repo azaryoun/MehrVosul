@@ -81,6 +81,7 @@ Public Class HandyFollowReport
                 cmbPerson.DataBind()
 
 
+
             ElseIf drwUserLogin.IsDataAdmin = False And drwUserLogin.IsDataUserAdmin = True Then
 
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
@@ -97,13 +98,14 @@ Public Class HandyFollowReport
                 cmbBranch.DataBind()
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 3
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
-                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
                 cmbPerson.DataBind()
 
                 cmbProvince.Enabled = False
+
 
 
             End If
@@ -385,10 +387,22 @@ Public Class HandyFollowReport
     End Sub
 
     Protected Sub cmbPerson_DataBound(sender As Object, e As EventArgs) Handles cmbPerson.DataBound
-        Dim li As New ListItem
-        li.Text = "(همه)"
-        li.Value = -1
-        cmbPerson.Items.Insert(0, li)
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+        If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
+
+            cmbPerson.SelectedValue = drwUserLogin.ID
+            cmbPerson.Enabled = False
+        Else
+
+            Dim li As New ListItem
+            li.Text = "(همه)"
+            li.Value = -1
+            cmbPerson.Items.Insert(0, li)
+
+        End If
+
     End Sub
 
     Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged

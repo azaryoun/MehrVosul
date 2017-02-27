@@ -385,6 +385,9 @@
     <wsdl:part name="email" type="xsd:string" />
     <wsdl:part name="Groups" type="xsd:string" />
   </wsdl:message>
+  <wsdl:message name="newContactOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
   <wsdl:message name="newContactGroupIn">
     <wsdl:part name="clientId" type="xsd:string" />
     <wsdl:part name="clientSecret" type="xsd:string" />
@@ -495,6 +498,7 @@
     <wsdl:part name="numbers" type="soap-enc:Array" />
     <wsdl:part name="sayMethod" type="xsd:string" />
     <wsdl:part name="mixType" type="xsd:string" />
+    <wsdl:part name="retry" type="xsd:int" />
   </wsdl:message>
   <wsdl:message name="newMixCampaignOut">
     <wsdl:part name="return" type="xsd:string" />
@@ -597,6 +601,22 @@
   <wsdl:message name="newLivePollSmsCampaignOut">
     <wsdl:part name="return" type="soap-enc:Array" />
   </wsdl:message>
+  <wsdl:message name="sendSmsGroupIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="group" type="xsd:string" />
+    <wsdl:part name="message" type="xsd:string" />
+    <wsdl:part name="username" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="company" type="xsd:string" />
+    <wsdl:part name="sender" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSmsGroupOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
   <wsdl:message name="sendSmsIn">
     <wsdl:part name="clientId" type="xsd:string" />
     <wsdl:part name="clientSecret" type="xsd:string" />
@@ -613,15 +633,159 @@
   <wsdl:message name="sendSmsOut">
     <wsdl:part name="return" type="soap-enc:Array" />
   </wsdl:message>
+  <wsdl:message name="sendCaptchaSmsIn">
+    <wsdl:part name="username" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="mobile" type="xsd:string" />
+    <wsdl:part name="captcha" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="sendCaptchaSmsOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="enqueueIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="message" type="soap-enc:Array" />
+    <wsdl:part name="destinations" type="soap-enc:Array" />
+    <wsdl:part name="originators" type="soap-enc:Array" />
+    <wsdl:part name="udhs" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="enqueueOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
   <wsdl:message name="guarantyIn">
     <wsdl:part name="clientId" type="xsd:string" />
     <wsdl:part name="clientSecret" type="xsd:string" />
     <wsdl:part name="uid" type="xsd:int" />
     <wsdl:part name="token" type="xsd:string" />
-    <wsdl:part name="campId" type="xsd:int" />
+    <wsdl:part name="campId" type="xsd:string" />
   </wsdl:message>
   <wsdl:message name="guarantyOut">
     <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="addDevAbzarakIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="userId" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="addDevAbzarakOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="netmonIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="netmonOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="secretaryIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="type" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="sourceNumber" type="soap-enc:Array" />
+    <wsdl:part name="recording_id" type="xsd:string" />
+    <wsdl:part name="call_key" type="xsd:string" />
+    <wsdl:part name="time_limit" type="xsd:string" />
+    <wsdl:part name="retry" type="xsd:string" />
+    <wsdl:part name="startAt" type="xsd:string" />
+    <wsdl:part name="stopAt" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="secretaryOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="emailGroupIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="group" type="xsd:string" />
+    <wsdl:part name="message" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="emailGroupOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="billPaymentIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="to" type="soap-enc:Array" />
+    <wsdl:part name="recordingIds" type="soap-enc:Array" />
+    <wsdl:part name="billType" type="soap-enc:Array" />
+    <wsdl:part name="billId" type="soap-enc:Array" />
+    <wsdl:part name="paymentId" type="soap-enc:Array" />
+    <wsdl:part name="amount" type="soap-enc:Array" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="billPaymentOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="buyChargeIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="to" type="xsd:string" />
+    <wsdl:part name="amount" type="soap-enc:Array" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="buyChargeOut">
+    <wsdl:part name="return" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignbyTextIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="name" type="xsd:string" />
+    <wsdl:part name="numbers" type="soap-enc:Array" />
+    <wsdl:part name="text" type="xsd:string" />
+    <wsdl:part name="startTime" type="xsd:string" />
+    <wsdl:part name="stopTime" type="xsd:string" />
+    <wsdl:part name="repeatTotal" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="newCampaignbyTextOut">
+    <wsdl:part name="return" type="soap-enc:Array" />
+  </wsdl:message>
+  <wsdl:message name="textToVoiceCalculatorIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="text" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="textToVoiceCalculatorOut">
+    <wsdl:part name="return" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="smsBalanceIn">
+    <wsdl:part name="clientId" type="xsd:string" />
+    <wsdl:part name="clientSecret" type="xsd:string" />
+    <wsdl:part name="uid" type="xsd:int" />
+    <wsdl:part name="token" type="xsd:string" />
+    <wsdl:part name="username" type="xsd:string" />
+    <wsdl:part name="password" type="xsd:string" />
+    <wsdl:part name="company" type="xsd:string" />
+    <wsdl:part name="sender" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="smsBalanceOut">
+    <wsdl:part name="return" type="xsd:string" />
   </wsdl:message>
   <wsdl:portType name="Default_Service_SoapServer_ZamanakV4Port">
     <wsdl:operation name="signUp">
@@ -758,6 +922,7 @@
     </wsdl:operation>
     <wsdl:operation name="newContact">
       <wsdl:input message="tns:newContactIn" />
+      <wsdl:output message="tns:newContactOut" />
     </wsdl:operation>
     <wsdl:operation name="newContactGroup">
       <wsdl:input message="tns:newContactGroupIn" />
@@ -827,13 +992,61 @@
       <wsdl:input message="tns:newLivePollSmsCampaignIn" />
       <wsdl:output message="tns:newLivePollSmsCampaignOut" />
     </wsdl:operation>
+    <wsdl:operation name="sendSmsGroup">
+      <wsdl:input message="tns:sendSmsGroupIn" />
+      <wsdl:output message="tns:sendSmsGroupOut" />
+    </wsdl:operation>
     <wsdl:operation name="sendSms">
       <wsdl:input message="tns:sendSmsIn" />
       <wsdl:output message="tns:sendSmsOut" />
     </wsdl:operation>
+    <wsdl:operation name="sendCaptchaSms">
+      <wsdl:input message="tns:sendCaptchaSmsIn" />
+      <wsdl:output message="tns:sendCaptchaSmsOut" />
+    </wsdl:operation>
+    <wsdl:operation name="enqueue">
+      <wsdl:input message="tns:enqueueIn" />
+      <wsdl:output message="tns:enqueueOut" />
+    </wsdl:operation>
     <wsdl:operation name="guaranty">
       <wsdl:input message="tns:guarantyIn" />
       <wsdl:output message="tns:guarantyOut" />
+    </wsdl:operation>
+    <wsdl:operation name="addDevAbzarak">
+      <wsdl:input message="tns:addDevAbzarakIn" />
+      <wsdl:output message="tns:addDevAbzarakOut" />
+    </wsdl:operation>
+    <wsdl:operation name="netmon">
+      <wsdl:input message="tns:netmonIn" />
+      <wsdl:output message="tns:netmonOut" />
+    </wsdl:operation>
+    <wsdl:operation name="secretary">
+      <wsdl:input message="tns:secretaryIn" />
+      <wsdl:output message="tns:secretaryOut" />
+    </wsdl:operation>
+    <wsdl:operation name="emailGroup">
+      <wsdl:input message="tns:emailGroupIn" />
+      <wsdl:output message="tns:emailGroupOut" />
+    </wsdl:operation>
+    <wsdl:operation name="billPayment">
+      <wsdl:input message="tns:billPaymentIn" />
+      <wsdl:output message="tns:billPaymentOut" />
+    </wsdl:operation>
+    <wsdl:operation name="buyCharge">
+      <wsdl:input message="tns:buyChargeIn" />
+      <wsdl:output message="tns:buyChargeOut" />
+    </wsdl:operation>
+    <wsdl:operation name="newCampaignbyText">
+      <wsdl:input message="tns:newCampaignbyTextIn" />
+      <wsdl:output message="tns:newCampaignbyTextOut" />
+    </wsdl:operation>
+    <wsdl:operation name="textToVoiceCalculator">
+      <wsdl:input message="tns:textToVoiceCalculatorIn" />
+      <wsdl:output message="tns:textToVoiceCalculatorOut" />
+    </wsdl:operation>
+    <wsdl:operation name="smsBalance">
+      <wsdl:input message="tns:smsBalanceIn" />
+      <wsdl:output message="tns:smsBalanceOut" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="Default_Service_SoapServer_ZamanakV4Binding" type="tns:Default_Service_SoapServer_ZamanakV4Port">
@@ -1140,6 +1353,9 @@
       <wsdl:input>
         <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="newContactGroup">
       <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newContactGroup" />
@@ -1294,6 +1510,15 @@
         <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="sendSmsGroup">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#sendSmsGroup" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="sendSms">
       <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#sendSms" />
       <wsdl:input>
@@ -1303,8 +1528,107 @@
         <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="sendCaptchaSms">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#sendCaptchaSms" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="enqueue">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#enqueue" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="guaranty">
       <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#guaranty" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addDevAbzarak">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#addDevAbzarak" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="netmon">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#netmon" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="secretary">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#secretary" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="emailGroup">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#emailGroup" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="billPayment">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#billPayment" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="buyCharge">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#buyCharge" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="newCampaignbyText">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#newCampaignbyText" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="textToVoiceCalculator">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#textToVoiceCalculator" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="smsBalance">
+      <soap:operation soapAction="http://www.zamanak.ir/api/soap-v4#smsBalance" />
       <wsdl:input>
         <soap:body use="encoded" namespace="http://www.zamanak.ir/api/soap-v4" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
       </wsdl:input>

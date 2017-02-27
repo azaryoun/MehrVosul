@@ -598,6 +598,9 @@
     <Compile Include="Context\tbl_LogCurrentLCStatus_H.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
+    <Compile Include="Context\tbl_LogTotalDeffredStatus.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
     <Compile Include="Context\tbl_Menu.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
@@ -647,6 +650,9 @@
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\tbl_SystemSetting.vb">
+      <DependentUpon>dbMehrVosul.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Context\tbl_TotalDeffredLC.vb">
       <DependentUpon>dbMehrVosul.tt</DependentUpon>
     </Compile>
     <Compile Include="Context\tbl_User.vb">
@@ -815,6 +821,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstLoanType.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Vosul\dstLoanType.vb">
+      <DependentUpon>dstLoanType.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Vosul\dstLogCurrentLCStatus_F.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -867,6 +876,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dstTarrif.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstTotalDeffredLC.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstTotalDeffredLC.xsd</DependentUpon>
     </Compile>
     <Compile Include="Vosul\dstWarningIntervals.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1359,6 +1373,17 @@
     </None>
     <None Include="Vosul\dstTarrif.xss">
       <DependentUpon>dstTarrif.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstTotalDeffredLC.xsc">
+      <DependentUpon>dstTotalDeffredLC.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstTotalDeffredLC.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstTotalDeffredLC.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstTotalDeffredLC.xss">
+      <DependentUpon>dstTotalDeffredLC.xsd</DependentUpon>
     </None>
     <None Include="Vosul\dstWarningIntervals.xsc">
       <DependentUpon>dstWarningIntervals.xsd</DependentUpon>

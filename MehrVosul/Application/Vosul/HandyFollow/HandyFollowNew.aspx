@@ -201,9 +201,10 @@
                                         <div class="form-group"><asp:ObjectDataSource ID="odcSponsor" 
                                                 runat="server" OldValuesParameterFormatString="original_{0}" 
                                                 SelectMethod="GetData" 
-                                                TypeName="BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_List_SelectTableAdapter">
+                                                TypeName="BusinessObject.dstSponsor_ListTableAdapters.spr_SponsorList2_SelectByFileLoanTableAdapter">
                                             <SelectParameters>
-                                                <asp:Parameter Name="LoanID" Type="Int32" />
+                                                <asp:Parameter Name="FileNO" Type="String" />
+                                                <asp:Parameter Name="LoanNO" Type="String" />
                                             </SelectParameters>
                                             </asp:ObjectDataSource>
                                             <label>ضامن ها</label>
@@ -212,7 +213,7 @@
                                                     <ContentTemplate>
                                                         <asp:DropDownList ID="cmbSponsor" runat="server" 
                                                CssClass="form-control" DataSourceID="odcSponsor" 
-                                                DataTextField="FileName" DataValueField="FK_SponsorID" AutoPostBack="True">
+                                                DataTextField="FullName" DataValueField="SponsorCustomerNo" AutoPostBack="True">
                                                         </asp:DropDownList>
                                                     </ContentTemplate>
                                                 </asp:UpdatePanel>

@@ -89,6 +89,8 @@ Partial Public Class dbMehrVosulEntities1
     Public Overridable Property tbl_WarningNotificationLogDetail() As DbSet(Of tbl_WarningNotificationLogDetail)
     Public Overridable Property tbl_PreWarningNotificationLog() As DbSet(Of tbl_PreWarningNotificationLog)
     Public Overridable Property tbl_PreWarningNotificationLogDetail() As DbSet(Of tbl_PreWarningNotificationLogDetail)
+    Public Overridable Property tbl_LogTotalDeffredStatus() As DbSet(Of tbl_LogTotalDeffredStatus)
+    Public Overridable Property tbl_TotalDeffredLC() As DbSet(Of tbl_TotalDeffredLC)
 
     <DbFunction("dbMehrVosulEntities1", "fnc_Menu_Childs")>
     Public Overridable Function fnc_Menu_Childs(parentID As Nullable(Of Integer)) As IQueryable(Of fnc_Menu_Childs_Result)
@@ -786,12 +788,14 @@ Partial Public Class dbMehrVosulEntities1
         Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_File_MAT_Update", iDParameter, mobileNoParameter, addressParameter, telHomeParameter, telWorkParameter, fNameParameter, lNameParameter, fatherNameParameter, isMaleParameter)
     End Function
 
-    Public Overridable Function spr_File_Select(action As Nullable(Of Integer), iD As Nullable(Of Integer)) As ObjectResult(Of spr_File_Select_Result)
+    Public Overridable Function spr_File_Select(action As Nullable(Of Integer), iD As Nullable(Of Integer), customerNO As String) As ObjectResult(Of spr_File_Select_Result)
         Dim actionParameter As ObjectParameter = If(action.HasValue, New ObjectParameter("Action", action), New ObjectParameter("Action", GetType(Integer)))
 
         Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
 
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_File_Select_Result)("spr_File_Select", actionParameter, iDParameter)
+        Dim customerNOParameter As ObjectParameter = If(customerNO IsNot Nothing, New ObjectParameter("CustomerNO", customerNO), New ObjectParameter("CustomerNO", GetType(String)))
+
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_File_Select_Result)("spr_File_Select", actionParameter, iDParameter, customerNOParameter)
     End Function
 
     Public Overridable Function spr_File_Update(iD As Nullable(Of Integer), customerNo As String, fName As String, lName As String, fatherName As String, mobileNo As String, nationalID As String, iDNumber As String, email As String, address As String, telephoneHome As String, telephoneWork As String, isMale As Nullable(Of Boolean), fK_EUserID As Nullable(Of Integer), state As Nullable(Of Byte)) As Integer
@@ -2476,7 +2480,9 @@ Partial Public Class dbMehrVosulEntities1
         Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction(Of spr_User_Select_Result)("spr_User_Select", iDParameter)
     End Function
 
-    Public Overridable Function spr_User_Update(iD As Nullable(Of Integer), isActive As Nullable(Of Boolean), isDataAdmin As Nullable(Of Boolean), isItemAdmin As Nullable(Of Boolean), isDataUserAdmin As Nullable(Of Boolean), fName As String, lName As String, email As String, sex As Nullable(Of Boolean), tel As String, mobile As String, sTime As Nullable(Of Date), fK_UserID As Nullable(Of Integer), personCode As String, nationalID As String, nationalNo As String, address As String, fK_BrnachID As Nullable(Of Integer), isPartTime As Nullable(Of Boolean)) As Integer
+    Public Overridable Function spr_User_Update(userName As String, iD As Nullable(Of Integer), isActive As Nullable(Of Boolean), isDataAdmin As Nullable(Of Boolean), isItemAdmin As Nullable(Of Boolean), isDataUserAdmin As Nullable(Of Boolean), fName As String, lName As String, email As String, sex As Nullable(Of Boolean), tel As String, mobile As String, sTime As Nullable(Of Date), fK_UserID As Nullable(Of Integer), personCode As String, nationalID As String, nationalNo As String, address As String, fK_BrnachID As Nullable(Of Integer), isPartTime As Nullable(Of Boolean)) As Integer
+        Dim userNameParameter As ObjectParameter = If(userName IsNot Nothing, New ObjectParameter("UserName", userName), New ObjectParameter("UserName", GetType(String)))
+
         Dim iDParameter As ObjectParameter = If(iD.HasValue, New ObjectParameter("ID", iD), New ObjectParameter("ID", GetType(Integer)))
 
         Dim isActiveParameter As ObjectParameter = If(isActive.HasValue, New ObjectParameter("IsActive", isActive), New ObjectParameter("IsActive", GetType(Boolean)))
@@ -2515,7 +2521,7 @@ Partial Public Class dbMehrVosulEntities1
 
         Dim isPartTimeParameter As ObjectParameter = If(isPartTime.HasValue, New ObjectParameter("IsPartTime", isPartTime), New ObjectParameter("IsPartTime", GetType(Boolean)))
 
-        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_User_Update", iDParameter, isActiveParameter, isDataAdminParameter, isItemAdminParameter, isDataUserAdminParameter, fNameParameter, lNameParameter, emailParameter, sexParameter, telParameter, mobileParameter, sTimeParameter, fK_UserIDParameter, personCodeParameter, nationalIDParameter, nationalNoParameter, addressParameter, fK_BrnachIDParameter, isPartTimeParameter)
+        Return DirectCast(Me, IObjectContextAdapter).ObjectContext.ExecuteFunction("spr_User_Update", userNameParameter, iDParameter, isActiveParameter, isDataAdminParameter, isItemAdminParameter, isDataUserAdminParameter, fNameParameter, lNameParameter, emailParameter, sexParameter, telParameter, mobileParameter, sTimeParameter, fK_UserIDParameter, personCodeParameter, nationalIDParameter, nationalNoParameter, addressParameter, fK_BrnachIDParameter, isPartTimeParameter)
     End Function
 
     Public Overridable Function spr_VoiceRecords_Count_Select(action As Nullable(Of Integer), sEARCHSTR As String, fK_UserID As Nullable(Of Integer)) As ObjectResult(Of Nullable(Of Integer))

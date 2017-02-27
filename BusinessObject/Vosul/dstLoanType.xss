@@ -8,10 +8,10 @@
   <Shapes>
     <Shape ID="DesignTable:spr_LoanType_Count_Select" ZOrder="6" X="153" Y="67" Height="96" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
     <Shape ID="DesignTable:spr_LoanType_Management_Select" ZOrder="5" X="-2" Y="223" Height="172" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
-    <Shape ID="DesignTable:spr_LoanType_List_Select" ZOrder="4" X="795" Y="309" Height="115" Width="289" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="64" />
-    <Shape ID="DesignTable:spr_LoanType_byCode_Select" ZOrder="3" X="928" Y="84" Height="172" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
-    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="1" X="593" Y="98" Height="86" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
-    <Shape ID="DesignTable:spr_LoanType_Select" ZOrder="2" X="404" Y="376" Height="191" Width="263" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
+    <Shape ID="DesignTable:spr_LoanType_byCode_Select" ZOrder="4" X="928" Y="84" Height="172" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="121" />
+    <Shape ID="DesignTable:spr_LoanType_Select" ZOrder="3" X="404" Y="376" Height="191" Width="263" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
+    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="2" X="593" Y="98" Height="86" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="82" />
+    <Shape ID="DesignTable:spr_LoanType_List_Select" ZOrder="1" X="761" Y="320" Height="134" Width="289" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="83" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

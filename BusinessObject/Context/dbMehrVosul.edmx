@@ -121,6 +121,9 @@
           <Property Name="PreNotification" Type="bit" />
           <Property Name="UpdateTime_PreNotify" Type="time" Precision="7" />
           <Property Name="tryTime_PreNotify" Type="int" />
+          <Property Name="GetTotalLC" Type="bit" />
+          <Property Name="UpdateTime_TotalLC" Type="time" Precision="7" />
+          <Property Name="tryTime_TotalLC" Type="int" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -539,6 +542,17 @@
           <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
           <Property Name="tryTime" Type="int" />
         </EntityType>
+        <EntityType Name="tbl_LogTotalDeffredStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date" Type="date" />
+          <Property Name="STime" Type="datetime" />
+          <Property Name="Success" Type="bit" />
+          <Property Name="Remarks" Type="nvarchar" MaxLength="500" />
+          <Property Name="tryTime" Type="int" />
+        </EntityType>
         <EntityType Name="tbl_NotificationTarif">
           <Key>
             <PropertyRef Name="ID" />
@@ -707,6 +721,25 @@
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="FK_UserID" Type="int" />
           <Property Name="LoginDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="tbl_TotalDeffredLC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Date_P" Type="date" />
+          <Property Name="AmounDefferd" Type="money" />
+          <Property Name="Status" Type="char" MaxLength="2" />
+          <Property Name="NotPiadDurationDay" Type="int" />
+          <Property Name="NoDelayInstallment" Type="int" />
+          <Property Name="CustomerNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="LCNumber" Type="nvarchar" MaxLength="50" />
+          <Property Name="BranchCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="FullName" Type="nvarchar" MaxLength="200" />
+          <Property Name="MobileNO" Type="nvarchar" MaxLength="50" />
+          <Property Name="LoanTypeCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="LoanType" Type="nvarchar" MaxLength="50" />
+          <Property Name="Process" Type="bit" />
         </EntityType>
         <EntityType Name="tbl_VoiceRecords">
           <Key>
@@ -2052,6 +2085,7 @@
         <Function Name="spr_File_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Action" Type="int" Mode="In" />
           <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="CustomerNO" Type="nvarchar" Mode="In" />
         </Function>
         <Function Name="spr_File_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
@@ -2876,6 +2910,7 @@
           <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
         <Function Name="spr_User_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="UserName" Type="nvarchar" Mode="In" />
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="IsActive" Type="bit" Mode="In" />
           <Parameter Name="IsDataAdmin" Type="bit" Mode="In" />
@@ -3181,6 +3216,7 @@
           <EntitySet Name="tbl_LoanSponsor_WarantyType" EntityType="Self.tbl_LoanSponsor_WarantyType" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_LoanType" EntityType="Self.tbl_LoanType" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_LogCurrentLCStatus_H" EntityType="Self.tbl_LogCurrentLCStatus_H" Schema="Vosul" store:Type="Tables" />
+          <EntitySet Name="tbl_LogTotalDeffredStatus" EntityType="Self.tbl_LogTotalDeffredStatus" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_NotificationTarif" EntityType="Self.tbl_NotificationTarif" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_PreDraftText" EntityType="Self.tbl_PreDraftText" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_PreNotifiyCurrentLCStatus" EntityType="Self.tbl_PreNotifiyCurrentLCStatus" Schema="Vosul" store:Type="Tables" />
@@ -3195,6 +3231,7 @@
           <EntitySet Name="tbl_Sponsor_List_Log" EntityType="Self.tbl_Sponsor_List_Log" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_Sponsors_List" EntityType="Self.tbl_Sponsors_List" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_SystemLoginLog" EntityType="Self.tbl_SystemLoginLog" Schema="Vosul" store:Type="Tables" />
+          <EntitySet Name="tbl_TotalDeffredLC" EntityType="Self.tbl_TotalDeffredLC" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_VoiceRecords" EntityType="Self.tbl_VoiceRecords" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_VoiceSMS_Report_Log" EntityType="Self.tbl_VoiceSMS_Report_Log" Schema="Vosul" store:Type="Tables" />
           <EntitySet Name="tbl_WarningIntervals" EntityType="Self.tbl_WarningIntervals" Schema="Vosul" store:Type="Tables" />
@@ -3619,6 +3656,9 @@
           <Property Name="PreNotification" Type="Boolean" />
           <Property Name="UpdateTime_PreNotify" Type="Time" Precision="7" />
           <Property Name="tryTime_PreNotify" Type="Int32" />
+          <Property Name="GetTotalLC" Type="Boolean" />
+          <Property Name="UpdateTime_TotalLC" Type="Time" Precision="7" />
+          <Property Name="tryTime_TotalLC" Type="Int32" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -5879,6 +5919,7 @@
           <FunctionImport Name="spr_File_Select" ReturnType="Collection(dbMehrVosulModel.spr_File_Select_Result)">
             <Parameter Name="Action" Mode="In" Type="Int32" />
             <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="CustomerNO" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="spr_File_Update">
             <Parameter Name="ID" Mode="In" Type="Int32" />
@@ -6703,6 +6744,7 @@
           <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spr_User_Update">
+            <Parameter Name="UserName" Mode="In" Type="String" />
             <Parameter Name="ID" Mode="In" Type="Int32" />
             <Parameter Name="IsActive" Mode="In" Type="Boolean" />
             <Parameter Name="IsDataAdmin" Mode="In" Type="Boolean" />
@@ -6977,6 +7019,8 @@
             <End Role="tbl_User" EntitySet="tbl_User" />
             <End Role="tbl_HandyFollow" EntitySet="tbl_HandyFollow" />
           </AssociationSet>
+          <EntitySet Name="tbl_LogTotalDeffredStatus" EntityType="dbMehrVosulModel.tbl_LogTotalDeffredStatus" />
+          <EntitySet Name="tbl_TotalDeffredLC" EntityType="dbMehrVosulModel.tbl_TotalDeffredLC" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -8119,6 +8163,36 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tbl_LogTotalDeffredStatus">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Precision="0" />
+          <Property Name="STime" Type="DateTime" Precision="3" />
+          <Property Name="Success" Type="Boolean" />
+          <Property Name="Remarks" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="tryTime" Type="Int32" />
+        </EntityType>
+        <EntityType Name="tbl_TotalDeffredLC">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date_P" Type="DateTime" Precision="0" />
+          <Property Name="AmounDefferd" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="Status" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="NotPiadDurationDay" Type="Int32" />
+          <Property Name="NoDelayInstallment" Type="Int32" />
+          <Property Name="CustomerNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LCNumber" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="BranchCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FullName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="MobileNO" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoanTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LoanType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Process" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -8215,6 +8289,9 @@
           <EntitySetMapping Name="tbl_SystemSetting">
             <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_SystemSetting">
               <MappingFragment StoreEntitySet="tbl_SystemSetting">
+                <ScalarProperty Name="tryTime_TotalLC" ColumnName="tryTime_TotalLC" />
+                <ScalarProperty Name="UpdateTime_TotalLC" ColumnName="UpdateTime_TotalLC" />
+                <ScalarProperty Name="GetTotalLC" ColumnName="GetTotalLC" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="GatewayNumber" ColumnName="GatewayNumber" />
                 <ScalarProperty Name="GatewayCompany" ColumnName="GatewayCompany" />
@@ -10740,6 +10817,38 @@
                 <ScalarProperty Name="ReceiverInfo" ColumnName="ReceiverInfo" />
                 <ScalarProperty Name="SenderInfo" ColumnName="SenderInfo" />
                 <ScalarProperty Name="FK_PreWarningNotificationLogID" ColumnName="FK_PreWarningNotificationLogID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_LogTotalDeffredStatus">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_LogTotalDeffredStatus">
+              <MappingFragment StoreEntitySet="tbl_LogTotalDeffredStatus">
+                <ScalarProperty Name="tryTime" ColumnName="tryTime" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="STime" ColumnName="STime" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_TotalDeffredLC">
+            <EntityTypeMapping TypeName="dbMehrVosulModel.tbl_TotalDeffredLC">
+              <MappingFragment StoreEntitySet="tbl_TotalDeffredLC">
+                <ScalarProperty Name="Process" ColumnName="Process" />
+                <ScalarProperty Name="LoanType" ColumnName="LoanType" />
+                <ScalarProperty Name="LoanTypeCode" ColumnName="LoanTypeCode" />
+                <ScalarProperty Name="MobileNO" ColumnName="MobileNO" />
+                <ScalarProperty Name="FullName" ColumnName="FullName" />
+                <ScalarProperty Name="BranchCode" ColumnName="BranchCode" />
+                <ScalarProperty Name="LCNumber" ColumnName="LCNumber" />
+                <ScalarProperty Name="CustomerNO" ColumnName="CustomerNO" />
+                <ScalarProperty Name="NoDelayInstallment" ColumnName="NoDelayInstallment" />
+                <ScalarProperty Name="NotPiadDurationDay" ColumnName="NotPiadDurationDay" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="AmounDefferd" ColumnName="AmounDefferd" />
+                <ScalarProperty Name="Date_P" ColumnName="Date_P" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

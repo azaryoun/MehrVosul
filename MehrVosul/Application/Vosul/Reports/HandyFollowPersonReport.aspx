@@ -118,47 +118,38 @@
                                             </asp:UpdatePanel>
                                          
                                         </div>
-                                
+                                            <div class="form-group">
+                                            <label>کارشناس پیگیری</label>
+                                            <asp:ObjectDataSource ID="odsPerson" runat="server" 
+                                                OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" 
 
-                             <div class="form-group">
-                                            <label>نوع اطلاع رسانی</label>
-                                               <asp:DropDownList ID="cmbNotification" runat="server" CssClass="form-control">
-                                                   <asp:ListItem Value="0">(همه)</asp:ListItem>
-                                                   <asp:ListItem Value="1">ارسال پیامک</asp:ListItem>
-                                                   <asp:ListItem Value="2">تماس تلفنی</asp:ListItem>
-                                                   <asp:ListItem Value="3">دعوت نامه</asp:ListItem>
-                                                   <asp:ListItem Value="4">اخطاریه</asp:ListItem>
-                                                   <asp:ListItem Value="5">اظهارنامه</asp:ListItem>
-                                               
-                                                </asp:DropDownList>
+                                                  
+                                                  
+                                                
+                                                
+                                                   
+                                                     TypeName="BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter">
+                                                <SelectParameters>
+                                                    <asp:Parameter Name="Action" Type="Int32" />
+                                                    <asp:Parameter Name="BranchID" Type="Int32" />
+                                                    <asp:Parameter Name="ProvinceID" Type="Int32" />
+                                                </SelectParameters>
+                                            </asp:ObjectDataSource>
+                                              
+                                                 <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                                     <ContentTemplate>
+                                                         <asp:DropDownList ID="cmbPerson" 
+    runat="server" CssClass="form-control" AutoPostBack="True" DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID">
+                                                         </asp:DropDownList>
+                                                     </ContentTemplate>
+                                                 </asp:UpdatePanel>
+                                              
 
                                         </div>
 
-                                       
-                                      <div class="form-group">
-                                            <label>وضعیت تماس</label><asp:DropDownList ID="cmbStatus" runat="server" 
-                                               CssClass="form-control">
-                                                <asp:ListItem Value="-1">---</asp:ListItem>
-                                                <asp:ListItem Value="1">باپاسخ</asp:ListItem>
-                                                <asp:ListItem Value="2">بدون پاسخ</asp:ListItem>
-                                             
-                                              
-                                               
-                                                </asp:DropDownList>
-                                         </div>   
-                           
 
-                                          <div class="form-group">
-                                            <label>نتیجه تماس</label><asp:DropDownList ID="cmbSuccess" runat="server" 
-                                               CssClass="form-control">
-                                                <asp:ListItem Value="-1">---</asp:ListItem>
-                                                <asp:ListItem Value="1">موفق</asp:ListItem>
-                                                <asp:ListItem Value="2">ناموفق</asp:ListItem>
-                                             
-                                              
-                                               
-                                                </asp:DropDownList>
-                                         </div>   
+                               
+ 
                             
                             </div>
 
@@ -176,13 +167,14 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th>تاریخ</th>
-                                            <th>نوع اطلاع رسانی</th>
-                                            <th>تعداد تماس</th>
-                                         
-                                             <th>کارشناس پیگیر</th>
                                            
-                                              <th>شعبه</th>
+                                         
+                                            <th>استان</th>
+                                         
+                                       
+                                              <th>تعداد تماس</th>
+                                           
+                                           
                                          
                                         </tr>
                                     </thead>
@@ -192,7 +184,63 @@
                         </div>
                     </div>
 
+                         <div class="panel panel-default" id="divResult2" runat="server" visible="false">
 
+                             <div class="panel-heading">
+                                 لیست پیگیری های ثبت شده</div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="tblResult2" runat="server">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                        
+                                      
+                                                <th>شعبه</th>
+                                         
+                                               <th>تعداد تماس</th>
+                                         
+                                          
+                                           
+       
+                                             
+                                         
+                                        </tr>
+                                    </thead>
+                             
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                               <div class="panel panel-default" id="divResult3" runat="server" visible="false">
+
+                             <div class="panel-heading">
+                                 لیست پیگیری های ثبت شده</div>
+                        <div class="panel-body">
+                            <div class="table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="tblResult3" runat="server">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                        
+                                      
+                                                <th>کارشناس پیگیر</th>
+                                         
+                                               <th>تعداد تماس</th>
+                                         
+                                          
+                                           
+       
+                                             
+                                         
+                                        </tr>
+                                    </thead>
+                             
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                        </div>     
 
                             

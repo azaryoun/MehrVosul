@@ -161,6 +161,7 @@
     <Content Include="Application\Vosul\File\Temp\MehrLogo.jpg" />
     <Content Include="Application\Vosul\File\WhiteListManagement.aspx" />
     <Content Include="Application\Vosul\File\WhiteListNew.aspx" />
+    <Content Include="Application\Vosul\HandyFollowNew\HandyFollowNewSearch.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx" />
@@ -538,6 +539,13 @@
       <DependentUpon>WhiteListNew.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Vosul\HandyFollowNew\HandyFollowNewSearch.aspx.designer.vb">
+      <DependentUpon>HandyFollowNewSearch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollowNew\HandyFollowNewSearch.aspx.vb">
+      <DependentUpon>HandyFollowNewSearch.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx.designer.vb">
       <DependentUpon>HandyFollowFileSearch.aspx</DependentUpon>
     </Compile>
@@ -903,10 +911,10 @@
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
     <None Include="Web References\ZamanakWebService\Default_Service_SoapServer_ZamanakV4.wsdl" />
-    <Content Include="Web References\ZamanakWebService\Reference.map">
+    <None Include="Web References\ZamanakWebService\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.vb</LastGenOutput>
-    </Content>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Application\Administration\User\Temp\" />
