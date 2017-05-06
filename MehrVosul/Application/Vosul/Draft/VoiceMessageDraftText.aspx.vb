@@ -273,6 +273,8 @@
             Dim strMessage As String = ""
             ''Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
 
+
+
             If ViewState("blnToSponsor") <> "True" Then
                 Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
             Else

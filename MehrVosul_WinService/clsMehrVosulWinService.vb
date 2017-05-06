@@ -221,6 +221,7 @@ Public Class clsMehrVosulWinService
 
                 Try
                     intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Borrower(0).name, arrPhoneNumbers, _VoiceSMSs_Borrower(0).records, arrnumbers, strSayMethod)
+
                 Catch ex As Exception
                     Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
                     qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "VoiceSMS_Borrower")
@@ -2055,9 +2056,9 @@ VoiceSMS:
                             Case 6 'Brnach
                                 strResult &= " " & strBranchName
                             Case 7 'Sponsor FName
-                                strResult &= " " & strBranchName
+                                strResult &= " " & strSponsorFName
                             Case 8 'Sponsor LName
-                                strResult &= " " & strBranchName
+                                strResult &= " " & strSponsorLName
                             Case 9 'Sponsor Sex
                                 If blnIsMale = True Then
                                     strResult &= " آقای"
@@ -2109,9 +2110,9 @@ VoiceSMS:
                             Case 6 'Brnach
                                 strResult &= " " & strBranchName
                             Case 7 'Sponsor FName
-                                strResult &= " " & strBranchName
+                                strResult &= " " & strSponsorFName
                             Case 8 'Sponsor LName
-                                strResult &= " " & strBranchName
+                                strResult &= " " & strSponsorLName
                             Case 9 'Sponsor Sex
                                 If blnIsMale = True Then
                                     strResult &= " آقای"
@@ -4505,13 +4506,32 @@ VoiceSMS:
 
         Dim tadpSponsorList As New BusinessObject.dstSponsor_ListTableAdapters.spr_Sponsors_List_ByLoanNumber_SelectTableAdapter
         Dim dtblSponsorList As BusinessObject.dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable = Nothing
-        dtblSponsorList = tadpSponsorList.GetData(strBranchCode, strLoanTypeCode, strCustomerNo, intLoanSerial)
+        '' dtblSponsorList = tadpSponsorList.GetData(strBranchCode, strLoanTypeCode, strCustomerNo, intLoanSerial)
+        Dim strParam As String = strBranchCode & "-" & strLoanTypeCode & "-" & strCustomerNo & "-" & intLoanSerial.ToString
+        dtblSponsorList = tadpSponsorList.GetData(strParam)
+
+
 
         If dtblSponsorList.Rows.Count = 0 Then
             Return Nothing
         End If
 
+
+        Dim listOperationLoan As New List(Of String)
+
         For Each drwSponsorList As BusinessObject.dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectRow In dtblSponsorList.Rows
+
+
+            If listOperationLoan.IndexOf(drwSponsorList.MobileNo) = -1 Then
+
+                listOperationLoan.Add(drwSponsorList.MobileNo)
+
+            Else
+
+                Continue For
+
+            End If
+
 
 
             Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
@@ -4608,7 +4628,7 @@ VoiceSMS:
 
 
 
-            If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 15 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+            If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
                 Return
             End If
 
@@ -4646,6 +4666,11 @@ VoiceSMS:
 
             Else
                 Dim drwLCLog As BusinessObject.dstLogCurrentLCStatus_H.spr_LogCurrentLCStatus_H_ForDate_SelectRow = dtblLCLog.Rows(0)
+
+                If drwLCLog.tryTime >= drwSystemSetting.tryTime Then
+                    Return
+                End If
+
                 If drwLCLog.Success = False Then
 
                     strResultMessage = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now.AddDays(-1)) & "خواندن اطلاعات با خطا همراه شده است  مشکل در BI است " & drwLCLog.Remarks & ControlChars.NewLine & "code:1"
@@ -4823,8 +4848,16 @@ VoiceSMS:
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
             Dim intCampaignID = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+
+            If intCampaignID = 0 Then
+                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                qryErrorLog.spr_ErrorLog_Insert(strMessage, 2, "SendVoiceMixedSMS")
+            End If
+
             Return intCampaignID
         Catch ex As Exception
+            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendVoiceMixedSMS")
             Return -1
         End Try
 
@@ -4920,7 +4953,7 @@ VoiceSMS:
 
     Private Sub tmrFinalReport_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrFinalReport.Elapsed
 
-        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 17 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
             Return
         End If
 
@@ -5375,14 +5408,15 @@ VoiceSMS:
 
         ''  Checked
 
-        If Date.Now.Hour < 9 Then
 
-            Return
 
-        End If
+        If Date.Now.DayOfWeek = DayOfWeek.Thursday Then
 
-        If Date.Now.DayOfWeek = DayOfWeek.Wednesday Then
+            If Date.Now.Hour < 18 Then
 
+                Return
+
+            End If
 
             Dim tadpSponsorLog As New BusinessObject.dst_Sponsor_List_LogTableAdapters.spr_Sponsor_List_Log_Last_SelectTableAdapter
             Dim dtblSponsorLog As BusinessObject.dst_Sponsor_List_Log.spr_Sponsor_List_Log_Last_SelectDataTable = Nothing
@@ -5496,7 +5530,7 @@ VoiceSMS:
                         End If
 
                         'If dataReader.GetValue(6) Is DBNull.Value Then
-                        '    stcVarSponsorInfo.FatherName = ""
+                        '    stcVarSponsorInfo.FatherName = ""حش
                         'Else
                         '    stcVarSponsorInfo.FatherName = CStr(dataReader.GetValue(6)).Replace("'", "")
                         'End If
@@ -5627,4 +5661,107 @@ VoiceSMS:
     End Sub
 
 
+    Private Sub GetVoiceMessageStatus()
+
+
+        If Date.Now.Hour < 18 AndAlso Date.Now.DayOfWeek = DayOfWeek.Friday Then
+
+            Return
+
+        End If
+
+        Dim startTime As DateTime = Date.Now
+        Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
+        Dim strMessage As String = ""
+
+        Dim VoiceStatus As VoiceSMS.STC_Status()
+
+        ''get status sent voice sms of the current day
+        Dim tadpGetCurrentDayVoiceSMS As New BusinessObject.dstZamanakTableAdapters.spr_GetCurrentDayVoiceSMS_SelectTableAdapter
+        Dim dtblGetCurrentDayVoiceSMS As BusinessObject.dstZamanak.spr_GetCurrentDayVoiceSMS_SelectDataTable = Nothing
+
+        Dim dteThisDate As Date = Date.Now '.AddDays(-1)
+        dtblGetCurrentDayVoiceSMS = tadpGetCurrentDayVoiceSMS.GetData(dteThisDate)
+
+        Dim qryVoiceMessage As New BusinessObject.dstZamanakTableAdapters.QueriesTableAdapter
+
+        Try
+
+            For Each drwGetCurrentDayVoiceSMS As BusinessObject.dstZamanak.spr_GetCurrentDayVoiceSMS_SelectRow In dtblGetCurrentDayVoiceSMS
+                Try
+                    Dim intPageCount As Integer = Math.Abs(drwGetCurrentDayVoiceSMS.BatchCount / 10)
+
+                    Dim strCampin() As String = drwGetCurrentDayVoiceSMS.strMessage.Split("#")
+                    Dim intCampain As Integer = CInt(strCampin(1))
+
+                    If intCampain = Nothing Then
+                        Continue For
+                    End If
+                    '' VoiceStatus = oVoiceSMS.StatusVoiceSMS_Details("09905389810", "mehrvosul", intCampain, 1, strMessage)
+                    VoiceStatus = oVoiceSMS.StatusVoiceSMS_Details_Mehr("vesal", "matchautoreplay123", 9899, "ZamanakSoapV45815e7f52aaab", intCampain, 1, strMessage)
+
+                    If VoiceStatus Is Nothing Then
+                        ''Log error and campainID
+                        qryVoiceMessage.spr_VoiceMessageErrorLog_Insert(intCampain, strMessage)
+                        Continue For
+                    End If
+
+                    Dim i As Integer = 0
+                    For i = 0 To drwGetCurrentDayVoiceSMS.BatchCount - 1
+                        Try
+                            Dim intStaus As Integer
+                            Select Case VoiceStatus(i).Status
+                                Case "completed"
+                                    intStaus = 1
+                                Case "noanswered"
+                                    intStaus = 2
+                                Case Else
+
+                                    intStaus = 3
+
+                            End Select
+                            qryVoiceMessage.spr_VoiceMessageStatus_Insert(intCampain, VoiceStatus(i).ReceiverNumber, intStaus, dteThisDate)
+
+                        Catch ex As Exception
+
+                            qryVoiceMessage.spr_VoiceMessageErrorLog_Insert(intCampain, ex.Message)
+                            Continue For
+                        End Try
+
+
+                    Next
+
+                Catch ex As Exception
+                    qryVoiceMessage.spr_VoiceMessageErrorLog_Insert(-1, ex.Message)
+                    Continue For
+                End Try
+
+            Next
+
+            Dim tadpVoiceSMSCount As New BusinessObject.dstZamanakTableAdapters.spr_VoiceMessageStatusCount_SelectTableAdapter
+            Dim dtblVoiceSMSCount As BusinessObject.dstZamanak.spr_VoiceMessageStatusCount_SelectDataTable
+
+            dtblVoiceSMSCount = tadpVoiceSMSCount.GetData()
+
+            Dim intTotalCount As Integer = dtblVoiceSMSCount.First.SMSVoiceStatusCount
+
+            qryVoiceMessage.spr_VoiceMessageStatusLog_Insert(startTime, Date.Now, intTotalCount)
+
+
+        Catch ex As Exception
+
+            qryVoiceMessage.spr_VoiceMessageErrorLog_Insert(-1, ex.Message)
+
+        End Try
+
+    End Sub
+
+    Private Sub tmrVoiceSMSStatus_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrVoiceSMSStatus.Elapsed
+        Try
+            Call GetVoiceMessageStatus()
+        Catch ex As Exception
+
+        End Try
+
+    End Sub
 End Class

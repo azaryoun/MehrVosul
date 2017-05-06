@@ -181,9 +181,11 @@
     <Content Include="Application\Vosul\Reports\SystemLoginLogReport.aspx" />
     <Content Include="Application\Vosul\Reports\WarningNotificationLogDetailSummaryReport.aspx" />
     <Content Include="Application\Vosul\Reports\WarningNotificationReport.aspx" />
+    <Content Include="Application\Vosul\Reports\ZamanakReport.aspx" />
     <Content Include="Application\Vosul\Tarrif\NotificationTarrifEdit.aspx" />
     <Content Include="Application\Vosul\Tarrif\NotificationTarrifManagement.aspx" />
     <Content Include="Application\Vosul\Tarrif\NotificationTarrifNew.aspx" />
+    <Content Include="Application\Vosul\VoiceMessage\GetVoiceMessageDailyStatus.aspx" />
     <Content Include="Application\Vosul\VoiceMessage\VoiceMessageFileEdit.aspx" />
     <Content Include="Application\Vosul\VoiceMessage\VoiceMessageFileNew.aspx" />
     <Content Include="Application\Vosul\VoiceMessage\VoiceMessageManagement.aspx" />
@@ -256,7 +258,9 @@
     <Content Include="UserControl\UC_TimePicker.ascx" />
     <Content Include="Application\Administration\User\Sample\Sample.xlsx" />
     <None Include="Web References\VoiceSMS\RahyabVoiceSend.disco" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
@@ -679,6 +683,13 @@
       <DependentUpon>WarningNotificationReport.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Vosul\Reports\ZamanakReport.aspx.designer.vb">
+      <DependentUpon>ZamanakReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\ZamanakReport.aspx.vb">
+      <DependentUpon>ZamanakReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Vosul\Tarrif\NotificationTarrifEdit.aspx.designer.vb">
       <DependentUpon>NotificationTarrifEdit.aspx</DependentUpon>
     </Compile>
@@ -698,6 +709,13 @@
     </Compile>
     <Compile Include="Application\Vosul\Tarrif\NotificationTarrifNew.aspx.vb">
       <DependentUpon>NotificationTarrifNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\VoiceMessage\GetVoiceMessageDailyStatus.aspx.designer.vb">
+      <DependentUpon>GetVoiceMessageDailyStatus.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\VoiceMessage\GetVoiceMessageDailyStatus.aspx.vb">
+      <DependentUpon>GetVoiceMessageDailyStatus.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\VoiceMessage\VoiceMessageFileEdit.aspx.designer.vb">

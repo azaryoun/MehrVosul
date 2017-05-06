@@ -51,6 +51,7 @@ Partial Class clsMehrVosulWinService
         Me.UpdatePreWarning = New System.Timers.Timer()
         Me.tmrTotalLC = New System.Timers.Timer()
         Me.tmrNewSponsor = New System.Timers.Timer()
+        Me.tmrVoiceSMSStatus = New System.Timers.Timer()
         CType(Me.tmrUpdateData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSponsorList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -61,15 +62,15 @@ Partial Class clsMehrVosulWinService
         CType(Me.UpdatePreWarning, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrTotalLC, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrNewSponsor, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tmrVoiceSMSStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'tmrUpdateData
         '
         Me.tmrUpdateData.Enabled = True
-        Me.tmrUpdateData.Interval = 1800000.0R
+        Me.tmrUpdateData.Interval = 900000.0R
         '
         'tmrSponsorList
         '
-        Me.tmrSponsorList.Enabled = True
         Me.tmrSponsorList.Interval = 7200000.0R
         '
         'tmrSelfReport
@@ -103,11 +104,15 @@ Partial Class clsMehrVosulWinService
         'tmrTotalLC
         '
         Me.tmrTotalLC.Enabled = True
-        Me.tmrTotalLC.Interval = 1800000.0R
+        Me.tmrTotalLC.Interval = 900000.0R
         '
         'tmrNewSponsor
         '
         Me.tmrNewSponsor.Interval = 7200000.0R
+        '
+        'tmrVoiceSMSStatus
+        '
+        Me.tmrVoiceSMSStatus.Interval = 900000.0R
         '
         'clsMehrVosulWinService
         '
@@ -122,6 +127,7 @@ Partial Class clsMehrVosulWinService
         CType(Me.UpdatePreWarning, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrTotalLC, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrNewSponsor, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tmrVoiceSMSStatus, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents tmrUpdateData As System.Timers.Timer
@@ -134,4 +140,5 @@ Partial Class clsMehrVosulWinService
     Friend WithEvents UpdatePreWarning As Timers.Timer
     Friend WithEvents tmrTotalLC As Timers.Timer
     Friend WithEvents tmrNewSponsor As Timers.Timer
+    Friend WithEvents tmrVoiceSMSStatus As Timers.Timer
 End Class

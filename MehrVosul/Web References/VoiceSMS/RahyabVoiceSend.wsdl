@@ -286,6 +286,85 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="StatusVoiceSMS_Mehr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intUid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceSMSID" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusVoiceSMS_MehrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StatusVoiceSMS_MehrResult" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusVoiceSMS_Details_Mehr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intUid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strToken" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intVoiceSMSID" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="intPageNo" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="StatusVoiceSMS_Details_MehrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="StatusVoiceSMS_Details_MehrResult" type="tns:ArrayOfSTC_Status" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DailyVoiceCallCount_Mehr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intUid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DailyVoiceCallCount_MehrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DailyVoiceCallCount_MehrResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DailyCampaignCount_Mehr">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="intUid" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DailyCampaignCount_MehrResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="DailyCampaignCount_MehrResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="RefundWarrantyCredit">
         <s:complexType>
           <s:sequence>
@@ -426,6 +505,30 @@
   <wsdl:message name="SendVoiceSMS_MehrSoapOut">
     <wsdl:part name="parameters" element="tns:SendVoiceSMS_MehrResponse" />
   </wsdl:message>
+  <wsdl:message name="StatusVoiceSMS_MehrSoapIn">
+    <wsdl:part name="parameters" element="tns:StatusVoiceSMS_Mehr" />
+  </wsdl:message>
+  <wsdl:message name="StatusVoiceSMS_MehrSoapOut">
+    <wsdl:part name="parameters" element="tns:StatusVoiceSMS_MehrResponse" />
+  </wsdl:message>
+  <wsdl:message name="StatusVoiceSMS_Details_MehrSoapIn">
+    <wsdl:part name="parameters" element="tns:StatusVoiceSMS_Details_Mehr" />
+  </wsdl:message>
+  <wsdl:message name="StatusVoiceSMS_Details_MehrSoapOut">
+    <wsdl:part name="parameters" element="tns:StatusVoiceSMS_Details_MehrResponse" />
+  </wsdl:message>
+  <wsdl:message name="DailyVoiceCallCount_MehrSoapIn">
+    <wsdl:part name="parameters" element="tns:DailyVoiceCallCount_Mehr" />
+  </wsdl:message>
+  <wsdl:message name="DailyVoiceCallCount_MehrSoapOut">
+    <wsdl:part name="parameters" element="tns:DailyVoiceCallCount_MehrResponse" />
+  </wsdl:message>
+  <wsdl:message name="DailyCampaignCount_MehrSoapIn">
+    <wsdl:part name="parameters" element="tns:DailyCampaignCount_Mehr" />
+  </wsdl:message>
+  <wsdl:message name="DailyCampaignCount_MehrSoapOut">
+    <wsdl:part name="parameters" element="tns:DailyCampaignCount_MehrResponse" />
+  </wsdl:message>
   <wsdl:message name="RefundWarrantyCreditSoapIn">
     <wsdl:part name="parameters" element="tns:RefundWarrantyCredit" />
   </wsdl:message>
@@ -496,6 +599,22 @@
     <wsdl:operation name="SendVoiceSMS_Mehr">
       <wsdl:input message="tns:SendVoiceSMS_MehrSoapIn" />
       <wsdl:output message="tns:SendVoiceSMS_MehrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Mehr">
+      <wsdl:input message="tns:StatusVoiceSMS_MehrSoapIn" />
+      <wsdl:output message="tns:StatusVoiceSMS_MehrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Details_Mehr">
+      <wsdl:input message="tns:StatusVoiceSMS_Details_MehrSoapIn" />
+      <wsdl:output message="tns:StatusVoiceSMS_Details_MehrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DailyVoiceCallCount_Mehr">
+      <wsdl:input message="tns:DailyVoiceCallCount_MehrSoapIn" />
+      <wsdl:output message="tns:DailyVoiceCallCount_MehrSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DailyCampaignCount_Mehr">
+      <wsdl:input message="tns:DailyCampaignCount_MehrSoapIn" />
+      <wsdl:output message="tns:DailyCampaignCount_MehrSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="RefundWarrantyCredit">
       <wsdl:input message="tns:RefundWarrantyCreditSoapIn" />
@@ -622,6 +741,42 @@
     </wsdl:operation>
     <wsdl:operation name="SendVoiceSMS_Mehr">
       <soap:operation soapAction="http://tempuri.org/SendVoiceSMS_Mehr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Mehr">
+      <soap:operation soapAction="http://tempuri.org/StatusVoiceSMS_Mehr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Details_Mehr">
+      <soap:operation soapAction="http://tempuri.org/StatusVoiceSMS_Details_Mehr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DailyVoiceCallCount_Mehr">
+      <soap:operation soapAction="http://tempuri.org/DailyVoiceCallCount_Mehr" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DailyCampaignCount_Mehr">
+      <soap:operation soapAction="http://tempuri.org/DailyCampaignCount_Mehr" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -769,6 +924,42 @@
     </wsdl:operation>
     <wsdl:operation name="SendVoiceSMS_Mehr">
       <soap12:operation soapAction="http://tempuri.org/SendVoiceSMS_Mehr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Mehr">
+      <soap12:operation soapAction="http://tempuri.org/StatusVoiceSMS_Mehr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="StatusVoiceSMS_Details_Mehr">
+      <soap12:operation soapAction="http://tempuri.org/StatusVoiceSMS_Details_Mehr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DailyVoiceCallCount_Mehr">
+      <soap12:operation soapAction="http://tempuri.org/DailyVoiceCallCount_Mehr" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DailyCampaignCount_Mehr">
+      <soap12:operation soapAction="http://tempuri.org/DailyCampaignCount_Mehr" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

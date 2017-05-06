@@ -58,6 +58,14 @@ Namespace VoiceSMS
         
         Private SendVoiceSMS_MehrOperationCompleted As System.Threading.SendOrPostCallback
         
+        Private StatusVoiceSMS_MehrOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private StatusVoiceSMS_Details_MehrOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private DailyVoiceCallCount_MehrOperationCompleted As System.Threading.SendOrPostCallback
+        
+        Private DailyCampaignCount_MehrOperationCompleted As System.Threading.SendOrPostCallback
+        
         Private RefundWarrantyCreditOperationCompleted As System.Threading.SendOrPostCallback
         
         Private PaymentVoiceBillOperationCompleted As System.Threading.SendOrPostCallback
@@ -140,6 +148,18 @@ Namespace VoiceSMS
         
         '''<remarks/>
         Public Event SendVoiceSMS_MehrCompleted As SendVoiceSMS_MehrCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event StatusVoiceSMS_MehrCompleted As StatusVoiceSMS_MehrCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event StatusVoiceSMS_Details_MehrCompleted As StatusVoiceSMS_Details_MehrCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event DailyVoiceCallCount_MehrCompleted As DailyVoiceCallCount_MehrCompletedEventHandler
+        
+        '''<remarks/>
+        Public Event DailyCampaignCount_MehrCompleted As DailyCampaignCount_MehrCompletedEventHandler
         
         '''<remarks/>
         Public Event RefundWarrantyCreditCompleted As RefundWarrantyCreditCompletedEventHandler
@@ -511,6 +531,118 @@ Namespace VoiceSMS
             If (Not (Me.SendVoiceSMS_MehrCompletedEvent) Is Nothing) Then
                 Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
                 RaiseEvent SendVoiceSMS_MehrCompleted(Me, New SendVoiceSMS_MehrCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/StatusVoiceSMS_Mehr", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function StatusVoiceSMS_Mehr(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal intVoiceSMSID As Integer, ByRef strMessage As String) As String()
+            Dim results() As Object = Me.Invoke("StatusVoiceSMS_Mehr", New Object() {strUsername, strPassword, intUid, strToken, intVoiceSMSID, strMessage})
+            strMessage = CType(results(1),String)
+            Return CType(results(0),String())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub StatusVoiceSMS_MehrAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal intVoiceSMSID As Integer, ByVal strMessage As String)
+            Me.StatusVoiceSMS_MehrAsync(strUsername, strPassword, intUid, strToken, intVoiceSMSID, strMessage, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub StatusVoiceSMS_MehrAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal intVoiceSMSID As Integer, ByVal strMessage As String, ByVal userState As Object)
+            If (Me.StatusVoiceSMS_MehrOperationCompleted Is Nothing) Then
+                Me.StatusVoiceSMS_MehrOperationCompleted = AddressOf Me.OnStatusVoiceSMS_MehrOperationCompleted
+            End If
+            Me.InvokeAsync("StatusVoiceSMS_Mehr", New Object() {strUsername, strPassword, intUid, strToken, intVoiceSMSID, strMessage}, Me.StatusVoiceSMS_MehrOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnStatusVoiceSMS_MehrOperationCompleted(ByVal arg As Object)
+            If (Not (Me.StatusVoiceSMS_MehrCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent StatusVoiceSMS_MehrCompleted(Me, New StatusVoiceSMS_MehrCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/StatusVoiceSMS_Details_Mehr", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function StatusVoiceSMS_Details_Mehr(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByRef strMessage As String) As <System.Xml.Serialization.XmlArrayItemAttribute(IsNullable:=false)> STC_Status()
+            Dim results() As Object = Me.Invoke("StatusVoiceSMS_Details_Mehr", New Object() {strUsername, strPassword, intUid, strToken, intVoiceSMSID, intPageNo, strMessage})
+            strMessage = CType(results(1),String)
+            Return CType(results(0),STC_Status())
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub StatusVoiceSMS_Details_MehrAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByVal strMessage As String)
+            Me.StatusVoiceSMS_Details_MehrAsync(strUsername, strPassword, intUid, strToken, intVoiceSMSID, intPageNo, strMessage, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub StatusVoiceSMS_Details_MehrAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal intVoiceSMSID As Integer, ByVal intPageNo As Integer, ByVal strMessage As String, ByVal userState As Object)
+            If (Me.StatusVoiceSMS_Details_MehrOperationCompleted Is Nothing) Then
+                Me.StatusVoiceSMS_Details_MehrOperationCompleted = AddressOf Me.OnStatusVoiceSMS_Details_MehrOperationCompleted
+            End If
+            Me.InvokeAsync("StatusVoiceSMS_Details_Mehr", New Object() {strUsername, strPassword, intUid, strToken, intVoiceSMSID, intPageNo, strMessage}, Me.StatusVoiceSMS_Details_MehrOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnStatusVoiceSMS_Details_MehrOperationCompleted(ByVal arg As Object)
+            If (Not (Me.StatusVoiceSMS_Details_MehrCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent StatusVoiceSMS_Details_MehrCompleted(Me, New StatusVoiceSMS_Details_MehrCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DailyVoiceCallCount_Mehr", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function DailyVoiceCallCount_Mehr(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByRef strMessage As String) As Integer
+            Dim results() As Object = Me.Invoke("DailyVoiceCallCount_Mehr", New Object() {strUsername, strPassword, intUid, strToken, strMessage})
+            strMessage = CType(results(1),String)
+            Return CType(results(0),Integer)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub DailyVoiceCallCount_MehrAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal strMessage As String)
+            Me.DailyVoiceCallCount_MehrAsync(strUsername, strPassword, intUid, strToken, strMessage, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub DailyVoiceCallCount_MehrAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal strMessage As String, ByVal userState As Object)
+            If (Me.DailyVoiceCallCount_MehrOperationCompleted Is Nothing) Then
+                Me.DailyVoiceCallCount_MehrOperationCompleted = AddressOf Me.OnDailyVoiceCallCount_MehrOperationCompleted
+            End If
+            Me.InvokeAsync("DailyVoiceCallCount_Mehr", New Object() {strUsername, strPassword, intUid, strToken, strMessage}, Me.DailyVoiceCallCount_MehrOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnDailyVoiceCallCount_MehrOperationCompleted(ByVal arg As Object)
+            If (Not (Me.DailyVoiceCallCount_MehrCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent DailyVoiceCallCount_MehrCompleted(Me, New DailyVoiceCallCount_MehrCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
+            End If
+        End Sub
+        
+        '''<remarks/>
+        <System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://tempuri.org/DailyCampaignCount_Mehr", RequestNamespace:="http://tempuri.org/", ResponseNamespace:="http://tempuri.org/", Use:=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle:=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)>  _
+        Public Function DailyCampaignCount_Mehr(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByRef strMessage As String) As Integer
+            Dim results() As Object = Me.Invoke("DailyCampaignCount_Mehr", New Object() {strUsername, strPassword, intUid, strToken, strMessage})
+            strMessage = CType(results(1),String)
+            Return CType(results(0),Integer)
+        End Function
+        
+        '''<remarks/>
+        Public Overloads Sub DailyCampaignCount_MehrAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal strMessage As String)
+            Me.DailyCampaignCount_MehrAsync(strUsername, strPassword, intUid, strToken, strMessage, Nothing)
+        End Sub
+        
+        '''<remarks/>
+        Public Overloads Sub DailyCampaignCount_MehrAsync(ByVal strUsername As String, ByVal strPassword As String, ByVal intUid As Integer, ByVal strToken As String, ByVal strMessage As String, ByVal userState As Object)
+            If (Me.DailyCampaignCount_MehrOperationCompleted Is Nothing) Then
+                Me.DailyCampaignCount_MehrOperationCompleted = AddressOf Me.OnDailyCampaignCount_MehrOperationCompleted
+            End If
+            Me.InvokeAsync("DailyCampaignCount_Mehr", New Object() {strUsername, strPassword, intUid, strToken, strMessage}, Me.DailyCampaignCount_MehrOperationCompleted, userState)
+        End Sub
+        
+        Private Sub OnDailyCampaignCount_MehrOperationCompleted(ByVal arg As Object)
+            If (Not (Me.DailyCampaignCount_MehrCompletedEvent) Is Nothing) Then
+                Dim invokeArgs As System.Web.Services.Protocols.InvokeCompletedEventArgs = CType(arg,System.Web.Services.Protocols.InvokeCompletedEventArgs)
+                RaiseEvent DailyCampaignCount_MehrCompleted(Me, New DailyCampaignCount_MehrCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState))
             End If
         End Sub
         
@@ -1102,6 +1234,146 @@ Namespace VoiceSMS
      System.Diagnostics.DebuggerStepThroughAttribute(),  _
      System.ComponentModel.DesignerCategoryAttribute("code")>  _
     Partial Public Class SendVoiceSMS_MehrCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Integer
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Integer)
+            End Get
+        End Property
+        
+        '''<remarks/>
+        Public ReadOnly Property strMessage() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(1),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub StatusVoiceSMS_MehrCompletedEventHandler(ByVal sender As Object, ByVal e As StatusVoiceSMS_MehrCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class StatusVoiceSMS_MehrCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As String()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),String())
+            End Get
+        End Property
+        
+        '''<remarks/>
+        Public ReadOnly Property strMessage() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(1),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub StatusVoiceSMS_Details_MehrCompletedEventHandler(ByVal sender As Object, ByVal e As StatusVoiceSMS_Details_MehrCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class StatusVoiceSMS_Details_MehrCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As STC_Status()
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),STC_Status())
+            End Get
+        End Property
+        
+        '''<remarks/>
+        Public ReadOnly Property strMessage() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(1),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub DailyVoiceCallCount_MehrCompletedEventHandler(ByVal sender As Object, ByVal e As DailyVoiceCallCount_MehrCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class DailyVoiceCallCount_MehrCompletedEventArgs
+        Inherits System.ComponentModel.AsyncCompletedEventArgs
+        
+        Private results() As Object
+        
+        Friend Sub New(ByVal results() As Object, ByVal exception As System.Exception, ByVal cancelled As Boolean, ByVal userState As Object)
+            MyBase.New(exception, cancelled, userState)
+            Me.results = results
+        End Sub
+        
+        '''<remarks/>
+        Public ReadOnly Property Result() As Integer
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(0),Integer)
+            End Get
+        End Property
+        
+        '''<remarks/>
+        Public ReadOnly Property strMessage() As String
+            Get
+                Me.RaiseExceptionIfNecessary
+                Return CType(Me.results(1),String)
+            End Get
+        End Property
+    End Class
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0")>  _
+    Public Delegate Sub DailyCampaignCount_MehrCompletedEventHandler(ByVal sender As Object, ByVal e As DailyCampaignCount_MehrCompletedEventArgs)
+    
+    '''<remarks/>
+    <System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "4.6.1586.0"),  _
+     System.Diagnostics.DebuggerStepThroughAttribute(),  _
+     System.ComponentModel.DesignerCategoryAttribute("code")>  _
+    Partial Public Class DailyCampaignCount_MehrCompletedEventArgs
         Inherits System.ComponentModel.AsyncCompletedEventArgs
         
         Private results() As Object

@@ -25,13 +25,13 @@ Option Explicit On
 Partial Public Class dstSponsor_List
     Inherits Global.System.Data.DataSet
     
-    Private tablespr_Sponsors_List_ByLoanNumber_Select As spr_Sponsors_List_ByLoanNumber_SelectDataTable
-    
     Private tablespr_SponsorList2_SelectByFile As spr_SponsorList2_SelectByFileDataTable
     
     Private tablespr_SponsorList2_SelectByFileLoan As spr_SponsorList2_SelectByFileLoanDataTable
     
     Private tablespr_Sponsors_List1_ByLoanNumber_Select As spr_Sponsors_List1_ByLoanNumber_SelectDataTable
+    
+    Private tablespr_Sponsors_List_ByLoanNumber_Select As spr_Sponsors_List_ByLoanNumber_SelectDataTable
     
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
@@ -62,9 +62,6 @@ Partial Public Class dstSponsor_List
         If (Me.DetermineSchemaSerializationMode(info, context) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
-            If (Not (ds.Tables("spr_Sponsors_List_ByLoanNumber_Select")) Is Nothing) Then
-                MyBase.Tables.Add(New spr_Sponsors_List_ByLoanNumber_SelectDataTable(ds.Tables("spr_Sponsors_List_ByLoanNumber_Select")))
-            End If
             If (Not (ds.Tables("spr_SponsorList2_SelectByFile")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_SponsorList2_SelectByFileDataTable(ds.Tables("spr_SponsorList2_SelectByFile")))
             End If
@@ -73,6 +70,9 @@ Partial Public Class dstSponsor_List
             End If
             If (Not (ds.Tables("spr_Sponsors_List1_ByLoanNumber_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_Sponsors_List1_ByLoanNumber_SelectDataTable(ds.Tables("spr_Sponsors_List1_ByLoanNumber_Select")))
+            End If
+            If (Not (ds.Tables("spr_Sponsors_List_ByLoanNumber_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_Sponsors_List_ByLoanNumber_SelectDataTable(ds.Tables("spr_Sponsors_List_ByLoanNumber_Select")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -90,16 +90,6 @@ Partial Public Class dstSponsor_List
         AddHandler MyBase.Tables.CollectionChanged, schemaChangedHandler
         AddHandler Me.Relations.CollectionChanged, schemaChangedHandler
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-     Global.System.ComponentModel.Browsable(false),  _
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-    Public ReadOnly Property spr_Sponsors_List_ByLoanNumber_Select() As spr_Sponsors_List_ByLoanNumber_SelectDataTable
-        Get
-            Return Me.tablespr_Sponsors_List_ByLoanNumber_Select
-        End Get
-    End Property
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
@@ -128,6 +118,16 @@ Partial Public Class dstSponsor_List
     Public ReadOnly Property spr_Sponsors_List1_ByLoanNumber_Select() As spr_Sponsors_List1_ByLoanNumber_SelectDataTable
         Get
             Return Me.tablespr_Sponsors_List1_ByLoanNumber_Select
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property spr_Sponsors_List_ByLoanNumber_Select() As spr_Sponsors_List_ByLoanNumber_SelectDataTable
+        Get
+            Return Me.tablespr_Sponsors_List_ByLoanNumber_Select
         End Get
     End Property
     
@@ -198,9 +198,6 @@ Partial Public Class dstSponsor_List
             Me.Reset
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXml(reader)
-            If (Not (ds.Tables("spr_Sponsors_List_ByLoanNumber_Select")) Is Nothing) Then
-                MyBase.Tables.Add(New spr_Sponsors_List_ByLoanNumber_SelectDataTable(ds.Tables("spr_Sponsors_List_ByLoanNumber_Select")))
-            End If
             If (Not (ds.Tables("spr_SponsorList2_SelectByFile")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_SponsorList2_SelectByFileDataTable(ds.Tables("spr_SponsorList2_SelectByFile")))
             End If
@@ -209,6 +206,9 @@ Partial Public Class dstSponsor_List
             End If
             If (Not (ds.Tables("spr_Sponsors_List1_ByLoanNumber_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_Sponsors_List1_ByLoanNumber_SelectDataTable(ds.Tables("spr_Sponsors_List1_ByLoanNumber_Select")))
+            End If
+            If (Not (ds.Tables("spr_Sponsors_List_ByLoanNumber_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_Sponsors_List_ByLoanNumber_SelectDataTable(ds.Tables("spr_Sponsors_List_ByLoanNumber_Select")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -242,12 +242,6 @@ Partial Public Class dstSponsor_List
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Friend Overloads Sub InitVars(ByVal initTable As Boolean)
-        Me.tablespr_Sponsors_List_ByLoanNumber_Select = CType(MyBase.Tables("spr_Sponsors_List_ByLoanNumber_Select"),spr_Sponsors_List_ByLoanNumber_SelectDataTable)
-        If (initTable = true) Then
-            If (Not (Me.tablespr_Sponsors_List_ByLoanNumber_Select) Is Nothing) Then
-                Me.tablespr_Sponsors_List_ByLoanNumber_Select.InitVars
-            End If
-        End If
         Me.tablespr_SponsorList2_SelectByFile = CType(MyBase.Tables("spr_SponsorList2_SelectByFile"),spr_SponsorList2_SelectByFileDataTable)
         If (initTable = true) Then
             If (Not (Me.tablespr_SponsorList2_SelectByFile) Is Nothing) Then
@@ -266,6 +260,12 @@ Partial Public Class dstSponsor_List
                 Me.tablespr_Sponsors_List1_ByLoanNumber_Select.InitVars
             End If
         End If
+        Me.tablespr_Sponsors_List_ByLoanNumber_Select = CType(MyBase.Tables("spr_Sponsors_List_ByLoanNumber_Select"),spr_Sponsors_List_ByLoanNumber_SelectDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tablespr_Sponsors_List_ByLoanNumber_Select) Is Nothing) Then
+                Me.tablespr_Sponsors_List_ByLoanNumber_Select.InitVars
+            End If
+        End If
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -276,21 +276,15 @@ Partial Public Class dstSponsor_List
         Me.Namespace = "http://tempuri.org/dstSponsor_List.xsd"
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
-        Me.tablespr_Sponsors_List_ByLoanNumber_Select = New spr_Sponsors_List_ByLoanNumber_SelectDataTable()
-        MyBase.Tables.Add(Me.tablespr_Sponsors_List_ByLoanNumber_Select)
         Me.tablespr_SponsorList2_SelectByFile = New spr_SponsorList2_SelectByFileDataTable()
         MyBase.Tables.Add(Me.tablespr_SponsorList2_SelectByFile)
         Me.tablespr_SponsorList2_SelectByFileLoan = New spr_SponsorList2_SelectByFileLoanDataTable()
         MyBase.Tables.Add(Me.tablespr_SponsorList2_SelectByFileLoan)
         Me.tablespr_Sponsors_List1_ByLoanNumber_Select = New spr_Sponsors_List1_ByLoanNumber_SelectDataTable()
         MyBase.Tables.Add(Me.tablespr_Sponsors_List1_ByLoanNumber_Select)
+        Me.tablespr_Sponsors_List_ByLoanNumber_Select = New spr_Sponsors_List_ByLoanNumber_SelectDataTable()
+        MyBase.Tables.Add(Me.tablespr_Sponsors_List_ByLoanNumber_Select)
     End Sub
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Private Function ShouldSerializespr_Sponsors_List_ByLoanNumber_Select() As Boolean
-        Return false
-    End Function
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -307,6 +301,12 @@ Partial Public Class dstSponsor_List
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializespr_Sponsors_List1_ByLoanNumber_Select() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializespr_Sponsors_List_ByLoanNumber_Select() As Boolean
         Return false
     End Function
     
@@ -369,9 +369,6 @@ Partial Public Class dstSponsor_List
     End Function
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Delegate Sub spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent)
-    
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub spr_SponsorList2_SelectByFileRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_SponsorList2_SelectByFileRowChangeEvent)
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -380,465 +377,8 @@ Partial Public Class dstSponsor_List
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub spr_Sponsors_List1_ByLoanNumber_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_Sponsors_List1_ByLoanNumber_SelectRowChangeEvent)
     
-    '''<summary>
-    '''Represents the strongly named DataTable class.
-    '''</summary>
-    <Global.System.Serializable(),  _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
-    Partial Public Class spr_Sponsors_List_ByLoanNumber_SelectDataTable
-        Inherits Global.System.Data.TypedTableBase(Of spr_Sponsors_List_ByLoanNumber_SelectRow)
-        
-        Private columnID As Global.System.Data.DataColumn
-        
-        Private columnBranchCode As Global.System.Data.DataColumn
-        
-        Private columnLoanTypeCode As Global.System.Data.DataColumn
-        
-        Private columnBorrowerCustomerNo As Global.System.Data.DataColumn
-        
-        Private columnLoanSerial As Global.System.Data.DataColumn
-        
-        Private columnSponsorCustomerNo As Global.System.Data.DataColumn
-        
-        Private columnFullName As Global.System.Data.DataColumn
-        
-        Private columnFatherName As Global.System.Data.DataColumn
-        
-        Private columnMobileNo As Global.System.Data.DataColumn
-        
-        Private columnNationalID As Global.System.Data.DataColumn
-        
-        Private columnIDNumber As Global.System.Data.DataColumn
-        
-        Private columnAddress As Global.System.Data.DataColumn
-        
-        Private columnTelephoneHome As Global.System.Data.DataColumn
-        
-        Private columnTelephoneWork As Global.System.Data.DataColumn
-        
-        Private columnWarantyTypeDesc As Global.System.Data.DataColumn
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New()
-            MyBase.New
-            Me.TableName = "spr_Sponsors_List_ByLoanNumber_Select"
-            Me.BeginInit
-            Me.InitClass
-            Me.EndInit
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New
-            Me.TableName = table.TableName
-            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
-                Me.CaseSensitive = table.CaseSensitive
-            End If
-            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
-                Me.Locale = table.Locale
-            End If
-            If (table.Namespace <> table.DataSet.Namespace) Then
-                Me.Namespace = table.Namespace
-            End If
-            Me.Prefix = table.Prefix
-            Me.MinimumCapacity = table.MinimumCapacity
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-            MyBase.New(info, context)
-            Me.InitVars
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property BranchCodeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnBranchCode
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property LoanTypeCodeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnLoanTypeCode
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property BorrowerCustomerNoColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnBorrowerCustomerNo
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property LoanSerialColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnLoanSerial
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property SponsorCustomerNoColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnSponsorCustomerNo
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FullNameColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFullName
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FatherNameColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFatherName
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property MobileNoColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnMobileNo
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property NationalIDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnNationalID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property IDNumberColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnIDNumber
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property AddressColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnAddress
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property TelephoneHomeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnTelephoneHome
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property TelephoneWorkColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnTelephoneWork
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property WarantyTypeDescColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnWarantyTypeDesc
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Browsable(false)>  _
-        Public ReadOnly Property Count() As Integer
-            Get
-                Return Me.Rows.Count
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_Sponsors_List_ByLoanNumber_SelectRow
-            Get
-                Return CType(Me.Rows(index),spr_Sponsors_List_ByLoanNumber_SelectRow)
-            End Get
-        End Property
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_Sponsors_List_ByLoanNumber_SelectRowChanging As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_Sponsors_List_ByLoanNumber_SelectRowChanged As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_Sponsors_List_ByLoanNumber_SelectRowDeleting As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_Sponsors_List_ByLoanNumber_SelectRowDeleted As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Sub Addspr_Sponsors_List_ByLoanNumber_SelectRow(ByVal row As spr_Sponsors_List_ByLoanNumber_SelectRow)
-            Me.Rows.Add(row)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_Sponsors_List_ByLoanNumber_SelectRow(ByVal BranchCode As String, ByVal LoanTypeCode As String, ByVal BorrowerCustomerNo As String, ByVal LoanSerial As Integer, ByVal SponsorCustomerNo As String, ByVal FullName As String, ByVal FatherName As String, ByVal MobileNo As String, ByVal NationalID As String, ByVal IDNumber As String, ByVal Address As String, ByVal TelephoneHome As String, ByVal TelephoneWork As String, ByVal WarantyTypeDesc As String) As spr_Sponsors_List_ByLoanNumber_SelectRow
-            Dim rowspr_Sponsors_List_ByLoanNumber_SelectRow As spr_Sponsors_List_ByLoanNumber_SelectRow = CType(Me.NewRow,spr_Sponsors_List_ByLoanNumber_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, BranchCode, LoanTypeCode, BorrowerCustomerNo, LoanSerial, SponsorCustomerNo, FullName, FatherName, MobileNo, NationalID, IDNumber, Address, TelephoneHome, TelephoneWork, WarantyTypeDesc}
-            rowspr_Sponsors_List_ByLoanNumber_SelectRow.ItemArray = columnValuesArray
-            Me.Rows.Add(rowspr_Sponsors_List_ByLoanNumber_SelectRow)
-            Return rowspr_Sponsors_List_ByLoanNumber_SelectRow
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function FindByID(ByVal ID As Integer) As spr_Sponsors_List_ByLoanNumber_SelectRow
-            Return CType(Me.Rows.Find(New Object() {ID}),spr_Sponsors_List_ByLoanNumber_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As spr_Sponsors_List_ByLoanNumber_SelectDataTable = CType(MyBase.Clone,spr_Sponsors_List_ByLoanNumber_SelectDataTable)
-            cln.InitVars
-            Return cln
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New spr_Sponsors_List_ByLoanNumber_SelectDataTable()
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub InitVars()
-            Me.columnID = MyBase.Columns("ID")
-            Me.columnBranchCode = MyBase.Columns("BranchCode")
-            Me.columnLoanTypeCode = MyBase.Columns("LoanTypeCode")
-            Me.columnBorrowerCustomerNo = MyBase.Columns("BorrowerCustomerNo")
-            Me.columnLoanSerial = MyBase.Columns("LoanSerial")
-            Me.columnSponsorCustomerNo = MyBase.Columns("SponsorCustomerNo")
-            Me.columnFullName = MyBase.Columns("FullName")
-            Me.columnFatherName = MyBase.Columns("FatherName")
-            Me.columnMobileNo = MyBase.Columns("MobileNo")
-            Me.columnNationalID = MyBase.Columns("NationalID")
-            Me.columnIDNumber = MyBase.Columns("IDNumber")
-            Me.columnAddress = MyBase.Columns("Address")
-            Me.columnTelephoneHome = MyBase.Columns("TelephoneHome")
-            Me.columnTelephoneWork = MyBase.Columns("TelephoneWork")
-            Me.columnWarantyTypeDesc = MyBase.Columns("WarantyTypeDesc")
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitClass()
-            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnID)
-            Me.columnBranchCode = New Global.System.Data.DataColumn("BranchCode", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnBranchCode)
-            Me.columnLoanTypeCode = New Global.System.Data.DataColumn("LoanTypeCode", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnLoanTypeCode)
-            Me.columnBorrowerCustomerNo = New Global.System.Data.DataColumn("BorrowerCustomerNo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnBorrowerCustomerNo)
-            Me.columnLoanSerial = New Global.System.Data.DataColumn("LoanSerial", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnLoanSerial)
-            Me.columnSponsorCustomerNo = New Global.System.Data.DataColumn("SponsorCustomerNo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnSponsorCustomerNo)
-            Me.columnFullName = New Global.System.Data.DataColumn("FullName", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFullName)
-            Me.columnFatherName = New Global.System.Data.DataColumn("FatherName", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFatherName)
-            Me.columnMobileNo = New Global.System.Data.DataColumn("MobileNo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnMobileNo)
-            Me.columnNationalID = New Global.System.Data.DataColumn("NationalID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnNationalID)
-            Me.columnIDNumber = New Global.System.Data.DataColumn("IDNumber", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnIDNumber)
-            Me.columnAddress = New Global.System.Data.DataColumn("Address", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnAddress)
-            Me.columnTelephoneHome = New Global.System.Data.DataColumn("TelephoneHome", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnTelephoneHome)
-            Me.columnTelephoneWork = New Global.System.Data.DataColumn("TelephoneWork", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnTelephoneWork)
-            Me.columnWarantyTypeDesc = New Global.System.Data.DataColumn("WarantyTypeDesc", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnWarantyTypeDesc)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
-            Me.columnID.AutoIncrement = true
-            Me.columnID.AutoIncrementSeed = -1
-            Me.columnID.AutoIncrementStep = -1
-            Me.columnID.AllowDBNull = false
-            Me.columnID.ReadOnly = true
-            Me.columnID.Unique = true
-            Me.columnBranchCode.MaxLength = 50
-            Me.columnLoanTypeCode.MaxLength = 50
-            Me.columnBorrowerCustomerNo.MaxLength = 50
-            Me.columnSponsorCustomerNo.MaxLength = 100
-            Me.columnFullName.MaxLength = 200
-            Me.columnFatherName.MaxLength = 100
-            Me.columnMobileNo.MaxLength = 50
-            Me.columnNationalID.MaxLength = 50
-            Me.columnIDNumber.MaxLength = 50
-            Me.columnAddress.MaxLength = 500
-            Me.columnTelephoneHome.MaxLength = 50
-            Me.columnTelephoneWork.MaxLength = 50
-            Me.columnWarantyTypeDesc.MaxLength = 350
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function Newspr_Sponsors_List_ByLoanNumber_SelectRow() As spr_Sponsors_List_ByLoanNumber_SelectRow
-            Return CType(Me.NewRow,spr_Sponsors_List_ByLoanNumber_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New spr_Sponsors_List_ByLoanNumber_SelectRow(builder)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(spr_Sponsors_List_ByLoanNumber_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanged(e)
-            If (Not (Me.spr_Sponsors_List_ByLoanNumber_SelectRowChangedEvent) Is Nothing) Then
-                RaiseEvent spr_Sponsors_List_ByLoanNumber_SelectRowChanged(Me, New spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent(CType(e.Row,spr_Sponsors_List_ByLoanNumber_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanging(e)
-            If (Not (Me.spr_Sponsors_List_ByLoanNumber_SelectRowChangingEvent) Is Nothing) Then
-                RaiseEvent spr_Sponsors_List_ByLoanNumber_SelectRowChanging(Me, New spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent(CType(e.Row,spr_Sponsors_List_ByLoanNumber_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleted(e)
-            If (Not (Me.spr_Sponsors_List_ByLoanNumber_SelectRowDeletedEvent) Is Nothing) Then
-                RaiseEvent spr_Sponsors_List_ByLoanNumber_SelectRowDeleted(Me, New spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent(CType(e.Row,spr_Sponsors_List_ByLoanNumber_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleting(e)
-            If (Not (Me.spr_Sponsors_List_ByLoanNumber_SelectRowDeletingEvent) Is Nothing) Then
-                RaiseEvent spr_Sponsors_List_ByLoanNumber_SelectRowDeleting(Me, New spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent(CType(e.Row,spr_Sponsors_List_ByLoanNumber_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub Removespr_Sponsors_List_ByLoanNumber_SelectRow(ByVal row As spr_Sponsors_List_ByLoanNumber_SelectRow)
-            Me.Rows.Remove(row)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
-            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As dstSponsor_List = New dstSponsor_List()
-            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
-            any1.MinOccurs = New Decimal(0)
-            any1.MaxOccurs = Decimal.MaxValue
-            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any1)
-            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
-            any2.MinOccurs = New Decimal(1)
-            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any2)
-            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute1.Name = "namespace"
-            attribute1.FixedValue = ds.Namespace
-            type.Attributes.Add(attribute1)
-            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute2.Name = "tableTypeName"
-            attribute2.FixedValue = "spr_Sponsors_List_ByLoanNumber_SelectDataTable"
-            type.Attributes.Add(attribute2)
-            type.Particle = sequence
-            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
-            If xs.Contains(dsSchema.TargetNamespace) Then
-                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try 
-                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
-                    dsSchema.Write(s1)
-                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
-                    Do While schemas.MoveNext
-                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
-                        s2.SetLength(0)
-                        schema.Write(s2)
-                        If (s1.Length = s2.Length) Then
-                            s1.Position = 0
-                            s2.Position = 0
-                            
-                            Do While ((s1.Position <> s1.Length)  _
-                                        AndAlso (s1.ReadByte = s2.ReadByte))
-                                
-                                
-                            Loop
-                            If (s1.Position = s1.Length) Then
-                                Return type
-                            End If
-                        End If
-                        
-                    Loop
-                Finally
-                    If (Not (s1) Is Nothing) Then
-                        s1.Close
-                    End If
-                    If (Not (s2) Is Nothing) Then
-                        s2.Close
-                    End If
-                End Try
-            End If
-            xs.Add(dsSchema)
-            Return type
-        End Function
-    End Class
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -2221,422 +1761,463 @@ Partial Public Class dstSponsor_List
     End Class
     
     '''<summary>
-    '''Represents strongly named DataRow class.
+    '''Represents the strongly named DataTable class.
     '''</summary>
-    Partial Public Class spr_Sponsors_List_ByLoanNumber_SelectRow
-        Inherits Global.System.Data.DataRow
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class spr_Sponsors_List_ByLoanNumber_SelectDataTable
+        Inherits Global.System.Data.TypedTableBase(Of spr_Sponsors_List_ByLoanNumber_SelectRow)
         
-        Private tablespr_Sponsors_List_ByLoanNumber_Select As spr_Sponsors_List_ByLoanNumber_SelectDataTable
+        Private columnID As Global.System.Data.DataColumn
+        
+        Private columnBranchCode As Global.System.Data.DataColumn
+        
+        Private columnLoanTypeCode As Global.System.Data.DataColumn
+        
+        Private columnBorrowerCustomerNo As Global.System.Data.DataColumn
+        
+        Private columnLoanSerial As Global.System.Data.DataColumn
+        
+        Private columnSponsorCustomerNo As Global.System.Data.DataColumn
+        
+        Private columnFullName As Global.System.Data.DataColumn
+        
+        Private columnFatherName As Global.System.Data.DataColumn
+        
+        Private columnMobileNo As Global.System.Data.DataColumn
+        
+        Private columnNationalID As Global.System.Data.DataColumn
+        
+        Private columnIDNumber As Global.System.Data.DataColumn
+        
+        Private columnAddress As Global.System.Data.DataColumn
+        
+        Private columnTelephoneHome As Global.System.Data.DataColumn
+        
+        Private columnTelephoneWork As Global.System.Data.DataColumn
+        
+        Private columnWarantyTypeDesc As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
-            MyBase.New(rb)
-            Me.tablespr_Sponsors_List_ByLoanNumber_Select = CType(Me.Table,spr_Sponsors_List_ByLoanNumber_SelectDataTable)
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "spr_Sponsors_List_ByLoanNumber_Select"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ID() As Integer
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
             Get
-                Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDColumn),Integer)
+                Return Me.columnID
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property BranchCode() As String
+        Public ReadOnly Property BranchCodeColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BranchCodeColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'BranchCode' in table 'spr_Sponsors_List_ByLoanNumber_Select"& _ 
-                            "' is DBNull.", e)
-                End Try
+                Return Me.columnBranchCode
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BranchCodeColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property LoanTypeCode() As String
+        Public ReadOnly Property LoanTypeCodeColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanTypeCodeColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'LoanTypeCode' in table 'spr_Sponsors_List_ByLoanNumber_Sele"& _ 
-                            "ct' is DBNull.", e)
-                End Try
+                Return Me.columnLoanTypeCode
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanTypeCodeColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property BorrowerCustomerNo() As String
+        Public ReadOnly Property BorrowerCustomerNoColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BorrowerCustomerNoColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'BorrowerCustomerNo' in table 'spr_Sponsors_List_ByLoanNumbe"& _ 
-                            "r_Select' is DBNull.", e)
-                End Try
+                Return Me.columnBorrowerCustomerNo
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BorrowerCustomerNoColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property LoanSerial() As Integer
+        Public ReadOnly Property LoanSerialColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanSerialColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'LoanSerial' in table 'spr_Sponsors_List_ByLoanNumber_Select"& _ 
-                            "' is DBNull.", e)
-                End Try
+                Return Me.columnLoanSerial
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanSerialColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property SponsorCustomerNo() As String
+        Public ReadOnly Property SponsorCustomerNoColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.SponsorCustomerNoColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'SponsorCustomerNo' in table 'spr_Sponsors_List_ByLoanNumber"& _ 
-                            "_Select' is DBNull.", e)
-                End Try
+                Return Me.columnSponsorCustomerNo
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.SponsorCustomerNoColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FullName() As String
+        Public ReadOnly Property FullNameColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FullNameColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FullName' in table 'spr_Sponsors_List_ByLoanNumber_Select' "& _ 
-                            "is DBNull.", e)
-                End Try
+                Return Me.columnFullName
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FullNameColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FatherName() As String
+        Public ReadOnly Property FatherNameColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FatherNameColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FatherName' in table 'spr_Sponsors_List_ByLoanNumber_Select"& _ 
-                            "' is DBNull.", e)
-                End Try
+                Return Me.columnFatherName
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FatherNameColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property MobileNo() As String
+        Public ReadOnly Property MobileNoColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.MobileNoColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MobileNo' in table 'spr_Sponsors_List_ByLoanNumber_Select' "& _ 
-                            "is DBNull.", e)
-                End Try
+                Return Me.columnMobileNo
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.MobileNoColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property NationalID() As String
+        Public ReadOnly Property NationalIDColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.NationalIDColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'NationalID' in table 'spr_Sponsors_List_ByLoanNumber_Select"& _ 
-                            "' is DBNull.", e)
-                End Try
+                Return Me.columnNationalID
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.NationalIDColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property IDNumber() As String
+        Public ReadOnly Property IDNumberColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDNumberColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'IDNumber' in table 'spr_Sponsors_List_ByLoanNumber_Select' "& _ 
-                            "is DBNull.", e)
-                End Try
+                Return Me.columnIDNumber
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDNumberColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Address() As String
+        Public ReadOnly Property AddressColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.AddressColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Address' in table 'spr_Sponsors_List_ByLoanNumber_Select' i"& _ 
-                            "s DBNull.", e)
-                End Try
+                Return Me.columnAddress
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.AddressColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TelephoneHome() As String
+        Public ReadOnly Property TelephoneHomeColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneHomeColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TelephoneHome' in table 'spr_Sponsors_List_ByLoanNumber_Sel"& _ 
-                            "ect' is DBNull.", e)
-                End Try
+                Return Me.columnTelephoneHome
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneHomeColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property TelephoneWork() As String
+        Public ReadOnly Property TelephoneWorkColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneWorkColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'TelephoneWork' in table 'spr_Sponsors_List_ByLoanNumber_Sel"& _ 
-                            "ect' is DBNull.", e)
-                End Try
+                Return Me.columnTelephoneWork
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneWorkColumn) = value
-            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property WarantyTypeDesc() As String
+        Public ReadOnly Property WarantyTypeDescColumn() As Global.System.Data.DataColumn
             Get
-                Try 
-                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.WarantyTypeDescColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'WarantyTypeDesc' in table 'spr_Sponsors_List_ByLoanNumber_S"& _ 
-                            "elect' is DBNull.", e)
-                End Try
+                Return Me.columnWarantyTypeDesc
             End Get
-            Set
-                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.WarantyTypeDescColumn) = value
-            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsBranchCodeNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BranchCodeColumn)
+        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_Sponsors_List_ByLoanNumber_SelectRow
+            Get
+                Return CType(Me.Rows(index),spr_Sponsors_List_ByLoanNumber_SelectRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_Sponsors_List_ByLoanNumber_SelectRowChanging As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_Sponsors_List_ByLoanNumber_SelectRowChanged As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_Sponsors_List_ByLoanNumber_SelectRowDeleting As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_Sponsors_List_ByLoanNumber_SelectRowDeleted As spr_Sponsors_List_ByLoanNumber_SelectRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub Addspr_Sponsors_List_ByLoanNumber_SelectRow(ByVal row As spr_Sponsors_List_ByLoanNumber_SelectRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function Addspr_Sponsors_List_ByLoanNumber_SelectRow(ByVal BranchCode As String, ByVal LoanTypeCode As String, ByVal BorrowerCustomerNo As String, ByVal LoanSerial As Integer, ByVal SponsorCustomerNo As String, ByVal FullName As String, ByVal FatherName As String, ByVal MobileNo As String, ByVal NationalID As String, ByVal IDNumber As String, ByVal Address As String, ByVal TelephoneHome As String, ByVal TelephoneWork As String, ByVal WarantyTypeDesc As String) As spr_Sponsors_List_ByLoanNumber_SelectRow
+            Dim rowspr_Sponsors_List_ByLoanNumber_SelectRow As spr_Sponsors_List_ByLoanNumber_SelectRow = CType(Me.NewRow,spr_Sponsors_List_ByLoanNumber_SelectRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, BranchCode, LoanTypeCode, BorrowerCustomerNo, LoanSerial, SponsorCustomerNo, FullName, FatherName, MobileNo, NationalID, IDNumber, Address, TelephoneHome, TelephoneWork, WarantyTypeDesc}
+            rowspr_Sponsors_List_ByLoanNumber_SelectRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowspr_Sponsors_List_ByLoanNumber_SelectRow)
+            Return rowspr_Sponsors_List_ByLoanNumber_SelectRow
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetBranchCodeNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BranchCodeColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsLoanTypeCodeNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanTypeCodeColumn)
+        Public Function FindByID(ByVal ID As Integer) As spr_Sponsors_List_ByLoanNumber_SelectRow
+            Return CType(Me.Rows.Find(New Object() {ID}),spr_Sponsors_List_ByLoanNumber_SelectRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetLoanTypeCodeNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanTypeCodeColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsBorrowerCustomerNoNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BorrowerCustomerNoColumn)
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As spr_Sponsors_List_ByLoanNumber_SelectDataTable = CType(MyBase.Clone,spr_Sponsors_List_ByLoanNumber_SelectDataTable)
+            cln.InitVars
+            Return cln
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetBorrowerCustomerNoNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BorrowerCustomerNoColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsLoanSerialNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanSerialColumn)
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New spr_Sponsors_List_ByLoanNumber_SelectDataTable()
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetLoanSerialNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanSerialColumn) = Global.System.Convert.DBNull
+        Friend Sub InitVars()
+            Me.columnID = MyBase.Columns("ID")
+            Me.columnBranchCode = MyBase.Columns("BranchCode")
+            Me.columnLoanTypeCode = MyBase.Columns("LoanTypeCode")
+            Me.columnBorrowerCustomerNo = MyBase.Columns("BorrowerCustomerNo")
+            Me.columnLoanSerial = MyBase.Columns("LoanSerial")
+            Me.columnSponsorCustomerNo = MyBase.Columns("SponsorCustomerNo")
+            Me.columnFullName = MyBase.Columns("FullName")
+            Me.columnFatherName = MyBase.Columns("FatherName")
+            Me.columnMobileNo = MyBase.Columns("MobileNo")
+            Me.columnNationalID = MyBase.Columns("NationalID")
+            Me.columnIDNumber = MyBase.Columns("IDNumber")
+            Me.columnAddress = MyBase.Columns("Address")
+            Me.columnTelephoneHome = MyBase.Columns("TelephoneHome")
+            Me.columnTelephoneWork = MyBase.Columns("TelephoneWork")
+            Me.columnWarantyTypeDesc = MyBase.Columns("WarantyTypeDesc")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsSponsorCustomerNoNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.SponsorCustomerNoColumn)
+        Private Sub InitClass()
+            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnID)
+            Me.columnBranchCode = New Global.System.Data.DataColumn("BranchCode", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBranchCode)
+            Me.columnLoanTypeCode = New Global.System.Data.DataColumn("LoanTypeCode", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLoanTypeCode)
+            Me.columnBorrowerCustomerNo = New Global.System.Data.DataColumn("BorrowerCustomerNo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnBorrowerCustomerNo)
+            Me.columnLoanSerial = New Global.System.Data.DataColumn("LoanSerial", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLoanSerial)
+            Me.columnSponsorCustomerNo = New Global.System.Data.DataColumn("SponsorCustomerNo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSponsorCustomerNo)
+            Me.columnFullName = New Global.System.Data.DataColumn("FullName", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFullName)
+            Me.columnFatherName = New Global.System.Data.DataColumn("FatherName", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFatherName)
+            Me.columnMobileNo = New Global.System.Data.DataColumn("MobileNo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMobileNo)
+            Me.columnNationalID = New Global.System.Data.DataColumn("NationalID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnNationalID)
+            Me.columnIDNumber = New Global.System.Data.DataColumn("IDNumber", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnIDNumber)
+            Me.columnAddress = New Global.System.Data.DataColumn("Address", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnAddress)
+            Me.columnTelephoneHome = New Global.System.Data.DataColumn("TelephoneHome", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnTelephoneHome)
+            Me.columnTelephoneWork = New Global.System.Data.DataColumn("TelephoneWork", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnTelephoneWork)
+            Me.columnWarantyTypeDesc = New Global.System.Data.DataColumn("WarantyTypeDesc", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnWarantyTypeDesc)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
+            Me.columnID.AutoIncrement = true
+            Me.columnID.AutoIncrementSeed = -1
+            Me.columnID.AutoIncrementStep = -1
+            Me.columnID.AllowDBNull = false
+            Me.columnID.ReadOnly = true
+            Me.columnID.Unique = true
+            Me.columnBranchCode.MaxLength = 50
+            Me.columnLoanTypeCode.MaxLength = 50
+            Me.columnBorrowerCustomerNo.MaxLength = 50
+            Me.columnSponsorCustomerNo.MaxLength = 100
+            Me.columnFullName.MaxLength = 200
+            Me.columnFatherName.MaxLength = 100
+            Me.columnMobileNo.MaxLength = 50
+            Me.columnNationalID.MaxLength = 50
+            Me.columnIDNumber.MaxLength = 50
+            Me.columnAddress.MaxLength = 500
+            Me.columnTelephoneHome.MaxLength = 50
+            Me.columnTelephoneWork.MaxLength = 50
+            Me.columnWarantyTypeDesc.MaxLength = 350
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function Newspr_Sponsors_List_ByLoanNumber_SelectRow() As spr_Sponsors_List_ByLoanNumber_SelectRow
+            Return CType(Me.NewRow,spr_Sponsors_List_ByLoanNumber_SelectRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetSponsorCustomerNoNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.SponsorCustomerNoColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFullNameNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FullNameColumn)
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New spr_Sponsors_List_ByLoanNumber_SelectRow(builder)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFullNameNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FullNameColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFatherNameNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FatherNameColumn)
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(spr_Sponsors_List_ByLoanNumber_SelectRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFatherNameNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FatherNameColumn) = Global.System.Convert.DBNull
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.spr_Sponsors_List_ByLoanNumber_SelectRowChangedEvent) Is Nothing) Then
+                RaiseEvent spr_Sponsors_List_ByLoanNumber_SelectRowChanged(Me, New spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent(CType(e.Row,spr_Sponsors_List_ByLoanNumber_SelectRow), e.Action))
+            End If
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsMobileNoNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.MobileNoColumn)
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.spr_Sponsors_List_ByLoanNumber_SelectRowChangingEvent) Is Nothing) Then
+                RaiseEvent spr_Sponsors_List_ByLoanNumber_SelectRowChanging(Me, New spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent(CType(e.Row,spr_Sponsors_List_ByLoanNumber_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.spr_Sponsors_List_ByLoanNumber_SelectRowDeletedEvent) Is Nothing) Then
+                RaiseEvent spr_Sponsors_List_ByLoanNumber_SelectRowDeleted(Me, New spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent(CType(e.Row,spr_Sponsors_List_ByLoanNumber_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.spr_Sponsors_List_ByLoanNumber_SelectRowDeletingEvent) Is Nothing) Then
+                RaiseEvent spr_Sponsors_List_ByLoanNumber_SelectRowDeleting(Me, New spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent(CType(e.Row,spr_Sponsors_List_ByLoanNumber_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub Removespr_Sponsors_List_ByLoanNumber_SelectRow(ByVal row As spr_Sponsors_List_ByLoanNumber_SelectRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dstSponsor_List = New dstSponsor_List()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "spr_Sponsors_List_ByLoanNumber_SelectDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
         End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetMobileNoNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.MobileNoColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsNationalIDNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.NationalIDColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetNationalIDNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.NationalIDColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsIDNumberNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDNumberColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetIDNumberNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDNumberColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsAddressNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.AddressColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetAddressNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.AddressColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTelephoneHomeNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneHomeColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTelephoneHomeNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneHomeColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsTelephoneWorkNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneWorkColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetTelephoneWorkNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneWorkColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsWarantyTypeDescNull() As Boolean
-            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.WarantyTypeDescColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetWarantyTypeDescNull()
-            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.WarantyTypeDescColumn) = Global.System.Convert.DBNull
-        End Sub
     End Class
     
     '''<summary>
@@ -3897,39 +3478,422 @@ Partial Public Class dstSponsor_List
     End Class
     
     '''<summary>
-    '''Row event argument class
+    '''Represents strongly named DataRow class.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Class spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent
-        Inherits Global.System.EventArgs
+    Partial Public Class spr_Sponsors_List_ByLoanNumber_SelectRow
+        Inherits Global.System.Data.DataRow
         
-        Private eventRow As spr_Sponsors_List_ByLoanNumber_SelectRow
-        
-        Private eventAction As Global.System.Data.DataRowAction
+        Private tablespr_Sponsors_List_ByLoanNumber_Select As spr_Sponsors_List_ByLoanNumber_SelectDataTable
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New(ByVal row As spr_Sponsors_List_ByLoanNumber_SelectRow, ByVal action As Global.System.Data.DataRowAction)
-            MyBase.New
-            Me.eventRow = row
-            Me.eventAction = action
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tablespr_Sponsors_List_ByLoanNumber_Select = CType(Me.Table,spr_Sponsors_List_ByLoanNumber_SelectDataTable)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Row() As spr_Sponsors_List_ByLoanNumber_SelectRow
+        Public Property ID() As Integer
             Get
-                Return Me.eventRow
+                Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDColumn),Integer)
             End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDColumn) = value
+            End Set
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+        Public Property BranchCode() As String
             Get
-                Return Me.eventAction
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BranchCodeColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'BranchCode' in table 'spr_Sponsors_List_ByLoanNumber_Select"& _ 
+                            "' is DBNull.", e)
+                End Try
             End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BranchCodeColumn) = value
+            End Set
         End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property LoanTypeCode() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanTypeCodeColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LoanTypeCode' in table 'spr_Sponsors_List_ByLoanNumber_Sele"& _ 
+                            "ct' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanTypeCodeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property BorrowerCustomerNo() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BorrowerCustomerNoColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'BorrowerCustomerNo' in table 'spr_Sponsors_List_ByLoanNumbe"& _ 
+                            "r_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BorrowerCustomerNoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property LoanSerial() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanSerialColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LoanSerial' in table 'spr_Sponsors_List_ByLoanNumber_Select"& _ 
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanSerialColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property SponsorCustomerNo() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.SponsorCustomerNoColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'SponsorCustomerNo' in table 'spr_Sponsors_List_ByLoanNumber"& _ 
+                            "_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.SponsorCustomerNoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FullName() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FullNameColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FullName' in table 'spr_Sponsors_List_ByLoanNumber_Select' "& _ 
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FullNameColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FatherName() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FatherNameColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FatherName' in table 'spr_Sponsors_List_ByLoanNumber_Select"& _ 
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FatherNameColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property MobileNo() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.MobileNoColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MobileNo' in table 'spr_Sponsors_List_ByLoanNumber_Select' "& _ 
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.MobileNoColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property NationalID() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.NationalIDColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'NationalID' in table 'spr_Sponsors_List_ByLoanNumber_Select"& _ 
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.NationalIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property IDNumber() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDNumberColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'IDNumber' in table 'spr_Sponsors_List_ByLoanNumber_Select' "& _ 
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDNumberColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property Address() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.AddressColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Address' in table 'spr_Sponsors_List_ByLoanNumber_Select' i"& _ 
+                            "s DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.AddressColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property TelephoneHome() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneHomeColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TelephoneHome' in table 'spr_Sponsors_List_ByLoanNumber_Sel"& _ 
+                            "ect' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneHomeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property TelephoneWork() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneWorkColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'TelephoneWork' in table 'spr_Sponsors_List_ByLoanNumber_Sel"& _ 
+                            "ect' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneWorkColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property WarantyTypeDesc() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.WarantyTypeDescColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'WarantyTypeDesc' in table 'spr_Sponsors_List_ByLoanNumber_S"& _ 
+                            "elect' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.WarantyTypeDescColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsBranchCodeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BranchCodeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetBranchCodeNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BranchCodeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsLoanTypeCodeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanTypeCodeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetLoanTypeCodeNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanTypeCodeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsBorrowerCustomerNoNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BorrowerCustomerNoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetBorrowerCustomerNoNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.BorrowerCustomerNoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsLoanSerialNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanSerialColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetLoanSerialNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.LoanSerialColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSponsorCustomerNoNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.SponsorCustomerNoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSponsorCustomerNoNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.SponsorCustomerNoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFullNameNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FullNameColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFullNameNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FullNameColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFatherNameNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FatherNameColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFatherNameNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.FatherNameColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsMobileNoNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.MobileNoColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetMobileNoNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.MobileNoColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsNationalIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.NationalIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetNationalIDNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.NationalIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsIDNumberNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDNumberColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetIDNumberNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.IDNumberColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsAddressNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.AddressColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetAddressNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.AddressColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsTelephoneHomeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneHomeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetTelephoneHomeNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneHomeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsTelephoneWorkNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneWorkColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetTelephoneWorkNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.TelephoneWorkColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsWarantyTypeDescNull() As Boolean
+            Return Me.IsNull(Me.tablespr_Sponsors_List_ByLoanNumber_Select.WarantyTypeDescColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetWarantyTypeDescNull()
+            Me(Me.tablespr_Sponsors_List_ByLoanNumber_Select.WarantyTypeDescColumn) = Global.System.Convert.DBNull
+        End Sub
     End Class
     
     '''<summary>
@@ -4039,241 +4003,45 @@ Partial Public Class dstSponsor_List
             End Get
         End Property
     End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class spr_Sponsors_List_ByLoanNumber_SelectRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As spr_Sponsors_List_ByLoanNumber_SelectRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As spr_Sponsors_List_ByLoanNumber_SelectRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As spr_Sponsors_List_ByLoanNumber_SelectRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
 End Class
 
 Namespace dstSponsor_ListTableAdapters
-    
-    '''<summary>
-    '''Represents the connection and commands used to retrieve and save data.
-    '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     Global.System.ComponentModel.ToolboxItem(true),  _
-     Global.System.ComponentModel.DataObjectAttribute(true),  _
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-    Partial Public Class spr_Sponsors_List_ByLoanNumber_SelectTableAdapter
-        Inherits Global.System.ComponentModel.Component
-        
-        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-        
-        Private _connection As Global.System.Data.SqlClient.SqlConnection
-        
-        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-        
-        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-        
-        Private _clearBeforeFill As Boolean
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New()
-            MyBase.New
-            Me.ClearBeforeFill = true
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
-            Get
-                If (Me._adapter Is Nothing) Then
-                    Me.InitAdapter
-                End If
-                Return Me._adapter
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
-            Get
-                If (Me._connection Is Nothing) Then
-                    Me.InitConnection
-                End If
-                Return Me._connection
-            End Get
-            Set
-                Me._connection = value
-                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
-                    Me.Adapter.InsertCommand.Connection = value
-                End If
-                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
-                    Me.Adapter.DeleteCommand.Connection = value
-                End If
-                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
-                    Me.Adapter.UpdateCommand.Connection = value
-                End If
-                Dim i As Integer = 0
-                Do While (i < Me.CommandCollection.Length)
-                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
-                    End If
-                    i = (i + 1)
-                Loop
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
-            Get
-                Return Me._transaction
-            End Get
-            Set
-                Me._transaction = value
-                Dim i As Integer = 0
-                Do While (i < Me.CommandCollection.Length)
-                    Me.CommandCollection(i).Transaction = Me._transaction
-                    i = (i + 1)
-                Loop
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
-                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
-                End If
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
-                    Me.Adapter.InsertCommand.Transaction = Me._transaction
-                End If
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
-                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
-                End If
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
-            Get
-                If (Me._commandCollection Is Nothing) Then
-                    Me.InitCommandCollection
-                End If
-                Return Me._commandCollection
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ClearBeforeFill() As Boolean
-            Get
-                Return Me._clearBeforeFill
-            End Get
-            Set
-                Me._clearBeforeFill = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitAdapter()
-            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
-            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
-            tableMapping.SourceTable = "Table"
-            tableMapping.DataSetTable = "spr_Sponsors_List_ByLoanNumber_Select"
-            tableMapping.ColumnMappings.Add("ID", "ID")
-            tableMapping.ColumnMappings.Add("BranchCode", "BranchCode")
-            tableMapping.ColumnMappings.Add("LoanTypeCode", "LoanTypeCode")
-            tableMapping.ColumnMappings.Add("BorrowerCustomerNo", "BorrowerCustomerNo")
-            tableMapping.ColumnMappings.Add("LoanSerial", "LoanSerial")
-            tableMapping.ColumnMappings.Add("SponsorCustomerNo", "SponsorCustomerNo")
-            tableMapping.ColumnMappings.Add("FullName", "FullName")
-            tableMapping.ColumnMappings.Add("FatherName", "FatherName")
-            tableMapping.ColumnMappings.Add("MobileNo", "MobileNo")
-            tableMapping.ColumnMappings.Add("NationalID", "NationalID")
-            tableMapping.ColumnMappings.Add("IDNumber", "IDNumber")
-            tableMapping.ColumnMappings.Add("Address", "Address")
-            tableMapping.ColumnMappings.Add("TelephoneHome", "TelephoneHome")
-            tableMapping.ColumnMappings.Add("TelephoneWork", "TelephoneWork")
-            tableMapping.ColumnMappings.Add("WarantyTypeDesc", "WarantyTypeDesc")
-            Me._adapter.TableMappings.Add(tableMapping)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitConnection()
-            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
-            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
-            Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "dbo.spr_Sponsors_List_ByLoanNumber_Select"
-            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@BranchCode", Global.System.Data.SqlDbType.NVarChar, 50, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LoanTypeCode", Global.System.Data.SqlDbType.NVarChar, 50, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@BorroweCustomerCode", Global.System.Data.SqlDbType.NVarChar, 100, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LoanSerial", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable, ByVal BranchCode As String, ByVal LoanTypeCode As String, ByVal BorroweCustomerCode As String, ByVal LoanSerial As Global.System.Nullable(Of Integer)) As Integer
-            Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (BranchCode Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(BranchCode,String)
-            End If
-            If (LoanTypeCode Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(2).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(2).Value = CType(LoanTypeCode,String)
-            End If
-            If (BorroweCustomerCode Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(3).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(3).Value = CType(BorroweCustomerCode,String)
-            End If
-            If (LoanSerial.HasValue = true) Then
-                Me.Adapter.SelectCommand.Parameters(4).Value = CType(LoanSerial.Value,Integer)
-            Else
-                Me.Adapter.SelectCommand.Parameters(4).Value = Global.System.DBNull.Value
-            End If
-            If (Me.ClearBeforeFill = true) Then
-                dataTable.Clear
-            End If
-            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
-            Return returnValue
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal BranchCode As String, ByVal LoanTypeCode As String, ByVal BorroweCustomerCode As String, ByVal LoanSerial As Global.System.Nullable(Of Integer)) As dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable
-            Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (BranchCode Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(BranchCode,String)
-            End If
-            If (LoanTypeCode Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(2).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(2).Value = CType(LoanTypeCode,String)
-            End If
-            If (BorroweCustomerCode Is Nothing) Then
-                Me.Adapter.SelectCommand.Parameters(3).Value = Global.System.DBNull.Value
-            Else
-                Me.Adapter.SelectCommand.Parameters(3).Value = CType(BorroweCustomerCode,String)
-            End If
-            If (LoanSerial.HasValue = true) Then
-                Me.Adapter.SelectCommand.Parameters(4).Value = CType(LoanSerial.Value,Integer)
-            Else
-                Me.Adapter.SelectCommand.Parameters(4).Value = Global.System.DBNull.Value
-            End If
-            Dim dataTable As dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable = New dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable()
-            Me.Adapter.Fill(dataTable)
-            Return dataTable
-        End Function
-    End Class
     
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
@@ -4900,6 +4668,205 @@ Namespace dstSponsor_ListTableAdapters
                 Me.Adapter.SelectCommand.Parameters(3).Value = CType(BorroweCustomerCode,String)
             End If
             Dim dataTable As dstSponsor_List.spr_Sponsors_List1_ByLoanNumber_SelectDataTable = New dstSponsor_List.spr_Sponsors_List1_ByLoanNumber_SelectDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the connection and commands used to retrieve and save data.
+    '''</summary>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+    Partial Public Class spr_Sponsors_List_ByLoanNumber_SelectTableAdapter
+        Inherits Global.System.ComponentModel.Component
+        
+        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
+        
+        Private _connection As Global.System.Data.SqlClient.SqlConnection
+        
+        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
+        
+        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
+        
+        Private _clearBeforeFill As Boolean
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.ClearBeforeFill = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
+            Get
+                If (Me._adapter Is Nothing) Then
+                    Me.InitAdapter
+                End If
+                Return Me._adapter
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
+            Get
+                If (Me._connection Is Nothing) Then
+                    Me.InitConnection
+                End If
+                Return Me._connection
+            End Get
+            Set
+                Me._connection = value
+                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
+                    Me.Adapter.InsertCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
+                    Me.Adapter.DeleteCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
+                    Me.Adapter.UpdateCommand.Connection = value
+                End If
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
+                    End If
+                    i = (i + 1)
+                Loop
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
+            Get
+                Return Me._transaction
+            End Get
+            Set
+                Me._transaction = value
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    Me.CommandCollection(i).Transaction = Me._transaction
+                    i = (i + 1)
+                Loop
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
+                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
+                    Me.Adapter.InsertCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
+                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
+                End If
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
+            Get
+                If (Me._commandCollection Is Nothing) Then
+                    Me.InitCommandCollection
+                End If
+                Return Me._commandCollection
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ClearBeforeFill() As Boolean
+            Get
+                Return Me._clearBeforeFill
+            End Get
+            Set
+                Me._clearBeforeFill = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitAdapter()
+            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
+            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
+            tableMapping.SourceTable = "Table"
+            tableMapping.DataSetTable = "spr_Sponsors_List_ByLoanNumber_Select"
+            tableMapping.ColumnMappings.Add("ID", "ID")
+            tableMapping.ColumnMappings.Add("BranchCode", "BranchCode")
+            tableMapping.ColumnMappings.Add("LoanTypeCode", "LoanTypeCode")
+            tableMapping.ColumnMappings.Add("BorrowerCustomerNo", "BorrowerCustomerNo")
+            tableMapping.ColumnMappings.Add("LoanSerial", "LoanSerial")
+            tableMapping.ColumnMappings.Add("SponsorCustomerNo", "SponsorCustomerNo")
+            tableMapping.ColumnMappings.Add("FullName", "FullName")
+            tableMapping.ColumnMappings.Add("FatherName", "FatherName")
+            tableMapping.ColumnMappings.Add("MobileNo", "MobileNo")
+            tableMapping.ColumnMappings.Add("NationalID", "NationalID")
+            tableMapping.ColumnMappings.Add("IDNumber", "IDNumber")
+            tableMapping.ColumnMappings.Add("Address", "Address")
+            tableMapping.ColumnMappings.Add("TelephoneHome", "TelephoneHome")
+            tableMapping.ColumnMappings.Add("TelephoneWork", "TelephoneWork")
+            tableMapping.ColumnMappings.Add("WarantyTypeDesc", "WarantyTypeDesc")
+            Me._adapter.TableMappings.Add(tableMapping)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitConnection()
+            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
+            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitCommandCollection()
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
+            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(0).Connection = Me.Connection
+            Me._commandCollection(0).CommandText = "dbo.spr_Sponsors_List_ByLoanNumber_Select"
+            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LoanTypeCode", Global.System.Data.SqlDbType.NVarChar, 50, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable, ByVal LoanTypeCode As String) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (LoanTypeCode Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(LoanTypeCode,String)
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData(ByVal LoanTypeCode As String) As dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (LoanTypeCode Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(LoanTypeCode,String)
+            End If
+            Dim dataTable As dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable = New dstSponsor_List.spr_Sponsors_List_ByLoanNumber_SelectDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
