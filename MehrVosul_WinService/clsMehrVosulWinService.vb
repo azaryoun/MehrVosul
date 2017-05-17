@@ -2768,36 +2768,36 @@ VoiceSMS:
 
 
                             'Update Sponsors
+                            ''comment temprory''''''''''''''''''''
+                            If Date.Now.DayOfWeek = DayOfWeek.Monday AndAlso drwSystemSetting.HadiService = True Then
 
-                            Dim arrintFileSponsors() As stc_Sponsor_Waranty = GetSponsorsList(stcVarLoanInfo.BranchCode, stcVarLoanInfo.LoanTypeCode, stcVarLoanInfo.CustomerNo, stcVarLoanInfo.LoanSerial, blnIsUpdateDay)
+                                Dim arrintFileSponsors() As stc_Sponsor_Waranty = GetSponsorsList(stcVarLoanInfo.BranchCode, stcVarLoanInfo.LoanTypeCode, stcVarLoanInfo.CustomerNo, stcVarLoanInfo.LoanSerial, blnIsUpdateDay)
 
-
-
-                            If arrintFileSponsors IsNot Nothing Then
-                                For k As Integer = 0 To arrintFileSponsors.Length - 1
-
-
-                                    Dim tadpLoanSponsorCheck As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_Check_SelectTableAdapter
-                                    Dim dtblLoanSponsorCheck As BusinessObject.dstLoanSponsor.spr_LoanSponsor_Check_SelectDataTable = Nothing
-                                    dtblLoanSponsorCheck = tadpLoanSponsorCheck.GetData(intLoanID, arrintFileSponsors(k).SponsorID)
+                                If arrintFileSponsors IsNot Nothing Then
+                                    For k As Integer = 0 To arrintFileSponsors.Length - 1
 
 
-                                    If dtblFilebyCustomerNo.Rows.Count = 0 Then
+                                        Dim tadpLoanSponsorCheck As New BusinessObject.dstLoanSponsorTableAdapters.spr_LoanSponsor_Check_SelectTableAdapter
+                                        Dim dtblLoanSponsorCheck As BusinessObject.dstLoanSponsor.spr_LoanSponsor_Check_SelectDataTable = Nothing
+                                        dtblLoanSponsorCheck = tadpLoanSponsorCheck.GetData(intLoanID, arrintFileSponsors(k).SponsorID)
 
-                                        Dim qryLoanSponsor As New BusinessObject.dstLoanSponsorTableAdapters.QueriesTableAdapter
-                                        Dim intLoanSponsorID As Integer = qryLoanSponsor.spr_LoanSponsor_Insert(intLoanID, arrintFileSponsors(k).SponsorID, arrintFileSponsors(k).WarantyTypeDesc)
+
+                                        If dtblFilebyCustomerNo.Rows.Count = 0 Then
+
+                                            Dim qryLoanSponsor As New BusinessObject.dstLoanSponsorTableAdapters.QueriesTableAdapter
+                                            Dim intLoanSponsorID As Integer = qryLoanSponsor.spr_LoanSponsor_Insert(intLoanID, arrintFileSponsors(k).SponsorID, arrintFileSponsors(k).WarantyTypeDesc)
 
 
-                                    End If
+                                        End If
 
-                                Next k
+                                    Next k
+                                End If
+                                ''''''''''''''''''''''''''''''''''''''
                             End If
 
 
 
-
                         End If
-
 
 
 
@@ -2913,491 +2913,494 @@ VoiceSMS:
 
     End Sub
 
-    'Public Sub Hadi_BI_Deposit()
 
-    '    Dim tadpSystemSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
-    '    Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
-    '    dtblSystemSetting = tadpSystemSetting.GetData()
-    '    drwSystemSetting = dtblSystemSetting.Rows(0)
 
 
-    '    If drwSystemSetting.HadiService = False Then
-    '        Return
-    '    End If
+    Public Sub Hadi_BI_Deposit()
 
-    '    If drwSystemSetting.tryTime_Deposit = 0 Then
-    '        Return
-    '    End If
+        Dim tadpSystemSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
+        Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
+        dtblSystemSetting = tadpSystemSetting.GetData()
+        drwSystemSetting = dtblSystemSetting.Rows(0)
 
-    '    If drwSystemSetting.UpdateTime_Deposit > Date.Now.TimeOfDay Then
-    '        Return
-    '    End If
 
-    '    Dim dteThisDate As Date = Date.Now.AddDays(-1)
+        If drwSystemSetting.HadiService = False Then
+            Return
+        End If
 
-    '    Dim blnIsUpdateDay As Boolean = False
-    '    If Date.Now.DayOfWeek = DayOfWeek.Sunday OrElse Date.Now.DayOfWeek = DayOfWeek.Tuesday Then
-    '        blnIsUpdateDay = True
-    '    End If
+        If drwSystemSetting.tryTime_Deposit = 0 Then
+            Return
+        End If
 
+        If drwSystemSetting.UpdateTime_Deposit > Date.Now.TimeOfDay Then
+            Return
+        End If
 
+        Dim dteThisDate As Date = Date.Now.AddDays(-1)
 
-    '    Dim tadpLogHeader As New BusinessObject.dstHadiLogCurrentLCStatus_HTableAdapters.spr_HadiLogCurrentLCStatus_H_ForDate_SelectTableAdapter
-    '    Dim dtblLogHeader As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectDataTable = Nothing
-    '    dtblLogHeader = tadpLogHeader.GetData(dteThisDate)
+        Dim blnIsUpdateDay As Boolean = False
+        If Date.Now.DayOfWeek = DayOfWeek.Sunday OrElse Date.Now.DayOfWeek = DayOfWeek.Tuesday Then
+            blnIsUpdateDay = True
+        End If
 
-    '    Dim intCurrentTryTime As Integer = 0
 
-    '    If dtblLogHeader.Rows.Count > 0 Then
-    '        Dim drwLogHeader As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectRow = dtblLogHeader.Rows(0)
-    '        If drwLogHeader.Success = True Then
-    '            Return
-    '        End If
 
-    '        If drwLogHeader.tryTime >= drwSystemSetting.tryTime_Deposit Then
-    '            Return
-    '        End If
+        Dim tadpLogHeader As New BusinessObject.dstHadiLogCurrentLCStatus_HTableAdapters.spr_HadiLogCurrentLCStatus_H_ForDate_SelectTableAdapter
+        Dim dtblLogHeader As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectDataTable = Nothing
+        dtblLogHeader = tadpLogHeader.GetData(dteThisDate)
 
-    '        If Date.Now.Subtract(drwLogHeader.STime).TotalHours < drwSystemSetting.tryIntervalHour_Deposit Then
-    '            Return
-    '        End If
+        Dim intCurrentTryTime As Integer = 0
 
-    '        intCurrentTryTime = drwLogHeader.tryTime
+        If dtblLogHeader.Rows.Count > 0 Then
+            Dim drwLogHeader As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectRow = dtblLogHeader.Rows(0)
+            If drwLogHeader.Success = True Then
+                Return
+            End If
 
-    '    End If
+            If drwLogHeader.tryTime >= drwSystemSetting.tryTime_Deposit Then
+                Return
+            End If
 
+            If Date.Now.Subtract(drwLogHeader.STime).TotalHours < drwSystemSetting.tryIntervalHour_Deposit Then
+                Return
+            End If
 
+            intCurrentTryTime = drwLogHeader.tryTime
 
+        End If
 
-    '    Dim tadpIntervalList As New DataSet1TableAdapters.spr_HadiWarningIntervals_Inerval_List_SelectTableAdapter
-    '    Dim dtblIntervalList As DataSet1.spr_HadiWarningIntervals_Inerval_List_SelectDataTable = Nothing
-    '    dtblIntervalList = tadpIntervalList.GetData(1)
 
-    '    Dim strIntervalText As String = ""
 
-    '    For Each drwIntervalList As DataSet1.spr_HadiWarningIntervals_Inerval_List_SelectRow In dtblIntervalList.Rows
-    '        'where m.ABRNCHCOD = 6131 And TO_CHAR(m.DATE_P) > to_char(13950405)
-    '        Dim strFromDate As String = mdlGeneral.GetPersianDate(Date.Now.AddDays(-drwIntervalList.FromDay)).Replace("/", "")
-    '        Dim strToDate As String = mdlGeneral.GetPersianDate(Date.Now.AddDays(-drwIntervalList.ToDay)).Replace("/", "")
 
-    '        ' strIntervalText &= " Or (DATE_P between " & strToDate & " and " & strFromDate & ")"
-    '        ' strIntervalText &= " Or (TO_CHAR(DATE_P) between to_char(" & strFromDate & ") and  " & " to_char(" & strToDate & "))"
-    '        'strIntervalText &= " Or (TO_CHAR(DATE_P) > TO_CHAR(" & strToDate & "))"
-    '        ' strIntervalText &= " Or ((SYSDATE-(TO_DATE(DATE_P, 'YYYY/MM/DD','NLS_CALENDAR=persian')) between " & drwIntervalList.FromDay & " and " & drwIntervalList.ToDay & " ))"
-    '        ' strIntervalText &= " or ((SYSDATE-date_en) between " & drwIntervalList.FromDay & " and " & drwIntervalList.ToDay & " )"
+        Dim tadpIntervalList As New DataSet1TableAdapters.spr_HadiWarningIntervals_Inerval_List_SelectTableAdapter
+        Dim dtblIntervalList As DataSet1.spr_HadiWarningIntervals_Inerval_List_SelectDataTable = Nothing
+        dtblIntervalList = tadpIntervalList.GetData(1)
 
-    '        strIntervalText &= " Or (trunc(tdopndat)  between " & "to_date('" & strToDate & "','yyyymmdd','nls_calendar = persian')" & " And " & "to_date('" & strFromDate & "','yyyymmdd','nls_calendar = persian')" & ")"
+        Dim strIntervalText As String = ""
 
+        For Each drwIntervalList As DataSet1.spr_HadiWarningIntervals_Inerval_List_SelectRow In dtblIntervalList.Rows
+            'where m.ABRNCHCOD = 6131 And TO_CHAR(m.DATE_P) > to_char(13950405)
+            Dim strFromDate As String = mdlGeneral.GetPersianDate(Date.Now.AddDays(-drwIntervalList.FromDay)).Replace("/", "")
+            Dim strToDate As String = mdlGeneral.GetPersianDate(Date.Now.AddDays(-drwIntervalList.ToDay)).Replace("/", "")
 
-    '    Next drwIntervalList
+            ' strIntervalText &= " Or (DATE_P between " & strToDate & " and " & strFromDate & ")"
+            ' strIntervalText &= " Or (TO_CHAR(DATE_P) between to_char(" & strFromDate & ") and  " & " to_char(" & strToDate & "))"
+            'strIntervalText &= " Or (TO_CHAR(DATE_P) > TO_CHAR(" & strToDate & "))"
+            ' strIntervalText &= " Or ((SYSDATE-(TO_DATE(DATE_P, 'YYYY/MM/DD','NLS_CALENDAR=persian')) between " & drwIntervalList.FromDay & " and " & drwIntervalList.ToDay & " ))"
+            ' strIntervalText &= " or ((SYSDATE-date_en) between " & drwIntervalList.FromDay & " and " & drwIntervalList.ToDay & " )"
 
-    '    strIntervalText = strIntervalText.Substring(3)
+            strIntervalText &= " Or (trunc(tdopndat)  between " & "to_date('" & strToDate & "','yyyymmdd','nls_calendar = persian')" & " And " & "to_date('" & strFromDate & "','yyyymmdd','nls_calendar = persian')" & ")"
 
 
-    '    intCurrentTryTime += 1
+        Next drwIntervalList
 
+        strIntervalText = strIntervalText.Substring(3)
 
-    '    Dim qryLogHeader As New BusinessObject.dstHadiLogCurrentLCStatus_HTableAdapters.QueriesTableAdapter
 
+        intCurrentTryTime += 1
 
-    '    'Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
 
-    '    Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
-    '    cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
-    '    cnnBuiler_BI.UserID = "deposit"
-    '    cnnBuiler_BI.Password = "deposit"
-    '    cnnBuiler_BI.Unicode = True
+        Dim qryLogHeader As New BusinessObject.dstHadiLogCurrentLCStatus_HTableAdapters.QueriesTableAdapter
 
-    '    Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
 
-    '        Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+        'Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
 
-    '        Dim tadpWarningIntervalBranchList As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.spr_HadiWarningIntervalsBranch_List_SelectTableAdapter
-    '        Dim dtblWarningIntervalBranchList As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_List_SelectDataTable = Nothing
-    '        dtblWarningIntervalBranchList = tadpWarningIntervalBranchList.GetData()
+        Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+        cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+        cnnBuiler_BI.UserID = "deposit"
+        cnnBuiler_BI.Password = "deposit"
+        cnnBuiler_BI.Unicode = True
 
-    '        If dtblWarningIntervalBranchList.Rows.Count = 0 Then
-    '            cnnBI_Connection.Close()
-    '            qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, "گردش کارهای تعریف شده ناقص هستند", intCurrentTryTime)
+        Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
 
-    '            Return
-    '        End If
+            Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
 
+            Dim tadpWarningIntervalBranchList As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.spr_HadiWarningIntervalsBranch_List_SelectTableAdapter
+            Dim dtblWarningIntervalBranchList As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_List_SelectDataTable = Nothing
+            dtblWarningIntervalBranchList = tadpWarningIntervalBranchList.GetData()
 
-    '        Dim strLoan_Info_Query As String = "SELECT * from customer.cbcif_hadi where  (" & strIntervalText & ") and  ("
-    '        '   Dim strLoan_Info_Query As String = "SELECT * from customer.cbcif_hadi where  ROWNUM <=10 and  (" & strIntervalText & ") and ("
+            If dtblWarningIntervalBranchList.Rows.Count = 0 Then
+                cnnBI_Connection.Close()
+                qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, "گردش کارهای تعریف شده ناقص هستند", intCurrentTryTime)
 
-    '        'Dim strLoan_Info_Query As String = "SELECT customer.cbcif_hadi.*,SYSDATE from customer.cbcif_hadi where ROWNUM <=10 and ("
+                Return
+            End If
 
 
-    '        Dim strBranchQuery As String = ""
-    '        For Each drwWarningIntervalBranchList As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_List_SelectRow In dtblWarningIntervalBranchList.Rows
-    '            strBranchQuery &= "or ABRNCHCOD ='" & drwWarningIntervalBranchList.BrnachCode & "'"
+            Dim strLoan_Info_Query As String = "SELECT * from customer.cbcif_hadi where  (" & strIntervalText & ") and  ("
+            '   Dim strLoan_Info_Query As String = "SELECT * from customer.cbcif_hadi where  ROWNUM <=10 and  (" & strIntervalText & ") and ("
 
-    '        Next drwWarningIntervalBranchList
+            'Dim strLoan_Info_Query As String = "SELECT customer.cbcif_hadi.*,SYSDATE from customer.cbcif_hadi where ROWNUM <=10 and ("
 
-    '        strLoan_Info_Query &= strBranchQuery.Substring(3) & ")"
-    '        'strLoan_Info_Query = "select * from customer.cbcif_hadi where CFCIFNO  = 10228"
-    '        cmd_BI.CommandText = strLoan_Info_Query
 
+            Dim strBranchQuery As String = ""
+            For Each drwWarningIntervalBranchList As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_List_SelectRow In dtblWarningIntervalBranchList.Rows
+                strBranchQuery &= "or ABRNCHCOD ='" & drwWarningIntervalBranchList.BrnachCode & "'"
 
-    '        Try
-    '            cnnBI_Connection.Open()
-    '        Catch ex As Exception
+            Next drwWarningIntervalBranchList
 
-    '            qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
-    '            Return
-    '        End Try
-    '        Dim dataReader As OracleDataReader = Nothing
+            strLoan_Info_Query &= strBranchQuery.Substring(3) & ")"
+            'strLoan_Info_Query = "select * from customer.cbcif_hadi where CFCIFNO  = 10228"
+            cmd_BI.CommandText = strLoan_Info_Query
 
-    '        Try
-    '            dataReader = cmd_BI.ExecuteReader()
-    '        Catch ex As Exception
 
-    '            qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
-    '            cnnBI_Connection.Close()
+            Try
+                cnnBI_Connection.Open()
+            Catch ex As Exception
 
-    '            Return
-    '        End Try
+                qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
+                Return
+            End Try
+            Dim dataReader As OracleDataReader = Nothing
 
-    '        Try
-    '            If dataReader.Read = False Then
+            Try
+                dataReader = cmd_BI.ExecuteReader()
+            Catch ex As Exception
 
-    '                qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, "اطلاعات مربوط به مورخ " & mdlGeneral.GetPersianDate(dteThisDate) & " بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید", intCurrentTryTime)
-    '                dataReader.Close()
-    '                cnnBI_Connection.Close()
+                qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
+                cnnBI_Connection.Close()
 
-    '                Return
-    '            End If
+                Return
+            End Try
 
-    '            Dim intLogHeaderID As Integer = qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, True, "", intCurrentTryTime)
+            Try
+                If dataReader.Read = False Then
 
-    '            Dim qryLCCurrentStatus As New BusinessObject.dstHadiOperation_DepositTableAdapters.QueriesTableAdapter
-    '            qryLCCurrentStatus.spr_HadiOperation_Deposit_Delete()
+                    qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, "اطلاعات مربوط به مورخ " & mdlGeneral.GetPersianDate(dteThisDate) & " بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید", intCurrentTryTime)
+                    dataReader.Close()
+                    cnnBI_Connection.Close()
 
-    '            Dim i As Integer = 0
-    '            Dim strBuilder As New Text.StringBuilder()
+                    Return
+                End If
 
-    '            Dim listOperationDeposit As New ArrayList
+                Dim intLogHeaderID As Integer = qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, True, "", intCurrentTryTime)
 
+                Dim qryLCCurrentStatus As New BusinessObject.dstHadiOperation_DepositTableAdapters.QueriesTableAdapter
+                qryLCCurrentStatus.spr_HadiOperation_Deposit_Delete()
 
-    '            Do
-    '                i += 1
+                Dim i As Integer = 0
+                Dim strBuilder As New Text.StringBuilder()
 
-    '                Try
-    '                    Dim stcVarDepositInfo As stc_Deposit_Info
+                Dim listOperationDeposit As New ArrayList
 
 
-    '                    If dataReader.GetValue(1) Is DBNull.Value Then
-    '                        stcVarDepositInfo.CSTTYP = ""
-    '                    Else
-    '                        stcVarDepositInfo.CSTTYP = CStr(dataReader.GetValue(2)).Replace("'", "")
-    '                    End If
+                Do
+                    i += 1
 
-    '                    If dataReader.GetValue(2) Is DBNull.Value Then
-    '                        stcVarDepositInfo.CustomerNo = ""
-    '                    Else
-    '                        stcVarDepositInfo.CustomerNo = CStr(dataReader.GetValue(2)).Replace("'", "")
-    '                    End If
+                    Try
+                        Dim stcVarDepositInfo As stc_Deposit_Info
 
-    '                    If dataReader.GetValue(3) Is DBNull.Value Then
-    '                        stcVarDepositInfo.Name = ""
-    '                    Else
-    '                        stcVarDepositInfo.Name = CStr(dataReader.GetValue(3)).Replace("'", "")
-    '                    End If
 
-    '                    If dataReader.GetValue(4) Is DBNull.Value Then
-    '                        stcVarDepositInfo.LastName = ""
-    '                    Else
-    '                        stcVarDepositInfo.LastName = CStr(dataReader.GetValue(4)).Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(1) Is DBNull.Value Then
+                            stcVarDepositInfo.CSTTYP = ""
+                        Else
+                            stcVarDepositInfo.CSTTYP = CStr(dataReader.GetValue(2)).Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(5) Is DBNull.Value Then
-    '                        stcVarDepositInfo.FatherName = ""
-    '                    Else
-    '                        stcVarDepositInfo.FatherName = CStr(dataReader.GetValue(5)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(2) Is DBNull.Value Then
+                            stcVarDepositInfo.CustomerNo = ""
+                        Else
+                            stcVarDepositInfo.CustomerNo = CStr(dataReader.GetValue(2)).Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(6) Is DBNull.Value Then
-    '                        stcVarDepositInfo.IDNo = ""
-    '                    Else
-    '                        stcVarDepositInfo.IDNo = CStr(dataReader.GetValue(6)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(3) Is DBNull.Value Then
+                            stcVarDepositInfo.Name = ""
+                        Else
+                            stcVarDepositInfo.Name = CStr(dataReader.GetValue(3)).Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(7) Is DBNull.Value Then
-    '                        stcVarDepositInfo.Sex = ""
-    '                    Else
-    '                        stcVarDepositInfo.Sex = CStr(dataReader.GetValue(7)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(4) Is DBNull.Value Then
+                            stcVarDepositInfo.LastName = ""
+                        Else
+                            stcVarDepositInfo.LastName = CStr(dataReader.GetValue(4)).Replace("'", "")
+                        End If
 
+                        If dataReader.GetValue(5) Is DBNull.Value Then
+                            stcVarDepositInfo.FatherName = ""
+                        Else
+                            stcVarDepositInfo.FatherName = CStr(dataReader.GetValue(5)).Trim.Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(8) Is DBNull.Value Then
-    '                        stcVarDepositInfo.BirthDate = ""
-    '                    Else
-    '                        stcVarDepositInfo.BirthDate = CStr(dataReader.GetValue(8)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(6) Is DBNull.Value Then
+                            stcVarDepositInfo.IDNo = ""
+                        Else
+                            stcVarDepositInfo.IDNo = CStr(dataReader.GetValue(6)).Trim.Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(9) Is DBNull.Value Then
-    '                        stcVarDepositInfo.NationalID = ""
-    '                    Else
-    '                        stcVarDepositInfo.NationalID = CStr(dataReader.GetValue(9)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(7) Is DBNull.Value Then
+                            stcVarDepositInfo.Sex = ""
+                        Else
+                            stcVarDepositInfo.Sex = CStr(dataReader.GetValue(7)).Trim.Replace("'", "")
+                        End If
 
 
-    '                    If dataReader.GetValue(10) Is DBNull.Value Then
-    '                        stcVarDepositInfo.BranchCode = ""
-    '                    Else
-    '                        stcVarDepositInfo.BranchCode = CStr(dataReader.GetValue(10)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(8) Is DBNull.Value Then
+                            stcVarDepositInfo.BirthDate = ""
+                        Else
+                            stcVarDepositInfo.BirthDate = CStr(dataReader.GetValue(8)).Trim.Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(11) Is DBNull.Value Then
-    '                        stcVarDepositInfo.Date_P = ""
-    '                    Else
-    '                        stcVarDepositInfo.Date_P = CStr(dataReader.GetValue(11)).Trim
-    '                    End If
+                        If dataReader.GetValue(9) Is DBNull.Value Then
+                            stcVarDepositInfo.NationalID = ""
+                        Else
+                            stcVarDepositInfo.NationalID = CStr(dataReader.GetValue(9)).Trim.Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(12) Is DBNull.Value Then
-    '                        stcVarDepositInfo.Address = ""
-    '                    Else
-    '                        stcVarDepositInfo.Address = CStr(dataReader.GetValue(12)).Trim.Replace("'", "")
-    '                    End If
 
-    '                    If dataReader.GetValue(13) Is DBNull.Value Then
-    '                        stcVarDepositInfo.Telephone = ""
-    '                    Else
-    '                        stcVarDepositInfo.Telephone = CStr(dataReader.GetValue(13)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(10) Is DBNull.Value Then
+                            stcVarDepositInfo.BranchCode = ""
+                        Else
+                            stcVarDepositInfo.BranchCode = CStr(dataReader.GetValue(10)).Trim.Replace("'", "")
+                        End If
 
+                        If dataReader.GetValue(11) Is DBNull.Value Then
+                            stcVarDepositInfo.Date_P = ""
+                        Else
+                            stcVarDepositInfo.Date_P = CStr(dataReader.GetValue(11)).Trim
+                        End If
 
-    '                    If dataReader.GetValue(14) Is DBNull.Value Then
-    '                        stcVarDepositInfo.Mobile = ""
-    '                    Else
-    '                        stcVarDepositInfo.Mobile = CStr(dataReader.GetValue(14)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(12) Is DBNull.Value Then
+                            stcVarDepositInfo.Address = ""
+                        Else
+                            stcVarDepositInfo.Address = CStr(dataReader.GetValue(12)).Trim.Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(16) Is DBNull.Value Then
-    '                        stcVarDepositInfo.DepositTypeCode = ""
-    '                    Else
-    '                        stcVarDepositInfo.DepositTypeCode = CStr(dataReader.GetValue(16)).Trim.Replace("'", "")
-    '                    End If
+                        If dataReader.GetValue(13) Is DBNull.Value Then
+                            stcVarDepositInfo.Telephone = ""
+                        Else
+                            stcVarDepositInfo.Telephone = CStr(dataReader.GetValue(13)).Trim.Replace("'", "")
+                        End If
 
-    '                    If dataReader.GetValue(17) Is DBNull.Value Then
-    '                        stcVarDepositInfo.DepositDesc = ""
-    '                    Else
-    '                        stcVarDepositInfo.DepositDesc = CStr(dataReader.GetValue(17)).Trim.Replace("'", "")
-    '                    End If
 
+                        If dataReader.GetValue(14) Is DBNull.Value Then
+                            stcVarDepositInfo.Mobile = ""
+                        Else
+                            stcVarDepositInfo.Mobile = CStr(dataReader.GetValue(14)).Trim.Replace("'", "")
+                        End If
 
-    '                    stcVarDepositInfo.BranchName = ""
-    '                    stcVarDepositInfo.BranchAddress = ""
-    '                    stcVarDepositInfo.DepositAmount = ""
+                        If dataReader.GetValue(16) Is DBNull.Value Then
+                            stcVarDepositInfo.DepositTypeCode = ""
+                        Else
+                            stcVarDepositInfo.DepositTypeCode = CStr(dataReader.GetValue(16)).Trim.Replace("'", "")
+                        End If
 
-    '                    Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
-    '                    Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
-    '                    dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarDepositInfo.CustomerNo)
-    '                    Dim intBorrowerFileID As Integer = -1
+                        If dataReader.GetValue(17) Is DBNull.Value Then
+                            stcVarDepositInfo.DepositDesc = ""
+                        Else
+                            stcVarDepositInfo.DepositDesc = CStr(dataReader.GetValue(17)).Trim.Replace("'", "")
+                        End If
 
 
-    '                    ''check if Customer Number is double or not, if it is then skip it
-    '                    If i = 1 Then
+                        stcVarDepositInfo.BranchName = ""
+                        stcVarDepositInfo.BranchAddress = ""
+                        stcVarDepositInfo.DepositAmount = ""
 
-    '                        listOperationDeposit.Add(stcVarDepositInfo.CustomerNo)
+                        Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
+                        Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
+                        dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarDepositInfo.CustomerNo)
+                        Dim intBorrowerFileID As Integer = -1
 
-    '                    Else
 
+                        ''check if Customer Number is double or not, if it is then skip it
+                        If i = 1 Then
 
-    '                        For Each obj In listOperationDeposit
-    '                            If obj = stcVarDepositInfo.CustomerNo Then
-    '                                Continue Do
-    '                            End If
-    '                        Next
+                            listOperationDeposit.Add(stcVarDepositInfo.CustomerNo)
 
-    '                        listOperationDeposit.Add(stcVarDepositInfo.CustomerNo)
+                        Else
 
-    '                    End If
 
-    '                    If dtblFilebyCustomerNo.Rows.Count = 0 Then
+                            For Each obj In listOperationDeposit
+                                If obj = stcVarDepositInfo.CustomerNo Then
+                                    Continue Do
+                                End If
+                            Next
 
-    '                        Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+                            listOperationDeposit.Add(stcVarDepositInfo.CustomerNo)
 
-    '                        Dim blnIsMale As Boolean = If(stcVarDepositInfo.Sex = "زن", False, True)
-    '                        intBorrowerFileID = qryFile.spr_File_Insert(stcVarDepositInfo.CustomerNo, stcVarDepositInfo.Name, stcVarDepositInfo.LastName, stcVarDepositInfo.FatherName, stcVarDepositInfo.Mobile, stcVarDepositInfo.NationalID, stcVarDepositInfo.IDNo, "", stcVarDepositInfo.Address, stcVarDepositInfo.Telephone, stcVarDepositInfo.Telephone, blnIsMale, 2, 1, Nothing, Nothing)
+                        End If
 
-    '                    Else
+                        If dtblFilebyCustomerNo.Rows.Count = 0 Then
 
-    '                        Dim drwFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectRow = dtblFilebyCustomerNo.Rows(0)
-    '                        intBorrowerFileID = drwFilebyCustomerNo.ID
+                            Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
 
-    '                        If blnIsUpdateDay = True Then
-    '                            Try
+                            Dim blnIsMale As Boolean = If(stcVarDepositInfo.Sex = "زن", False, True)
+                            intBorrowerFileID = qryFile.spr_File_Insert(stcVarDepositInfo.CustomerNo, stcVarDepositInfo.Name, stcVarDepositInfo.LastName, stcVarDepositInfo.FatherName, stcVarDepositInfo.Mobile, stcVarDepositInfo.NationalID, stcVarDepositInfo.IDNo, "", stcVarDepositInfo.Address, stcVarDepositInfo.Telephone, stcVarDepositInfo.Telephone, blnIsMale, 2, 1, Nothing, Nothing)
 
-    '                                Dim blnIsMale As Boolean = If(stcVarDepositInfo.Sex = "زن", False, True)
-    '                                Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
-    '                                qryFile.spr_File_MAT_Update(intBorrowerFileID, stcVarDepositInfo.Mobile, stcVarDepositInfo.Address, stcVarDepositInfo.Telephone, stcVarDepositInfo.Telephone, stcVarDepositInfo.Name, stcVarDepositInfo.LastName, stcVarDepositInfo.FatherName, blnIsMale)
+                        Else
 
-    '                            Catch ex As Exception
+                            Dim drwFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectRow = dtblFilebyCustomerNo.Rows(0)
+                            intBorrowerFileID = drwFilebyCustomerNo.ID
 
-    '                                '
-    '                                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
-    '                                qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "Hadi_BI_Deposit")
+                            If blnIsUpdateDay = True Then
+                                Try
 
+                                    Dim blnIsMale As Boolean = If(stcVarDepositInfo.Sex = "زن", False, True)
+                                    Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+                                    qryFile.spr_File_MAT_Update(intBorrowerFileID, stcVarDepositInfo.Mobile, stcVarDepositInfo.Address, stcVarDepositInfo.Telephone, stcVarDepositInfo.Telephone, stcVarDepositInfo.Name, stcVarDepositInfo.LastName, stcVarDepositInfo.FatherName, blnIsMale)
 
-    '                            End Try
+                                Catch ex As Exception
 
-    '                        End If
+                                    '
+                                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "Hadi_BI_Deposit")
 
 
-    '                    End If
+                                End Try
 
+                            End If
 
 
+                        End If
 
-    '                    Dim tadpDepositByNumber As New BusinessObject.dstDepositTableAdapters.spr_Deposits_ByDepositNumber_SelectTableAdapter
-    '                    Dim dtblDepositByNumber As BusinessObject.dstDeposit.spr_Deposits_ByDepositNumber_SelectDataTable = Nothing
-    '                    dtblDepositByNumber = tadpDepositByNumber.GetData(stcVarDepositInfo.CSTTYP, intBorrowerFileID)
 
-    '                    Dim intDepositID As Integer = -1
-    '                    Dim intBranchID As Integer = -1
-    '                    Dim intDepositTypeID As Integer = -1
 
 
-    '                    If dtblDepositByNumber.Rows.Count = 0 Then
-    '                        Dim qryDeposit As New BusinessObject.dstDepositTableAdapters.QueriesTableAdapter
+                        Dim tadpDepositByNumber As New BusinessObject.dstDepositTableAdapters.spr_Deposits_ByDepositNumber_SelectTableAdapter
+                        Dim dtblDepositByNumber As BusinessObject.dstDeposit.spr_Deposits_ByDepositNumber_SelectDataTable = Nothing
+                        dtblDepositByNumber = tadpDepositByNumber.GetData(stcVarDepositInfo.CSTTYP, intBorrowerFileID)
 
+                        Dim intDepositID As Integer = -1
+                        Dim intBranchID As Integer = -1
+                        Dim intDepositTypeID As Integer = -1
 
-    '                        Dim dteDepositDate? As Date = Nothing
-    '                        Try
 
-    '                            ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(4, "/")
-    '                            ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(7, "/")
-    '                            ''dteDepositDate = mdlGeneral.GetGregorianDate(stcVarDepositInfo.Date_P)
-    '                            dteDepositDate = CDate(stcVarDepositInfo.Date_P)
-    '                        Catch ex As Exception
-    '                            dteDepositDate = Nothing
-    '                        End Try
+                        If dtblDepositByNumber.Rows.Count = 0 Then
+                            Dim qryDeposit As New BusinessObject.dstDepositTableAdapters.QueriesTableAdapter
 
 
+                            Dim dteDepositDate? As Date = Nothing
+                            Try
 
-    '                        Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
-    '                        Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
-    '                        dtblBranchbyCode = tadpBranchbyCode.GetData(stcVarDepositInfo.BranchCode)
+                                ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(4, "/")
+                                ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(7, "/")
+                                ''dteDepositDate = mdlGeneral.GetGregorianDate(stcVarDepositInfo.Date_P)
+                                dteDepositDate = CDate(stcVarDepositInfo.Date_P)
+                            Catch ex As Exception
+                                dteDepositDate = Nothing
+                            End Try
 
 
-    '                        If dtblBranchbyCode.Rows.Count = 0 Then
 
+                            Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
+                            Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
+                            dtblBranchbyCode = tadpBranchbyCode.GetData(stcVarDepositInfo.BranchCode)
 
-    '                            Dim obj_stc_BranchInfo As stc_Branch_Info = GetBarnchName(stcVarDepositInfo.BranchCode)
-    '                            Dim qryBranch As New BusinessObject.dstBranchTableAdapters.QueriesTableAdapter
 
-    '                            intBranchID = qryBranch.spr_Branch_Insert(stcVarDepositInfo.BranchCode, obj_stc_BranchInfo.BranchName, obj_stc_BranchInfo.BranchAddress, 2, Nothing, "", 1) 'UserID=2 is System User
+                            If dtblBranchbyCode.Rows.Count = 0 Then
 
-    '                        Else
 
-    '                            Dim drwBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectRow = dtblBranchbyCode.Rows(0)
-    '                            intBranchID = drwBranchbyCode.ID
+                                Dim obj_stc_BranchInfo As stc_Branch_Info = GetBarnchName(stcVarDepositInfo.BranchCode)
+                                Dim qryBranch As New BusinessObject.dstBranchTableAdapters.QueriesTableAdapter
 
-    '                        End If
+                                intBranchID = qryBranch.spr_Branch_Insert(stcVarDepositInfo.BranchCode, obj_stc_BranchInfo.BranchName, obj_stc_BranchInfo.BranchAddress, 2, Nothing, "", 1) 'UserID=2 is System User
 
+                            Else
 
-    '                        Dim tadpDepositTypeByCode As New BusinessObject.dstDepositTableAdapters.spr_DepositType_byCode_SelectTableAdapter
-    '                        Dim dtblDepositTypeByCode As BusinessObject.dstDeposit.spr_DepositType_byCode_SelectDataTable = Nothing
+                                Dim drwBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectRow = dtblBranchbyCode.Rows(0)
+                                intBranchID = drwBranchbyCode.ID
 
-    '                        dtblDepositTypeByCode = tadpDepositTypeByCode.GetData(stcVarDepositInfo.DepositTypeCode)
+                            End If
 
 
-    '                        If dtblDepositTypeByCode.Rows.Count = 0 Then
+                            Dim tadpDepositTypeByCode As New BusinessObject.dstDepositTableAdapters.spr_DepositType_byCode_SelectTableAdapter
+                            Dim dtblDepositTypeByCode As BusinessObject.dstDeposit.spr_DepositType_byCode_SelectDataTable = Nothing
 
-    '                            Dim strDepositTypeName As String = stcVarDepositInfo.DepositDesc ' GetDepositTypeName(stcVarDepositInfo.DepositTypeCode)
-    '                            ' Insert into DepositType
-    '                            intDepositTypeID = qryDeposit.spr_DepositType_Insert(stcVarDepositInfo.DepositTypeCode, strDepositTypeName, 2)
+                            dtblDepositTypeByCode = tadpDepositTypeByCode.GetData(stcVarDepositInfo.DepositTypeCode)
 
 
+                            If dtblDepositTypeByCode.Rows.Count = 0 Then
 
-    '                        Else
-    '                            Dim drwSDepositTypeByCode As BusinessObject.dstDeposit.spr_DepositType_byCode_SelectRow = dtblDepositTypeByCode.Rows(0)
-    '                            intDepositTypeID = drwSDepositTypeByCode.ID
+                                Dim strDepositTypeName As String = stcVarDepositInfo.DepositDesc ' GetDepositTypeName(stcVarDepositInfo.DepositTypeCode)
+                                ' Insert into DepositType
+                                intDepositTypeID = qryDeposit.spr_DepositType_Insert(stcVarDepositInfo.DepositTypeCode, strDepositTypeName, 2)
 
 
-    '                        End If
 
+                            Else
+                                Dim drwSDepositTypeByCode As BusinessObject.dstDeposit.spr_DepositType_byCode_SelectRow = dtblDepositTypeByCode.Rows(0)
+                                intDepositTypeID = drwSDepositTypeByCode.ID
 
-    '                        intDepositID = qryDeposit.spr_Deposits_Insert(intBorrowerFileID, intDepositTypeID, 0, intBranchID, stcVarDepositInfo.CSTTYP, dteDepositDate)
 
+                            End If
 
-    '                    Else
 
-    '                        Dim drwDeposit As BusinessObject.dstDeposit.spr_Deposits_ByDepositNumber_SelectRow = dtblDepositByNumber.Rows(0)
-    '                        intDepositID = drwDeposit.ID
-    '                        intDepositTypeID = drwDeposit.FK_DepositTypeID
-    '                        intBranchID = drwDeposit.FK_BranchID
+                            intDepositID = qryDeposit.spr_Deposits_Insert(intBorrowerFileID, intDepositTypeID, 0, intBranchID, stcVarDepositInfo.CSTTYP, dteDepositDate)
 
-    '                        ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(4, "/")
-    '                        ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(7, "/")
 
-    '                    End If
+                        Else
 
-    '                    With stcVarDepositInfo
+                            Dim drwDeposit As BusinessObject.dstDeposit.spr_Deposits_ByDepositNumber_SelectRow = dtblDepositByNumber.Rows(0)
+                            intDepositID = drwDeposit.ID
+                            intDepositTypeID = drwDeposit.FK_DepositTypeID
+                            intBranchID = drwDeposit.FK_BranchID
 
-    '                        ''Dim strTempInsertQuery As String = " union select '" & dteThisDate & "'," & .Date_P.ToString & "," & intBorrowerFileID.ToString & "," & .Date_P.ToString
-    '                        ''strTempInsertQuery &= ",'" & intBranchID.ToString() & "'," & .CSTTYP.ToString & "," & intDepositTypeID.ToString & "," & intDepositID.ToString & ",0"
-    '                        ''strBuilder.Append(strTempInsertQuery)
-    '                        ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(4, "/")
-    '                        ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(7, "/")
-    '                        ''  Dim dteDepositDate As Date = mdlGeneral.GetGregorianDate(stcVarDepositInfo.Date_P)
+                            ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(4, "/")
+                            ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(7, "/")
 
+                        End If
 
+                        With stcVarDepositInfo
 
-    '                        Dim dteDepositDate As Date = CDate(stcVarDepositInfo.Date_P)
+                            ''Dim strTempInsertQuery As String = " union select '" & dteThisDate & "'," & .Date_P.ToString & "," & intBorrowerFileID.ToString & "," & .Date_P.ToString
+                            ''strTempInsertQuery &= ",'" & intBranchID.ToString() & "'," & .CSTTYP.ToString & "," & intDepositTypeID.ToString & "," & intDepositID.ToString & ",0"
+                            ''strBuilder.Append(strTempInsertQuery)
+                            ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(4, "/")
+                            ''stcVarDepositInfo.Date_P = stcVarDepositInfo.Date_P.Insert(7, "/")
+                            ''  Dim dteDepositDate As Date = mdlGeneral.GetGregorianDate(stcVarDepositInfo.Date_P)
 
-    '                        Dim strTempInsertQuery As String = " union select  & dteThisDate & "'," & intBorrowerFileID.ToString & ",'" & dteDepositDate.ToString()
-    '                        strTempInsertQuery &= "'," & intBranchID.ToString() & "," & .CSTTYP.ToString & "," & intDepositTypeID.ToString & "," & intDepositID.ToString & ",0"
-    '                        strBuilder.Append(strTempInsertQuery)
 
-    '                        ''strTempInsertQuery.Split(",").Find()
 
-    '                        If i >= 500 Then
-    '                            Dim strMainIntertQuery As String = strBuilder.ToString.Substring(7)
-    '                            qryLCCurrentStatus.spr_HadiOperation_Deposit_Bulk_Insert(strMainIntertQuery)
-    '                            i = 0
-    '                            strBuilder.Clear()
+                            Dim dteDepositDate As Date = CDate(stcVarDepositInfo.Date_P)
 
-    '                        End If
+                            Dim strTempInsertQuery As String = " union select  & dteThisDate & " '," & intBorrowerFileID.ToString & ",'" & dteDepositDate.ToString()
+                            strTempInsertQuery &= "'," & intBranchID.ToString() & "," & .CSTTYP.ToString & "," & intDepositTypeID.ToString & "," & intDepositID.ToString & ",0"
+                            strBuilder.Append(strTempInsertQuery)
 
+                            ''strTempInsertQuery.Split(",").Find()
 
-    '                    End With
+                            If i >= 500 Then
+                                Dim strMainIntertQuery As String = strBuilder.ToString.Substring(7)
+                                qryLCCurrentStatus.spr_HadiOperation_Deposit_Bulk_Insert(strMainIntertQuery)
+                                i = 0
+                                strBuilder.Clear()
 
+                            End If
 
-    '                Catch ex As Exception
-    '                    Continue Do
-    '                End Try
 
+                        End With
 
-    '            Loop While dataReader.Read()
-    '            dataReader.Close()
 
+                    Catch ex As Exception
+                        Continue Do
+                    End Try
 
 
-    '            If i <> 0 Then
-    '                Dim strMainInsertQuery As String = strBuilder.ToString.Substring(6)
-    '                qryLCCurrentStatus.spr_HadiOperation_Deposit_Bulk_Insert(strMainInsertQuery)
+                Loop While dataReader.Read()
+                dataReader.Close()
 
-    '            End If
 
-    '            listOperationDeposit.Clear()
 
-    '        Catch ex As Exception
+                If i <> 0 Then
+                    Dim strMainInsertQuery As String = strBuilder.ToString.Substring(6)
+                    qryLCCurrentStatus.spr_HadiOperation_Deposit_Bulk_Insert(strMainInsertQuery)
 
-    '            qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
-    '            Return
-    '        End Try
+                End If
 
-    '        cnnBI_Connection.Close()
+                listOperationDeposit.Clear()
 
-    '    End Using
-    '    ''Call SendAdministratioSMSMessage()
+            Catch ex As Exception
 
+                qryLogHeader.spr_HadiLogCurrentLCStatus_H_Insert(dteThisDate, Date.Now, False, ex.Message, intCurrentTryTime)
+                Return
+            End Try
 
-    'End Sub
+            cnnBI_Connection.Close()
+
+        End Using
+        ''Call SendAdministratioSMSMessage()
+
+
+    End Sub
 
     Public Sub Hadi_BI_Laon()
 
@@ -4733,8 +4736,8 @@ VoiceSMS:
             End If
 
             Dim objSMS As New clsSMS
-            Dim arrMessage(5) As String
-            Dim arrDestination(5) As String
+            Dim arrMessage(6) As String
+            Dim arrDestination(6) As String
 
             arrMessage(0) = strResultMessage
             'arrDestination(0) = "09122764983"
@@ -4759,6 +4762,10 @@ VoiceSMS:
 
             arrMessage(5) = strResultMessage
             arrDestination(5) = "09123201844"
+
+
+            arrMessage(6) = strResultMessage
+            arrDestination(6) = "09128017669"
 
             objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -5062,7 +5069,7 @@ VoiceSMS:
 
                             Dim qryWarningNotificationLog As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
 
-                            qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, intMessageCount, lnqCurrentLogID.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount, intVoiceSMSCount)
+                            qryWarningNotificationLog.spr_SMSCountLog_Insert(Date.Now.Date, intMessageCount, lnqCurrentLogID.ID, drwWarningNotificationLogDetailFirstLastLog.First, drwWarningNotificationLogDetailFirstLastLog.Last, intTotalCount, intVoiceSMSCount, intPreMessageCount)
 
 
 
@@ -5075,8 +5082,8 @@ VoiceSMS:
                         End If
 
                         Dim sobjSMS As New clsSMS
-                        Dim arrMessage(4) As String
-                        Dim arrDestination(4) As String
+                        Dim arrMessage(5) As String
+                        Dim arrDestination(5) As String
 
 
 
@@ -5098,8 +5105,8 @@ VoiceSMS:
                         arrMessage(4) = strResultMessage
                         arrDestination(4) = "09355066075"
 
-                        'arrMessage(5) = strResultMessage
-                        'arrDestination(5) = "09122764983"
+                        arrMessage(5) = strResultMessage
+                        arrDestination(5) = "09128017669"
 
                         sobjSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -5664,11 +5671,20 @@ VoiceSMS:
     Private Sub GetVoiceMessageStatus()
 
 
-        If Date.Now.Hour < 18 AndAlso Date.Now.DayOfWeek = DayOfWeek.Friday Then
+        If Date.Now.Hour < 15 OrElse Date.Now.DayOfWeek = DayOfWeek.Saturday Then
 
             Return
 
         End If
+
+        Dim tadpVoiceMessageStatusLog As New BusinessObject.dstZamanakTableAdapters.spr_VoiceMessageStatusLog_SelectTableAdapter
+        Dim dtblVoiceMessageStatusLog As BusinessObject.dstZamanak.spr_VoiceMessageStatusLog_SelectDataTable = Nothing
+
+        dtblVoiceMessageStatusLog = tadpVoiceMessageStatusLog.GetData()
+        If dtblVoiceMessageStatusLog.Rows.Count > 0 Then
+            Return
+        End If
+
 
         Dim startTime As DateTime = Date.Now
         Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
@@ -5680,10 +5696,12 @@ VoiceSMS:
         Dim tadpGetCurrentDayVoiceSMS As New BusinessObject.dstZamanakTableAdapters.spr_GetCurrentDayVoiceSMS_SelectTableAdapter
         Dim dtblGetCurrentDayVoiceSMS As BusinessObject.dstZamanak.spr_GetCurrentDayVoiceSMS_SelectDataTable = Nothing
 
-        Dim dteThisDate As Date = Date.Now '.AddDays(-1)
+        Dim dteThisDate As Date = Date.Now.AddDays(-1)
         dtblGetCurrentDayVoiceSMS = tadpGetCurrentDayVoiceSMS.GetData(dteThisDate)
 
         Dim qryVoiceMessage As New BusinessObject.dstZamanakTableAdapters.QueriesTableAdapter
+
+        qryVoiceMessage.spr_VoiceMessageStatusLog_Insert(startTime, Nothing, 0)
 
         Try
 
@@ -5720,7 +5738,7 @@ VoiceSMS:
                                     intStaus = 3
 
                             End Select
-                            qryVoiceMessage.spr_VoiceMessageStatus_Insert(intCampain, VoiceStatus(i).ReceiverNumber, intStaus, dteThisDate)
+                            qryVoiceMessage.spr_VoiceMessageStatus_Insert(intCampain, VoiceStatus(i).ReceiverNumber, intStaus, drwGetCurrentDayVoiceSMS.STime)
 
                         Catch ex As Exception
 
@@ -5745,7 +5763,7 @@ VoiceSMS:
 
             Dim intTotalCount As Integer = dtblVoiceSMSCount.First.SMSVoiceStatusCount
 
-            qryVoiceMessage.spr_VoiceMessageStatusLog_Insert(startTime, Date.Now, intTotalCount)
+            qryVoiceMessage.spr_VoiceMessageStatusLog_Update(intTotalCount)
 
 
         Catch ex As Exception

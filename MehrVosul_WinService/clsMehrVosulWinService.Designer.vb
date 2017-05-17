@@ -112,7 +112,8 @@ Partial Class clsMehrVosulWinService
         '
         'tmrVoiceSMSStatus
         '
-        Me.tmrVoiceSMSStatus.Interval = 900000.0R
+        Me.tmrVoiceSMSStatus.Enabled = True
+        Me.tmrVoiceSMSStatus.Interval = 3600000.0R
         '
         'clsMehrVosulWinService
         '

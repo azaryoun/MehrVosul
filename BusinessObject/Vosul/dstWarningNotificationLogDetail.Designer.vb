@@ -7411,6 +7411,7 @@ Namespace dstWarningNotificationLogDetailTableAdapters
             CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LastSent", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 23, 3, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@BITotal", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@SMSVoice", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@PreNotifySMS", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -7641,7 +7642,7 @@ Namespace dstWarningNotificationLogDetailTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_SMSCountLog_Insert(ByVal SendDate As Global.System.Nullable(Of Date), ByVal SMSCount As Global.System.Nullable(Of Integer), ByVal FK_LogCurrentLCStatusID As Global.System.Nullable(Of Integer), ByVal FirstSent As Global.System.Nullable(Of Date), ByVal LastSent As Global.System.Nullable(Of Date), ByVal BITotal As Global.System.Nullable(Of Integer), ByVal SMSVoice As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function spr_SMSCountLog_Insert(ByVal SendDate As Global.System.Nullable(Of Date), ByVal SMSCount As Global.System.Nullable(Of Integer), ByVal FK_LogCurrentLCStatusID As Global.System.Nullable(Of Integer), ByVal FirstSent As Global.System.Nullable(Of Date), ByVal LastSent As Global.System.Nullable(Of Date), ByVal BITotal As Global.System.Nullable(Of Integer), ByVal SMSVoice As Global.System.Nullable(Of Integer), ByVal PreNotifySMS As Global.System.Nullable(Of Integer)) As Object
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(5),Global.System.Data.SqlClient.SqlCommand)
             If (SendDate.HasValue = true) Then
                 command.Parameters(1).Value = CType(SendDate.Value,Date)
@@ -7678,20 +7679,30 @@ Namespace dstWarningNotificationLogDetailTableAdapters
             Else
                 command.Parameters(7).Value = Global.System.DBNull.Value
             End If
+            If (PreNotifySMS.HasValue = true) Then
+                command.Parameters(8).Value = CType(PreNotifySMS.Value,Integer)
+            Else
+                command.Parameters(8).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 command.Connection.Open
             End If
-            Dim returnValue As Integer
+            Dim returnValue As Object
             Try 
-                returnValue = command.ExecuteNonQuery
+                returnValue = command.ExecuteScalar
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
                     command.Connection.Close
                 End If
             End Try
-            Return returnValue
+            If ((returnValue Is Nothing)  _
+                        OrElse (returnValue.GetType Is GetType(Global.System.DBNull))) Then
+                Return Nothing
+            Else
+                Return CType(returnValue,Object)
+            End If
         End Function
     End Class
     
