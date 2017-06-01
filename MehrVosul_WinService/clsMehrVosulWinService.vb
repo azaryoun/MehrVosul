@@ -485,45 +485,45 @@ VoiceSMS:
 
 
 
-                                'If drwLCStaus.IsTelephoneHomeNull = False AndAlso drwLCStaus.TelephoneHome.Trim <> "" Then
+                                If drwLCStaus.IsTelephoneHomeNull = False AndAlso drwLCStaus.TelephoneHome.Trim <> "" Then
 
-                                '    Dim arrTo() As String = {drwLCStaus.TelephoneHome}
-                                '    Dim arrRecords() As String = Nothing
-                                '    Dim arrNumbers() As String = Nothing
-                                '    Dim strSayMethod As String = "9"
-                                '    Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
-                                '    GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, False, arrRecords, arrNumbers)
-                                '    If arrRecords Is Nothing OrElse arrNumbers Is Nothing OrElse arrNumbers.Length = 0 Then
-                                '        GoTo Sponsor_Voice
-                                '    End If
+                                    Dim arrTo() As String = {drwLCStaus.TelephoneHome}
+                                    Dim arrRecords() As String = Nothing
+                                    Dim arrNumbers() As String = Nothing
+                                    Dim strSayMethod As String = "9"
+                                    Dim strVoiceSMS_Name As String = "VoiceSMS_" & Date.Now.Millisecond
+                                    GetVoiceSMSArrays_Vesal(drwWarningIntervalCheck.ID, False, arrRecords, arrNumbers)
+                                    If arrRecords Is Nothing OrElse arrNumbers Is Nothing OrElse arrNumbers.Length = 0 Then
+                                        GoTo Sponsor_Voice
+                                    End If
 
-                                '    For k As Integer = 0 To arrNumbers.Length - 1
+                                    For k As Integer = 0 To arrNumbers.Length - 1
 
-                                '        If arrNumbers(k) = 1 Then
-                                '            arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
-                                '        Else
-                                '            arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
-                                '        End If
-                                '    Next k
-
-
-                                '    Try
-
-                                '        Dim stcVoice As VoiceSMSParams
-                                '        stcVoice.name = strVoiceSMS_Name
-                                '        stcVoice.tophonenumber = arrTo(0)
-                                '        stcVoice.records = arrRecords
-                                '        stcVoice.numbers = arrNumbers
-                                '        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
-
-                                '        _VoiceSMSs_Borrower.Add(stcVoice)
+                                        If arrNumbers(k) = 1 Then
+                                            arrNumbers(k) = Val(drwLCStaus.LoanNumber.Replace("-", ""))
+                                        Else
+                                            arrNumbers(k) = Val(drwLCStaus.NotPiadDurationDay)
+                                        End If
+                                    Next k
 
 
-                                '    Catch ex As Exception
+                                    Try
 
-                                '    End Try
+                                        Dim stcVoice As VoiceSMSParams
+                                        stcVoice.name = strVoiceSMS_Name
+                                        stcVoice.tophonenumber = arrTo(0)
+                                        stcVoice.records = arrRecords
+                                        stcVoice.numbers = arrNumbers
+                                        stcVoice.WarningNotifcationLogId = intWarningNotifcationLogID
 
-                                'End If
+                                        _VoiceSMSs_Borrower.Add(stcVoice)
+
+
+                                    Catch ex As Exception
+
+                                    End Try
+
+                                End If
 
                                 '    If drwLCStaus.IsTelephoneWorkNull = False AndAlso drwLCStaus.TelephoneWork.Trim <> "" Then
 
@@ -4856,9 +4856,11 @@ VoiceSMS:
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
+
             If numbers.Length > 75 Then
                 ReDim Preserve numbers(75)
             End If
+
             Dim intCampaignID = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
 
             If intCampaignID = 0 Then
