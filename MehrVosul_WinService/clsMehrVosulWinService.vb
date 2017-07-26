@@ -470,23 +470,23 @@ VoiceSMS:
 
                                         _VoiceSMSs_Borrower.Add(stcVoice)
 
-                                        If blnTel = False Then
-                                            If drwLCStaus.IsTelephoneHomeNull = False AndAlso drwLCStaus.TelephoneHome.Trim <> "" Then
+                                        'If blnTel = False Then
+                                        '    If drwLCStaus.IsTelephoneHomeNull = False AndAlso drwLCStaus.TelephoneHome.Trim <> "" Then
 
-                                                arrTo(0) = drwLCStaus.TelephoneHome
+                                        '        arrTo(0) = drwLCStaus.TelephoneHome
 
-                                                Dim stcVoice1 As VoiceSMSParams
-                                                stcVoice1.name = strVoiceSMS_Name
-                                                stcVoice1.tophonenumber = arrTo(0)
-                                                stcVoice1.records = arrRecords
-                                                stcVoice1.numbers = arrNumbers
-                                                stcVoice1.WarningNotifcationLogId = intWarningNotifcationLogID
+                                        '        Dim stcVoice1 As VoiceSMSParams
+                                        '        stcVoice1.name = strVoiceSMS_Name
+                                        '        stcVoice1.tophonenumber = arrTo(0)
+                                        '        stcVoice1.records = arrRecords
+                                        '        stcVoice1.numbers = arrNumbers
+                                        '        stcVoice1.WarningNotifcationLogId = intWarningNotifcationLogID
 
-                                                _VoiceSMSs_Borrower.Add(stcVoice1)
-                                            End If
-                                        End If
+                                        '        _VoiceSMSs_Borrower.Add(stcVoice1)
+                                        '    End If
+                                        'End If
 
-                                        blnTel = Not (blnTel)
+                                        'blnTel = Not (blnTel)
 
 
 
