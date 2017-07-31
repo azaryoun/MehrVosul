@@ -5564,7 +5564,7 @@ VoiceSMS:
                         End If
 
                         'If dataReader.GetValue(6) Is DBNull.Value Then
-                        '    stcVarSponsorInfo.FatherName = ""حش
+                        '    stcVarSponsorInfo.FatherName = ""
                         'Else
                         '    stcVarSponsorInfo.FatherName = CStr(dataReader.GetValue(6)).Replace("'", "")
                         'End If

@@ -8,6 +8,7 @@
             return true;
         }
 
+
         function SaveOperation_Validate() {
 
             var txtBranchName = document.getElementById("<%=txtBranchName.ClientID%>");
