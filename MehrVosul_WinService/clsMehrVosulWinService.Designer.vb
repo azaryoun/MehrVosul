@@ -52,6 +52,7 @@ Partial Class clsMehrVosulWinService
         Me.tmrTotalLC = New System.Timers.Timer()
         Me.tmrNewSponsor = New System.Timers.Timer()
         Me.tmrVoiceSMSStatus = New System.Timers.Timer()
+        Me.tmrProvinceFinalReport = New System.Timers.Timer()
         CType(Me.tmrUpdateData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSponsorList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -63,6 +64,7 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrTotalLC, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrNewSponsor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrVoiceSMSStatus, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tmrProvinceFinalReport, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'tmrUpdateData
         '
@@ -115,6 +117,11 @@ Partial Class clsMehrVosulWinService
         Me.tmrVoiceSMSStatus.Enabled = True
         Me.tmrVoiceSMSStatus.Interval = 3600000.0R
         '
+        'tmrProvinceFinalReport
+        '
+        Me.tmrProvinceFinalReport.Enabled = True
+        Me.tmrProvinceFinalReport.Interval = 3600000.0R
+        '
         'clsMehrVosulWinService
         '
         Me.ServiceName = "Service1"
@@ -129,6 +136,7 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrTotalLC, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrNewSponsor, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrVoiceSMSStatus, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tmrProvinceFinalReport, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents tmrUpdateData As System.Timers.Timer
@@ -142,4 +150,5 @@ Partial Class clsMehrVosulWinService
     Friend WithEvents tmrTotalLC As Timers.Timer
     Friend WithEvents tmrNewSponsor As Timers.Timer
     Friend WithEvents tmrVoiceSMSStatus As Timers.Timer
+    Friend WithEvents tmrProvinceFinalReport As Timers.Timer
 End Class

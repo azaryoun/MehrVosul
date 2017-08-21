@@ -39,7 +39,7 @@
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>MehrVosul.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -124,6 +124,7 @@
     <Content Include="Application\Administration\Accessgroup\AccessgroupManagement.aspx" />
     <Content Include="Application\Administration\Accessgroup\AccessgroupNew.aspx" />
     <Content Include="Application\Administration\Accessgroup\AccessgroupEdit.aspx" />
+    <Content Include="Application\Administration\ProvinceInfo\ManagerInfoNew.aspx" />
     <Content Include="Application\Administration\User\CurrentUserChangePassword.aspx" />
     <Content Include="Application\Administration\User\UserChangePassword.aspx" />
     <Content Include="Application\Administration\User\UserEdit.aspx" />
@@ -181,6 +182,7 @@
     <Content Include="Application\Vosul\Reports\SystemLoginLogReport.aspx" />
     <Content Include="Application\Vosul\Reports\WarningNotificationLogDetailSummaryReport.aspx" />
     <Content Include="Application\Vosul\Reports\WarningNotificationReport.aspx" />
+    <Content Include="Application\Vosul\Reports\WarningNotificationReportNew.aspx" />
     <Content Include="Application\Vosul\Reports\ZamanakReport.aspx" />
     <Content Include="Application\Vosul\Tarrif\NotificationTarrifEdit.aspx" />
     <Content Include="Application\Vosul\Tarrif\NotificationTarrifManagement.aspx" />
@@ -289,6 +291,13 @@
     </Compile>
     <Compile Include="Application\Administration\Accessgroup\AccessgroupEdit.aspx.vb">
       <DependentUpon>AccessgroupEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\ProvinceInfo\ManagerInfoNew.aspx.designer.vb">
+      <DependentUpon>ManagerInfoNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\ProvinceInfo\ManagerInfoNew.aspx.vb">
+      <DependentUpon>ManagerInfoNew.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Administration\User\CurrentUserChangePassword.aspx.designer.vb">
@@ -681,6 +690,13 @@
     </Compile>
     <Compile Include="Application\Vosul\Reports\WarningNotificationReport.aspx.vb">
       <DependentUpon>WarningNotificationReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\WarningNotificationReportNew.aspx.designer.vb">
+      <DependentUpon>WarningNotificationReportNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\WarningNotificationReportNew.aspx.vb">
+      <DependentUpon>WarningNotificationReportNew.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\Reports\ZamanakReport.aspx.designer.vb">

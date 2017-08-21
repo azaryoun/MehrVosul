@@ -4996,7 +4996,7 @@ VoiceSMS:
         Dim dteToday As Date = Date.Now.Date
 
         Dim lnqSMSCount = cntxVar.tbl_SMSCountLog.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
-        If lnqSMSCount.Count <> 0 Then
+        If lnqSMSCount.Count = 0 Then
             Return
         End If
 
@@ -5188,7 +5188,7 @@ VoiceSMS:
     Private Sub tmrNewSponsor_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrNewSponsor.Elapsed
 
         Try
-            '' Call SponsorList()
+            Call SponsorList()
         Catch ex As Exception
 
         End Try
@@ -5808,5 +5808,138 @@ VoiceSMS:
 
         End Try
 
+    End Sub
+
+
+    Private Sub FinalReportByProvince()
+
+        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 3) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+            Return
+        End If
+
+        Dim dteToday As Date = Date.Now.Date
+        Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
+
+        Dim lnqSMSCount = cntxVar.tbl_SMSCountLog.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
+        If lnqSMSCount.Count = 0 Then
+            Return
+        End If
+
+        ''check if Province Self Report Has sent or not
+        Dim tadpProvinceSelfReport As New BusinessObject.dstSelfReportTableAdapters.spr_ProvinceSelfReport_SelectTableAdapter
+        Dim dtblProvinceSelfReport As BusinessObject.dstSelfReport.spr_ProvinceSelfReport_SelectDataTable = Nothing
+
+        dtblProvinceSelfReport = tadpProvinceSelfReport.GetData()
+
+        If dtblProvinceSelfReport.Rows.Count > 0 Then
+            If dtblProvinceSelfReport.First.theDay = dteToday And dtblProvinceSelfReport.First.FinalReport = True Then
+                Return
+            End If
+        End If
+
+
+        Dim intLogCount = cntxVar.tbl_LogCurrentLCStatus_H.Where(Function(x) x.STime >= dteToday.Date And x.Success = True).Count()
+        If intLogCount > 0 Then
+
+            Dim intCurrentLogCount As Integer = cntxVar.tbl_CurrentLCStatus.Where(Function(x) x.Process = 0).Count()
+
+            If intCurrentLogCount <> 0 Then
+                Return
+
+            Else
+                Dim tadplNotificationCountByProvince As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_NotificationCountByProvince_SelectTableAdapter
+                Dim dtblNotificationCountByProvince As BusinessObject.dstWarningNotificationLogDetail.spr_NotificationCountByProvince_SelectDataTable = Nothing
+
+                dtblNotificationCountByProvince = tadplNotificationCountByProvince.GetData(1)
+
+                ''get managers phone
+                Dim tadpManagerInfo As New BusinessObject.dstBranchTableAdapters.spr_ProvinceMangagerInfo_SelectTableAdapter
+                Dim dtblManagerInfo As BusinessObject.dstBranch.spr_ProvinceMangagerInfo_SelectDataTable = Nothing
+
+                dtblManagerInfo = tadpManagerInfo.GetData()
+
+                Try
+
+                    Dim objSMS As New clsSMS
+
+
+                    Dim i As Integer = 0
+                    For Each drwManagetInfo As BusinessObject.dstBranch.spr_ProvinceMangagerInfo_SelectRow In dtblManagerInfo
+
+                        Dim arrMessage(0) As String
+                        Dim arrDestination(0) As String
+
+                        arrDestination(0) = drwManagetInfo.MobileNO
+
+
+                        Dim intPreMessageCount As Integer = 0
+                        Dim intMessageCount As Integer = 0
+                        Dim intVoiceSMSCount As Integer = 0
+
+
+
+                        Dim blnPreSMS As Boolean = True
+                        Dim strResultMessage As String = ""
+                        For Each drwNotification As BusinessObject.dstWarningNotificationLogDetail.spr_NotificationCountByProvince_SelectRow In dtblNotificationCountByProvince
+
+                            If drwManagetInfo.Fk_ProvinceID = drwNotification.Fk_ProvinceID Then
+                                If blnPreSMS = True Then
+                                    blnPreSMS = False
+                                    intPreMessageCount = drwNotification.preCount
+
+                                Else
+                                    blnPreSMS = True
+                                    intMessageCount = drwNotification.sms
+                                    intVoiceSMSCount = drwNotification.voice
+
+
+                                    strResultMessage = "گزارش استان: " & drwManagetInfo.ProvinceName & ControlChars.NewLine
+                                    strResultMessage &= "مورخ: " & mdlGeneral.GetPersianDate(Date.Now) & ControlChars.NewLine
+                                    strResultMessage &= "پیامک متنی: " & intMessageCount.ToString("n0") & ControlChars.NewLine
+                                    strResultMessage &= "پیامک صوتی: " & intVoiceSMSCount.ToString("n0") & ControlChars.NewLine
+                                    strResultMessage &= "پیامک پیش اطلاع رسانی:" & intPreMessageCount.ToString("n0")
+
+                                    Exit For
+                                End If
+
+                            End If
+
+
+
+                        Next
+
+                        arrMessage(0) = strResultMessage
+                        objSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan1+" & Date.Now.ToLongTimeString)
+
+                        Dim qryProvinceSelfReport As New BusinessObject.dstSelfReportTableAdapters.QueriesTableAdapter
+                        qryProvinceSelfReport.spr_ProvinceSelfReport_Insert(Date.Now.Date, Date.Now, arrMessage(0), False, True, drwManagetInfo.Fk_ProvinceID)
+
+                    Next
+
+
+                Catch ex As Exception
+
+                    Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "FinalProvinceMessageReport")
+
+                    Return
+
+                End Try
+
+            End If
+
+
+        End If
+
+
+
+    End Sub
+
+    Private Sub tmrProvinceFinalReport_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrProvinceFinalReport.Elapsed
+        Try
+            Call FinalReportByProvince()
+        Catch ex As Exception
+
+        End Try
     End Sub
 End Class
