@@ -261,9 +261,9 @@
 
             For i As Integer = 1 To arrOutput.Length - 1
                 If arrOutput(i).StartsWith("~?") = True Then
-                    qryDraft.spr_DraftText_Insert(i, intWarningIntervalsID, arrOutput(i).Substring(2, 1), True, intDraftTypeID, blnToSponsor, -1)
+                    qryDraft.spr_DraftText_Insert(i, intWarningIntervalsID, arrOutput(i).Substring(2, 1), True, intDraftTypeID, blnToSponsor, Nothing)
                 Else
-                    qryDraft.spr_DraftText_Insert(i, intWarningIntervalsID, arrOutput(i), False, intDraftTypeID, blnToSponsor, -1)
+                    qryDraft.spr_DraftText_Insert(i, intWarningIntervalsID, arrOutput(i), False, intDraftTypeID, blnToSponsor, Nothing)
                 End If
             Next i
         End If
@@ -353,12 +353,23 @@
             arrSMSMessages(0) = div_Msg.InnerText
             arrSMSDestination(0) = txtMobile.Text
             Dim strBatch As String = "MVosul+" & dtblSystemSetting.First.GatewayCompany & "+" & Date.Now.ToString("yyMMddHHmmss") & Date.Now.Millisecond.ToString & "test"
-            objSMS.SendSMS_LikeToLike(arrSMSMessages, arrSMSDestination, dtblSystemSetting.First.GatewayUsername, dtblSystemSetting.First.GatewayPassword, dtblSystemSetting.First.GatewayNumber, dtblSystemSetting.First.GatewayIP, dtblSystemSetting.First.GatewayCompany, strBatch)
-            Bootstrap_Panel1.ShowMessage("ارسال پیامک تستی با موفقیت انجام شد", False)
+
+            Dim RetValue(1) As String
+
+            RetValue = objSMS.SendSMS_LikeToLike(arrSMSMessages, arrSMSDestination, dtblSystemSetting.First.GatewayUsername, dtblSystemSetting.First.GatewayPassword, dtblSystemSetting.First.GatewayNumber, dtblSystemSetting.First.GatewayIP, dtblSystemSetting.First.GatewayCompany, strBatch)
+
+            If RetValue(0) = "CHECK_OK" Then
+                Bootstrap_Panel1.ShowMessage("ارسال پیامک تستی با موفقیت انجام شد ", False)
+            Else
+
+                Bootstrap_Panel1.ShowMessage(" در ارسال پیامک تستی خطا رخ داده است" & RetValue(1), True)
+            End If
+
+
 
         Catch ex As Exception
 
-            Bootstrap_Panel1.ShowMessage("در ارسال پیامک تستی خطا رخ داده است", True)
+            Bootstrap_Panel1.ShowMessage(" در ارسال پیامک تستی خطا رخ داده است" & ex.Message(), True)
         End Try
 
 

@@ -96,7 +96,7 @@ Partial Class clsMehrVosulWinService
         'tmrFinalReport
         '
         Me.tmrFinalReport.Enabled = True
-        Me.tmrFinalReport.Interval = 3600000.0R
+        Me.tmrFinalReport.Interval = 1800000.0R
         '
         'UpdatePreWarning
         '

@@ -6,7 +6,7 @@
       <Value Profile="(Default)">http://www.zamanak.ir/api/soap-v4</Value>
     </Setting>
     <Setting Name="MehrVosul_VoiceSMS_RahyabVoiceSend" Type="(Web Service URL)" Scope="Application">
-      <Value Profile="(Default)">http://panel.rahyab.ir/RahyabVoiceSend.asmx</Value>
+      <Value Profile="(Default)">http://192.168.110.52/RahyabVoiceSend.asmx</Value>
     </Setting>
   </Settings>
 </SettingsFile>

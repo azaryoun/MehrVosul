@@ -4996,7 +4996,7 @@ VoiceSMS:
         Dim dteToday As Date = Date.Now.Date
 
         Dim lnqSMSCount = cntxVar.tbl_SMSCountLog.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
-        If lnqSMSCount.Count = 0 Then
+        If lnqSMSCount.Count <> 0 Then
             Return
         End If
 
@@ -5821,7 +5821,7 @@ VoiceSMS:
         Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
 
         Dim lnqSMSCount = cntxVar.tbl_SMSCountLog.Where(Function(x) DbFunctions.TruncateTime(x.STime) = dteToday)
-        If lnqSMSCount.Count = 0 Then
+        If lnqSMSCount.Count <> 0 Then
             Return
         End If
 

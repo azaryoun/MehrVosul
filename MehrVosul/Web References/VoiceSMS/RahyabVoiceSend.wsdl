@@ -234,6 +234,56 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="SendVoiceSMS_Mix">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrDest" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrRecords" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="arrNumbers" type="tns:ArrayOfAnyType" />
+            <s:element minOccurs="0" maxOccurs="1" name="strSayMethod" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="repeatTotal" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfAnyType">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="SendVoiceSMS_MixResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SendVoiceSMS_MixResult" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AssignVoiceCredit">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="strUsername" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strPassword" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strMobile" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strFName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strLName" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="strEmail" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="PaidAmount" type="s:decimal" />
+            <s:element minOccurs="0" maxOccurs="1" name="strRefMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="AssignVoiceCreditResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="AssignVoiceCreditResult" type="s:boolean" />
+            <s:element minOccurs="0" maxOccurs="1" name="strRefMessage" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="SendMixedVoiceSMS_Synch">
         <s:complexType>
           <s:sequence>
@@ -250,11 +300,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfAnyType">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="anyType" nillable="true" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="SendMixedVoiceSMS_SynchResponse">
         <s:complexType>
           <s:sequence>
@@ -493,6 +538,18 @@
   <wsdl:message name="StatusPollVoiceSMSSoapOut">
     <wsdl:part name="parameters" element="tns:StatusPollVoiceSMSResponse" />
   </wsdl:message>
+  <wsdl:message name="SendVoiceSMS_MixSoapIn">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS_Mix" />
+  </wsdl:message>
+  <wsdl:message name="SendVoiceSMS_MixSoapOut">
+    <wsdl:part name="parameters" element="tns:SendVoiceSMS_MixResponse" />
+  </wsdl:message>
+  <wsdl:message name="AssignVoiceCreditSoapIn">
+    <wsdl:part name="parameters" element="tns:AssignVoiceCredit" />
+  </wsdl:message>
+  <wsdl:message name="AssignVoiceCreditSoapOut">
+    <wsdl:part name="parameters" element="tns:AssignVoiceCreditResponse" />
+  </wsdl:message>
   <wsdl:message name="SendMixedVoiceSMS_SynchSoapIn">
     <wsdl:part name="parameters" element="tns:SendMixedVoiceSMS_Synch" />
   </wsdl:message>
@@ -591,6 +648,14 @@
     <wsdl:operation name="StatusPollVoiceSMS">
       <wsdl:input message="tns:StatusPollVoiceSMSSoapIn" />
       <wsdl:output message="tns:StatusPollVoiceSMSSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Mix">
+      <wsdl:input message="tns:SendVoiceSMS_MixSoapIn" />
+      <wsdl:output message="tns:SendVoiceSMS_MixSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="AssignVoiceCredit">
+      <wsdl:input message="tns:AssignVoiceCreditSoapIn" />
+      <wsdl:output message="tns:AssignVoiceCreditSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="SendMixedVoiceSMS_Synch">
       <wsdl:input message="tns:SendMixedVoiceSMS_SynchSoapIn" />
@@ -723,6 +788,24 @@
     </wsdl:operation>
     <wsdl:operation name="StatusPollVoiceSMS">
       <soap:operation soapAction="http://tempuri.org/StatusPollVoiceSMS" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Mix">
+      <soap:operation soapAction="http://tempuri.org/SendVoiceSMS_Mix" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssignVoiceCredit">
+      <soap:operation soapAction="http://tempuri.org/AssignVoiceCredit" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -913,6 +996,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SendVoiceSMS_Mix">
+      <soap12:operation soapAction="http://tempuri.org/SendVoiceSMS_Mix" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AssignVoiceCredit">
+      <soap12:operation soapAction="http://tempuri.org/AssignVoiceCredit" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="SendMixedVoiceSMS_Synch">
       <soap12:operation soapAction="http://tempuri.org/SendMixedVoiceSMS_Synch" style="document" />
       <wsdl:input>
@@ -997,10 +1098,10 @@
   </wsdl:binding>
   <wsdl:service name="RahyabVoiceSend">
     <wsdl:port name="RahyabVoiceSendSoap" binding="tns:RahyabVoiceSendSoap">
-      <soap:address location="http://panel.rahyab.ir/RahyabVoiceSend.asmx" />
+      <soap:address location="http://192.168.110.52/RahyabVoiceSend.asmx" />
     </wsdl:port>
     <wsdl:port name="RahyabVoiceSendSoap12" binding="tns:RahyabVoiceSendSoap12">
-      <soap12:address location="http://panel.rahyab.ir/RahyabVoiceSend.asmx" />
+      <soap12:address location="http://192.168.110.52/RahyabVoiceSend.asmx" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

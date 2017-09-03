@@ -67,7 +67,7 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("http://panel.rahyab.ir/RahyabVoiceSend.asmx")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.110.52/RahyabVoiceSend.asmx")>  _
         Public ReadOnly Property MehrVosul_VoiceSMS_RahyabVoiceSend() As String
             Get
                 Return CType(Me("MehrVosul_VoiceSMS_RahyabVoiceSend"),String)

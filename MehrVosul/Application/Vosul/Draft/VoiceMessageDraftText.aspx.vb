@@ -266,12 +266,11 @@
         End If
     End Sub
 
-    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Boolean
+    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String, ByRef strError As String) As Boolean
 
         Try
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-            ''Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
 
 
 
@@ -287,11 +286,13 @@
             If strMessage = "" Then
                 Return True
             Else
-                Return True
-
+                Return False
+                strError = strMessage & "1"
             End If
 
         Catch ex As Exception
+            strError = ex.Message & "2"
+            Bootstrap_Panel1.ShowMessage(ex.Message, False)
             Return False
         End Try
 
@@ -345,14 +346,15 @@
                 arrNumbers(0) = arrNumbers(0).Substring(1)
             End If
 
-
-            If SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, "VoiceSMS_Test", arrTo, arrRecords, arrNumbers, "9") = True Then
+            Dim strError As String = ""
+            If SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, "VoiceSMS_Test", arrTo, arrRecords, arrNumbers, "9", strError) = True Then
 
                 Bootstrap_Panel1.ShowMessage("ارسال پیامک صوتی تستی با موفقیت انجام شد", False)
 
             Else
 
-                Bootstrap_Panel1.ShowMessage("در ارسال پیامک صوتی تستی خطا رخ داده است", True)
+
+                Bootstrap_Panel1.ShowMessage(strError, True)
 
             End If
 

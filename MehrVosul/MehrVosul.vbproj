@@ -937,10 +937,10 @@
     <Content Include="packages.config" />
     <None Include="UserManual\MehrUserManual.pdf" />
     <None Include="Web References\VoiceSMS\RahyabVoiceSend.wsdl" />
-    <None Include="Web References\VoiceSMS\Reference.map">
+    <Content Include="Web References\VoiceSMS\Reference.map">
       <Generator>MSDiscoCodeGenerator</Generator>
       <LastGenOutput>Reference.vb</LastGenOutput>
-    </None>
+    </Content>
     <Content Include="Web References\VoiceSMS\STC_Status.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </Content>
@@ -965,10 +965,10 @@
     <WebReferences Include="Web References\" />
   </ItemGroup>
   <ItemGroup>
-    <WebReferenceUrl Include="http://panel.rahyab.ir/RahyabVoiceSend.asmx">
+    <WebReferenceUrl Include="http://192.168.110.52/RahyabVoiceSend.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\VoiceSMS\</RelPath>
-      <UpdateFromURL>http://panel.rahyab.ir/RahyabVoiceSend.asmx</UpdateFromURL>
+      <UpdateFromURL>http://192.168.110.52/RahyabVoiceSend.asmx</UpdateFromURL>
       <ServiceLocationURL>
       </ServiceLocationURL>
       <CachedDynamicPropName>
