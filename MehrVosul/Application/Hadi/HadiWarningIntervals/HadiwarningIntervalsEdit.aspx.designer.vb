@@ -41,6 +41,24 @@ Partial Public Class HadiwarningIntervalsEdit
     Protected WithEvents txtWarningIntervalsName As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''rdoNewDeposit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdoNewDeposit As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
+    '''rdoGetDeposit control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdoGetDeposit As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
     '''divDeposit control.
     '''</summary>
     '''<remarks>
@@ -102,6 +120,33 @@ Partial Public Class HadiwarningIntervalsEdit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents trState As Global.System.Web.UI.WebControls.TreeView
+    
+    '''<summary>
+    '''rdboLoanApprovment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdboLoanApprovment As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
+    '''rdboIssuingContract control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdboIssuingContract As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
+    '''rdboLaonPaid control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdboLaonPaid As Global.System.Web.UI.WebControls.RadioButton
     
     '''<summary>
     '''txtFrom control.
@@ -174,24 +219,6 @@ Partial Public Class HadiwarningIntervalsEdit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkbxVoiceMessage As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
-    
-    '''<summary>
-    '''rdoNewDeposit control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rdoNewDeposit As Global.System.Web.UI.WebControls.RadioButton
-    
-    '''<summary>
-    '''rdoGetDeposit control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rdoGetDeposit As Global.System.Web.UI.WebControls.RadioButton
     
     '''<summary>
     '''chkStatus control.

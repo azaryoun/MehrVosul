@@ -1,8 +1,9 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HadiWarningIntervalsNew.aspx.vb" Inherits="MehrVosul.HadiWarningIntervalsNew" %>
-<%@ Register src="../../../UserControl/Bootstrap_Panel.ascx" tagname="Bootstrap_Panel" tagprefix="uc1" %>
+
+<%@ Register Src="../../../UserControl/Bootstrap_Panel.ascx" TagName="Bootstrap_Panel" TagPrefix="uc1" %>
 
 
-<%@ Register src="../../../UserControl/UC_TimePicker.ascx" tagname="UC_TimePicker" tagprefix="uc2" %>
+<%@ Register Src="../../../UserControl/UC_TimePicker.ascx" TagName="UC_TimePicker" TagPrefix="uc2" %>
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
@@ -15,11 +16,11 @@
             return true;
         }
 
-       
+
         function SaveOperation_Validate() {
 
             var txtWarningIntervalsName = document.getElementById("<%=txtWarningIntervalsName.ClientID%>");
-           
+
             var txtFrom = document.getElementById("<%=txtFrom.ClientID%>");
             var txtTo = document.getElementById("<%=txtTo.ClientID%>");
             var cmbFrequencyInDay = document.getElementById("<%=cmbFrequencyInDay.ClientID%>");
@@ -29,7 +30,7 @@
             var chkbxSendSMS = document.getElementById("<%=chkbxSendSMS.ClientID%>");
             var divchklstDepossitItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
             var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
-            
+
 
 
             if (trimall(txtWarningIntervalsName.value) == "") {
@@ -67,7 +68,7 @@
 
             }
 
-            
+
             var branchBoolChecked = false;
             var treeView = document.getElementById("<%= trState.ClientID %>");
             var checkBoxes = treeView.getElementsByTagName("input");
@@ -79,15 +80,15 @@
                 }
             }
 
-            
+
             if (!branchBoolChecked) {
                 alert("حداقل یک شعبه باید انتخاب شود");
                 return false;
 
             }
-     
 
-         
+
+
             if (isNaN(txtFrom.value) || trimall(txtFrom.value) == "") {
                 alert("بازه از را وارد نمایید");
                 txtFrom.focus();
@@ -123,21 +124,20 @@
 
             if (chkbxCallTelephone.checked == false && chkbxVoiceMessage.checked == false && chkbxSendSMS.checked == false) {
                 alert("یکی از انواع اطلاع رسانی را مشخص نمایید", "خطا");
-               
+
                 return false;
             }
 
 
-            if (chkbxCallTelephone.checked == true)
-            {
+            if (chkbxCallTelephone.checked == true) {
                 if (chkbxVoiceMessage.checked == true || chkbxSendSMS.checked == true) {
                     alert("امکان انتخاب نوع دیگر اطلاع رسانی با تماس تلفنی وجود ندارد", "خطا");
 
                     return false;
                 }
             }
-            
-          
+
+
 
             return true;
         }
@@ -148,7 +148,7 @@
 
             var divchklstDepositItems = document.getElementById("<%=divchklstDepositItems.ClientID%>");
             var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
-            
+
             var chkSelectAll = document.getElementById("chkSelectAll");
             var chkSelectAllLoan = document.getElementById("chkSelectAllLoan");
 
@@ -165,17 +165,42 @@
             }
 
 
-             while (divtmp) {
+            while (divtmp) {
                 var chktmp = divtmp.firstChild.nextSibling.firstChild.nextSibling;
-                 chktmp.checked= chkSelectAll1.checked;
-     
+                chktmp.checked = chkSelectAll1.checked;
+
                 divtmp = divtmp.nextSibling;
             }
 
         }
 
-       
-  </script>
+        function chkSelectAllBranch_Click() {
+
+
+
+            var treeView = document.getElementById("<%= trState.ClientID %>");
+            var checkBoxes = treeView.getElementsByTagName("input");
+
+            var chkSelectAllBranch = document.getElementById("chkSelectAllBranch");
+            if (chkSelectAllBranch.checked == true)
+                for (var i = 0; i < checkBoxes.length; i++) {
+                    checkBoxes[i].checked = true;
+                }
+            else {
+                for (var i = 0; i < checkBoxes.length; i++) {
+                    checkBoxes[i].checked = false;
+                }
+            }
+
+            return true;
+        }
+
+
+
+
+
+
+    </script>
 
 
 
@@ -184,252 +209,304 @@
 
 
     <uc1:Bootstrap_Panel ID="Bootstrap_Panel1" runat="server" />
-<div class="row">
-    <br />
+    <div class="row">
+        <br />
         <div class="col-md-12">
-                   
-                  <div class="panel panel-default">
-                        <div class="panel-heading">
-                           <asp:Label ID="lblInnerPageTitle" runat="server" Text=""></asp:Label>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <asp:Label ID="lblInnerPageTitle" runat="server" Text=""></asp:Label>
                 </div>
-                        <div class="panel-body">
-                            <div class="row">
-                                <div class="col-md-6">
-                                   
-                                 
-                                        <div class="form-group has-error">
-                                            <label>عنوان</label>
-                                          
-                                            <asp:TextBox ID="txtWarningIntervalsName" runat="server" cssclass="form-control" MaxLength="50" placeholder="عنوان گردش کار را وارد کنید"></asp:TextBox>
-                                            
-                                        </div>
-                                           
-                                           <div class="form-group">
-                                            <div class="panel panel-default" >
-                                                <div class="panel-heading">
-                                                <label>نوع گردش کار</label>
-                                                </div>
-                                                   <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                        <ContentTemplate>
-                                                 <div class="radio">
-
-                                                <asp:RadioButton ID="rdoNewDeposit" Checked="true" GroupName="rdoForDeposit" Text="تجهیز منابع" runat="server" AutoPostBack="True" />
-                                            
-                                            </div>
-                                            <div class="radio">
-                                                 <asp:RadioButton ID="rdoGetDeposit"  GroupName="rdoForDeposit" Text="تخصیص منابع" runat="server" AutoPostBack="True" />
-                                            
-                                               
-                                            </div>
-                                                 </ContentTemplate></asp:UpdatePanel>
-                                               
-                                                    
-                                             </div>
-                                            </div>
-
-                                     <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                                        <ContentTemplate>
-                                             <div id="divDeposit" runat="server" class="panel panel-default" > 
-                                           <div class="panel-heading">
-                                            <label>نوع سپرده</label>
-                                              </div>
-                                             
-                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
-
-                                                  <label> <input type="checkbox" value="" id="chkSelectAll" onclick="return chkSelectAll_Click();"/> انتخاب/عدم انتخاب همه</label> 
-                                                   <div class="form-group" runat="server" id="divchklstDepositItems">
-                                                   </div>
-                                         </div>
-                                         </div>
-                                        
-                                         </ContentTemplate></asp:UpdatePanel>
-
-                                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-                                      <ContentTemplate>
-                                     <div id="divLoan" runat="server" visible="false"   class="panel panel-default" > 
-                                           <div class="panel-heading">
-                                            <label>نوع وام</label>
-                                              </div>
-                                             
-                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
-
-                                                  <label> <input type="checkbox" value="" id="chkSelectAllLoan" onclick="return chkSelectAll_Click();"/> انتخاب/عدم انتخاب همه</label> 
-                                                   <div class="form-group" runat="server" id="divchklstLoanTypeItems">
-                                                   </div>
-                                         </div>
-                                         </div>
-                                         </ContentTemplate> 
-                                      </asp:UpdatePanel>
-
-                                           <div class="panel panel-default" > 
-                                           <div class="panel-heading">
-                                            <label>شعبه ها</label>
-                                              </div>
-                                             
-                                         <div class="panel-body" style="max-height: 200px;overflow: scroll;">
-        
-                                                   <div class="form-group" runat="server" id="divTree">
-                                                   <asp:Panel ID="treeViewDiv"  runat="server">
-                                                        
-                                                                <asp:TreeView ID="trState" runat="server"  ShowLines="True" onclick="return TreeClick(event)"
-                                                                    Width="100%">
-                                                                </asp:TreeView>
-                                                          
-                                                    </asp:Panel></div>
-                                         </div>
-                                         </div>
-                                        
-
-                              
-                              
-                                   
-     
-                       </div>    
-                       
-                       <div class="col-md-6">
-
-                       <div class="panel panel-default" >
-                                                <div class="panel-heading">
-                                               <label>محدوده بازه</label>
-                                                </div>
-                                                <div class="panel-body" style="max-height: 200px;">
-
-                                                      <div class="form-group input-group input-group-sm">
-                                            <span class="input-group-addon">از </span>
-                                            <asp:TextBox ID="txtFrom"  CssClass="form-control"  runat="server"  placeholder="شروع بازه را وارد نمایید" ></asp:TextBox>
-                                            <span class="input-group-addon"> روز </span>
-                                            </div>
-
-                                            
-                                            <div class="form-group input-group input-group-sm">
-                                            <span class="input-group-addon">تا </span>
-                                            <asp:TextBox ID="txtTo" runat="server" CssClass="form-control" placeholder="پایان بازه را وارد نمایید"></asp:TextBox>
-                                            <span class="input-group-addon"> روز </span>
-                                            </div>
-                                           
-                                            </div> 
-                                                 
-                                                
-                                                    
-                                        </div>
-
-                                 <div class="form-group has-error">
-                                           <label>تعداد اطلاع رسانی در روز</label>
-                                            <asp:DropDownList ID="cmbFrequencyInDay" runat="server" 
-                                               CssClass="form-control">
-                                                <asp:ListItem Value="-1">---</asp:ListItem>
-                                                <asp:ListItem>1</asp:ListItem>
-                                                <asp:ListItem>2</asp:ListItem>
-                                                <asp:ListItem>3</asp:ListItem>
-                                                <asp:ListItem>4</asp:ListItem>
-                                                <asp:ListItem>5</asp:ListItem>
-                                                <asp:ListItem>6</asp:ListItem>
-                                                <asp:ListItem>7</asp:ListItem>
-                                                <asp:ListItem>8</asp:ListItem>
-                                               
-                                                </asp:DropDownList>
-                                           
-                                           </div>
-              
-                         <div class="form-group has-error" >
-                                      
-
-                                            </div>
-                                               
-                                                   <div class="form-group">
-                                            <label>ساعت آغاز اطلاع رسانی
-                                            </label>
-                                          
-                                            <uc2:UC_TimePicker ID="StartTimePicker" runat="server" />
-                                         
-                                           </div>  
-                                         
-
-                                                <div class="form-group has-error">
-                             
-                                            <label>فاصله زمانی هر تکرار</label>
-                                                     <asp:DropDownList ID="cmbFrequencyInHour" runat="server" 
-                                               CssClass="form-control">
-                                                <asp:ListItem Value="-1">---</asp:ListItem>
-                                                <asp:ListItem Value="1">هر یک ساعت</asp:ListItem>
-                                                <asp:ListItem Value="2">هر دو ساعت</asp:ListItem>
-                                                <asp:ListItem Value="3">هر سه ساعت</asp:ListItem>
-                                              
-                                               
-                                                </asp:DropDownList>
-                                                                            
-
-                                        </div>
-                                                <div class="form-group">
-
-                                    
-                                               <div class="panel panel-default" >
-                                                <div class="panel-heading">
-                                                <label>نوع اطلاع رسانی</label>
-                                                </div>
-                                                <div class="panel-body" style="max-height: 200px;">
-                                             
-                                                   <div class='checkbox'> <label> <input type='checkbox' id="chkbxSendSMS" runat="server" />
-                                                    ارسال پیامک
-                                                   
-                                                    </label></div>
-
-                                                       <div class='checkbox'> <label> <input type='checkbox' id="chkbxCallTelephone" runat="server" />
-                                                    تماس تلفنی
-
-                                                </label></div> 
-                                                  <div class='checkbox'> <label> <input type='checkbox' id="chkbxVoiceMessage" runat="server" />
-                                                   پیامک صوتی
-
-                                                </label></div> 
-                                                 
-                                                   </div>
-                                               
-
-                                               
-
-                                            </div>
-                                             
-                                      
-                                          </div>
-
-                                     
-                 
-       
-                                    
-                                             
-
-                                        <div class="panel panel-default" > 
-                                           <div class="panel-heading">
-                                            <label>وضعیت</label>
-                                              </div>
-                                             
-                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
-
-                                                  <label> <input type="checkbox" runat="server"  id="chkStatus"/> فعال</label> 
-                                                   </div>
-                                         </div>
-                                         
-                                          </div>
-                                  
-                                         
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
 
 
-                                       
-                                </div> 
+                            <div class="form-group has-error">
+                                <label>عنوان</label>
+
+                                <asp:TextBox ID="txtWarningIntervalsName" runat="server" CssClass="form-control" MaxLength="50" placeholder="عنوان گردش کار را وارد کنید"></asp:TextBox>
+
                             </div>
 
+                            <div class="form-group">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>نوع گردش کار</label>
+                                    </div>
+                                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                        <ContentTemplate>
+                                            <div class="radio">
+
+                                                <asp:RadioButton ID="rdoNewDeposit" Checked="true" GroupName="rdoForDeposit" Text="تجهیز منابع" runat="server" AutoPostBack="True" />
+
+                                            </div>
+                                            <div class="radio">
+                                                <asp:RadioButton ID="rdoGetDeposit" GroupName="rdoForDeposit" Text="تخصیص منابع" runat="server" AutoPostBack="True" />
+
+
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+
+
+                                </div>
+                            </div>
+
+                            <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                <ContentTemplate>
+                                    <div id="divDeposit" runat="server" class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <label>نوع سپرده</label>
+                                        </div>
+
+                                        <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+
+                                            <label>
+                                                <input type="checkbox" value="" id="chkSelectAll" onclick="return chkSelectAll_Click();" />
+                                                انتخاب/عدم انتخاب همه</label>
+                                            <div class="form-group" runat="server" id="divchklstDepositItems">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+
+                            <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                <ContentTemplate>
+                                    <div id="divLoan" runat="server" visible="false" class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <label>نوع وام</label>
+                                        </div>
+
+                                        <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+
+                                            <label>
+                                                <input type="checkbox" value="" id="chkSelectAllLoan" onclick="return chkSelectAll_Click();" />
+                                                انتخاب/عدم انتخاب همه</label>
+                                            <div class="form-group" runat="server" id="divchklstLoanTypeItems">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <label>شعبه ها</label>
+                                </div>
+
+                                <div class="panel-body" style="max-height: 200px; overflow: scroll;">
+
+                                    <div class="form-group" runat="server" id="divTree">
+
+                                        <label>
+                                            <input type="checkbox" value="" id="chkSelectAllBranch" onclick="return chkSelectAllBranch_Click();" />
+                                            انتخاب/عدم انتخاب همه</label>
+                                        <asp:Panel ID="treeViewDiv" runat="server">
+
+                                            <asp:TreeView ID="trState" runat="server" ShowLines="True" onclick="return TreeClick(event)"
+                                                Width="100%">
+                                            </asp:TreeView>
+
+                                        </asp:Panel>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group">
+
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>زمان اطلاع رسانی</label>
+                                    </div>
+                                    <div class="panel-body" style="max-height: 200px;">
+
+                                        <div class='radio'>
+                                            <asp:RadioButton ID="rdboLoanApprovment" Checked="true" GroupName="rdoPeriodTime" Text="تصویب وام" runat="server" />
+
+                                        </div>
+
+                                        <div class='radio'>
+                                            <asp:RadioButton ID="rdboIssuingContract" GroupName="rdoPeriodTime" Text="صدور قرارداد" runat="server" />
+
+                                        </div>
+                                        <div class='radio'>
+
+                                            <asp:RadioButton ID="rdboLaonPaid" GroupName="rdoPeriodTime" Text="پرداخت وام" runat="server" />
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <label>محدوده بازه</label>
+                                </div>
+                                <div class="panel-body" style="max-height: 200px;">
+
+                                    <div class="form-group input-group input-group-sm">
+                                        <span class="input-group-addon">از </span>
+                                        <asp:TextBox ID="txtFrom" CssClass="form-control" runat="server" placeholder="شروع بازه را وارد نمایید"></asp:TextBox>
+                                        <span class="input-group-addon">روز </span>
+                                    </div>
+
+
+                                    <div class="form-group input-group input-group-sm">
+                                        <span class="input-group-addon">تا </span>
+                                        <asp:TextBox ID="txtTo" runat="server" CssClass="form-control" placeholder="پایان بازه را وارد نمایید"></asp:TextBox>
+                                        <span class="input-group-addon">روز </span>
+                                    </div>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="form-group has-error">
+                                <label>تعداد اطلاع رسانی در روز</label>
+                                <asp:DropDownList ID="cmbFrequencyInDay" runat="server"
+                                    CssClass="form-control">
+                                    <asp:ListItem Value="-1">---</asp:ListItem>
+                                    <asp:ListItem>1</asp:ListItem>
+                                    <asp:ListItem>2</asp:ListItem>
+                                    <asp:ListItem>3</asp:ListItem>
+                                    <asp:ListItem>4</asp:ListItem>
+                                    <asp:ListItem>5</asp:ListItem>
+                                    <asp:ListItem>6</asp:ListItem>
+                                    <asp:ListItem>7</asp:ListItem>
+                                    <asp:ListItem>8</asp:ListItem>
+
+                                </asp:DropDownList>
+
+                            </div>
+
+                            <div class="form-group has-error">
+                            </div>
+
+                            <div class="form-group">
+                                <label>
+                                    ساعت آغاز اطلاع رسانی
+                                </label>
+
+                                <uc2:UC_TimePicker ID="StartTimePicker" runat="server" />
+
+                            </div>
+
+
+                            <div class="form-group has-error">
+
+                                <label>فاصله زمانی هر تکرار</label>
+                                <asp:DropDownList ID="cmbFrequencyInHour" runat="server"
+                                    CssClass="form-control">
+                                    <asp:ListItem Value="-1">---</asp:ListItem>
+                                    <asp:ListItem Value="1">هر یک ساعت</asp:ListItem>
+                                    <asp:ListItem Value="2">هر دو ساعت</asp:ListItem>
+                                    <asp:ListItem Value="3">هر سه ساعت</asp:ListItem>
+
+
+                                </asp:DropDownList>
+
+
+                            </div>
+                            <div class="form-group">
+
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>نوع اطلاع رسانی</label>
+                                    </div>
+                                    <div class="panel-body" style="max-height: 200px;">
+
+                                        <div class='checkbox'>
+                                            <label>
+                                                <input type='checkbox' id="chkbxSendSMS" runat="server" />
+                                                ارسال پیامک
+                                                   
+                                            </label>
+                                        </div>
+
+                                        <div class='checkbox'>
+                                            <label>
+                                                <input type='checkbox' id="chkbxCallTelephone" runat="server" />
+                                                تماس تلفنی
+
+                                            </label>
+                                        </div>
+                                        <div class='checkbox'>
+                                            <label>
+                                                <input type='checkbox' id="chkbxVoiceMessage" runat="server" />
+                                                پیامک صوتی
+
+                                            </label>
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <label>وضعیت</label>
+                                </div>
+
+                                <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+
+                                    <label>
+                                        <input type="checkbox" runat="server" id="chkStatus" />
+                                        فعال</label>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+
+
                     </div>
+                </div>
 
             </div>
 
-               
+        </div>
 
-    </div>     
 
-     <div class="form-group" runat="server" id="divBranches"></div>
-     <label> <input type="checkbox" value="" id="chkBranchSelectAll" style="visibility:hidden" /></label>
+
+    </div>
+
 
     <asp:HiddenField ID="hdnAction" runat="server" />
-     
+
 </asp:Content>

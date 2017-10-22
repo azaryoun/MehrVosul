@@ -257,6 +257,40 @@
                                         
 
                               
+                            <div class="form-group">
+
+
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>زمان اطلاع رسانی</label>
+                                    </div>
+                                    <div class="panel-body" style="max-height: 200px;">
+
+                                        <div class='radio'>
+                                              <asp:RadioButton ID="rdboLoanApprovment" Checked="true" GroupName="rdoPeriodTime" Text="تصویب وام" runat="server" />
+                                           
+                                        </div>
+
+                                        <div class='radio'>
+                                                <asp:RadioButton ID="rdboIssuingContract"  GroupName="rdoPeriodTime" Text="صدور قرارداد" runat="server" />
+                                        
+                                        </div>
+                                        <div class='radio'>
+
+                                                   <asp:RadioButton ID="rdboLaonPaid"  GroupName="rdoPeriodTime" Text="پرداخت وام" runat="server" />
+                                        
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                </div>
+
+
+                            </div>
+
                               
                                      <div class="panel panel-default" >
                                                 <div class="panel-heading">

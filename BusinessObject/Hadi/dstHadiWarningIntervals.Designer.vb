@@ -29,8 +29,6 @@ Partial Public Class dstHadiWarningIntervals
     
     Private tablespr_HadiWarningIntervals_Inerval_List_Select As spr_HadiWarningIntervals_Inerval_List_SelectDataTable
     
-    Private tablespr_HadiWarningIntervals_Select As spr_HadiWarningIntervals_SelectDataTable
-    
     Private tablespr_HadiWarningIntervals_List_Select As spr_HadiWarningIntervals_List_SelectDataTable
     
     Private tablespr_HadiWarningIntervals_Management_Select As spr_HadiWarningIntervals_Management_SelectDataTable
@@ -38,6 +36,12 @@ Partial Public Class dstHadiWarningIntervals
     Private tablespr_HadiWarningIntervals_Count_Select As spr_HadiWarningIntervals_Count_SelectDataTable
     
     Private tablespr_HadiWarningIntervals_CheckOverlap_Select As spr_HadiWarningIntervals_CheckOverlap_SelectDataTable
+    
+    Private tablespr_HadiWarningIntervals_Select As spr_HadiWarningIntervals_SelectDataTable
+    
+    Private tablespr_HadiWarningIntervalsLoan_Select As spr_HadiWarningIntervalsLoan_SelectDataTable
+    
+    Private tablespr_HadiWarningIntervalsByStatus_Select As spr_HadiWarningIntervalsByStatus_SelectDataTable
     
     Private tablespr_HadiWarningIntervals_Check_Select As spr_HadiWarningIntervals_Check_SelectDataTable
     
@@ -76,9 +80,6 @@ Partial Public Class dstHadiWarningIntervals
             If (Not (ds.Tables("spr_HadiWarningIntervals_Inerval_List_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_HadiWarningIntervals_Inerval_List_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_Inerval_List_Select")))
             End If
-            If (Not (ds.Tables("spr_HadiWarningIntervals_Select")) Is Nothing) Then
-                MyBase.Tables.Add(New spr_HadiWarningIntervals_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_Select")))
-            End If
             If (Not (ds.Tables("spr_HadiWarningIntervals_List_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_HadiWarningIntervals_List_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_List_Select")))
             End If
@@ -90,6 +91,15 @@ Partial Public Class dstHadiWarningIntervals
             End If
             If (Not (ds.Tables("spr_HadiWarningIntervals_CheckOverlap_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_HadiWarningIntervals_CheckOverlap_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_CheckOverlap_Select")))
+            End If
+            If (Not (ds.Tables("spr_HadiWarningIntervals_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_HadiWarningIntervals_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_Select")))
+            End If
+            If (Not (ds.Tables("spr_HadiWarningIntervalsLoan_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_HadiWarningIntervalsLoan_SelectDataTable(ds.Tables("spr_HadiWarningIntervalsLoan_Select")))
+            End If
+            If (Not (ds.Tables("spr_HadiWarningIntervalsByStatus_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_HadiWarningIntervalsByStatus_SelectDataTable(ds.Tables("spr_HadiWarningIntervalsByStatus_Select")))
             End If
             If (Not (ds.Tables("spr_HadiWarningIntervals_Check_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_HadiWarningIntervals_Check_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_Check_Select")))
@@ -135,16 +145,6 @@ Partial Public Class dstHadiWarningIntervals
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.Browsable(false),  _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-    Public ReadOnly Property spr_HadiWarningIntervals_Select() As spr_HadiWarningIntervals_SelectDataTable
-        Get
-            Return Me.tablespr_HadiWarningIntervals_Select
-        End Get
-    End Property
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-     Global.System.ComponentModel.Browsable(false),  _
-     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
     Public ReadOnly Property spr_HadiWarningIntervals_List_Select() As spr_HadiWarningIntervals_List_SelectDataTable
         Get
             Return Me.tablespr_HadiWarningIntervals_List_Select
@@ -178,6 +178,36 @@ Partial Public Class dstHadiWarningIntervals
     Public ReadOnly Property spr_HadiWarningIntervals_CheckOverlap_Select() As spr_HadiWarningIntervals_CheckOverlap_SelectDataTable
         Get
             Return Me.tablespr_HadiWarningIntervals_CheckOverlap_Select
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property spr_HadiWarningIntervals_Select() As spr_HadiWarningIntervals_SelectDataTable
+        Get
+            Return Me.tablespr_HadiWarningIntervals_Select
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property spr_HadiWarningIntervalsLoan_Select() As spr_HadiWarningIntervalsLoan_SelectDataTable
+        Get
+            Return Me.tablespr_HadiWarningIntervalsLoan_Select
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property spr_HadiWarningIntervalsByStatus_Select() As spr_HadiWarningIntervalsByStatus_SelectDataTable
+        Get
+            Return Me.tablespr_HadiWarningIntervalsByStatus_Select
         End Get
     End Property
     
@@ -264,9 +294,6 @@ Partial Public Class dstHadiWarningIntervals
             If (Not (ds.Tables("spr_HadiWarningIntervals_Inerval_List_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_HadiWarningIntervals_Inerval_List_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_Inerval_List_Select")))
             End If
-            If (Not (ds.Tables("spr_HadiWarningIntervals_Select")) Is Nothing) Then
-                MyBase.Tables.Add(New spr_HadiWarningIntervals_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_Select")))
-            End If
             If (Not (ds.Tables("spr_HadiWarningIntervals_List_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_HadiWarningIntervals_List_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_List_Select")))
             End If
@@ -278,6 +305,15 @@ Partial Public Class dstHadiWarningIntervals
             End If
             If (Not (ds.Tables("spr_HadiWarningIntervals_CheckOverlap_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_HadiWarningIntervals_CheckOverlap_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_CheckOverlap_Select")))
+            End If
+            If (Not (ds.Tables("spr_HadiWarningIntervals_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_HadiWarningIntervals_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_Select")))
+            End If
+            If (Not (ds.Tables("spr_HadiWarningIntervalsLoan_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_HadiWarningIntervalsLoan_SelectDataTable(ds.Tables("spr_HadiWarningIntervalsLoan_Select")))
+            End If
+            If (Not (ds.Tables("spr_HadiWarningIntervalsByStatus_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_HadiWarningIntervalsByStatus_SelectDataTable(ds.Tables("spr_HadiWarningIntervalsByStatus_Select")))
             End If
             If (Not (ds.Tables("spr_HadiWarningIntervals_Check_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_HadiWarningIntervals_Check_SelectDataTable(ds.Tables("spr_HadiWarningIntervals_Check_Select")))
@@ -326,12 +362,6 @@ Partial Public Class dstHadiWarningIntervals
                 Me.tablespr_HadiWarningIntervals_Inerval_List_Select.InitVars
             End If
         End If
-        Me.tablespr_HadiWarningIntervals_Select = CType(MyBase.Tables("spr_HadiWarningIntervals_Select"),spr_HadiWarningIntervals_SelectDataTable)
-        If (initTable = true) Then
-            If (Not (Me.tablespr_HadiWarningIntervals_Select) Is Nothing) Then
-                Me.tablespr_HadiWarningIntervals_Select.InitVars
-            End If
-        End If
         Me.tablespr_HadiWarningIntervals_List_Select = CType(MyBase.Tables("spr_HadiWarningIntervals_List_Select"),spr_HadiWarningIntervals_List_SelectDataTable)
         If (initTable = true) Then
             If (Not (Me.tablespr_HadiWarningIntervals_List_Select) Is Nothing) Then
@@ -356,6 +386,24 @@ Partial Public Class dstHadiWarningIntervals
                 Me.tablespr_HadiWarningIntervals_CheckOverlap_Select.InitVars
             End If
         End If
+        Me.tablespr_HadiWarningIntervals_Select = CType(MyBase.Tables("spr_HadiWarningIntervals_Select"),spr_HadiWarningIntervals_SelectDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tablespr_HadiWarningIntervals_Select) Is Nothing) Then
+                Me.tablespr_HadiWarningIntervals_Select.InitVars
+            End If
+        End If
+        Me.tablespr_HadiWarningIntervalsLoan_Select = CType(MyBase.Tables("spr_HadiWarningIntervalsLoan_Select"),spr_HadiWarningIntervalsLoan_SelectDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tablespr_HadiWarningIntervalsLoan_Select) Is Nothing) Then
+                Me.tablespr_HadiWarningIntervalsLoan_Select.InitVars
+            End If
+        End If
+        Me.tablespr_HadiWarningIntervalsByStatus_Select = CType(MyBase.Tables("spr_HadiWarningIntervalsByStatus_Select"),spr_HadiWarningIntervalsByStatus_SelectDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tablespr_HadiWarningIntervalsByStatus_Select) Is Nothing) Then
+                Me.tablespr_HadiWarningIntervalsByStatus_Select.InitVars
+            End If
+        End If
         Me.tablespr_HadiWarningIntervals_Check_Select = CType(MyBase.Tables("spr_HadiWarningIntervals_Check_Select"),spr_HadiWarningIntervals_Check_SelectDataTable)
         If (initTable = true) Then
             If (Not (Me.tablespr_HadiWarningIntervals_Check_Select) Is Nothing) Then
@@ -376,8 +424,6 @@ Partial Public Class dstHadiWarningIntervals
         MyBase.Tables.Add(Me.tablespr_HadiWarningIntervals_MinMaxFromTo_Select)
         Me.tablespr_HadiWarningIntervals_Inerval_List_Select = New spr_HadiWarningIntervals_Inerval_List_SelectDataTable()
         MyBase.Tables.Add(Me.tablespr_HadiWarningIntervals_Inerval_List_Select)
-        Me.tablespr_HadiWarningIntervals_Select = New spr_HadiWarningIntervals_SelectDataTable()
-        MyBase.Tables.Add(Me.tablespr_HadiWarningIntervals_Select)
         Me.tablespr_HadiWarningIntervals_List_Select = New spr_HadiWarningIntervals_List_SelectDataTable()
         MyBase.Tables.Add(Me.tablespr_HadiWarningIntervals_List_Select)
         Me.tablespr_HadiWarningIntervals_Management_Select = New spr_HadiWarningIntervals_Management_SelectDataTable()
@@ -386,6 +432,12 @@ Partial Public Class dstHadiWarningIntervals
         MyBase.Tables.Add(Me.tablespr_HadiWarningIntervals_Count_Select)
         Me.tablespr_HadiWarningIntervals_CheckOverlap_Select = New spr_HadiWarningIntervals_CheckOverlap_SelectDataTable()
         MyBase.Tables.Add(Me.tablespr_HadiWarningIntervals_CheckOverlap_Select)
+        Me.tablespr_HadiWarningIntervals_Select = New spr_HadiWarningIntervals_SelectDataTable()
+        MyBase.Tables.Add(Me.tablespr_HadiWarningIntervals_Select)
+        Me.tablespr_HadiWarningIntervalsLoan_Select = New spr_HadiWarningIntervalsLoan_SelectDataTable()
+        MyBase.Tables.Add(Me.tablespr_HadiWarningIntervalsLoan_Select)
+        Me.tablespr_HadiWarningIntervalsByStatus_Select = New spr_HadiWarningIntervalsByStatus_SelectDataTable()
+        MyBase.Tables.Add(Me.tablespr_HadiWarningIntervalsByStatus_Select)
         Me.tablespr_HadiWarningIntervals_Check_Select = New spr_HadiWarningIntervals_Check_SelectDataTable()
         MyBase.Tables.Add(Me.tablespr_HadiWarningIntervals_Check_Select)
     End Sub
@@ -399,12 +451,6 @@ Partial Public Class dstHadiWarningIntervals
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializespr_HadiWarningIntervals_Inerval_List_Select() As Boolean
-        Return false
-    End Function
-    
-    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Private Function ShouldSerializespr_HadiWarningIntervals_Select() As Boolean
         Return false
     End Function
     
@@ -429,6 +475,24 @@ Partial Public Class dstHadiWarningIntervals
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializespr_HadiWarningIntervals_CheckOverlap_Select() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializespr_HadiWarningIntervals_Select() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializespr_HadiWarningIntervalsLoan_Select() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializespr_HadiWarningIntervalsByStatus_Select() As Boolean
         Return false
     End Function
     
@@ -503,9 +567,6 @@ Partial Public Class dstHadiWarningIntervals
     Public Delegate Sub spr_HadiWarningIntervals_Inerval_List_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_HadiWarningIntervals_Inerval_List_SelectRowChangeEvent)
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Delegate Sub spr_HadiWarningIntervals_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_HadiWarningIntervals_SelectRowChangeEvent)
-    
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub spr_HadiWarningIntervals_List_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_HadiWarningIntervals_List_SelectRowChangeEvent)
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -516,6 +577,15 @@ Partial Public Class dstHadiWarningIntervals
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub spr_HadiWarningIntervals_CheckOverlap_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_HadiWarningIntervals_CheckOverlap_SelectRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub spr_HadiWarningIntervals_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_HadiWarningIntervals_SelectRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub spr_HadiWarningIntervalsLoan_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_HadiWarningIntervalsLoan_SelectRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub spr_HadiWarningIntervalsByStatus_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_HadiWarningIntervalsByStatus_SelectRowChangeEvent)
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub spr_HadiWarningIntervals_Check_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_HadiWarningIntervals_Check_SelectRowChangeEvent)
@@ -1009,467 +1079,6 @@ Partial Public Class dstHadiWarningIntervals
             Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
             attribute2.Name = "tableTypeName"
             attribute2.FixedValue = "spr_HadiWarningIntervals_Inerval_List_SelectDataTable"
-            type.Attributes.Add(attribute2)
-            type.Particle = sequence
-            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
-            If xs.Contains(dsSchema.TargetNamespace) Then
-                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try 
-                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
-                    dsSchema.Write(s1)
-                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
-                    Do While schemas.MoveNext
-                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
-                        s2.SetLength(0)
-                        schema.Write(s2)
-                        If (s1.Length = s2.Length) Then
-                            s1.Position = 0
-                            s2.Position = 0
-                            
-                            Do While ((s1.Position <> s1.Length)  _
-                                        AndAlso (s1.ReadByte = s2.ReadByte))
-                                
-                                
-                            Loop
-                            If (s1.Position = s1.Length) Then
-                                Return type
-                            End If
-                        End If
-                        
-                    Loop
-                Finally
-                    If (Not (s1) Is Nothing) Then
-                        s1.Close
-                    End If
-                    If (Not (s2) Is Nothing) Then
-                        s2.Close
-                    End If
-                End Try
-            End If
-            xs.Add(dsSchema)
-            Return type
-        End Function
-    End Class
-    
-    '''<summary>
-    '''Represents the strongly named DataTable class.
-    '''</summary>
-    <Global.System.Serializable(),  _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
-    Partial Public Class spr_HadiWarningIntervals_SelectDataTable
-        Inherits Global.System.Data.TypedTableBase(Of spr_HadiWarningIntervals_SelectRow)
-        
-        Private columnID As Global.System.Data.DataColumn
-        
-        Private columnFromDay As Global.System.Data.DataColumn
-        
-        Private columnToDay As Global.System.Data.DataColumn
-        
-        Private columnWarniningTitle As Global.System.Data.DataColumn
-        
-        Private columnFrequencyInDay As Global.System.Data.DataColumn
-        
-        Private columnStartTime As Global.System.Data.DataColumn
-        
-        Private columnFrequencyPeriodHour As Global.System.Data.DataColumn
-        
-        Private columnSendSMS As Global.System.Data.DataColumn
-        
-        Private columnCallTelephone As Global.System.Data.DataColumn
-        
-        Private columnVoiceMessage As Global.System.Data.DataColumn
-        
-        Private columnForDeposit As Global.System.Data.DataColumn
-        
-        Private columnFK_CUserID As Global.System.Data.DataColumn
-        
-        Private columnFK_EUserID As Global.System.Data.DataColumn
-        
-        Private columnCTime As Global.System.Data.DataColumn
-        
-        Private columnETime As Global.System.Data.DataColumn
-        
-        Private columnIsActive As Global.System.Data.DataColumn
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New()
-            MyBase.New
-            Me.TableName = "spr_HadiWarningIntervals_Select"
-            Me.BeginInit
-            Me.InitClass
-            Me.EndInit
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New
-            Me.TableName = table.TableName
-            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
-                Me.CaseSensitive = table.CaseSensitive
-            End If
-            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
-                Me.Locale = table.Locale
-            End If
-            If (table.Namespace <> table.DataSet.Namespace) Then
-                Me.Namespace = table.Namespace
-            End If
-            Me.Prefix = table.Prefix
-            Me.MinimumCapacity = table.MinimumCapacity
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-            MyBase.New(info, context)
-            Me.InitVars
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FromDayColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFromDay
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property ToDayColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnToDay
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property WarniningTitleColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnWarniningTitle
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FrequencyInDayColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFrequencyInDay
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property StartTimeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnStartTime
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FrequencyPeriodHourColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFrequencyPeriodHour
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property SendSMSColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnSendSMS
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property CallTelephoneColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnCallTelephone
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property VoiceMessageColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnVoiceMessage
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property ForDepositColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnForDeposit
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FK_CUserIDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFK_CUserID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FK_EUserIDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFK_EUserID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property CTimeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnCTime
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property ETimeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnETime
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property IsActiveColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnIsActive
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Browsable(false)>  _
-        Public ReadOnly Property Count() As Integer
-            Get
-                Return Me.Rows.Count
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_HadiWarningIntervals_SelectRow
-            Get
-                Return CType(Me.Rows(index),spr_HadiWarningIntervals_SelectRow)
-            End Get
-        End Property
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_HadiWarningIntervals_SelectRowChanging As spr_HadiWarningIntervals_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_HadiWarningIntervals_SelectRowChanged As spr_HadiWarningIntervals_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_HadiWarningIntervals_SelectRowDeleting As spr_HadiWarningIntervals_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_HadiWarningIntervals_SelectRowDeleted As spr_HadiWarningIntervals_SelectRowChangeEventHandler
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Sub Addspr_HadiWarningIntervals_SelectRow(ByVal row As spr_HadiWarningIntervals_SelectRow)
-            Me.Rows.Add(row)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_HadiWarningIntervals_SelectRow(ByVal FromDay As Integer, ByVal ToDay As Integer, ByVal WarniningTitle As String, ByVal FrequencyInDay As Integer, ByVal StartTime As System.TimeSpan, ByVal FrequencyPeriodHour As Integer, ByVal SendSMS As Boolean, ByVal CallTelephone As Boolean, ByVal VoiceMessage As Boolean, ByVal ForDeposit As Boolean, ByVal FK_CUserID As Integer, ByVal FK_EUserID As Integer, ByVal CTime As Date, ByVal ETime As Date, ByVal IsActive As Boolean) As spr_HadiWarningIntervals_SelectRow
-            Dim rowspr_HadiWarningIntervals_SelectRow As spr_HadiWarningIntervals_SelectRow = CType(Me.NewRow,spr_HadiWarningIntervals_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, FromDay, ToDay, WarniningTitle, FrequencyInDay, StartTime, FrequencyPeriodHour, SendSMS, CallTelephone, VoiceMessage, ForDeposit, FK_CUserID, FK_EUserID, CTime, ETime, IsActive}
-            rowspr_HadiWarningIntervals_SelectRow.ItemArray = columnValuesArray
-            Me.Rows.Add(rowspr_HadiWarningIntervals_SelectRow)
-            Return rowspr_HadiWarningIntervals_SelectRow
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function FindByID(ByVal ID As Integer) As spr_HadiWarningIntervals_SelectRow
-            Return CType(Me.Rows.Find(New Object() {ID}),spr_HadiWarningIntervals_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As spr_HadiWarningIntervals_SelectDataTable = CType(MyBase.Clone,spr_HadiWarningIntervals_SelectDataTable)
-            cln.InitVars
-            Return cln
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New spr_HadiWarningIntervals_SelectDataTable()
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub InitVars()
-            Me.columnID = MyBase.Columns("ID")
-            Me.columnFromDay = MyBase.Columns("FromDay")
-            Me.columnToDay = MyBase.Columns("ToDay")
-            Me.columnWarniningTitle = MyBase.Columns("WarniningTitle")
-            Me.columnFrequencyInDay = MyBase.Columns("FrequencyInDay")
-            Me.columnStartTime = MyBase.Columns("StartTime")
-            Me.columnFrequencyPeriodHour = MyBase.Columns("FrequencyPeriodHour")
-            Me.columnSendSMS = MyBase.Columns("SendSMS")
-            Me.columnCallTelephone = MyBase.Columns("CallTelephone")
-            Me.columnVoiceMessage = MyBase.Columns("VoiceMessage")
-            Me.columnForDeposit = MyBase.Columns("ForDeposit")
-            Me.columnFK_CUserID = MyBase.Columns("FK_CUserID")
-            Me.columnFK_EUserID = MyBase.Columns("FK_EUserID")
-            Me.columnCTime = MyBase.Columns("CTime")
-            Me.columnETime = MyBase.Columns("ETime")
-            Me.columnIsActive = MyBase.Columns("IsActive")
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitClass()
-            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnID)
-            Me.columnFromDay = New Global.System.Data.DataColumn("FromDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFromDay)
-            Me.columnToDay = New Global.System.Data.DataColumn("ToDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnToDay)
-            Me.columnWarniningTitle = New Global.System.Data.DataColumn("WarniningTitle", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnWarniningTitle)
-            Me.columnFrequencyInDay = New Global.System.Data.DataColumn("FrequencyInDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFrequencyInDay)
-            Me.columnStartTime = New Global.System.Data.DataColumn("StartTime", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnStartTime)
-            Me.columnFrequencyPeriodHour = New Global.System.Data.DataColumn("FrequencyPeriodHour", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFrequencyPeriodHour)
-            Me.columnSendSMS = New Global.System.Data.DataColumn("SendSMS", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnSendSMS)
-            Me.columnCallTelephone = New Global.System.Data.DataColumn("CallTelephone", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnCallTelephone)
-            Me.columnVoiceMessage = New Global.System.Data.DataColumn("VoiceMessage", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnVoiceMessage)
-            Me.columnForDeposit = New Global.System.Data.DataColumn("ForDeposit", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnForDeposit)
-            Me.columnFK_CUserID = New Global.System.Data.DataColumn("FK_CUserID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFK_CUserID)
-            Me.columnFK_EUserID = New Global.System.Data.DataColumn("FK_EUserID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFK_EUserID)
-            Me.columnCTime = New Global.System.Data.DataColumn("CTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnCTime)
-            Me.columnETime = New Global.System.Data.DataColumn("ETime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnETime)
-            Me.columnIsActive = New Global.System.Data.DataColumn("IsActive", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnIsActive)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
-            Me.columnID.AutoIncrement = true
-            Me.columnID.AutoIncrementSeed = -1
-            Me.columnID.AutoIncrementStep = -1
-            Me.columnID.AllowDBNull = false
-            Me.columnID.ReadOnly = true
-            Me.columnID.Unique = true
-            Me.columnWarniningTitle.MaxLength = 50
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function Newspr_HadiWarningIntervals_SelectRow() As spr_HadiWarningIntervals_SelectRow
-            Return CType(Me.NewRow,spr_HadiWarningIntervals_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New spr_HadiWarningIntervals_SelectRow(builder)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(spr_HadiWarningIntervals_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanged(e)
-            If (Not (Me.spr_HadiWarningIntervals_SelectRowChangedEvent) Is Nothing) Then
-                RaiseEvent spr_HadiWarningIntervals_SelectRowChanged(Me, New spr_HadiWarningIntervals_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervals_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanging(e)
-            If (Not (Me.spr_HadiWarningIntervals_SelectRowChangingEvent) Is Nothing) Then
-                RaiseEvent spr_HadiWarningIntervals_SelectRowChanging(Me, New spr_HadiWarningIntervals_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervals_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleted(e)
-            If (Not (Me.spr_HadiWarningIntervals_SelectRowDeletedEvent) Is Nothing) Then
-                RaiseEvent spr_HadiWarningIntervals_SelectRowDeleted(Me, New spr_HadiWarningIntervals_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervals_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleting(e)
-            If (Not (Me.spr_HadiWarningIntervals_SelectRowDeletingEvent) Is Nothing) Then
-                RaiseEvent spr_HadiWarningIntervals_SelectRowDeleting(Me, New spr_HadiWarningIntervals_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervals_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub Removespr_HadiWarningIntervals_SelectRow(ByVal row As spr_HadiWarningIntervals_SelectRow)
-            Me.Rows.Remove(row)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
-            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As dstHadiWarningIntervals = New dstHadiWarningIntervals()
-            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
-            any1.MinOccurs = New Decimal(0)
-            any1.MaxOccurs = Decimal.MaxValue
-            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any1)
-            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
-            any2.MinOccurs = New Decimal(1)
-            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any2)
-            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute1.Name = "namespace"
-            attribute1.FixedValue = ds.Namespace
-            type.Attributes.Add(attribute1)
-            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute2.Name = "tableTypeName"
-            attribute2.FixedValue = "spr_HadiWarningIntervals_SelectDataTable"
             type.Attributes.Add(attribute2)
             type.Particle = sequence
             Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
@@ -2766,6 +2375,1333 @@ Partial Public Class dstHadiWarningIntervals
     '''</summary>
     <Global.System.Serializable(),  _
      Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class spr_HadiWarningIntervals_SelectDataTable
+        Inherits Global.System.Data.TypedTableBase(Of spr_HadiWarningIntervals_SelectRow)
+        
+        Private columnID As Global.System.Data.DataColumn
+        
+        Private columnFromDay As Global.System.Data.DataColumn
+        
+        Private columnToDay As Global.System.Data.DataColumn
+        
+        Private columnWarniningTitle As Global.System.Data.DataColumn
+        
+        Private columnFrequencyInDay As Global.System.Data.DataColumn
+        
+        Private columnStartTime As Global.System.Data.DataColumn
+        
+        Private columnFrequencyPeriodHour As Global.System.Data.DataColumn
+        
+        Private columnSendSMS As Global.System.Data.DataColumn
+        
+        Private columnCallTelephone As Global.System.Data.DataColumn
+        
+        Private columnVoiceMessage As Global.System.Data.DataColumn
+        
+        Private columnForDeposit As Global.System.Data.DataColumn
+        
+        Private columnFK_CUserID As Global.System.Data.DataColumn
+        
+        Private columnFK_EUserID As Global.System.Data.DataColumn
+        
+        Private columnCTime As Global.System.Data.DataColumn
+        
+        Private columnETime As Global.System.Data.DataColumn
+        
+        Private columnIsActive As Global.System.Data.DataColumn
+        
+        Private columnLoanApprovment As Global.System.Data.DataColumn
+        
+        Private columnIssuingContract As Global.System.Data.DataColumn
+        
+        Private columnLaonPaid As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "spr_HadiWarningIntervals_Select"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FromDayColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFromDay
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ToDayColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnToDay
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property WarniningTitleColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnWarniningTitle
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FrequencyInDayColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFrequencyInDay
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property StartTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnStartTime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FrequencyPeriodHourColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFrequencyPeriodHour
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property SendSMSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSendSMS
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CallTelephoneColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCallTelephone
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property VoiceMessageColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnVoiceMessage
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ForDepositColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnForDeposit
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FK_CUserIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFK_CUserID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FK_EUserIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFK_EUserID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCTime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ETimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnETime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IsActiveColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnIsActive
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property LoanApprovmentColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnLoanApprovment
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IssuingContractColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnIssuingContract
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property LaonPaidColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnLaonPaid
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_HadiWarningIntervals_SelectRow
+            Get
+                Return CType(Me.Rows(index),spr_HadiWarningIntervals_SelectRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervals_SelectRowChanging As spr_HadiWarningIntervals_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervals_SelectRowChanged As spr_HadiWarningIntervals_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervals_SelectRowDeleting As spr_HadiWarningIntervals_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervals_SelectRowDeleted As spr_HadiWarningIntervals_SelectRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub Addspr_HadiWarningIntervals_SelectRow(ByVal row As spr_HadiWarningIntervals_SelectRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function Addspr_HadiWarningIntervals_SelectRow( _
+                    ByVal FromDay As Integer,  _
+                    ByVal ToDay As Integer,  _
+                    ByVal WarniningTitle As String,  _
+                    ByVal FrequencyInDay As Integer,  _
+                    ByVal StartTime As System.TimeSpan,  _
+                    ByVal FrequencyPeriodHour As Integer,  _
+                    ByVal SendSMS As Boolean,  _
+                    ByVal CallTelephone As Boolean,  _
+                    ByVal VoiceMessage As Boolean,  _
+                    ByVal ForDeposit As Boolean,  _
+                    ByVal FK_CUserID As Integer,  _
+                    ByVal FK_EUserID As Integer,  _
+                    ByVal CTime As Date,  _
+                    ByVal ETime As Date,  _
+                    ByVal IsActive As Boolean,  _
+                    ByVal LoanApprovment As Boolean,  _
+                    ByVal IssuingContract As Boolean,  _
+                    ByVal LaonPaid As Boolean) As spr_HadiWarningIntervals_SelectRow
+            Dim rowspr_HadiWarningIntervals_SelectRow As spr_HadiWarningIntervals_SelectRow = CType(Me.NewRow,spr_HadiWarningIntervals_SelectRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, FromDay, ToDay, WarniningTitle, FrequencyInDay, StartTime, FrequencyPeriodHour, SendSMS, CallTelephone, VoiceMessage, ForDeposit, FK_CUserID, FK_EUserID, CTime, ETime, IsActive, LoanApprovment, IssuingContract, LaonPaid}
+            rowspr_HadiWarningIntervals_SelectRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowspr_HadiWarningIntervals_SelectRow)
+            Return rowspr_HadiWarningIntervals_SelectRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function FindByID(ByVal ID As Integer) As spr_HadiWarningIntervals_SelectRow
+            Return CType(Me.Rows.Find(New Object() {ID}),spr_HadiWarningIntervals_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As spr_HadiWarningIntervals_SelectDataTable = CType(MyBase.Clone,spr_HadiWarningIntervals_SelectDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New spr_HadiWarningIntervals_SelectDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnID = MyBase.Columns("ID")
+            Me.columnFromDay = MyBase.Columns("FromDay")
+            Me.columnToDay = MyBase.Columns("ToDay")
+            Me.columnWarniningTitle = MyBase.Columns("WarniningTitle")
+            Me.columnFrequencyInDay = MyBase.Columns("FrequencyInDay")
+            Me.columnStartTime = MyBase.Columns("StartTime")
+            Me.columnFrequencyPeriodHour = MyBase.Columns("FrequencyPeriodHour")
+            Me.columnSendSMS = MyBase.Columns("SendSMS")
+            Me.columnCallTelephone = MyBase.Columns("CallTelephone")
+            Me.columnVoiceMessage = MyBase.Columns("VoiceMessage")
+            Me.columnForDeposit = MyBase.Columns("ForDeposit")
+            Me.columnFK_CUserID = MyBase.Columns("FK_CUserID")
+            Me.columnFK_EUserID = MyBase.Columns("FK_EUserID")
+            Me.columnCTime = MyBase.Columns("CTime")
+            Me.columnETime = MyBase.Columns("ETime")
+            Me.columnIsActive = MyBase.Columns("IsActive")
+            Me.columnLoanApprovment = MyBase.Columns("LoanApprovment")
+            Me.columnIssuingContract = MyBase.Columns("IssuingContract")
+            Me.columnLaonPaid = MyBase.Columns("LaonPaid")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnID)
+            Me.columnFromDay = New Global.System.Data.DataColumn("FromDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFromDay)
+            Me.columnToDay = New Global.System.Data.DataColumn("ToDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnToDay)
+            Me.columnWarniningTitle = New Global.System.Data.DataColumn("WarniningTitle", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnWarniningTitle)
+            Me.columnFrequencyInDay = New Global.System.Data.DataColumn("FrequencyInDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFrequencyInDay)
+            Me.columnStartTime = New Global.System.Data.DataColumn("StartTime", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnStartTime)
+            Me.columnFrequencyPeriodHour = New Global.System.Data.DataColumn("FrequencyPeriodHour", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFrequencyPeriodHour)
+            Me.columnSendSMS = New Global.System.Data.DataColumn("SendSMS", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSendSMS)
+            Me.columnCallTelephone = New Global.System.Data.DataColumn("CallTelephone", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCallTelephone)
+            Me.columnVoiceMessage = New Global.System.Data.DataColumn("VoiceMessage", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnVoiceMessage)
+            Me.columnForDeposit = New Global.System.Data.DataColumn("ForDeposit", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnForDeposit)
+            Me.columnFK_CUserID = New Global.System.Data.DataColumn("FK_CUserID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_CUserID)
+            Me.columnFK_EUserID = New Global.System.Data.DataColumn("FK_EUserID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_EUserID)
+            Me.columnCTime = New Global.System.Data.DataColumn("CTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCTime)
+            Me.columnETime = New Global.System.Data.DataColumn("ETime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnETime)
+            Me.columnIsActive = New Global.System.Data.DataColumn("IsActive", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnIsActive)
+            Me.columnLoanApprovment = New Global.System.Data.DataColumn("LoanApprovment", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLoanApprovment)
+            Me.columnIssuingContract = New Global.System.Data.DataColumn("IssuingContract", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnIssuingContract)
+            Me.columnLaonPaid = New Global.System.Data.DataColumn("LaonPaid", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLaonPaid)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
+            Me.columnID.AutoIncrement = true
+            Me.columnID.AutoIncrementSeed = -1
+            Me.columnID.AutoIncrementStep = -1
+            Me.columnID.AllowDBNull = false
+            Me.columnID.ReadOnly = true
+            Me.columnID.Unique = true
+            Me.columnWarniningTitle.MaxLength = 50
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function Newspr_HadiWarningIntervals_SelectRow() As spr_HadiWarningIntervals_SelectRow
+            Return CType(Me.NewRow,spr_HadiWarningIntervals_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New spr_HadiWarningIntervals_SelectRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(spr_HadiWarningIntervals_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.spr_HadiWarningIntervals_SelectRowChangedEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervals_SelectRowChanged(Me, New spr_HadiWarningIntervals_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervals_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.spr_HadiWarningIntervals_SelectRowChangingEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervals_SelectRowChanging(Me, New spr_HadiWarningIntervals_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervals_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.spr_HadiWarningIntervals_SelectRowDeletedEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervals_SelectRowDeleted(Me, New spr_HadiWarningIntervals_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervals_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.spr_HadiWarningIntervals_SelectRowDeletingEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervals_SelectRowDeleting(Me, New spr_HadiWarningIntervals_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervals_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub Removespr_HadiWarningIntervals_SelectRow(ByVal row As spr_HadiWarningIntervals_SelectRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dstHadiWarningIntervals = New dstHadiWarningIntervals()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "spr_HadiWarningIntervals_SelectDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class spr_HadiWarningIntervalsLoan_SelectDataTable
+        Inherits Global.System.Data.TypedTableBase(Of spr_HadiWarningIntervalsLoan_SelectRow)
+        
+        Private columnID As Global.System.Data.DataColumn
+        
+        Private columnFK_HadiWarningIntervalsID As Global.System.Data.DataColumn
+        
+        Private columnFK_LoanTypeID As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "spr_HadiWarningIntervalsLoan_Select"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FK_HadiWarningIntervalsIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFK_HadiWarningIntervalsID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FK_LoanTypeIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFK_LoanTypeID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_HadiWarningIntervalsLoan_SelectRow
+            Get
+                Return CType(Me.Rows(index),spr_HadiWarningIntervalsLoan_SelectRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervalsLoan_SelectRowChanging As spr_HadiWarningIntervalsLoan_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervalsLoan_SelectRowChanged As spr_HadiWarningIntervalsLoan_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervalsLoan_SelectRowDeleting As spr_HadiWarningIntervalsLoan_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervalsLoan_SelectRowDeleted As spr_HadiWarningIntervalsLoan_SelectRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub Addspr_HadiWarningIntervalsLoan_SelectRow(ByVal row As spr_HadiWarningIntervalsLoan_SelectRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function Addspr_HadiWarningIntervalsLoan_SelectRow(ByVal FK_HadiWarningIntervalsID As Integer, ByVal FK_LoanTypeID As Integer) As spr_HadiWarningIntervalsLoan_SelectRow
+            Dim rowspr_HadiWarningIntervalsLoan_SelectRow As spr_HadiWarningIntervalsLoan_SelectRow = CType(Me.NewRow,spr_HadiWarningIntervalsLoan_SelectRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, FK_HadiWarningIntervalsID, FK_LoanTypeID}
+            rowspr_HadiWarningIntervalsLoan_SelectRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowspr_HadiWarningIntervalsLoan_SelectRow)
+            Return rowspr_HadiWarningIntervalsLoan_SelectRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function FindByID(ByVal ID As Integer) As spr_HadiWarningIntervalsLoan_SelectRow
+            Return CType(Me.Rows.Find(New Object() {ID}),spr_HadiWarningIntervalsLoan_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As spr_HadiWarningIntervalsLoan_SelectDataTable = CType(MyBase.Clone,spr_HadiWarningIntervalsLoan_SelectDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New spr_HadiWarningIntervalsLoan_SelectDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnID = MyBase.Columns("ID")
+            Me.columnFK_HadiWarningIntervalsID = MyBase.Columns("FK_HadiWarningIntervalsID")
+            Me.columnFK_LoanTypeID = MyBase.Columns("FK_LoanTypeID")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnID)
+            Me.columnFK_HadiWarningIntervalsID = New Global.System.Data.DataColumn("FK_HadiWarningIntervalsID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_HadiWarningIntervalsID)
+            Me.columnFK_LoanTypeID = New Global.System.Data.DataColumn("FK_LoanTypeID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_LoanTypeID)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
+            Me.columnID.AutoIncrement = true
+            Me.columnID.AutoIncrementSeed = -1
+            Me.columnID.AutoIncrementStep = -1
+            Me.columnID.AllowDBNull = false
+            Me.columnID.ReadOnly = true
+            Me.columnID.Unique = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function Newspr_HadiWarningIntervalsLoan_SelectRow() As spr_HadiWarningIntervalsLoan_SelectRow
+            Return CType(Me.NewRow,spr_HadiWarningIntervalsLoan_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New spr_HadiWarningIntervalsLoan_SelectRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(spr_HadiWarningIntervalsLoan_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.spr_HadiWarningIntervalsLoan_SelectRowChangedEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervalsLoan_SelectRowChanged(Me, New spr_HadiWarningIntervalsLoan_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervalsLoan_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.spr_HadiWarningIntervalsLoan_SelectRowChangingEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervalsLoan_SelectRowChanging(Me, New spr_HadiWarningIntervalsLoan_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervalsLoan_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.spr_HadiWarningIntervalsLoan_SelectRowDeletedEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervalsLoan_SelectRowDeleted(Me, New spr_HadiWarningIntervalsLoan_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervalsLoan_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.spr_HadiWarningIntervalsLoan_SelectRowDeletingEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervalsLoan_SelectRowDeleting(Me, New spr_HadiWarningIntervalsLoan_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervalsLoan_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub Removespr_HadiWarningIntervalsLoan_SelectRow(ByVal row As spr_HadiWarningIntervalsLoan_SelectRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dstHadiWarningIntervals = New dstHadiWarningIntervals()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "spr_HadiWarningIntervalsLoan_SelectDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class spr_HadiWarningIntervalsByStatus_SelectDataTable
+        Inherits Global.System.Data.TypedTableBase(Of spr_HadiWarningIntervalsByStatus_SelectRow)
+        
+        Private columnID As Global.System.Data.DataColumn
+        
+        Private columnFromDay As Global.System.Data.DataColumn
+        
+        Private columnToDay As Global.System.Data.DataColumn
+        
+        Private columnWarniningTitle As Global.System.Data.DataColumn
+        
+        Private columnFrequencyInDay As Global.System.Data.DataColumn
+        
+        Private columnStartTime As Global.System.Data.DataColumn
+        
+        Private columnFrequencyPeriodHour As Global.System.Data.DataColumn
+        
+        Private columnSendSMS As Global.System.Data.DataColumn
+        
+        Private columnCallTelephone As Global.System.Data.DataColumn
+        
+        Private columnVoiceMessage As Global.System.Data.DataColumn
+        
+        Private columnForDeposit As Global.System.Data.DataColumn
+        
+        Private columnFK_CUserID As Global.System.Data.DataColumn
+        
+        Private columnFK_EUserID As Global.System.Data.DataColumn
+        
+        Private columnCTime As Global.System.Data.DataColumn
+        
+        Private columnETime As Global.System.Data.DataColumn
+        
+        Private columnIsActive As Global.System.Data.DataColumn
+        
+        Private columnLoanApprovment As Global.System.Data.DataColumn
+        
+        Private columnIssuingContract As Global.System.Data.DataColumn
+        
+        Private columnLaonPaid As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "spr_HadiWarningIntervalsByStatus_Select"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FromDayColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFromDay
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ToDayColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnToDay
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property WarniningTitleColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnWarniningTitle
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FrequencyInDayColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFrequencyInDay
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property StartTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnStartTime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FrequencyPeriodHourColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFrequencyPeriodHour
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property SendSMSColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSendSMS
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CallTelephoneColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCallTelephone
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property VoiceMessageColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnVoiceMessage
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ForDepositColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnForDeposit
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FK_CUserIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFK_CUserID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FK_EUserIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFK_EUserID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property CTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnCTime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ETimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnETime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IsActiveColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnIsActive
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property LoanApprovmentColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnLoanApprovment
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IssuingContractColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnIssuingContract
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property LaonPaidColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnLaonPaid
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_HadiWarningIntervalsByStatus_SelectRow
+            Get
+                Return CType(Me.Rows(index),spr_HadiWarningIntervalsByStatus_SelectRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervalsByStatus_SelectRowChanging As spr_HadiWarningIntervalsByStatus_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervalsByStatus_SelectRowChanged As spr_HadiWarningIntervalsByStatus_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervalsByStatus_SelectRowDeleting As spr_HadiWarningIntervalsByStatus_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_HadiWarningIntervalsByStatus_SelectRowDeleted As spr_HadiWarningIntervalsByStatus_SelectRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub Addspr_HadiWarningIntervalsByStatus_SelectRow(ByVal row As spr_HadiWarningIntervalsByStatus_SelectRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function Addspr_HadiWarningIntervalsByStatus_SelectRow( _
+                    ByVal FromDay As Integer,  _
+                    ByVal ToDay As Integer,  _
+                    ByVal WarniningTitle As String,  _
+                    ByVal FrequencyInDay As Integer,  _
+                    ByVal StartTime As System.TimeSpan,  _
+                    ByVal FrequencyPeriodHour As Integer,  _
+                    ByVal SendSMS As Boolean,  _
+                    ByVal CallTelephone As Boolean,  _
+                    ByVal VoiceMessage As Boolean,  _
+                    ByVal ForDeposit As Boolean,  _
+                    ByVal FK_CUserID As Integer,  _
+                    ByVal FK_EUserID As Integer,  _
+                    ByVal CTime As Date,  _
+                    ByVal ETime As Date,  _
+                    ByVal IsActive As Boolean,  _
+                    ByVal LoanApprovment As Boolean,  _
+                    ByVal IssuingContract As Boolean,  _
+                    ByVal LaonPaid As Boolean) As spr_HadiWarningIntervalsByStatus_SelectRow
+            Dim rowspr_HadiWarningIntervalsByStatus_SelectRow As spr_HadiWarningIntervalsByStatus_SelectRow = CType(Me.NewRow,spr_HadiWarningIntervalsByStatus_SelectRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, FromDay, ToDay, WarniningTitle, FrequencyInDay, StartTime, FrequencyPeriodHour, SendSMS, CallTelephone, VoiceMessage, ForDeposit, FK_CUserID, FK_EUserID, CTime, ETime, IsActive, LoanApprovment, IssuingContract, LaonPaid}
+            rowspr_HadiWarningIntervalsByStatus_SelectRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowspr_HadiWarningIntervalsByStatus_SelectRow)
+            Return rowspr_HadiWarningIntervalsByStatus_SelectRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function FindByID(ByVal ID As Integer) As spr_HadiWarningIntervalsByStatus_SelectRow
+            Return CType(Me.Rows.Find(New Object() {ID}),spr_HadiWarningIntervalsByStatus_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As spr_HadiWarningIntervalsByStatus_SelectDataTable = CType(MyBase.Clone,spr_HadiWarningIntervalsByStatus_SelectDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New spr_HadiWarningIntervalsByStatus_SelectDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnID = MyBase.Columns("ID")
+            Me.columnFromDay = MyBase.Columns("FromDay")
+            Me.columnToDay = MyBase.Columns("ToDay")
+            Me.columnWarniningTitle = MyBase.Columns("WarniningTitle")
+            Me.columnFrequencyInDay = MyBase.Columns("FrequencyInDay")
+            Me.columnStartTime = MyBase.Columns("StartTime")
+            Me.columnFrequencyPeriodHour = MyBase.Columns("FrequencyPeriodHour")
+            Me.columnSendSMS = MyBase.Columns("SendSMS")
+            Me.columnCallTelephone = MyBase.Columns("CallTelephone")
+            Me.columnVoiceMessage = MyBase.Columns("VoiceMessage")
+            Me.columnForDeposit = MyBase.Columns("ForDeposit")
+            Me.columnFK_CUserID = MyBase.Columns("FK_CUserID")
+            Me.columnFK_EUserID = MyBase.Columns("FK_EUserID")
+            Me.columnCTime = MyBase.Columns("CTime")
+            Me.columnETime = MyBase.Columns("ETime")
+            Me.columnIsActive = MyBase.Columns("IsActive")
+            Me.columnLoanApprovment = MyBase.Columns("LoanApprovment")
+            Me.columnIssuingContract = MyBase.Columns("IssuingContract")
+            Me.columnLaonPaid = MyBase.Columns("LaonPaid")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnID)
+            Me.columnFromDay = New Global.System.Data.DataColumn("FromDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFromDay)
+            Me.columnToDay = New Global.System.Data.DataColumn("ToDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnToDay)
+            Me.columnWarniningTitle = New Global.System.Data.DataColumn("WarniningTitle", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnWarniningTitle)
+            Me.columnFrequencyInDay = New Global.System.Data.DataColumn("FrequencyInDay", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFrequencyInDay)
+            Me.columnStartTime = New Global.System.Data.DataColumn("StartTime", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnStartTime)
+            Me.columnFrequencyPeriodHour = New Global.System.Data.DataColumn("FrequencyPeriodHour", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFrequencyPeriodHour)
+            Me.columnSendSMS = New Global.System.Data.DataColumn("SendSMS", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSendSMS)
+            Me.columnCallTelephone = New Global.System.Data.DataColumn("CallTelephone", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCallTelephone)
+            Me.columnVoiceMessage = New Global.System.Data.DataColumn("VoiceMessage", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnVoiceMessage)
+            Me.columnForDeposit = New Global.System.Data.DataColumn("ForDeposit", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnForDeposit)
+            Me.columnFK_CUserID = New Global.System.Data.DataColumn("FK_CUserID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_CUserID)
+            Me.columnFK_EUserID = New Global.System.Data.DataColumn("FK_EUserID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_EUserID)
+            Me.columnCTime = New Global.System.Data.DataColumn("CTime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnCTime)
+            Me.columnETime = New Global.System.Data.DataColumn("ETime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnETime)
+            Me.columnIsActive = New Global.System.Data.DataColumn("IsActive", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnIsActive)
+            Me.columnLoanApprovment = New Global.System.Data.DataColumn("LoanApprovment", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLoanApprovment)
+            Me.columnIssuingContract = New Global.System.Data.DataColumn("IssuingContract", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnIssuingContract)
+            Me.columnLaonPaid = New Global.System.Data.DataColumn("LaonPaid", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLaonPaid)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
+            Me.columnID.AutoIncrement = true
+            Me.columnID.AutoIncrementSeed = -1
+            Me.columnID.AutoIncrementStep = -1
+            Me.columnID.AllowDBNull = false
+            Me.columnID.ReadOnly = true
+            Me.columnID.Unique = true
+            Me.columnWarniningTitle.MaxLength = 50
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function Newspr_HadiWarningIntervalsByStatus_SelectRow() As spr_HadiWarningIntervalsByStatus_SelectRow
+            Return CType(Me.NewRow,spr_HadiWarningIntervalsByStatus_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New spr_HadiWarningIntervalsByStatus_SelectRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(spr_HadiWarningIntervalsByStatus_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.spr_HadiWarningIntervalsByStatus_SelectRowChangedEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervalsByStatus_SelectRowChanged(Me, New spr_HadiWarningIntervalsByStatus_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervalsByStatus_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.spr_HadiWarningIntervalsByStatus_SelectRowChangingEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervalsByStatus_SelectRowChanging(Me, New spr_HadiWarningIntervalsByStatus_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervalsByStatus_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.spr_HadiWarningIntervalsByStatus_SelectRowDeletedEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervalsByStatus_SelectRowDeleted(Me, New spr_HadiWarningIntervalsByStatus_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervalsByStatus_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.spr_HadiWarningIntervalsByStatus_SelectRowDeletingEvent) Is Nothing) Then
+                RaiseEvent spr_HadiWarningIntervalsByStatus_SelectRowDeleting(Me, New spr_HadiWarningIntervalsByStatus_SelectRowChangeEvent(CType(e.Row,spr_HadiWarningIntervalsByStatus_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub Removespr_HadiWarningIntervalsByStatus_SelectRow(ByVal row As spr_HadiWarningIntervalsByStatus_SelectRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dstHadiWarningIntervals = New dstHadiWarningIntervals()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "spr_HadiWarningIntervalsByStatus_SelectDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
     Partial Public Class spr_HadiWarningIntervals_Check_SelectDataTable
         Inherits Global.System.Data.TypedTableBase(Of spr_HadiWarningIntervals_Check_SelectRow)
         
@@ -3298,453 +4234,6 @@ Partial Public Class dstHadiWarningIntervals
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetToDayNull()
             Me(Me.tablespr_HadiWarningIntervals_Inerval_List_Select.ToDayColumn) = Global.System.Convert.DBNull
-        End Sub
-    End Class
-    
-    '''<summary>
-    '''Represents strongly named DataRow class.
-    '''</summary>
-    Partial Public Class spr_HadiWarningIntervals_SelectRow
-        Inherits Global.System.Data.DataRow
-        
-        Private tablespr_HadiWarningIntervals_Select As spr_HadiWarningIntervals_SelectDataTable
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
-            MyBase.New(rb)
-            Me.tablespr_HadiWarningIntervals_Select = CType(Me.Table,spr_HadiWarningIntervals_SelectDataTable)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ID() As Integer
-            Get
-                Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.IDColumn),Integer)
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.IDColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FromDay() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FromDayColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FromDay' in table 'spr_HadiWarningIntervals_Select' is DBNu"& _ 
-                            "ll.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.FromDayColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ToDay() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.ToDayColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'ToDay' in table 'spr_HadiWarningIntervals_Select' is DBNull"& _ 
-                            ".", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.ToDayColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property WarniningTitle() As String
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.WarniningTitleColumn),String)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'WarniningTitle' in table 'spr_HadiWarningIntervals_Select' "& _ 
-                            "is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.WarniningTitleColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FrequencyInDay() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyInDayColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FrequencyInDay' in table 'spr_HadiWarningIntervals_Select' "& _ 
-                            "is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyInDayColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property StartTime() As System.TimeSpan
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.StartTimeColumn),Global.System.TimeSpan)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'StartTime' in table 'spr_HadiWarningIntervals_Select' is DB"& _ 
-                            "Null.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.StartTimeColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FrequencyPeriodHour() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyPeriodHourColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FrequencyPeriodHour' in table 'spr_HadiWarningIntervals_Sel"& _ 
-                            "ect' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyPeriodHourColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property SendSMS() As Boolean
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.SendSMSColumn),Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'SendSMS' in table 'spr_HadiWarningIntervals_Select' is DBNu"& _ 
-                            "ll.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.SendSMSColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property CallTelephone() As Boolean
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.CallTelephoneColumn),Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'CallTelephone' in table 'spr_HadiWarningIntervals_Select' i"& _ 
-                            "s DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.CallTelephoneColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property VoiceMessage() As Boolean
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.VoiceMessageColumn),Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'VoiceMessage' in table 'spr_HadiWarningIntervals_Select' is"& _ 
-                            " DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.VoiceMessageColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ForDeposit() As Boolean
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.ForDepositColumn),Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'ForDeposit' in table 'spr_HadiWarningIntervals_Select' is D"& _ 
-                            "BNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.ForDepositColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FK_CUserID() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FK_CUserIDColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_CUserID' in table 'spr_HadiWarningIntervals_Select' is D"& _ 
-                            "BNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.FK_CUserIDColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FK_EUserID() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FK_EUserIDColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_EUserID' in table 'spr_HadiWarningIntervals_Select' is D"& _ 
-                            "BNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.FK_EUserIDColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property CTime() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.CTimeColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'CTime' in table 'spr_HadiWarningIntervals_Select' is DBNull"& _ 
-                            ".", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.CTimeColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ETime() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.ETimeColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'ETime' in table 'spr_HadiWarningIntervals_Select' is DBNull"& _ 
-                            ".", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.ETimeColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property IsActive() As Boolean
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.IsActiveColumn),Boolean)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'IsActive' in table 'spr_HadiWarningIntervals_Select' is DBN"& _ 
-                            "ull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiWarningIntervals_Select.IsActiveColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFromDayNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FromDayColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFromDayNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.FromDayColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsToDayNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.ToDayColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetToDayNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.ToDayColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsWarniningTitleNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.WarniningTitleColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetWarniningTitleNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.WarniningTitleColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFrequencyInDayNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FrequencyInDayColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFrequencyInDayNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyInDayColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsStartTimeNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.StartTimeColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetStartTimeNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.StartTimeColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFrequencyPeriodHourNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FrequencyPeriodHourColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFrequencyPeriodHourNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyPeriodHourColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsSendSMSNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.SendSMSColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetSendSMSNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.SendSMSColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsCallTelephoneNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.CallTelephoneColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetCallTelephoneNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.CallTelephoneColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsVoiceMessageNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.VoiceMessageColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetVoiceMessageNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.VoiceMessageColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsForDepositNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.ForDepositColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetForDepositNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.ForDepositColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFK_CUserIDNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FK_CUserIDColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFK_CUserIDNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.FK_CUserIDColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFK_EUserIDNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FK_EUserIDColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFK_EUserIDNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.FK_EUserIDColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsCTimeNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.CTimeColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetCTimeNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.CTimeColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsETimeNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.ETimeColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetETimeNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.ETimeColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsIsActiveNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.IsActiveColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetIsActiveNull()
-            Me(Me.tablespr_HadiWarningIntervals_Select.IsActiveColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -4313,6 +4802,1151 @@ Partial Public Class dstHadiWarningIntervals
     '''<summary>
     '''Represents strongly named DataRow class.
     '''</summary>
+    Partial Public Class spr_HadiWarningIntervals_SelectRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tablespr_HadiWarningIntervals_Select As spr_HadiWarningIntervals_SelectDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tablespr_HadiWarningIntervals_Select = CType(Me.Table,spr_HadiWarningIntervals_SelectDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ID() As Integer
+            Get
+                Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.IDColumn),Integer)
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.IDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FromDay() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FromDayColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FromDay' in table 'spr_HadiWarningIntervals_Select' is DBNu"& _ 
+                            "ll.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.FromDayColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ToDay() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.ToDayColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ToDay' in table 'spr_HadiWarningIntervals_Select' is DBNull"& _ 
+                            ".", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.ToDayColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property WarniningTitle() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.WarniningTitleColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'WarniningTitle' in table 'spr_HadiWarningIntervals_Select' "& _ 
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.WarniningTitleColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FrequencyInDay() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyInDayColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FrequencyInDay' in table 'spr_HadiWarningIntervals_Select' "& _ 
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyInDayColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property StartTime() As System.TimeSpan
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.StartTimeColumn),Global.System.TimeSpan)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'StartTime' in table 'spr_HadiWarningIntervals_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.StartTimeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FrequencyPeriodHour() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyPeriodHourColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FrequencyPeriodHour' in table 'spr_HadiWarningIntervals_Sel"& _ 
+                            "ect' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyPeriodHourColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property SendSMS() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.SendSMSColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'SendSMS' in table 'spr_HadiWarningIntervals_Select' is DBNu"& _ 
+                            "ll.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.SendSMSColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CallTelephone() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.CallTelephoneColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CallTelephone' in table 'spr_HadiWarningIntervals_Select' i"& _ 
+                            "s DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.CallTelephoneColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property VoiceMessage() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.VoiceMessageColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'VoiceMessage' in table 'spr_HadiWarningIntervals_Select' is"& _ 
+                            " DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.VoiceMessageColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ForDeposit() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.ForDepositColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ForDeposit' in table 'spr_HadiWarningIntervals_Select' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.ForDepositColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FK_CUserID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FK_CUserIDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_CUserID' in table 'spr_HadiWarningIntervals_Select' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.FK_CUserIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FK_EUserID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.FK_EUserIDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_EUserID' in table 'spr_HadiWarningIntervals_Select' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.FK_EUserIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CTime() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.CTimeColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CTime' in table 'spr_HadiWarningIntervals_Select' is DBNull"& _ 
+                            ".", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.CTimeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ETime() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.ETimeColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ETime' in table 'spr_HadiWarningIntervals_Select' is DBNull"& _ 
+                            ".", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.ETimeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property IsActive() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.IsActiveColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'IsActive' in table 'spr_HadiWarningIntervals_Select' is DBN"& _ 
+                            "ull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.IsActiveColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property LoanApprovment() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.LoanApprovmentColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LoanApprovment' in table 'spr_HadiWarningIntervals_Select' "& _ 
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.LoanApprovmentColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property IssuingContract() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.IssuingContractColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'IssuingContract' in table 'spr_HadiWarningIntervals_Select'"& _ 
+                            " is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.IssuingContractColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property LaonPaid() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervals_Select.LaonPaidColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LaonPaid' in table 'spr_HadiWarningIntervals_Select' is DBN"& _ 
+                            "ull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervals_Select.LaonPaidColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFromDayNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FromDayColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFromDayNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.FromDayColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsToDayNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.ToDayColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetToDayNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.ToDayColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsWarniningTitleNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.WarniningTitleColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetWarniningTitleNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.WarniningTitleColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFrequencyInDayNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FrequencyInDayColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFrequencyInDayNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyInDayColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsStartTimeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.StartTimeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetStartTimeNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.StartTimeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFrequencyPeriodHourNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FrequencyPeriodHourColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFrequencyPeriodHourNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.FrequencyPeriodHourColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSendSMSNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.SendSMSColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSendSMSNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.SendSMSColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCallTelephoneNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.CallTelephoneColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCallTelephoneNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.CallTelephoneColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsVoiceMessageNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.VoiceMessageColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetVoiceMessageNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.VoiceMessageColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsForDepositNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.ForDepositColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetForDepositNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.ForDepositColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_CUserIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FK_CUserIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_CUserIDNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.FK_CUserIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_EUserIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.FK_EUserIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_EUserIDNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.FK_EUserIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCTimeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.CTimeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCTimeNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.CTimeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsETimeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.ETimeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetETimeNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.ETimeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsIsActiveNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.IsActiveColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetIsActiveNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.IsActiveColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsLoanApprovmentNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.LoanApprovmentColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetLoanApprovmentNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.LoanApprovmentColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsIssuingContractNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.IssuingContractColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetIssuingContractNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.IssuingContractColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsLaonPaidNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervals_Select.LaonPaidColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetLaonPaidNull()
+            Me(Me.tablespr_HadiWarningIntervals_Select.LaonPaidColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class spr_HadiWarningIntervalsLoan_SelectRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tablespr_HadiWarningIntervalsLoan_Select As spr_HadiWarningIntervalsLoan_SelectDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tablespr_HadiWarningIntervalsLoan_Select = CType(Me.Table,spr_HadiWarningIntervalsLoan_SelectDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ID() As Integer
+            Get
+                Return CType(Me(Me.tablespr_HadiWarningIntervalsLoan_Select.IDColumn),Integer)
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsLoan_Select.IDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FK_HadiWarningIntervalsID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsLoan_Select.FK_HadiWarningIntervalsIDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_HadiWarningIntervalsID' in table 'spr_HadiWarningInterva"& _ 
+                            "lsLoan_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsLoan_Select.FK_HadiWarningIntervalsIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FK_LoanTypeID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsLoan_Select.FK_LoanTypeIDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_LoanTypeID' in table 'spr_HadiWarningIntervalsLoan_Selec"& _ 
+                            "t' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsLoan_Select.FK_LoanTypeIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_HadiWarningIntervalsIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsLoan_Select.FK_HadiWarningIntervalsIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_HadiWarningIntervalsIDNull()
+            Me(Me.tablespr_HadiWarningIntervalsLoan_Select.FK_HadiWarningIntervalsIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_LoanTypeIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsLoan_Select.FK_LoanTypeIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_LoanTypeIDNull()
+            Me(Me.tablespr_HadiWarningIntervalsLoan_Select.FK_LoanTypeIDColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class spr_HadiWarningIntervalsByStatus_SelectRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tablespr_HadiWarningIntervalsByStatus_Select As spr_HadiWarningIntervalsByStatus_SelectDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tablespr_HadiWarningIntervalsByStatus_Select = CType(Me.Table,spr_HadiWarningIntervalsByStatus_SelectDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ID() As Integer
+            Get
+                Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.IDColumn),Integer)
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.IDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FromDay() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FromDayColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FromDay' in table 'spr_HadiWarningIntervalsByStatus_Select'"& _ 
+                            " is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FromDayColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ToDay() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ToDayColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ToDay' in table 'spr_HadiWarningIntervalsByStatus_Select' i"& _ 
+                            "s DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ToDayColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property WarniningTitle() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.WarniningTitleColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'WarniningTitle' in table 'spr_HadiWarningIntervalsByStatus_"& _ 
+                            "Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.WarniningTitleColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FrequencyInDay() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FrequencyInDayColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FrequencyInDay' in table 'spr_HadiWarningIntervalsByStatus_"& _ 
+                            "Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FrequencyInDayColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property StartTime() As System.TimeSpan
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.StartTimeColumn),Global.System.TimeSpan)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'StartTime' in table 'spr_HadiWarningIntervalsByStatus_Selec"& _ 
+                            "t' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.StartTimeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FrequencyPeriodHour() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FrequencyPeriodHourColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FrequencyPeriodHour' in table 'spr_HadiWarningIntervalsBySt"& _ 
+                            "atus_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FrequencyPeriodHourColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property SendSMS() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.SendSMSColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'SendSMS' in table 'spr_HadiWarningIntervalsByStatus_Select'"& _ 
+                            " is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.SendSMSColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CallTelephone() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.CallTelephoneColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CallTelephone' in table 'spr_HadiWarningIntervalsByStatus_S"& _ 
+                            "elect' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.CallTelephoneColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property VoiceMessage() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.VoiceMessageColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'VoiceMessage' in table 'spr_HadiWarningIntervalsByStatus_Se"& _ 
+                            "lect' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.VoiceMessageColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ForDeposit() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ForDepositColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ForDeposit' in table 'spr_HadiWarningIntervalsByStatus_Sele"& _ 
+                            "ct' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ForDepositColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FK_CUserID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FK_CUserIDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_CUserID' in table 'spr_HadiWarningIntervalsByStatus_Sele"& _ 
+                            "ct' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FK_CUserIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FK_EUserID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FK_EUserIDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_EUserID' in table 'spr_HadiWarningIntervalsByStatus_Sele"& _ 
+                            "ct' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FK_EUserIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property CTime() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.CTimeColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'CTime' in table 'spr_HadiWarningIntervalsByStatus_Select' i"& _ 
+                            "s DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.CTimeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ETime() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ETimeColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'ETime' in table 'spr_HadiWarningIntervalsByStatus_Select' i"& _ 
+                            "s DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ETimeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property IsActive() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.IsActiveColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'IsActive' in table 'spr_HadiWarningIntervalsByStatus_Select"& _ 
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.IsActiveColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property LoanApprovment() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.LoanApprovmentColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LoanApprovment' in table 'spr_HadiWarningIntervalsByStatus_"& _ 
+                            "Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.LoanApprovmentColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property IssuingContract() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.IssuingContractColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'IssuingContract' in table 'spr_HadiWarningIntervalsByStatus"& _ 
+                            "_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.IssuingContractColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property LaonPaid() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.LaonPaidColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LaonPaid' in table 'spr_HadiWarningIntervalsByStatus_Select"& _ 
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.LaonPaidColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFromDayNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.FromDayColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFromDayNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FromDayColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsToDayNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.ToDayColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetToDayNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ToDayColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsWarniningTitleNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.WarniningTitleColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetWarniningTitleNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.WarniningTitleColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFrequencyInDayNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.FrequencyInDayColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFrequencyInDayNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FrequencyInDayColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsStartTimeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.StartTimeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetStartTimeNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.StartTimeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFrequencyPeriodHourNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.FrequencyPeriodHourColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFrequencyPeriodHourNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FrequencyPeriodHourColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSendSMSNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.SendSMSColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSendSMSNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.SendSMSColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCallTelephoneNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.CallTelephoneColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCallTelephoneNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.CallTelephoneColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsVoiceMessageNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.VoiceMessageColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetVoiceMessageNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.VoiceMessageColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsForDepositNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.ForDepositColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetForDepositNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ForDepositColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_CUserIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.FK_CUserIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_CUserIDNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FK_CUserIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_EUserIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.FK_EUserIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_EUserIDNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.FK_EUserIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsCTimeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.CTimeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetCTimeNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.CTimeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsETimeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.ETimeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetETimeNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.ETimeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsIsActiveNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.IsActiveColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetIsActiveNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.IsActiveColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsLoanApprovmentNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.LoanApprovmentColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetLoanApprovmentNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.LoanApprovmentColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsIssuingContractNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.IssuingContractColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetIssuingContractNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.IssuingContractColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsLaonPaidNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiWarningIntervalsByStatus_Select.LaonPaidColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetLaonPaidNull()
+            Me(Me.tablespr_HadiWarningIntervalsByStatus_Select.LaonPaidColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
     Partial Public Class spr_HadiWarningIntervals_Check_SelectRow
         Inherits Global.System.Data.DataRow
         
@@ -4693,42 +6327,6 @@ Partial Public Class dstHadiWarningIntervals
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Class spr_HadiWarningIntervals_SelectRowChangeEvent
-        Inherits Global.System.EventArgs
-        
-        Private eventRow As spr_HadiWarningIntervals_SelectRow
-        
-        Private eventAction As Global.System.Data.DataRowAction
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New(ByVal row As spr_HadiWarningIntervals_SelectRow, ByVal action As Global.System.Data.DataRowAction)
-            MyBase.New
-            Me.eventRow = row
-            Me.eventAction = action
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Row() As spr_HadiWarningIntervals_SelectRow
-            Get
-                Return Me.eventRow
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
-            Get
-                Return Me.eventAction
-            End Get
-        End Property
-    End Class
-    
-    '''<summary>
-    '''Row event argument class
-    '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Class spr_HadiWarningIntervals_List_SelectRowChangeEvent
         Inherits Global.System.EventArgs
         
@@ -4855,6 +6453,114 @@ Partial Public Class dstHadiWarningIntervals
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Row() As spr_HadiWarningIntervals_CheckOverlap_SelectRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class spr_HadiWarningIntervals_SelectRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As spr_HadiWarningIntervals_SelectRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As spr_HadiWarningIntervals_SelectRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As spr_HadiWarningIntervals_SelectRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class spr_HadiWarningIntervalsLoan_SelectRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As spr_HadiWarningIntervalsLoan_SelectRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As spr_HadiWarningIntervalsLoan_SelectRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As spr_HadiWarningIntervalsLoan_SelectRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class spr_HadiWarningIntervalsByStatus_SelectRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As spr_HadiWarningIntervalsByStatus_SelectRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As spr_HadiWarningIntervalsByStatus_SelectRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As spr_HadiWarningIntervalsByStatus_SelectRow
             Get
                 Return Me.eventRow
             End Get
@@ -5253,206 +6959,6 @@ Namespace dstHadiWarningIntervalsTableAdapters
         Public Overloads Overridable Function GetData() As dstHadiWarningIntervals.spr_HadiWarningIntervals_Inerval_List_SelectDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervals_Inerval_List_SelectDataTable = New dstHadiWarningIntervals.spr_HadiWarningIntervals_Inerval_List_SelectDataTable()
-            Me.Adapter.Fill(dataTable)
-            Return dataTable
-        End Function
-    End Class
-    
-    '''<summary>
-    '''Represents the connection and commands used to retrieve and save data.
-    '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     Global.System.ComponentModel.ToolboxItem(true),  _
-     Global.System.ComponentModel.DataObjectAttribute(true),  _
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-    Partial Public Class spr_HadiWarningIntervals_SelectTableAdapter
-        Inherits Global.System.ComponentModel.Component
-        
-        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-        
-        Private _connection As Global.System.Data.SqlClient.SqlConnection
-        
-        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-        
-        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-        
-        Private _clearBeforeFill As Boolean
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New()
-            MyBase.New
-            Me.ClearBeforeFill = true
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
-            Get
-                If (Me._adapter Is Nothing) Then
-                    Me.InitAdapter
-                End If
-                Return Me._adapter
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
-            Get
-                If (Me._connection Is Nothing) Then
-                    Me.InitConnection
-                End If
-                Return Me._connection
-            End Get
-            Set
-                Me._connection = value
-                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
-                    Me.Adapter.InsertCommand.Connection = value
-                End If
-                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
-                    Me.Adapter.DeleteCommand.Connection = value
-                End If
-                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
-                    Me.Adapter.UpdateCommand.Connection = value
-                End If
-                Dim i As Integer = 0
-                Do While (i < Me.CommandCollection.Length)
-                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
-                    End If
-                    i = (i + 1)
-                Loop
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
-            Get
-                Return Me._transaction
-            End Get
-            Set
-                Me._transaction = value
-                Dim i As Integer = 0
-                Do While (i < Me.CommandCollection.Length)
-                    Me.CommandCollection(i).Transaction = Me._transaction
-                    i = (i + 1)
-                Loop
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
-                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
-                End If
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
-                    Me.Adapter.InsertCommand.Transaction = Me._transaction
-                End If
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
-                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
-                End If
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
-            Get
-                If (Me._commandCollection Is Nothing) Then
-                    Me.InitCommandCollection
-                End If
-                Return Me._commandCollection
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ClearBeforeFill() As Boolean
-            Get
-                Return Me._clearBeforeFill
-            End Get
-            Set
-                Me._clearBeforeFill = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitAdapter()
-            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
-            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
-            tableMapping.SourceTable = "Table"
-            tableMapping.DataSetTable = "spr_HadiWarningIntervals_Select"
-            tableMapping.ColumnMappings.Add("ID", "ID")
-            tableMapping.ColumnMappings.Add("FromDay", "FromDay")
-            tableMapping.ColumnMappings.Add("ToDay", "ToDay")
-            tableMapping.ColumnMappings.Add("WarniningTitle", "WarniningTitle")
-            tableMapping.ColumnMappings.Add("FrequencyInDay", "FrequencyInDay")
-            tableMapping.ColumnMappings.Add("StartTime", "StartTime")
-            tableMapping.ColumnMappings.Add("FrequencyPeriodHour", "FrequencyPeriodHour")
-            tableMapping.ColumnMappings.Add("SendSMS", "SendSMS")
-            tableMapping.ColumnMappings.Add("CallTelephone", "CallTelephone")
-            tableMapping.ColumnMappings.Add("VoiceMessage", "VoiceMessage")
-            tableMapping.ColumnMappings.Add("ForDeposit", "ForDeposit")
-            tableMapping.ColumnMappings.Add("FK_CUserID", "FK_CUserID")
-            tableMapping.ColumnMappings.Add("FK_EUserID", "FK_EUserID")
-            tableMapping.ColumnMappings.Add("CTime", "CTime")
-            tableMapping.ColumnMappings.Add("ETime", "ETime")
-            tableMapping.ColumnMappings.Add("IsActive", "IsActive")
-            Me._adapter.TableMappings.Add(tableMapping)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitConnection()
-            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
-            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
-            Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "dbo.spr_HadiWarningIntervals_Select"
-            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable, ByVal ID As Global.System.Nullable(Of Integer)) As Integer
-            Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (ID.HasValue = true) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(ID.Value,Integer)
-            Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
-            End If
-            If (Me.ClearBeforeFill = true) Then
-                dataTable.Clear
-            End If
-            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
-            Return returnValue
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal ID As Global.System.Nullable(Of Integer)) As dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable
-            Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (ID.HasValue = true) Then
-                Me.Adapter.SelectCommand.Parameters(1).Value = CType(ID.Value,Integer)
-            Else
-                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
-            End If
-            Dim dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable = New dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
@@ -6365,6 +7871,588 @@ Namespace dstHadiWarningIntervalsTableAdapters
      Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
      Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+    Partial Public Class spr_HadiWarningIntervals_SelectTableAdapter
+        Inherits Global.System.ComponentModel.Component
+        
+        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
+        
+        Private _connection As Global.System.Data.SqlClient.SqlConnection
+        
+        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
+        
+        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
+        
+        Private _clearBeforeFill As Boolean
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.ClearBeforeFill = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
+            Get
+                If (Me._adapter Is Nothing) Then
+                    Me.InitAdapter
+                End If
+                Return Me._adapter
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
+            Get
+                If (Me._connection Is Nothing) Then
+                    Me.InitConnection
+                End If
+                Return Me._connection
+            End Get
+            Set
+                Me._connection = value
+                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
+                    Me.Adapter.InsertCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
+                    Me.Adapter.DeleteCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
+                    Me.Adapter.UpdateCommand.Connection = value
+                End If
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
+                    End If
+                    i = (i + 1)
+                Loop
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
+            Get
+                Return Me._transaction
+            End Get
+            Set
+                Me._transaction = value
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    Me.CommandCollection(i).Transaction = Me._transaction
+                    i = (i + 1)
+                Loop
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
+                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
+                    Me.Adapter.InsertCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
+                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
+                End If
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
+            Get
+                If (Me._commandCollection Is Nothing) Then
+                    Me.InitCommandCollection
+                End If
+                Return Me._commandCollection
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ClearBeforeFill() As Boolean
+            Get
+                Return Me._clearBeforeFill
+            End Get
+            Set
+                Me._clearBeforeFill = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitAdapter()
+            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
+            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
+            tableMapping.SourceTable = "Table"
+            tableMapping.DataSetTable = "spr_HadiWarningIntervals_Select"
+            tableMapping.ColumnMappings.Add("ID", "ID")
+            tableMapping.ColumnMappings.Add("FromDay", "FromDay")
+            tableMapping.ColumnMappings.Add("ToDay", "ToDay")
+            tableMapping.ColumnMappings.Add("WarniningTitle", "WarniningTitle")
+            tableMapping.ColumnMappings.Add("FrequencyInDay", "FrequencyInDay")
+            tableMapping.ColumnMappings.Add("StartTime", "StartTime")
+            tableMapping.ColumnMappings.Add("FrequencyPeriodHour", "FrequencyPeriodHour")
+            tableMapping.ColumnMappings.Add("SendSMS", "SendSMS")
+            tableMapping.ColumnMappings.Add("CallTelephone", "CallTelephone")
+            tableMapping.ColumnMappings.Add("VoiceMessage", "VoiceMessage")
+            tableMapping.ColumnMappings.Add("ForDeposit", "ForDeposit")
+            tableMapping.ColumnMappings.Add("FK_CUserID", "FK_CUserID")
+            tableMapping.ColumnMappings.Add("FK_EUserID", "FK_EUserID")
+            tableMapping.ColumnMappings.Add("CTime", "CTime")
+            tableMapping.ColumnMappings.Add("ETime", "ETime")
+            tableMapping.ColumnMappings.Add("IsActive", "IsActive")
+            tableMapping.ColumnMappings.Add("LoanApprovment", "LoanApprovment")
+            tableMapping.ColumnMappings.Add("IssuingContract", "IssuingContract")
+            tableMapping.ColumnMappings.Add("LaonPaid", "LaonPaid")
+            Me._adapter.TableMappings.Add(tableMapping)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitConnection()
+            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
+            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitCommandCollection()
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
+            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(0).Connection = Me.Connection
+            Me._commandCollection(0).CommandText = "dbo.spr_HadiWarningIntervals_Select"
+            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable, ByVal ID As Global.System.Nullable(Of Integer)) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (ID.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(ID.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData(ByVal ID As Global.System.Nullable(Of Integer)) As dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (ID.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(ID.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            Dim dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable = New dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the connection and commands used to retrieve and save data.
+    '''</summary>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+    Partial Public Class spr_HadiWarningIntervalsLoan_SelectTableAdapter
+        Inherits Global.System.ComponentModel.Component
+        
+        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
+        
+        Private _connection As Global.System.Data.SqlClient.SqlConnection
+        
+        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
+        
+        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
+        
+        Private _clearBeforeFill As Boolean
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.ClearBeforeFill = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
+            Get
+                If (Me._adapter Is Nothing) Then
+                    Me.InitAdapter
+                End If
+                Return Me._adapter
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
+            Get
+                If (Me._connection Is Nothing) Then
+                    Me.InitConnection
+                End If
+                Return Me._connection
+            End Get
+            Set
+                Me._connection = value
+                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
+                    Me.Adapter.InsertCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
+                    Me.Adapter.DeleteCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
+                    Me.Adapter.UpdateCommand.Connection = value
+                End If
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
+                    End If
+                    i = (i + 1)
+                Loop
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
+            Get
+                Return Me._transaction
+            End Get
+            Set
+                Me._transaction = value
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    Me.CommandCollection(i).Transaction = Me._transaction
+                    i = (i + 1)
+                Loop
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
+                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
+                    Me.Adapter.InsertCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
+                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
+                End If
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
+            Get
+                If (Me._commandCollection Is Nothing) Then
+                    Me.InitCommandCollection
+                End If
+                Return Me._commandCollection
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ClearBeforeFill() As Boolean
+            Get
+                Return Me._clearBeforeFill
+            End Get
+            Set
+                Me._clearBeforeFill = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitAdapter()
+            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
+            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
+            tableMapping.SourceTable = "Table"
+            tableMapping.DataSetTable = "spr_HadiWarningIntervalsLoan_Select"
+            tableMapping.ColumnMappings.Add("ID", "ID")
+            tableMapping.ColumnMappings.Add("FK_HadiWarningIntervalsID", "FK_HadiWarningIntervalsID")
+            tableMapping.ColumnMappings.Add("FK_LoanTypeID", "FK_LoanTypeID")
+            Me._adapter.TableMappings.Add(tableMapping)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitConnection()
+            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
+            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitCommandCollection()
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
+            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(0).Connection = Me.Connection
+            Me._commandCollection(0).CommandText = "dbo.spr_HadiWarningIntervalsLoan_Select"
+            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@HadiWarnigInterwalID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervalsLoan_SelectDataTable, ByVal HadiWarnigInterwalID As Global.System.Nullable(Of Integer)) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (HadiWarnigInterwalID.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(HadiWarnigInterwalID.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData(ByVal HadiWarnigInterwalID As Global.System.Nullable(Of Integer)) As dstHadiWarningIntervals.spr_HadiWarningIntervalsLoan_SelectDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (HadiWarnigInterwalID.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(HadiWarnigInterwalID.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            Dim dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervalsLoan_SelectDataTable = New dstHadiWarningIntervals.spr_HadiWarningIntervalsLoan_SelectDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the connection and commands used to retrieve and save data.
+    '''</summary>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+    Partial Public Class spr_HadiWarningIntervalsByStatus_SelectTableAdapter
+        Inherits Global.System.ComponentModel.Component
+        
+        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
+        
+        Private _connection As Global.System.Data.SqlClient.SqlConnection
+        
+        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
+        
+        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
+        
+        Private _clearBeforeFill As Boolean
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.ClearBeforeFill = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
+            Get
+                If (Me._adapter Is Nothing) Then
+                    Me.InitAdapter
+                End If
+                Return Me._adapter
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
+            Get
+                If (Me._connection Is Nothing) Then
+                    Me.InitConnection
+                End If
+                Return Me._connection
+            End Get
+            Set
+                Me._connection = value
+                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
+                    Me.Adapter.InsertCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
+                    Me.Adapter.DeleteCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
+                    Me.Adapter.UpdateCommand.Connection = value
+                End If
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
+                    End If
+                    i = (i + 1)
+                Loop
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
+            Get
+                Return Me._transaction
+            End Get
+            Set
+                Me._transaction = value
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    Me.CommandCollection(i).Transaction = Me._transaction
+                    i = (i + 1)
+                Loop
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
+                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
+                    Me.Adapter.InsertCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
+                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
+                End If
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
+            Get
+                If (Me._commandCollection Is Nothing) Then
+                    Me.InitCommandCollection
+                End If
+                Return Me._commandCollection
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ClearBeforeFill() As Boolean
+            Get
+                Return Me._clearBeforeFill
+            End Get
+            Set
+                Me._clearBeforeFill = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitAdapter()
+            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
+            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
+            tableMapping.SourceTable = "Table"
+            tableMapping.DataSetTable = "spr_HadiWarningIntervalsByStatus_Select"
+            tableMapping.ColumnMappings.Add("ID", "ID")
+            tableMapping.ColumnMappings.Add("FromDay", "FromDay")
+            tableMapping.ColumnMappings.Add("ToDay", "ToDay")
+            tableMapping.ColumnMappings.Add("WarniningTitle", "WarniningTitle")
+            tableMapping.ColumnMappings.Add("FrequencyInDay", "FrequencyInDay")
+            tableMapping.ColumnMappings.Add("StartTime", "StartTime")
+            tableMapping.ColumnMappings.Add("FrequencyPeriodHour", "FrequencyPeriodHour")
+            tableMapping.ColumnMappings.Add("SendSMS", "SendSMS")
+            tableMapping.ColumnMappings.Add("CallTelephone", "CallTelephone")
+            tableMapping.ColumnMappings.Add("VoiceMessage", "VoiceMessage")
+            tableMapping.ColumnMappings.Add("ForDeposit", "ForDeposit")
+            tableMapping.ColumnMappings.Add("FK_CUserID", "FK_CUserID")
+            tableMapping.ColumnMappings.Add("FK_EUserID", "FK_EUserID")
+            tableMapping.ColumnMappings.Add("CTime", "CTime")
+            tableMapping.ColumnMappings.Add("ETime", "ETime")
+            tableMapping.ColumnMappings.Add("IsActive", "IsActive")
+            tableMapping.ColumnMappings.Add("LoanApprovment", "LoanApprovment")
+            tableMapping.ColumnMappings.Add("IssuingContract", "IssuingContract")
+            tableMapping.ColumnMappings.Add("LaonPaid", "LaonPaid")
+            Me._adapter.TableMappings.Add(tableMapping)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitConnection()
+            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
+            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitCommandCollection()
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
+            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(0).Connection = Me.Connection
+            Me._commandCollection(0).CommandText = "dbo.spr_HadiWarningIntervalsByStatus_Select"
+            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervalsByStatus_SelectDataTable) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As dstHadiWarningIntervals.spr_HadiWarningIntervalsByStatus_SelectDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Dim dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervalsByStatus_SelectDataTable = New dstHadiWarningIntervals.spr_HadiWarningIntervalsByStatus_SelectDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the connection and commands used to retrieve and save data.
+    '''</summary>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class spr_HadiWarningIntervals_Check_SelectTableAdapter
         Inherits Global.System.ComponentModel.Component
         
@@ -6517,13 +8605,14 @@ Namespace dstHadiWarningIntervalsTableAdapters
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_DepositID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@NPDuration", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@BranchID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Status", Global.System.Data.SqlDbType.[Char], 1, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervals_Check_SelectDataTable, ByVal Action As Global.System.Nullable(Of Integer), ByVal FK_DepositID As Global.System.Nullable(Of Integer), ByVal NPDuration As Global.System.Nullable(Of Integer), ByVal BranchID As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervals_Check_SelectDataTable, ByVal Action As Global.System.Nullable(Of Integer), ByVal FK_DepositID As Global.System.Nullable(Of Integer), ByVal NPDuration As Global.System.Nullable(Of Integer), ByVal BranchID As Global.System.Nullable(Of Integer), ByVal Status As String) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (Action.HasValue = true) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = CType(Action.Value,Integer)
@@ -6544,6 +8633,11 @@ Namespace dstHadiWarningIntervalsTableAdapters
                 Me.Adapter.SelectCommand.Parameters(4).Value = CType(BranchID.Value,Integer)
             Else
                 Me.Adapter.SelectCommand.Parameters(4).Value = Global.System.DBNull.Value
+            End If
+            If (Status Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(5).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(5).Value = CType(Status,String)
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -6556,7 +8650,7 @@ Namespace dstHadiWarningIntervalsTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal Action As Global.System.Nullable(Of Integer), ByVal FK_DepositID As Global.System.Nullable(Of Integer), ByVal NPDuration As Global.System.Nullable(Of Integer), ByVal BranchID As Global.System.Nullable(Of Integer)) As dstHadiWarningIntervals.spr_HadiWarningIntervals_Check_SelectDataTable
+        Public Overloads Overridable Function GetData(ByVal Action As Global.System.Nullable(Of Integer), ByVal FK_DepositID As Global.System.Nullable(Of Integer), ByVal NPDuration As Global.System.Nullable(Of Integer), ByVal BranchID As Global.System.Nullable(Of Integer), ByVal Status As String) As dstHadiWarningIntervals.spr_HadiWarningIntervals_Check_SelectDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (Action.HasValue = true) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = CType(Action.Value,Integer)
@@ -6577,6 +8671,11 @@ Namespace dstHadiWarningIntervalsTableAdapters
                 Me.Adapter.SelectCommand.Parameters(4).Value = CType(BranchID.Value,Integer)
             Else
                 Me.Adapter.SelectCommand.Parameters(4).Value = Global.System.DBNull.Value
+            End If
+            If (Status Is Nothing) Then
+                Me.Adapter.SelectCommand.Parameters(5).Value = Global.System.DBNull.Value
+            Else
+                Me.Adapter.SelectCommand.Parameters(5).Value = CType(Status,String)
             End If
             Dim dataTable As dstHadiWarningIntervals.spr_HadiWarningIntervals_Check_SelectDataTable = New dstHadiWarningIntervals.spr_HadiWarningIntervals_Check_SelectDataTable()
             Me.Adapter.Fill(dataTable)
@@ -6612,7 +8711,7 @@ Namespace dstHadiWarningIntervalsTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.IDbCommand(2) {}
+            Me._commandCollection = New Global.System.Data.IDbCommand(5) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_HadiWarningIntervals_Delete"
@@ -6637,6 +8736,9 @@ Namespace dstHadiWarningIntervalsTableAdapters
             CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ForDeposit", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_EUserID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ISActive", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LoanApprovment", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IssuingContract", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LaonPaid", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
             CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
             CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_HadiWarningIntervals_Insert"
@@ -6654,6 +8756,27 @@ Namespace dstHadiWarningIntervalsTableAdapters
             CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ForDeposit", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_CUserID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ISActive", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LoanApprovment", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IssuingContract", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LaonPaid", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(3) = New Global.System.Data.SqlClient.SqlCommand()
+            CType(Me._commandCollection(3),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
+            CType(Me._commandCollection(3),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_HadiWarningIntervalsLoan_Insert"
+            CType(Me._commandCollection(3),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
+            CType(Me._commandCollection(3),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(3),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_HadiWarningIntervalsID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(3),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_LoanTypeID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(4) = New Global.System.Data.SqlClient.SqlCommand()
+            CType(Me._commandCollection(4),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
+            CType(Me._commandCollection(4),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_HadiOperation_Loan_Delete"
+            CType(Me._commandCollection(4),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
+            CType(Me._commandCollection(4),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(5) = New Global.System.Data.SqlClient.SqlCommand()
+            CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
+            CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_HadiWarningIntervalsLoan_Delete"
+            CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
+            CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(5),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@HadiWarningIntervalsID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -6685,7 +8808,23 @@ Namespace dstHadiWarningIntervalsTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_HadiWarningIntervals_Update(ByVal ID As Global.System.Nullable(Of Integer), ByVal FromDay As Global.System.Nullable(Of Integer), ByVal ToDay As Global.System.Nullable(Of Integer), ByVal WarniningTitle As String, ByVal FrequencyInDay As Global.System.Nullable(Of Integer), ByVal StartTime As Global.System.Nullable(Of Global.System.TimeSpan), ByVal FrequencyPeriodHour As Global.System.Nullable(Of Integer), ByVal SendSMS As Global.System.Nullable(Of Boolean), ByVal CallTelephone As Global.System.Nullable(Of Boolean), ByVal VoiceMessage As Global.System.Nullable(Of Boolean), ByVal ForDeposit As Global.System.Nullable(Of Boolean), ByVal FK_EUserID As Global.System.Nullable(Of Integer), ByVal ISActive As Global.System.Nullable(Of Boolean)) As Integer
+        Public Overloads Overridable Function spr_HadiWarningIntervals_Update( _
+                    ByVal ID As Global.System.Nullable(Of Integer),  _
+                    ByVal FromDay As Global.System.Nullable(Of Integer),  _
+                    ByVal ToDay As Global.System.Nullable(Of Integer),  _
+                    ByVal WarniningTitle As String,  _
+                    ByVal FrequencyInDay As Global.System.Nullable(Of Integer),  _
+                    ByVal StartTime As Global.System.Nullable(Of Global.System.TimeSpan),  _
+                    ByVal FrequencyPeriodHour As Global.System.Nullable(Of Integer),  _
+                    ByVal SendSMS As Global.System.Nullable(Of Boolean),  _
+                    ByVal CallTelephone As Global.System.Nullable(Of Boolean),  _
+                    ByVal VoiceMessage As Global.System.Nullable(Of Boolean),  _
+                    ByVal ForDeposit As Global.System.Nullable(Of Boolean),  _
+                    ByVal FK_EUserID As Global.System.Nullable(Of Integer),  _
+                    ByVal ISActive As Global.System.Nullable(Of Boolean),  _
+                    ByVal LoanApprovment As Global.System.Nullable(Of Boolean),  _
+                    ByVal IssuingContract As Global.System.Nullable(Of Boolean),  _
+                    ByVal LaonPaid As Global.System.Nullable(Of Boolean)) As Object
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(1),Global.System.Data.SqlClient.SqlCommand)
             If (ID.HasValue = true) Then
                 command.Parameters(1).Value = CType(ID.Value,Integer)
@@ -6752,26 +8891,46 @@ Namespace dstHadiWarningIntervalsTableAdapters
             Else
                 command.Parameters(13).Value = Global.System.DBNull.Value
             End If
+            If (LoanApprovment.HasValue = true) Then
+                command.Parameters(14).Value = CType(LoanApprovment.Value,Boolean)
+            Else
+                command.Parameters(14).Value = Global.System.DBNull.Value
+            End If
+            If (IssuingContract.HasValue = true) Then
+                command.Parameters(15).Value = CType(IssuingContract.Value,Boolean)
+            Else
+                command.Parameters(15).Value = Global.System.DBNull.Value
+            End If
+            If (LaonPaid.HasValue = true) Then
+                command.Parameters(16).Value = CType(LaonPaid.Value,Boolean)
+            Else
+                command.Parameters(16).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
                 command.Connection.Open
             End If
-            Dim returnValue As Integer
+            Dim returnValue As Object
             Try 
-                returnValue = command.ExecuteNonQuery
+                returnValue = command.ExecuteScalar
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
                     command.Connection.Close
                 End If
             End Try
-            Return returnValue
+            If ((returnValue Is Nothing)  _
+                        OrElse (returnValue.GetType Is GetType(Global.System.DBNull))) Then
+                Return Nothing
+            Else
+                Return CType(returnValue,Object)
+            End If
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_HadiWarningIntervals_Insert(ByVal FromDay As Global.System.Nullable(Of Integer), ByVal ToDay As Global.System.Nullable(Of Integer), ByVal WarniningTitle As String, ByVal FrequencyInDay As Global.System.Nullable(Of Integer), ByVal StartTime As Global.System.Nullable(Of Global.System.TimeSpan), ByVal FrequencyPeriodHour As Global.System.Nullable(Of Integer), ByVal SendSMS As Global.System.Nullable(Of Boolean), ByVal CallTelephone As Global.System.Nullable(Of Boolean), ByVal VoiceMessage As Global.System.Nullable(Of Boolean), ByVal ForDeposit As Global.System.Nullable(Of Boolean), ByVal FK_CUserID As Global.System.Nullable(Of Integer), ByVal ISActive As Global.System.Nullable(Of Boolean)) As Object
+        Public Overloads Overridable Function spr_HadiWarningIntervals_Insert(ByVal FromDay As Global.System.Nullable(Of Integer), ByVal ToDay As Global.System.Nullable(Of Integer), ByVal WarniningTitle As String, ByVal FrequencyInDay As Global.System.Nullable(Of Integer), ByVal StartTime As Global.System.Nullable(Of Global.System.TimeSpan), ByVal FrequencyPeriodHour As Global.System.Nullable(Of Integer), ByVal SendSMS As Global.System.Nullable(Of Boolean), ByVal CallTelephone As Global.System.Nullable(Of Boolean), ByVal VoiceMessage As Global.System.Nullable(Of Boolean), ByVal ForDeposit As Global.System.Nullable(Of Boolean), ByVal FK_CUserID As Global.System.Nullable(Of Integer), ByVal ISActive As Global.System.Nullable(Of Boolean), ByVal LoanApprovment As Global.System.Nullable(Of Boolean), ByVal IssuingContract As Global.System.Nullable(Of Boolean), ByVal LaonPaid As Global.System.Nullable(Of Boolean)) As Object
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(2),Global.System.Data.SqlClient.SqlCommand)
             If (FromDay.HasValue = true) Then
                 command.Parameters(1).Value = CType(FromDay.Value,Integer)
@@ -6833,6 +8992,21 @@ Namespace dstHadiWarningIntervalsTableAdapters
             Else
                 command.Parameters(12).Value = Global.System.DBNull.Value
             End If
+            If (LoanApprovment.HasValue = true) Then
+                command.Parameters(13).Value = CType(LoanApprovment.Value,Boolean)
+            Else
+                command.Parameters(13).Value = Global.System.DBNull.Value
+            End If
+            If (IssuingContract.HasValue = true) Then
+                command.Parameters(14).Value = CType(IssuingContract.Value,Boolean)
+            Else
+                command.Parameters(14).Value = Global.System.DBNull.Value
+            End If
+            If (LaonPaid.HasValue = true) Then
+                command.Parameters(15).Value = CType(LaonPaid.Value,Boolean)
+            Else
+                command.Parameters(15).Value = Global.System.DBNull.Value
+            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
@@ -6852,6 +9026,84 @@ Namespace dstHadiWarningIntervalsTableAdapters
             Else
                 Return CType(returnValue,Object)
             End If
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function spr_HadiWarningIntervalsLoan_Insert(ByVal FK_HadiWarningIntervalsID As Global.System.Nullable(Of Integer), ByVal FK_LoanTypeID As Global.System.Nullable(Of Integer)) As Integer
+            Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(3),Global.System.Data.SqlClient.SqlCommand)
+            If (FK_HadiWarningIntervalsID.HasValue = true) Then
+                command.Parameters(1).Value = CType(FK_HadiWarningIntervalsID.Value,Integer)
+            Else
+                command.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (FK_LoanTypeID.HasValue = true) Then
+                command.Parameters(2).Value = CType(FK_LoanTypeID.Value,Integer)
+            Else
+                command.Parameters(2).Value = Global.System.DBNull.Value
+            End If
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
+                        <> Global.System.Data.ConnectionState.Open) Then
+                command.Connection.Open
+            End If
+            Dim returnValue As Integer
+            Try 
+                returnValue = command.ExecuteNonQuery
+            Finally
+                If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
+                    command.Connection.Close
+                End If
+            End Try
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function spr_HadiOperation_Loan_Delete() As Integer
+            Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(4),Global.System.Data.SqlClient.SqlCommand)
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
+                        <> Global.System.Data.ConnectionState.Open) Then
+                command.Connection.Open
+            End If
+            Dim returnValue As Integer
+            Try 
+                returnValue = command.ExecuteNonQuery
+            Finally
+                If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
+                    command.Connection.Close
+                End If
+            End Try
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function spr_HadiWarningIntervalsLoan_Delete(ByVal HadiWarningIntervalsID As Global.System.Nullable(Of Integer)) As Integer
+            Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(5),Global.System.Data.SqlClient.SqlCommand)
+            If (HadiWarningIntervalsID.HasValue = true) Then
+                command.Parameters(1).Value = CType(HadiWarningIntervalsID.Value,Integer)
+            Else
+                command.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
+                        <> Global.System.Data.ConnectionState.Open) Then
+                command.Connection.Open
+            End If
+            Dim returnValue As Integer
+            Try 
+                returnValue = command.ExecuteNonQuery
+            Finally
+                If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
+                    command.Connection.Close
+                End If
+            End Try
+            Return returnValue
         End Function
     End Class
     

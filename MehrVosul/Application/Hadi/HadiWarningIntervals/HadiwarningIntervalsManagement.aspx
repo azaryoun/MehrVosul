@@ -172,7 +172,7 @@
                 }
 
                 strHtml += "<td><a href='#' onclick='btnDrafts_ClientClick(" + PKey.toString() + ")'>الگوها</a>" + "</td>";
-                strHtml += "<td><a href='#' onclick='btnExceptions_ClientClick(" + PKey.toString() + ")'>استثنائات</a>" + "</td>";
+            //    strHtml += "<td><a href='#' onclick='btnExceptions_ClientClick(" + PKey.toString() + ")'>استثنائات</a>" + "</td>";
 
 
                 strHtml += "</tr>";
@@ -357,7 +357,7 @@
                                             <th>وضعیت</th>
                                              <th>نوع گردش کار</th>
                                             <th>الگوها</th>
-                                             <th>استثنائات</th>
+                                        
                                         </tr>
                                     </thead>
                                     <tbody>

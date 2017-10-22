@@ -734,8 +734,6 @@ Partial Public Class dstHadiOperation_Loan
         
         Private columnID As Global.System.Data.DataColumn
         
-        Private columnDate_p As Global.System.Data.DataColumn
-        
         Private columnFK_FileID As Global.System.Data.DataColumn
         
         Private columnFK_LoanTypeID As Global.System.Data.DataColumn
@@ -773,6 +771,8 @@ Partial Public Class dstHadiOperation_Loan
         Private columnLoanNumber As Global.System.Data.DataColumn
         
         Private columnLCAamountPaid As Global.System.Data.DataColumn
+        
+        Private columnStatus As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -814,14 +814,6 @@ Partial Public Class dstHadiOperation_Loan
         Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Date_pColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnDate_p
             End Get
         End Property
         
@@ -978,6 +970,14 @@ Partial Public Class dstHadiOperation_Loan
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property StatusColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnStatus
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1015,7 +1015,6 @@ Partial Public Class dstHadiOperation_Loan
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Overloads Function Addspr_HadiOperationLoan_List_SelectRow( _
-                    ByVal Date_p As Date,  _
                     ByVal FK_FileID As Integer,  _
                     ByVal FK_LoanTypeID As Integer,  _
                     ByVal BranchName As String,  _
@@ -1033,12 +1032,19 @@ Partial Public Class dstHadiOperation_Loan
                     ByVal CFCRDateDiff As Integer,  _
                     ByVal LoanTypeName As String,  _
                     ByVal LoanNumber As String,  _
-                    ByVal LCAamountPaid As Decimal) As spr_HadiOperationLoan_List_SelectRow
+                    ByVal LCAamountPaid As Decimal,  _
+                    ByVal Status As String) As spr_HadiOperationLoan_List_SelectRow
             Dim rowspr_HadiOperationLoan_List_SelectRow As spr_HadiOperationLoan_List_SelectRow = CType(Me.NewRow,spr_HadiOperationLoan_List_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Date_p, FK_FileID, FK_LoanTypeID, BranchName, BrnachCode, CustomerNo, FName, LName, MobileNo, Email, TelephoneHome, TelephoneWork, IsMale, Nothing, Process, LCDate, CFCRDateDiff, LoanTypeName, LoanNumber, LCAamountPaid}
+            Dim columnValuesArray() As Object = New Object() {Nothing, FK_FileID, FK_LoanTypeID, BranchName, BrnachCode, CustomerNo, FName, LName, MobileNo, Email, TelephoneHome, TelephoneWork, IsMale, Nothing, Process, LCDate, CFCRDateDiff, LoanTypeName, LoanNumber, LCAamountPaid, Status}
             rowspr_HadiOperationLoan_List_SelectRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_HadiOperationLoan_List_SelectRow)
             Return rowspr_HadiOperationLoan_List_SelectRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function FindByIDFK_branchID(ByVal ID As Integer, ByVal FK_branchID As Integer) As spr_HadiOperationLoan_List_SelectRow
+            Return CType(Me.Rows.Find(New Object() {ID, FK_branchID}),spr_HadiOperationLoan_List_SelectRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1059,7 +1065,6 @@ Partial Public Class dstHadiOperation_Loan
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnID = MyBase.Columns("ID")
-            Me.columnDate_p = MyBase.Columns("Date_p")
             Me.columnFK_FileID = MyBase.Columns("FK_FileID")
             Me.columnFK_LoanTypeID = MyBase.Columns("FK_LoanTypeID")
             Me.columnBranchName = MyBase.Columns("BranchName")
@@ -1079,6 +1084,7 @@ Partial Public Class dstHadiOperation_Loan
             Me.columnLoanTypeName = MyBase.Columns("LoanTypeName")
             Me.columnLoanNumber = MyBase.Columns("LoanNumber")
             Me.columnLCAamountPaid = MyBase.Columns("LCAamountPaid")
+            Me.columnStatus = MyBase.Columns("Status")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1086,8 +1092,6 @@ Partial Public Class dstHadiOperation_Loan
         Private Sub InitClass()
             Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnID)
-            Me.columnDate_p = New Global.System.Data.DataColumn("Date_p", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnDate_p)
             Me.columnFK_FileID = New Global.System.Data.DataColumn("FK_FileID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnFK_FileID)
             Me.columnFK_LoanTypeID = New Global.System.Data.DataColumn("FK_LoanTypeID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
@@ -1126,6 +1130,9 @@ Partial Public Class dstHadiOperation_Loan
             MyBase.Columns.Add(Me.columnLoanNumber)
             Me.columnLCAamountPaid = New Global.System.Data.DataColumn("LCAamountPaid", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnLCAamountPaid)
+            Me.columnStatus = New Global.System.Data.DataColumn("Status", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnStatus)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID, Me.columnFK_branchID}, true))
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
             Me.columnID.AutoIncrementStep = -1
@@ -1148,6 +1155,7 @@ Partial Public Class dstHadiOperation_Loan
             Me.columnCFCRDateDiff.ReadOnly = true
             Me.columnLoanTypeName.MaxLength = 50
             Me.columnLoanNumber.MaxLength = 50
+            Me.columnStatus.MaxLength = 2
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1602,22 +1610,6 @@ Partial Public Class dstHadiOperation_Loan
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property Date_p() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_HadiOperationLoan_List_Select.Date_pColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'Date_p' in table 'spr_HadiOperationLoan_List_Select' is DBN"& _ 
-                            "ull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_HadiOperationLoan_List_Select.Date_pColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property FK_FileID() As Integer
             Get
                 Try 
@@ -1917,15 +1909,19 @@ Partial Public Class dstHadiOperation_Loan
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDate_pNull() As Boolean
-            Return Me.IsNull(Me.tablespr_HadiOperationLoan_List_Select.Date_pColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDate_pNull()
-            Me(Me.tablespr_HadiOperationLoan_List_Select.Date_pColumn) = Global.System.Convert.DBNull
-        End Sub
+        Public Property Status() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HadiOperationLoan_List_Select.StatusColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'Status' in table 'spr_HadiOperationLoan_List_Select' is DBN"& _ 
+                            "ull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HadiOperationLoan_List_Select.StatusColumn) = value
+            End Set
+        End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -2141,6 +2137,18 @@ Partial Public Class dstHadiOperation_Loan
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetLCAamountPaidNull()
             Me(Me.tablespr_HadiOperationLoan_List_Select.LCAamountPaidColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsStatusNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HadiOperationLoan_List_Select.StatusColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetStatusNull()
+            Me(Me.tablespr_HadiOperationLoan_List_Select.StatusColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -2543,7 +2551,6 @@ Namespace dstHadiOperation_LoanTableAdapters
             tableMapping.SourceTable = "Table"
             tableMapping.DataSetTable = "spr_HadiOperationLoan_List_Select"
             tableMapping.ColumnMappings.Add("ID", "ID")
-            tableMapping.ColumnMappings.Add("Date_p", "Date_p")
             tableMapping.ColumnMappings.Add("FK_FileID", "FK_FileID")
             tableMapping.ColumnMappings.Add("FK_LoanTypeID", "FK_LoanTypeID")
             tableMapping.ColumnMappings.Add("BranchName", "BranchName")
@@ -2563,6 +2570,7 @@ Namespace dstHadiOperation_LoanTableAdapters
             tableMapping.ColumnMappings.Add("LoanTypeName", "LoanTypeName")
             tableMapping.ColumnMappings.Add("LoanNumber", "LoanNumber")
             tableMapping.ColumnMappings.Add("LCAamountPaid", "LCAamountPaid")
+            tableMapping.ColumnMappings.Add("Status", "Status")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
@@ -2582,14 +2590,26 @@ Namespace dstHadiOperation_LoanTableAdapters
             Me._commandCollection(0).CommandText = "dbo.spr_HadiOperationLoan_List_Select"
             Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FromDay", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ToDay", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dstHadiOperation_Loan.spr_HadiOperationLoan_List_SelectDataTable) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstHadiOperation_Loan.spr_HadiOperationLoan_List_SelectDataTable, ByVal FromDay As Global.System.Nullable(Of Integer), ByVal ToDay As Global.System.Nullable(Of Integer)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (FromDay.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(FromDay.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (ToDay.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(2).Value = CType(ToDay.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(2).Value = Global.System.DBNull.Value
+            End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
             End If
@@ -2601,8 +2621,18 @@ Namespace dstHadiOperation_LoanTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As dstHadiOperation_Loan.spr_HadiOperationLoan_List_SelectDataTable
+        Public Overloads Overridable Function GetData(ByVal FromDay As Global.System.Nullable(Of Integer), ByVal ToDay As Global.System.Nullable(Of Integer)) As dstHadiOperation_Loan.spr_HadiOperationLoan_List_SelectDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (FromDay.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(1).Value = CType(FromDay.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (ToDay.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(2).Value = CType(ToDay.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(2).Value = Global.System.DBNull.Value
+            End If
             Dim dataTable As dstHadiOperation_Loan.spr_HadiOperationLoan_List_SelectDataTable = New dstHadiOperation_Loan.spr_HadiOperationLoan_List_SelectDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable

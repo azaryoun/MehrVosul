@@ -645,7 +645,7 @@ Public Class WarningNotificationReportNew
                 If cmbProvince.SelectedValue <> -1 Then
 
                     If chkBranchSelectAll.Checked = True Then
-                        dtblNotificationSummaryReport = tadpNotificationSummaryReport.GetData(6, dtFromDate, dteToDate, cmbNotification.SelectedValue, -1, cmbProvince.SelectedValue)
+                        dtblNotificationSummaryReport = tadpNotificationSummaryReport.GetData(6, dtFromDate, dteToDate, cmbNotification.SelectedValue, cmbProvince.SelectedValue, -1)
                     Else
 
                         For i As Integer = 0 To Request.Form.Keys.Count - 1

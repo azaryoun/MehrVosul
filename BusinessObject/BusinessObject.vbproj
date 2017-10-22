@@ -719,6 +719,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstHadiOperation_Loan.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Hadi\dstHadiOperation_Loan.vb">
+      <DependentUpon>dstHadiOperation_Loan.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Hadi\dstHadiWarningIntervals.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

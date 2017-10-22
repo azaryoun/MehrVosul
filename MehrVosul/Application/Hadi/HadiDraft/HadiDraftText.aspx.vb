@@ -30,122 +30,100 @@
         If Page.IsPostBack = False Then
 
 
-
-            ''If Request.QueryString("Type") Is Nothing Then
-            ''    Response.Redirect("DraftManagement.aspx")
-            ''    Return
-            ''End If
-
             If Session("intEditHadiWarningIntervalsID") Is Nothing Then
                 Response.Redirect("../HadiwarningIntervals/HadiwarningIntervalsManagement.aspx")
                 Return
             End If
 
-
-
-            ''intDraftTypeID = CInt(Request.QueryString("Type"))
-            ''blnToSponsor = If(Request.QueryString("ToSponsor") = "True", True, False)
-
-            ''ViewState("intDraftTypeID") = intDraftTypeID
-            ''ViewState("blnToSponsor") = blnToSponsor
-
-            Dim intHadiWarningIntervalsID As Integer = Session("intEditHadiWarningIntervalsID")
-            ''intDraftTypeID = CInt(ViewState("intDraftTypeID"))
-            ''blnToSponsor = CBool(ViewState("blnToSponsor"))
-
-
-            Dim tadpwarning As New BusinessObject.dstHadiWarningIntervalsTableAdapters.spr_HadiWarningIntervals_SelectTableAdapter
-            Dim dtblWarning As BusinessObject.dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable = Nothing
-            dtblWarning = tadpwarning.GetData(intHadiWarningIntervalsID)
-            lblTitle.Text = "(" & " گردش کار " & dtblWarning.First.WarniningTitle & ")"
-            ''If blnToSponsor = True Then
-            ''    lblTitle.Text = lblTitle.Text & "-ضامن" & ")"
-
-            ''Else
-            ''    lblTitle.Text = lblTitle.Text & "-وام گیرنده" & ")"
-            ''End If
-
-
-
-            Dim tadpDraft As New BusinessObject.dstHadiDraftTableAdapters.spr_HadiDraftText_SelectTableAdapter
-            Dim dtblDraft As BusinessObject.dstHadiDraft.spr_HadiDraftText_SelectDataTable = Nothing
-
-            dtblDraft = tadpDraft.GetData(3, -1, intHadiWarningIntervalsID)
-
-            Dim strSampleMessage As String = ""
-
-            For Each drwDraft As BusinessObject.dstHadiDraft.spr_HadiDraftText_SelectRow In dtblDraft
-                Dim lstItem As New ListItem
-
-                If drwDraft.IsDynamic Then
-                    Select Case drwDraft.DraftText
-                        Case "1"
-                            lstItem.Text = "(جنسیت وام گیرنده)"
-                            strSampleMessage &= " " & "آقای"
-                        Case "2"
-                            lstItem.Text = "(نام وام گیرنده)"
-                            strSampleMessage &= " " & "حسین"
-                        Case "3"
-                            lstItem.Text = "(نام خانوادگی وام گیرنده)"
-                            strSampleMessage &= " " & "قمصری"
-
-                        Case "4"
-                            lstItem.Text = "(شماره مشتری)"
-                            strSampleMessage &= " " & "578956-5653"
-                        Case "5"
-                            lstItem.Text = "(تعداد روز از دریافت وام)"
-                            strSampleMessage &= " " & "23"
-                        Case "6"
-                            lstItem.Text = "(شعبه اخذ وام)"
-                            strSampleMessage &= " " & "میدان ونک"
-                        Case "7"
-                            lstItem.Text = "(نوع وام)"
-                            strSampleMessage &= " " & "فروش اقساطي کشاورزي"
-                        Case "8"
-                            lstItem.Text = "(شماره وام)"
-                            strSampleMessage &= " " & "8334-2-9204086-1"
-                        Case "9"
-                            lstItem.Text = "(تاریخ دریافت وام)"
-                            strSampleMessage &= " " & "94/06/12"
-
-                    End Select
-                    lstItem.Value = drwDraft.DraftText
-                Else
-                    lstItem.Value = ""
-                    lstItem.Text = drwDraft.DraftText
-                    strSampleMessage &= " " & drwDraft.DraftText
-                End If
-
-
-                lstSMSText.Items.Add(lstItem)
-            Next
-            strSampleMessage = strSampleMessage.Trim
-            div_Msg.InnerText = strSampleMessage
-
-            Dim intSMSCount As Integer = Math.Ceiling(strSampleMessage.Length / 68)
-            lblSMSCounter.Text = "(" & intSMSCount.ToString & ")"
-
-
-            lblCharchterCounter.Text = 68 * intSMSCount - strSampleMessage.Length
-            If intSMSCount > 1 Then
-                lblSMSCounter.ForeColor = Drawing.Color.Red
-            End If
-
+            FillDraftDetailes()
 
 
             lstSMSText.Attributes.Add("onclick", "return lstSMSText_Click();")
 
 
-
         End If
-
-
 
 
     End Sub
 
 
+    Private Sub FillDraftDetailes()
 
+        Dim intHadiWarningIntervalsID As Integer = Session("intEditHadiWarningIntervalsID")
+
+
+        Dim tadpwarning As New BusinessObject.dstHadiWarningIntervalsTableAdapters.spr_HadiWarningIntervals_SelectTableAdapter
+        Dim dtblWarning As BusinessObject.dstHadiWarningIntervals.spr_HadiWarningIntervals_SelectDataTable = Nothing
+        dtblWarning = tadpwarning.GetData(intHadiWarningIntervalsID)
+        lblTitle.Text = "(" & " گردش کار " & dtblWarning.First.WarniningTitle & ")"
+
+
+        Dim tadpDraft As New BusinessObject.dstHadiDraftTableAdapters.spr_HadiDraftText_SelectTableAdapter
+        Dim dtblDraft As BusinessObject.dstHadiDraft.spr_HadiDraftText_SelectDataTable = Nothing
+
+        dtblDraft = tadpDraft.GetData(3, -1, intHadiWarningIntervalsID)
+
+        Dim strSampleMessage As String = ""
+
+        For Each drwDraft As BusinessObject.dstHadiDraft.spr_HadiDraftText_SelectRow In dtblDraft
+            Dim lstItem As New ListItem
+
+            If drwDraft.IsDynamic Then
+                Select Case drwDraft.DraftText
+                    Case "1"
+                        lstItem.Text = "(جنسیت وام گیرنده)"
+                        strSampleMessage &= " " & "آقای"
+                    Case "2"
+                        lstItem.Text = "(نام وام گیرنده)"
+                        strSampleMessage &= " " & "حسین"
+                    Case "3"
+                        lstItem.Text = "(نام خانوادگی وام گیرنده)"
+                        strSampleMessage &= " " & "قمصری"
+
+                    Case "4"
+                        lstItem.Text = "(شماره مشتری)"
+                        strSampleMessage &= " " & "578956-5653"
+                    Case "5"
+                        lstItem.Text = "(تعداد روز از دریافت وام)"
+                        strSampleMessage &= " " & "23"
+                    Case "6"
+                        lstItem.Text = "(شعبه اخذ وام)"
+                        strSampleMessage &= " " & "میدان ونک"
+                    Case "7"
+                        lstItem.Text = "(نوع وام)"
+                        strSampleMessage &= " " & "فروش اقساطي کشاورزي"
+                    Case "8"
+                        lstItem.Text = "(شماره وام)"
+                        strSampleMessage &= " " & "8334-2-9204086-1"
+                    Case "9"
+                        lstItem.Text = "(تاریخ دریافت وام)"
+                        strSampleMessage &= " " & "94/06/12"
+
+                End Select
+                lstItem.Value = drwDraft.DraftText
+            Else
+                lstItem.Value = ""
+                lstItem.Text = drwDraft.DraftText
+                strSampleMessage &= " " & drwDraft.DraftText
+            End If
+
+
+            lstSMSText.Items.Add(lstItem)
+        Next
+        strSampleMessage = strSampleMessage.Trim
+        div_Msg.InnerText = strSampleMessage
+
+        Dim intSMSCount As Integer = Math.Ceiling(strSampleMessage.Length / 68)
+        lblSMSCounter.Text = "(" & intSMSCount.ToString & ")"
+
+
+        lblCharchterCounter.Text = 68 * intSMSCount - strSampleMessage.Length
+        If intSMSCount > 1 Then
+            lblSMSCounter.ForeColor = Drawing.Color.Red
+        End If
+
+
+    End Sub
     Private Sub Bootstrap_Panel1_Panel_Save_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Save_Click
 
         Dim intDraftTypeID As Integer = CInt(ViewState("intDraftTypeID"))
@@ -170,7 +148,7 @@
 
 
         Bootstrap_Panel1.ShowMessage("الگو با موفقیت ذخیره شد", False)
-
+        FillDraftDetailes()
 
     End Sub
 
@@ -253,6 +231,7 @@
             Bootstrap_Panel1.ShowMessage("در ارسال پیامک تستی خطا رخ داده است", True)
         End Try
 
+        FillDraftDetailes()
 
     End Sub
 End Class

@@ -149,6 +149,33 @@ Partial Public Class HadiWarningIntervalsNew
     Protected WithEvents trState As Global.System.Web.UI.WebControls.TreeView
     
     '''<summary>
+    '''rdboLoanApprovment control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdboLoanApprovment As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
+    '''rdboIssuingContract control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdboIssuingContract As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
+    '''rdboLaonPaid control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdboLaonPaid As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
     '''txtFrom control.
     '''</summary>
     '''<remarks>
@@ -228,15 +255,6 @@ Partial Public Class HadiWarningIntervalsNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkStatus As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
-    
-    '''<summary>
-    '''divBranches control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divBranches As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''hdnAction control.
