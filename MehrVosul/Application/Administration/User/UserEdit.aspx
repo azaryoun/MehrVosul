@@ -268,7 +268,14 @@
                                          <p class="help-block">عکس باید فرمت png بوده  و سایز آن 64*64 باشد.</p>
                                         </div>
                                    
+                                    <div class="panel panel-default" > 
+                                        
+                                             
+                                         <div class="panel-body" style="max-height: 200px;overflow-y: scroll;">
 
+                                                  <label> <input type="checkbox" runat="server"  id="chkStatus"/> فعال</label> 
+                                                   </div>
+                                         </div>
 
                                        
                                 </div>

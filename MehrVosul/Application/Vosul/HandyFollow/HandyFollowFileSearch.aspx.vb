@@ -108,6 +108,13 @@ Public Class HandyFollowFileSearch
                 i += 1
 
 
+                ''check if this file assign to current user or not
+                Dim tadpHandyFollowAssignBYIDs As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByIDs_SelectTableAdapter
+                Dim dtblHandyFollowAssignByIDs As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByIDs_SelectDataTable = Nothing
+
+
+
+
                 Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
                 Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
                 dtblBranchbyCode = tadpBranchbyCode.GetData(drwTotalLC.BranchCode)
@@ -249,6 +256,15 @@ Public Class HandyFollowFileSearch
 
                         End If
 
+
+                        dtblHandyFollowAssignByIDs = tadpHandyFollowAssignBYIDs.GetData(drwUserLogin.ID, intFileID, intLoanID)
+                        If dtblHandyFollowAssignByIDs.Rows.Count <> 0 Then
+
+                            If drwUserLogin.ID <> dtblHandyFollowAssignByIDs.First.FK_AssignUserID Then
+                                Continue For
+                            End If
+
+                        End If
 
 
                         '   Dim intLogCount = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID).Count()

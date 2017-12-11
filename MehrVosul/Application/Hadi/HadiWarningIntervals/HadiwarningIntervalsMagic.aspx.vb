@@ -384,7 +384,7 @@
 
     End Sub
 
-    Protected Sub cmbHadiWarningIntervals_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbHadiWarningIntervals.SelectedIndexChanged
+    Protected Sub cmbHadiWarningIntervals_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbHadiWarningIntervals.SelectedIndexChanged, trState.Load
 
         ''Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
         ''Dim lnqHadiWarningIntervals = cntxVar.tbl_HadiWarningIntervals.Where(Function(x) x.ID = cmbHadiWarningIntervals.SelectedValue)
@@ -429,13 +429,115 @@
                 Dim dtblLoanMenuLeafList As BusinessObject.dstLoanType.spr_LoanType_List_SelectDataTable = Nothing
                 dtblLoanMenuLeafList = tadpMLoanTypeList.GetData()
 
+                ''Get Loan Type of selected wariningInterval
+                Dim tadpHadiWarningLoan As New BusinessObject.dstHadiWarningIntervalsTableAdapters.spr_HadiWarningIntervalsLoan_SelectTableAdapter
+                Dim dtblHadiWarningLoan As BusinessObject.dstHadiWarningIntervals.spr_HadiWarningIntervalsLoan_SelectDataTable = Nothing
+
+                dtblHadiWarningLoan = tadpHadiWarningLoan.GetData(dtblHadiWarningInterval.First.ID)
+
                 Dim strchklstLoanTypeLeaves As String = ""
+                Dim blnIsChecked As Boolean = False
 
                 For Each drwMeneLeafList As BusinessObject.dstLoanType.spr_LoanType_List_SelectRow In dtblLoanMenuLeafList.Rows
-                    strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='LoanchklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.LoanType & "</label></div>"
+                    For Each drwWarningIntrevalLoan As BusinessObject.dstHadiWarningIntervals.spr_HadiWarningIntervalsLoan_SelectRow In dtblHadiWarningLoan
+
+                        If drwMeneLeafList.ID = drwWarningIntrevalLoan.FK_LoanTypeID Then
+                            strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' checked='checked' value='" & drwMeneLeafList.ID & "' name='LoanchklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.LoanType & "</label></div>"
+                            blnIsChecked = True
+                        End If
+
+                    Next
+                    If blnIsChecked = False Then
+                        strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='LoanchklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & drwMeneLeafList.LoanType & "</label></div>"
+                    End If
+                    blnIsChecked = False
                 Next drwMeneLeafList
 
+                'divchklstLoanTypeItems.InnerHtml = strchklstLoanTypeLeaves
+
+                'Next drwMeneLeafList
+
                 divchklstLoanTypeItems.InnerHtml = strchklstLoanTypeLeaves
+
+                ''get Branch list
+
+
+                ''Fill Branch Tree
+                Dim tadpWarningIntervalBranchCheck As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.spr_HadiWarningIntervalsBranch_Check_SelectTableAdapter
+                Dim dtblWarningIntervalBranchCheck As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_Check_SelectDataTable = Nothing
+
+                Dim tadpWarningIntervalBranchProvinceCheck As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.spr_HadiWarningIntervalsBranchProvince_Check_SelectTableAdapter
+                Dim dtblWarningIntervalBranchProvinceCheck As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranchProvince_Check_SelectDataTable = Nothing
+
+                Dim tadpBrnachList As New BusinessObject.dstBranchTableAdapters.spr_Branch_List_SelectTableAdapter
+                Dim dtblBranchList As BusinessObject.dstBranch.spr_Branch_List_SelectDataTable = Nothing
+
+
+                Dim tadpProvince As New BusinessObject.dstBranchTableAdapters.spr_ProvinceList_SelectTableAdapter
+                Dim dtblProvince As BusinessObject.dstBranch.spr_ProvinceList_SelectDataTable = Nothing
+
+                dtblProvince = tadpProvince.GetData()
+
+                For Each drwProvince As BusinessObject.dstBranch.spr_ProvinceList_SelectRow In dtblProvince
+
+
+
+                    Dim trNodeProvince As New TreeNode
+                    trNodeProvince.Value = drwProvince.ID
+                    trNodeProvince.Text = "&nbsp;&nbsp;+" & drwProvince.Province
+                    trNodeProvince.SelectAction = TreeNodeSelectAction.Expand
+                    trState.Nodes.Add(trNodeProvince)
+                    trNodeProvince.ShowCheckBox = True
+                    trNodeProvince.SelectAction = TreeNodeSelectAction.None
+
+                    Dim blnFlag As Boolean = False
+                    Dim blnChecked As Boolean = False
+
+                    dtblWarningIntervalBranchProvinceCheck = tadpWarningIntervalBranchProvinceCheck.GetData(dtblHadiWarningInterval.First.ID, drwProvince.ID)
+                    dtblBranchList = tadpBrnachList.GetData(2, drwProvince.ID)
+
+                    If dtblBranchList.Rows.Count = dtblWarningIntervalBranchProvinceCheck.Rows.Count Then
+                        blnChecked = True
+                    End If
+
+                    For Each drwBranchList As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList
+
+                        Dim trNodeBranch As New TreeNode
+
+                        trNodeBranch.Text = "&nbsp;&nbsp;" & drwBranchList.BrnachCode
+                        trNodeBranch.Value = drwBranchList.ID
+                        trNodeBranch.ShowCheckBox = True
+                        trNodeBranch.SelectAction = TreeNodeSelectAction.None
+
+
+                        For Each drwWarningIntervalBranchProvince As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranchProvince_Check_SelectRow In dtblWarningIntervalBranchProvinceCheck.Rows
+
+                            If drwWarningIntervalBranchProvince.ID = drwBranchList.ID Then
+                                trNodeBranch.Checked = True
+                                trNodeProvince.Expanded = True
+
+                                blnFlag = True
+                            End If
+
+
+                        Next
+
+
+                        trNodeProvince.ChildNodes.Add(trNodeBranch)
+
+                    Next drwBranchList
+
+                    If blnFlag = False Then
+                        trNodeProvince.CollapseAll()
+                    End If
+
+                    If blnChecked = True Then
+                        trNodeProvince.Checked = True
+                    End If
+
+                Next
+
+
 
 
             End If

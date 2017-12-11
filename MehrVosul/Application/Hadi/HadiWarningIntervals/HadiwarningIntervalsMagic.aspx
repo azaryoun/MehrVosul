@@ -245,13 +245,15 @@
                                          <div class="panel-body" style="max-height: 200px;overflow: scroll;">
         
                                                    <div class="form-group" runat="server" id="divTree">
-                                                   <asp:Panel ID="treeViewDiv"  runat="server">
-                                                        
-                                                                <asp:TreeView ID="trState" runat="server"  ShowLines="True" onclick="return TreeClick(event)"
-                                                                    Width="100%">
-                                                                </asp:TreeView>
-                                                          
-                                                    </asp:Panel></div>
+                                                       <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                                           <ContentTemplate>
+                                                               <asp:Panel ID="treeViewDiv" runat="server">
+                                                                   <asp:TreeView ID="trState" runat="server" onclick="return TreeClick(event)" ShowLines="True" Width="100%">
+                                                                   </asp:TreeView>
+                                                               </asp:Panel>
+                                                           </ContentTemplate>
+                                                       </asp:UpdatePanel>
+                                                   </div>
                                          </div>
                                          </div>
                                         

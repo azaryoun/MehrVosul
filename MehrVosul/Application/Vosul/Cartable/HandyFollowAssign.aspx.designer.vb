@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class UserEdit
+Partial Public Class HandyFollowAssign
     
     '''<summary>
     '''Bootstrap_Panel1 control.
@@ -30,87 +30,6 @@ Partial Public Class UserEdit
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblInnerPageTitle As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''txtUsername control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtUsername As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtFirstName control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtFirstName As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''txtLastName control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtLastName As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''cmbUserType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbUserType As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''odsAccessGroups control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents odsAccessGroups As Global.System.Web.UI.WebControls.ObjectDataSource
-    
-    '''<summary>
-    '''lstAccessGroups control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lstAccessGroups As Global.System.Web.UI.WebControls.ListBox
-    
-    '''<summary>
-    '''rdoSexMale control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rdoSexMale As Global.System.Web.UI.WebControls.RadioButton
-    
-    '''<summary>
-    '''rdoSexFemale control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rdoSexFemale As Global.System.Web.UI.WebControls.RadioButton
-    
-    '''<summary>
-    '''txtAddress control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents txtAddress As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''odcProvince control.
@@ -140,6 +59,15 @@ Partial Public Class UserEdit
     Protected WithEvents cmbProvince As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
+    '''odsBranch control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents odsBranch As Global.System.Web.UI.WebControls.ObjectDataSource
+    
+    '''<summary>
     '''UpdatePanel2 control.
     '''</summary>
     '''<remarks>
@@ -158,112 +86,94 @@ Partial Public Class UserEdit
     Protected WithEvents cmbBranch As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''odsBranch control.
+    '''UpdatePanel5 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents odsBranch As Global.System.Web.UI.WebControls.ObjectDataSource
+    Protected WithEvents UpdatePanel5 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''txtPersonCode control.
+    '''txtNotPiadDurationDay control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtPersonCode As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtNotPiadDurationDay As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''rdoIsPartTimeNo control.
+    '''btnCheckFiles control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents rdoIsPartTimeNo As Global.System.Web.UI.WebControls.RadioButton
+    Protected WithEvents btnCheckFiles As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
-    '''rdoIsPartTimeYes control.
+    '''odsFiles control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents rdoIsPartTimeYes As Global.System.Web.UI.WebControls.RadioButton
+    Protected WithEvents odsFiles As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
-    '''txtNationalID control.
+    '''UpdatePanel4 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNationalID As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents UpdatePanel4 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''txtNationalNo control.
+    '''cmbFiles control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNationalNo As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents cmbFiles As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''txtTel control.
+    '''odsPerson control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtTel As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents odsPerson As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
-    '''txtMobile control.
+    '''UpdatePanel3 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtMobile As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''txtEmail control.
+    '''cmbPerson control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtEmail As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents cmbPerson As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''imgUserPhoto control.
+    '''txtRemark control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents imgUserPhoto As Global.System.Web.UI.WebControls.Image
-    
-    '''<summary>
-    '''fleUserPhoto control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents fleUserPhoto As Global.System.Web.UI.WebControls.FileUpload
-    
-    '''<summary>
-    '''chkStatus control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents chkStatus As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    Protected WithEvents txtRemark As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''hdnAction control.

@@ -131,6 +131,15 @@ Partial Public Class HadiwarningIntervalsMagic
     Protected WithEvents divTree As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''UpdatePanel4 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel4 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
     '''treeViewDiv control.
     '''</summary>
     '''<remarks>

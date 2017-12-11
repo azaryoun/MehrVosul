@@ -142,10 +142,9 @@
                      <div class="col-md-6">
                    
                   <div class="panel back-dash" style="background-color:#DB0630">
-                                <a style="color:White" href="/Application/Administration/User/UserManagement.aspx"><i class="fa fa-users fa-4x"></i><strong style="display:-ms-inline-grid"> &nbsp;مدیریت سیستم وسطوح دسترسی</strong></a> 
-                             <p class="text-muted">امکان تعریف انواع گروه های کاربری در کنار تعریف و مدیریت 
-                                 کاربران همراه با سه نوع دسترسی ویژه: Item ,Admin و Normal برای گروه های اختصاصی 
-                                 داده شده</p>
+                                <a style="color:White" href="/Application/Vosul/HandyFollow/HandyFollowFileSearch.aspx"><i class="fa fa-users fa-4x"></i><strong style="display:-ms-inline-grid"> &nbsp;پیگیری پرسنلی</strong></a> 
+                             <p class="text-muted">امکان ثبت پیگیریهای دستی انجام شده توسط  کارشناسان از طریق جستجوی شماره پرونده</p>
+                          <br />
                         </div>
                
                 
@@ -159,10 +158,9 @@
                <div class="col-md-6">
                    
                   <div class="panel back-dash">
-                               &nbsp; <i class="fa fa-envelope-o fa-4x"></i><strong style="display:-ms-inline-grid"> &nbsp;اطلاع رسانی برخط Online</strong>
-                             <p class="text-muted">ارسال پیامک برای وام گیرندگان و ضامنین، تماس تلفنی با وام 
-                                 گیرندگان و ضامنین و صدور اظهار نامه و&nbsp; اخطاریه برای پرونده های مربوطه به 
-                                 طور خودکار</p>
+                               
+                       <a style="color:White" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx"><i class="fa fa-tasks  fa-4x"></i><strong  style="display:-ms-inline-grid"> &nbsp;تخصیص پرونده معوق</strong></a>
+                             <p class="text-muted">در این صفحه مدیر شعبه امکان تخصیص پرونده های معوق جاری را به کارشناسان شعبه را دارد</p>
                         </div>
                
                 
@@ -180,8 +178,8 @@
 
                     <div class="panel back-dash"  style="background-color:#fa8144">
                           <a style="color:White" href="/Application/Vosul/WarningIntervals/WarningIntervalsManagement.aspx"><i class="fa fa-tasks  fa-4x"></i><strong  style="display:-ms-inline-grid"> &nbsp;گردش کاری پویا</strong></a>
-                            <p class="text-muted">تعریف و تعیین نحوه اطلاع رسانی و رفتار سیستم در قبال پرونده 
-                                های مختلف و انواع وام ها به صورت پویا همراه با option های مفید در این زمینه </p>
+                            <p class="text-muted">تعریف و تعیین نحوه اطلاع رسانی و رفتار سیستم در قبال پرونده های مختلف و انواع وام ها به صورت پویا </p>
+                    
                     </div>
                </div>
                <div class="col-md-6">

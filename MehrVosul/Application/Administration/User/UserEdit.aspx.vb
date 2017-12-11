@@ -129,7 +129,7 @@
                 txtNationalNo.Text = .NationalNo
                 txtPersonCode.Text = .PersonCode
                 txtTel.Text = .Tel
-
+                chkStatus.Checked = .IsActive
                 rdoIsPartTimeNo.Checked = Not .IsPartTime
                 rdoIsPartTimeYes.Checked = .IsPartTime
 
@@ -236,7 +236,7 @@
             blnDataAdmin = True
         End If
 
-
+        Dim blnISActive As Boolean = chkStatus.Checked
         Dim blnUserPhotoChanged As Boolean = False
 
         Dim arrUserPhoto() As Byte = Nothing
@@ -260,10 +260,10 @@
         Try
             Dim qryUser As New BusinessObject.dstUserTableAdapters.QueriesTableAdapter
             If blnItemAdmin = True Then
-                qryUser.spr_User_Update(strUserName, intEditUserID, True, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
+                qryUser.spr_User_Update(strUserName, intEditUserID, blnISActive, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
 
             Else
-                qryUser.spr_User_Update(strUserName, intEditUserID, True, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
+                qryUser.spr_User_Update(strUserName, intEditUserID, blnISActive, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
 
             End If
 
