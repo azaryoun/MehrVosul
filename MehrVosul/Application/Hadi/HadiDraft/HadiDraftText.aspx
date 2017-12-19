@@ -286,7 +286,7 @@
 
              var option = document.createElement("option");
              option.value = "";
-             option.text ="بانک مهر اقتصاد";
+             option.text ="بانک انصار";
              lstSMSText.add(option);
              CreateSampleText();
              txt_ExtraMsg.value = "";

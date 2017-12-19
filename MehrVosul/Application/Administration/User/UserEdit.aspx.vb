@@ -56,7 +56,7 @@
 
             ElseIf drwUserLogin.IsDataUserAdmin = True Then
 
-                '' cmbUserType.Items.Add(New ListItem("Item Access", 2))
+                cmbUserType.Items.Add(New ListItem("Item Access", 2))
 
                 cmbUserType.Items.Add(New ListItem("Normal Access", 0))
 

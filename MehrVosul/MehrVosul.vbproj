@@ -39,7 +39,7 @@
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>MehrVosul.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -147,6 +147,8 @@
     <Content Include="Application\Vosul\Branch\BranchManagement.aspx" />
     <Content Include="Application\Vosul\Branch\BranchNew.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowAssign.aspx" />
+    <Content Include="Application\Vosul\Cartable\HandyFollowAssignEdit.aspx" />
+    <Content Include="Application\Vosul\Cartable\HandyFollowAssignMagic.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowManagement.aspx" />
     <Content Include="Application\Vosul\Draft\DraftManagement.aspx" />
     <Content Include="Application\Vosul\Draft\DraftText.aspx" />
@@ -177,6 +179,8 @@
     <Content Include="Application\Vosul\Reports\CurrentLCStatusMaxLoanTypeReport.aspx" />
     <Content Include="Application\Vosul\Reports\CurrentLCStatusNewArrivalReport.aspx" />
     <Content Include="Application\Vosul\Reports\FileChanges_Report.aspx" />
+    <Content Include="Application\Vosul\Reports\HandyFollowAssignReport.aspx" />
+    <Content Include="Application\Vosul\Reports\HandyFollowByFileReport.aspx" />
     <Content Include="Application\Vosul\Reports\HandyFollowPersonReport.aspx" />
     <Content Include="Application\Vosul\Reports\HandyFollowReport.aspx" />
     <Content Include="Application\Vosul\Reports\IncompleteFileInfoReport.aspx" />
@@ -231,6 +235,9 @@
     <Content Include="Global.asax" />
     <Content Include="Images\System\2448.jpg" />
     <Content Include="Images\System\add_icon.png" />
+    <Content Include="Images\System\ansar.jpg" />
+    <Content Include="Images\System\ansarlogo.jpg" />
+    <Content Include="Images\System\ansarlogo1.png" />
     <Content Include="Images\System\audio.png" />
     <Content Include="Images\System\bachgroundcolor.jpg" />
     <Content Include="Images\System\datepicker.bmp" />
@@ -456,6 +463,20 @@
       <DependentUpon>HandyFollowAssign.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Vosul\Cartable\HandyFollowAssignEdit.aspx.designer.vb">
+      <DependentUpon>HandyFollowAssignEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Cartable\HandyFollowAssignEdit.aspx.vb">
+      <DependentUpon>HandyFollowAssignEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Cartable\HandyFollowAssignMagic.aspx.designer.vb">
+      <DependentUpon>HandyFollowAssignMagic.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Cartable\HandyFollowAssignMagic.aspx.vb">
+      <DependentUpon>HandyFollowAssignMagic.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Vosul\Cartable\HandyFollowManagement.aspx.designer.vb">
       <DependentUpon>HandyFollowManagement.aspx</DependentUpon>
     </Compile>
@@ -657,6 +678,20 @@
     </Compile>
     <Compile Include="Application\Vosul\Reports\FileChanges_Report.aspx.vb">
       <DependentUpon>FileChanges_Report.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\HandyFollowAssignReport.aspx.designer.vb">
+      <DependentUpon>HandyFollowAssignReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\HandyFollowAssignReport.aspx.vb">
+      <DependentUpon>HandyFollowAssignReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\HandyFollowByFileReport.aspx.designer.vb">
+      <DependentUpon>HandyFollowByFileReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Reports\HandyFollowByFileReport.aspx.vb">
+      <DependentUpon>HandyFollowByFileReport.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\Reports\HandyFollowPersonReport.aspx.designer.vb">

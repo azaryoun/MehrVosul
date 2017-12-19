@@ -260,9 +260,10 @@ Public Class HandyFollowFileSearch
                         dtblHandyFollowAssignByIDs = tadpHandyFollowAssignBYIDs.GetData(drwUserLogin.ID, intFileID, intLoanID)
                         If dtblHandyFollowAssignByIDs.Rows.Count <> 0 Then
 
-                            If drwUserLogin.ID <> dtblHandyFollowAssignByIDs.First.FK_AssignUserID Then
-                                Continue For
-                            End If
+                            ''comment to show searched file to other user's of branch
+                            'If drwUserLogin.ID <> dtblHandyFollowAssignByIDs.First.FK_AssignUserID Then
+                            '    Continue For
+                            'End If
 
                         End If
 

@@ -155,6 +155,7 @@
             var chkSelectAll1;
             var divtmp;
 
+
             if (divchklstDepositItems != null) {
                 divtmp = divchklstDepositItems.firstChild;
                 chkSelectAll1 = chkSelectAll;

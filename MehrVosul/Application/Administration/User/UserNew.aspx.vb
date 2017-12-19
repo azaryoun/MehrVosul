@@ -51,7 +51,7 @@
 
             ElseIf drwUserLogin.IsDataUserAdmin = True Then
 
-                '' cmbUserType.Items.Add(New ListItem("Item Access", 2))
+                cmbUserType.Items.Add(New ListItem("Item Access", 2))
 
                 Dim tadpUserProvince As New BusinessObject.dstBranchTableAdapters.spr_Province_Check_SelectTableAdapter
                 Dim dtblUserProvince As BusinessObject.dstBranch.spr_Province_Check_SelectDataTable = Nothing

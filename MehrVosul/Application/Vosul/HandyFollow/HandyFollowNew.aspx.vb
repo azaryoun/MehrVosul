@@ -391,11 +391,11 @@ Public Class HandyFollowNew
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
 
-            TbCell = New HtmlTableCell
-            TbCell.InnerHtml = "<a ID='lnkbtnHandyDelete' href='#'  onclick= lnkbtnHandyDelete_ClientClick(" & drwHandyFollow.ID & ")>حذف</a>"
-            TbCell.NoWrap = False
-            TbCell.Align = "center"
-            TbRow.Cells.Add(TbCell)
+            ''TbCell = New HtmlTableCell
+            ''TbCell.InnerHtml = "<a ID='lnkbtnHandyDelete' href='#'  onclick= lnkbtnHandyDelete_ClientClick(" & drwHandyFollow.ID & ")>حذف</a>"
+            ''TbCell.NoWrap = False
+            ''TbCell.Align = "center"
+            ''TbRow.Cells.Add(TbCell)
 
             tblResult.Rows.Add(TbRow)
 

@@ -14,18 +14,18 @@
         }
 
         function CheckDataEnter() {
-            
-            var txtNotPiadDurationDay = document.getElementById("<%=txtNotPiadDurationDay.ClientID%>");
-        
-          
-              if (trimall(txtNotPiadDurationDay.value) == "") {
-                  alert("تعداد روز معوق را وارد نمایید");
-                  txtNotPiadDurationDay.focus();
-                  return false;
-              }
 
-              return true;
-          }
+            var txtNotPiadDurationDay = document.getElementById("<%=txtNotPiadDurationDay.ClientID%>");
+
+
+            if (trimall(txtNotPiadDurationDay.value) == "") {
+                alert("تعداد روز معوق را وارد نمایید");
+                txtNotPiadDurationDay.focus();
+                return false;
+            }
+
+            return true;
+        }
 
 
 
@@ -33,64 +33,76 @@
         function SaveOperation_Validate() {
 
 
-            var cmbFiles = document.getElementById("<%=cmbFiles.ClientID%>");
 
+            var txtNotPiadDurationDay = document.getElementById("<%=txtNotPiadDurationDay.ClientID%>");
 
-            if (cmbFiles.options[cmbFiles.selectedIndex].value == -1) {
+            if (trimall(txtNotPiadDurationDay.value) == "") {
                 {
-                    alert("پرونده را مشخص نمایید");
-                    cmbFiles.focus();
+                    alert("تعداد روز تاخیر را وارد نمایید");
+                    txtNotPiadDurationDay.focus();
                     return false;
                 }
+
             }
 
-                var cmbPerson = document.getElementById("<%=cmbPerson.ClientID%>");
 
-
-                if (cmbPerson.options[cmbPerson.selectedIndex].value == -1) {
-                    {
-                        alert("کارشناس پیگیر را مشخص نمایید");
-                        cmbPerson.focus();
-                        return false;
-                    }
-
+            if (parseInt(txtNotPiadDurationDay.value) < 60) {
+                {
+                    alert("تعداد روز تاخیر بایستی از 60 بیشتر باشد");
+                    txtNotPiadDurationDay.focus();
+                    return false;
                 }
 
+            }
+
+            var cmbPerson = document.getElementById("<%=cmbPerson.ClientID%>");
 
 
-                var txtNotPiadDurationDay = document.getElementById("<%=txtNotPiadDurationDay.ClientID%>");
-
-
-            if (parseInt(txtNotPiadDurationDay.value)<60) {
-                    {
-                        alert("تعداد روز تاخیر بایستی از 60 بیشتر باشد");
-                        txtNotPiadDurationDay.focus();
-                        return false;
-                    }
-
+            if (cmbPerson.options[cmbPerson.selectedIndex].value == -1) {
+                {
+                    alert("کارشناس پیگیر را مشخص نمایید");
+                    cmbPerson.focus();
+                    return false;
                 }
-                
-            
+
+            }
+
+<%--            var divchklstAssignFiles = document.getElementById("<%=divchklstAssignFiles.ClientID%>");
+
+            var divtmp;
+            if (divchklstAssignFiles != null) {
+                divtmp = divchklstAssignFiles.firstChild;
+            }
+         
+
+            var boolChecked = false;
+       
+            while (divtmp) {
+                var chktmp = divchklstAssignFiles.firstChild.nextSibling.firstChild.nextSibling;
+                if (chktmp.checked) {
+                    boolChecked = true;
+                    break;
+                }
+
+                divtmp = divtmp.nextSibling;
+            }
+
+            if (!boolChecked) {
+                alert("حداقل یک فایل باید انتخاب شود");
+                return false;
+
+            }--%>
+
+
+
+
+
+
             return true;
         }
 
-      
+
     </script>
-
-
-
-    <style type="text/css">
-        .auto-style1 {
-            position: relative;
-            min-height: 1px;
-            float: right;
-            width: 100%;
-            right: -3px;
-            top: 4px;
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-    </style>
 
 
 
@@ -159,7 +171,7 @@
                                     <ContentTemplate>
 
                                         <asp:TextBox ID="txtNotPiadDurationDay" AutoPostBack="true" runat="server" CssClass="form-control" placeholder="تعدا روز معوق را وارد کنید"></asp:TextBox>
-
+                                        <label style="color: red;">تعداد روز معوق باید بیشتر از 60 وارد شود(اطلاع رسانی کمتر از این تعداد سیستمی و از طریق ارسال پیامک متنی و صوتی انجام می شود.)</label>
 
 
 
@@ -184,22 +196,19 @@
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>پرونده های معوق</label>
-                                <asp:ObjectDataSource ID="odsFiles" runat="server"
-                                    OldValuesParameterFormatString="original_{0}" SelectMethod="GetData"
-                                    TypeName="BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCFileAssign_SelectTableAdapter">
-                                    <SelectParameters>
-                                        <asp:Parameter Name="BranchCode" Type="String" />
-                                        <asp:Parameter Name="NotPiadDurationDay" Type="Int32" />
-                                        <asp:Parameter Name="BranchID" Type="Int32" />
-                                    </SelectParameters>
-                                </asp:ObjectDataSource>
+
+
 
                                 <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                     <ContentTemplate>
-                                        <asp:DropDownList ID="cmbFiles" runat="server" CssClass="form-control"
-                                            AutoPostBack="True" DataSourceID="odsFiles" DataTextField="CULN" DataValueField="CustomerNO">
-                                        </asp:DropDownList>
+
+                                        <div class="panel-heading">
+                                            <label>پرونده های معوق</label>
+                                        </div>
+                                        <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+                                            <div class="form-group" runat="server" id="divchklstAssignFiles">
+                                            </div>
+                                        </div>
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
 
@@ -220,13 +229,11 @@
                                     </SelectParameters>
                                 </asp:ObjectDataSource>
 
-                                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-                                    <ContentTemplate>
-                                        <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
-                                            AutoPostBack="True" DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID">
-                                        </asp:DropDownList>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
+
+                                <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
+                                    DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID">
+                                </asp:DropDownList>
+
 
 
 

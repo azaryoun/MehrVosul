@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HandyFollowManagement.aspx.vb" Inherits="MehrVosul.HandyFollowManagement" %>
-<%@ Register src="../../../UserControl/Bootstrap_Panel.ascx" tagname="Bootstrap_Panel" tagprefix="uc1" %>
+
+<%@ Register Src="../../../UserControl/Bootstrap_Panel.ascx" TagName="Bootstrap_Panel" TagPrefix="uc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script language="javascript" type="text/javascript">
 
@@ -21,7 +22,7 @@
                 txtPageCounter.value = "0";
                 return false;
             }
-    
+
             txtPageCounter.value = this.PageCount;
             this.PageNo = this.PageCount;
             ShowPage();
@@ -36,7 +37,7 @@
                 txtPageCounter.value = "0";
                 return false;
             }
-     
+
             if (this.PageNo >= this.PageCount) {
                 this.PageNo = this.PageCount;
                 txtPageCounter.value = this.PageNo;
@@ -56,7 +57,7 @@
                 txtPageCounter.value = "0";
                 return false;
             }
-    
+
             if (this.PageNo <= 1) {
                 this.PageNo = 1;
                 txtPageCounter.value = "1";
@@ -76,9 +77,9 @@
                 txtPageCounter.value = "0";
                 return false;
             }
-    
+
             txtPageCounter.value = "1";
-            this.PageNo =1;
+            this.PageNo = 1;
             ShowPage();
             return false;
         }
@@ -100,9 +101,9 @@
 
             this.RecordCount = result[0];
             this.PageCount = result[1];
-            
+
             var txtPageCounter = document.getElementById("txtPageCounter");
-            
+
             if (this.RecordCount == 0) {
                 var spnTableFooyerText = document.getElementById("spnTableFooyerText");
                 spnTableFooyerText.innerHTML = "رکوردی یافت نشد"
@@ -113,7 +114,7 @@
 
             var txtPageCounter = document.getElementById("txtPageCounter");
             txtPageCounter.value = this.PageNo;
-       
+
 
             PageMethods.GetPageRecords(this.PageNo, this.PageFilter, GetPageRecords_CallBack);
 
@@ -147,7 +148,7 @@
                 var arrV;
                 arrV = arrL[k].split(";@;");
 
-               
+
                 strHtml += "<tr>";
 
                 var PKey = parseInt(arrV[1]);
@@ -160,7 +161,7 @@
                 if (k == arrL.length - 1) {
                     intTo = intRowID;
                 }
-                
+
                 strHtml += "<td title='انتخاب سطر جاری'><input type='checkbox' value='' /></td>";
                 strHtml += "<td title='ردیف " + intRowID.toString() + "' ><input type='hidden' value='" + PKey.toString() + "'>" + intRowID.toString() + "</td>"
                 strHtml += "<td title='برای ویرایش روی لینک، کلیک نمایید'><a href='#' onclick='btnEdit_ClientClick(" + PKey + ")'>&nbsp;" + strEditCell + "&nbsp;</a></td>";
@@ -171,7 +172,7 @@
                 }
 
 
-              
+
 
                 strHtml += "</tr>";
 
@@ -183,7 +184,7 @@
             chkSelectAll.checked = false;
 
             var spnTableFooyerText = document.getElementById("spnTableFooyerText");
-            spnTableFooyerText.innerHTML = "نمایش ردیف های " + intFrom.toString() + " تا " + intTo.toString() + " از " + this.RecordCount.toString() + " رکورد" + " (صفحه " + this.PageNo + " از " + this.PageCount + " صفحه)"; 
+            spnTableFooyerText.innerHTML = "نمایش ردیف های " + intFrom.toString() + " تا " + intTo.toString() + " از " + this.RecordCount.toString() + " رکورد" + " (صفحه " + this.PageNo + " از " + this.PageCount + " صفحه)";
 
 
         }
@@ -234,8 +235,8 @@
         }
 
         function DeleteOperation_Validate_CallBack(result) {
-    
-    
+
+
             if (result.startsWith == "E") {
                 alert("فرایند حذف با شکست مواجه شده است: " + result.substring(1));
             }
@@ -256,7 +257,7 @@
                 txtPageCounter.value = "0";
                 return false;
             }
-          
+
             var intPageNo = parseInt(txtPageCounter.value);
             if (intPageNo <= 0 || isNaN(intPageNo))
                 intPageNo = 1;
@@ -280,10 +281,10 @@
 
 
             PageMethods.GetPageRecords(this.PageNo, this.PageFilter, GetPageRecords_CallBack);
-         //   window.scrollBy(0, window.innerHeight);
+            //   window.scrollBy(0, window.innerHeight);
             return false;
-        
-        
+
+
         }
 
         function SearchOperation_Validate() {
@@ -296,12 +297,12 @@
                 this.PageFilter = trimall(txtPanelSearch.value);
             this.PageNo = 1;
 
-            txtPanelSearch.value ="در حال پردازش ..."
+            txtPanelSearch.value = "در حال پردازش ..."
             btnSearch.disable = true;
-            
+
 
             StartthePage();
-         
+
 
             return false;
         }
@@ -326,7 +327,7 @@
             window.document.forms[0].submit();
             return false;
         }
-  </script>
+    </script>
 
 
 
@@ -343,66 +344,67 @@
 
 
     <uc1:Bootstrap_Panel ID="Bootstrap_Panel1" runat="server" />
-<div class="row">
-    <br />
+    <div class="row">
+        <br />
         <div class="col-md-12">
-                   
-                   <div class="panel panel-default">
-                        <div class="panel-heading">
-                       <asp:Label ID="lblInnerPageTitle" runat="server" Text=""></asp:Label>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <asp:Label ID="lblInnerPageTitle" runat="server" Text=""></asp:Label>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover" id="tblMResult">
+                            <thead>
+                                <tr>
+                                    <th class="auto-style1">
+                                        <input type="checkbox" value="" id="chkSelectAll" onclick="return chkSelectAll_Click();" title="Selects/Deselects all rows" /></th>
+                                    <th class="auto-style1">#</th>
+                                    <th class="auto-style1">شماره وام</th>
+                                    <th class="auto-style1">شماره مشتری</th>
+                                    <th class="auto-style1">تاریخ تخصیص</th>
+                                    <th class="auto-style1">نام کاربری</th>
+                                    <th class="auto-style1">وضعیت تخصیص</th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+
+                        <div class="row">
+                            <div class="col-sm-8" style="padding-top: 5px">
+                                <span id="spnTableFooyerText">رکوردی یافت نشد</span>
+                            </div>
+                            <div class="col-sm-4">
+
+                                <div class="input-group">
+                                    <button id="btnLastPage" class="btn btn-default" title="صفحه آخر" style="float: right" onclick="return btnLastPage_Click();"><i class="fa fa-fast-forward"></i></button>
+                                    <button id="btnNextPage" class="btn btn-default" title="صفحه بعد" style="float: right" onclick="return btnNextPage_Click();"><i class="fa fa-forward"></i></button>
+                                    <button id="btnGoPage" class="btn btn-primary" title="برو به صفحه" style="float: right" onclick="return btnGoPage_Click();"><i class="fa fa-hand-o-up"></i></button>
+
+
+                                    <input type="text" class="form-control" title="شماره صفحه" id="txtPageCounter" maxlength="8" style="width: 100px; text-align: center; float: right" />
+                                    <button id="btnPreviousPage" class="btn btn-default" title="صفحه قبل" style="float: right" onclick="return btnPreviousPage_Click();"><i class="fa fa-backward"></i></button>
+                                    <button id="btnFirstPage" class="btn btn-default" title="صفحه اول" style="float: right" onclick="return btnFirstPage_Click();"><i class="fa fa-fast-backward"></i></button>
+
+
+
+                                </div>
+
+
+
+
+                            </div>
+
                         </div>
-                        <div class="panel-body">
-                            <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="tblMResult">
-                                    <thead>
-                                        <tr>
-                                        <th class="auto-style1"><input type="checkbox" value="" id="chkSelectAll" onclick="return chkSelectAll_Click();" title="Selects/Deselects all rows" /></th>
-                                            <th class="auto-style1">#</th>
-                                              <th class="auto-style1">شماره وام</th>
-                                            <th class="auto-style1">شماره مشتری</th>
-                                          
-                                            <th class="auto-style1">تاریخ تخصیص</th>
-                                             <th class="auto-style1">نام کاربری</th>
-                                          
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                
-                                    </tbody>
-                                </table>
-                          
-                          <div class="row"><div class="col-sm-8" style="padding-top:5px">
-                        <span id="spnTableFooyerText">رکوردی یافت نشد</span>
-                      </div>
-                         <div class="col-sm-4">
-                     
-                      <div class="input-group">
-       <button ID="btnLastPage" class="btn btn-default" title="صفحه آخر" style="float:right" onclick="return btnLastPage_Click();"><i class="fa fa-fast-forward"></i></button>
-       <button ID="btnNextPage" class="btn btn-default" title="صفحه بعد" style="float:right" onclick="return btnNextPage_Click();"><i class="fa fa-forward" ></i></button>
-          <button ID="btnGoPage" class="btn btn-primary" title="برو به صفحه" style="float:right" onclick="return btnGoPage_Click();"><i class="fa fa-hand-o-up" ></i></button>
+                    </div>
+                </div>
 
-                   
-        <input type="text" class="form-control" title="شماره صفحه" id="txtPageCounter" maxlength="8" style="width:100px;text-align:center;float:right"/> 
-     <button ID="btnPreviousPage" class="btn btn-default" title="صفحه قبل" style="float:right" onclick="return btnPreviousPage_Click();"><i class="fa fa-backward"  ></i></button>
-       <button ID="btnFirstPage" class="btn btn-default" title="صفحه اول" style="float:right" onclick="return btnFirstPage_Click();"><i class="fa fa-fast-backward"  ></i></button>
-
-
-   
+            </div>
+        </div>
     </div>
 
-                         
-   
-
-            </div>
-
-            </div>
-            </div>
-            </div>
-                   
-            </div>  
-            </div>    
-            </div>
-         
     <asp:HiddenField ID="hdnAction" runat="server" />
 
 </asp:Content>

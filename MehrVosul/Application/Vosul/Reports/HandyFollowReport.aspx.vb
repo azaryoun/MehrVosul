@@ -258,6 +258,7 @@ Public Class HandyFollowReport
                 TbCell.InnerHtml = mdlGeneral.GetPersianDateTime(drwReport.ContactDate)
                 TbCell.NoWrap = True
                 TbCell.Align = "center"
+                TbCell.Attributes.Add("dir", "ltr")
                 TbRow.Cells.Add(TbCell)
 
                 TbCell = New HtmlTableCell

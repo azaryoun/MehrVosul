@@ -10,7 +10,7 @@
         Bootstrap_Panel1.CanSearch = True
         Bootstrap_Panel1.CanCancel = False
         Bootstrap_Panel1.CanUp = False
-        Bootstrap_Panel1.CanWizard = False
+        Bootstrap_Panel1.CanWizard = True
         Bootstrap_Panel1.CanConfirmRequest = False
         Bootstrap_Panel1.CanReject = False
         Bootstrap_Panel1.CanDisplay = False
@@ -23,7 +23,17 @@
 
         If Page.IsPostBack = False Then
 
-
+            If Request.QueryString("Save") IsNot Nothing AndAlso Request.QueryString("Save") = "OK" Then
+                Bootstrap_Panel1.ShowMessage("تخصیص پرونده با موفقیت انجام شد", False)
+            ElseIf Request.QueryString("Edit") IsNot Nothing AndAlso Request.QueryString("Edit") = "OK" Then
+                Bootstrap_Panel1.ShowMessage("تخصیص پرونده با موفقیت ویرایش شد", False)
+            ElseIf Request.QueryString("Save") IsNot Nothing AndAlso Request.QueryString("Save") = "NO" Then
+                Bootstrap_Panel1.ShowMessage("در فرآیند ذخیره تخصیص پرونده خطا رخ داده است", True)
+            ElseIf Request.QueryString("Edit") IsNot Nothing AndAlso Request.QueryString("Edit") = "NO" Then
+                Bootstrap_Panel1.ShowMessage("در فرآیند ویرایش تخصیص پرونده خطا رخ داده است", True)
+            Else
+                Bootstrap_Panel1.ClearMessage()
+            End If
 
         End If
 
@@ -38,33 +48,46 @@
             Dim tadpTotalDeffredLCByLCNO As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByLCNOTableAdapter
             Dim dtblTotalDeffredLCByLCNO As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByLCNODataTable = Nothing
 
-            Dim intFollowAssignID As String = CInt(hdnAction.Value.Split(";")(1))
-
-            dtblHandyFollowAssign = tadpHandyFollowAssign.GetData(intFollowAssignID)
+            Dim intFollowAssignID As Integer = CInt(hdnAction.Value.Split(";")(1))
 
 
-            If dtblHandyFollowAssign.Rows.Count > 0 Then
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
 
-                dtblTotalDeffredLCByLCNO = tadpTotalDeffredLCByLCNO.GetData(dtblHandyFollowAssign.First.LoanNumber)
+            If drwUserLogin.IsDataUserAdmin = False Then
+                dtblHandyFollowAssign = tadpHandyFollowAssign.GetData(intFollowAssignID)
 
-                Dim intFileID As Long = dtblHandyFollowAssign.First.FK_FileID
-                Dim intLoanID As Long = dtblHandyFollowAssign.First.FK_LoanID
 
-                If dtblTotalDeffredLCByLCNO.Rows.Count > 0 Then
-                    Session("AmountDeffed") = dtblTotalDeffredLCByLCNO.First.AmounDefferd
-                    Session("customerNO") = dtblTotalDeffredLCByLCNO.First.CustomerNO
+
+                If dtblHandyFollowAssign.Rows.Count > 0 Then
+
+
+                    dtblTotalDeffredLCByLCNO = tadpTotalDeffredLCByLCNO.GetData(dtblHandyFollowAssign.First.LoanNumber)
+
+
+                    Dim intFileID As Long = dtblHandyFollowAssign.First.FK_FileID
+                    Dim intLoanID As Long = dtblHandyFollowAssign.First.FK_LoanID
+
+                    If dtblTotalDeffredLCByLCNO.Rows.Count > 0 Then
+                        Session("AmountDeffed") = dtblTotalDeffredLCByLCNO.First.AmounDefferd
+                        Session("customerNO") = dtblTotalDeffredLCByLCNO.First.CustomerNO
+                    End If
+
+                    Session("intFileID") = CObj(intFileID)
+                    Session("intLoanID") = CObj(intLoanID)
+
+                    Response.Redirect("../HandyFollow/HandyFollowNew.aspx")
+                Else
+
+                    Return
+
                 End If
-
-                Session("intFileID") = CObj(intFileID)
-                Session("intLoanID") = CObj(intLoanID)
-
-                Response.Redirect("../HandyFollow/HandyFollowNew.aspx")
             Else
-
-                Return
-
+                Session("intFollowAssignID") = intFollowAssignID
+                Response.Redirect("HandyFollowAssignEdit.aspx")
             End If
+
 
         End If
 
@@ -77,7 +100,6 @@
 
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
-
 
 
             Dim intAction As Integer
@@ -188,4 +210,7 @@
 
     End Function
 
+    Private Sub Bootstrap_Panel1_Panel_Wizard_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Wizard_Click
+        Response.Redirect("HandyFollowAssignMagic.aspx")
+    End Sub
 End Class
