@@ -149,6 +149,15 @@ Partial Public Class HandyFollowAssignReport
     Protected WithEvents txtAssignDay As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''chkStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkStatus As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    
+    '''<summary>
     '''divResult control.
     '''</summary>
     '''<remarks>

@@ -168,6 +168,10 @@
         End If
 
         Dim blnIsRed As Boolean = False
+        Dim blnCheckTotalDeffred As Boolean = chkStatus.Checked
+
+        Dim tadpTotalDeffred As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByLCNOTableAdapter
+        Dim dtblTotalDeffred As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByLCNODataTable = Nothing
 
         For Each drwhandyFollow As BusinessObject.dstReport.spr_HandyFollowAssign_ReportRow In dtblHandyFollowReport
 
@@ -179,7 +183,12 @@
             If txtAssignDay.Text.Trim <> "" Then
                 Dim intAssignDay As Integer = CInt(txtAssignDay.Text)
                 If drwhandyFollow.AssignDate <= mdlGeneral.GetPersianDate(Date.Now.AddDays(-intAssignDay)) AndAlso drwhandyFollow.IsAssigned = True Then
-                    blnIsRed = True
+
+                    dtblTotalDeffred = tadpTotalDeffred.GetData(drwhandyFollow.LoanNumber)
+                    If dtblTotalDeffred.Rows.Count > 0 Then
+                        blnIsRed = True
+                    End If
+
                 End If
             End If
 

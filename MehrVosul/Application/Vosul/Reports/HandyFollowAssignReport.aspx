@@ -153,6 +153,12 @@
                                             placeholder="تعداد روز را وارد نمایید" ></asp:TextBox>
                                   
                             </div>
+                                 <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+
+                                    <label>
+                                        <input type="checkbox" runat="server" id="chkStatus" />
+                                        با معوقات روز جاری مقایسه شود.</label>
+                                </div>
                         </div>
 
 

@@ -15,10 +15,30 @@
 
             var txtAssignDay = document.getElementById("<%=txtAssignDay.ClientID%>");
 
-            if (trimall(txtAssignDay.value) == "") {
+            ////if (trimall(txtAssignDay.value) == "") {
+            ////    {
+            ////        alert("تعداد روز تاخیر را وارد نمایید");
+            ////        txtAssignDay.focus();
+            ////        return false;
+            ////    }
+
+            ////}
+
+            var txtNotice = document.getElementById("<%=txtNotice.ClientID%>");
+            if (trimall(txtNotice.value) == "") {
                 {
-                    alert("تعداد روز تاخیر را وارد نمایید");
-                    txtAssignDay.focus();
+                    alert("تعداد روز جهت ارسال اخطاریه را وارد نمایید");
+                    txtNotice.focus();
+                    return false;
+                }
+
+            }
+
+            var txtDeclaration = document.getElementById("<%=txtDeclaration.ClientID%>");
+            if (trimall(txtDeclaration.value) == "") {
+                {
+                    alert("تعداد روز جهت ارسال اظهارنامه را وارد نمایید");
+                    txtDeclaration.focus();
                     return false;
                 }
 
@@ -51,14 +71,52 @@
 
                             <div class="form-group  has-error">
                                 <label>تعداد روز جهت آزاد سازی پرونده های تخصیص یافته</label>
-                               
-                                    <asp:TextBox ID="txtAssignDay"  runat="server" CssClass="form-control" placeholder="تعدا روز را وارد کنید"></asp:TextBox>
-             
+
+                                <asp:TextBox ID="txtAssignDay" runat="server" CssClass="form-control" placeholder="تعدا روز را وارد کنید"></asp:TextBox>
+
 
                             </div>
 
 
-                  
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group  has-error">
+                                <label>تعداد روز جهت ارسال اخطاریه</label>
+
+                                <asp:TextBox ID="txtNotice" runat="server" CssClass="form-control" placeholder="تعدا روز را وارد کنید"></asp:TextBox>
+
+
+                            </div>
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <div class="form-group  has-error">
+                                <label>تعداد روز جهت ارسال اظهارنامه</label>
+
+                                <asp:TextBox ID="txtDeclaration" runat="server" CssClass="form-control" placeholder="تعدا روز را وارد کنید"></asp:TextBox>
+
+
+                            </div>
+
+
+
                         </div>
 
 

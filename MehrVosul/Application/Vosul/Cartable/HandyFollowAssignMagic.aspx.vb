@@ -22,7 +22,30 @@
 
         If Page.IsPostBack = False Then
 
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
+            Dim tadpBranchSetting As New BusinessObject.dstBranchSettingTableAdapters.spr_BranchSetting_SelectTableAdapter
+            Dim dtblBranchSetting As BusinessObject.dstBranchSetting.spr_BranchSetting_SelectDataTable = Nothing
+
+            dtblBranchSetting = tadpBranchSetting.GetData(3, -1, drwUserLogin.ID, -1)
+
+            If dtblBranchSetting.Rows.Count > 0 Then
+
+                ViewState("BranchSettingID") = dtblBranchSetting.First.ID
+
+
+                If dtblBranchSetting.First.IsDeclarationUpdateDayNull = False Then
+                    txtDeclaration.Text = dtblBranchSetting.First.DeclarationUpdateDay
+
+                End If
+
+                If dtblBranchSetting.First.IsNoticeUpdateDayNull = False Then
+
+                    txtNotice.Text = dtblBranchSetting.First.NoticeUpdateDay
+
+                End If
+            End If
 
         End If
         txtAssignDay.Attributes.Add("onkeypress", "return numbersonly(event, false);")
@@ -44,10 +67,16 @@
 
             Dim qryHandyFollowassignUpdate As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
 
-            Dim intDay As Integer = CInt(txtAssignDay.Text)
-            qryHandyFollowassignUpdate.spr_HandyFollowAssignMagic_Update(drwUserLogin.FK_BrnachID, intDay)
+            If txtAssignDay.Text.Trim <> "" Then
+                Dim intDay As Integer = CInt(txtAssignDay.Text)
+                qryHandyFollowassignUpdate.spr_HandyFollowAssignMagic_Update(drwUserLogin.FK_BrnachID, intDay)
 
-            Bootstrap_Panel1.ShowMessage("پرونده های مورد نظر از حالت تخصیص خارج شد", False)
+                Bootstrap_Panel1.ShowMessage("پرونده های مورد نظر از حالت تخصیص خارج شد", False)
+            End If
+
+
+
+
 
         Catch ex As Exception
 

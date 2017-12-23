@@ -98,6 +98,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstAccessgroupUser.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Administration\dstBranchSetting.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstBranchSetting.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Administration\dstMenu.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -971,6 +976,17 @@
     </None>
     <None Include="Administration\dstAccessgroupUser.xss">
       <DependentUpon>dstAccessgroupUser.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstBranchSetting.xsc">
+      <DependentUpon>dstBranchSetting.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstBranchSetting.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstBranchSetting.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Administration\dstBranchSetting.xss">
+      <DependentUpon>dstBranchSetting.xsd</DependentUpon>
     </None>
     <None Include="Administration\dstMenu.xsc">
       <DependentUpon>dstMenu.xsd</DependentUpon>

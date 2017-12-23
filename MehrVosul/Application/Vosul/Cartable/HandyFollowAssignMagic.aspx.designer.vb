@@ -41,6 +41,24 @@ Partial Public Class HandyFollowAssignMagic
     Protected WithEvents txtAssignDay As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''txtNotice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNotice As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtDeclaration control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtDeclaration As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''hdnAction control.
     '''</summary>
     '''<remarks>

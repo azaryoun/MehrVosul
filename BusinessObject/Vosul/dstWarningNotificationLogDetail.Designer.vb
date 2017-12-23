@@ -6091,6 +6091,7 @@ Namespace dstWarningNotificationLogDetailTableAdapters
         Public Overloads Overridable Function GetData() As dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListDataTable = New dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListDataTable()
+            Me.Adapter.SelectCommand.CommandTimeout = Integer.MaxValue
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
