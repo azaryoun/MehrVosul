@@ -6091,7 +6091,6 @@ Namespace dstWarningNotificationLogDetailTableAdapters
         Public Overloads Overridable Function GetData() As dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListDataTable = New dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListDataTable()
-            Me.Adapter.SelectCommand.CommandTimeout = Integer.MaxValue
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function
@@ -8100,7 +8099,7 @@ Namespace dstWarningNotificationLogDetailTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_WarningNotificationLogDetail_Insert(ByVal FK_WarningNotificationLogID As Global.System.Nullable(Of Integer), ByVal SenderInfo As String, ByVal ReceiverInfo As String, ByVal ToBorrower As Global.System.Nullable(Of Boolean), ByVal strMessage As String, ByVal Remarks As String, ByVal STime As Global.System.Nullable(Of Date), ByVal BatchID As String, ByVal SendStatus As Global.System.Nullable(Of Byte), ByVal NotificationTypeID As Global.System.Nullable(Of Byte), ByVal SendDate As Global.System.Nullable(Of Date)) As Integer
+        Public Overloads Overridable Function spr_WarningNotificationLogDetail_Insert(ByVal FK_WarningNotificationLogID As Global.System.Nullable(Of Integer), ByVal SenderInfo As String, ByVal ReceiverInfo As String, ByVal ToBorrower As Global.System.Nullable(Of Boolean), ByVal strMessage As String, ByVal Remarks As String, ByVal STime As Global.System.Nullable(Of Date), ByVal BatchID As String, ByVal SendStatus As Global.System.Nullable(Of Byte), ByVal NotificationTypeID As Global.System.Nullable(Of Byte), ByVal SendDate As Global.System.Nullable(Of Date)) As Object
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(0),Global.System.Data.SqlClient.SqlCommand)
             If (FK_WarningNotificationLogID.HasValue = true) Then
                 command.Parameters(1).Value = CType(FK_WarningNotificationLogID.Value,Integer)
@@ -8162,15 +8161,20 @@ Namespace dstWarningNotificationLogDetailTableAdapters
                         <> Global.System.Data.ConnectionState.Open) Then
                 command.Connection.Open
             End If
-            Dim returnValue As Integer
+            Dim returnValue As Object
             Try 
-                returnValue = command.ExecuteNonQuery
+                returnValue = command.ExecuteScalar
             Finally
                 If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
                     command.Connection.Close
                 End If
             End Try
-            Return returnValue
+            If ((returnValue Is Nothing)  _
+                        OrElse (returnValue.GetType Is GetType(Global.System.DBNull))) Then
+                Return Nothing
+            Else
+                Return CType(returnValue,Object)
+            End If
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _

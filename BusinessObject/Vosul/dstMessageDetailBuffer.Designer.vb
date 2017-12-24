@@ -285,8 +285,6 @@ Partial Public Class dstMessageDetailBuffer
         
         Private columnID As Global.System.Data.DataColumn
         
-        Private columnFK_WarningNotificationLogID As Global.System.Data.DataColumn
-        
         Private columnSenderInfo As Global.System.Data.DataColumn
         
         Private columnReceiverInfo As Global.System.Data.DataColumn
@@ -305,9 +303,9 @@ Partial Public Class dstMessageDetailBuffer
         
         Private columnNotificationTypeID As Global.System.Data.DataColumn
         
-        Private columnDeliveryDate As Global.System.Data.DataColumn
-        
         Private columnSendDate As Global.System.Data.DataColumn
+        
+        Private columnFK_WarningNotificationLogDetailId As Global.System.Data.DataColumn
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -349,14 +347,6 @@ Partial Public Class dstMessageDetailBuffer
         Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
             Get
                 Return Me.columnID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FK_WarningNotificationLogIDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFK_WarningNotificationLogID
             End Get
         End Property
         
@@ -434,17 +424,17 @@ Partial Public Class dstMessageDetailBuffer
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property DeliveryDateColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property SendDateColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnDeliveryDate
+                Return Me.columnSendDate
             End Get
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property SendDateColumn() As Global.System.Data.DataColumn
+        Public ReadOnly Property FK_WarningNotificationLogDetailIdColumn() As Global.System.Data.DataColumn
             Get
-                Return Me.columnSendDate
+                Return Me.columnFK_WarningNotificationLogDetailId
             End Get
         End Property
         
@@ -485,9 +475,9 @@ Partial Public Class dstMessageDetailBuffer
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_MessageDetailBuffer_ListSelectRow(ByVal FK_WarningNotificationLogID As Integer, ByVal SenderInfo As String, ByVal ReceiverInfo As String, ByVal ToBorrower As Boolean, ByVal strMessage As String, ByVal Remarks As String, ByVal STime As Date, ByVal BatchID As String, ByVal SendStatus As Byte, ByVal NotificationTypeID As Byte, ByVal DeliveryDate As Date, ByVal SendDate As Date) As spr_MessageDetailBuffer_ListSelectRow
+        Public Overloads Function Addspr_MessageDetailBuffer_ListSelectRow(ByVal SenderInfo As String, ByVal ReceiverInfo As String, ByVal ToBorrower As Boolean, ByVal strMessage As String, ByVal Remarks As String, ByVal STime As Date, ByVal BatchID As String, ByVal SendStatus As Byte, ByVal NotificationTypeID As Byte, ByVal SendDate As Date, ByVal FK_WarningNotificationLogDetailId As Integer) As spr_MessageDetailBuffer_ListSelectRow
             Dim rowspr_MessageDetailBuffer_ListSelectRow As spr_MessageDetailBuffer_ListSelectRow = CType(Me.NewRow,spr_MessageDetailBuffer_ListSelectRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, FK_WarningNotificationLogID, SenderInfo, ReceiverInfo, ToBorrower, strMessage, Remarks, STime, BatchID, SendStatus, NotificationTypeID, DeliveryDate, SendDate}
+            Dim columnValuesArray() As Object = New Object() {Nothing, SenderInfo, ReceiverInfo, ToBorrower, strMessage, Remarks, STime, BatchID, SendStatus, NotificationTypeID, SendDate, FK_WarningNotificationLogDetailId}
             rowspr_MessageDetailBuffer_ListSelectRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_MessageDetailBuffer_ListSelectRow)
             Return rowspr_MessageDetailBuffer_ListSelectRow
@@ -517,7 +507,6 @@ Partial Public Class dstMessageDetailBuffer
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Friend Sub InitVars()
             Me.columnID = MyBase.Columns("ID")
-            Me.columnFK_WarningNotificationLogID = MyBase.Columns("FK_WarningNotificationLogID")
             Me.columnSenderInfo = MyBase.Columns("SenderInfo")
             Me.columnReceiverInfo = MyBase.Columns("ReceiverInfo")
             Me.columnToBorrower = MyBase.Columns("ToBorrower")
@@ -527,8 +516,8 @@ Partial Public Class dstMessageDetailBuffer
             Me.columnBatchID = MyBase.Columns("BatchID")
             Me.columnSendStatus = MyBase.Columns("SendStatus")
             Me.columnNotificationTypeID = MyBase.Columns("NotificationTypeID")
-            Me.columnDeliveryDate = MyBase.Columns("DeliveryDate")
             Me.columnSendDate = MyBase.Columns("SendDate")
+            Me.columnFK_WarningNotificationLogDetailId = MyBase.Columns("FK_WarningNotificationLogDetailId")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -536,8 +525,6 @@ Partial Public Class dstMessageDetailBuffer
         Private Sub InitClass()
             Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnID)
-            Me.columnFK_WarningNotificationLogID = New Global.System.Data.DataColumn("FK_WarningNotificationLogID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFK_WarningNotificationLogID)
             Me.columnSenderInfo = New Global.System.Data.DataColumn("SenderInfo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnSenderInfo)
             Me.columnReceiverInfo = New Global.System.Data.DataColumn("ReceiverInfo", GetType(String), Nothing, Global.System.Data.MappingType.Element)
@@ -556,10 +543,10 @@ Partial Public Class dstMessageDetailBuffer
             MyBase.Columns.Add(Me.columnSendStatus)
             Me.columnNotificationTypeID = New Global.System.Data.DataColumn("NotificationTypeID", GetType(Byte), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnNotificationTypeID)
-            Me.columnDeliveryDate = New Global.System.Data.DataColumn("DeliveryDate", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnDeliveryDate)
             Me.columnSendDate = New Global.System.Data.DataColumn("SendDate", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnSendDate)
+            Me.columnFK_WarningNotificationLogDetailId = New Global.System.Data.DataColumn("FK_WarningNotificationLogDetailId", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_WarningNotificationLogDetailId)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
@@ -729,22 +716,6 @@ Partial Public Class dstMessageDetailBuffer
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FK_WarningNotificationLogID() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_MessageDetailBuffer_ListSelect.FK_WarningNotificationLogIDColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_WarningNotificationLogID' in table 'spr_MessageDetailBuf"& _ 
-                            "fer_ListSelect' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_MessageDetailBuffer_ListSelect.FK_WarningNotificationLogIDColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property SenderInfo() As String
             Get
                 Try 
@@ -889,22 +860,6 @@ Partial Public Class dstMessageDetailBuffer
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DeliveryDate() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_MessageDetailBuffer_ListSelect.DeliveryDateColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DeliveryDate' in table 'spr_MessageDetailBuffer_ListSelect'"& _ 
-                            " is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_MessageDetailBuffer_ListSelect.DeliveryDateColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Property SendDate() As Date
             Get
                 Try 
@@ -921,15 +876,19 @@ Partial Public Class dstMessageDetailBuffer
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFK_WarningNotificationLogIDNull() As Boolean
-            Return Me.IsNull(Me.tablespr_MessageDetailBuffer_ListSelect.FK_WarningNotificationLogIDColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFK_WarningNotificationLogIDNull()
-            Me(Me.tablespr_MessageDetailBuffer_ListSelect.FK_WarningNotificationLogIDColumn) = Global.System.Convert.DBNull
-        End Sub
+        Public Property FK_WarningNotificationLogDetailId() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_MessageDetailBuffer_ListSelect.FK_WarningNotificationLogDetailIdColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_WarningNotificationLogDetailId' in table 'spr_MessageDet"& _ 
+                            "ailBuffer_ListSelect' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_MessageDetailBuffer_ListSelect.FK_WarningNotificationLogDetailIdColumn) = value
+            End Set
+        End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -1041,18 +1000,6 @@ Partial Public Class dstMessageDetailBuffer
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDeliveryDateNull() As Boolean
-            Return Me.IsNull(Me.tablespr_MessageDetailBuffer_ListSelect.DeliveryDateColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDeliveryDateNull()
-            Me(Me.tablespr_MessageDetailBuffer_ListSelect.DeliveryDateColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsSendDateNull() As Boolean
             Return Me.IsNull(Me.tablespr_MessageDetailBuffer_ListSelect.SendDateColumn)
         End Function
@@ -1061,6 +1008,18 @@ Partial Public Class dstMessageDetailBuffer
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetSendDateNull()
             Me(Me.tablespr_MessageDetailBuffer_ListSelect.SendDateColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_WarningNotificationLogDetailIdNull() As Boolean
+            Return Me.IsNull(Me.tablespr_MessageDetailBuffer_ListSelect.FK_WarningNotificationLogDetailIdColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_WarningNotificationLogDetailIdNull()
+            Me(Me.tablespr_MessageDetailBuffer_ListSelect.FK_WarningNotificationLogDetailIdColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -1231,7 +1190,6 @@ Namespace dstMessageDetailBufferTableAdapters
             tableMapping.SourceTable = "Table"
             tableMapping.DataSetTable = "spr_MessageDetailBuffer_ListSelect"
             tableMapping.ColumnMappings.Add("ID", "ID")
-            tableMapping.ColumnMappings.Add("FK_WarningNotificationLogID", "FK_WarningNotificationLogID")
             tableMapping.ColumnMappings.Add("SenderInfo", "SenderInfo")
             tableMapping.ColumnMappings.Add("ReceiverInfo", "ReceiverInfo")
             tableMapping.ColumnMappings.Add("ToBorrower", "ToBorrower")
@@ -1241,8 +1199,8 @@ Namespace dstMessageDetailBufferTableAdapters
             tableMapping.ColumnMappings.Add("BatchID", "BatchID")
             tableMapping.ColumnMappings.Add("SendStatus", "SendStatus")
             tableMapping.ColumnMappings.Add("NotificationTypeID", "NotificationTypeID")
-            tableMapping.ColumnMappings.Add("DeliveryDate", "DeliveryDate")
             tableMapping.ColumnMappings.Add("SendDate", "SendDate")
+            tableMapping.ColumnMappings.Add("FK_WarningNotificationLogDetailId", "FK_WarningNotificationLogDetailId")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
@@ -1323,7 +1281,6 @@ Namespace dstMessageDetailBufferTableAdapters
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_MessageDetailBuffer_Insert"
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_WarningNotificationLogID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@SenderInfo", Global.System.Data.SqlDbType.NVarChar, 500, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ReceiverInfo", Global.System.Data.SqlDbType.NVarChar, 70, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ToBorrower", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -1331,63 +1288,64 @@ Namespace dstMessageDetailBufferTableAdapters
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Remarks", Global.System.Data.SqlDbType.NVarChar, 500, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@BatchID", Global.System.Data.SqlDbType.NVarChar, 50, Global.System.Data.ParameterDirection.Input, 0, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@NotificationTypeID", Global.System.Data.SqlDbType.TinyInt, 1, Global.System.Data.ParameterDirection.Input, 3, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_WarningNotificationLogDetailId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
             CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
-            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_MessageDetailBuffer_Delete"
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_MessageDetailBuffer_Update"
             CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
             CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@firstId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@lastId", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@SendStatus", Global.System.Data.SqlDbType.TinyInt, 1, Global.System.Data.ParameterDirection.Input, 3, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
             CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
-            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_MessageDetailBuffer_Update"
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_MessageDetailBuffer_Delete"
             CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
             CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@id", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@SendStatus", Global.System.Data.SqlDbType.TinyInt, 1, Global.System.Data.ParameterDirection.Input, 3, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_MessageDetailBuffer_Insert(ByVal FK_WarningNotificationLogID As Global.System.Nullable(Of Integer), ByVal SenderInfo As String, ByVal ReceiverInfo As String, ByVal ToBorrower As Global.System.Nullable(Of Boolean), ByVal strMessage As String, ByVal Remarks As String, ByVal BatchID As String, ByVal NotificationTypeID As Global.System.Nullable(Of Byte)) As Integer
+        Public Overloads Overridable Function spr_MessageDetailBuffer_Insert(ByVal SenderInfo As String, ByVal ReceiverInfo As String, ByVal ToBorrower As Global.System.Nullable(Of Boolean), ByVal strMessage As String, ByVal Remarks As String, ByVal BatchID As String, ByVal NotificationTypeID As Global.System.Nullable(Of Byte), ByVal FK_WarningNotificationLogDetailId As Global.System.Nullable(Of Integer)) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(0),Global.System.Data.SqlClient.SqlCommand)
-            If (FK_WarningNotificationLogID.HasValue = true) Then
-                command.Parameters(1).Value = CType(FK_WarningNotificationLogID.Value,Integer)
-            Else
-                command.Parameters(1).Value = Global.System.DBNull.Value
-            End If
             If (SenderInfo Is Nothing) Then
-                command.Parameters(2).Value = Global.System.DBNull.Value
+                command.Parameters(1).Value = Global.System.DBNull.Value
             Else
-                command.Parameters(2).Value = CType(SenderInfo,String)
+                command.Parameters(1).Value = CType(SenderInfo,String)
             End If
             If (ReceiverInfo Is Nothing) Then
-                command.Parameters(3).Value = Global.System.DBNull.Value
+                command.Parameters(2).Value = Global.System.DBNull.Value
             Else
-                command.Parameters(3).Value = CType(ReceiverInfo,String)
+                command.Parameters(2).Value = CType(ReceiverInfo,String)
             End If
             If (ToBorrower.HasValue = true) Then
-                command.Parameters(4).Value = CType(ToBorrower.Value,Boolean)
+                command.Parameters(3).Value = CType(ToBorrower.Value,Boolean)
             Else
-                command.Parameters(4).Value = Global.System.DBNull.Value
+                command.Parameters(3).Value = Global.System.DBNull.Value
             End If
             If (strMessage Is Nothing) Then
-                command.Parameters(5).Value = Global.System.DBNull.Value
+                command.Parameters(4).Value = Global.System.DBNull.Value
             Else
-                command.Parameters(5).Value = CType(strMessage,String)
+                command.Parameters(4).Value = CType(strMessage,String)
             End If
             If (Remarks Is Nothing) Then
-                command.Parameters(6).Value = Global.System.DBNull.Value
+                command.Parameters(5).Value = Global.System.DBNull.Value
             Else
-                command.Parameters(6).Value = CType(Remarks,String)
+                command.Parameters(5).Value = CType(Remarks,String)
             End If
             If (BatchID Is Nothing) Then
-                command.Parameters(7).Value = Global.System.DBNull.Value
+                command.Parameters(6).Value = Global.System.DBNull.Value
             Else
-                command.Parameters(7).Value = CType(BatchID,String)
+                command.Parameters(6).Value = CType(BatchID,String)
             End If
             If (NotificationTypeID.HasValue = true) Then
-                command.Parameters(8).Value = CType(NotificationTypeID.Value,Byte)
+                command.Parameters(7).Value = CType(NotificationTypeID.Value,Byte)
+            Else
+                command.Parameters(7).Value = Global.System.DBNull.Value
+            End If
+            If (FK_WarningNotificationLogDetailId.HasValue = true) Then
+                command.Parameters(8).Value = CType(FK_WarningNotificationLogDetailId.Value,Integer)
             Else
                 command.Parameters(8).Value = Global.System.DBNull.Value
             End If
@@ -1410,12 +1368,22 @@ Namespace dstMessageDetailBufferTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_MessageDetailBuffer_Delete(ByVal id As Global.System.Nullable(Of Integer)) As Integer
+        Public Overloads Overridable Function spr_MessageDetailBuffer_Update(ByVal firstId As Global.System.Nullable(Of Integer), ByVal lastId As Global.System.Nullable(Of Integer), ByVal SendStatus As Global.System.Nullable(Of Byte)) As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(1),Global.System.Data.SqlClient.SqlCommand)
-            If (id.HasValue = true) Then
-                command.Parameters(1).Value = CType(id.Value,Integer)
+            If (firstId.HasValue = true) Then
+                command.Parameters(1).Value = CType(firstId.Value,Integer)
             Else
                 command.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (lastId.HasValue = true) Then
+                command.Parameters(2).Value = CType(lastId.Value,Integer)
+            Else
+                command.Parameters(2).Value = Global.System.DBNull.Value
+            End If
+            If (SendStatus.HasValue = true) Then
+                command.Parameters(3).Value = CType(SendStatus.Value,Byte)
+            Else
+                command.Parameters(3).Value = Global.System.DBNull.Value
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
@@ -1436,18 +1404,8 @@ Namespace dstMessageDetailBufferTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_MessageDetailBuffer_Update(ByVal id As Global.System.Nullable(Of Integer), ByVal SendStatus As Global.System.Nullable(Of Byte)) As Integer
+        Public Overloads Overridable Function spr_MessageDetailBuffer_Delete() As Integer
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(2),Global.System.Data.SqlClient.SqlCommand)
-            If (id.HasValue = true) Then
-                command.Parameters(1).Value = CType(id.Value,Integer)
-            Else
-                command.Parameters(1).Value = Global.System.DBNull.Value
-            End If
-            If (SendStatus.HasValue = true) Then
-                command.Parameters(2).Value = CType(SendStatus.Value,Byte)
-            Else
-                command.Parameters(2).Value = Global.System.DBNull.Value
-            End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then

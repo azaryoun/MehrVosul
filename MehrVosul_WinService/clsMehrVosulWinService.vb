@@ -396,8 +396,16 @@ Public Class clsMehrVosulWinService
                                 strMessage = CreateMessage(1, drwLCStaus.IsMale, drwLCStaus.FName, drwLCStaus.LName, drwLCStaus.LoanNumber, drwLCStaus.NotPiadDurationDay, False, drwWarningIntervalCheck.ID, drwLCStaus.BranchName, "", "", True, False)
 
                                 If strMessage.Trim() <> "" Then
+
+                                    Dim strBatch As String = "MVosul+" & drwSystemSetting.GatewayCompany & "+" & Date.Now.ToString("yyMMddHHmmss") & Date.Now.Millisecond.ToString
+
                                     Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwLCStaus.MobileNo, True, strMessage, "", Date.Now, "", 1, 1, Date.Now)
+                                    Dim intWarningDetailId As Integer = qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwLCStaus.MobileNo, True, strMessage, "", Date.Now, strBatch, 2, 1, Date.Now)
+                                    Dim qryMessageDetailBuffer As New BusinessObject.dstMessageDetailBufferTableAdapters.QueriesTableAdapter()
+
+                                    qryMessageDetailBuffer.spr_MessageDetailBuffer_Insert(drwSystemSetting.GatewayNumber, drwLCStaus.MobileNo, True, strMessage, "", strBatch, 1, intWarningDetailId)
+
+
                                 End If
 
 
@@ -420,7 +428,22 @@ Public Class clsMehrVosulWinService
 
                                     If strMessage.Trim() <> "" Then
                                         Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                                        qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwSponsorList.MobileNo, False, strMessage, "", Date.Now, "", 1, 1, Date.Now)
+
+                                        Dim strBatch As String = "MVosul+" & drwSystemSetting.GatewayCompany & "+" & Date.Now.ToString("yyMMddHHmmss") & Date.Now.Millisecond.ToString
+
+
+                                        Dim intWarningDetailId As Integer = qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(intWarningNotifcationLogID, drwSystemSetting.GatewayNumber, drwSponsorList.MobileNo, False, strMessage, "", Date.Now, strBatch, 2, 1, Date.Now)
+
+
+
+                                        Dim qryMessageDetailBuffer As New BusinessObject.dstMessageDetailBufferTableAdapters.QueriesTableAdapter()
+
+                                        qryMessageDetailBuffer.spr_MessageDetailBuffer_Insert(drwSystemSetting.GatewayNumber, drwLCStaus.MobileNo, False, strMessage, "", strBatch, 1, intWarningDetailId)
+
+
+
+
+
                                     End If
 
                                 Next drwSponsorList
@@ -1695,9 +1718,15 @@ VoiceSMS:
 
         Do
             Try
-                Dim tadpSMSList As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_NotSend_SMS_ListTableAdapter
-                Dim dtblSMSList As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListDataTable = Nothing
+                'Dim tadpSMSList As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_WarningNotificationLogDetail_NotSend_SMS_ListTableAdapter
+                'Dim dtblSMSList As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListDataTable = Nothing
+                'dtblSMSList = tadpSMSList.GetData()
+
+                Dim tadpSMSList As New BusinessObject.dstMessageDetailBufferTableAdapters.spr_MessageDetailBuffer_ListSelectTableAdapter()
+                Dim dtblSMSList As BusinessObject.dstMessageDetailBuffer.spr_MessageDetailBuffer_ListSelectDataTable = Nothing
                 dtblSMSList = tadpSMSList.GetData()
+
+
 
                 Dim arrSMSMessages() As String = Nothing
                 Dim arrSMSDestination() As String = Nothing
@@ -1712,8 +1741,9 @@ VoiceSMS:
                 Dim intLastID As Integer = -1
 
                 ''  Dim strInsertQuery As String = "insert into easysms.outbound_messages (from_mobile_number,dest_mobile_number,message_body,due_date,system_type) "
+                Dim strBatch As String = ""
 
-                For Each drwSMSList As BusinessObject.dstWarningNotificationLogDetail.spr_WarningNotificationLogDetail_NotSend_SMS_ListRow In dtblSMSList.Rows
+                For Each drwSMSList As BusinessObject.dstMessageDetailBuffer.spr_MessageDetailBuffer_ListSelectRow In dtblSMSList.Rows
 
                     If drwSMSList.ReceiverInfo.Length <> 11 Then
                         Continue For
@@ -1732,7 +1762,7 @@ VoiceSMS:
 
 
                     ''  strInsertQuery = strInsertQuery & "  select " & "'+98" & drwSMSList.SenderInfo & "', " & "'+98" & drwSMSList.ReceiverInfo & "', '" & drwSMSList.strMessage & "', '" & DateTime.Now.ToString() & "', 2" & "  UNION "
-
+                    strBatch = drwSMSList.BatchID
 
                 Next drwSMSList
 
@@ -1757,14 +1787,21 @@ VoiceSMS:
                 ''cmdInsert.ExecuteNonQuery()
 
 
-                Dim strBatch As String = "MVosul+" & drwSystemSetting.GatewayCompany & "+" & Date.Now.ToString("yyMMddHHmmss") & Date.Now.Millisecond.ToString
-
 
                 Dim objSMS As New clsSMS
-                objSMS.SendSMS_LikeToLike(arrSMSMessages, arrSMSDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, strBatch)
+                Dim arrRes() As String = objSMS.SendSMS_LikeToLike(arrSMSMessages, arrSMSDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, strBatch)
 
-                Dim qryLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
-                qryLogDetail.spr_WarningNotificationLogDetail_Batch_Update(intFirstID, intLastID, strBatch)
+                If arrRes IsNot Nothing AndAlso arrRes.Length = 2 AndAlso arrRes(0).ToUpper() = "CHECK_OK" Then
+                    'Dim qryLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
+                    Dim qryLogDetail As New BusinessObject.dstMessageDetailBufferTableAdapters.QueriesTableAdapter
+                    qryLogDetail.spr_MessageDetailBuffer_Update(intFirstID, intLastID, 2)
+
+                Else
+                    Dim qryLogDetail As New BusinessObject.dstMessageDetailBufferTableAdapters.QueriesTableAdapter
+                    qryLogDetail.spr_MessageDetailBuffer_Update(intFirstID, intLastID, 4)
+                End If
+
+
 
             Catch ex As Exception
                 Continue Do
@@ -2451,6 +2488,11 @@ VoiceSMS:
 
                 Dim qryLCCurrentStatus As New BusinessObject.dstCurrentLCStatusTableAdapters.QueriesTableAdapter
                 qryLCCurrentStatus.spr_CurrentLCStatus_Delete()
+
+
+                Dim qryMessageDetailBuffer As New BusinessObject.dstMessageDetailBufferTableAdapters.QueriesTableAdapter()
+                qryMessageDetailBuffer.spr_MessageDetailBuffer_Delete()
+
 
                 Dim i As Integer = 0
                 Dim strBuilder As New Text.StringBuilder()
