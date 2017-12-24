@@ -845,6 +845,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstLoginLog.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Vosul\dstMessageDetailBuffer.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstMessageDetailBuffer.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Vosul\dstPreDraft.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1313,6 +1318,17 @@
     </None>
     <None Include="Vosul\dstLoginLog.xss">
       <DependentUpon>dstLoginLog.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstMessageDetailBuffer.xsc">
+      <DependentUpon>dstMessageDetailBuffer.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstMessageDetailBuffer.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstMessageDetailBuffer.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstMessageDetailBuffer.xss">
+      <DependentUpon>dstMessageDetailBuffer.xsd</DependentUpon>
     </None>
     <None Include="Vosul\dstPreDraft.xsc">
       <DependentUpon>dstPreDraft.xsd</DependentUpon>
