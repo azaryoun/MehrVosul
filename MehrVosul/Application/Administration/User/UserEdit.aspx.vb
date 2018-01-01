@@ -24,41 +24,38 @@
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
+            Dim tadpAccessGroupList As New BusinessObject.dstAccessgroupTableAdapters.spr_Accessgroup_List_SelectTableAdapter
+            Dim dtblAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectDataTable = Nothing
 
 
             If drwUserLogin.IsDataAdmin = True AndAlso drwUserLogin.IsItemAdmin = True Then
 
                 cmbBranch.Enabled = True
-                cmbUserType.Items.Add(New ListItem("Normal Access", 0))
-                cmbUserType.Items.Add(New ListItem("Item Access", 2))
+                cmbUserType.Items.Add(New ListItem("Normal Access(دسترسی نرمال-سطح شعبه)", 0))
+                cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
                 cmbUserType.Items.Add(New ListItem("Full Access", 3))
 
                 cmbBranch.SelectedIndex = 0
 
-                odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 1
-                odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = -1
-                odsAccessGroups.DataBind()
+                dtblAccessGroupList = tadpAccessGroupList.GetData(1, -1)
 
-                lstAccessGroups.DataBind()
+
 
             ElseIf drwUserLogin.IsDataAdmin = True AndAlso drwUserLogin.IsItemAdmin = False Then
-                cmbUserType.Items.Add(New ListItem("Normal Access", 0))
-                cmbUserType.Items.Add(New ListItem("Item Access", 2))
+                cmbUserType.Items.Add(New ListItem("Normal Access(دسترسی نرمال-سطح شعبه)", 0))
+                cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
 
                 cmbBranch.Enabled = True
                 cmbBranch.SelectedIndex = 0
 
-                odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 1
-                odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = -1
-                odsAccessGroups.DataBind()
 
-                lstAccessGroups.DataBind()
+                dtblAccessGroupList = tadpAccessGroupList.GetData(1, -1)
+
 
             ElseIf drwUserLogin.IsDataUserAdmin = True Then
 
-                cmbUserType.Items.Add(New ListItem("Item Access", 2))
-
-                cmbUserType.Items.Add(New ListItem("Normal Access", 0))
+                cmbUserType.Items.Add(New ListItem("Normal Access(دسترسی نرمال-سطح شعبه)", 0))
+                cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
 
                 cmbUserType.SelectedValue = 1
                 Dim tadpUserProvince As New BusinessObject.dstBranchTableAdapters.spr_Province_Check_SelectTableAdapter
@@ -80,13 +77,8 @@
                 cmbBranch.DataValueField = "ID"
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
-                odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 2
-                odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = drwUserLogin.ID
-                odsAccessGroups.DataBind()
 
-                lstAccessGroups.DataBind()
-
-
+                dtblAccessGroupList = tadpAccessGroupList.GetData(2, drwUserLogin.ID)
 
 
             End If
@@ -175,19 +167,66 @@
 
             End With
 
+            ''Dim tadpAccessgroupUserList As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUser_List_SelectTableAdapter
+            ''Dim dtblAccessgroupUserList As BusinessObject.dstAccessgroupUser.spr_AccessgroupUser_List_SelectDataTable = Nothing
+            ''dtblAccessgroupUserList = tadpAccessgroupUserList.GetData(drwUser.ID)
+
+            ''For Each drwAccessgroupUserList As BusinessObject.dstAccessgroupUser.spr_AccessgroupUser_List_SelectRow In dtblAccessgroupUserList.Rows
+            ''    For i As Integer = 0 To lstAccessGroups.Items.Count - 1
+            ''        If lstAccessGroups.Items(i).Value = drwAccessgroupUserList.FK_AccessGroupID Then
+            ''            lstAccessGroups.Items(i).Selected = True
+            ''        End If
+            ''    Next
+
+            ''Next drwAccessgroupUserList
+
+
+
+            Dim trNodeProvince As New TreeNode
+            trAccessGroup.Nodes.Add(trNodeProvince)
+
+
+
+            Dim blnFlag As Boolean = False
+            Dim blnChecked As Boolean = False
+
             Dim tadpAccessgroupUserList As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUser_List_SelectTableAdapter
             Dim dtblAccessgroupUserList As BusinessObject.dstAccessgroupUser.spr_AccessgroupUser_List_SelectDataTable = Nothing
             dtblAccessgroupUserList = tadpAccessgroupUserList.GetData(drwUser.ID)
 
-            For Each drwAccessgroupUserList As BusinessObject.dstAccessgroupUser.spr_AccessgroupUser_List_SelectRow In dtblAccessgroupUserList.Rows
-                For i As Integer = 0 To lstAccessGroups.Items.Count - 1
-                    If lstAccessGroups.Items(i).Value = drwAccessgroupUserList.FK_AccessGroupID Then
-                        lstAccessGroups.Items(i).Selected = True
+
+            For Each drwAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectRow In dtblAccessGroupList.Rows
+                Dim trNodeBranch As New TreeNode
+
+                trNodeBranch.Text = "&nbsp;&nbsp;" & drwAccessGroupList.Desp
+                trNodeBranch.Value = drwAccessGroupList.ID
+                trNodeBranch.ShowCheckBox = True
+                trNodeBranch.SelectAction = TreeNodeSelectAction.None
+
+                For Each drwAccessgroupUserList As BusinessObject.dstAccessgroupUser.spr_AccessgroupUser_List_SelectRow In dtblAccessgroupUserList
+
+
+                    If drwAccessgroupUserList.FK_AccessGroupID = drwAccessGroupList.ID Then
+                        trNodeBranch.Checked = True
+                        trNodeProvince.Expanded = True
+
+                        blnFlag = True
                     End If
-                Next
 
-            Next drwAccessgroupUserList
 
+                Next drwAccessgroupUserList
+                trNodeProvince.ChildNodes.Add(trNodeBranch)
+
+                If blnFlag = False Then
+                trNodeProvince.CollapseAll()
+            End If
+
+            If blnChecked = True Then
+                trNodeProvince.Checked = True
+            End If
+
+
+            Next drwAccessGroupList
 
         End If
 
@@ -273,12 +312,37 @@
             End If
 
 
-            Dim arrSelectedGroups() As Integer = lstAccessGroups.GetSelectedIndices()
+            'Dim arrSelectedGroups() As Integer = lstAccessGroups.GetSelectedIndices()
             Dim qryAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.QueriesTableAdapter
             qryAccessgroupUser.spr_AccessgroupUser_User_Delete(intEditUserID)
-            For i As Integer = 0 To arrSelectedGroups.Length - 1
-                qryAccessgroupUser.spr_AccessgroupUser_Insert(intEditUserID, lstAccessGroups.Items(arrSelectedGroups(i)).Value)
-            Next i
+            For Each trNode As TreeNode In trAccessGroup.Nodes
+                If trNode.ChildNodes.Count = 0 Then
+                    If trNode.Checked = True Then
+
+                        qryAccessgroupUser.spr_AccessgroupUser_Insert(intEditUserID, trNode.Value)
+
+                    End If
+
+                Else
+
+                    For Each trChildNode As TreeNode In trNode.ChildNodes
+
+                        If trChildNode.ChildNodes.Count = 0 Then
+                            If trChildNode.Checked = True Then
+                                Dim ChildID As Integer = CInt(trChildNode.Value)
+
+                                qryAccessgroupUser.spr_AccessgroupUser_Insert(intEditUserID, ChildID)
+
+                            End If
+
+                        End If
+
+
+                    Next
+
+                End If
+            Next
+
 
 
 

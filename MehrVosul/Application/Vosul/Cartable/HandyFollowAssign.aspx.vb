@@ -200,13 +200,13 @@
 
         dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDay, dtblBranch.First.ID)
 
-        Dim strchklstMenuLeaves As String = ""
+        Dim strchklstFiles As String = ""
 
         For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectRow In dtblTotalDeffredForAssign.Rows
-            strchklstMenuLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.CULN & "' name='chklstMenu" & drwAssignFile.CustomerNO & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
+            strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.CULN & "' name='chklstMenu" & drwAssignFile.CustomerNO & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
         Next drwAssignFile
 
-        divchklstAssignFiles.InnerHtml = strchklstMenuLeaves
+        divchklstAssignFiles.InnerHtml = strchklstFiles
 
 
 

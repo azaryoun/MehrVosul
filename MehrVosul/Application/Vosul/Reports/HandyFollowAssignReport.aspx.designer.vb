@@ -59,13 +59,13 @@ Partial Public Class HandyFollowAssignReport
     Protected WithEvents odcProvince As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
-    '''UpdatePanel2 control.
+    '''UpdatePanel1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
+    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
     '''cmbProvince control.
@@ -86,13 +86,13 @@ Partial Public Class HandyFollowAssignReport
     Protected WithEvents odsBranch As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
-    '''UpdatePanel1 control.
+    '''UpdatePanel2 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents UpdatePanel1 As Global.System.Web.UI.UpdatePanel
+    Protected WithEvents UpdatePanel2 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
     '''cmbBranch control.

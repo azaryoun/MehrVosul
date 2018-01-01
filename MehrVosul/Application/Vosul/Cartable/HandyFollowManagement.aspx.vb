@@ -10,7 +10,7 @@
         Bootstrap_Panel1.CanSearch = True
         Bootstrap_Panel1.CanCancel = False
         Bootstrap_Panel1.CanUp = False
-        Bootstrap_Panel1.CanWizard = True
+        Bootstrap_Panel1.CanWizard = False
         Bootstrap_Panel1.CanConfirmRequest = False
         Bootstrap_Panel1.CanReject = False
         Bootstrap_Panel1.CanDisplay = False
@@ -76,6 +76,7 @@
 
                     Session("intFileID") = CObj(intFileID)
                     Session("intLoanID") = CObj(intLoanID)
+                    Session("HandyFollowAssign") = dtblHandyFollowAssign.First.ID
 
                     Response.Redirect("../HandyFollow/HandyFollowNew.aspx")
                 Else
@@ -103,15 +104,15 @@
 
 
             Dim intAction As Integer
-            If drwUserLogin.IsDataUserAdmin = True Then
-                intAction = 3
-                If strFilter IsNot Nothing Then
-                    intAction = 4
-                End If
-            ElseIf drwUserLogin.IsDataAdmin = True Then
+            If drwUserLogin.IsDataAdmin = True Then
                 intAction = 5
                 If strFilter IsNot Nothing Then
                     intAction = 6
+                End If
+            ElseIf drwUserLogin.IsDataUserAdmin = True Then
+                intAction = 3
+                If strFilter IsNot Nothing Then
+                    intAction = 4
                 End If
 
             Else
@@ -132,7 +133,7 @@
             Dim strResult As String = ""
             Dim intColumnCount As Integer = dtblHandyFollowAssignManagement.Columns.Count
 
-            If intAction = 1 Or intAction = 3 Then
+            If intAction = 1 Or intAction = 3 Or intAction = 5 Then
                 For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
 
 
@@ -179,15 +180,15 @@
         Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
         Dim intAction As Integer
-        If drwUserLogin.IsDataUserAdmin = True Then
-            intAction = 3
-            If strFilter IsNot Nothing Then
-                intAction = 4
-            End If
-        ElseIf drwUserLogin.IsDataAdmin = True Then
+        If drwUserLogin.IsDataAdmin = True Then
             intAction = 5
             If strFilter IsNot Nothing Then
                 intAction = 6
+            End If
+        ElseIf drwUserLogin.IsDataUserAdmin = True Then
+            intAction = 3
+            If strFilter IsNot Nothing Then
+                intAction = 4
             End If
 
         Else

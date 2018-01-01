@@ -95,6 +95,33 @@ Partial Public Class UserNew
     Protected WithEvents lstAccessGroups As Global.System.Web.UI.WebControls.ListBox
     
     '''<summary>
+    '''divTree control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divTree As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''treeViewDiv control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents treeViewDiv As Global.System.Web.UI.WebControls.Panel
+    
+    '''<summary>
+    '''trAccessGroup control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents trAccessGroup As Global.System.Web.UI.WebControls.TreeView
+    
+    '''<summary>
     '''txtAddress control.
     '''</summary>
     '''<remarks>

@@ -82,7 +82,7 @@
                                     TypeName="BusinessObject.dstBranchTableAdapters.spr_ProvinceList_SelectTableAdapter"></asp:ObjectDataSource>
 
 
-                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
                                     <ContentTemplate>
                                         <asp:DropDownList ID="cmbProvince" runat="server" CssClass="form-control"
                                             DataSourceID="odcProvince" DataTextField="Province"
@@ -103,7 +103,7 @@
                                         <asp:Parameter Name="ProvinceID" Type="Int32" />
                                     </SelectParameters>
                                 </asp:ObjectDataSource>
-                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                     <ContentTemplate>
                                         <asp:DropDownList ID="cmbBranch" runat="server" CssClass="form-control"
                                             AutoPostBack="True">

@@ -139,9 +139,26 @@
                         <div class="col-md-6">
                             <div class="form-group">
 
-                                <label>توضیحات</label>
+                                <label>توضیحات لغو تخصیص</label>
 
                                 <asp:TextBox ID="txtRemark" runat="server" TextMode="MultiLine" CssClass="form-control" MaxLength="50" placeholder="توضیحات را وارد کنید"></asp:TextBox>
+
+
+                            </div>
+
+
+
+
+                        </div>
+                    </div>
+                       <div class="row">
+                       
+                        <div class="col-md-12">
+                            <div class="form-group">
+
+                                <label>توضیحات تخصیص جدید</label>
+
+                                <asp:TextBox ID="txtNewRemark" runat="server" TextMode="MultiLine" CssClass="form-control" MaxLength="50" placeholder="توضیحات را وارد کنید"></asp:TextBox>
 
 
                             </div>

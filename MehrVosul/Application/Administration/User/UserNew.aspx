@@ -43,7 +43,7 @@
             }
 
             
-            var ListBox = document.getElementById('<%=lstAccessGroups.ClientID %>');
+           <%-- var ListBox = document.getElementById('<%=lstAccessGroups.ClientID %>');
             var length = ListBox.length;
             var i = 0;
             var SelectedItemCount = 0;
@@ -59,10 +59,29 @@
                 alert("گروه دسترسی را مشخص نمائید", "خطا");
               
                 return false;
-            }
+            }--%>
 
             
             
+            var AccessBoolChecked = false;
+            var treeView = document.getElementById("<%= trAccessGroup.ClientID %>");
+            var checkBoxes = treeView.getElementsByTagName("input");
+            var checkedCount = 0;
+            for (var i = 0; i < checkBoxes.length; i++) {
+                if (checkBoxes[i].checked) {
+                    AccessBoolChecked = true;
+                    break;
+                }
+            }
+
+
+            if (!AccessBoolChecked) {
+                alert("حداقل یک سطح دسترسی باید انتخاب شود");
+                return false;
+
+            }
+          
+
             if (cmbProvince.options[cmbProvince.selectedIndex].value == 0) {
                 alert("استان را مشخص نمائید", "خطا");
                 cmbProvince.focus();
@@ -135,7 +154,7 @@
                                      <div class="form-group has-error">
                                             <label>نوع دسترسی</label>
                                                <asp:DropDownList ID="cmbUserType" runat="server" CssClass="form-control">
-                                               <asp:ListItem  Selected="True" Value="0" Text="Normal Access"></asp:ListItem>
+                                               <asp:ListItem  Selected="True" Value="0" Text="Normal Access(دسترسی نرمال-سطح شعبه)"></asp:ListItem>
                                                 </asp:DropDownList>
                                            </div>
                                      <div class="form-group">
@@ -148,8 +167,17 @@
                                                     <asp:Parameter Name="UserID" Type="Int32" />
                                                 </SelectParameters>
                                             </asp:ObjectDataSource>
-                                                    <asp:ListBox ID="lstAccessGroups" runat="server"  CssClass="form-control" SelectionMode="Multiple"  DataSourceID="odsAccessGroups" DataTextField="Desp" 
+                                                    <asp:ListBox ID="lstAccessGroups" runat="server" Visible="false"  CssClass="form-control" SelectionMode="Multiple"  DataSourceID="odsAccessGroups" DataTextField="Desp" 
                                                 DataValueField="ID"></asp:ListBox>
+
+                                           <div class="form-group" runat="server" id="divTree">
+                                                   <asp:Panel ID="treeViewDiv"  runat="server">
+                                                        
+                                                                <asp:TreeView ID="trAccessGroup" runat="server"  ShowLines="True" onclick="return TreeClick(event)"
+                                                                    Width="100%">
+                                                                </asp:TreeView>
+                                                          
+                                                    </asp:Panel></div>
 
                                              
                                            </div>

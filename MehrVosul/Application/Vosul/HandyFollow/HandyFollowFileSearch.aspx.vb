@@ -261,9 +261,9 @@ Public Class HandyFollowFileSearch
                         If dtblHandyFollowAssignByIDs.Rows.Count <> 0 Then
 
                             ''comment to show searched file to other user's of branch
-                            'If drwUserLogin.ID <> dtblHandyFollowAssignByIDs.First.FK_AssignUserID Then
-                            '    Continue For
-                            'End If
+                            If drwUserLogin.ID <> dtblHandyFollowAssignByIDs.First.FK_AssignUserID Then
+                                Continue For
+                            End If
 
                         End If
 
@@ -298,26 +298,43 @@ Public Class HandyFollowFileSearch
 
                             If dtblHandyFollowByUser.Rows.Count = 0 Then
 
-                                TbCell = New HtmlTableCell
-                                TbCell.InnerHtml = "ثبت پیگیری"
-                                TbCell.NoWrap = False
-                                TbCell.Align = "center"
-                                TbRow.Cells.Add(TbCell)
 
-                                ' Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
+                                ''get Folowed UserName
+                                Dim intFollowedUserID As Integer = dtblhandyFollow.First.FK_UserID
 
-                                '  If lnqDetail.Count > 0 Then
+                                Dim tadpUser As New BusinessObject.dstUserTableAdapters.spr_User_SelectTableAdapter
+                                Dim dtblUser As BusinessObject.dstUser.spr_User_SelectDataTable = Nothing
 
-                                'Dim lnqDetailList = lnqDetail.ToList(0)
-                                'Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+                                dtblUser = tadpUser.GetData(intFollowedUserID)
 
                                 TbCell = New HtmlTableCell
-                                TbCell.InnerHtml = dtblhandyFollow.First.Username
+                                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
                                 TbCell.NoWrap = True
                                 TbCell.Align = "center"
                                 TbRow.Cells.Add(TbCell)
 
-                                '  End If
+
+
+                                ''    TbCell = New HtmlTableCell
+                                ''    TbCell.InnerHtml = "ثبت پیگیری"
+                                ''    TbCell.NoWrap = False
+                                ''    TbCell.Align = "center"
+                                ''    TbRow.Cells.Add(TbCell)
+
+                                ''    ' Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
+
+                                ''    '  If lnqDetail.Count > 0 Then
+
+                                ''    'Dim lnqDetailList = lnqDetail.ToList(0)
+                                ''    'Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+
+                                TbCell = New HtmlTableCell
+                                TbCell.InnerHtml = dtblUser.First.Username
+                                TbCell.NoWrap = True
+                                TbCell.Align = "center"
+                                TbRow.Cells.Add(TbCell)
+
+                                ''    '  End If
 
                             Else
 
@@ -346,6 +363,7 @@ Public Class HandyFollowFileSearch
                             End If
 
                         End If
+
 
                     Else
 

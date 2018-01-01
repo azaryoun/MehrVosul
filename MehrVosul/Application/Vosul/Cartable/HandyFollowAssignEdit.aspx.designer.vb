@@ -86,6 +86,15 @@ Partial Public Class HandyFollowAssignEdit
     Protected WithEvents txtRemark As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''txtNewRemark control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNewRemark As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''hdnAction control.
     '''</summary>
     '''<remarks>

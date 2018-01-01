@@ -302,4 +302,106 @@
 
         End If
     End Sub
+
+    Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
+
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+        If cmbProvince.SelectedValue = -1 Then
+
+
+            odsBranch.SelectParameters.Item("Action").DefaultValue = 1
+            odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = -1
+            odsBranch.DataBind()
+
+            cmbBranch.DataSourceID = "odsBranch"
+            cmbBranch.DataTextField = "BrnachCode"
+            cmbBranch.DataValueField = "ID"
+
+            cmbBranch.DataBind()
+
+            odsPerson.SelectParameters.Item("Action").DefaultValue = 2
+            odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+            odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+            cmbPerson.DataBind()
+
+        Else
+            odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+            odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+            odsBranch.DataBind()
+
+            cmbBranch.DataSourceID = "odsBranch"
+            cmbBranch.DataTextField = "BrnachCode"
+            cmbBranch.DataValueField = "ID"
+
+            cmbBranch.DataBind()
+
+
+            odsPerson.SelectParameters.Item("Action").DefaultValue = 3
+            odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+            odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+
+            cmbPerson.DataBind()
+        End If
+
+
+    End Sub
+
+    Protected Sub cmbBranch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBranch.SelectedIndexChanged
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+        If cmbBranch.SelectedValue = -1 Then
+
+
+            If drwUserLogin.IsDataAdmin = True Then
+
+                If cmbProvince.SelectedValue = -1 Then
+
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 2
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+
+                    cmbPerson.DataBind()
+                Else
+
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 3
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+
+                    cmbPerson.DataBind()
+
+                End If
+
+
+            ElseIf drwUserLogin.IsDataAdmin = False And drwUserLogin.IsDataUserAdmin = True Then
+
+
+
+                cmbProvince.Enabled = False
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 3
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+
+                cmbPerson.DataBind()
+
+
+            End If
+
+        Else
+
+            odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+            odsPerson.SelectParameters.Item("BranchID").DefaultValue = CInt(cmbBranch.SelectedValue)
+            odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+
+            cmbPerson.DataBind()
+
+        End If
+    End Sub
 End Class

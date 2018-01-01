@@ -59,7 +59,8 @@
             cmbPerson.SelectedValue = dtblHandyFollowAssign.First.FK_AssignUserID
             txtRemark.Text = dtblHandyFollowAssign.First.Remark
 
-
+            ViewState("FileID") = dtblHandyFollowAssign.First.FK_FileID
+            ViewState("LoanID") = dtblHandyFollowAssign.First.FK_LoanID
 
         End If
 
@@ -72,13 +73,22 @@
 
     Private Sub Bootstrap_Panel1_Panel_Save_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Save_Click
         Try
+
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
             Dim intAssignUserID As Integer = cmbPerson.SelectedValue
             Dim strRemark As String = txtRemark.Text
 
             Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
-            qryHandyFollowAssign.spr_HandyFollowAssign_Update(CInt(Session("intFollowAssignID")), intAssignUserID, strRemark)
+            qryHandyFollowAssign.spr_HandyFollowAssign_Update(CInt(Session("intFollowAssignID")), drwUserLogin.ID, strRemark)
 
+            Dim strNewRemark As String = txtNewRemark.Text
+            Dim intFileID As Integer = CInt(ViewState("FileID"))
+            Dim intLoanID As Integer = CInt(ViewState("LoanID"))
 
+            qryHandyFollowAssign.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, DateTime.Now, drwUserLogin.ID, strNewRemark, intLoanID)
 
         Catch
             Response.Redirect("HandyFollowManagement.aspx?Edit=NO")

@@ -78,6 +78,9 @@ Public Class HandyFollowNew
             ''Get Handy Follow related List
             If Not Session("intFileID") Is Nothing And Not Session("intLoanID") Is Nothing Then
 
+
+
+
                 Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
                 GetHandyFollowList()
 
@@ -254,6 +257,27 @@ Public Class HandyFollowNew
                 End If
             End If
 
+            Dim intHandFollowAssignID? As Integer = Nothing
+            Dim blnUpdateHandyFollowAssign As Boolean = False
+            If Not Session("HandyFollowAssign") Is Nothing Then
+
+                intHandFollowAssignID = CInt(Session("HandyFollowAssign"))
+                blnUpdateHandyFollowAssign = True
+
+
+            Else
+                ''check Handy Follow Assign
+                Dim tadpHandyFollowAssignByUser As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByUser_SelectTableAdapter
+                Dim dtblHandyFollowAssignByUser As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByUser_SelectDataTable = Nothing
+
+                dtblHandyFollowAssignByUser = tadpHandyFollowAssignByUser.GetData(drwUserLogin.ID, CInt(Session("intLoanID")))
+                If dtblHandyFollowAssignByUser.Rows.Count > 0 Then
+
+                    intHandFollowAssignID = dtblHandyFollowAssignByUser.First.ID
+                    blnUpdateHandyFollowAssign = True
+                End If
+
+            End If
 
             Dim blnAnswered As Boolean = If(rdbListAnswered.SelectedValue = 1, True, False)
             Dim blnIsSuccess As Boolean = If(rdbListNotificationStatus.SelectedValue = 1, True, False)
@@ -264,7 +288,7 @@ Public Class HandyFollowNew
                 dteDutyDate = Bootstrap_PersianDateTimePicker_TO.GergorainDateTime
             End If
 
-            qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate)
+            qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate, intHandFollowAssignID)
 
             Bootstrap_Panel1.ShowMessage("ثبت پیگیری با موفقیت انجام شد", False)
 
@@ -279,6 +303,13 @@ Public Class HandyFollowNew
             txtRemark.Text = ""
             Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
             Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now.AddDays(10)
+
+            If blnUpdateHandyFollowAssign = True Then
+
+                Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+                qryHandyFollowAssign.spr_HandyFollowAssignStatus_Update(intHandFollowAssignID)
+
+            End If
 
 
         Catch ex As Exception
