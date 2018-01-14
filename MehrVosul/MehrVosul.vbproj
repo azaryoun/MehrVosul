@@ -173,6 +173,8 @@
     <Content Include="Application\Vosul\LoanType\LoanTypeEdit.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeManagement.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeNew.aspx" />
+    <Content Include="Application\Vosul\Notice\ManifestHandyFollowAssign.aspx" />
+    <Content Include="Application\Vosul\Notice\NoticeHandyFollowAssign.aspx" />
     <Content Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsEdit.aspx" />
     <Content Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsManagement.aspx" />
     <Content Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsNew.aspx" />
@@ -636,6 +638,20 @@
     </Compile>
     <Compile Include="Application\Vosul\LoanType\LoanTypeNew.aspx.vb">
       <DependentUpon>LoanTypeNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Notice\ManifestHandyFollowAssign.aspx.designer.vb">
+      <DependentUpon>ManifestHandyFollowAssign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Notice\ManifestHandyFollowAssign.aspx.vb">
+      <DependentUpon>ManifestHandyFollowAssign.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Notice\NoticeHandyFollowAssign.aspx.designer.vb">
+      <DependentUpon>NoticeHandyFollowAssign.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Notice\NoticeHandyFollowAssign.aspx.vb">
+      <DependentUpon>NoticeHandyFollowAssign.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\PreWarningIntervals\PreWarningIntervalsEdit.aspx.designer.vb">

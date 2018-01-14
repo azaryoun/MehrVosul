@@ -54,8 +54,26 @@
 
             ElseIf drwUserLogin.IsDataUserAdmin = True Then
 
+
+
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                Dim blnAdminBranch As Boolean = False
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Rows.Count = 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                    If dtblAccessgroupUser.Rows.Count > 0 Then
+                        blnAdminBranch = True
+                    End If
+                End If
+
                 cmbUserType.Items.Add(New ListItem("Normal Access(دسترسی نرمال-سطح شعبه)", 0))
-                cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
+                If blnAdminBranch = False Then
+                    cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
+
+                End If
 
                 cmbUserType.SelectedValue = 1
                 Dim tadpUserProvince As New BusinessObject.dstBranchTableAdapters.spr_Province_Check_SelectTableAdapter
@@ -71,7 +89,10 @@
                 odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
                 odsBranch.DataBind()
 
-                cmbBranch.Enabled = True
+                If blnAdminBranch = True Then
+                    cmbBranch.Enabled = False
+
+                End If
                 cmbBranch.DataSourceID = "odsBranch"
                 cmbBranch.DataTextField = "BrnachCode"
                 cmbBranch.DataValueField = "ID"
@@ -155,7 +176,7 @@
                 odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
                 odsBranch.DataBind()
 
-                cmbBranch.Enabled = True
+                '' cmbBranch.Enabled = True
                 cmbBranch.DataSourceID = "odsBranch"
                 cmbBranch.DataTextField = "BrnachCode"
                 cmbBranch.DataValueField = "ID"

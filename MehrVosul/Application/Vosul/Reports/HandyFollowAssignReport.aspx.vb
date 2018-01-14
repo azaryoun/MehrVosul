@@ -168,10 +168,14 @@
         End If
 
         Dim blnIsRed As Boolean = False
+        Dim blnYellow As Boolean = False
         Dim blnCheckTotalDeffred As Boolean = chkStatus.Checked
 
         Dim tadpTotalDeffred As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByLCNOTableAdapter
         Dim dtblTotalDeffred As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByLCNODataTable = Nothing
+
+        Dim tadplHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
+        Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
 
         For Each drwhandyFollow As BusinessObject.dstReport.spr_HandyFollowAssign_ReportRow In dtblHandyFollowReport
 
@@ -182,11 +186,23 @@
 
             If txtAssignDay.Text.Trim <> "" Then
                 Dim intAssignDay As Integer = CInt(txtAssignDay.Text)
+
+
+
                 If drwhandyFollow.AssignDate <= mdlGeneral.GetPersianDate(Date.Now.AddDays(-intAssignDay)) AndAlso drwhandyFollow.IsAssigned = True Then
 
+                    dtblHandyFollow = tadplHandyFollow.GetData(drwhandyFollow.AssignUserID, drwhandyFollow.ID)
                     dtblTotalDeffred = tadpTotalDeffred.GetData(drwhandyFollow.LoanNumber)
-                    If dtblTotalDeffred.Rows.Count > 0 Then
-                        blnIsRed = True
+                    If dtblHandyFollow.First.HandFollow <> 0 Then
+                        If dtblTotalDeffred.Rows.Count > 0 Then
+                            blnIsRed = True
+                        End If
+                    Else
+
+                        'If dtblTotalDeffred.Rows.Count > 0 Then
+                        blnYellow = True
+                        'End If
+
                     End If
 
                 End If
@@ -200,6 +216,8 @@
             TbRow.Cells.Add(TbCell)
             If blnIsRed = True Then
                 TbCell.Attributes.Add("style", "background-color:red")
+            ElseIf blnYellow = True Then
+                TbCell.Attributes.Add("style", "background-color:yellow")
             End If
 
 
@@ -211,6 +229,8 @@
             TbRow.Cells.Add(TbCell)
             If blnIsRed = True Then
                 TbCell.Attributes.Add("style", "background-color:red")
+            ElseIf blnYellow = True Then
+                TbCell.Attributes.Add("style", "background-color:yellow")
             End If
 
             TbCell = New HtmlTableCell
@@ -221,6 +241,8 @@
             TbRow.Cells.Add(TbCell)
             If blnIsRed = True Then
                 TbCell.Attributes.Add("style", "background-color:red")
+            ElseIf blnYellow = True Then
+                TbCell.Attributes.Add("style", "background-color:yellow")
             End If
 
             TbCell = New HtmlTableCell
@@ -231,6 +253,8 @@
             TbRow.Cells.Add(TbCell)
             If blnIsRed = True Then
                 TbCell.Attributes.Add("style", "background-color:red")
+            ElseIf blnYellow = True Then
+                TbCell.Attributes.Add("style", "background-color:yellow")
             End If
 
             TbCell = New HtmlTableCell
@@ -241,6 +265,8 @@
             TbRow.Cells.Add(TbCell)
             If blnIsRed = True Then
                 TbCell.Attributes.Add("style", "background-color:red")
+            ElseIf blnYellow = True Then
+                TbCell.Attributes.Add("style", "background-color:yellow")
             End If
 
             TbCell = New HtmlTableCell
@@ -251,20 +277,37 @@
             End If
             If blnIsRed = True Then
                 TbCell.Attributes.Add("style", "background-color:red")
+            ElseIf blnYellow = True Then
+                TbCell.Attributes.Add("style", "background-color:yellow")
             End If
 
             TbCell.NoWrap = True
             TbCell.Align = "center"
             TbCell.Attributes.Add("dir", "rtl")
             TbRow.Cells.Add(TbCell)
-
             If blnIsRed = True Then
                 TbCell.Attributes.Add("style", "background-color:red")
+            ElseIf blnYellow = True Then
+                TbCell.Attributes.Add("style", "background-color:yellow")
             End If
+
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = drwhandyFollow.AssignType
+            TbCell.NoWrap = True
+            TbCell.Align = "center"
+            TbCell.Attributes.Add("dir", "rtl")
+            TbRow.Cells.Add(TbCell)
+            If blnIsRed = True Then
+                TbCell.Attributes.Add("style", "background-color:red")
+            ElseIf blnYellow = True Then
+                TbCell.Attributes.Add("style", "background-color:yellow")
+            End If
+
 
             tblResult2.Rows.Add(TbRow)
 
             blnIsRed = False
+            blnYellow = False
 
         Next
 

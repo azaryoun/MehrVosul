@@ -92,8 +92,23 @@
 
             ElseIf drwUserLogin.IsDataUserAdmin = True Then
 
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-                cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
+                Dim blnAdminBranch As Boolean = False
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Rows.Count = 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                    If dtblAccessgroupUser.Rows.Count > 0 Then
+                        blnAdminBranch = True
+                    End If
+                End If
+
+                If blnAdminBranch = False Then
+                    cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
+                End If
+
 
                 Dim tadpUserProvince As New BusinessObject.dstBranchTableAdapters.spr_Province_Check_SelectTableAdapter
                 Dim dtblUserProvince As BusinessObject.dstBranch.spr_Province_Check_SelectDataTable = Nothing
@@ -114,6 +129,9 @@
                 cmbBranch.DataValueField = "ID"
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
+                If blnAdminBranch = True Then
+                    cmbBranch.Enabled = False
+                End If
                 ''odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 2
                 ''odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = drwUserLogin.ID
                 ''odsAccessGroups.DataBind()

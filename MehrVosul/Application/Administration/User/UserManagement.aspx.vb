@@ -100,19 +100,33 @@
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+            Dim blnAdminBranch As Boolean = False
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+            If dtblAccessgroupUser.Rows.Count = 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    blnAdminBranch = True
+                End If
+            End If
+
+
             Dim intAction As Integer
             If drwUserLogin.IsDataAdmin = True Then
                 intAction = 1
                 If strFilter IsNot Nothing Then
                     intAction = 2
                 End If
-            ElseIf drwUserLogin.IsDataUserAdmin = True Then
+            ElseIf drwUserLogin.IsDataUserAdmin = True And blnAdminBranch = False Then
                 intAction = 5
                 If strFilter IsNot Nothing Then
                     intAction = 6
                 End If
 
-            Else
+            ElseIf drwUserLogin.IsDataUserAdmin = True And blnAdminBranch = True Then
 
                 intAction = 3
                 If strFilter IsNot Nothing Then
@@ -170,19 +184,33 @@
         Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
         Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
+
+        ''check the access Group id
+        Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+        Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+        Dim blnAdminBranch As Boolean = False
+        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+        If dtblAccessgroupUser.Rows.Count = 0 Then
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+            If dtblAccessgroupUser.Rows.Count > 0 Then
+                blnAdminBranch = True
+            End If
+        End If
+
         Dim intAction As Integer
         If drwUserLogin.IsDataAdmin = True Then
             intAction = 1
             If strFilter IsNot Nothing Then
                 intAction = 2
             End If
-        ElseIf drwUserLogin.IsDataUserAdmin = True Then
+        ElseIf drwUserLogin.IsDataUserAdmin = True And blnAdminBranch = False Then
             intAction = 5
             If strFilter IsNot Nothing Then
                 intAction = 6
             End If
 
-        Else
+        ElseIf drwUserLogin.IsDataUserAdmin = True And blnAdminBranch = True Then
 
             intAction = 3
             If strFilter IsNot Nothing Then

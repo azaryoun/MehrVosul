@@ -1,7 +1,8 @@
-﻿Public Class HandyFollowAssign
+﻿Public Class NoticeHandyFollowAssign
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
         Page.Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
         Bootstrap_Panel1.CanNew = False
@@ -108,11 +109,52 @@
 
             End If
 
-            txtNotPiadDurationDay.Attributes.Add("onkeypress", "return numbersonly(event, false);")
+            '' txtNotPiadDurationDay.Attributes.Add("onkeypress", "return numbersonly(event, false);")
         End If
 
 
 
+
+    End Sub
+
+    Protected Sub btnCheckFiles_Click(sender As Object, e As EventArgs) Handles btnCheckFiles.Click
+
+        ''get related warninginterwal
+        Dim tadpWarningIntrevalInvoice As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervalsInvoice_SelectTableAdapter
+        Dim dtblWarningIntervalInvoice As BusinessObject.dstWarningIntervals.spr_WarningIntervalsInvoice_SelectDataTable = Nothing
+
+
+        Dim strBranchCode As String = cmbBranch.SelectedItem.Text.Substring(0, cmbBranch.SelectedItem.Text.IndexOf("("))
+
+
+        Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
+        Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
+
+        dtblBranch = tadpBranch.GetData(strBranchCode)
+
+        dtblWarningIntervalInvoice = tadpWarningIntrevalInvoice.GetData(dtblBranch.First.ID)
+
+        If dtblWarningIntervalInvoice.Rows.Count > 0 Then
+            Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCNoticeAssign_SelectTableAdapter
+            Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectDataTable = Nothing
+
+            dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, dtblWarningIntervalInvoice.First.FromDay, dtblWarningIntervalInvoice.First.ToDay, dtblBranch.First.ID)
+
+            Dim strchklstFiles As String = ""
+
+            For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectRow In dtblTotalDeffredForAssign.Rows
+                strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.CULN & "' name='chklstMenu" & drwAssignFile.CustomerNO & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
+            Next drwAssignFile
+
+            divchklstAssignFiles.InnerHtml = strchklstFiles
+        End If
+
+
+
+    End Sub
+
+    Private Sub Bootstrap_Panel1_Panel_Cancel_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Cancel_Click
+        Response.Redirect("../Cartable/HandyFollowManagement.aspx")
     End Sub
 
     Private Sub Bootstrap_Panel1_Panel_Save_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Save_Click
@@ -147,7 +189,7 @@
                     Dim intLoanID As Integer = dtblLoan.First.ID
 
                     Dim strRemark As String = txtRemark.Text
-                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, strRemark, intLoanID, 1)
+                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, strRemark, intLoanID, 2)
 
                     blnFileCheck = True
                 End If
@@ -172,56 +214,13 @@
         Catch ex As Exception
 
 
-            Response.Redirect("HandyFollowManagement.aspx?Save=NO")
+            Response.Redirect("../Cartable/HandyFollowManagement.aspx?Save=NO")
         End Try
 
-        Response.Redirect("HandyFollowManagement.aspx?Save=OK")
-
+        Response.Redirect("../Cartable/HandyFollowManagement.aspx?Save=OK")
     End Sub
-
-    Protected Sub btnCheckFiles_ServerClick(sender As Object, e As EventArgs) Handles btnCheckFiles.Click
-
-        Dim intNotPiadDurationDay As Integer = CInt(txtNotPiadDurationDay.Text)
-        Dim strBranchCode As String = cmbBranch.SelectedItem.Text.Substring(0, cmbBranch.SelectedItem.Text.IndexOf("("))
-        ''odsFiles.SelectParameters.Item("BranchCode").DefaultValue = strBranchCode
-        ''odsFiles.SelectParameters.Item("NotPiadDurationDay").DefaultValue = intNotPiadDurationDay
-
-
-        Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
-        Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
-
-        dtblBranch = tadpBranch.GetData(strBranchCode)
-        ''  odsFiles.SelectParameters.Item("BranchID").DefaultValue = dtblBranch.First.ID
-
-        ''   cmbFiles.DataBind()
-
-        Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCFileAssign_SelectTableAdapter
-        Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable = Nothing
-
-        dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDay, dtblBranch.First.ID)
-
-        Dim strchklstFiles As String = ""
-
-        For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectRow In dtblTotalDeffredForAssign.Rows
-            strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.CULN & "' name='chklstMenu" & drwAssignFile.CustomerNO & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
-        Next drwAssignFile
-
-        divchklstAssignFiles.InnerHtml = strchklstFiles
-
-
-
-
-    End Sub
-
-    ''Protected Sub cmbFiles_DataBound(sender As Object, e As EventArgs) Handles cmbFiles.DataBound
-    ''    Dim li As New ListItem
-    ''    li.Text = "----"
-    ''    li.Value = -1
-    ''    cmbFiles.Items.Insert(0, li)
-    ''End Sub
 
     Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
-
         odsBranch.SelectParameters.Item("Action").DefaultValue = 2
         odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
         odsBranch.DataBind()
@@ -245,14 +244,11 @@
     End Sub
 
     Protected Sub cmbBranch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBranch.SelectedIndexChanged
-
         odsPerson.SelectParameters.Item("Action").DefaultValue = 1
         odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
         odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
         cmbPerson.DataBind()
-
-
     End Sub
 
     Protected Sub cmbPerson_DataBound(sender As Object, e As EventArgs) Handles cmbPerson.DataBound
@@ -260,11 +256,5 @@
         li.Text = "---"
         li.Value = -1
         cmbPerson.Items.Insert(0, li)
-    End Sub
-
-    Private Sub Bootstrap_Panel1_Panel_Cancel_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Cancel_Click
-
-        Response.Redirect("HandyFollowManagement.aspx")
-
     End Sub
 End Class

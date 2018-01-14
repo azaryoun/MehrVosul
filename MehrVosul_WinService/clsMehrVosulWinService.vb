@@ -4853,8 +4853,8 @@ VoiceSMS:
             End If
 
             Dim objSMS As New clsSMS
-            Dim arrMessage(6) As String
-            Dim arrDestination(6) As String
+            Dim arrMessage(5) As String
+            Dim arrDestination(5) As String
 
             arrMessage(0) = strResultMessage
             'arrDestination(0) = "09122764983"
@@ -4881,8 +4881,8 @@ VoiceSMS:
             arrDestination(5) = "09123201844"
 
 
-            arrMessage(6) = strResultMessage
-            arrDestination(6) = "09128017669"
+            ''arrMessage(6) = strResultMessage
+            ''arrDestination(6) = "09128017669"
 
             'arrMessage(7) = strResultMessage
             'arrDestination(7) = "09121040753"
@@ -5207,8 +5207,8 @@ VoiceSMS:
                         End If
 
                         Dim sobjSMS As New clsSMS
-                        Dim arrMessage(6) As String
-                        Dim arrDestination(6) As String
+                        Dim arrMessage(5) As String
+                        Dim arrDestination(5) As String
 
 
 
@@ -5230,11 +5230,11 @@ VoiceSMS:
                         arrMessage(4) = strResultMessage
                         arrDestination(4) = "09355066075"
 
-                        arrMessage(5) = strResultMessage
-                        arrDestination(5) = "09128017669"
+                        ''arrMessage(5) = strResultMessage
+                        ''arrDestination(5) = "09128017669"
 
-                        arrMessage(6) = strResultMessage
-                        arrDestination(6) = "09121040753"
+                        arrMessage(5) = strResultMessage
+                        arrDestination(5) = "09121040753"
 
                         sobjSMS.SendSMS_LikeToLike(arrMessage, arrDestination, drwSystemSetting.GatewayUsername, drwSystemSetting.GatewayPassword, drwSystemSetting.GatewayNumber, drwSystemSetting.GatewayIP, drwSystemSetting.GatewayCompany, "Keiwan+" & Date.Now.ToLongTimeString)
 
@@ -5914,7 +5914,7 @@ VoiceSMS:
 
     Private Sub FinalReportByProvince()
 
-        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 3) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 2) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
             Return
         End If
 

@@ -366,7 +366,7 @@
                                     <th class="auto-style1">نام کاربری</th>
                                     <th class="auto-style1">وضعیت تخصیص</th>
                                     <th class="auto-style1">تاریخ لغو تخصیص</th>
-
+                                    <th class="auto-style1">نوع تخصیص</th>
                                 </tr>
                             </thead>
                             <tbody>

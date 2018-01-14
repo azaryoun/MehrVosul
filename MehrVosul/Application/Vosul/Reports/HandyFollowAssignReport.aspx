@@ -138,27 +138,30 @@
 
                             <div class="form-group">
                                 <label>شماره مشتری</label>
-                            
-                                        <asp:TextBox ID="txtCustomerNO" CssClass="form-control"
-                                            runat="server"
-                                            placeholder="شماره مشتری را وارد نمایید" ></asp:TextBox>
-                                  
+
+                                <asp:TextBox ID="txtCustomerNO" CssClass="form-control"
+                                    runat="server"
+                                    placeholder="شماره مشتری را وارد نمایید"></asp:TextBox>
+
                             </div>
 
-                              <div class="form-group">
+                            <div class="form-group">
                                 <label>تعداد روز گذشته از تخصیص پرونده</label>
-                            
-                                        <asp:TextBox ID="txtAssignDay" CssClass="form-control"
-                                            runat="server"
-                                            placeholder="تعداد روز را وارد نمایید" ></asp:TextBox>
-                                  
-                            </div>
-                                 <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
 
-                                    <label>
-                                        <input type="checkbox" runat="server" id="chkStatus" />
-                                        با معوقات روز جاری مقایسه شود.</label>
-                                </div>
+                                <asp:TextBox ID="txtAssignDay" CssClass="form-control"
+                                    runat="server"
+                                    placeholder="تعداد روز را وارد نمایید"></asp:TextBox>
+
+                            </div>
+                            <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+                                <span class="alert-info"> *پرونده هایی که تخصیص یافته اما با گذشت تعداد روز مشخص شده از تخصیص پرونده، ثبت پیگیری برای آن انجام نشده با رنگ زرد متمایز شدند. </span>
+                                <br />
+                                <br />
+                                <span class="alert-info"> *پرونده هایی که تخصیص یافته اما با گذشت تعداد روز مشخص شده از تخصیص پرونده، ثبت پیگیری برای آن انجام شده ولی همچنان معوق هستند با رنگ قرمز متمایز شدند. </span>
+                                <label>
+                                    <input type="checkbox" runat="server" id="chkStatus" visible="false" />
+                                </label>
+                            </div>
                         </div>
 
 

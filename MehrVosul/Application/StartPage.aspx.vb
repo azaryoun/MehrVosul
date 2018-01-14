@@ -11,32 +11,111 @@
 
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsItemAdmin = False Then
 
+
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                Dim blnAdminBranch As Boolean = False
+
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    blnAdminBranch = True
+                End If
+
                 divLogError.Visible = False
                 divLogSuccess.Visible = False
                 divSMSError.Visible = False
                 divSMSSuccess.Visible = False
                 tblLogDetaile.Visible = False
                 divItemAdmin.Visible = True
+                divadmin.Visible = False
 
-
-                Dim tadpSMSCountLog As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_SMSCountLog_SelectTableAdapter
-                Dim dtblSMSCountLog As BusinessObject.dstWarningNotificationLogDetail.spr_SMSCountLog_SelectDataTable = Nothing
-
-                dtblSMSCountLog = tadpSMSCountLog.GetData(Date.Now.Date)
-                If dtblSMSCountLog.Rows.Count <> 0 Then
-                    Dim drwSMSCount As BusinessObject.dstWarningNotificationLogDetail.spr_SMSCountLog_SelectRow = dtblSMSCountLog.Rows(0)
-
-                    lblItemAdmin.Text = "لطفا جهت ثبت پیگیری از ساعت 11 صبح به بعد اقدام نمایید." & " ساعت آخرین بروزرسانی سیستم " & drwSMSCount.LastSent.ToString("HH:mm")
+                If blnAdminBranch = False Then
+                    divBranchAdmin.Visible = False
+                    divBranchAdmin1.Visible = False
+                    divBranchUser.Visible = True
+                    divBranchAdmin3.Visible = False
+                    divBranchAdmin4.Visible = False
                 Else
+                    divBranchUser.Visible = False
+                    divBranchUser1.Visible = False
+                End If
 
-                    lblItemAdmin.Text = "لطفا جهت ثبت پیگیری از ساعت 11 صبح به بعد اقدام نمایید."
+                ''''Fill Current day related Branch Manifest
+                ''get related warninginterwal
+                Dim tadpWarningIntrevalManifeste As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervalsManifest_SelectTableAdapter
+                Dim dtblWarningIntervalManifest As BusinessObject.dstWarningIntervals.spr_WarningIntervalsManifest_SelectDataTable = Nothing
 
+                Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
+                Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
+
+                dtblWarningIntervalManifest = tadpWarningIntrevalManifeste.GetData(drwUserLogin.FK_BrnachID)
+
+                If dtblWarningIntervalManifest.Rows.Count > 0 Then
+
+                    Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCNoticeAssign_SelectTableAdapter
+                    Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectDataTable = Nothing
+
+
+
+                    dtblBranch = tadpBranch.GetData(drwUserLogin.FK_BrnachID)
+
+                    dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(dtblBranch.First.BrnachCode, dtblWarningIntervalManifest.First.FromDay, dtblWarningIntervalManifest.First.ToDay, drwUserLogin.FK_BrnachID)
+
+                    Dim strchklstFiles As String = ""
+
+                    For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectRow In dtblTotalDeffredForAssign.Rows
+                        strchklstFiles &= "<div class='checkbox'> <label> <i class='fa fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
+                    Next drwAssignFile
+
+                    divchklstAssignFiles.InnerHtml = strchklstFiles
+                End If
+
+                Dim tadpWarningIntrevalInvoice As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervalsInvoice_SelectTableAdapter
+                Dim dtblWarningIntervalInvoice As BusinessObject.dstWarningIntervals.spr_WarningIntervalsInvoice_SelectDataTable = Nothing
+
+
+                dtblWarningIntervalInvoice = tadpWarningIntrevalInvoice.GetData(drwUserLogin.FK_BrnachID)
+
+                If dtblWarningIntervalInvoice.Rows.Count > 0 Then
+                    Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCNoticeAssign_SelectTableAdapter
+                    Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectDataTable = Nothing
+
+                    dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(dtblBranch.First.BrnachCode, dtblWarningIntervalInvoice.First.FromDay, dtblWarningIntervalInvoice.First.ToDay, drwUserLogin.FK_BrnachID)
+
+                    Dim strchklstFiles As String = ""
+
+                    For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectRow In dtblTotalDeffredForAssign.Rows
+                        strchklstFiles &= "<div class='checkbox'> <label><i class='fa fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
+                    Next drwAssignFile
+
+                    divchklstAssignFiles1.InnerHtml = strchklstFiles
                 End If
 
 
-            Else
+                ''''''''''''''''''''''''''''''''''''''
 
-             
+
+
+                Dim tadpSMSCountLog As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.spr_SMSCountLog_SelectTableAdapter
+                    Dim dtblSMSCountLog As BusinessObject.dstWarningNotificationLogDetail.spr_SMSCountLog_SelectDataTable = Nothing
+
+                    dtblSMSCountLog = tadpSMSCountLog.GetData(Date.Now.Date)
+                    If dtblSMSCountLog.Rows.Count <> 0 Then
+                        Dim drwSMSCount As BusinessObject.dstWarningNotificationLogDetail.spr_SMSCountLog_SelectRow = dtblSMSCountLog.Rows(0)
+
+                        lblItemAdmin.Text = "لطفا جهت ثبت پیگیری از ساعت 11 صبح به بعد اقدام نمایید." & " ساعت آخرین بروزرسانی سیستم " & drwSMSCount.LastSent.ToString("HH:mm")
+                    Else
+
+                        lblItemAdmin.Text = "لطفا جهت ثبت پیگیری از ساعت 11 صبح به بعد اقدام نمایید."
+
+                    End If
+
+
+                Else
+
+
                 Dim tadpSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
                 Dim dtblSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
 

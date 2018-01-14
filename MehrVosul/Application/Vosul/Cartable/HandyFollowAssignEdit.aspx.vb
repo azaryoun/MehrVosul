@@ -61,7 +61,7 @@
 
             ViewState("FileID") = dtblHandyFollowAssign.First.FK_FileID
             ViewState("LoanID") = dtblHandyFollowAssign.First.FK_LoanID
-
+            ViewState("AssignType") = dtblHandyFollowAssign.First.AssignType
         End If
 
 
@@ -87,8 +87,9 @@
             Dim strNewRemark As String = txtNewRemark.Text
             Dim intFileID As Integer = CInt(ViewState("FileID"))
             Dim intLoanID As Integer = CInt(ViewState("LoanID"))
+            Dim intAssignType As Int16 = CInt(ViewState("AssignType"))
 
-            qryHandyFollowAssign.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, DateTime.Now, drwUserLogin.ID, strNewRemark, intLoanID)
+            qryHandyFollowAssign.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, DateTime.Now, drwUserLogin.ID, strNewRemark, intLoanID, intAssignType)
 
         Catch
             Response.Redirect("HandyFollowManagement.aspx?Edit=NO")

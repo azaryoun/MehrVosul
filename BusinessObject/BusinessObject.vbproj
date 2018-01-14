@@ -806,6 +806,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstHandyFollow.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Vosul\dstHandyFollow.vb">
+      <DependentUpon>dstHandyFollow.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Vosul\dstLoan.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

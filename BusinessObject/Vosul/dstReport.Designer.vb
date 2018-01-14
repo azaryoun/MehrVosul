@@ -5378,6 +5378,10 @@ Partial Public Class dstReport
         
         Private columnBranchName As Global.System.Data.DataColumn
         
+        Private columnAssignUserID As Global.System.Data.DataColumn
+        
+        Private columnAssignType As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -5462,6 +5466,22 @@ Partial Public Class dstReport
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property AssignUserIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnAssignUserID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property AssignTypeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnAssignType
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -5498,18 +5518,12 @@ Partial Public Class dstReport
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_HandyFollowAssign_ReportRow(ByVal Username As String, ByVal LoanNumber As String, ByVal AssignDate As String, ByVal IsAssigned As Boolean, ByVal BranchName As String) As spr_HandyFollowAssign_ReportRow
+        Public Overloads Function Addspr_HandyFollowAssign_ReportRow(ByVal Username As String, ByVal LoanNumber As String, ByVal AssignDate As String, ByVal IsAssigned As Boolean, ByVal BranchName As String, ByVal AssignType As String) As spr_HandyFollowAssign_ReportRow
             Dim rowspr_HandyFollowAssign_ReportRow As spr_HandyFollowAssign_ReportRow = CType(Me.NewRow,spr_HandyFollowAssign_ReportRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Username, LoanNumber, AssignDate, IsAssigned, BranchName}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Username, LoanNumber, AssignDate, IsAssigned, BranchName, Nothing, AssignType}
             rowspr_HandyFollowAssign_ReportRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_HandyFollowAssign_ReportRow)
             Return rowspr_HandyFollowAssign_ReportRow
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function FindByID(ByVal ID As Integer) As spr_HandyFollowAssign_ReportRow
-            Return CType(Me.Rows.Find(New Object() {ID}),spr_HandyFollowAssign_ReportRow)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -5535,6 +5549,8 @@ Partial Public Class dstReport
             Me.columnAssignDate = MyBase.Columns("AssignDate")
             Me.columnIsAssigned = MyBase.Columns("IsAssigned")
             Me.columnBranchName = MyBase.Columns("BranchName")
+            Me.columnAssignUserID = MyBase.Columns("AssignUserID")
+            Me.columnAssignType = MyBase.Columns("AssignType")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -5552,18 +5568,27 @@ Partial Public Class dstReport
             MyBase.Columns.Add(Me.columnIsAssigned)
             Me.columnBranchName = New Global.System.Data.DataColumn("BranchName", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnBranchName)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
+            Me.columnAssignUserID = New Global.System.Data.DataColumn("AssignUserID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnAssignUserID)
+            Me.columnAssignType = New Global.System.Data.DataColumn("AssignType", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnAssignType)
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
             Me.columnID.AutoIncrementStep = -1
             Me.columnID.AllowDBNull = false
             Me.columnID.ReadOnly = true
-            Me.columnID.Unique = true
             Me.columnUsername.MaxLength = 150
             Me.columnLoanNumber.MaxLength = 50
             Me.columnAssignDate.ReadOnly = true
             Me.columnAssignDate.MaxLength = 10
             Me.columnBranchName.MaxLength = 50
+            Me.columnAssignUserID.AutoIncrement = true
+            Me.columnAssignUserID.AutoIncrementSeed = -1
+            Me.columnAssignUserID.AutoIncrementStep = -1
+            Me.columnAssignUserID.AllowDBNull = false
+            Me.columnAssignUserID.ReadOnly = true
+            Me.columnAssignType.ReadOnly = true
+            Me.columnAssignType.MaxLength = 15
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -8874,6 +8899,33 @@ Partial Public Class dstReport
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property AssignUserID() As Integer
+            Get
+                Return CType(Me(Me.tablespr_HandyFollowAssign_Report.AssignUserIDColumn),Integer)
+            End Get
+            Set
+                Me(Me.tablespr_HandyFollowAssign_Report.AssignUserIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property AssignType() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_HandyFollowAssign_Report.AssignTypeColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'AssignType' in table 'spr_HandyFollowAssign_Report' is DBNu"& _ 
+                            "ll.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_HandyFollowAssign_Report.AssignTypeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsUsernameNull() As Boolean
             Return Me.IsNull(Me.tablespr_HandyFollowAssign_Report.UsernameColumn)
         End Function
@@ -8930,6 +8982,18 @@ Partial Public Class dstReport
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetBranchNameNull()
             Me(Me.tablespr_HandyFollowAssign_Report.BranchNameColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsAssignTypeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_HandyFollowAssign_Report.AssignTypeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetAssignTypeNull()
+            Me(Me.tablespr_HandyFollowAssign_Report.AssignTypeColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -12522,6 +12586,8 @@ Namespace dstReportTableAdapters
             tableMapping.ColumnMappings.Add("AssignDate", "AssignDate")
             tableMapping.ColumnMappings.Add("IsAssigned", "IsAssigned")
             tableMapping.ColumnMappings.Add("BranchName", "BranchName")
+            tableMapping.ColumnMappings.Add("AssignUserID", "AssignUserID")
+            tableMapping.ColumnMappings.Add("AssignType", "AssignType")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         

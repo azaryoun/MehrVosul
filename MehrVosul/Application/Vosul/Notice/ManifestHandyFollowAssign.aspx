@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HandyFollowAssign.aspx.vb" Inherits="MehrVosul.HandyFollowAssign" %>
+﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="ManifestHandyFollowAssign.aspx.vb" Inherits="MehrVosul.ManifestHandyFollowAssign" %>
 
 <%@ Register Src="../../../UserControl/Bootstrap_Panel.ascx" TagName="Bootstrap_Panel" TagPrefix="uc1" %>
 <%@ Register Src="../../../UserControl/UC_TimePicker.ascx" TagName="UC_TimePicker" TagPrefix="uc3" %>
@@ -15,15 +15,6 @@
 
         function CheckDataEnter() {
 
-            var txtNotPiadDurationDay = document.getElementById("<%=txtNotPiadDurationDay.ClientID%>");
-
-
-            if (trimall(txtNotPiadDurationDay.value) == "") {
-                alert("تعداد روز معوق را وارد نمایید");
-                txtNotPiadDurationDay.focus();
-                return false;
-            }
-
             return true;
         }
 
@@ -32,28 +23,6 @@
 
         function SaveOperation_Validate() {
 
-
-
-            var txtNotPiadDurationDay = document.getElementById("<%=txtNotPiadDurationDay.ClientID%>");
-
-            if (trimall(txtNotPiadDurationDay.value) == "") {
-                {
-                    alert("تعداد روز تاخیر را وارد نمایید");
-                    txtNotPiadDurationDay.focus();
-                    return false;
-                }
-
-            }
-
-
-            if (parseInt(txtNotPiadDurationDay.value) < 60) {
-                {
-                    alert("تعداد روز تاخیر بایستی از 60 بیشتر باشد");
-                    txtNotPiadDurationDay.focus();
-                    return false;
-                }
-
-            }
 
             var cmbPerson = document.getElementById("<%=cmbPerson.ClientID%>");
 
@@ -159,37 +128,11 @@
                                 </asp:UpdatePanel>
                             </div>
                         </div>
+                    &nbsp;<div class="form-group">
+                            <br />
+                            <asp:LinkButton CssClass="btn btn-success" OnClientClick="return CheckDataEnter();" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
+                        </div>
                     </div>
-                    <div class="row">
-
-
-                        <div class="col-md-6">
-                            <div class="form-group">
-
-                                <label>تعداد روز معوق</label>
-                                <asp:UpdatePanel ID="UpdatePanel5" runat="server">
-                                    <ContentTemplate>
-
-                                        <asp:TextBox ID="txtNotPiadDurationDay" AutoPostBack="true" runat="server" CssClass="form-control" placeholder="تعدا روز معوق را وارد کنید"></asp:TextBox>
-                                        <label style="color: red;">تعداد روز معوق باید بیشتر از 60 وارد شود(اطلاع رسانی کمتر از این تعداد سیستمی و از طریق ارسال پیامک متنی و صوتی انجام می شود.)</label>
-
-
-
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-
-
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <br />
-
-                                <asp:LinkButton CssClass="btn btn-success" OnClientClick="return CheckDataEnter();" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
-
-
-                            </div>
-                        </div>
 
                     </div>
 
@@ -268,8 +211,6 @@
 
         </div>
 
-
-    </div>
 
 
 

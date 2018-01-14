@@ -415,6 +415,8 @@
               <Mapping SourceColumn="AssignDate" DataSetColumn="AssignDate" />
               <Mapping SourceColumn="IsAssigned" DataSetColumn="IsAssigned" />
               <Mapping SourceColumn="BranchName" DataSetColumn="BranchName" />
+              <Mapping SourceColumn="AssignUserID" DataSetColumn="AssignUserID" />
+              <Mapping SourceColumn="AssignType" DataSetColumn="AssignType" />
             </Mappings>
             <Sources />
           </TableAdapter>
@@ -1051,6 +1053,14 @@
                   </xs:restriction>
                 </xs:simpleType>
               </xs:element>
+              <xs:element name="AssignUserID" msdata:ReadOnly="true" msdata:AutoIncrement="true" msdata:AutoIncrementSeed="-1" msdata:AutoIncrementStep="-1" msprop:Generator_ColumnVarNameInTable="columnAssignUserID" msprop:Generator_ColumnPropNameInRow="AssignUserID" msprop:Generator_ColumnPropNameInTable="AssignUserIDColumn" msprop:Generator_UserColumnName="AssignUserID" type="xs:int" />
+              <xs:element name="AssignType" msdata:ReadOnly="true" msprop:Generator_ColumnVarNameInTable="columnAssignType" msprop:Generator_ColumnPropNameInRow="AssignType" msprop:Generator_ColumnPropNameInTable="AssignTypeColumn" msprop:Generator_UserColumnName="AssignType" minOccurs="0">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:maxLength value="15" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -1062,10 +1072,6 @@
     </xs:unique>
     <xs:unique name="spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
       <xs:selector xpath=".//mstns:spr_Report_CurrentLCStatus_MaxLoanTypeParameter_Select" />
-      <xs:field xpath="mstns:ID" />
-    </xs:unique>
-    <xs:unique name="spr_HandyFollowAssign_Report_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
-      <xs:selector xpath=".//mstns:spr_HandyFollowAssign_Report" />
       <xs:field xpath="mstns:ID" />
     </xs:unique>
   </xs:element>
