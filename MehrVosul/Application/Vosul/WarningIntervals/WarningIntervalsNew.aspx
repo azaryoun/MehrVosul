@@ -33,7 +33,7 @@
             var chkbxToSponsor = document.getElementById("<%=chkbxToSponsor.ClientID%>");
             var txtMinimumAmount = document.getElementById("<%=txtMinimumAmount.ClientID%>");
             var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
-            
+            var chkbxVoiceMessage = document.getElementById("<%=chkbxVoiceMessage.ClientID%>");
             
 
 
@@ -83,9 +83,9 @@
                 return false;
 
             }
-          
+          debugger
 
-            if (cmbFrequencyInDay.options(cmbFrequencyInDay.selectedIndex).value == -1) {
+            if (cmbFrequencyInDay.options[cmbFrequencyInDay.selectedIndex].value == -1) {
                 alert("تعداد اطلاع رسانی در روز را مشخص نمایید", "خطا");
                 cmbFrequencyInDay.focus();
                 return false;
@@ -112,13 +112,13 @@
             }
 
 
-            if (cmbFrequencyInHour.options(cmbFrequencyInHour.selectedIndex).value == -1) {
+            if (cmbFrequencyInHour.options[cmbFrequencyInHour.selectedIndex].value == -1) {
                 alert("فاصله زمانی هر تکرار را مشخص نمائید", "خطا");
                 cmbFrequencyInHour.focus();
                 return false;
             }
 
-            if (chkbxCallTelephone.checked == false && chkbxIssueNotice.checked == false && chkbxSendSMS.checked == false && chkbxIssueIntroductionLetter.checked == false && chkbxIssueManifest.checked == false) {
+            if (chkbxCallTelephone.checked == false && chkbxIssueNotice.checked == false && chkbxSendSMS.checked == false && chkbxIssueIntroductionLetter.checked == false && chkbxIssueManifest.checked == false && chkbxVoiceMessage.checked == false) {
                 alert("یکی از انواع اطلاع رسانی را مشخص نمایید", "خطا");
                
                 return false;

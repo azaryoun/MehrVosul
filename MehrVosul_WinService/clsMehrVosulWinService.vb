@@ -2320,10 +2320,11 @@ VoiceSMS:
 
         Dim dteThisDate As Date = Date.Now.AddDays(-1)
 
-        Dim blnIsUpdateDay As Boolean = False
-        If Date.Now.DayOfWeek = DayOfWeek.Sunday OrElse Date.Now.DayOfWeek = DayOfWeek.Tuesday Then
-            blnIsUpdateDay = True
-        End If
+        Dim blnIsUpdateDay As Boolean = True
+        ''commented then update data every day
+        'If Date.Now.DayOfWeek = DayOfWeek.Sunday OrElse Date.Now.DayOfWeek = DayOfWeek.Tuesday Then
+        '    blnIsUpdateDay = True
+        'End If
 
         '  If (Date.Now.DayOfWeek = DayOfWeek.Friday, True, False)
 
@@ -2949,6 +2950,9 @@ VoiceSMS:
                             '       ,@NoPaidInstallment int
                             ',@Process
                             ')
+
+
+                            ''check if current Loan-File has active handy follow or not
 
 
 
@@ -5366,7 +5370,8 @@ VoiceSMS:
             Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
 
 
-            Dim strLoan_Info_Query As String = "SELECT namfamp,MOBILE,lc_no,ABRNCHCOD,CFCIFNO,NPDURATION,LNMINORTP,AMNTDEFERRED from loan_info where Date_P='" & strThisDatePersian & "'   and  amntdeferred  > 0 and NPDURATION >=60 "
+            Dim strLoan_Info_Query As String = "SELECT namfamp,MOBILE,lc_no,ABRNCHCOD,CFCIFNO,NPDURATION,LNMINORTP,AMNTDEFERRED from loan_info where Date_P='" & strThisDatePersian & "'   and  amntdeferred  > 0  "
+            ''and NPDURATION >=60
 
             cmd_BI.CommandText = strLoan_Info_Query
 
@@ -5914,7 +5919,7 @@ VoiceSMS:
 
     Private Sub FinalReportByProvince()
 
-        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 2) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
             Return
         End If
 
