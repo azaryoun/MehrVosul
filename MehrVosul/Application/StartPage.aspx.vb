@@ -9,7 +9,14 @@
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
+
+
+
+
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsItemAdmin = False Then
+
+
+
 
 
                 ''check the access Group id

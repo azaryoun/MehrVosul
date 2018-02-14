@@ -27,6 +27,8 @@ Partial Public Class dstSystemSetting
     
     Private tablespr_SystemSetting_Select As spr_SystemSetting_SelectDataTable
     
+    Private tablespr_AdminSetting_Select As spr_AdminSetting_SelectDataTable
+    
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -59,6 +61,9 @@ Partial Public Class dstSystemSetting
             If (Not (ds.Tables("spr_SystemSetting_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_SystemSetting_SelectDataTable(ds.Tables("spr_SystemSetting_Select")))
             End If
+            If (Not (ds.Tables("spr_AdminSetting_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_AdminSetting_SelectDataTable(ds.Tables("spr_AdminSetting_Select")))
+            End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
             Me.Namespace = ds.Namespace
@@ -83,6 +88,16 @@ Partial Public Class dstSystemSetting
     Public ReadOnly Property spr_SystemSetting_Select() As spr_SystemSetting_SelectDataTable
         Get
             Return Me.tablespr_SystemSetting_Select
+        End Get
+    End Property
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+     Global.System.ComponentModel.Browsable(false),  _
+     Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
+    Public ReadOnly Property spr_AdminSetting_Select() As spr_AdminSetting_SelectDataTable
+        Get
+            Return Me.tablespr_AdminSetting_Select
         End Get
     End Property
     
@@ -156,6 +171,9 @@ Partial Public Class dstSystemSetting
             If (Not (ds.Tables("spr_SystemSetting_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_SystemSetting_SelectDataTable(ds.Tables("spr_SystemSetting_Select")))
             End If
+            If (Not (ds.Tables("spr_AdminSetting_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_AdminSetting_SelectDataTable(ds.Tables("spr_AdminSetting_Select")))
+            End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
             Me.Namespace = ds.Namespace
@@ -194,6 +212,12 @@ Partial Public Class dstSystemSetting
                 Me.tablespr_SystemSetting_Select.InitVars
             End If
         End If
+        Me.tablespr_AdminSetting_Select = CType(MyBase.Tables("spr_AdminSetting_Select"),spr_AdminSetting_SelectDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tablespr_AdminSetting_Select) Is Nothing) Then
+                Me.tablespr_AdminSetting_Select.InitVars
+            End If
+        End If
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -206,11 +230,19 @@ Partial Public Class dstSystemSetting
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
         Me.tablespr_SystemSetting_Select = New spr_SystemSetting_SelectDataTable()
         MyBase.Tables.Add(Me.tablespr_SystemSetting_Select)
+        Me.tablespr_AdminSetting_Select = New spr_AdminSetting_SelectDataTable()
+        MyBase.Tables.Add(Me.tablespr_AdminSetting_Select)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Private Function ShouldSerializespr_SystemSetting_Select() As Boolean
+        Return false
+    End Function
+    
+    <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+     Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Private Function ShouldSerializespr_AdminSetting_Select() As Boolean
         Return false
     End Function
     
@@ -274,6 +306,9 @@ Partial Public Class dstSystemSetting
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub spr_SystemSetting_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_SystemSetting_SelectRowChangeEvent)
+    
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub spr_AdminSetting_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_AdminSetting_SelectRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -969,6 +1004,427 @@ Partial Public Class dstSystemSetting
             Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
             attribute2.Name = "tableTypeName"
             attribute2.FixedValue = "spr_SystemSetting_SelectDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class spr_AdminSetting_SelectDataTable
+        Inherits Global.System.Data.TypedTableBase(Of spr_AdminSetting_SelectRow)
+        
+        Private columnID As Global.System.Data.DataColumn
+        
+        Private columnMassiveFilePeriod As Global.System.Data.DataColumn
+        
+        Private columnDueDateFilePeroid As Global.System.Data.DataColumn
+        
+        Private columnDueDateRecivedPeriod As Global.System.Data.DataColumn
+        
+        Private columnDeferredPeriod As Global.System.Data.DataColumn
+        
+        Private columnDoubtfulPaidPeriod As Global.System.Data.DataColumn
+        
+        Private columnFK_UserID As Global.System.Data.DataColumn
+        
+        Private columnSTime As Global.System.Data.DataColumn
+        
+        Private columnMassiveFileAmount As Global.System.Data.DataColumn
+        
+        Private columnDueDateFileAmount As Global.System.Data.DataColumn
+        
+        Private columnDueDateRecivedAmount As Global.System.Data.DataColumn
+        
+        Private columnDeferredAmount As Global.System.Data.DataColumn
+        
+        Private columnDoubtfulPaidAmount As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "spr_AdminSetting_Select"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property MassiveFilePeriodColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMassiveFilePeriod
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DueDateFilePeroidColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDueDateFilePeroid
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DueDateRecivedPeriodColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDueDateRecivedPeriod
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DeferredPeriodColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDeferredPeriod
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DoubtfulPaidPeriodColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDoubtfulPaidPeriod
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FK_UserIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFK_UserID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property STimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnSTime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property MassiveFileAmountColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMassiveFileAmount
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DueDateFileAmountColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDueDateFileAmount
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DueDateRecivedAmountColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDueDateRecivedAmount
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DeferredAmountColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDeferredAmount
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property DoubtfulPaidAmountColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnDoubtfulPaidAmount
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_AdminSetting_SelectRow
+            Get
+                Return CType(Me.Rows(index),spr_AdminSetting_SelectRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_AdminSetting_SelectRowChanging As spr_AdminSetting_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_AdminSetting_SelectRowChanged As spr_AdminSetting_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_AdminSetting_SelectRowDeleting As spr_AdminSetting_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_AdminSetting_SelectRowDeleted As spr_AdminSetting_SelectRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub Addspr_AdminSetting_SelectRow(ByVal row As spr_AdminSetting_SelectRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function Addspr_AdminSetting_SelectRow(ByVal MassiveFilePeriod As Integer, ByVal DueDateFilePeroid As Integer, ByVal DueDateRecivedPeriod As Integer, ByVal DeferredPeriod As Integer, ByVal DoubtfulPaidPeriod As Integer, ByVal FK_UserID As Integer, ByVal STime As Date, ByVal MassiveFileAmount As Decimal, ByVal DueDateFileAmount As Decimal, ByVal DueDateRecivedAmount As Decimal, ByVal DeferredAmount As Decimal, ByVal DoubtfulPaidAmount As Decimal) As spr_AdminSetting_SelectRow
+            Dim rowspr_AdminSetting_SelectRow As spr_AdminSetting_SelectRow = CType(Me.NewRow,spr_AdminSetting_SelectRow)
+            Dim columnValuesArray() As Object = New Object() {Nothing, MassiveFilePeriod, DueDateFilePeroid, DueDateRecivedPeriod, DeferredPeriod, DoubtfulPaidPeriod, FK_UserID, STime, MassiveFileAmount, DueDateFileAmount, DueDateRecivedAmount, DeferredAmount, DoubtfulPaidAmount}
+            rowspr_AdminSetting_SelectRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowspr_AdminSetting_SelectRow)
+            Return rowspr_AdminSetting_SelectRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function FindByID(ByVal ID As Integer) As spr_AdminSetting_SelectRow
+            Return CType(Me.Rows.Find(New Object() {ID}),spr_AdminSetting_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As spr_AdminSetting_SelectDataTable = CType(MyBase.Clone,spr_AdminSetting_SelectDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New spr_AdminSetting_SelectDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnID = MyBase.Columns("ID")
+            Me.columnMassiveFilePeriod = MyBase.Columns("MassiveFilePeriod")
+            Me.columnDueDateFilePeroid = MyBase.Columns("DueDateFilePeroid")
+            Me.columnDueDateRecivedPeriod = MyBase.Columns("DueDateRecivedPeriod")
+            Me.columnDeferredPeriod = MyBase.Columns("DeferredPeriod")
+            Me.columnDoubtfulPaidPeriod = MyBase.Columns("DoubtfulPaidPeriod")
+            Me.columnFK_UserID = MyBase.Columns("FK_UserID")
+            Me.columnSTime = MyBase.Columns("STime")
+            Me.columnMassiveFileAmount = MyBase.Columns("MassiveFileAmount")
+            Me.columnDueDateFileAmount = MyBase.Columns("DueDateFileAmount")
+            Me.columnDueDateRecivedAmount = MyBase.Columns("DueDateRecivedAmount")
+            Me.columnDeferredAmount = MyBase.Columns("DeferredAmount")
+            Me.columnDoubtfulPaidAmount = MyBase.Columns("DoubtfulPaidAmount")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnID)
+            Me.columnMassiveFilePeriod = New Global.System.Data.DataColumn("MassiveFilePeriod", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMassiveFilePeriod)
+            Me.columnDueDateFilePeroid = New Global.System.Data.DataColumn("DueDateFilePeroid", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDueDateFilePeroid)
+            Me.columnDueDateRecivedPeriod = New Global.System.Data.DataColumn("DueDateRecivedPeriod", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDueDateRecivedPeriod)
+            Me.columnDeferredPeriod = New Global.System.Data.DataColumn("DeferredPeriod", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDeferredPeriod)
+            Me.columnDoubtfulPaidPeriod = New Global.System.Data.DataColumn("DoubtfulPaidPeriod", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDoubtfulPaidPeriod)
+            Me.columnFK_UserID = New Global.System.Data.DataColumn("FK_UserID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_UserID)
+            Me.columnSTime = New Global.System.Data.DataColumn("STime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnSTime)
+            Me.columnMassiveFileAmount = New Global.System.Data.DataColumn("MassiveFileAmount", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMassiveFileAmount)
+            Me.columnDueDateFileAmount = New Global.System.Data.DataColumn("DueDateFileAmount", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDueDateFileAmount)
+            Me.columnDueDateRecivedAmount = New Global.System.Data.DataColumn("DueDateRecivedAmount", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDueDateRecivedAmount)
+            Me.columnDeferredAmount = New Global.System.Data.DataColumn("DeferredAmount", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDeferredAmount)
+            Me.columnDoubtfulPaidAmount = New Global.System.Data.DataColumn("DoubtfulPaidAmount", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnDoubtfulPaidAmount)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
+            Me.columnID.AutoIncrement = true
+            Me.columnID.AutoIncrementSeed = -1
+            Me.columnID.AutoIncrementStep = -1
+            Me.columnID.AllowDBNull = false
+            Me.columnID.ReadOnly = true
+            Me.columnID.Unique = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function Newspr_AdminSetting_SelectRow() As spr_AdminSetting_SelectRow
+            Return CType(Me.NewRow,spr_AdminSetting_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New spr_AdminSetting_SelectRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(spr_AdminSetting_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.spr_AdminSetting_SelectRowChangedEvent) Is Nothing) Then
+                RaiseEvent spr_AdminSetting_SelectRowChanged(Me, New spr_AdminSetting_SelectRowChangeEvent(CType(e.Row,spr_AdminSetting_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.spr_AdminSetting_SelectRowChangingEvent) Is Nothing) Then
+                RaiseEvent spr_AdminSetting_SelectRowChanging(Me, New spr_AdminSetting_SelectRowChangeEvent(CType(e.Row,spr_AdminSetting_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.spr_AdminSetting_SelectRowDeletedEvent) Is Nothing) Then
+                RaiseEvent spr_AdminSetting_SelectRowDeleted(Me, New spr_AdminSetting_SelectRowChangeEvent(CType(e.Row,spr_AdminSetting_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.spr_AdminSetting_SelectRowDeletingEvent) Is Nothing) Then
+                RaiseEvent spr_AdminSetting_SelectRowDeleting(Me, New spr_AdminSetting_SelectRowChangeEvent(CType(e.Row,spr_AdminSetting_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub Removespr_AdminSetting_SelectRow(ByVal row As spr_AdminSetting_SelectRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dstSystemSetting = New dstSystemSetting()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "spr_AdminSetting_SelectDataTable"
             type.Attributes.Add(attribute2)
             type.Particle = sequence
             Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
@@ -1956,6 +2412,367 @@ Partial Public Class dstSystemSetting
     End Class
     
     '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class spr_AdminSetting_SelectRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tablespr_AdminSetting_Select As spr_AdminSetting_SelectDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tablespr_AdminSetting_Select = CType(Me.Table,spr_AdminSetting_SelectDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ID() As Integer
+            Get
+                Return CType(Me(Me.tablespr_AdminSetting_Select.IDColumn),Integer)
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.IDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property MassiveFilePeriod() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MassiveFilePeriod' in table 'spr_AdminSetting_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DueDateFilePeroid() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateFilePeroid' in table 'spr_AdminSetting_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DueDateRecivedPeriod() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateRecivedPeriod' in table 'spr_AdminSetting_Select' is"& _ 
+                            " DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DeferredPeriod() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DeferredPeriod' in table 'spr_AdminSetting_Select' is DBNul"& _ 
+                            "l.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DoubtfulPaidPeriod() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DoubtfulPaidPeriod' in table 'spr_AdminSetting_Select' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FK_UserID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_UserID' in table 'spr_AdminSetting_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property STime() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.STimeColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'STime' in table 'spr_AdminSetting_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.STimeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property MassiveFileAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MassiveFileAmount' in table 'spr_AdminSetting_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DueDateFileAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateFileAmount' in table 'spr_AdminSetting_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DueDateRecivedAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateRecivedAmount' in table 'spr_AdminSetting_Select' is"& _ 
+                            " DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DeferredAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DeferredAmount' in table 'spr_AdminSetting_Select' is DBNul"& _ 
+                            "l.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DoubtfulPaidAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DoubtfulPaidAmount' in table 'spr_AdminSetting_Select' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsMassiveFilePeriodNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetMassiveFilePeriodNull()
+            Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDueDateFilePeroidNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDueDateFilePeroidNull()
+            Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDueDateRecivedPeriodNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDueDateRecivedPeriodNull()
+            Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDeferredPeriodNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDeferredPeriodNull()
+            Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDoubtfulPaidPeriodNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDoubtfulPaidPeriodNull()
+            Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_UserIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.FK_UserIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_UserIDNull()
+            Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSTimeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.STimeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSTimeNull()
+            Me(Me.tablespr_AdminSetting_Select.STimeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsMassiveFileAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetMassiveFileAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDueDateFileAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDueDateFileAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDueDateRecivedAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDueDateRecivedAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDeferredAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DeferredAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDeferredAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDoubtfulPaidAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDoubtfulPaidAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+    End Class
+    
+    '''<summary>
     '''Row event argument class
     '''</summary>
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
@@ -1977,6 +2794,42 @@ Partial Public Class dstSystemSetting
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public ReadOnly Property Row() As spr_SystemSetting_SelectRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class spr_AdminSetting_SelectRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As spr_AdminSetting_SelectRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As spr_AdminSetting_SelectRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As spr_AdminSetting_SelectRow
             Get
                 Return Me.eventRow
             End Get
@@ -2210,6 +3063,192 @@ Namespace dstSystemSettingTableAdapters
      Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
      Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+    Partial Public Class spr_AdminSetting_SelectTableAdapter
+        Inherits Global.System.ComponentModel.Component
+        
+        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
+        
+        Private _connection As Global.System.Data.SqlClient.SqlConnection
+        
+        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
+        
+        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
+        
+        Private _clearBeforeFill As Boolean
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.ClearBeforeFill = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
+            Get
+                If (Me._adapter Is Nothing) Then
+                    Me.InitAdapter
+                End If
+                Return Me._adapter
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
+            Get
+                If (Me._connection Is Nothing) Then
+                    Me.InitConnection
+                End If
+                Return Me._connection
+            End Get
+            Set
+                Me._connection = value
+                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
+                    Me.Adapter.InsertCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
+                    Me.Adapter.DeleteCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
+                    Me.Adapter.UpdateCommand.Connection = value
+                End If
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
+                    End If
+                    i = (i + 1)
+                Loop
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
+            Get
+                Return Me._transaction
+            End Get
+            Set
+                Me._transaction = value
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    Me.CommandCollection(i).Transaction = Me._transaction
+                    i = (i + 1)
+                Loop
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
+                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
+                    Me.Adapter.InsertCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
+                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
+                End If
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
+            Get
+                If (Me._commandCollection Is Nothing) Then
+                    Me.InitCommandCollection
+                End If
+                Return Me._commandCollection
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ClearBeforeFill() As Boolean
+            Get
+                Return Me._clearBeforeFill
+            End Get
+            Set
+                Me._clearBeforeFill = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitAdapter()
+            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
+            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
+            tableMapping.SourceTable = "Table"
+            tableMapping.DataSetTable = "spr_AdminSetting_Select"
+            tableMapping.ColumnMappings.Add("ID", "ID")
+            tableMapping.ColumnMappings.Add("MassiveFilePeriod", "MassiveFilePeriod")
+            tableMapping.ColumnMappings.Add("DueDateFilePeroid", "DueDateFilePeroid")
+            tableMapping.ColumnMappings.Add("DueDateRecivedPeriod", "DueDateRecivedPeriod")
+            tableMapping.ColumnMappings.Add("DeferredPeriod", "DeferredPeriod")
+            tableMapping.ColumnMappings.Add("DoubtfulPaidPeriod", "DoubtfulPaidPeriod")
+            tableMapping.ColumnMappings.Add("FK_UserID", "FK_UserID")
+            tableMapping.ColumnMappings.Add("STime", "STime")
+            tableMapping.ColumnMappings.Add("MassiveFileAmount", "MassiveFileAmount")
+            tableMapping.ColumnMappings.Add("DueDateFileAmount", "DueDateFileAmount")
+            tableMapping.ColumnMappings.Add("DueDateRecivedAmount", "DueDateRecivedAmount")
+            tableMapping.ColumnMappings.Add("DeferredAmount", "DeferredAmount")
+            tableMapping.ColumnMappings.Add("DoubtfulPaidAmount", "DoubtfulPaidAmount")
+            Me._adapter.TableMappings.Add(tableMapping)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitConnection()
+            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
+            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitCommandCollection()
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
+            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(0).Connection = Me.Connection
+            Me._commandCollection(0).CommandText = "dbo.spr_AdminSetting_Select"
+            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstSystemSetting.spr_AdminSetting_SelectDataTable) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As dstSystemSetting.spr_AdminSetting_SelectDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Dim dataTable As dstSystemSetting.spr_AdminSetting_SelectDataTable = New dstSystemSetting.spr_AdminSetting_SelectDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the connection and commands used to retrieve and save data.
+    '''</summary>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
     Partial Public Class QueriesTableAdapter
         Inherits Global.System.ComponentModel.Component
         
@@ -2229,7 +3268,7 @@ Namespace dstSystemSettingTableAdapters
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.IDbCommand(0) {}
+            Me._commandCollection = New Global.System.Data.IDbCommand(2) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_SystemSetting_Update"
@@ -2262,6 +3301,39 @@ Namespace dstSystemSettingTableAdapters
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@HadiService", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@HadiServiceLoan", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@VoiceService", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(1) = New Global.System.Data.SqlClient.SqlCommand()
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_AdminSetting_Insert"
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@MassiveFilePeriod", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DueDateFilePeroid", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DueDateRecivedPeriod", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DeferredPeriod", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DoubtfulPaidPeriod", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_UserID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@MassiveFileAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DueDateFileAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DueDateRecivedAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DeferredAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(1),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DoubtfulPaidAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(2) = New Global.System.Data.SqlClient.SqlCommand()
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_AdminSetting_Update"
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@MassiveFilePeriod", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DueDateFilePeroid", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DueDateRecivedPeriod", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DeferredPeriod", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DoubtfulPaidPeriod", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FK_UserID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@MassiveFileAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DueDateFileAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DueDateRecivedAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DeferredAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(2),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@DoubtfulPaidAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2430,6 +3502,163 @@ Namespace dstSystemSettingTableAdapters
                 command.Parameters(27).Value = CType(VoiceService.Value,Boolean)
             Else
                 command.Parameters(27).Value = Global.System.DBNull.Value
+            End If
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
+                        <> Global.System.Data.ConnectionState.Open) Then
+                command.Connection.Open
+            End If
+            Dim returnValue As Integer
+            Try 
+                returnValue = command.ExecuteNonQuery
+            Finally
+                If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
+                    command.Connection.Close
+                End If
+            End Try
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function spr_AdminSetting_Insert(ByVal MassiveFilePeriod As Global.System.Nullable(Of Integer), ByVal DueDateFilePeroid As Global.System.Nullable(Of Integer), ByVal DueDateRecivedPeriod As Global.System.Nullable(Of Integer), ByVal DeferredPeriod As Global.System.Nullable(Of Integer), ByVal DoubtfulPaidPeriod As Global.System.Nullable(Of Integer), ByVal FK_UserID As Global.System.Nullable(Of Integer), ByVal MassiveFileAmount As Global.System.Nullable(Of Decimal), ByVal DueDateFileAmount As Global.System.Nullable(Of Decimal), ByVal DueDateRecivedAmount As Global.System.Nullable(Of Decimal), ByVal DeferredAmount As Global.System.Nullable(Of Decimal), ByVal DoubtfulPaidAmount As Global.System.Nullable(Of Decimal)) As Integer
+            Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(1),Global.System.Data.SqlClient.SqlCommand)
+            If (MassiveFilePeriod.HasValue = true) Then
+                command.Parameters(1).Value = CType(MassiveFilePeriod.Value,Integer)
+            Else
+                command.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (DueDateFilePeroid.HasValue = true) Then
+                command.Parameters(2).Value = CType(DueDateFilePeroid.Value,Integer)
+            Else
+                command.Parameters(2).Value = Global.System.DBNull.Value
+            End If
+            If (DueDateRecivedPeriod.HasValue = true) Then
+                command.Parameters(3).Value = CType(DueDateRecivedPeriod.Value,Integer)
+            Else
+                command.Parameters(3).Value = Global.System.DBNull.Value
+            End If
+            If (DeferredPeriod.HasValue = true) Then
+                command.Parameters(4).Value = CType(DeferredPeriod.Value,Integer)
+            Else
+                command.Parameters(4).Value = Global.System.DBNull.Value
+            End If
+            If (DoubtfulPaidPeriod.HasValue = true) Then
+                command.Parameters(5).Value = CType(DoubtfulPaidPeriod.Value,Integer)
+            Else
+                command.Parameters(5).Value = Global.System.DBNull.Value
+            End If
+            If (FK_UserID.HasValue = true) Then
+                command.Parameters(6).Value = CType(FK_UserID.Value,Integer)
+            Else
+                command.Parameters(6).Value = Global.System.DBNull.Value
+            End If
+            If (MassiveFileAmount.HasValue = true) Then
+                command.Parameters(7).Value = CType(MassiveFileAmount.Value,Decimal)
+            Else
+                command.Parameters(7).Value = Global.System.DBNull.Value
+            End If
+            If (DueDateFileAmount.HasValue = true) Then
+                command.Parameters(8).Value = CType(DueDateFileAmount.Value,Decimal)
+            Else
+                command.Parameters(8).Value = Global.System.DBNull.Value
+            End If
+            If (DueDateRecivedAmount.HasValue = true) Then
+                command.Parameters(9).Value = CType(DueDateRecivedAmount.Value,Decimal)
+            Else
+                command.Parameters(9).Value = Global.System.DBNull.Value
+            End If
+            If (DeferredAmount.HasValue = true) Then
+                command.Parameters(10).Value = CType(DeferredAmount.Value,Decimal)
+            Else
+                command.Parameters(10).Value = Global.System.DBNull.Value
+            End If
+            If (DoubtfulPaidAmount.HasValue = true) Then
+                command.Parameters(11).Value = CType(DoubtfulPaidAmount.Value,Decimal)
+            Else
+                command.Parameters(11).Value = Global.System.DBNull.Value
+            End If
+            Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
+            If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
+                        <> Global.System.Data.ConnectionState.Open) Then
+                command.Connection.Open
+            End If
+            Dim returnValue As Integer
+            Try 
+                returnValue = command.ExecuteNonQuery
+            Finally
+                If (previousConnectionState = Global.System.Data.ConnectionState.Closed) Then
+                    command.Connection.Close
+                End If
+            End Try
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+        Public Overloads Overridable Function spr_AdminSetting_Update(ByVal ID As Global.System.Nullable(Of Integer), ByVal MassiveFilePeriod As Global.System.Nullable(Of Integer), ByVal DueDateFilePeroid As Global.System.Nullable(Of Integer), ByVal DueDateRecivedPeriod As Global.System.Nullable(Of Integer), ByVal DeferredPeriod As Global.System.Nullable(Of Integer), ByVal DoubtfulPaidPeriod As Global.System.Nullable(Of Integer), ByVal FK_UserID As Global.System.Nullable(Of Integer), ByVal MassiveFileAmount As Global.System.Nullable(Of Decimal), ByVal DueDateFileAmount As Global.System.Nullable(Of Decimal), ByVal DueDateRecivedAmount As Global.System.Nullable(Of Decimal), ByVal DeferredAmount As Global.System.Nullable(Of Decimal), ByVal DoubtfulPaidAmount As Global.System.Nullable(Of Decimal)) As Integer
+            Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(2),Global.System.Data.SqlClient.SqlCommand)
+            If (ID.HasValue = true) Then
+                command.Parameters(1).Value = CType(ID.Value,Integer)
+            Else
+                command.Parameters(1).Value = Global.System.DBNull.Value
+            End If
+            If (MassiveFilePeriod.HasValue = true) Then
+                command.Parameters(2).Value = CType(MassiveFilePeriod.Value,Integer)
+            Else
+                command.Parameters(2).Value = Global.System.DBNull.Value
+            End If
+            If (DueDateFilePeroid.HasValue = true) Then
+                command.Parameters(3).Value = CType(DueDateFilePeroid.Value,Integer)
+            Else
+                command.Parameters(3).Value = Global.System.DBNull.Value
+            End If
+            If (DueDateRecivedPeriod.HasValue = true) Then
+                command.Parameters(4).Value = CType(DueDateRecivedPeriod.Value,Integer)
+            Else
+                command.Parameters(4).Value = Global.System.DBNull.Value
+            End If
+            If (DeferredPeriod.HasValue = true) Then
+                command.Parameters(5).Value = CType(DeferredPeriod.Value,Integer)
+            Else
+                command.Parameters(5).Value = Global.System.DBNull.Value
+            End If
+            If (DoubtfulPaidPeriod.HasValue = true) Then
+                command.Parameters(6).Value = CType(DoubtfulPaidPeriod.Value,Integer)
+            Else
+                command.Parameters(6).Value = Global.System.DBNull.Value
+            End If
+            If (FK_UserID.HasValue = true) Then
+                command.Parameters(7).Value = CType(FK_UserID.Value,Integer)
+            Else
+                command.Parameters(7).Value = Global.System.DBNull.Value
+            End If
+            If (MassiveFileAmount.HasValue = true) Then
+                command.Parameters(8).Value = CType(MassiveFileAmount.Value,Decimal)
+            Else
+                command.Parameters(8).Value = Global.System.DBNull.Value
+            End If
+            If (DueDateFileAmount.HasValue = true) Then
+                command.Parameters(9).Value = CType(DueDateFileAmount.Value,Decimal)
+            Else
+                command.Parameters(9).Value = Global.System.DBNull.Value
+            End If
+            If (DueDateRecivedAmount.HasValue = true) Then
+                command.Parameters(10).Value = CType(DueDateRecivedAmount.Value,Decimal)
+            Else
+                command.Parameters(10).Value = Global.System.DBNull.Value
+            End If
+            If (DeferredAmount.HasValue = true) Then
+                command.Parameters(11).Value = CType(DeferredAmount.Value,Decimal)
+            Else
+                command.Parameters(11).Value = Global.System.DBNull.Value
+            End If
+            If (DoubtfulPaidAmount.HasValue = true) Then
+                command.Parameters(12).Value = CType(DoubtfulPaidAmount.Value,Decimal)
+            Else
+                command.Parameters(12).Value = Global.System.DBNull.Value
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _

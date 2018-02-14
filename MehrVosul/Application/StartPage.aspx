@@ -24,6 +24,45 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+
+
+    <div class="row">
+
+
+        <div class="col-md-12">
+
+            <div class="panel-body">
+                <div class="table-responsive" style="text-align:left" >
+                    <table id="tblSummary" style="width:50%;" runat="server" class="table table-striped table-bordered table-hover">
+                         <thead>
+                             <tr>
+                                <th> <asp:Label ID="lblUserName1" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+                                <th colspan="2"> <asp:Label ID="lblUserRole" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+                               
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th>روزگذشته</th>
+                                <th>امروز(تا این لحظه)</th>
+                            </tr>
+                            <tr>
+
+                                <th>وضعیت</th>
+                                <th>
+                                    <asp:Label ID="lblLastDayStatus1" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+                                <th>
+                                    <asp:Label ID="lblTodayStatus2" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+                            </tr>
+
+                         </thead>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
     <div class="row">
         <br />
 
@@ -169,7 +208,7 @@
                 <p class="text-muted">در این صفحه مدیر شعبه امکان تخصیص پرونده های شامل اظهارنامه جاری را به کارشناسان شعبه را دارد</p>
 
 
-            
+
                 <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
                     <div class="form-group" runat="server" id="divchklstAssignFiles">
                     </div>

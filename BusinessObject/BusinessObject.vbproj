@@ -108,6 +108,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstMenu.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Administration\dstNotice.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstNotice.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Administration\dstSelfReport.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1006,6 +1011,17 @@
     </None>
     <None Include="Administration\dstMenu.xss">
       <DependentUpon>dstMenu.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstNotice.xsc">
+      <DependentUpon>dstNotice.xsd</DependentUpon>
+    </None>
+    <None Include="Administration\dstNotice.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstNotice.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Administration\dstNotice.xss">
+      <DependentUpon>dstNotice.xsd</DependentUpon>
     </None>
     <None Include="Administration\dstSelfReport.xsc">
       <DependentUpon>dstSelfReport.xsd</DependentUpon>

@@ -124,6 +124,9 @@
     <Content Include="Application\Administration\Accessgroup\AccessgroupManagement.aspx" />
     <Content Include="Application\Administration\Accessgroup\AccessgroupNew.aspx" />
     <Content Include="Application\Administration\Accessgroup\AccessgroupEdit.aspx" />
+    <Content Include="Application\Administration\Notice\NoticeEdit.aspx" />
+    <Content Include="Application\Administration\Notice\NoticeManagement.aspx" />
+    <Content Include="Application\Administration\Notice\NoticeNew.aspx" />
     <Content Include="Application\Administration\ProvinceInfo\ManagerInfoNew.aspx" />
     <Content Include="Application\Administration\User\CurrentUserChangePassword.aspx" />
     <Content Include="Application\Administration\User\UserChangePassword.aspx" />
@@ -131,6 +134,7 @@
     <Content Include="Application\Administration\User\UserMagic.aspx" />
     <Content Include="Application\Administration\User\UserNew.aspx" />
     <Content Include="Application\Administration\User\UserManagement.aspx" />
+    <Content Include="Application\BasicInfo\AdminSetting.aspx" />
     <Content Include="Application\BasicInfo\SystemSetting.aspx" />
     <Content Include="Application\Hadi\Deposit\DepositTypeEdit.aspx" />
     <Content Include="Application\Hadi\Deposit\DepositTypeManagement.aspx" />
@@ -304,6 +308,27 @@
       <DependentUpon>AccessgroupEdit.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Administration\Notice\NoticeEdit.aspx.designer.vb">
+      <DependentUpon>NoticeEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\Notice\NoticeEdit.aspx.vb">
+      <DependentUpon>NoticeEdit.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\Notice\NoticeManagement.aspx.designer.vb">
+      <DependentUpon>NoticeManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\Notice\NoticeManagement.aspx.vb">
+      <DependentUpon>NoticeManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Administration\Notice\NoticeNew.aspx.designer.vb">
+      <DependentUpon>NoticeNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Administration\Notice\NoticeNew.aspx.vb">
+      <DependentUpon>NoticeNew.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Administration\ProvinceInfo\ManagerInfoNew.aspx.designer.vb">
       <DependentUpon>ManagerInfoNew.aspx</DependentUpon>
     </Compile>
@@ -351,6 +376,13 @@
     </Compile>
     <Compile Include="Application\Administration\User\UserManagement.aspx.vb">
       <DependentUpon>UserManagement.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\BasicInfo\AdminSetting.aspx.designer.vb">
+      <DependentUpon>AdminSetting.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\BasicInfo\AdminSetting.aspx.vb">
+      <DependentUpon>AdminSetting.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\BasicInfo\SystemSetting.aspx.designer.vb">
