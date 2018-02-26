@@ -113,6 +113,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstNotice.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Administration\dstNotice.vb">
+      <DependentUpon>dstNotice.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Administration\dstSelfReport.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

@@ -12,7 +12,16 @@ Option Explicit On
 
 
 Partial Public Class StartPage
-
+    
+    '''<summary>
+    '''divBranchAdminInfo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divBranchAdminInfo As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
     '''<summary>
     '''tblSummary control.
     '''</summary>
@@ -21,7 +30,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblSummary As Global.System.Web.UI.HtmlControls.HtmlTable
-
+    
     '''<summary>
     '''lblUserName1 control.
     '''</summary>
@@ -30,7 +39,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblUserName1 As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblUserRole control.
     '''</summary>
@@ -39,25 +48,115 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblUserRole As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
-    '''lblLastDayStatus1 control.
+    '''lblPublicNews control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblLastDayStatus1 As Global.System.Web.UI.WebControls.Label
-
+    Protected WithEvents lblPublicNews As Global.System.Web.UI.WebControls.Label
+    
     '''<summary>
-    '''lblTodayStatus2 control.
+    '''lblProvinceNews control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents lblTodayStatus2 As Global.System.Web.UI.WebControls.Label
-
+    Protected WithEvents lblProvinceNews As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblNewFileNotAssign control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNewFileNotAssign As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblFileAssignNotDone control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblFileAssignNotDone As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblMassiveFile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMassiveFile As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDueDateFile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDueDateFile As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDueDateFilePeroid control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDueDateFilePeroid As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDueDateFileCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDueDateFileCount As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDeferredPeriod control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDeferredPeriod As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDeferredCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDeferredCount As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDoubtfulPaidPeriod control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDoubtfulPaidPeriod As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDoubtfulPaidCount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDoubtfulPaidCount As Global.System.Web.UI.WebControls.Label
+    
     '''<summary>
     '''divLogError control.
     '''</summary>
@@ -66,7 +165,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divLogError As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''lblLogError control.
     '''</summary>
@@ -75,7 +174,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLogError As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''divLogSuccess control.
     '''</summary>
@@ -84,7 +183,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divLogSuccess As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''lblLogSuccess control.
     '''</summary>
@@ -93,7 +192,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLogSuccess As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''divSMSError control.
     '''</summary>
@@ -102,7 +201,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divSMSError As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''lblSMSError control.
     '''</summary>
@@ -111,7 +210,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSMSError As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''divSMSSuccess control.
     '''</summary>
@@ -120,7 +219,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divSMSSuccess As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''lblSMSSuccess control.
     '''</summary>
@@ -129,7 +228,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSMSSuccess As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''divItemAdmin control.
     '''</summary>
@@ -138,7 +237,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divItemAdmin As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''lblItemAdmin control.
     '''</summary>
@@ -147,7 +246,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblItemAdmin As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''tblLogDetaile control.
     '''</summary>
@@ -156,7 +255,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents tblLogDetaile As Global.System.Web.UI.HtmlControls.HtmlTable
-
+    
     '''<summary>
     '''lblLastDayStatus control.
     '''</summary>
@@ -165,7 +264,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDayStatus As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblTodayStatus control.
     '''</summary>
@@ -174,7 +273,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodayStatus As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblLastDayBI control.
     '''</summary>
@@ -183,7 +282,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDayBI As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblTodayBI control.
     '''</summary>
@@ -192,7 +291,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodayBI As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblLastDayFirstSent control.
     '''</summary>
@@ -201,7 +300,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDayFirstSent As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblTodayFirstSent control.
     '''</summary>
@@ -210,7 +309,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodayFirstSent As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblLastDayLastSent control.
     '''</summary>
@@ -219,7 +318,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDayLastSent As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblTodayLastSent control.
     '''</summary>
@@ -228,7 +327,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodayLastSent As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblLastDaySMSCount control.
     '''</summary>
@@ -237,7 +336,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDaySMSCount As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblTodaySMSCount control.
     '''</summary>
@@ -246,7 +345,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodaySMSCount As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblLastDaySMSVoice control.
     '''</summary>
@@ -255,7 +354,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDaySMSVoice As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblTodaySMSVoice control.
     '''</summary>
@@ -264,7 +363,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodaySMSVoice As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblLastDayPreSMS control.
     '''</summary>
@@ -273,7 +372,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDayPreSMS As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblTodayPreSMS control.
     '''</summary>
@@ -282,7 +381,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodayPreSMS As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblBILastDayCount control.
     '''</summary>
@@ -291,7 +390,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblBILastDayCount As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblBITodayCount control.
     '''</summary>
@@ -300,7 +399,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblBITodayCount As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblLastDaySendTime control.
     '''</summary>
@@ -309,7 +408,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblLastDaySendTime As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''lblTodaySendTime control.
     '''</summary>
@@ -318,7 +417,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodaySendTime As Global.System.Web.UI.WebControls.Label
-
+    
     '''<summary>
     '''divBranchAdmin1 control.
     '''</summary>
@@ -327,7 +426,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divBranchAdmin1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''divchklstAssignFiles control.
     '''</summary>
@@ -336,7 +435,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divchklstAssignFiles As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''divBranchAdmin control.
     '''</summary>
@@ -345,7 +444,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divBranchAdmin As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''divchklstAssignFiles1 control.
     '''</summary>
@@ -354,7 +453,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divchklstAssignFiles1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''divBranchAdmin3 control.
     '''</summary>
@@ -363,7 +462,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divBranchAdmin3 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''divBranchAdmin4 control.
     '''</summary>
@@ -372,7 +471,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divBranchAdmin4 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''divBranchUser control.
     '''</summary>
@@ -381,7 +480,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divBranchUser As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''divBranchUser1 control.
     '''</summary>
@@ -390,7 +489,7 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents divBranchUser1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-
+    
     '''<summary>
     '''divadmin control.
     '''</summary>

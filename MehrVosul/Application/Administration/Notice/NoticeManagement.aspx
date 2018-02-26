@@ -163,7 +163,11 @@
 
                 var i;
                 for (i = 4; i < arrV.length; i++) {
-                    strHtml += "<td>" + arrV[i] + "</td>";
+                    if (i == 4)
+                        strHtml += "<td>" + arrV[i] + "</td>";
+                    else
+                        strHtml += "<td>" + arrV[i] + "</td>";
+       
                 }
 
 
@@ -332,6 +336,7 @@
                                             <th>عنوان</th>
                                              <th>تاریخ</th>
                                              <th>کاربر ایجادکننده</th>
+                                             <th>وضعیت</th>
                                         </tr>
                                     </thead>
                                     <tbody>

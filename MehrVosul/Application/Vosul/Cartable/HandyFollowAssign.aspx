@@ -15,14 +15,22 @@
 
         function CheckDataEnter() {
 
-            var txtNotPiadDurationDay = document.getElementById("<%=txtNotPiadDurationDay.ClientID%>");
+            var txtNotPiadDurationDayFrom = document.getElementById("<%=txtNotPiadDurationDayFrom.ClientID%>");
+            var txtNotPiadDurationDayTo = document.getElementById("<%=txtNotPiadDurationDayTo.ClientID%>");
 
-
-            if (trimall(txtNotPiadDurationDay.value) == "") {
-                alert("تعداد روز معوق را وارد نمایید");
-                txtNotPiadDurationDay.focus();
+            if (trimall(txtNotPiadDurationDayFrom.value) == "") {
+                alert("بازه از  را وارد نمایید");
+                txtNotPiadDurationDayFrom.focus();
                 return false;
             }
+
+
+            if (trimall(txtNotPiadDurationDayTo.value) == "") {
+                alert("بازه تا را وارد نمایید");
+                txtNotPiadDurationDayTo.focus();
+                return false;
+            }
+
 
             return true;
         }
@@ -34,19 +42,58 @@
 
 
 
-            var txtNotPiadDurationDay = document.getElementById("<%=txtNotPiadDurationDay.ClientID%>");
+            var txtNotPiadDurationDayFrom = document.getElementById("<%=txtNotPiadDurationDayFrom.ClientID%>");
+            var txtNotPiadDurationDayTo = document.getElementById("<%=txtNotPiadDurationDayTo.ClientID%>");
 
-            if (trimall(txtNotPiadDurationDay.value) == "") {
-                {
-                    alert("تعداد روز تاخیر را وارد نمایید");
-                    txtNotPiadDurationDay.focus();
-                    return false;
+            if (trimall(txtNotPiadDurationDayFrom.value) == "") {
+                alert("بازه از  را وارد نمایید");
+                txtNotPiadDurationDayFrom.focus();
+                return false;
+            }
+
+
+            if (trimall(txtNotPiadDurationDayTo.value) == "") {
+                alert("بازه تا را وارد نمایید");
+                txtNotPiadDurationDayTo.focus();
+                return false;
+            }
+
+            var tblNumbers_Name = "<%=tblNumbers.ClientID %>";
+            var tblNumbers = document.getElementById(tblNumbers_Name);
+
+
+            debugger
+            var i;
+            var bf = true;
+            for (i = 1; i <= tblNumbers.rows.length - 1; i++) {
+
+                var cmbCol = tblNumbers.rows[i].cells[8].firstChild;
+                if (cmbCol.options == null)
+                    continue;
+
+                if (cmbCol.options[cmbCol.selectedIndex].value == -1) {
+                    bf = false;
+                    break;
                 }
 
             }
 
+            ////if (bf == false) {
 
-            if (parseInt(txtNotPiadDurationDay.value) < 60) {
+
+
+            ////    alert("کارشناس تمام پرونده ها باید معین گردد");
+            ////    return false;
+
+
+            ////}
+
+            return true;
+
+        }
+
+
+            <%--<%--     if (parseInt(txtNotPiadDurationDay.value) < 60) {
                 {
                     alert("تعداد روز تاخیر بایستی از 60 بیشتر باشد");
                     txtNotPiadDurationDay.focus();
@@ -66,8 +113,7 @@
                 }
 
             }
-
-<%--            var divchklstAssignFiles = document.getElementById("<%=divchklstAssignFiles.ClientID%>");
+           var divchklstAssignFiles = document.getElementById("<%=divchklstAssignFiles.ClientID%>");
 
             var divtmp;
             if (divchklstAssignFiles != null) {
@@ -95,11 +141,7 @@
 
 
 
-
-
-
-            return true;
-        }
+          
 
 
     </script>
@@ -166,14 +208,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
 
-                                <label>تعداد روز معوق</label>
+                                <label >از</label>
                                 <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                     <ContentTemplate>
 
-                                        <asp:TextBox ID="txtNotPiadDurationDay" AutoPostBack="true" runat="server" CssClass="form-control" placeholder="تعدا روز معوق را وارد کنید"></asp:TextBox>
-                                        <label style="color: red;">تعداد روز معوق باید بیشتر از 60 وارد شود(اطلاع رسانی کمتر از این تعداد سیستمی و از طریق ارسال پیامک متنی و صوتی انجام می شود.)</label>
-
-
+                                        <asp:TextBox ID="txtNotPiadDurationDayFrom" AutoPostBack="true" runat="server" CssClass="form-control" placeholder="بازه از تعداد روز معوق را واردنمایید"></asp:TextBox>
 
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
@@ -183,6 +222,24 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
+                                <label>تا</label>
+                                <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                    <ContentTemplate>
+
+                                        <asp:TextBox ID="txtNotPiadDurationDayTo" AutoPostBack="true" runat="server" CssClass="form-control" placeholder="بازه تا تعداد روز معوق را واردنمایید"></asp:TextBox>
+
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-12">
+                            <div class="form-group">
+
                                 <br />
 
                                 <asp:LinkButton CssClass="btn btn-success" OnClientClick="return CheckDataEnter();" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
@@ -190,10 +247,30 @@
 
                             </div>
                         </div>
-
                     </div>
 
+              
+
+
                     <div class="row">
+                        <table class="table table-bordered table-striped table-condensed" id="tblNumbers" runat="server">
+                            <tr style="text-align: center;">
+
+                                <td class="TableHeader1">ردیف</td>
+                                <td class="TableHeader1">نام و نام خانوادگی(گیرنده تسهیلات)</td>
+                                <td class="TableHeader1">شماره تسهیلات</td>
+                                <td class="TableHeader1">تعداد اقساط</td>
+                                <td class="TableHeader1">مبلغ تسهیلات</td>
+                                <td class="TableHeader1">نوع تسهیلات</td>
+                                <td class="TableHeader1">تعداد اقساط معوق</td>
+                                <td class="TableHeader1">مبلغ معوق</td>
+                                <td class="TableHeader1">کارشناس پیگیر</td>
+                             
+                            </tr>
+                        </table>
+                    </div>
+
+                          <div class="row" style="visibility: hidden;">
                         <div class="col-md-6">
                             <div class="form-group">
 
@@ -205,7 +282,8 @@
                                         <div class="panel-heading">
                                             <label>پرونده های معوق</label>
                                             <label>
-                                            (شماره مشتری- شماره وام- نام مشتری - تعداد روز معوق)</label></div>
+                                                (شماره مشتری- شماره وام- نام مشتری - تعداد روز معوق)</label>
+                                        </div>
                                         <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
                                             <div class="form-group" runat="server" id="divchklstAssignFiles">
                                             </div>
@@ -236,12 +314,10 @@
                                 </asp:DropDownList>
 
 
-
-
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row" style="visibility: hidden;">
 
                         <div class="col-md-12">
                             <div class="form-group">
@@ -259,9 +335,6 @@
                         </div>
                     </div>
                 </div>
-
-
-
 
             </div>
 

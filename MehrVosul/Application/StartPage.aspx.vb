@@ -11,13 +11,43 @@
 
 
 
+            lblUserName1.Text = drwUserLogin.Username
 
+            ''get Userrole
+            If drwUserLogin.IsDataAdmin = True Then
+
+                lblUserRole.Text = "کاربر ارشد"
+                divBranchAdminInfo.Visible = True
+
+                Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
+                Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
+
+                dtblBranch = tadpBranch.GetData(drwUserLogin.FK_BrnachID)
+
+                FillBranchAdminInfo(drwUserLogin.Fk_ProvinceID, dtblBranch.First.BrnachCode)
+            Else
+
+                Dim tadpUserRole As New BusinessObject.dstUserTableAdapters.spr_UserRole_SelectTableAdapter
+                Dim dtblUserRole As BusinessObject.dstUser.spr_UserRole_SelectDataTable = Nothing
+
+                dtblUserRole = tadpUserRole.GetData(drwUserLogin.ID)
+
+                Dim strUserRoles As String = ""
+                If dtblUserRole.Rows.Count = 0 Then
+
+                    lblUserRole.Text = ""
+
+                Else
+
+                    lblUserRole.Text = dtblUserRole.First.UserRoles
+
+                End If
+
+
+
+            End If
 
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsItemAdmin = False Then
-
-
-
-
 
                 ''check the access Group id
                 Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
@@ -120,7 +150,9 @@
                     End If
 
 
-                Else
+
+            Else
+
 
 
                 Dim tadpSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
@@ -357,7 +389,75 @@
 
     End Sub
 
+    Private Sub FillBranchAdminInfo(ByVal ProvinceID As Integer, ByVal BranchCode As String)
 
+        Dim tadplNoticeCount As New BusinessObject.dstNoticeTableAdapters.spr_NoticeStartPageCount_SelectTableAdapter
+        Dim dtblNoticeCount As BusinessObject.dstNotice.spr_NoticeStartPageCount_SelectDataTable = Nothing
+
+        dtblNoticeCount = tadplNoticeCount.GetData(1, -1)
+        lblPublicNews.Text = dtblNoticeCount.First.NoticeCount
+
+        dtblNoticeCount = tadplNoticeCount.GetData(2, ProvinceID)
+        lblProvinceNews.Text = dtblNoticeCount.First.NoticeCount
+
+        Dim tadpTotalDeffredLCCount As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCCount_SelectTableAdapter
+        Dim dtblTotalDeffredLCCount As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCCount_SelectDataTable = Nothing
+
+        Dim tadpAdminSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_AdminSetting_SelectTableAdapter
+        Dim dtblAdminSetting As BusinessObject.dstSystemSetting.spr_AdminSetting_SelectDataTable = Nothing
+
+        dtblAdminSetting = tadpAdminSetting.GetData()
+
+        ''Deffred Files Not Assign
+        dtblTotalDeffredLCCount = tadpTotalDeffredLCCount.GetData(1, BranchCode, -1, -1, -1, -1, -1)
+        lblNewFileNotAssign.Text = dtblTotalDeffredLCCount.First.retval
+
+
+        ''Deffred Files Assigned But not follow
+        dtblTotalDeffredLCCount = tadpTotalDeffredLCCount.GetData(2, BranchCode, -1, -1, -1, -1, -1)
+        lblFileAssignNotDone.Text = dtblTotalDeffredLCCount.First.retval
+
+
+        ''Massive Deffred Files
+        dtblTotalDeffredLCCount = tadpTotalDeffredLCCount.GetData(3, BranchCode, dtblAdminSetting.First.MassiveFilePeriod, -1, -1, -1, -1)
+        lblMassiveFile.Text = dtblTotalDeffredLCCount.First.retval
+
+        ''Dar hale Sarresid Files
+        dtblTotalDeffredLCCount = tadpTotalDeffredLCCount.GetData(4, BranchCode, -1, dtblAdminSetting.First.DueDateFilePeroid, -1, -1, -1)
+        lblDueDateFile.Text = dtblTotalDeffredLCCount.First.retval
+
+        ''saresid gozashte Files
+        dtblTotalDeffredLCCount = tadpTotalDeffredLCCount.GetData(5, BranchCode, -1, -1, dtblAdminSetting.First.DueDateRecivedPeriod, dtblAdminSetting.First.DoubtfulPaidPeriod, -1)
+        lblDueDateFileCount.Text = dtblTotalDeffredLCCount.First.retval
+
+
+        ''mashkokoulvosul Files
+        dtblTotalDeffredLCCount = tadpTotalDeffredLCCount.GetData(6, BranchCode, -1, -1, -1, dtblAdminSetting.First.DoubtfulPaidPeriod, -1)
+        lblDoubtfulPaidCount.Text = dtblTotalDeffredLCCount.First.retval
+
+        ''Deffred Period files
+        dtblTotalDeffredLCCount = tadpTotalDeffredLCCount.GetData(7, BranchCode, -1, -1, -1, -1, dtblAdminSetting.First.DeferredPeriod)
+        lblDeferredCount.Text = dtblTotalDeffredLCCount.First.retval
+
+
+
+        ''''fill Amounts
+        Dim tadpTotalDeffredLCAmount As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCAmount_SelectTableAdapter
+        Dim dtblTotalDeffredLCAmount As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCAmount_SelectDataTable = Nothing
+
+        '' saresid gozashte Files amount
+        dtblTotalDeffredLCAmount = tadpTotalDeffredLCAmount.GetData(1, BranchCode, -1, -1, dtblAdminSetting.First.DueDateRecivedAmount, dtblAdminSetting.First.DoubtfulPaidAmount, -1)
+        lblDueDateFilePeroid.Text = dtblTotalDeffredLCAmount.First.retval.ToString("N0")
+
+        ''mashkokoulvosul Files amount
+        dtblTotalDeffredLCAmount = tadpTotalDeffredLCAmount.GetData(2, BranchCode, -1, -1, -1, dtblAdminSetting.First.DoubtfulPaidAmount, -1)
+        lblDoubtfulPaidPeriod.Text = dtblTotalDeffredLCAmount.First.retval.ToString("N0")
+
+        ''Deffred Period amount
+        dtblTotalDeffredLCAmount = tadpTotalDeffredLCAmount.GetData(2, BranchCode, -1, -1, -1, -1, dtblAdminSetting.First.DeferredAmount)
+        lblDeferredPeriod.Text = dtblTotalDeffredLCAmount.First.retval.ToString("N0")
+
+    End Sub
 
     Private Function GetSMSMessage(ByRef blnSuccess As Boolean) As String
 

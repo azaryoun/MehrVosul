@@ -95,13 +95,31 @@ Partial Public Class HandyFollowAssign
     Protected WithEvents UpdatePanel5 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
-    '''txtNotPiadDurationDay control.
+    '''txtNotPiadDurationDayFrom control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents txtNotPiadDurationDay As Global.System.Web.UI.WebControls.TextBox
+    Protected WithEvents txtNotPiadDurationDayFrom As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''UpdatePanel3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''txtNotPiadDurationDayTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNotPiadDurationDayTo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''btnCheckFiles control.
@@ -111,6 +129,15 @@ Partial Public Class HandyFollowAssign
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCheckFiles As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''tblNumbers control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tblNumbers As Global.System.Web.UI.HtmlControls.HtmlTable
     
     '''<summary>
     '''UpdatePanel4 control.

@@ -11,12 +11,20 @@
 
         function SaveOperation_Validate() {
 
-            var txtAccessgrouptitle = document.getElementById("<%=txtAccessgrouptitle.ClientID%>");
+            var txtTitle = document.getElementById("<%=txtTitle.ClientID%>");
+            var txtDesc = document.getElementById("<%=txtDesc.ClientID%>");
 
 
-            if (trimall(txtAccessgrouptitle.value) == "") {
-                alert("عنوان گروه دسترسی را وارد نمایید");
-                txtAccessgrouptitle.focus();
+            if (trimall(txtTitle.value) == "") {
+                alert("عنوان  را وارد نمایید");
+                txtTitle.focus();
+                return false;
+            }
+
+
+            if (trimall(txtDesc.value) == "") {
+                alert("توضیحات  را وارد نمایید");
+                txtDesc.focus();
                 return false;
             }
 
@@ -53,7 +61,7 @@
 
                             </div>
 
-                            <div class="form-group has-error">
+                            <div class="form-group">
                                 <label>کد اعلان </label>
 
                                 <asp:TextBox ID="txtNoticeCode" runat="server" CssClass="form-control" MaxLength="50" placeholder="کد اعلان را وارد نمایید"></asp:TextBox>
@@ -63,11 +71,11 @@
                             <div class="form-group has-error">
                                 <label>توضیحات </label>
 
-                                <asp:TextBox ID="txtDesc" runat="server" CssClass="form-control" MaxLength="50" placeholder="توضیحات را وارد نمایید"></asp:TextBox>
+                                <asp:TextBox ID="txtDesc" runat="server" CssClass="form-control" MaxLength="70" placeholder="توضیحات را وارد نمایید" Height="50px" TextMode="MultiLine"></asp:TextBox>
 
                             </div>
 
-                         
+
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <label>وضعیت</label>
@@ -76,15 +84,32 @@
                                 <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
 
                                     <label>
-                                        <input type="checkbox" runat="server" id="chkVisibility" checked="checked" />
-                                        نمایش به کاربر</label>
+                                        <input type="checkbox" runat="server" id="chkActive" checked="checked" />
+                                        فعال</label>
+
+                                    <label>
+                                        <input type="checkbox" runat="server" visible="false" id="chkPublic" checked="checked" />
+                                        عمومی</label>
                                 </div>
                             </div>
 
+
+
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <label>فایل اعلان</label>
+                                </div>
+
+                                <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+                                    <asp:FileUpload ID="fleNoticeFile" runat="server" CssClass="form-control" Height="38px" />
+                                    <%--                                         <p class="help-block">عکس باید فرمت png بوده  و سایز آن 64*64 باشد.</p>--%>
+                                </div>
+
+                            </div>
                         </div>
+
                     </div>
-
-
 
 
 

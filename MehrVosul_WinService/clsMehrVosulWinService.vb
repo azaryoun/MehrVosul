@@ -5370,7 +5370,7 @@ VoiceSMS:
             Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
 
 
-            Dim strLoan_Info_Query As String = "SELECT namfamp,MOBILE,lc_no,ABRNCHCOD,CFCIFNO,NPDURATION,LNMINORTP,AMNTDEFERRED from loan_info where Date_P='" & strThisDatePersian & "'   and  amntdeferred  > 0  "
+            Dim strLoan_Info_Query As String = "SELECT namfamp,MOBILE,lc_no,ABRNCHCOD,CFCIFNO,NPDURATION,LNMINORTP,AMNTDEFERRED,LCAMNT,GDEFERRED,ISTLNUM from loan_info where Date_P='" & strThisDatePersian & "'   and  amntdeferred  > 0  "
             ''and NPDURATION >=60
 
             cmd_BI.CommandText = strLoan_Info_Query
@@ -5479,9 +5479,29 @@ VoiceSMS:
                             i -= 1
                             Continue Do
                         Else
-                            stcVarLoanInfo.AmounDefferd = CStr(dataReader.GetValue(7)).Trim
+                            stcVarLoanInfo.AmounDefferd = CDec(dataReader.GetValue(7))
                         End If
 
+                        If dataReader.GetValue(8) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.LCAmount = CDec(dataReader.GetValue(8))
+                        End If
+
+                        If dataReader.GetValue(9) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.GDeffered = CInt(dataReader.GetValue(9))
+                        End If
+
+                        If dataReader.GetValue(10) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.IstlNum = CInt(dataReader.GetValue(10))
+                        End If
 
                         With stcVarLoanInfo
 
@@ -5493,6 +5513,9 @@ VoiceSMS:
                             orow.Mobile = .Mobile
                             orow.LoanTypeCode = .LoanTypeCode
                             orow.AmounDefferd = .AmounDefferd
+                            orow.LCAmount = .LCAmount
+                            orow.GDeffered = .GDeffered
+                            orow.InstallmentsCount = .IstlNum
 
                             otbl.Rows.Add(orow)
 

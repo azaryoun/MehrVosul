@@ -59,13 +59,31 @@ Partial Public Class NoticeNew
     Protected WithEvents txtDesc As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''chkVisibility control.
+    '''chkActive control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents chkVisibility As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    Protected WithEvents chkActive As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    
+    '''<summary>
+    '''chkPublic control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkPublic As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    
+    '''<summary>
+    '''fleNoticeFile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents fleNoticeFile As Global.System.Web.UI.WebControls.FileUpload
     
     '''<summary>
     '''hdnAction control.

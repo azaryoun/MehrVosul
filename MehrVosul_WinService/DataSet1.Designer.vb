@@ -1811,6 +1811,12 @@ Partial Public Class DataSet1
         
         Private columnAmounDefferd As Global.System.Data.DataColumn
         
+        Private columnLCAmount As Global.System.Data.DataColumn
+        
+        Private columnGDeffered As Global.System.Data.DataColumn
+        
+        Private columnInstallmentsCount As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -1911,6 +1917,30 @@ Partial Public Class DataSet1
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property LCAmountColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnLCAmount
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property GDefferedColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnGDeffered
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property InstallmentsCountColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnInstallmentsCount
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -1947,9 +1977,9 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function AdddefferdTypeRow(ByVal NotPiadDurationDay As Integer, ByVal CustomerNo As String, ByVal LC_No As String, ByVal BranchCode As String, ByVal FullName As String, ByVal Mobile As String, ByVal LoanTypeCode As String, ByVal AmounDefferd As String) As defferdTypeRow
+        Public Overloads Function AdddefferdTypeRow(ByVal NotPiadDurationDay As Integer, ByVal CustomerNo As String, ByVal LC_No As String, ByVal BranchCode As String, ByVal FullName As String, ByVal Mobile As String, ByVal LoanTypeCode As String, ByVal AmounDefferd As Decimal, ByVal LCAmount As Decimal, ByVal GDeffered As Integer, ByVal InstallmentsCount As Integer) As defferdTypeRow
             Dim rowdefferdTypeRow As defferdTypeRow = CType(Me.NewRow,defferdTypeRow)
-            Dim columnValuesArray() As Object = New Object() {NotPiadDurationDay, CustomerNo, LC_No, BranchCode, FullName, Mobile, LoanTypeCode, AmounDefferd}
+            Dim columnValuesArray() As Object = New Object() {NotPiadDurationDay, CustomerNo, LC_No, BranchCode, FullName, Mobile, LoanTypeCode, AmounDefferd, LCAmount, GDeffered, InstallmentsCount}
             rowdefferdTypeRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowdefferdTypeRow)
             Return rowdefferdTypeRow
@@ -1980,6 +2010,9 @@ Partial Public Class DataSet1
             Me.columnMobile = MyBase.Columns("Mobile")
             Me.columnLoanTypeCode = MyBase.Columns("LoanTypeCode")
             Me.columnAmounDefferd = MyBase.Columns("AmounDefferd")
+            Me.columnLCAmount = MyBase.Columns("LCAmount")
+            Me.columnGDeffered = MyBase.Columns("GDeffered")
+            Me.columnInstallmentsCount = MyBase.Columns("InstallmentsCount")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -1999,8 +2032,14 @@ Partial Public Class DataSet1
             MyBase.Columns.Add(Me.columnMobile)
             Me.columnLoanTypeCode = New Global.System.Data.DataColumn("LoanTypeCode", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnLoanTypeCode)
-            Me.columnAmounDefferd = New Global.System.Data.DataColumn("AmounDefferd", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            Me.columnAmounDefferd = New Global.System.Data.DataColumn("AmounDefferd", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnAmounDefferd)
+            Me.columnLCAmount = New Global.System.Data.DataColumn("LCAmount", GetType(Decimal), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLCAmount)
+            Me.columnGDeffered = New Global.System.Data.DataColumn("GDeffered", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnGDeffered)
+            Me.columnInstallmentsCount = New Global.System.Data.DataColumn("InstallmentsCount", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnInstallmentsCount)
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2977,16 +3016,61 @@ Partial Public Class DataSet1
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property AmounDefferd() As String
+        Public Property AmounDefferd() As Decimal
             Get
                 Try 
-                    Return CType(Me(Me.tabledefferdType.AmounDefferdColumn),String)
+                    Return CType(Me(Me.tabledefferdType.AmounDefferdColumn),Decimal)
                 Catch e As Global.System.InvalidCastException
                     Throw New Global.System.Data.StrongTypingException("The value for column 'AmounDefferd' in table 'defferdType' is DBNull.", e)
                 End Try
             End Get
             Set
                 Me(Me.tabledefferdType.AmounDefferdColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property LCAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tabledefferdType.LCAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LCAmount' in table 'defferdType' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tabledefferdType.LCAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property GDeffered() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tabledefferdType.GDefferedColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'GDeffered' in table 'defferdType' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tabledefferdType.GDefferedColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property InstallmentsCount() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tabledefferdType.InstallmentsCountColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'InstallmentsCount' in table 'defferdType' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tabledefferdType.InstallmentsCountColumn) = value
             End Set
         End Property
         
@@ -3084,6 +3168,42 @@ Partial Public Class DataSet1
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetAmounDefferdNull()
             Me(Me.tabledefferdType.AmounDefferdColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsLCAmountNull() As Boolean
+            Return Me.IsNull(Me.tabledefferdType.LCAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetLCAmountNull()
+            Me(Me.tabledefferdType.LCAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsGDefferedNull() As Boolean
+            Return Me.IsNull(Me.tabledefferdType.GDefferedColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetGDefferedNull()
+            Me(Me.tabledefferdType.GDefferedColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsInstallmentsCountNull() As Boolean
+            Return Me.IsNull(Me.tabledefferdType.InstallmentsCountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetInstallmentsCountNull()
+            Me(Me.tabledefferdType.InstallmentsCountColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     

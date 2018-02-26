@@ -14,47 +14,86 @@
 
     </script>
     <style type="text/css">
-        .style1 {
-            width: 187px;
-        }
+      
 
-        .style2 {
-            width: 293px;
+        .div-center {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
-    <div class="row">
+    <div style="justify-content: center; align-items: center;display:flex;"  id="divBranchAdminInfo" visible="false" runat="server">
 
 
         <div class="col-md-12">
 
-            <div class="panel-body">
-                <div class="table-responsive" style="text-align:left" >
-                    <table id="tblSummary" style="width:50%;" runat="server" class="table table-striped table-bordered table-hover">
-                         <thead>
-                             <tr>
-                                <th> <asp:Label ID="lblUserName1" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
-                                <th colspan="2"> <asp:Label ID="lblUserRole" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
-                               
-                            </tr>
+            <div class="panel-body" >
+                <div class="table-responsive div-center">
+                    <table id="tblSummary" style="width: 50%;" runat="server" class="table table-striped table-bordered table-hover">
+                        <thead>
+
+
                             <tr>
-                                <th></th>
-                                <th>روزگذشته</th>
-                                <th>امروز(تا این لحظه)</th>
+                                <th><i class="fa fa-user fa-x" title="نام کاربری"></i>
+                                    <asp:Label ID="lblUserName1" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+                                <th><i class="fa fa-info-circle fa-x" title="گروه دسترسی"></i>
+                                    <asp:Label ID="lblUserRole" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+
                             </tr>
                             <tr>
 
-                                <th>وضعیت</th>
-                                <th>
-                                    <asp:Label ID="lblLastDayStatus1" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
-                                <th>
-                                    <asp:Label ID="lblTodayStatus2" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+                                <th><i style="color: Blue" class="fa fa-file fa-x"></i><a style="color: black" href="/Application/Administration/Notice/NoticeManagement.aspx">
+                                    <asp:Label ID="lblPublicNews" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;اعلان عمومی</th>
+                                <th><i style="color: green" class="fa fa-file fa-x"></i><a style="color: black" href="/Application/Administration/Notice/NoticeManagement.aspx">
+                                    <asp:Label ID="lblProvinceNews" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;اعلان استانی</th>
+                            </tr>
+                            <tr>
+
+                                <th><i style="color: Blue" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblNewFileNotAssign" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های معوق جدید تخصیص نیافته</th>
+                                <th><i style="color: red" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx">
+                                    <asp:Label ID="lblFileAssignNotDone" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های ارجاع شده بدون پیگیری</th>
+                            </tr>
+                            <tr>
+
+
+                                <th><i style="color: red" class="fa fa-usd fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblMassiveFile" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های معوق کلان</th>
+                                <th><i style="color: green" class="fa fa-bell fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblDueDateFile" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های در حال سررسید</th>
                             </tr>
 
-                         </thead>
+                            <tr>
+
+
+                                <th><i style="color: purple" class="fa fa-bell-slash fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblDueDateFilePeroid" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مبلغ پرونده های سررسید گذشته</th>
+                                <th><i style="color: yellow" class="fa fa-bell-slash fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblDueDateFileCount" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;تعداد پرونده های سررسید گذشته</th>
+                            </tr>
+
+                            <tr>
+
+
+                                <th><i style="color:Highlight" class="fa fa-calendar fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblDeferredPeriod" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مبلغ پرونده های معوق</th>
+                                <th><i style="color:chocolate" class="fa fa-calendar fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblDeferredCount" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;تعداد پرونده های معوق</th>
+                            </tr>
+
+                            <tr>
+
+
+                                <th><i style="color: orange" class="fa fa-bullhorn fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblDoubtfulPaidPeriod" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مبلغ پرونده های مشکوک الوصول</th>
+                                <th><i style="color: aqua" class="fa fa-bullhorn fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                    <asp:Label ID="lblDoubtfulPaidCount" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;تعداد پرونده های مشکوک الوصول</th>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
             </div>

@@ -35,6 +35,17 @@
                 Bootstrap_Panel1.ClearMessage()
             End If
 
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+            If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
+
+                Bootstrap_Panel1.CanNew = False
+                Bootstrap_Panel1.CanDelete = False
+
+            End If
+
 
         End If
 
@@ -91,10 +102,16 @@
                     intAction = 2
                 End If
 
-            Else
+            ElseIf drwUserLogin.IsDataUserAdmin = True Then
                 intAction = 3
                 If strFilter IsNot Nothing Then
                     intAction = 4
+                End If
+            Else
+
+                intAction = 5
+                If strFilter IsNot Nothing Then
+                    intAction = 6
                 End If
             End If
 
@@ -109,7 +126,7 @@
             Dim strResult As String = ""
             Dim intColumnCount As Integer = dtblNoticeManagement.Columns.Count
 
-            If intAction = 1 Then
+            If intAction = 1 Or intAction = 3 Or intAction = 5 Then
                 For Each drwNoticeManagement As BusinessObject.dstNotice.spr_NoticeManagement_SelectRow In dtblNoticeManagement.Rows
 
 
@@ -155,10 +172,16 @@
                 intAction = 2
             End If
 
-        Else
+        ElseIf drwUserLogin.IsDataUserAdmin = True Then
             intAction = 3
             If strFilter IsNot Nothing Then
                 intAction = 4
+            End If
+        Else
+
+            intAction = 5
+            If strFilter IsNot Nothing Then
+                intAction = 6
             End If
         End If
 
