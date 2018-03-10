@@ -10,6 +10,9 @@
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
 
+            Dim tadpUserRole As New BusinessObject.dstUserTableAdapters.spr_UserRole_SelectTableAdapter
+            Dim dtblUserRole As BusinessObject.dstUser.spr_UserRole_SelectDataTable = Nothing
+
 
             lblUserName1.Text = drwUserLogin.Username
 
@@ -27,8 +30,16 @@
                 FillBranchAdminInfo(drwUserLogin.Fk_ProvinceID, dtblBranch.First.BrnachCode)
             Else
 
-                Dim tadpUserRole As New BusinessObject.dstUserTableAdapters.spr_UserRole_SelectTableAdapter
-                Dim dtblUserRole As BusinessObject.dstUser.spr_UserRole_SelectDataTable = Nothing
+                If drwUserLogin.IsDataUserAdmin = True Then
+                    Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
+                    Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
+
+                    dtblBranch = tadpBranch.GetData(drwUserLogin.FK_BrnachID)
+                    divBranchAdminInfo.Visible = True
+
+                    FillBranchAdminInfo(drwUserLogin.Fk_ProvinceID, dtblBranch.First.BrnachCode)
+                End If
+
 
                 dtblUserRole = tadpUserRole.GetData(drwUserLogin.ID)
 
@@ -48,6 +59,39 @@
             End If
 
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsItemAdmin = False Then
+
+                divUserAdminInfo.Visible = True
+                ''Fill user role 
+                dtblUserRole = tadpUserRole.GetData(drwUserLogin.ID)
+                lblNormalUserRole.Text = dtblUserRole.First.UserRoles
+                lblNormalUserName.Text = drwUserLogin.Username
+
+                ''Fill Notice
+                Dim tadplNoticeCount As New BusinessObject.dstNoticeTableAdapters.spr_NoticeStartPageCount_SelectTableAdapter
+                Dim dtblNoticeCount As BusinessObject.dstNotice.spr_NoticeStartPageCount_SelectDataTable = Nothing
+
+                dtblNoticeCount = tadplNoticeCount.GetData(1, -1)
+                lblNormalPublicNotice.Text = dtblNoticeCount.First.NoticeCount
+
+                dtblNoticeCount = tadplNoticeCount.GetData(2, drwUserLogin.Fk_ProvinceID)
+                lblNormalProvinceNotice.Text = dtblNoticeCount.First.NoticeCount
+
+
+                ''Fill Assigned Files
+                Dim tadpAssigneFiles As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByUser_Count_SelectTableAdapter
+                Dim dtblAssigneFiles As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByUser_Count_SelectDataTable = Nothing
+
+                dtblAssigneFiles = tadpAssigneFiles.GetData(1, drwUserLogin.ID)
+                lblAssignedFiles.Text = dtblAssigneFiles.First.AssignedFile
+
+                dtblAssigneFiles = tadpAssigneFiles.GetData(2, drwUserLogin.ID)
+                If dtblAssigneFiles.First.AssignedFile > 0 Then
+                    lblDefferedFiles.Text = dtblAssigneFiles.First.AssignedFile
+                Else
+                    lblDefferedFiles.Text = 0
+                End If
+
+
 
                 ''check the access Group id
                 Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
@@ -458,6 +502,8 @@
         lblDeferredPeriod.Text = dtblTotalDeffredLCAmount.First.retval.ToString("N0")
 
     End Sub
+
+
 
     Private Function GetSMSMessage(ByRef blnSuccess As Boolean) As String
 

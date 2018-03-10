@@ -102,6 +102,48 @@
 
     </div>
 
+      <div style="justify-content: center; align-items: center;display:flex;"  id="divUserAdminInfo" visible="false" runat="server">
+
+
+        <div class="col-md-12">
+
+            <div class="panel-body" >
+                <div class="table-responsive div-center">
+                    <table id="Table1" style="width: 50%;" runat="server" class="table table-striped table-bordered table-hover">
+                        <thead>
+
+
+                            <tr>
+                                <th><i class="fa fa-user fa-x" title="نام کاربری"></i>
+                                    <asp:Label ID="lblNormalUserName" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+                                <th><i class="fa fa-info-circle fa-x" title="گروه دسترسی"></i>
+                                    <asp:Label ID="lblNormalUserRole" runat="server" Text="" Style="color: #31708f"></asp:Label></th>
+
+                            </tr>
+                            <tr>
+
+                                <th><i style="color: Blue" class="fa fa-file fa-x"></i><a style="color: black" href="/Application/Administration/Notice/NoticeManagement.aspx">
+                                    <asp:Label ID="lblNormalPublicNotice" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;اعلان عمومی</th>
+                                <th><i style="color: green" class="fa fa-file fa-x"></i><a style="color: black" href="/Application/Administration/Notice/NoticeManagement.aspx">
+                                    <asp:Label ID="lblNormalProvinceNotice" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;اعلان استانی</th>
+                            </tr>
+                            <tr>
+
+                                <th><i style="color: Blue" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx">
+                                    <asp:Label ID="lblAssignedFiles" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp; پرونده های تخصیص یافته </th>
+                                <th><i style="color: red" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx">
+                                    <asp:Label ID="lblDefferedFiles" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های تخصیص یافته بدون انجام پیگیری</th>
+                            </tr>
+                         
+                        </thead>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
     <div class="row">
         <br />
 

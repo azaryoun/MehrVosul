@@ -203,7 +203,7 @@
                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                     <ContentTemplate>
                                         <asp:DropDownList ID="cmbBranch" runat="server"
-                                            CssClass="form-control" Enabled="False" AutoPostBack="True">
+                                            CssClass="form-control"  AutoPostBack="True">
                                             <asp:ListItem Selected="True" Value="0" Text="---"></asp:ListItem>
                                         </asp:DropDownList>
                                     </ContentTemplate>

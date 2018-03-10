@@ -64,29 +64,29 @@
 
             debugger
             var i;
-            var bf = true;
+            var bf = false;
             for (i = 1; i <= tblNumbers.rows.length - 1; i++) {
 
                 var cmbCol = tblNumbers.rows[i].cells[8].firstChild;
                 if (cmbCol.options == null)
                     continue;
 
-                if (cmbCol.options[cmbCol.selectedIndex].value == -1) {
-                    bf = false;
+                if (cmbCol.options[cmbCol.selectedIndex].value != -1) {
+                    bf = true;
                     break;
                 }
 
             }
 
-            ////if (bf == false) {
+            if (bf == false) {
 
 
 
-            ////    alert("کارشناس تمام پرونده ها باید معین گردد");
-            ////    return false;
+                alert("پرونده ایی برای تخصیص مشخص نشده است");
+                return false;
 
 
-            ////}
+            }
 
             return true;
 

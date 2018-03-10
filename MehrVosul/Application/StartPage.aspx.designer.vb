@@ -158,6 +158,78 @@ Partial Public Class StartPage
     Protected WithEvents lblDoubtfulPaidCount As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''divUserAdminInfo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divUserAdminInfo As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''Table1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Table1 As Global.System.Web.UI.HtmlControls.HtmlTable
+    
+    '''<summary>
+    '''lblNormalUserName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNormalUserName As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblNormalUserRole control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNormalUserRole As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblNormalPublicNotice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNormalPublicNotice As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblNormalProvinceNotice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblNormalProvinceNotice As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblAssignedFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAssignedFiles As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblDefferedFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblDefferedFiles As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''divLogError control.
     '''</summary>
     '''<remarks>

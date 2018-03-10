@@ -35,7 +35,7 @@
             var divchklstLoanTypeItems = document.getElementById("<%=divchklstLoanTypeItems.ClientID%>");
             var chkbxVoiceMessage = document.getElementById("<%=chkbxVoiceMessage.ClientID%>");
             
-
+            debugger
 
             if (trimall(txtWarningIntervalsName.value) == "") {
                 alert("عنوان گردش کار را وارد نمایید");
@@ -43,7 +43,7 @@
                 return false;
             }
 
-
+            
 
            var divtmp = divchklstLoanTypeItems.firstChild;
 
@@ -83,7 +83,7 @@
                 return false;
 
             }
-          debugger
+          
 
             if (cmbFrequencyInDay.options[cmbFrequencyInDay.selectedIndex].value == -1) {
                 alert("تعداد اطلاع رسانی در روز را مشخص نمایید", "خطا");
