@@ -225,7 +225,7 @@ Public Class HandyFollowReport
 
         Else
 
-            strWhere = strWhere & " and Vosul.tbl_HandyFollow.ContactDate between " & "convert(datetime,'" & dtFromDate & "')   and  convert(datetime,'" & dteToDate.Date & " 23:00:00 ')"
+            strWhere = strWhere & " and Vosul.tbl_HandyFollow.STime between " & "convert(datetime,'" & dtFromDate & "')   and  convert(datetime,'" & dteToDate.Date & " 23:00:00 ')"
 
             dtblReport = tadpReport.GetData(2, dtFromDate, dteToDate, strWhere)
 
@@ -255,7 +255,7 @@ Public Class HandyFollowReport
 
 
                 TbCell = New HtmlTableCell
-                TbCell.InnerHtml = mdlGeneral.GetPersianDateTime(drwReport.ContactDate)
+                TbCell.InnerHtml = mdlGeneral.GetPersianDateTime(drwReport.STime)
                 TbCell.NoWrap = True
                 TbCell.Align = "center"
                 TbCell.Attributes.Add("dir", "ltr")

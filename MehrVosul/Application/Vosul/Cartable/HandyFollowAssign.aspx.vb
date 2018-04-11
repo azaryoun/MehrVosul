@@ -305,7 +305,7 @@
                 Dim j As Integer = 0
                 For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
 
-                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")'>" & drwRTotalDeffredLC.CustomerNO & "/'>" & drwPerson.Username & "</Option>"
+                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "/'>" & drwPerson.Username & "</Option>"
 
 
                 Next
@@ -339,7 +339,7 @@
                 Dim j As Integer = 0
                 For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
 
-                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")'>" & drwRTotalDeffredLC.CustomerNO & "/'>" & drwPerson.Username & "</Option>"
+                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "/'>" & drwPerson.Username & "</Option>"
 
 
                 Next
