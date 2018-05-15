@@ -230,6 +230,24 @@ Partial Public Class StartPage
     Protected WithEvents lblDefferedFiles As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''div1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents div1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''lnkbtnUserManual control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lnkbtnUserManual As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
     '''divLogError control.
     '''</summary>
     '''<remarks>

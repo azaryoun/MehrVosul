@@ -13,7 +13,6 @@
             Dim tadpUserRole As New BusinessObject.dstUserTableAdapters.spr_UserRole_SelectTableAdapter
             Dim dtblUserRole As BusinessObject.dstUser.spr_UserRole_SelectDataTable = Nothing
 
-
             lblUserName1.Text = drwUserLogin.Username
 
             ''get Userrole
@@ -564,4 +563,11 @@
 
     End Function
 
+    Protected Sub lnkbtnUserManual_Click(sender As Object, e As EventArgs) Handles lnkbtnUserManual.Click
+        Response.Clear()
+        Response.ContentType = "Application/pdf"
+        Response.AppendHeader("Content-Disposition", "attachment; filename=MehrUserManual.pdf")
+        Response.WriteFile(Server.MapPath("~") & "\Application\MehrUserManual.pdf")
+        Response.End()
+    End Sub
 End Class

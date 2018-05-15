@@ -1,4 +1,5 @@
-﻿Public Class HandyFollowAssignReport
+﻿Imports System.IO
+Public Class HandyFollowAssignReport
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -15,7 +16,7 @@
         Bootstrap_Panel1.CanConfirmRequest = False
         Bootstrap_Panel1.CanReject = False
         Bootstrap_Panel1.CanDisplay = True
-        Bootstrap_Panel1.CanExcel = False
+        Bootstrap_Panel1.CanExcel = True
         Bootstrap_Panel1.Enable_Save_Client_Validate = True
 
         lblInnerPageTitle.Text = "پرکردن کادرهای قرمز رنگ، اجباری است."
@@ -176,6 +177,9 @@
 
         Dim tadplHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
         Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
+
+
+        Session("dtblHandyFollowAssignReport") = dtblHandyFollowReport
 
         For Each drwhandyFollow As BusinessObject.dstReport.spr_HandyFollowAssign_ReportRow In dtblHandyFollowReport
 
@@ -446,5 +450,40 @@
             cmbPerson.DataBind()
 
         End If
+    End Sub
+
+    Private Sub Bootstrap_Panel1_Panel_Excel_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Excel_Click
+        Try
+            If Session("dtblHandyFollowAssignReport") IsNot Nothing Then
+                Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+                Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+                Dim strPath As String = Server.MapPath("") & "\TempFile\" & drwUserLogin.ID & "\"
+                Dim FileName As String = "HandyFollowAssignReport-" & drwUserLogin.ID.ToString()
+
+                Dim tblCSVResult As DataTable = Session("dtblHandyFollowAssignReport")
+                If tblCSVResult.Rows.Count > 0 Then
+                    If Not System.IO.Directory.Exists(strPath) Then
+                        System.IO.Directory.CreateDirectory(strPath)
+                    End If
+
+                    Dim clsCSVWriter As New clsCSVWriter
+                    Using strWriter As StreamWriter = New StreamWriter(strPath & FileName)
+                        clsCSVWriter.WriteDataTable(tblCSVResult, FileName, strWriter, True)
+                    End Using
+                Else
+                    Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+                    Session("dtblHandyFollowAssignReport") = Nothing
+                End If
+            Else
+                Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+                Session("dtblHandyFollowAssignReport") = Nothing
+            End If
+        Catch ex As Exception
+            Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+            Session("dtblHandyFollowAssignReport") = Nothing
+        End Try
+
     End Sub
 End Class

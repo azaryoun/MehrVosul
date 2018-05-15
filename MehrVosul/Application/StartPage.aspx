@@ -144,9 +144,16 @@
 
     </div>
 
-    <div class="row">
-        <br />
+      <div class="alert alert-info" role="alert" id="div1" runat="server">
+                <strong><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Info:</span>
 
+                  
+         <asp:LinkButton ID="lnkbtnUserManual"  runat="server" >دانلود راهنمای کاربری</asp:LinkButton></strong>
+    </div>
+
+    <div class="row">
+      
         <div class="col-md-12">
 
 

@@ -1,4 +1,5 @@
-﻿Public Class HandyFollowPersonReport
+﻿Imports System.IO
+Public Class HandyFollowPersonReport
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -223,7 +224,11 @@
 
         End If
 
+        Session("HandyFollowPersonReport") = dtblHandyFollowReport
+
         For Each drwhandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollow_ReportByUserRow In dtblHandyFollowReport
+
+
 
 
             intCount += 1
@@ -365,5 +370,42 @@
             cmbPerson.Items.Insert(0, li)
 
         End If
+    End Sub
+
+    Private Sub Bootstrap_Panel1_Panel_Excel_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Excel_Click
+
+
+        Try
+            If Session("HandyFollowPersonReport") IsNot Nothing Then
+                Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+                Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+                Dim strPath As String = Server.MapPath("") & "\TempFile\" & drwUserLogin.ID & "\"
+                Dim FileName As String = "HandyFollowPersonReport-" & drwUserLogin.ID.ToString()
+
+                Dim tblCSVResult As DataTable = Session("HandyFollowPersonReport")
+                If tblCSVResult.Rows.Count > 0 Then
+                    If Not System.IO.Directory.Exists(strPath) Then
+                        System.IO.Directory.CreateDirectory(strPath)
+                    End If
+
+                    Dim clsCSVWriter As New clsCSVWriter
+                    Using strWriter As StreamWriter = New StreamWriter(strPath & FileName)
+                        clsCSVWriter.WriteDataTable(tblCSVResult, FileName, strWriter, True)
+                    End Using
+                Else
+                    Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+                    Session("HandyFollowPersonReport") = Nothing
+                End If
+            Else
+                Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+                Session("HandyFollowPersonReport") = Nothing
+            End If
+        Catch ex As Exception
+            Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+            Session("HandyFollowPersonReport") = Nothing
+        End Try
+
     End Sub
 End Class
