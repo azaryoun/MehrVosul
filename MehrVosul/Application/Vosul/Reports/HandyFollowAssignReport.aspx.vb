@@ -84,6 +84,7 @@ Public Class HandyFollowAssignReport
             ElseIf drwUserLogin.IsDataAdmin = False And drwUserLogin.IsDataUserAdmin = True Then
 
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
+                cmbProvince.Enabled = False
 
                 odsBranch.SelectParameters.Item("Action").DefaultValue = 2
                 odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
@@ -93,17 +94,27 @@ Public Class HandyFollowAssignReport
                 cmbBranch.DataTextField = "BrnachCode"
                 cmbBranch.DataValueField = "ID"
 
-
                 cmbBranch.DataBind()
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
-                cmbProvince.Enabled = False
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Rows.Count = 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                    If dtblAccessgroupUser.Rows.Count > 0 Then
+                        cmbBranch.Enabled = False
+                    End If
+                End If
+
                 odsPerson.SelectParameters.Item("Action").DefaultValue = 1
                 odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
                 odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
                 cmbPerson.DataBind()
-                cmbBranch.Enabled = False
+
 
             End If
 
@@ -156,10 +167,7 @@ Public Class HandyFollowAssignReport
 
         End If
 
-
         dtblHandyFollowReport = tadphandyFollowReport.GetData(intAction, intBranchID, intProvinceID, dtFromDate, dteToDate, intAssignUser, strCustomerNO)
-
-
 
         Dim intCount As Integer = 0
 

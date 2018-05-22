@@ -23,23 +23,8 @@ Public Class HandyFollowByFileReport
         If Page.IsPostBack = False Then
 
 
-
-            'Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now.AddDays(-3).Date
-            'Bootstrap_PersianDateTimePicker_To.GergorainDateTime = Date.Now
-
-            'Bootstrap_PersianDateTimePicker_From.PickerLabel = "از"
-            'Bootstrap_PersianDateTimePicker_To.PickerLabel = "تا"
-
-
-
-
-
         End If
 
-
-
-        'Bootstrap_PersianDateTimePicker_From.ShowTimePicker = True
-        'Bootstrap_PersianDateTimePicker_To.ShowTimePicker = True
 
     End Sub
 

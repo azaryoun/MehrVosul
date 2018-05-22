@@ -904,6 +904,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstTotalDeffredLC.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Vosul\dstTotalDeffredLC.vb">
+      <DependentUpon>dstTotalDeffredLC.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Vosul\dstWarningIntervals.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

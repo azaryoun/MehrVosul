@@ -85,6 +85,7 @@ Public Class HandyFollowReport
             ElseIf drwUserLogin.IsDataAdmin = False And drwUserLogin.IsDataUserAdmin = True Then
 
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
+                cmbProvince.Enabled = False
 
                 odsBranch.SelectParameters.Item("Action").DefaultValue = 2
                 odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
@@ -94,9 +95,20 @@ Public Class HandyFollowReport
                 cmbBranch.DataTextField = "BrnachCode"
                 cmbBranch.DataValueField = "ID"
 
-
                 cmbBranch.DataBind()
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
+
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Rows.Count = 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                    If dtblAccessgroupUser.Rows.Count > 0 Then
+                        cmbBranch.Enabled = False
+                    End If
+                End If
 
                 odsPerson.SelectParameters.Item("Action").DefaultValue = 1
                 odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
@@ -104,21 +116,11 @@ Public Class HandyFollowReport
 
                 cmbPerson.DataBind()
 
-                cmbProvince.Enabled = False
-
-
 
             End If
 
 
-
-
-
-
-
         End If
-
-
 
         Bootstrap_PersianDateTimePicker_From.ShowTimePicker = True
         Bootstrap_PersianDateTimePicker_To.ShowTimePicker = True

@@ -32,11 +32,6 @@
                 cmbUserType.Items.Add(New ListItem("Full Access", 3))
                 cmbBranch.SelectedIndex = 0
 
-                ''odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 1
-                ''odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = -1
-                ''odsAccessGroups.DataBind()
-
-                ''lstAccessGroups.DataBind()
 
                 Dim tadpAccessGroupList As New BusinessObject.dstAccessgroupTableAdapters.spr_Accessgroup_List_SelectTableAdapter
                 Dim dtblAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectDataTable = Nothing
@@ -64,11 +59,6 @@
                 cmbBranch.Enabled = True
                 cmbBranch.SelectedIndex = 0
 
-                ''odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 1
-                ''odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = -1
-                ''odsAccessGroups.DataBind()
-
-                ''lstAccessGroups.DataBind()
 
                 Dim tadpAccessGroupList As New BusinessObject.dstAccessgroupTableAdapters.spr_Accessgroup_List_SelectTableAdapter
                 Dim dtblAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectDataTable = Nothing
@@ -105,6 +95,7 @@
                     End If
                 End If
 
+
                 If blnAdminBranch = False Then
                     cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
                 End If
@@ -132,11 +123,6 @@
                 If blnAdminBranch = True Then
                     cmbBranch.Enabled = False
                 End If
-                ''odsAccessGroups.SelectParameters.Item("Action").DefaultValue = 2
-                ''odsAccessGroups.SelectParameters.Item("UserID").DefaultValue = drwUserLogin.ID
-                ''odsAccessGroups.DataBind()
-
-                ''lstAccessGroups.DataBind()
 
                 Dim tadpAccessGroupList As New BusinessObject.dstAccessgroupTableAdapters.spr_Accessgroup_List_SelectTableAdapter
                 Dim dtblAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectDataTable = Nothing

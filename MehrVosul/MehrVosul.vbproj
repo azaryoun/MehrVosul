@@ -39,7 +39,7 @@
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>MehrVosul.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -153,6 +153,7 @@
     <Content Include="Application\Vosul\Cartable\HandyFollowAssign.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowAssignEdit.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowAssignMagic.aspx" />
+    <Content Include="Application\Vosul\Cartable\HandyFollowAssignNotFollowManagement.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowManagement.aspx" />
     <Content Include="Application\Vosul\Draft\DraftManagement.aspx" />
     <Content Include="Application\Vosul\Draft\DraftText.aspx" />
@@ -509,6 +510,13 @@
     </Compile>
     <Compile Include="Application\Vosul\Cartable\HandyFollowAssignMagic.aspx.vb">
       <DependentUpon>HandyFollowAssignMagic.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Cartable\HandyFollowAssignNotFollowManagement.aspx.designer.vb">
+      <DependentUpon>HandyFollowAssignNotFollowManagement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Cartable\HandyFollowAssignNotFollowManagement.aspx.vb">
+      <DependentUpon>HandyFollowAssignNotFollowManagement.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\Cartable\HandyFollowManagement.aspx.designer.vb">
