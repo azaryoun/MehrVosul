@@ -96,70 +96,72 @@
     End Sub
 
     <System.Web.Services.WebMethod()> Public Shared Function GetPageRecords(intPageNo As Integer, strFilter As String) As String
-        '' Try
+        Try
 
 
-        ''    Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-        ''    Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-        ''    ''check the access Group id
-        ''    Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-        ''    Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-        ''    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-        ''    Dim blnAdminBranch As Boolean = False
-
-        ''    If dtblAccessgroupUser.Rows.Count > 0 Then
-        ''        blnAdminBranch = True
-        ''    End If
-
-
-        ''    Dim intAction As Integer
-        ''    If drwUserLogin.IsDataAdmin = True Then
-        ''        intAction = 1
-
-        ''    ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
-        ''        intAction = 2
+            Dim blnAdminBranch As Boolean = False
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+            If dtblAccessgroupUser.Rows.Count = 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    blnAdminBranch = True
+                End If
+            End If
 
 
-        ''    ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
-        ''        intAction = 3
+            Dim intAction As Integer
+            If drwUserLogin.IsDataAdmin = True Then
+                intAction = 1
 
-        ''    End If
-
-
-
-        ''    Dim intToIndex As Integer = intPageNo * mdlGeneral.cnst_RowsCountInPage
-        ''    Dim intFromIndex As Integer = (intToIndex - mdlGeneral.cnst_RowsCountInPage) + 1
-        ''    Dim tadpHandyFollowAssignManagement As New BusinessObject.dstHandyFollowTableAdapters.spr_FilesAssignNoFollow_SelectTableAdapter
-        ''    Dim dtblHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectDataTable = Nothing
-        ''    dtblHandyFollowAssignManagement = tadpHandyFollowAssignManagement.GetData(intAction, intFromIndex, intToIndex, drwUserLogin.ID, drwUserLogin.FK_BrnachID)
-
-        ''    Dim strResult As String = ""
-        ''    Dim intColumnCount As Integer = dtblHandyFollowAssignManagement.Columns.Count
-
-        ''    If intAction = 1 Or intAction = 2 Or intAction = 3 Then
-        ''        For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
+            ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
+                intAction = 2
 
 
-        ''            strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
-        ''            For i As Integer = 1 To intColumnCount - 1
-        ''                strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i))
-        ''            Next
+            ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
+                intAction = 3
 
-
-        ''        Next drwHandyFollowAssignManagement
-
-
-        ''    End If
+            End If
 
 
 
-        ''    Return strResult
+            Dim intToIndex As Integer = intPageNo * mdlGeneral.cnst_RowsCountInPage
+            Dim intFromIndex As Integer = (intToIndex - mdlGeneral.cnst_RowsCountInPage) + 1
+            Dim tadpHandyFollowAssignManagement As New BusinessObject.dstHandyFollowTableAdapters.spr_FilesAssignNoFollow_SelectTableAdapter
+            Dim dtblHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_FilesAssignNoFollow_SelectDataTable = Nothing
+            dtblHandyFollowAssignManagement = tadpHandyFollowAssignManagement.GetData(intAction, intFromIndex, intToIndex, drwUserLogin.Fk_ProvinceID, drwUserLogin.FK_BrnachID)
 
-        ''Catch ex As Exception
-        ''    Return "E"
-        ''End Try
+            Dim strResult As String = ""
+            Dim intColumnCount As Integer = dtblHandyFollowAssignManagement.Columns.Count
+
+            If intAction = 1 Or intAction = 2 Or intAction = 3 Then
+                For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_FilesAssignNoFollow_SelectRow In dtblHandyFollowAssignManagement.Rows
+
+
+                    strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
+                    For i As Integer = 1 To intColumnCount - 1
+                        strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i))
+                    Next
+
+
+                Next drwHandyFollowAssignManagement
+
+
+            End If
+
+
+
+            Return strResult
+
+        Catch ex As Exception
+            Return "E"
+        End Try
 
 
     End Function
@@ -167,42 +169,44 @@
     <System.Web.Services.WebMethod()> Public Shared Function GetPageCount(strFilter As String) As Integer()
 
 
-        ''Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-        ''Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-        ''Dim intAction As Integer
-        ''If drwUserLogin.IsDataAdmin = True Then
-        ''    intAction = 5
-        ''    If strFilter IsNot Nothing Then
-        ''        intAction = 6
-        ''    End If
-        ''ElseIf drwUserLogin.IsDataUserAdmin = True Then
-        ''    intAction = 3
-        ''    If strFilter IsNot Nothing Then
-        ''        intAction = 4
-        ''    End If
+        ''check the access Group id
+        Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+        Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-        ''Else
-        ''    intAction = 1
-        ''    If strFilter IsNot Nothing Then
-        ''        intAction = 2
-        ''    End If
-        ''End If
+        Dim blnAdminBranch As Boolean = False
+        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+        If dtblAccessgroupUser.Rows.Count = 0 Then
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+            If dtblAccessgroupUser.Rows.Count > 0 Then
+                blnAdminBranch = True
+            End If
+        End If
+
+        Dim intAction As Integer
+        If drwUserLogin.IsDataAdmin = True Then
+            intAction = 1
+        ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
+            intAction = 2
+
+        ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
+            intAction = 3
+        End If
 
 
-        ''Dim tadpHandyFollowAssignCount As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_Count_SelectTableAdapter
-        ''Dim dtblHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Count_SelectDataTable = Nothing
-        ''dtblHandyFollowAssignCount = tadpHandyFollowAssignCount.GetData(intAction, strFilter, drwUserLogin.ID, drwUserLogin.FK_BrnachID)
-        ''Dim drwHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Count_SelectRow = dtblHandyFollowAssignCount.Rows(0)
-        ''Dim intPageCount As Integer = Math.Ceiling(drwHandyFollowAssignCount.HandyFollowAssign / mdlGeneral.cnst_RowsCountInPage)
-        ''Dim arrResult(1) As Integer
-        ''arrResult(0) = drwHandyFollowAssignCount.HandyFollowAssign
-        ''arrResult(1) = intPageCount
-        ''Return arrResult
+        Dim tadpHandyFollowAssignCount As New BusinessObject.dstHandyFollowTableAdapters.spr_FilesAssignNoFollowCount_SelectTableAdapter
+        Dim dtblHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_FilesAssignNoFollowCount_SelectDataTable = Nothing
+        dtblHandyFollowAssignCount = tadpHandyFollowAssignCount.GetData(intAction, drwUserLogin.Fk_ProvinceID, drwUserLogin.FK_BrnachID)
+        Dim drwHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_FilesAssignNoFollowCount_SelectRow = dtblHandyFollowAssignCount.Rows(0)
+        Dim intPageCount As Integer = Math.Ceiling(drwHandyFollowAssignCount.HandyFollowAssign / mdlGeneral.cnst_RowsCountInPage)
+        Dim arrResult(1) As Integer
+        arrResult(0) = drwHandyFollowAssignCount.HandyFollowAssign
+        arrResult(1) = intPageCount
+        Return arrResult
 
     End Function
 
-    Private Sub Bootstrap_Panel1_Panel_Wizard_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Wizard_Click
-        Response.Redirect("HandyFollowAssignMagic.aspx")
-    End Sub
+
 End Class

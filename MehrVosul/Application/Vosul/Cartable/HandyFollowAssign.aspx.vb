@@ -24,8 +24,10 @@
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
+            Dim tadpAdminSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_AdminSetting_SelectTableAdapter
+            Dim dtblAdminSetting As BusinessObject.dstSystemSetting.spr_AdminSetting_SelectDataTable = Nothing
 
-
+            dtblAdminSetting = tadpAdminSetting.GetData()
 
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
@@ -41,7 +43,7 @@
 
 
                 cmbBranch.DataBind()
-                cmbBranch.Enabled = False
+
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
                 odsPerson.SelectParameters.Item("Action").DefaultValue = 1
@@ -50,9 +52,18 @@
 
                 cmbPerson.DataBind()
 
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-
-
+                Dim blnAdminBranch As Boolean = False
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Rows.Count = 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                    If dtblAccessgroupUser.Rows.Count > 0 Then
+                        cmbBranch.Enabled = False
+                    End If
+                End If
 
                 cmbProvince.Enabled = False
 
@@ -102,9 +113,6 @@
                 odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
                 cmbPerson.DataBind()
-
-
-
 
             End If
 
@@ -208,7 +216,6 @@
         Dim tadpPerson As New BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter
 
 
-
         Dim intNotPiadDurationDayFrom As Integer = CInt(txtNotPiadDurationDayFrom.Text)
         Dim intNotPiadDurationDayTo As Integer = CInt(txtNotPiadDurationDayTo.Text)
         Dim strBranchCode As String = cmbBranch.SelectedItem.Text.Substring(0, cmbBranch.SelectedItem.Text.IndexOf("("))
@@ -218,9 +225,6 @@
         Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
 
         dtblBranch = tadpBranch.GetData(strBranchCode)
-        ''  odsFiles.SelectParameters.Item("BranchID").DefaultValue = dtblBranch.First.ID
-
-        ''   cmbFiles.DataBind()
 
         Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCFileAssign_SelectTableAdapter
         Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable = Nothing
@@ -369,18 +373,61 @@
 
 
 
-
-
-
-
-
     End Sub
 
-    ''Protected Sub cmbFiles_DataBound(sender As Object, e As EventArgs) Handles cmbFiles.DataBound
-    ''    Dim li As New ListItem
-    ''    li.Text = "----"
-    ''    li.Value = -1
-    ''    cmbFiles.Items.Insert(0, li)
+    ''Private Sub ShowFiles(FileType As String, RoleID As Integer, ProvinceID As Integer, BranchCode As String, MassiveFilePeriod As Integer, DueDateFilePeroid As Integer, DueDateRecivedPeriod As Integer, DoubtfulPaidPeriod As Integer, DeferredPeriod As Integer)
+
+    ''    Dim tadTotalDeffredLCByProvinceDoAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCByProvinceDoAssign_SelectTableAdapter
+    ''    Dim dtblTotalDeffredLCByProvinceDoAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCByProvinceDoAssign_SelectDataTable = Nothing
+
+    ''    Dim tadTotalDeffredLCByBranchDoAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCByBranchDoAssign_SelectTableAdapter
+    ''    Dim dtblTotalDeffredLCByBranchDoAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCByBranchDoAssign_SelectDataTable = Nothing
+
+
+    ''    If FileType = "MassiveFile" AndAlso RoleID = 1 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(1, ProvinceID, MassiveFilePeriod, -1, -1, -1, -1)
+
+
+    ''    ElseIf FileType = "MassiveFile" AndAlso RoleID = 2 Then
+
+    ''        dtblTotalDeffredLCByBranchDoAssign = tadTotalDeffredLCByBranchDoAssign.GetData(1, BranchCode, MassiveFilePeriod, -1, -1, -1, -1)
+
+    ''    ElseIf FileType = "DueDateFilePeroid" AndAlso RoleID = 1 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(2, ProvinceID, -1, DueDateFilePeroid, -1, -1, -1)
+
+    ''    ElseIf FileType = "DueDateFilePeroid" AndAlso RoleID = 2 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(2, -1, BranchCode, DueDateFilePeroid, -1, -1, -1)
+
+    ''    ElseIf FileType = "DueDateRecivedPeriod" AndAlso RoleID = 1 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(3, ProvinceID, -1, -1, DueDateRecivedPeriod, DoubtfulPaidPeriod, -1)
+
+    ''    ElseIf FileType = "DueDateRecivedPeriod" AndAlso RoleID = 2 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(3, -1, BranchCode, -1, DueDateRecivedPeriod, DoubtfulPaidPeriod, -1)
+
+    ''    ElseIf FileType = "DoubtfulPaidPeriod" AndAlso RoleID = 1 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(4, ProvinceID, -1, -1, -1, DoubtfulPaidPeriod, -1)
+
+    ''    ElseIf FileType = "DoubtfulPaidPeriod" AndAlso RoleID = 2 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(4, -1, BranchCode, -1, -1, DoubtfulPaidPeriod, -1)
+
+    ''    ElseIf FileType = "DeferredPeriod" AndAlso RoleID = 1 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(5, ProvinceID, -1, -1, -1, -1, DeferredPeriod)
+
+    ''    ElseIf FileType = "DeferredPeriod" AndAlso RoleID = 2 Then
+
+    ''        dtblTotalDeffredLCByProvinceDoAssign = tadTotalDeffredLCByProvinceDoAssign.GetData(5, -1, BranchCode, -1, -1, -1, DeferredPeriod)
+    ''    End If
+
+
+
     ''End Sub
 
     Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged

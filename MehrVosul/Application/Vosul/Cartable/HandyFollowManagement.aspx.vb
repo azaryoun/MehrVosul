@@ -247,6 +247,6 @@
     End Function
 
     Private Sub Bootstrap_Panel1_Panel_Wizard_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Wizard_Click
-        Response.Redirect("HandyFollowAssignMagic.aspx")
+        '' Response.Redirect("HandyFollowAssignMagic.aspx")
     End Sub
 End Class

@@ -55,42 +55,42 @@
 
                                 <th><i style="color: Blue" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
                                     <asp:Label ID="lblNewFileNotAssign" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های معوق جدید تخصیص نیافته</th>
-                                <th><i style="color: red" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx">
+                                <th><i style="color: red" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssignNotFollowManagement.aspx">
                                     <asp:Label ID="lblFileAssignNotDone" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های ارجاع شده بدون پیگیری</th>
                             </tr>
                             <tr>
 
 
-                                <th><i style="color: red" class="fa fa-usd fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                <th><i style="color: red" class="fa fa-usd fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblMassiveFile" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های معوق کلان</th>
-                                <th><i style="color: green" class="fa fa-bell fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                <th><i style="color: green" class="fa fa-bell fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDueDateFile" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های در حال سررسید</th>
                             </tr>
 
                             <tr>
 
 
-                                <th><i style="color: purple" class="fa fa-bell-slash fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                <th><i style="color: purple" class="fa fa-bell-slash fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDueDateFilePeroid" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مبلغ پرونده های سررسید گذشته</th>
-                                <th><i style="color: yellow" class="fa fa-bell-slash fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                <th><i style="color: yellow" class="fa fa-bell-slash fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDueDateFileCount" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;تعداد پرونده های سررسید گذشته</th>
                             </tr>
 
                             <tr>
 
 
-                                <th><i style="color:Highlight" class="fa fa-calendar fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                <th><i style="color:Highlight" class="fa fa-calendar fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDeferredPeriod" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مبلغ پرونده های معوق</th>
-                                <th><i style="color:chocolate" class="fa fa-calendar fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                <th><i style="color:chocolate" class="fa fa-calendar fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDeferredCount" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;تعداد پرونده های معوق</th>
                             </tr>
 
                             <tr>
 
 
-                                <th><i style="color: orange" class="fa fa-bullhorn fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                <th><i style="color: orange" class="fa fa-bullhorn fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDoubtfulPaidPeriod" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مبلغ پرونده های مشکوک الوصول</th>
-                                <th><i style="color: aqua" class="fa fa-bullhorn fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
+                                <th><i style="color: aqua" class="fa fa-bullhorn fa-x"></i><a style="color: black" >
                                     <asp:Label ID="lblDoubtfulPaidCount" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;تعداد پرونده های مشکوک الوصول</th>
                             </tr>
                         </thead>

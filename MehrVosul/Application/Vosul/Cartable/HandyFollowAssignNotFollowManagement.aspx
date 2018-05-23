@@ -123,12 +123,8 @@
 
 
         function GetPageRecords_CallBack(result) {
-            var btnSearch = document.getElementById("ContentPlaceHolder1_Bootstrap_Panel1_btnSearch");
-            var txtPanelSearch = document.getElementById("ContentPlaceHolder1_Bootstrap_Panel1_txtSearchBox");
 
-            txtPanelSearch.value = this.PageFilter;
-            btnSearch.disable = false;
-
+     
 
             if (result == "E") {
                 alert("در فرایند دریافت اطلاعات خطا روی داده است");
