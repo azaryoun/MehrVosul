@@ -93,7 +93,26 @@
         }
 
 
-            <%--<%--     if (parseInt(txtNotPiadDurationDay.value) < 60) {
+        function chkSelectAll_Click() {
+
+            debugger
+            var tblNumbers_Name = "<%=tblNumbers.ClientID %>";
+            var tblNumbers = document.getElementById(tblNumbers_Name);
+
+            var chkSelectAll = document.getElementById("chkSelectAll");
+            var i;
+
+            for (i = 2; i < tblNumbers.rows.length; i++) {
+
+
+                tblNumbers.rows[i].cells[0].firstChild.checked = chkSelectAll.checked;
+            }
+            return true;
+        }
+
+
+
+        <%--<%--     if (parseInt(txtNotPiadDurationDay.value) < 60) {
                 {
                     alert("تعداد روز تاخیر بایستی از 60 بیشتر باشد");
                     txtNotPiadDurationDay.focus();
@@ -208,7 +227,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
 
-                                <label >از</label>
+                                <label>از</label>
                                 <asp:UpdatePanel ID="UpdatePanel5" runat="server">
                                     <ContentTemplate>
 
@@ -237,6 +256,61 @@
 
                     <div class="row">
 
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+                                        <ContentTemplate>
+                                            <label>نوع تخصیص</label>
+                                            <div class="radio">
+
+                                                <asp:RadioButton ID="rdoGroupSelect" Checked="true" GroupName="rdoAcessType" Text="گروهی" runat="server" AutoPostBack="True" />
+
+                                            </div>
+                                            <div class="radio">
+                                                <asp:RadioButton ID="rdoSingleSelect" GroupName="rdoAcessType" Text="تکی" runat="server" AutoPostBack="True" />
+
+
+                                            </div>
+
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>کارشناس پیگیر</label>
+                                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"
+                                    OldValuesParameterFormatString="original_{0}" SelectMethod="GetData"
+                                    TypeName="BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter">
+                                    <SelectParameters>
+                                        <asp:Parameter Name="Action" Type="Int32" />
+                                        <asp:Parameter Name="BranchID" Type="Int32" />
+                                        <asp:Parameter Name="ProvinceID" Type="Int32" />
+                                    </SelectParameters>
+                                </asp:ObjectDataSource>
+                                <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+                                    <ContentTemplate>
+
+                                        <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
+                                            DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID" AutoPostBack="True">
+                                        </asp:DropDownList>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
                         <div class="col-md-12">
                             <div class="form-group">
 
@@ -249,13 +323,19 @@
                         </div>
                     </div>
 
-              
+
 
 
                     <div class="row">
+                  
+                 
+                        <asp:CheckBox ID="CheckBox1" runat="server" />
+                      
                         <table class="table table-bordered table-striped table-condensed" id="tblNumbers" runat="server">
+                        
                             <tr style="text-align: center;">
-
+                                   
+                                <td class="TableHeader1"></td>
                                 <td class="TableHeader1">ردیف</td>
                                 <td class="TableHeader1">نام و نام خانوادگی(گیرنده تسهیلات)</td>
                                 <td class="TableHeader1">شماره تسهیلات</td>
@@ -265,12 +345,12 @@
                                 <td class="TableHeader1">تعداد اقساط معوق</td>
                                 <td class="TableHeader1">مبلغ معوق</td>
                                 <td class="TableHeader1">کارشناس پیگیر</td>
-                             
+
                             </tr>
                         </table>
                     </div>
 
-                          <div class="row" style="visibility: hidden;">
+                    <div class="row" style="visibility: hidden;">
                         <div class="col-md-6">
                             <div class="form-group">
 
@@ -309,7 +389,7 @@
                                 </asp:ObjectDataSource>
 
 
-                                <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
+                                <asp:DropDownList ID="cmbPerson1" runat="server" CssClass="form-control"
                                     DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID">
                                 </asp:DropDownList>
 

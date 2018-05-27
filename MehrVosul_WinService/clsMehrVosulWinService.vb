@@ -6071,4 +6071,13 @@ VoiceSMS:
 
         End Try
     End Sub
+
+
+    Private Sub CheckBlackList(lcNumber As String)
+
+
+
+
+    End Sub
 End Class
+

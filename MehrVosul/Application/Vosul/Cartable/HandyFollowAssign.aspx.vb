@@ -168,9 +168,13 @@
 
                             Dim intAssignUserID As Integer = CInt(Request.Form(i).Substring(0, Request.Form(i).IndexOf("(")))
                             '''Dim strRemark As String = txtRemark.Text
-                            qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+                            If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
+                                qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+
+                            End If
 
                         Else
+
 
 
                         End If
@@ -231,19 +235,27 @@
 
         dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID)
 
-        ''Dim strchklstFiles As String = ""
+        Dim strchklstFiles As String = ""
 
-        ''For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectRow In dtblTotalDeffredForAssign.Rows
-        ''    strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.CULN & "' name='chklstMenu" & drwAssignFile.CustomerNO & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
-        ''Next drwAssignFile
+        'For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectRow In dtblTotalDeffredForAssign.Rows
+        '    strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.LCNumber & "' name='chklstMenu" & drwAssignFile.CustomerNO & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.LCNumber & "</label></div>"
+        'Next drwAssignFile
 
-        ''divchklstAssignFiles.InnerHtml = strchklstFiles
+        divchklstAssignFiles.InnerHtml = strchklstFiles
 
         Dim i As Integer = 1
         For Each drwRTotalDeffredLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectRow In dtblTotalDeffredForAssign.Rows
 
             Dim TbRow As New HtmlTableRow
             Dim TbCell As HtmlTableCell
+
+            ''TbCell = New HtmlTableCell
+            ''strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwRTotalDeffredLC.LCNumber & "' name='chklstMenu" & drwRTotalDeffredLC.CustomerNO & "'><i class='fa " & " fa-1x'></i></label></div>"
+            ''TbCell.InnerHtml = strchklstFiles
+            ''TbCell.Align = "center"
+            ''TbCell.NoWrap = True
+            ''TbRow.Cells.Add(TbCell)
+
 
             TbCell = New HtmlTableCell
             ' '"<input type='hidden' id='hdnAmounts" & CStr(i) & "' value='" & drwRTotalDeffredLC.LCNumber & "') >"
@@ -477,4 +489,39 @@
         Response.Redirect("HandyFollowManagement.aspx")
 
     End Sub
+
+    ''Protected Sub rdoSingleSelect_CheckedChanged(sender As Object, e As EventArgs) Handles rdoSingleSelect.CheckedChanged
+
+    ''    If rdoSingleSelect.Checked = True Then
+    ''        cmbPerson.Enabled = False
+    ''    End If
+
+
+    ''End Sub
+
+    ''Protected Sub rdoGroupSelect_CheckedChanged(sender As Object, e As EventArgs) Handles rdoGroupSelect.CheckedChanged
+
+    ''    If rdoGroupSelect.Checked = True Then
+    ''        cmbPerson.Enabled = True
+    ''    End If
+
+    ''End Sub
+
+
+    Public Function CheckFileAssign(AssignUerID As Integer, LoanID As Integer, AssignType As Short) As Boolean
+
+        Dim tadpHandyFollowAssignByIDs As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByIDs_SelectTableAdapter
+        Dim dtblHandyFollowAssignByIDs As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByIDs_SelectDataTable = Nothing
+
+        dtblHandyFollowAssignByIDs = tadpHandyFollowAssignByIDs.GetData(2, AssignUerID, -1, LoanID, AssignType)
+
+        If dtblHandyFollowAssignByIDs.Rows.Count > 0 Then
+
+            Return True
+        End If
+
+        Return False
+
+    End Function
+
 End Class

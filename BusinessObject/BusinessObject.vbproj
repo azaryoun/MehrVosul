@@ -775,6 +775,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Vosul\dstBlackList.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstBlackList.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Vosul\dstBranch.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1212,6 +1217,17 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="Vosul\dstBlackList.xsc">
+      <DependentUpon>dstBlackList.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstBlackList.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstBlackList.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Vosul\dstBlackList.xss">
+      <DependentUpon>dstBlackList.xsd</DependentUpon>
+    </None>
     <None Include="Vosul\dstBranch.xsc">
       <DependentUpon>dstBranch.xsd</DependentUpon>
     </None>

@@ -81,15 +81,22 @@
             Dim intAssignUserID As Integer = cmbPerson.SelectedValue
             Dim strRemark As String = txtRemark.Text
 
-            Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
-            qryHandyFollowAssign.spr_HandyFollowAssign_Update(CInt(Session("intFollowAssignID")), drwUserLogin.ID, strRemark)
-
             Dim strNewRemark As String = txtNewRemark.Text
             Dim intFileID As Integer = CInt(ViewState("FileID"))
             Dim intLoanID As Integer = CInt(ViewState("LoanID"))
             Dim intAssignType As Int16 = CInt(ViewState("AssignType"))
 
+            Dim HandyFollowAssign As New HandyFollowAssign
+            If HandyFollowAssign.CheckFileAssign(intAssignUserID, intLoanID, intAssignType) = True Then
+                Bootstrap_Panel1.ShowMessage("این پرونده قبلا به همین کارشناس اختصاص داده شده است", True)
+                Return
+            End If
+
+            Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+            qryHandyFollowAssign.spr_HandyFollowAssign_Update(CInt(Session("intFollowAssignID")), drwUserLogin.ID, strRemark)
+
             qryHandyFollowAssign.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, DateTime.Now, drwUserLogin.ID, strNewRemark, intLoanID, intAssignType)
+
 
         Catch
             Response.Redirect("HandyFollowManagement.aspx?Edit=NO")

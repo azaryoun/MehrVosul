@@ -122,6 +122,60 @@ Partial Public Class HandyFollowAssign
     Protected WithEvents txtNotPiadDurationDayTo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''UpdatePanel6 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel6 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''rdoGroupSelect control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdoGroupSelect As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
+    '''rdoSingleSelect control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdoSingleSelect As Global.System.Web.UI.WebControls.RadioButton
+    
+    '''<summary>
+    '''ObjectDataSource1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents ObjectDataSource1 As Global.System.Web.UI.WebControls.ObjectDataSource
+    
+    '''<summary>
+    '''UpdatePanel7 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel7 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''cmbPerson control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmbPerson As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
     '''btnCheckFiles control.
     '''</summary>
     '''<remarks>
@@ -129,6 +183,15 @@ Partial Public Class HandyFollowAssign
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCheckFiles As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''CheckBox1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents CheckBox1 As Global.System.Web.UI.WebControls.CheckBox
     
     '''<summary>
     '''tblNumbers control.
@@ -167,13 +230,13 @@ Partial Public Class HandyFollowAssign
     Protected WithEvents odsPerson As Global.System.Web.UI.WebControls.ObjectDataSource
     
     '''<summary>
-    '''cmbPerson control.
+    '''cmbPerson1 control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents cmbPerson As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents cmbPerson1 As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
     '''txtRemark control.
