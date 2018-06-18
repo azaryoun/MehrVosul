@@ -2357,20 +2357,6 @@ VoiceSMS:
         End If
 
 
-        'Dim tadpMinMaxInterval As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervals_MinMaxFromTo_SelectTableAdapter
-        'Dim dtblMinMaxInterval As BusinessObject.dstWarningIntervals.spr_WarningIntervals_MinMaxFromTo_SelectDataTable = Nothing
-        'dtblMinMaxInterval = tadpMinMaxInterval.GetData()
-        'Dim intMaxInterval As Integer = Integer.MaxValue
-        'Dim intMinInterval As Integer = Integer.MinValue
-
-        'If dtblMinMaxInterval.Rows.Count > 0 Then
-        '    Dim drwMinMaxInterval As BusinessObject.dstWarningIntervals.spr_WarningIntervals_MinMaxFromTo_SelectRow = dtblMinMaxInterval.Rows(0)
-        '    If drwMinMaxInterval.IsMaxToNull = False Then
-        '        intMaxInterval = drwMinMaxInterval.MaxTo
-        '        intMinInterval = drwMinMaxInterval.MinFrom
-        '    End If
-        'End If
-
         Dim tadpIntervalList As New DataSet1TableAdapters.spr_WarningIntervals_Inerval_List_SelectTableAdapter
         Dim dtblIntervalList As DataSet1.spr_WarningIntervals_Inerval_List_SelectDataTable = Nothing
         dtblIntervalList = tadpIntervalList.GetData()
@@ -2499,7 +2485,9 @@ VoiceSMS:
                 Dim strBuilder As New Text.StringBuilder()
                 Dim qryCurrentLCStatus As New BusinessObject.dstCurrentLCStatusTableAdapters.QueriesTableAdapter
 
-
+                ''BlackList
+                Dim tadpBlackList As New BusinessObject.dstBlackListTableAdapters.spr_BlackList_SelectTableAdapter
+                Dim dtblBlackList As BusinessObject.dstBlackList.spr_BlackList_SelectDataTable = Nothing
 
 
 
@@ -2550,7 +2538,6 @@ VoiceSMS:
                         Else
                             stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(6)).Trim.Replace("'", "")
                         End If
-
 
                         If dataReader.GetValue(7) Is DBNull.Value Then
                             i -= 1
@@ -2722,6 +2709,23 @@ VoiceSMS:
                         End If
 
 
+                        Try
+                            dtblBlackList = tadpBlackList.GetData(stcVarLoanInfo.LC_No)
+                            If dtblBlackList.First.Blacklist <> 0 Then
+                                i -= 1
+                                Continue Do
+                            End If
+
+                        Catch ex As Exception
+
+                            i -= 1
+                            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 4, "BlackList")
+
+                            Continue Do
+                        End Try
+
+
                         Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
                         Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
                         dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarLoanInfo.CustomerNo)
@@ -2889,47 +2893,6 @@ VoiceSMS:
 
 
                         End If
-
-
-
-                        'Dim dteFirstNotPaid? As Date = Nothing
-                        'Try
-                        '    stcVarLoanInfo.FirstNoPaidDate = stcVarLoanInfo.FirstNoPaidDate.Insert(4, "/")
-                        '    stcVarLoanInfo.FirstNoPaidDate = stcVarLoanInfo.FirstNoPaidDate.Insert(7, "/")
-                        '    dteFirstNotPaid = mdlGeneral.GetGregorianDate(stcVarLoanInfo.FirstNoPaidDate)
-                        'Catch ex As Exception
-                        '    dteFirstNotPaid = Nothing
-                        'End Try
-
-                        'Dim dteFG_MustPayDate? As Date = Nothing
-                        'Try
-                        '    stcVarLoanInfo.FG_MustPayDate = stcVarLoanInfo.FG_MustPayDate.Insert(4, "/")
-                        '    stcVarLoanInfo.FG_MustPayDate = stcVarLoanInfo.FG_MustPayDate.Insert(7, "/")
-                        '    dteFG_MustPayDate = mdlGeneral.GetGregorianDate(stcVarLoanInfo.FG_MustPayDate)
-                        'Catch ex As Exception
-                        '    dteFG_MustPayDate = Nothing
-                        'End Try
-
-
-                        'Dim dteL_PayDate? As Date = Nothing
-                        'Try
-                        '    stcVarLoanInfo.L_PayDate = stcVarLoanInfo.L_PayDate.Insert(4, "/")
-                        '    stcVarLoanInfo.L_PayDate = stcVarLoanInfo.L_PayDate.Insert(7, "/")
-                        '    dteL_PayDate = mdlGeneral.GetGregorianDate(stcVarLoanInfo.L_PayDate)
-                        'Catch ex As Exception
-                        '    dteL_PayDate = Nothing
-                        'End Try
-
-
-                        'Dim dteLG_PayDate? As Date = Nothing
-                        'Try
-                        '    stcVarLoanInfo.LG_PayDate = stcVarLoanInfo.LG_PayDate.Insert(4, "/")
-                        '    stcVarLoanInfo.LG_PayDate = stcVarLoanInfo.LG_PayDate.Insert(7, "/")
-                        '    dteLG_PayDate = mdlGeneral.GetGregorianDate(stcVarLoanInfo.LG_PayDate)
-                        'Catch ex As Exception
-                        '    dteLG_PayDate = Nothing
-                        'End Try
-                        '
 
 
 
@@ -5089,7 +5052,7 @@ VoiceSMS:
 
     Private Sub tmrFinalReport_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrFinalReport.Elapsed
 
-        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 3) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
             Return
         End If
 
@@ -5942,7 +5905,7 @@ VoiceSMS:
 
     Private Sub FinalReportByProvince()
 
-        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 1) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 4) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
             Return
         End If
 
@@ -6073,11 +6036,19 @@ VoiceSMS:
     End Sub
 
 
-    Private Sub CheckBlackList(lcNumber As String)
+    ''Private Function CheckBlackList(lcNumber As String) As Boolean
 
+    ''    Dim tadpBlackList As New BusinessObject.dstBlackListTableAdapters.spr_BlackList_SelectTableAdapter
+    ''    Dim dtblBlackList As BusinessObject.dstBlackList.spr_BlackList_SelectDataTable = Nothing
 
+    ''    dtblBlackList = tadpBlackList.GetData(lcNumber)
 
+    ''    If dtblBlackList.Rows.Count > 0 Then
+    ''        Return True
+    ''    End If
 
-    End Sub
+    ''    Return False
+
+    ''End Function
 End Class
 

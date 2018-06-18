@@ -5,7 +5,7 @@
         Page.Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
         Bootstrap_Panel1.CanNew = False
-        Bootstrap_Panel1.CanSave = True
+        Bootstrap_Panel1.CanSave = False
         Bootstrap_Panel1.CanDelete = False
         Bootstrap_Panel1.CanSearch = False
         Bootstrap_Panel1.CanCancel = True
@@ -31,6 +31,19 @@
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+            If dtblAccessgroupUser.Rows.Count > 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Count = 0 Then
+                    Bootstrap_Panel1.CanSave = True
+                End If
+            ElseIf drwUserLogin.IsDataAdmin = True Then
+                Bootstrap_Panel1.CanSave = True
+            End If
 
             odsPerson.SelectParameters.Item("Action").DefaultValue = 1
             odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
@@ -62,6 +75,27 @@
             ViewState("FileID") = dtblHandyFollowAssign.First.FK_FileID
             ViewState("LoanID") = dtblHandyFollowAssign.First.FK_LoanID
             ViewState("AssignType") = dtblHandyFollowAssign.First.AssignType
+
+
+        Else
+
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+            If dtblAccessgroupUser.Rows.Count > 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Count = 0 Then
+                    Bootstrap_Panel1.CanSave = True
+                End If
+            ElseIf drwUserLogin.IsDataAdmin = True Then
+                Bootstrap_Panel1.CanSave = True
+            End If
+
         End If
 
 

@@ -5,7 +5,7 @@
         Page.Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
         Bootstrap_Panel1.CanNew = False
-        Bootstrap_Panel1.CanSave = True
+        Bootstrap_Panel1.CanSave = False
         Bootstrap_Panel1.CanDelete = False
         Bootstrap_Panel1.CanSearch = False
         Bootstrap_Panel1.CanCancel = True
@@ -29,6 +29,23 @@
 
             dtblAdminSetting = tadpAdminSetting.GetData()
 
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+            If dtblAccessgroupUser.Rows.Count > 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Count = 0 Then
+                    Bootstrap_Panel1.CanSave = True
+                ElseIf drwUserLogin.IsDataAdmin = True Then
+                    Bootstrap_Panel1.CanSave = True
+                End If
+            ElseIf drwUserLogin.IsDataAdmin = True Then
+                Bootstrap_Panel1.CanSave = True
+            End If
+
+
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
@@ -46,15 +63,13 @@
 
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
-                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+                ''odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                ''odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
+                ''odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                cmbPerson.DataBind()
+                ''cmbPerson.DataBind()
 
-                ''check the access Group id
-                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
 
                 Dim blnAdminBranch As Boolean = False
                 dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
@@ -88,7 +103,7 @@
                 odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
                 odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                cmbPerson.DataBind()
+                ''   cmbPerson.DataBind()
 
             ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
 
@@ -112,12 +127,40 @@
                 odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
                 odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                cmbPerson.DataBind()
+                ''  cmbPerson.DataBind()
 
             End If
 
             txtNotPiadDurationDayFrom.Attributes.Add("onkeypress", "return numbersonly(event, false);")
             txtNotPiadDurationDayTo.Attributes.Add("onkeypress", "return numbersonly(event, false);")
+
+
+        Else
+
+
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+            Dim tadpAdminSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_AdminSetting_SelectTableAdapter
+            Dim dtblAdminSetting As BusinessObject.dstSystemSetting.spr_AdminSetting_SelectDataTable = Nothing
+
+            dtblAdminSetting = tadpAdminSetting.GetData()
+
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+            If dtblAccessgroupUser.Rows.Count > 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Count = 0 Then
+                    Bootstrap_Panel1.CanSave = True
+                ElseIf drwUserLogin.IsDataAdmin = True Then
+                    Bootstrap_Panel1.CanSave = True
+                End If
+            ElseIf drwUserLogin.IsDataAdmin = True Then
+                Bootstrap_Panel1.CanSave = True
+            End If
 
         End If
 
@@ -233,6 +276,8 @@
         Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCFileAssign_SelectTableAdapter
         Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable = Nothing
 
+
+        ''Max time out inserted in dataset
         dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID)
 
         Dim strchklstFiles As String = ""
@@ -303,6 +348,12 @@
 
             TbCell = New HtmlTableCell
             TbCell.InnerHtml = drwRTotalDeffredLC.AmounDefferd.ToString("N0")
+            TbCell.NoWrap = True
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
+
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = drwRTotalDeffredLC.NotPiadDurationDay
             TbCell.NoWrap = True
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
@@ -455,7 +506,7 @@
 
         cmbBranch.DataBind()
 
-        cmbPerson.DataBind()
+        ''  cmbPerson.DataBind()
 
     End Sub
 
@@ -472,17 +523,17 @@
         odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
         odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-        cmbPerson.DataBind()
+        ''   cmbPerson.DataBind()
 
 
     End Sub
 
-    Protected Sub cmbPerson_DataBound(sender As Object, e As EventArgs) Handles cmbPerson.DataBound
-        Dim li As New ListItem
-        li.Text = "---"
-        li.Value = -1
-        cmbPerson.Items.Insert(0, li)
-    End Sub
+    ''Protected Sub cmbPerson_DataBound(sender As Object, e As EventArgs) Handles cmbPerson.DataBound
+    ''    Dim li As New ListItem
+    ''    li.Text = "---"
+    ''    li.Value = -1
+    ''    cmbPerson.Items.Insert(0, li)
+    ''End Sub
 
     Private Sub Bootstrap_Panel1_Panel_Cancel_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Cancel_Click
 

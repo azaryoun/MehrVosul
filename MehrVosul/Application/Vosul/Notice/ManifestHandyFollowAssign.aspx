@@ -4,7 +4,7 @@
 <%@ Register Src="../../../UserControl/UC_TimePicker.ascx" TagName="UC_TimePicker" TagPrefix="uc3" %>
 <%@ Register Src="../../../UserControl/Bootstrap_PersianDateTimePicker.ascx" TagName="Bootstrap_PersianDateTimePicker" TagPrefix="uc4" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script language="javascript" type="text/javascript">
+    <script lang="javascript" type="text/javascript">
 
 
         function StartthePage() {

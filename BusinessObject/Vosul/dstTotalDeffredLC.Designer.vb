@@ -8441,6 +8441,7 @@ Namespace dstTotalDeffredLCTableAdapters
                 Me.Adapter.SelectCommand.Parameters(4).Value = Global.System.DBNull.Value
             End If
             Dim dataTable As dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable = New dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable()
+            Me.Adapter.SelectCommand.CommandTimeout = Integer.MaxValue
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function

@@ -1,10 +1,10 @@
-﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HandyFollowAssign.aspx.vb" Inherits="MehrVosul.HandyFollowAssign" %>
+﻿<%@ Page Title="" Language="vb" EnableEventValidation="true" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HandyFollowAssign.aspx.vb" Inherits="MehrVosul.HandyFollowAssign" %>
 
 <%@ Register Src="../../../UserControl/Bootstrap_Panel.ascx" TagName="Bootstrap_Panel" TagPrefix="uc1" %>
 <%@ Register Src="../../../UserControl/UC_TimePicker.ascx" TagName="UC_TimePicker" TagPrefix="uc3" %>
 <%@ Register Src="../../../UserControl/Bootstrap_PersianDateTimePicker.ascx" TagName="Bootstrap_PersianDateTimePicker" TagPrefix="uc4" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-    <script language="javascript" type="text/javascript">
+    <script lang="javascript" type="text/javascript">
 
 
         function StartthePage() {
@@ -58,7 +58,9 @@
                 return false;
             }
 
-            var tblNumbers_Name = "<%=tblNumbers.ClientID %>";
+            return true;}
+
+        <%--<%--    var tblNumbers_Name = "<%=tblNumbers.ClientID %>";
             var tblNumbers = document.getElementById(tblNumbers_Name);
 
 
@@ -86,11 +88,11 @@
                 return false;
 
 
-            }
+            }--%>--%>
 
-            return true;
+         
 
-        }
+        
 
 
         function chkSelectAll_Click() {
@@ -112,55 +114,9 @@
 
 
 
-        <%--<%--     if (parseInt(txtNotPiadDurationDay.value) < 60) {
-                {
-                    alert("تعداد روز تاخیر بایستی از 60 بیشتر باشد");
-                    txtNotPiadDurationDay.focus();
-                    return false;
-                }
-
-            }
-
-            var cmbPerson = document.getElementById("<%=cmbPerson.ClientID%>");
-
-
-            if (cmbPerson.options[cmbPerson.selectedIndex].value == -1) {
-                {
-                    alert("کارشناس پیگیر را مشخص نمایید");
-                    cmbPerson.focus();
-                    return false;
-                }
-
-            }
-           var divchklstAssignFiles = document.getElementById("<%=divchklstAssignFiles.ClientID%>");
-
-            var divtmp;
-            if (divchklstAssignFiles != null) {
-                divtmp = divchklstAssignFiles.firstChild;
-            }
-         
-
-            var boolChecked = false;
-       
-            while (divtmp) {
-                var chktmp = divchklstAssignFiles.firstChild.nextSibling.firstChild.nextSibling;
-                if (chktmp.checked) {
-                    boolChecked = true;
-                    break;
-                }
-
-                divtmp = divtmp.nextSibling;
-            }
-
-            if (!boolChecked) {
-                alert("حداقل یک فایل باید انتخاب شود");
-                return false;
-
-            }--%>
 
 
 
-          
 
 
     </script>
@@ -168,6 +124,7 @@
 
 
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
@@ -282,30 +239,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
 
-                            <div class="form-group">
-                                <label>کارشناس پیگیر</label>
-                                <asp:ObjectDataSource ID="ObjectDataSource1" runat="server"
-                                    OldValuesParameterFormatString="original_{0}" SelectMethod="GetData"
-                                    TypeName="BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter">
-                                    <SelectParameters>
-                                        <asp:Parameter Name="Action" Type="Int32" />
-                                        <asp:Parameter Name="BranchID" Type="Int32" />
-                                        <asp:Parameter Name="ProvinceID" Type="Int32" />
-                                    </SelectParameters>
-                                </asp:ObjectDataSource>
-                                <asp:UpdatePanel ID="UpdatePanel7" runat="server">
-                                    <ContentTemplate>
-
-                                        <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
-                                            DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID" AutoPostBack="True">
-                                        </asp:DropDownList>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-
-                            </div>
-                        </div>
 
                     </div>
 
@@ -316,7 +250,7 @@
 
                                 <br />
 
-                                <asp:LinkButton CssClass="btn btn-success" OnClientClick="return CheckDataEnter();" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
+                                <asp:LinkButton CssClass="btn btn-success" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
 
 
                             </div>
@@ -327,15 +261,15 @@
 
 
                     <div class="row">
-                  
-                 
+
+
                         <asp:CheckBox ID="CheckBox1" runat="server" />
-                      
+
                         <table class="table table-bordered table-striped table-condensed" id="tblNumbers" runat="server">
-                        
+
                             <tr style="text-align: center;">
-                                   
-                                <td class="TableHeader1"></td>
+
+
                                 <td class="TableHeader1">ردیف</td>
                                 <td class="TableHeader1">نام و نام خانوادگی(گیرنده تسهیلات)</td>
                                 <td class="TableHeader1">شماره تسهیلات</td>
@@ -344,6 +278,7 @@
                                 <td class="TableHeader1">نوع تسهیلات</td>
                                 <td class="TableHeader1">تعداد اقساط معوق</td>
                                 <td class="TableHeader1">مبلغ معوق</td>
+                                <td class="TableHeader1">تعدادروزمعوق</td>
                                 <td class="TableHeader1">کارشناس پیگیر</td>
 
                             </tr>

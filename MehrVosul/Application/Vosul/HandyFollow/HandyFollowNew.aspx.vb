@@ -78,9 +78,6 @@ Public Class HandyFollowNew
             ''Get Handy Follow related List
             If Not Session("intFileID") Is Nothing And Not Session("intLoanID") Is Nothing Then
 
-
-
-
                 Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
                 GetHandyFollowList()
 
@@ -105,6 +102,17 @@ Public Class HandyFollowNew
 
                         Session("intFileID") = dtblFile.First.ID
 
+                        Dim strName As String = ""
+                        If dtblFile.First.IsFNameNull = False Then
+                            strName = dtblFile.First.FName & " "
+                        End If
+
+                        If dtblFile.First.IsLNameNull = False Then
+                            strName &= dtblFile.First.LName
+                        End If
+
+                        lblBorroweName.InnerText = strName
+
                         If dtblFile.First.IsTelephoneWorkNull = False Then
                             lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
                         End If
@@ -123,6 +131,17 @@ Public Class HandyFollowNew
 
                         ''Insert to file
                         dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")), "")
+
+                        Dim strName As String = ""
+                        If dtblFile.First.IsFNameNull = False Then
+                            strName = dtblFile.First.FName & " "
+                        End If
+
+                        If dtblFile.First.IsLNameNull = False Then
+                            strName &= dtblFile.First.LName
+                        End If
+
+                        lblBorroweName.InnerText = strName
 
                         If dtblFile.First.IsTelephoneWorkNull = False Then
                             lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
@@ -172,6 +191,17 @@ Public Class HandyFollowNew
 
 
                     dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")), "")
+
+                    Dim strName As String = ""
+                    If dtblFile.First.IsFNameNull = False Then
+                        strName = dtblFile.First.FName & " "
+                    End If
+
+                    If dtblFile.First.IsLNameNull = False Then
+                        strName &= dtblFile.First.LName
+                    End If
+
+                    lblBorroweName.InnerText = strName
 
                     If dtblFile.First.IsTelephoneWorkNull = False Then
                         lblBorrowerPhone.InnerText = dtblFile.First.TelephoneWork
@@ -384,6 +414,7 @@ Public Class HandyFollowNew
 
             TbCell = New HtmlTableCell
             TbCell.InnerHtml = mdlGeneral.GetPersianDateTime(drwHandyFollow.ContactDate)
+            TbCell.Attributes.Add("dir", "ltr")
             TbCell.NoWrap = True
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
@@ -496,7 +527,7 @@ Public Class HandyFollowNew
         Else
             lblSponsorPhone.InnerText = ""
             lblSponsorPhoneWork.InnerText = ""
-            lblBorrowerMobile.InnerText = ""
+            lblSponsorMobile.InnerText = ""
 
         End If
 

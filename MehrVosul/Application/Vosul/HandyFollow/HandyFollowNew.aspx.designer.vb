@@ -68,6 +68,24 @@ Partial Public Class HandyFollowNew
     Protected WithEvents lblAmountDefferd As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''rdboToSponsor control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdboToSponsor As Global.System.Web.UI.WebControls.RadioButtonList
+    
+    '''<summary>
+    '''lblBorroweName control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBorroweName As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lblBorrowerHomePhone control.
     '''</summary>
     '''<remarks>
@@ -93,60 +111,6 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblBorrowerMobile As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''cmbNotificationType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbNotificationType As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''rdbListAnswered control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rdbListAnswered As Global.System.Web.UI.WebControls.RadioButtonList
-    
-    '''<summary>
-    '''rdbListNotificationStatus control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rdbListNotificationStatus As Global.System.Web.UI.WebControls.RadioButtonList
-    
-    '''<summary>
-    '''Bootstrap_PersianDateTimePicker_From control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Bootstrap_PersianDateTimePicker_From As Global.MehrVosul.Bootstrap_PersianDateTimePicker
-    
-    '''<summary>
-    '''Bootstrap_PersianDateTimePicker_TO control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents Bootstrap_PersianDateTimePicker_TO As Global.MehrVosul.Bootstrap_PersianDateTimePicker
-    
-    '''<summary>
-    '''rdboToSponsor control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rdboToSponsor As Global.System.Web.UI.WebControls.RadioButtonList
     
     '''<summary>
     '''odcSponsor control.
@@ -228,6 +192,51 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSponsorMobile As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''cmbNotificationType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmbNotificationType As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''rdbListAnswered control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdbListAnswered As Global.System.Web.UI.WebControls.RadioButtonList
+    
+    '''<summary>
+    '''rdbListNotificationStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents rdbListNotificationStatus As Global.System.Web.UI.WebControls.RadioButtonList
+    
+    '''<summary>
+    '''Bootstrap_PersianDateTimePicker_From control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Bootstrap_PersianDateTimePicker_From As Global.MehrVosul.Bootstrap_PersianDateTimePicker
+    
+    '''<summary>
+    '''Bootstrap_PersianDateTimePicker_TO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Bootstrap_PersianDateTimePicker_TO As Global.MehrVosul.Bootstrap_PersianDateTimePicker
     
     '''<summary>
     '''txtRemark control.

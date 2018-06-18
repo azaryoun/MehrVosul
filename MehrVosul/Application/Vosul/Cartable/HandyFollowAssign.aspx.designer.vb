@@ -149,33 +149,6 @@ Partial Public Class HandyFollowAssign
     Protected WithEvents rdoSingleSelect As Global.System.Web.UI.WebControls.RadioButton
     
     '''<summary>
-    '''ObjectDataSource1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents ObjectDataSource1 As Global.System.Web.UI.WebControls.ObjectDataSource
-    
-    '''<summary>
-    '''UpdatePanel7 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanel7 As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''cmbPerson control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbPerson As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''btnCheckFiles control.
     '''</summary>
     '''<remarks>

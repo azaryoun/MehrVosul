@@ -93,20 +93,121 @@
                             <label>مبلغ معوق:&nbsp;&nbsp;&nbsp; </label>
                             <label runat="server" style="font-weight: bold;" id="lblAmountDefferd">"---"</label>
                         </div>
+
                         <div class="form-group">
-                            <label>تلفن منزل وام گیرنده:&nbsp;&nbsp;&nbsp; </label>
-                            <label runat="server" style="font-weight: bold;" id="lblBorrowerHomePhone">"---"</label>
-                        </div>
-                        <div class="form-group">
-                            <label>تلفن محل کار وام گیرنده:&nbsp;&nbsp;&nbsp; </label>
-                            <label style="font-weight: bold;" runat="server" id="lblBorrowerPhone">"---"</label>
-                        </div>
-                        <div class="form-group">
-                            <label>موبایل وام گیرنده:&nbsp;&nbsp;&nbsp; </label>
-                            <label runat="server" style="font-weight: bold;" id="lblBorrowerMobile">"---"</label>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <label>مخاطب</label>
+                                </div>
+                                <div class="panel-body" style="max-height: 200px;">
+                                    <asp:RadioButtonList ID="rdboToSponsor" runat="server">
+                                        <asp:ListItem Selected="True" Value="0">وام گیرنده</asp:ListItem>
+                                        <asp:ListItem Value="1">ضامن</asp:ListItem>
+                                    </asp:RadioButtonList>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group has-error">
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <label>مشخصات وام گیرنده</label>
+                                </div>
+                                <div class="panel-body" style="max-height: 200px;">
+
+                                    <div class="form-group">
+                                        <label>نام و نام خانوادگی:&nbsp;&nbsp;&nbsp; </label>
+                                        <label runat="server" style="font-weight: bold;" id="lblBorroweName">"---"</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>تلفن منزل:&nbsp;&nbsp;&nbsp; </label>
+                                        <label runat="server" style="font-weight: bold;" id="lblBorrowerHomePhone">"---"</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>تلفن محل کار:&nbsp;&nbsp;&nbsp; </label>
+                                        <label style="font-weight: bold;" runat="server" id="lblBorrowerPhone">"---"</label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>موبایل:&nbsp;&nbsp;&nbsp; </label>
+                                        <label runat="server" style="font-weight: bold;" id="lblBorrowerMobile">"---"</label>
+                                    </div>
+
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                        <asp:ObjectDataSource ID="odcSponsor"
+                            runat="server" OldValuesParameterFormatString="original_{0}"
+                            SelectMethod="GetData"
+                            TypeName="BusinessObject.dstSponsor_ListTableAdapters.spr_SponsorList2_SelectByFileLoanTableAdapter">
+                            <SelectParameters>
+                                <asp:Parameter Name="FileNO" Type="String" />
+                                <asp:Parameter Name="LoanNO" Type="String" />
+                            </SelectParameters>
+                        </asp:ObjectDataSource>
+                        <div class="form-group">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <label>ضامن ها</label>
+                                </div>
+                                <br />
+                                <div class="form-group">
+                                    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                                        <ContentTemplate>
+                                            <asp:DropDownList ID="cmbSponsor" runat="server"
+                                                CssClass="form-control" DataSourceID="odcSponsor"
+                                                DataTextField="FullName" DataValueField="SponsorCustomerNo" AutoPostBack="True">
+                                            </asp:DropDownList>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
+                                        <ContentTemplate>
+                                            <div class="form-group">
+                                                <br />
+                                                <label>&nbsp;&nbsp;&nbsp; تلفن منزل: </label>
+
+
+                                                <label runat="server" id="lblSponsorPhone"></label>
+
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                        <ContentTemplate>
+                                            <div class="form-group">
+                                                <label>&nbsp;&nbsp;&nbsp; تلفن محل کار:</label>
+
+
+                                                <label runat="server" id="lblSponsorPhoneWork"></label>
+
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
+                                        <ContentTemplate>
+                                            <div class="form-group">
+
+                                                <label>&nbsp;&nbsp;&nbsp; موبایل:</label>
+
+
+
+                                                <label runat="server" id="lblSponsorMobile"></label>
+
+
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label>نوع اطلاع رسانی</label>
 
                             <asp:DropDownList ID="cmbNotificationType" runat="server"
@@ -136,7 +237,7 @@
                         </div>
 
 
-                        <div class="form-group has-error">
+                        <div class="form-group">
                             <label>نتیجه تماس</label>
 
                             <div class="panel-body" style="max-height: 200px;">
@@ -148,12 +249,12 @@
 
                         </div>
 
-                        <div class="form-group has-error">
+                        <div class="form-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <label>تاریخ و ساعت تماس</label>
                                 </div>
-                                <div class="panel-body" style="max-height: 200px;">
+                                <div  class="panel-body" style="max-height: 200px;">
 
 
                                     <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePicker_From"
@@ -167,11 +268,7 @@
 
                             </div>
                         </div>
-                    </div>
-
-                    <div class="col-md-6">
-
-                        <div class="form-group has-error">
+                        <div class="form-group">
                             <div class="panel panel-default">
                                 <div class="panel-heading">
                                     <label>تاریخ تعهد پرداخت</label>
@@ -191,74 +288,10 @@
                             </div>
                         </div>
 
-                        <div class="form-group has-error">
-                            <label>مخاطب</label>
 
-                            <div class="panel-body" style="max-height: 200px;">
-                                <asp:RadioButtonList ID="rdboToSponsor" runat="server">
-                                    <asp:ListItem Selected="True" Value="0">وام گیرنده</asp:ListItem>
-                                    <asp:ListItem Value="1">ضامن</asp:ListItem>
-                                </asp:RadioButtonList>
-                            </div>
-
-                        </div>
 
 
                         <div class="form-group">
-                            <asp:ObjectDataSource ID="odcSponsor"
-                                runat="server" OldValuesParameterFormatString="original_{0}"
-                                SelectMethod="GetData"
-                                TypeName="BusinessObject.dstSponsor_ListTableAdapters.spr_SponsorList2_SelectByFileLoanTableAdapter">
-                                <SelectParameters>
-                                    <asp:Parameter Name="FileNO" Type="String" />
-                                    <asp:Parameter Name="LoanNO" Type="String" />
-                                </SelectParameters>
-                            </asp:ObjectDataSource>
-                            <label>ضامن ها</label>
-                            &nbsp;<div>
-                                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                                    <ContentTemplate>
-                                        <asp:DropDownList ID="cmbSponsor" runat="server"
-                                            CssClass="form-control" DataSourceID="odcSponsor"
-                                            DataTextField="FullName" DataValueField="SponsorCustomerNo" AutoPostBack="True">
-                                        </asp:DropDownList>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
-                                <div>
-                                    <br />
-                                    <label>تلفن منزل ضامن:</label>
-
-                                    <asp:UpdatePanel ID="UpdatePanel2" runat="server">
-                                        <ContentTemplate>
-                                            <label runat="server" id="lblSponsorPhone"></label>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
-                                <div>
-                                    <label>تلفن محل کار ضامن:</label>
-
-                                    <asp:UpdatePanel ID="UpdatePanel4" runat="server">
-                                        <ContentTemplate>
-                                            <label runat="server" id="lblSponsorPhoneWork"></label>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-                                </div>
-
-                                <div>
-
-                                    <label>موبایل ضامن:</label>
-
-
-                                    <asp:UpdatePanel ID="UpdatePanel3" runat="server">
-                                        <ContentTemplate>
-                                            <label runat="server" id="lblSponsorMobile"></label>
-                                        </ContentTemplate>
-                                    </asp:UpdatePanel>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-group has-error">
                             <label>توضیحات</label>
 
                             <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control"
