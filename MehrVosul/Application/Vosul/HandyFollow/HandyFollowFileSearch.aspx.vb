@@ -93,192 +93,362 @@ Public Class HandyFollowFileSearch
 
 
         Dim qryErrorLog As New BusinessObject.dstLoginLogTableAdapters.QueriesTableAdapter
-        ' Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
 
-        Dim tadpTotalLC As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByCustomerNOTableAdapter
-        Dim dtblTotalLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByCustomerNODataTable = Nothing
+        ''Load Current Customer loan realted to current user branch and it's handyfollow
+        Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
 
-        dtblTotalLC = tadpTotalLC.GetData(txtCustomerNO.Text.Trim())
+        Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-        If dtblTotalLC.Rows.Count > 0 Then
+        dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(3, -1, txtCustomerNO.Text.Trim)
 
-
-            For Each drwTotalLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByCustomerNORow In dtblTotalLC.Rows
-                Dim TbRow As HtmlTableRow
-                i += 1
+        If dtblFilebyCustomerNo.Rows.Count > 0 Then
 
 
-                ''check if this file assign to current user or not
-                Dim tadpHandyFollowAssignBYIDs As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByIDs_SelectTableAdapter
-                Dim dtblHandyFollowAssignByIDs As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByIDs_SelectDataTable = Nothing
+            Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_SelectTableAdapter
+            Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_SelectDataTable = Nothing
+
+            If drwUserLogin.IsDataAdmin = True Then
+                dtblLoan = tadpLoan.GetData(3, -1, dtblFilebyCustomerNo.First.ID, -1)
+            Else
+                dtblLoan = tadpLoan.GetData(4, -1, dtblFilebyCustomerNo.First.ID, drwUserLogin.FK_BrnachID)
+            End If
 
 
 
+            If dtblLoan.Rows.Count > 0 Then
+                ''get current Loan's handy follow List
 
-                Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
-                Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
-                dtblBranchbyCode = tadpBranchbyCode.GetData(drwTotalLC.BranchCode)
-
-                Dim intBranchID As Integer = -1
-
-                Dim strBranchName As String = ""
-
-                If dtblBranchbyCode.Rows.Count = 0 Then
+                For Each drwLoan As BusinessObject.dstLoan.spr_Loan_SelectRow In dtblLoan
 
 
-                    Dim obj_stc_BranchInfo As stc_Branch_Info = GetBarnchName(drwTotalLC.BranchCode)
-                    Dim qryBranch As New BusinessObject.dstBranchTableAdapters.QueriesTableAdapter
-                    intBranchID = qryBranch.spr_Branch_Insert(drwTotalLC.BranchCode, obj_stc_BranchInfo.BranchName, obj_stc_BranchInfo.BranchAddress, 2, Nothing, "", 1) 'UserID=2 is System User
-                    strBranchName = obj_stc_BranchInfo.BranchName
+                    Dim tadpTotalDeffredLC As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByLCNOTableAdapter
+                    Dim dtblTotalDeffredLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByLCNODataTable = Nothing
+                    Dim NotPiadDurationDay As String = ""
+                    Dim AmountDeffered As String = ""
+
+                    dtblTotalDeffredLC = tadpTotalDeffredLC.GetData(drwLoan.LoanNumber)
+
+                    If dtblTotalDeffredLC.Rows.Count > 0 Then
+                        NotPiadDurationDay = dtblTotalDeffredLC.First.NotPiadDurationDay.ToString()
+                        AmountDeffered = dtblTotalDeffredLC.First.AmounDefferd.ToString()
+                    End If
 
 
-                Else
+                    ''getbranchname
+                    Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
+                    Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
+                    dtblBranch = tadpBranch.GetData(drwLoan.FK_BranchID)
 
-                    Dim drwBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectRow = dtblBranchbyCode.Rows(0)
+                    ''check handyfollow is assigned to any user or not
+                    Dim tadpHandyFolloAssign As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByIDs_SelectTableAdapter
+                    Dim dtblHandyFollowAssign As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByIDs_SelectDataTable = Nothing
+                    Dim strAssighedUser As String = ""
 
-                        intBranchID = drwBranchbyCode.ID
-                        strBranchName = drwBranchbyCode.BranchName
+                    dtblHandyFollowAssign = tadpHandyFolloAssign.GetData(1, -1, dtblFilebyCustomerNo.First.ID, drwLoan.ID, 1)
+                    If dtblHandyFollowAssign.Rows.Count > 0 Then
+
+                        Dim tadpUser As New BusinessObject.dstUserTableAdapters.spr_User_SelectTableAdapter
+                        Dim dtblUser As BusinessObject.dstUser.spr_User_SelectDataTable = Nothing
+
+                        dtblUser = tadpUser.GetData(dtblHandyFollowAssign.First.FK_AssignUserID)
+                        strAssighedUser = dtblUser.First.Username
+
 
                     End If
 
-                    If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
-
-                        If intBranchID <> drwUserLogin.FK_BrnachID Then
-                        Continue For
-                    End If
-                    End If
-
-                ''get total report
-                intCount += 1
-
-                Dim TbCell As HtmlTableCell
-                TbRow = New HtmlTableRow
+                    intCount += 1
 
 
-                TbCell = New HtmlTableCell
-                TbCell.InnerHtml = CStr(intCount)
-                TbCell.Align = "center"
-                TbCell.NoWrap = True
-                TbRow.Cells.Add(TbCell)
+                    Dim TbCell As HtmlTableCell
+                    Dim TbRow As HtmlTableRow
+                    TbRow = New HtmlTableRow
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = CStr(intCount)
+                    TbCell.Align = "center"
+                    TbCell.NoWrap = True
+                    TbRow.Cells.Add(TbCell)
 
 
-                TbCell = New HtmlTableCell
-                TbCell.InnerHtml = drwTotalLC.CustomerNO
-                TbCell.NoWrap = True
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = txtCustomerNO.Text.Trim
+                    TbCell.NoWrap = True
 
-                TbCell.Align = "center"
-                TbRow.Cells.Add(TbCell)
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
 
-                TbCell = New HtmlTableCell
-                TbCell.InnerHtml = drwTotalLC.FullName
-                TbCell.NoWrap = False
-                TbCell.Width = "100px"
-                TbCell.Align = "center"
-                TbRow.Cells.Add(TbCell)
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = dtblFilebyCustomerNo.First.FName & " " & dtblFilebyCustomerNo.First.LName
+                    TbCell.NoWrap = False
+                    TbCell.Width = "100px"
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
 
-                TbCell = New HtmlTableCell
-                TbCell.InnerHtml = drwTotalLC.LCNumber
-                TbCell.NoWrap = True
-                TbCell.Align = "center"
-                TbRow.Cells.Add(TbCell)
-
-
-                TbCell = New HtmlTableCell
-                TbCell.InnerHtml = drwTotalLC.MobileNO
-                TbCell.NoWrap = True
-                TbCell.Align = "center"
-                TbRow.Cells.Add(TbCell)
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = drwLoan.LoanNumber
+                    TbCell.NoWrap = True
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
 
 
-                TbCell = New HtmlTableCell
-                TbCell.InnerHtml = drwTotalLC.NotPiadDurationDay
-                TbCell.NoWrap = True
-                TbCell.Width = "50px"
-                TbCell.Align = "center"
-                TbRow.Cells.Add(TbCell)
-
-                TbCell = New HtmlTableCell
-                TbCell.InnerHtml = strBranchName
-                TbCell.NoWrap = False
-                TbCell.Width = "120px"
-                TbCell.Align = "center"
-                TbRow.Cells.Add(TbCell)
-
-                Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
-                Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
-                dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(drwTotalLC.CustomerNO)
-
-                Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
-                Dim dteLoanDate? As Date = Nothing
-
-                If dtblFilebyCustomerNo.Count > 0 Then
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = dtblFilebyCustomerNo.First.MobileNo
+                    TbCell.NoWrap = True
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
 
 
-                    If drwUserLogin.IsDataUserAdmin = False Then
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = NotPiadDurationDay
+                    TbCell.NoWrap = True
+                    TbCell.Width = "50px"
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
 
-                        Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
-                        Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
-                        dtblLoanByNumber = tadpLoanByNumber.GetData(drwTotalLC.LCNumber, dtblFilebyCustomerNo.First.ID)
-
-                        Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
-                        Dim intLoanID As Integer = -1
-
-                        If dtblLoanByNumber.Count > 0 Then
-
-
-                            intLoanID = dtblLoanByNumber.First.ID
-
-                        Else
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = dtblBranch.First.BranchName
+                    TbCell.NoWrap = False
+                    TbCell.Width = "120px"
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
 
 
 
-                            Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
-                            Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
-                            dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(drwTotalLC.LoanTypeCode)
+                    If drwUserLogin.IsDataAdmin = True Then
 
-                            Dim intLoanTypeID As Integer = -1
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & dtblFilebyCustomerNo.First.ID.ToString() & "," & drwLoan.ID.ToString() & "," & AmountDeffered & ")>ثبت پیگیری</a>"
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
 
-                            If dtblLoanTypeByCode.Rows.Count = 0 Then
+                        TbCell = New HtmlTableCell
 
-                                Dim strLoanTypeName As String = GetLoanTypeName(drwTotalLC.LoanTypeCode)
-                                Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
-                                intLoanTypeID = qryLoanType.spr_LoanType_Insert(drwTotalLC.LoanTypeCode, strLoanTypeName, 2, "")
-
-                            Else
-
-                                Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
-                                intLoanTypeID = drwLoanTypeByCode.ID
-
-                            End If
-
-                            intLoanID = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeID, intBranchID, dteLoanDate, drwTotalLC.LCNumber, Nothing, Date.Now, Nothing, Nothing)
+                        TbCell.InnerHtml = strAssighedUser
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
 
 
-                        End If
+                    ElseIf drwUserLogin.FK_BrnachID = drwLoan.FK_BranchID Then
 
 
-                        dtblHandyFollowAssignByIDs = tadpHandyFollowAssignBYIDs.GetData(1, drwUserLogin.ID, intFileID, intLoanID, 1)
-                        If dtblHandyFollowAssignByIDs.Rows.Count <> 0 Then
-
-                            ''comment to show searched file to other user's of branch
-                            If drwUserLogin.ID <> dtblHandyFollowAssignByIDs.First.FK_AssignUserID Then
-                                Continue For
-                            End If
-
-                        End If
-
-
-                        '   Dim intLogCount = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID).Count()
-                        dtblhandyFollow = tadpHandyFollow.GetData(intLoanID, intFileID)
-
-                        If dtblhandyFollow.Rows.Count = 0 Then
-
-
+                        If strAssighedUser = drwUserLogin.Username OrElse strAssighedUser = "" OrElse drwUserLogin.IsDataUserAdmin = True Then
                             TbCell = New HtmlTableCell
-                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
+                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & dtblFilebyCustomerNo.First.ID.ToString() & "," & drwLoan.ID.ToString() & "," & AmountDeffered & ")>ثبت پیگیری</a>"
                             TbCell.NoWrap = True
                             TbCell.Align = "center"
                             TbRow.Cells.Add(TbCell)
+
+
+                        Else
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = "ثبت پیگیری"
+                            TbCell.NoWrap = True
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+                        End If
+
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = strAssighedUser
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+
+                    End If
+
+
+                    If Not TbRow Is Nothing Then
+                        tblResult.Rows.Add(TbRow)
+                        divResult.Visible = True
+
+                    End If
+                Next
+
+            Else
+                ''check in totaldefferd and insert loan
+                Dim tadpTotalLC1 As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByCustomerNOTableAdapter
+                Dim dtblTotalLC1 As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByCustomerNODataTable = Nothing
+
+                dtblTotalLC1 = tadpTotalLC1.GetData(txtCustomerNO.Text.Trim())
+
+
+                If dtblTotalLC1.Rows.Count = 0 Then
+
+                    Bootstrap_Panel1.ShowMessage("وامی برای این مشتری ثبت نشده است.", True)
+                    Return
+
+                End If
+
+                Dim blnHasFound As Boolean = False
+
+                For Each drwTotalLC1 As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByCustomerNORow In dtblTotalLC1.Rows
+
+
+
+                    i += 1
+
+                    Dim intLoanID As Integer = -1
+                    Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
+                    Dim intLoanTypeID As Integer = -1
+                    Dim intBranchID As Integer = -1
+                    Dim strLoanNO As String = drwTotalLC1.LCNumber.ToString()
+                    intBranchID = GetBranchID(drwTotalLC1.BranchCode)
+                    ''getbranchname
+                    Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
+                    Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
+                    dtblBranch = tadpBranch.GetData(intBranchID)
+
+                    intLoanID = InsertLoan(intFileID, intLoanTypeID, intBranchID, drwTotalLC1.LCNumber)
+
+                    Session("CustomerNO") = drwTotalLC1.CustomerNO
+
+
+                    If drwUserLogin.IsDataAdmin = True Then
+
+                        Dim TbCell As HtmlTableCell
+                        Dim TbRow As HtmlTableRow
+                        TbRow = New HtmlTableRow
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = CStr(intCount)
+                        TbCell.Align = "center"
+                        TbCell.NoWrap = True
+                        TbRow.Cells.Add(TbCell)
+
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = txtCustomerNO.Text.Trim
+                        TbCell.NoWrap = True
+
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = dtblFilebyCustomerNo.First.FName & " " & dtblFilebyCustomerNo.First.LName
+                        TbCell.NoWrap = False
+                        TbCell.Width = "100px"
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = drwTotalLC1.LCNumber
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = dtblFilebyCustomerNo.First.MobileNo
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = drwTotalLC1.NotPiadDurationDay
+                        TbCell.NoWrap = True
+                        TbCell.Width = "50px"
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = dtblBranch.First.BranchName
+                        TbCell.NoWrap = False
+                        TbCell.Width = "120px"
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC1.AmounDefferd & ")>ثبت پیگیری</a>"
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = "---"
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+                        If Not TbRow Is Nothing Then
+                            tblResult.Rows.Add(TbRow)
+                            divResult.Visible = True
+
+                        End If
+
+                    Else
+
+
+                        If drwUserLogin.FK_BrnachID = intBranchID Then
+
+                            blnHasFound = True
+
+                            Dim TbCell As HtmlTableCell
+                            Dim TbRow As HtmlTableRow
+                            TbRow = New HtmlTableRow
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = CStr(intCount)
+                            TbCell.Align = "center"
+                            TbCell.NoWrap = True
+                            TbRow.Cells.Add(TbCell)
+
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = txtCustomerNO.Text.Trim
+                            TbCell.NoWrap = True
+
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = dtblFilebyCustomerNo.First.FName & " " & dtblFilebyCustomerNo.First.LName
+                            TbCell.NoWrap = False
+                            TbCell.Width = "100px"
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = drwTotalLC1.LCNumber
+                            TbCell.NoWrap = True
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = dtblFilebyCustomerNo.First.MobileNo
+                            TbCell.NoWrap = True
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = drwTotalLC1.NotPiadDurationDay
+                            TbCell.NoWrap = True
+                            TbCell.Width = "50px"
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = dtblBranch.First.BranchName
+                            TbCell.NoWrap = False
+                            TbCell.Width = "120px"
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
+                            TbCell = New HtmlTableCell
+                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC1.AmounDefferd & ")>ثبت پیگیری</a>"
+                            TbCell.NoWrap = True
+                            TbCell.Align = "center"
+                            TbRow.Cells.Add(TbCell)
+
 
                             TbCell = New HtmlTableCell
                             TbCell.InnerHtml = "---"
@@ -286,208 +456,76 @@ Public Class HandyFollowFileSearch
                             TbCell.Align = "center"
                             TbRow.Cells.Add(TbCell)
 
-                        Else
+                            If Not TbRow Is Nothing Then
 
-                            Dim intUserId As Integer = drwUserLogin.ID
-                            '   Dim intLogCountByUser = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID And x.FK_UserID = intUserId).Count()
-
-                            Dim tadpHandyFollowByUser As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollow_CheckFileLoanUser_SelectTableAdapter
-                            Dim dtblHandyFollowByUser As BusinessObject.dstHandyFollow.spr_HandyFollow_CheckFileLoanUser_SelectDataTable = Nothing
-
-                            dtblHandyFollowByUser = tadpHandyFollowByUser.GetData(intLoanID, intFileID, intUserId)
-
-                            If dtblHandyFollowByUser.Rows.Count = 0 Then
-
-
-                                ''get Folowed UserName
-                                Dim intFollowedUserID As Integer = dtblhandyFollow.First.FK_UserID
-
-                                Dim tadpUser As New BusinessObject.dstUserTableAdapters.spr_User_SelectTableAdapter
-                                Dim dtblUser As BusinessObject.dstUser.spr_User_SelectDataTable = Nothing
-
-                                dtblUser = tadpUser.GetData(intFollowedUserID)
-
-                                TbCell = New HtmlTableCell
-                                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
-                                TbCell.NoWrap = True
-                                TbCell.Align = "center"
-                                TbRow.Cells.Add(TbCell)
-
-
-
-                                ''    TbCell = New HtmlTableCell
-                                ''    TbCell.InnerHtml = "ثبت پیگیری"
-                                ''    TbCell.NoWrap = False
-                                ''    TbCell.Align = "center"
-                                ''    TbRow.Cells.Add(TbCell)
-
-                                ''    ' Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
-
-                                ''    '  If lnqDetail.Count > 0 Then
-
-                                ''    'Dim lnqDetailList = lnqDetail.ToList(0)
-                                ''    'Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
-
-                                TbCell = New HtmlTableCell
-                                TbCell.InnerHtml = dtblUser.First.Username
-                                TbCell.NoWrap = True
-                                TbCell.Align = "center"
-                                TbRow.Cells.Add(TbCell)
-
-                                ''    '  End If
-
-                            Else
-
-
-                                TbCell = New HtmlTableCell
-                                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
-                                TbCell.NoWrap = True
-                                TbCell.Align = "center"
-                                TbRow.Cells.Add(TbCell)
-
-                                '  Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
-
-                                '  If lnqDetail.Count > 0 Then
-                                '  Dim lnqDetailList = lnqDetail.ToList(0)
-                                'Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
-
-                                TbCell = New HtmlTableCell
-                                TbCell.InnerHtml = dtblHandyFollowByUser.First.Username
-                                TbCell.NoWrap = True
-                                TbCell.Align = "center"
-                                TbRow.Cells.Add(TbCell)
-
-
-                                '  End If
+                                tblResult.Rows.Add(TbRow)
+                                divResult.Visible = True
 
                             End If
-
-                        End If
-
-
-                    Else
-
-                        Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
-                        Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
-                        dtblLoanByNumber = tadpLoanByNumber.GetData(drwTotalLC.LCNumber, dtblFilebyCustomerNo.First.ID)
-
-                        Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
-                        Dim intLoanID As Integer = -1
-
-                        If dtblLoanByNumber.Count > 0 Then
-
-                            intLoanID = dtblLoanByNumber.First.ID
 
                         Else
 
 
-
-
-
-                            Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
-                            Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
-                            dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(drwTotalLC.LoanTypeCode)
-
-
-                            Dim intLoanTypeID As Integer = -1
-
-                            If dtblLoanTypeByCode.Rows.Count = 0 Then
-
-                                Dim strLoanTypeName As String = GetLoanTypeName(drwTotalLC.LoanTypeCode)
-                                Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
-                                intLoanTypeID = qryLoanType.spr_LoanType_Insert(drwTotalLC.LoanTypeCode, strLoanTypeName, 2, "")
-
-                            Else
-
-                                Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
-                                intLoanTypeID = drwLoanTypeByCode.ID
-
-
-                            End If
-
-                            intLoanID = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeID, intBranchID, dteLoanDate, drwTotalLC.LCNumber, Nothing, Date.Now, Nothing, Nothing)
-
-                        End If
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-
-
-
-                        dtblhandyFollow = tadpHandyFollow.GetData(intLoanID, intFileID)
-
-
-                        Dim followingUserName As String = "---"
-                        ''********************
-
-                        If dtblhandyFollow.Rows.Count > 0 Then
-
-
-                            '   Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = dtblhandyFollow.First.FK_UserID).ToList(0)
-                            followingUserName = dtblhandyFollow.First.Username
+                            Continue For
 
                         End If
 
 
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = followingUserName
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-
-
                     End If
 
+                Next
 
-                Else
+                If blnHasFound = False Then
 
-                    Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+                    Bootstrap_Panel1.ShowMessage("وام مرتبط با این شماره مشتری یافت نشد.", True)
+                End If
 
-
-                    Dim intFileID = qryFile.spr_File_Insert(drwTotalLC.CustomerNO, "", drwTotalLC.FullName, "", drwTotalLC.MobileNO, "", "", "", "", "", "", True, 2, 1, Nothing, Nothing)
-
-                    Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
-                    Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
-                    dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(drwTotalLC.LoanTypeCode)
-
-                    Dim intLoanTypeID As Integer = -1
-
-                    If dtblLoanTypeByCode.Rows.Count = 0 Then
-
-                        Dim strLoanTypeName As String = GetLoanTypeName(drwTotalLC.LoanTypeCode)
-                        Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
-                        intLoanTypeID = qryLoanType.spr_LoanType_Insert(drwTotalLC.LoanTypeCode, strLoanTypeName, 2, "")
+            End If
 
 
-                    Else
-                        Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
-                        intLoanTypeID = drwLoanTypeByCode.ID
+
+        Else
+
+            ''check in totaldefferd and insert file and loan
+            Dim tadpTotalLC1 As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByCustomerNOTableAdapter
+            Dim dtblTotalLC1 As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByCustomerNODataTable = Nothing
+
+            dtblTotalLC1 = tadpTotalLC1.GetData(txtCustomerNO.Text.Trim())
+
+            If dtblTotalLC1.Rows.Count = 0 Then
+                Bootstrap_Panel1.ShowMessage("اطلاعات این مشتری در سیستم ثبت نشده است.", True)
+                Return
+            End If
+
+            Dim blnHasFound As Boolean = False
+
+            For Each drwTotalLC1 As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByCustomerNORow In dtblTotalLC1.Rows
 
 
-                    End If
+                Dim TbRow As HtmlTableRow
+                i += 1
+                Dim intLoanID As Integer = -1
+
+                Dim intFileID As Integer = -1
+                Dim intLoanTypeID As Integer = -1
+
+                Dim intBranchID As Integer = -1
+                Dim strLoanNO As String = drwTotalLC1.LCNumber.ToString()
+
+                intFileID = InsertFile(drwTotalLC1.CustomerNO, drwTotalLC1.FullName, drwTotalLC1.MobileNO, drwUserLogin.ID, drwTotalLC1.LoanTypeCode, intLoanTypeID)
+                intBranchID = GetBranchID(drwTotalLC1.BranchCode)
+                intLoanID = InsertLoan(intFileID, intLoanTypeID, intBranchID, drwTotalLC1.LCNumber)
+                Session("CustomerNO") = drwTotalLC1.CustomerNO
 
 
-                    Dim intLoanID As Integer = -1
-                    Dim strLoanNO As String = drwTotalLC.LCNumber.ToString()
-
-                    intLoanID = InsertLoan(intFileID, intLoanTypeID, intBranchID, drwTotalLC.LCNumber)
-
-
-                    ''  intLoanID = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeID, intBranchID, dteLoanDate, drwTotalLC.LCNumber, Nothing, Date.Now, Nothing, Nothing)
-
-                    Session("BranchID") = intBranchID
-                    Session("BranchName") = strBranchName
-                    Session("CustomerNO") = drwTotalLC.CustomerNO
-
+                If drwUserLogin.IsDataAdmin = True Then
+                    Dim TbCell As HtmlTableCell
+                    TbRow = New HtmlTableRow
 
                     TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
+                    TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC1.AmounDefferd & ")>ثبت پیگیری</a>"
                     TbCell.NoWrap = True
+
                     TbCell.Align = "center"
                     TbRow.Cells.Add(TbCell)
 
@@ -498,33 +536,53 @@ Public Class HandyFollowFileSearch
                     TbCell.Align = "center"
                     TbRow.Cells.Add(TbCell)
 
+                    If Not TbRow Is Nothing Then
+                        tblResult.Rows.Add(TbRow)
+                        divResult.Visible = True
+                    End If
+
+                Else
+
+                    If drwUserLogin.FK_BrnachID = intBranchID Then
 
 
+                        blnHasFound = True
+
+                        Dim TbCell As HtmlTableCell
+                        TbRow = New HtmlTableRow
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC1.AmounDefferd & ")>ثبت پیگیری</a>"
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = "---"
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+
+                        If Not TbRow Is Nothing Then
+                            tblResult.Rows.Add(TbRow)
+                            divResult.Visible = True
+
+                        End If
+
+                    Else
+
+                        Continue For
+                    End If
 
                 End If
 
-
-
-                If Not TbRow Is Nothing Then
-                    tblResult.Rows.Add(TbRow)
-
-
-                End If
             Next
 
-            divResult.Visible = True
+            If blnHasFound = False Then
 
+                Bootstrap_Panel1.ShowMessage("وام مرتبط با این شماره مشتری یافت نشد.", True)
+            End If
 
-
-
-
-
-
-
-        Else
-
-            Bootstrap_Panel1.ShowMessage("جزییات معوقه برای این مشتری موجود نیست", True)
-            Return
 
         End If
 
@@ -613,6 +671,69 @@ Public Class HandyFollowFileSearch
         End Try
     End Function
 
+    Private Function InsertFile(ByVal CustomerNO As String, ByVal FullName As String, ByVal MobileNo As String, ByVal UserID As Integer, ByVal LoanTypeCode As Integer, ByRef LoanTypeID As Integer) As Integer
+
+        Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+
+
+        Dim intFileID = qryFile.spr_File_Insert(CustomerNO, "", FullName, "", MobileNo, "", "", "", "", "", "", True, UserID, 1, Nothing, Nothing)
+
+        Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+        Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+        dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(LoanTypeCode)
+
+
+
+        If dtblLoanTypeByCode.Rows.Count = 0 Then
+
+            Dim strLoanTypeName As String = GetLoanTypeName(LoanTypeCode)
+            Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
+            LoanTypeID = qryLoanType.spr_LoanType_Insert(LoanTypeCode, strLoanTypeName, 2, "")
+
+
+        Else
+            Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
+            LoanTypeID = drwLoanTypeByCode.ID
+
+        End If
+
+        Return intFileID
+
+    End Function
+
+
+    Private Function GetBranchID(ByVal strBranchCode As String) As Integer
+
+        Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
+        Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
+        dtblBranchbyCode = tadpBranchbyCode.GetData(strBranchCode)
+
+        Dim intBranchID As Integer = -1
+
+        Dim strBranchName As String = ""
+
+        If dtblBranchbyCode.Rows.Count = 0 Then
+
+
+            Dim obj_stc_BranchInfo As stc_Branch_Info = GetBarnchName(strBranchCode)
+            Dim qryBranch As New BusinessObject.dstBranchTableAdapters.QueriesTableAdapter
+            intBranchID = qryBranch.spr_Branch_Insert(strBranchCode, obj_stc_BranchInfo.BranchName, obj_stc_BranchInfo.BranchAddress, 2, Nothing, "", 1) 'UserID=2 is System User
+            strBranchName = obj_stc_BranchInfo.BranchName
+
+
+        Else
+
+            Dim drwBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectRow = dtblBranchbyCode.Rows(0)
+
+            intBranchID = drwBranchbyCode.ID
+            strBranchName = drwBranchbyCode.BranchName
+
+        End If
+
+        Return intBranchID
+
+    End Function
+
     Private Sub Bootstrap_Panel1_Panel_Display_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Display_Click
         DisplayFileList()
     End Sub
@@ -670,4 +791,442 @@ Public Class HandyFollowFileSearch
         End Try
 
     End Function
+
+
+
+
+    ''Changed part
+    ''   Dim tadpTotalLC As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByCustomerNOTableAdapter
+    ''Dim dtblTotalLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByCustomerNODataTable = Nothing
+
+    ''    dtblTotalLC = tadpTotalLC.GetData(txtCustomerNO.Text.Trim())
+
+    ''    If dtblTotalLC.Rows.Count > 0 Then
+
+
+    ''For Each drwTotalLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByCustomerNORow In dtblTotalLC.Rows
+    ''Dim TbRow As HtmlTableRow
+    ''            i += 1
+
+
+    ''            ''check if this file assign to current user or not
+    ''            Dim tadpHandyFollowAssignBYIDs As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByIDs_SelectTableAdapter
+    ''Dim dtblHandyFollowAssignByIDs As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByIDs_SelectDataTable = Nothing
+
+
+
+
+    ''Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
+    ''Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
+    ''            dtblBranchbyCode = tadpBranchbyCode.GetData(drwTotalLC.BranchCode)
+
+    ''            Dim intBranchID As Integer = -1
+
+    ''Dim strBranchName As String = ""
+
+    ''If dtblBranchbyCode.Rows.Count = 0 Then
+
+
+    ''Dim obj_stc_BranchInfo As stc_Branch_Info = GetBarnchName(drwTotalLC.BranchCode)
+    ''Dim qryBranch As New BusinessObject.dstBranchTableAdapters.QueriesTableAdapter
+    ''                intBranchID = qryBranch.spr_Branch_Insert(drwTotalLC.BranchCode, obj_stc_BranchInfo.BranchName, obj_stc_BranchInfo.BranchAddress, 2, Nothing, "", 1) 'UserID=2 is System User
+    ''                strBranchName = obj_stc_BranchInfo.BranchName
+
+
+    ''            Else
+
+    ''Dim drwBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectRow = dtblBranchbyCode.Rows(0)
+
+    ''                    intBranchID = drwBranchbyCode.ID
+    ''                    strBranchName = drwBranchbyCode.BranchName
+
+    ''                End If
+
+    ''If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
+
+    ''If intBranchID <> drwUserLogin.FK_BrnachID Then
+    ''Continue For
+    ''End If
+    ''End If
+
+    ''            ''get total report
+    ''            intCount += 1
+
+    ''            Dim TbCell As HtmlTableCell
+    ''            TbRow = New HtmlTableRow
+
+
+    ''            TbCell = New HtmlTableCell
+    ''            TbCell.InnerHtml = CStr(intCount)
+    ''            TbCell.Align = "center"
+    ''            TbCell.NoWrap = True
+    ''            TbRow.Cells.Add(TbCell)
+
+
+    ''            TbCell = New HtmlTableCell
+    ''            TbCell.InnerHtml = drwTotalLC.CustomerNO
+    ''            TbCell.NoWrap = True
+
+    ''            TbCell.Align = "center"
+    ''            TbRow.Cells.Add(TbCell)
+
+    ''            TbCell = New HtmlTableCell
+    ''            TbCell.InnerHtml = drwTotalLC.FullName
+    ''            TbCell.NoWrap = False
+    ''            TbCell.Width = "100px"
+    ''            TbCell.Align = "center"
+    ''            TbRow.Cells.Add(TbCell)
+
+    ''            TbCell = New HtmlTableCell
+    ''            TbCell.InnerHtml = drwTotalLC.LCNumber
+    ''            TbCell.NoWrap = True
+    ''            TbCell.Align = "center"
+    ''            TbRow.Cells.Add(TbCell)
+
+
+    ''            TbCell = New HtmlTableCell
+    ''            TbCell.InnerHtml = drwTotalLC.MobileNO
+    ''            TbCell.NoWrap = True
+    ''            TbCell.Align = "center"
+    ''            TbRow.Cells.Add(TbCell)
+
+
+    ''            TbCell = New HtmlTableCell
+    ''            TbCell.InnerHtml = drwTotalLC.NotPiadDurationDay
+    ''            TbCell.NoWrap = True
+    ''            TbCell.Width = "50px"
+    ''            TbCell.Align = "center"
+    ''            TbRow.Cells.Add(TbCell)
+
+    ''            TbCell = New HtmlTableCell
+    ''            TbCell.InnerHtml = strBranchName
+    ''            TbCell.NoWrap = False
+    ''            TbCell.Width = "120px"
+    ''            TbCell.Align = "center"
+    ''            TbRow.Cells.Add(TbCell)
+
+    ''            Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
+    ''Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
+    ''            dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(drwTotalLC.CustomerNO)
+
+    ''            Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
+    ''Dim dteLoanDate? As Date = Nothing
+
+    ''If dtblFilebyCustomerNo.Count > 0 Then
+
+
+    ''If drwUserLogin.IsDataUserAdmin = False Then
+
+    ''Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+    ''Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+    ''                    dtblLoanByNumber = tadpLoanByNumber.GetData(drwTotalLC.LCNumber, dtblFilebyCustomerNo.First.ID)
+
+    ''                    Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
+    ''Dim intLoanID As Integer = -1
+
+    ''If dtblLoanByNumber.Count > 0 Then
+
+
+    ''                        intLoanID = dtblLoanByNumber.First.ID
+
+    ''                    Else
+
+
+
+    ''Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+    ''Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+    ''                        dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(drwTotalLC.LoanTypeCode)
+
+    ''                        Dim intLoanTypeID As Integer = -1
+
+    ''If dtblLoanTypeByCode.Rows.Count = 0 Then
+
+    ''Dim strLoanTypeName As String = GetLoanTypeName(drwTotalLC.LoanTypeCode)
+    ''Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
+    ''                            intLoanTypeID = qryLoanType.spr_LoanType_Insert(drwTotalLC.LoanTypeCode, strLoanTypeName, 2, "")
+
+    ''                        Else
+
+    ''Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
+    ''                            intLoanTypeID = drwLoanTypeByCode.ID
+
+    ''                        End If
+
+    ''                        intLoanID = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeID, intBranchID, dteLoanDate, drwTotalLC.LCNumber, Nothing, Date.Now, Nothing, Nothing)
+
+
+    ''                    End If
+
+
+    ''                    dtblHandyFollowAssignByIDs = tadpHandyFollowAssignBYIDs.GetData(1, drwUserLogin.ID, intFileID, intLoanID, 1)
+    ''                    If dtblHandyFollowAssignByIDs.Rows.Count <> 0 Then
+
+    ''''comment to show searched file to other user's of branch
+    ''If drwUserLogin.ID <> dtblHandyFollowAssignByIDs.First.FK_AssignUserID Then
+    ''Continue For
+    ''End If
+
+    ''End If
+
+
+    ''                    '   Dim intLogCount = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID).Count()
+    ''                    dtblhandyFollow = tadpHandyFollow.GetData(intLoanID, intFileID)
+
+    ''                    If dtblhandyFollow.Rows.Count = 0 Then
+
+
+    ''                        TbCell = New HtmlTableCell
+    ''                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                        TbCell.NoWrap = True
+    ''                        TbCell.Align = "center"
+    ''                        TbRow.Cells.Add(TbCell)
+
+    ''                        TbCell = New HtmlTableCell
+    ''                        TbCell.InnerHtml = "---"
+    ''                        TbCell.NoWrap = True
+    ''                        TbCell.Align = "center"
+    ''                        TbRow.Cells.Add(TbCell)
+
+    ''                    Else
+
+    ''Dim intUserId As Integer = drwUserLogin.ID
+    '''   Dim intLogCountByUser = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID And x.FK_UserID = intUserId).Count()
+
+    ''Dim tadpHandyFollowByUser As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollow_CheckFileLoanUser_SelectTableAdapter
+    ''Dim dtblHandyFollowByUser As BusinessObject.dstHandyFollow.spr_HandyFollow_CheckFileLoanUser_SelectDataTable = Nothing
+
+    ''                        dtblHandyFollowByUser = tadpHandyFollowByUser.GetData(intLoanID, intFileID, intUserId)
+
+    ''                        If dtblHandyFollowByUser.Rows.Count = 0 Then
+
+
+    ''''get Folowed UserName
+    ''Dim intFollowedUserID As Integer = dtblhandyFollow.First.FK_UserID
+
+    ''Dim tadpUser As New BusinessObject.dstUserTableAdapters.spr_User_SelectTableAdapter
+    ''Dim dtblUser As BusinessObject.dstUser.spr_User_SelectDataTable = Nothing
+
+    ''                            dtblUser = tadpUser.GetData(intFollowedUserID)
+
+    ''                            TbCell = New HtmlTableCell
+    ''                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                            TbCell.NoWrap = True
+    ''                            TbCell.Align = "center"
+    ''                            TbRow.Cells.Add(TbCell)
+
+
+
+    ''                            ''    TbCell = New HtmlTableCell
+    ''                            ''    TbCell.InnerHtml = "ثبت پیگیری"
+    ''                            ''    TbCell.NoWrap = False
+    ''                            ''    TbCell.Align = "center"
+    ''                            ''    TbRow.Cells.Add(TbCell)
+
+    ''                            ''    ' Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
+
+    ''                            ''    '  If lnqDetail.Count > 0 Then
+
+    ''                            ''    'Dim lnqDetailList = lnqDetail.ToList(0)
+    ''                            ''    'Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+
+    ''                            TbCell = New HtmlTableCell
+    ''                            TbCell.InnerHtml = dtblUser.First.Username
+    ''                            TbCell.NoWrap = True
+    ''                            TbCell.Align = "center"
+    ''                            TbRow.Cells.Add(TbCell)
+
+    ''                            ''    '  End If
+
+    ''                        Else
+
+
+    ''                            TbCell = New HtmlTableCell
+    ''                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                            TbCell.NoWrap = True
+    ''                            TbCell.Align = "center"
+    ''                            TbRow.Cells.Add(TbCell)
+
+    ''                            '  Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
+
+    ''                            '  If lnqDetail.Count > 0 Then
+    ''                            '  Dim lnqDetailList = lnqDetail.ToList(0)
+    ''                            'Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+
+    ''                            TbCell = New HtmlTableCell
+    ''                            TbCell.InnerHtml = dtblHandyFollowByUser.First.Username
+    ''                            TbCell.NoWrap = True
+    ''                            TbCell.Align = "center"
+    ''                            TbRow.Cells.Add(TbCell)
+
+
+    ''                            '  End If
+
+    ''                        End If
+
+    ''End If
+
+
+    ''Else
+
+    ''Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+    ''Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+    ''                    dtblLoanByNumber = tadpLoanByNumber.GetData(drwTotalLC.LCNumber, dtblFilebyCustomerNo.First.ID)
+
+    ''                    Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
+    ''Dim intLoanID As Integer = -1
+
+    ''If dtblLoanByNumber.Count > 0 Then
+
+    ''                        intLoanID = dtblLoanByNumber.First.ID
+
+    ''                    Else
+
+
+
+
+
+    ''Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+    ''Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+    ''                        dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(drwTotalLC.LoanTypeCode)
+
+
+    ''                        Dim intLoanTypeID As Integer = -1
+
+    ''If dtblLoanTypeByCode.Rows.Count = 0 Then
+
+    ''Dim strLoanTypeName As String = GetLoanTypeName(drwTotalLC.LoanTypeCode)
+    ''Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
+    ''                            intLoanTypeID = qryLoanType.spr_LoanType_Insert(drwTotalLC.LoanTypeCode, strLoanTypeName, 2, "")
+
+    ''                        Else
+
+    ''Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
+    ''                            intLoanTypeID = drwLoanTypeByCode.ID
+
+
+    ''                        End If
+
+    ''                        intLoanID = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeID, intBranchID, dteLoanDate, drwTotalLC.LCNumber, Nothing, Date.Now, Nothing, Nothing)
+
+    ''                    End If
+
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
+
+
+
+
+    ''                    dtblhandyFollow = tadpHandyFollow.GetData(intLoanID, intFileID)
+
+
+    ''                    Dim followingUserName As String = "---"
+    ''''********************
+
+    ''If dtblhandyFollow.Rows.Count > 0 Then
+
+
+    ''                        '   Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = dtblhandyFollow.First.FK_UserID).ToList(0)
+    ''                        followingUserName = dtblhandyFollow.First.Username
+
+    ''                    End If
+
+
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = followingUserName
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
+
+
+
+    ''                End If
+
+
+    ''Else
+
+    ''Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+
+
+    ''Dim intFileID = qryFile.spr_File_Insert(drwTotalLC.CustomerNO, "", drwTotalLC.FullName, "", drwTotalLC.MobileNO, "", "", "", "", "", "", True, 2, 1, Nothing, Nothing)
+
+    ''Dim tadpLoanTypeByCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+    ''Dim dtblLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+    ''                dtblLoanTypeByCode = tadpLoanTypeByCode.GetData(drwTotalLC.LoanTypeCode)
+
+    ''                Dim intLoanTypeID As Integer = -1
+
+    ''If dtblLoanTypeByCode.Rows.Count = 0 Then
+
+    ''Dim strLoanTypeName As String = GetLoanTypeName(drwTotalLC.LoanTypeCode)
+    ''Dim qryLoanType As New BusinessObject.dstLoanTypeTableAdapters.QueriesTableAdapter
+    ''                    intLoanTypeID = qryLoanType.spr_LoanType_Insert(drwTotalLC.LoanTypeCode, strLoanTypeName, 2, "")
+
+
+    ''                Else
+    ''Dim drwLoanTypeByCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectRow = dtblLoanTypeByCode.Rows(0)
+    ''                    intLoanTypeID = drwLoanTypeByCode.ID
+
+
+    ''                End If
+
+
+    ''Dim intLoanID As Integer = -1
+    ''Dim strLoanNO As String = drwTotalLC.LCNumber.ToString()
+
+    ''                intLoanID = InsertLoan(intFileID, intLoanTypeID, intBranchID, drwTotalLC.LCNumber)
+
+
+    ''                ''  intLoanID = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeID, intBranchID, dteLoanDate, drwTotalLC.LCNumber, Nothing, Date.Now, Nothing, Nothing)
+
+    ''                Session("BranchID") = intBranchID
+    ''                Session("BranchName") = strBranchName
+    ''                Session("CustomerNO") = drwTotalLC.CustomerNO
+
+
+    ''                TbCell = New HtmlTableCell
+    ''                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                TbCell.NoWrap = True
+    ''                TbCell.Align = "center"
+    ''                TbRow.Cells.Add(TbCell)
+
+
+    ''                TbCell = New HtmlTableCell
+    ''                TbCell.InnerHtml = "---"
+    ''                TbCell.NoWrap = True
+    ''                TbCell.Align = "center"
+    ''                TbRow.Cells.Add(TbCell)
+
+
+
+
+    ''            End If
+
+
+
+    ''If Not TbRow Is Nothing Then
+    ''                tblResult.Rows.Add(TbRow)
+
+
+    ''            End If
+    ''Next
+
+    ''        divResult.Visible = True
+
+
+
+
+
+
+
+
+    ''    Else
+
+    ''        Bootstrap_Panel1.ShowMessage("جزییات معوقه برای این مشتری موجود نیست", True)
+    ''        Return
+
+    ''    End If
+
 End Class
