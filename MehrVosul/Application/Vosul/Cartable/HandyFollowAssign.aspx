@@ -45,23 +45,8 @@
 
         function SaveOperation_Validate() {
 
-
-            var txtNotPiadDurationDayFrom = document.getElementById("<%=txtNotPiadDurationDayFrom.ClientID%>");
-            var txtNotPiadDurationDayTo = document.getElementById("<%=txtNotPiadDurationDayTo.ClientID%>");
-
-            if (trimall(txtNotPiadDurationDayFrom.value) == "") {
-                alert("بازه از  را وارد نمایید");
-                txtNotPiadDurationDayFrom.focus();
-                return false;
-            }
-
-
-            if (trimall(txtNotPiadDurationDayTo.value) == "") {
-                alert("بازه تا را وارد نمایید");
-                txtNotPiadDurationDayTo.focus();
-                return false;
-            }
-
+            
+          
 
             var cmbAssignType = document.getElementById("<%=cmbAssignType.ClientID%>");
 
@@ -88,18 +73,18 @@
                 }
 
 
-                Readytopay();
+                ReadytoAssign();
 
             }
             else {
-                debugger
+                
                 var tblNumbers_Name = "<%=tblNumbers.ClientID %>";
                 var tblNumbers = document.getElementById(tblNumbers_Name);
 
                 var i;
                 var flg = false;
                 for (i = 1; i < tblNumbers.rows.length; i++) {
-                    if (tblNumbers.rows[i].cells[10].firstChild.options[0].selected != true) {
+                    if (tblNumbers.rows[i].cells[9].firstChild.options[0].selected != true) {
                         flg = true;
                         break;
                     }
@@ -140,10 +125,10 @@
 
         }
 
-        function Readytopay() {
+        function ReadytoAssign() {
 
 
-            debugger
+            
             var tblNumbers_Name = "ContentPlaceHolder1_tblNumbers";
             var tblNumbers = document.getElementById(tblNumbers_Name);
 
