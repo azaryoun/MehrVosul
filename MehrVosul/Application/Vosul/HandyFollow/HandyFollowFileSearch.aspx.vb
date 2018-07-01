@@ -84,7 +84,7 @@ Public Class HandyFollowFileSearch
         Bootstrap_Panel1.ClearMessage()
 
         Dim i As Integer
-        Dim  intCount As Integer = 0
+        Dim intCount As Integer = 0
 
         Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
         Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
@@ -109,6 +109,8 @@ Public Class HandyFollowFileSearch
 
 
 
+        Dim blnFollowable As Boolean = True
+
         Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollow_CheckFileLoan_SelectTableAdapter
         Dim dtblhandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollow_CheckFileLoan_SelectDataTable = Nothing
 
@@ -128,7 +130,7 @@ Public Class HandyFollowFileSearch
             Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_SelectTableAdapter
             Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_SelectDataTable = Nothing
 
-            If drwUserLogin.IsDataAdmin = True Then
+            If drwUserLogin.IsDataAdmin = True OrElse blnProvinceAdmin = True Then
                 dtblLoan = tadpLoan.GetData(3, -1, dtblFilebyCustomerNo.First.ID, -1)
             Else
                 dtblLoan = tadpLoan.GetData(4, -1, dtblFilebyCustomerNo.First.ID, drwUserLogin.FK_BrnachID)
@@ -152,6 +154,12 @@ Public Class HandyFollowFileSearch
                     If dtblTotalDeffredLC.Rows.Count > 0 Then
                         NotPiadDurationDay = dtblTotalDeffredLC.First.NotPiadDurationDay.ToString()
                         AmountDeffered = dtblTotalDeffredLC.First.AmounDefferd.ToString()
+
+                    Else
+
+                        blnFollowable = False
+
+
                     End If
 
 
@@ -159,6 +167,11 @@ Public Class HandyFollowFileSearch
                     Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
                     Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
                     dtblBranch = tadpBranch.GetData(drwLoan.FK_BranchID)
+
+
+                    If dtblBranch.First.Fk_ProvinceID <> drwUserLogin.Fk_ProvinceID AndAlso drwUserLogin.IsDataAdmin <> True Then
+                        Continue For
+                    End If
 
                     ''check handyfollow is assigned to any user or not
                     Dim tadpHandyFolloAssign As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByIDs_SelectTableAdapter
@@ -251,7 +264,7 @@ Public Class HandyFollowFileSearch
 
 
 
-                    ElseIf drwUserLogin.FK_BrnachID = drwLoan.FK_BranchID OrElse blnProvinceAdmin = True Then
+                    ElseIf (drwUserLogin.FK_BrnachID = drwLoan.FK_BranchID OrElse blnProvinceAdmin = True) AndAlso blnFollowable = True Then
 
                         If strAssighedUser = drwUserLogin.Username OrElse strAssighedUser = "" OrElse drwUserLogin.IsDataUserAdmin = True Then
                             TbCell = New HtmlTableCell
@@ -270,6 +283,20 @@ Public Class HandyFollowFileSearch
                             TbRow.Cells.Add(TbCell)
 
                         End If
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = strAssighedUser
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
+
+                    Else
+
+                        TbCell = New HtmlTableCell
+                        TbCell.InnerHtml = "ثبت پیگیری"
+                        TbCell.NoWrap = True
+                        TbCell.Align = "center"
+                        TbRow.Cells.Add(TbCell)
 
                         TbCell = New HtmlTableCell
                         TbCell.InnerHtml = strAssighedUser
@@ -322,67 +349,71 @@ Public Class HandyFollowFileSearch
                     Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
                     dtblBranch = tadpBranch.GetData(intBranchID)
 
+
+                    If dtblBranch.First.Fk_ProvinceID <> drwUserLogin.Fk_ProvinceID AndAlso drwUserLogin.IsDataAdmin <> True Then
+                        Continue For
+                    End If
+
+
                     intLoanID = InsertLoan(intFileID, intLoanTypeID, intBranchID, drwTotalLC1.LCNumber)
 
                     Session("CustomerNO") = drwTotalLC1.CustomerNO
 
 
+                    Dim TbCell As HtmlTableCell
+                    Dim TbRow As HtmlTableRow
+                    TbRow = New HtmlTableRow
 
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = CStr(intCount)
+                    TbCell.Align = "center"
+                    TbCell.NoWrap = True
+                    TbRow.Cells.Add(TbCell)
+
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = txtCustomerNO.Text.Trim
+                    TbCell.NoWrap = True
+
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = dtblFilebyCustomerNo.First.FName & " " & dtblFilebyCustomerNo.First.LName
+                    TbCell.NoWrap = False
+                    TbCell.Width = "100px"
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = drwTotalLC1.LCNumber
+                    TbCell.NoWrap = True
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = dtblFilebyCustomerNo.First.MobileNo
+                    TbCell.NoWrap = True
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = drwTotalLC1.NotPiadDurationDay
+                    TbCell.NoWrap = True
+                    TbCell.Width = "50px"
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = dtblBranch.First.BranchName
+                    TbCell.NoWrap = False
+                    TbCell.Width = "120px"
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
 
                     If drwUserLogin.IsDataAdmin = True Then
-
-                        Dim TbCell As HtmlTableCell
-                        Dim TbRow As HtmlTableRow
-                        TbRow = New HtmlTableRow
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = CStr(intCount)
-                        TbCell.Align = "center"
-                        TbCell.NoWrap = True
-                        TbRow.Cells.Add(TbCell)
-
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = txtCustomerNO.Text.Trim
-                        TbCell.NoWrap = True
-
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = dtblFilebyCustomerNo.First.FName & " " & dtblFilebyCustomerNo.First.LName
-                        TbCell.NoWrap = False
-                        TbCell.Width = "100px"
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = drwTotalLC1.LCNumber
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = dtblFilebyCustomerNo.First.MobileNo
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = drwTotalLC1.NotPiadDurationDay
-                        TbCell.NoWrap = True
-                        TbCell.Width = "50px"
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = dtblBranch.First.BranchName
-                        TbCell.NoWrap = False
-                        TbCell.Width = "120px"
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
 
 
                         TbCell = New HtmlTableCell
@@ -409,59 +440,6 @@ Public Class HandyFollowFileSearch
 
                         blnHasFound = True
 
-                        Dim TbCell As HtmlTableCell
-
-                        Dim TbRow As HtmlTableRow
-                        TbRow = New HtmlTableRow
-
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = CStr(intCount)
-                        TbCell.Align = "center"
-                        TbCell.NoWrap = True
-                        TbRow.Cells.Add(TbCell)
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = txtCustomerNO.Text.Trim
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = dtblFilebyCustomerNo.First.FName & " " & dtblFilebyCustomerNo.First.LName
-                        TbCell.NoWrap = False
-                        TbCell.Width = "100px"
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = drwTotalLC1.LCNumber
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = dtblFilebyCustomerNo.First.MobileNo
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = drwTotalLC1.NotPiadDurationDay
-                        TbCell.NoWrap = True
-                        TbCell.Width = "50px"
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
-
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = dtblBranch.First.BranchName
-                        TbCell.NoWrap = False
-                        TbCell.Width = "120px"
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
 
                         TbCell = New HtmlTableCell
                         TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC1.AmounDefferd & ")>ثبت پیگیری</a>"
@@ -528,10 +506,71 @@ Public Class HandyFollowFileSearch
                 intLoanID = InsertLoan(intFileID, intLoanTypeID, intBranchID, drwTotalLC1.LCNumber)
                 Session("CustomerNO") = drwTotalLC1.CustomerNO
 
+                ''getbranchname
+                Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
+                Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
+                dtblBranch = tadpBranch.GetData(intBranchID)
+
+                If dtblBranch.First.Fk_ProvinceID <> drwUserLogin.Fk_ProvinceID AndAlso drwUserLogin.IsDataAdmin <> True Then
+                    Continue For
+                End If
+
+
+                Dim TbCell As HtmlTableCell
+                TbRow = New HtmlTableRow
+
+
+                TbCell = New HtmlTableCell
+                TbCell.InnerHtml = CStr(intCount)
+                TbCell.Align = "center"
+                TbCell.NoWrap = True
+                TbRow.Cells.Add(TbCell)
+
+                TbCell = New HtmlTableCell
+                TbCell.InnerHtml = txtCustomerNO.Text.Trim
+                TbCell.NoWrap = True
+                TbCell.Align = "center"
+                TbRow.Cells.Add(TbCell)
+
+
+                TbCell = New HtmlTableCell
+                TbCell.InnerHtml = dtblFilebyCustomerNo.First.FName & " " & dtblFilebyCustomerNo.First.LName
+                TbCell.NoWrap = False
+                TbCell.Width = "100px"
+                TbCell.Align = "center"
+                TbRow.Cells.Add(TbCell)
+
+                TbCell = New HtmlTableCell
+                TbCell.InnerHtml = drwTotalLC1.LCNumber
+                TbCell.NoWrap = True
+                TbCell.Align = "center"
+                TbRow.Cells.Add(TbCell)
+
+
+                TbCell = New HtmlTableCell
+                TbCell.InnerHtml = dtblFilebyCustomerNo.First.MobileNo
+                TbCell.NoWrap = True
+                TbCell.Align = "center"
+                TbRow.Cells.Add(TbCell)
+
+
+                TbCell = New HtmlTableCell
+                TbCell.InnerHtml = drwTotalLC1.NotPiadDurationDay
+                TbCell.NoWrap = True
+                TbCell.Width = "50px"
+                TbCell.Align = "center"
+                TbRow.Cells.Add(TbCell)
+
+                TbCell = New HtmlTableCell
+                TbCell.InnerHtml = dtblBranch.First.BranchName
+                TbCell.NoWrap = False
+                TbCell.Width = "120px"
+                TbCell.Align = "center"
+                TbRow.Cells.Add(TbCell)
+
 
                 If drwUserLogin.IsDataAdmin = True Then
-                    Dim TbCell As HtmlTableCell
-                    TbRow = New HtmlTableRow
+
 
                     TbCell = New HtmlTableCell
                     TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC1.AmounDefferd & ")>ثبت پیگیری</a>"
@@ -557,19 +596,18 @@ Public Class HandyFollowFileSearch
 
                     blnHasFound = True
 
-                        Dim TbCell As HtmlTableCell
-                        TbRow = New HtmlTableRow
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC1.AmounDefferd & ")>ثبت پیگیری</a>"
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
 
-                        TbCell = New HtmlTableCell
-                        TbCell.InnerHtml = "---"
-                        TbCell.NoWrap = True
-                        TbCell.Align = "center"
-                        TbRow.Cells.Add(TbCell)
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwTotalLC1.AmounDefferd & ")>ثبت پیگیری</a>"
+                    TbCell.NoWrap = True
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = "---"
+                    TbCell.NoWrap = True
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
 
 
                     If Not TbRow Is Nothing Then

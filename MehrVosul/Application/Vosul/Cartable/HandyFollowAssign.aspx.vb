@@ -63,11 +63,11 @@
 
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
-                ''odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-                ''odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
-                ''odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                ''cmbPerson.DataBind()
+                cmbPerson.DataBind()
 
 
 
@@ -103,7 +103,7 @@
                 odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
                 odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                ''   cmbPerson.DataBind()
+                cmbPerson.DataBind()
 
             ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
 
@@ -127,7 +127,7 @@
                 odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
                 odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                ''  cmbPerson.DataBind()
+                cmbPerson.DataBind()
 
             End If
 
@@ -164,7 +164,7 @@
 
         End If
 
-
+        btnCheckFiles.Attributes.Add("onClick", "return CheckDataEnter();")
 
     End Sub
 
@@ -178,46 +178,51 @@
 
 
             Dim blnFileCheck As Boolean = False
+            Dim blnGroupAssign As Boolean = If(cmbAssignType.SelectedValue = 2, True, False)
+
+
 
             For i As Integer = 0 To Request.Form.Keys.Count - 1
 
 
+                If blnGroupAssign = False Then
 
-                ''If Request.Form("cmbRequestStatus" & CStr(i)) IsNot Nothing Then
-                ''    intStatus = CInt(Request.Form("cmbRequestStatus" & CStr(i)))
-                If Request.Form.Keys(i).StartsWith("cmbAssignPerson") = True Then
+                    If Request.Form.Keys(i).StartsWith("cmbAssignPerson") = True Then
 
-                    If Request.Form(i) <> "-1" Then
-                        Dim strLCNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - Request.Form(i).IndexOf("(") - 1)
-                        'Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - 2)
+                        If Request.Form(i) <> "-1" Then
+                            Dim strLCNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - Request.Form(i).IndexOf("(") - 1)
+                            'Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - 2)
 
 
-                        ' get File ID
-                        Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
-                        Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+                            ' get File ID
+                            Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                            Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-                        Dim strCustomerNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf(")") + 1, Request.Form(i).IndexOf("/") - Request.Form(i).IndexOf(")") - 1)
-                        dtblFile = tadpFile.GetData(3, -1, strCustomerNO)
+                            Dim strCustomerNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf(")") + 1, Request.Form(i).IndexOf("/") - Request.Form(i).IndexOf(")") - 1)
+                            dtblFile = tadpFile.GetData(3, -1, strCustomerNO)
 
-                        If dtblFile.Rows.Count <> 0 Then
-                            Dim intFileID As Integer = dtblFile.First.ID
+                            If dtblFile.Rows.Count <> 0 Then
+                                Dim intFileID As Integer = dtblFile.First.ID
 
-                            Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
-                            Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+                                Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+                                Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
 
-                            dtblLoan = tadpLoan.GetData(strLCNO, intFileID)
+                                dtblLoan = tadpLoan.GetData(strLCNO, intFileID)
 
-                            Dim intLoanID As Integer = dtblLoan.First.ID
+                                Dim intLoanID As Integer = dtblLoan.First.ID
 
-                            Dim intAssignUserID As Integer = CInt(Request.Form(i).Substring(0, Request.Form(i).IndexOf("(")))
-                            '''Dim strRemark As String = txtRemark.Text
-                            If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
-                                qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+                                Dim intAssignUserID As Integer = CInt(Request.Form(i).Substring(0, Request.Form(i).IndexOf("(")))
+
+                                If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
+                                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+
+                                End If
+
+                            Else
+
+
 
                             End If
-
-                        Else
-
 
 
                         End If
@@ -225,22 +230,49 @@
 
                     End If
 
+                Else
+
+
+                    If hdnSelected.Value <> "" Then
+
+                        Dim strLCNumber As String() = hdnSelected.Value.Split(",")
+                        For j = 0 To strLCNumber.Length - 2
+                            Dim strLCNO As String = strLCNumber(j).Split(";")(0)
+
+                            ' get File ID
+                            Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                            Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+
+                            Dim strCustomerNO As String = strLCNumber(j).Split(";")(1)
+                            dtblFile = tadpFile.GetData(3, -1, strCustomerNO)
+
+                            If dtblFile.Rows.Count <> 0 Then
+                                Dim intFileID As Integer = dtblFile.First.ID
+
+                                Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+                                Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+
+                                dtblLoan = tadpLoan.GetData(strLCNO, intFileID)
+
+                                Dim intLoanID As Integer = dtblLoan.First.ID
+
+                                Dim intAssignUserID As Integer = CInt(cmbPerson.SelectedValue)
+
+                                If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
+                                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+
+                                End If
+                            End If
+
+                        Next
+
+
+                    End If
 
                 End If
 
-
-                ''Dim strLCNO As String = Request.Form(i).Substring(Request.Form(i). .Text.IndexOf("(") + 1, cmbFiles.SelectedItem.Text.IndexOf(")") - cmbFiles.SelectedItem.Text.IndexOf("(") - 1)
-
-
             Next i
 
-            'If blnFileCheck = True Then
-
-            'Else
-            '    Bootstrap_Panel1.ShowMessage("فایلی جهت تخصیص انتخاب نشده", True)
-            '    Return
-
-            'End If
 
 
 
@@ -263,9 +295,10 @@
         Dim tadpPerson As New BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter
 
 
-        Dim intNotPiadDurationDayFrom As Integer = CInt(txtNotPiadDurationDayFrom.Text)
-        Dim intNotPiadDurationDayTo As Integer = CInt(txtNotPiadDurationDayTo.Text)
+        Dim intNotPiadDurationDayFrom As Integer = 0
+        Dim intNotPiadDurationDayTo As Integer = 0
         Dim strBranchCode As String = cmbBranch.SelectedItem.Text.Substring(0, cmbBranch.SelectedItem.Text.IndexOf("("))
+
 
 
         Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
@@ -277,8 +310,47 @@
         Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable = Nothing
 
 
-        ''Max time out inserted in dataset
-        dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID)
+        If cmbDeferredPeriod.SelectedValue <> -1 Then
+
+
+            Select Case cmbDeferredPeriod.SelectedValue
+                Case 1
+                    intNotPiadDurationDayFrom = 1
+                    intNotPiadDurationDayTo = 60
+                Case 2
+                    intNotPiadDurationDayFrom = 61
+                    intNotPiadDurationDayTo = 180
+                Case 3
+                    intNotPiadDurationDayFrom = 181
+                    intNotPiadDurationDayTo = 540
+                Case 4
+                    intNotPiadDurationDayFrom = 541
+                    intNotPiadDurationDayTo = 100000
+            End Select
+
+            dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID, 1, -1, -1)
+
+
+        Else
+
+
+
+            ''Max time out inserted in dataset
+            If rdbListSelectType.SelectedValue = 0 Then
+                intNotPiadDurationDayFrom = CInt(txtNotPiadDurationDayFrom.Text)
+                intNotPiadDurationDayTo = CInt(txtNotPiadDurationDayTo.Text)
+                dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID, 1, -1, -1)
+
+            Else
+
+                Dim dblLCAmountFrom As Double = CDbl(txtNotPiadDurationDayFrom.Text)
+                Dim dblLCAmountTo As Double = CDbl(txtNotPiadDurationDayTo.Text)
+                dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, -1, -1, dtblBranch.First.ID, 2, dblLCAmountFrom, dblLCAmountTo)
+
+            End If
+        End If
+
+
 
         Dim strchklstFiles As String = ""
 
@@ -286,20 +358,13 @@
         '    strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.LCNumber & "' name='chklstMenu" & drwAssignFile.CustomerNO & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.LCNumber & "</label></div>"
         'Next drwAssignFile
 
-        divchklstAssignFiles.InnerHtml = strchklstFiles
+        ''divchklstAssignFiles.InnerHtml = strchklstFiles
 
         Dim i As Integer = 1
         For Each drwRTotalDeffredLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectRow In dtblTotalDeffredForAssign.Rows
 
             Dim TbRow As New HtmlTableRow
             Dim TbCell As HtmlTableCell
-
-            ''TbCell = New HtmlTableCell
-            ''strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwRTotalDeffredLC.LCNumber & "' name='chklstMenu" & drwRTotalDeffredLC.CustomerNO & "'><i class='fa " & " fa-1x'></i></label></div>"
-            ''TbCell.InnerHtml = strchklstFiles
-            ''TbCell.Align = "center"
-            ''TbCell.NoWrap = True
-            ''TbRow.Cells.Add(TbCell)
 
 
             TbCell = New HtmlTableCell
@@ -308,6 +373,15 @@
             TbCell.Align = "center"
             TbCell.NoWrap = True
             TbRow.Cells.Add(TbCell)
+
+            TbCell = New HtmlTableCell
+            strchklstFiles = "<input type='checkbox' name='" & drwRTotalDeffredLC.LCNumber.ToString() & ";" & drwRTotalDeffredLC.CustomerNO.ToString() & "' /> "
+            TbCell.InnerHtml = strchklstFiles
+            TbCell.Align = "center"
+            TbCell.NoWrap = True
+            TbRow.Cells.Add(TbCell)
+
+
 
             TbCell = New HtmlTableCell
             TbCell.InnerHtml = drwRTotalDeffredLC.FullName
@@ -340,11 +414,11 @@
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
 
-            TbCell = New HtmlTableCell
-            TbCell.InnerHtml = drwRTotalDeffredLC.GDeffered
-            TbCell.NoWrap = True
-            TbCell.Align = "center"
-            TbRow.Cells.Add(TbCell)
+            ''TbCell = New HtmlTableCell
+            ''TbCell.InnerHtml = drwRTotalDeffredLC.GDeffered
+            ''TbCell.NoWrap = True
+            ''TbCell.Align = "center"
+            ''TbRow.Cells.Add(TbCell)
 
             TbCell = New HtmlTableCell
             TbCell.InnerHtml = drwRTotalDeffredLC.AmounDefferd.ToString("N0")
@@ -519,9 +593,9 @@
 
     Protected Sub cmbBranch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBranch.SelectedIndexChanged
 
-        odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-        odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
-        odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+        ''odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+        ''odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
+        ''odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
         ''   cmbPerson.DataBind()
 
@@ -575,4 +649,23 @@
 
     End Function
 
+    Protected Sub cmbAssignType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbAssignType.SelectedIndexChanged
+        If cmbAssignType.SelectedValue = 2 Then
+
+            cmbPerson.Enabled = True
+        Else
+            cmbPerson.Enabled = False
+        End If
+    End Sub
+
+    Protected Sub cmbDeferredPeriod_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbDeferredPeriod.SelectedIndexChanged
+        If cmbDeferredPeriod.SelectedValue <> -1 Then
+
+            txtNotPiadDurationDayFrom.Enabled = False
+            txtNotPiadDurationDayTo.Enabled = False
+        Else
+            txtNotPiadDurationDayFrom.Enabled = True
+            txtNotPiadDurationDayTo.Enabled = True
+        End If
+    End Sub
 End Class

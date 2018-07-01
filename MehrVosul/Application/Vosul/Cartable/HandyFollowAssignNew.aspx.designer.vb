@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class HandyFollowAssign
+Partial Public Class HandyFollowAssignNew
     
     '''<summary>
     '''Bootstrap_Panel1 control.
@@ -86,33 +86,6 @@ Partial Public Class HandyFollowAssign
     Protected WithEvents cmbBranch As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
-    '''rdbListSelectType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents rdbListSelectType As Global.System.Web.UI.WebControls.RadioButtonList
-    
-    '''<summary>
-    '''UpdatePanel6 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanel6 As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''cmbDeferredPeriod control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbDeferredPeriod As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
     '''UpdatePanel3 control.
     '''</summary>
     '''<remarks>
@@ -131,15 +104,6 @@ Partial Public Class HandyFollowAssign
     Protected WithEvents txtNotPiadDurationDayFrom As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''btnCheckFiles control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnCheckFiles As Global.System.Web.UI.WebControls.LinkButton
-    
-    '''<summary>
     '''UpdatePanel4 control.
     '''</summary>
     '''<remarks>
@@ -156,85 +120,4 @@ Partial Public Class HandyFollowAssign
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtNotPiadDurationDayTo As Global.System.Web.UI.WebControls.TextBox
-    
-    '''<summary>
-    '''UpdatePanel5 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanel5 As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''cmbAssignType control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbAssignType As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''odsPerson control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents odsPerson As Global.System.Web.UI.WebControls.ObjectDataSource
-    
-    '''<summary>
-    '''UpdatePanel7 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanel7 As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''cmbPerson control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbPerson As Global.System.Web.UI.WebControls.DropDownList
-    
-    '''<summary>
-    '''divchklstLoanTypeItems control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divchklstLoanTypeItems As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''tblNumbers control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents tblNumbers As Global.System.Web.UI.HtmlControls.HtmlTable
-    
-    '''<summary>
-    '''hdnAction control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hdnAction As Global.System.Web.UI.WebControls.HiddenField
-    
-    '''<summary>
-    '''hdnSelected control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents hdnSelected As Global.System.Web.UI.WebControls.HiddenField
 End Class

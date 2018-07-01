@@ -153,6 +153,7 @@
     <Content Include="Application\Vosul\Cartable\HandyFollowAssign.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowAssignEdit.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowAssignMagic.aspx" />
+    <Content Include="Application\Vosul\Cartable\HandyFollowAssignNew.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowAssignNotFollowManagement.aspx" />
     <Content Include="Application\Vosul\Cartable\HandyFollowManagement.aspx" />
     <Content Include="Application\Vosul\Draft\DraftManagement.aspx" />
@@ -510,6 +511,13 @@
     </Compile>
     <Compile Include="Application\Vosul\Cartable\HandyFollowAssignMagic.aspx.vb">
       <DependentUpon>HandyFollowAssignMagic.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\Cartable\HandyFollowAssignNew.aspx.designer.vb">
+      <DependentUpon>HandyFollowAssignNew.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\Cartable\HandyFollowAssignNew.aspx.vb">
+      <DependentUpon>HandyFollowAssignNew.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\Cartable\HandyFollowAssignNotFollowManagement.aspx.designer.vb">
