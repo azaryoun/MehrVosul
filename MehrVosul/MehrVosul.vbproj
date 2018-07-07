@@ -61,7 +61,7 @@
     <OptionStrict>Off</OptionStrict>
   </PropertyGroup>
   <PropertyGroup>
-    <OptionInfer>On</OptionInfer>
+    <OptionInfer>Off</OptionInfer>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -176,6 +176,8 @@
     <Content Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\ManifestPreview.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\NoticePreview.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeEdit.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeManagement.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeNew.aspx" />
@@ -257,6 +259,7 @@
     <Content Include="Images\System\MehrLogonew.jpg" />
     <Content Include="Images\System\MehrLogoNew.png" />
     <Content Include="Images\System\MehrLogoNew1.png" />
+    <Content Include="Images\System\MehrLogoPrint.jpg" />
     <Content Include="Images\System\minus_icon.png" />
     <Content Include="Images\System\Responsive.png" />
     <Content Include="Login.aspx" />
@@ -667,6 +670,20 @@
       <DependentUpon>HandyFollowSearch.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\ManifestPreview.aspx.designer.vb">
+      <DependentUpon>ManifestPreview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\ManifestPreview.aspx.vb">
+      <DependentUpon>ManifestPreview.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\NoticePreview.aspx.designer.vb">
+      <DependentUpon>NoticePreview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\NoticePreview.aspx.vb">
+      <DependentUpon>NoticePreview.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Vosul\LoanType\LoanTypeEdit.aspx.designer.vb">
       <DependentUpon>LoanTypeEdit.aspx</DependentUpon>
     </Compile>
@@ -805,7 +822,7 @@
     </Compile>
     <Compile Include="Application\Vosul\Reports\WarningNotificationReport.aspx.vb">
       <DependentUpon>WarningNotificationReport.aspx</DependentUpon>
-      <SubType>ASPXCodebehind</SubType>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\Reports\WarningNotificationReportNew.aspx.designer.vb">
       <DependentUpon>WarningNotificationReportNew.aspx</DependentUpon>

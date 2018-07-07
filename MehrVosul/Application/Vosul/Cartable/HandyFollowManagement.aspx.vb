@@ -77,6 +77,7 @@
                     Session("intFileID") = CObj(intFileID)
                     Session("intLoanID") = CObj(intLoanID)
                     Session("HandyFollowAssign") = dtblHandyFollowAssign.First.ID
+                    Session("AssignType") = dtblHandyFollowAssign.First.AssignType
 
                     Response.Redirect("../HandyFollow/HandyFollowNew.aspx")
                 Else

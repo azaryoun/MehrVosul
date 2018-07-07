@@ -236,7 +236,7 @@
                     If hdnSelected.Value <> "" Then
 
                         Dim strLCNumber As String() = hdnSelected.Value.Split(",")
-                        For j = 0 To strLCNumber.Length - 2
+                        For j As Integer = 0 To strLCNumber.Length - 2
                             Dim strLCNO As String = strLCNumber(j).Split(";")(0)
 
                             ' get File ID

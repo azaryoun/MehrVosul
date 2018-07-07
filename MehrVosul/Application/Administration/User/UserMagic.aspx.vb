@@ -118,7 +118,7 @@
                     Dim strEmptyUserName As String = ""
                     Dim strEmptyBranchCode As String = ""
 
-                    For i = 1 To dtExcelName.Rows.Count - 1
+                    For i As Integer = 1 To dtExcelName.Rows.Count - 1
                         Dim strName As String = dtExcelName.Rows(i)(0).ToString()
                         Dim strLastName As String = dtExcelName.Rows(i)(1).ToString()
                         Dim strUserName As String = dtExcelName.Rows(i)(2).ToString()

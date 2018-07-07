@@ -177,759 +177,759 @@ Public Class WarningNotificationReport
 
 
 
-    Protected Sub cmbWarningType_DataBound(sender As Object, e As EventArgs) Handles cmbWarningType.DataBound
-        Dim li As New ListItem
-        li.Text = "(همه)"
-        li.Value = -1
-        cmbWarningType.Items.Insert(0, li)
-    End Sub
+    ''    Protected Sub cmbWarningType_DataBound(sender As Object, e As EventArgs) Handles cmbWarningType.DataBound
+    ''        Dim li As New ListItem
+    ''        li.Text = "(همه)"
+    ''        li.Value = -1
+    ''        cmbWarningType.Items.Insert(0, li)
+    ''    End Sub
 
 
-    Private Sub Bootstrap_Panel1_Panel_Display_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Display_Click
+    ''    Private Sub Bootstrap_Panel1_Panel_Display_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Display_Click
 
-        tblResult.Visible = False
-        tblResult2.Visible = False
-        Bootstrap_Panel1.ClearMessage()
+    ''        tblResult.Visible = False
+    ''        tblResult2.Visible = False
+    ''        Bootstrap_Panel1.ClearMessage()
 
-        Dim intTotalRecord As Integer = GetWarningReportRecordCount()
-        If intTotalRecord <> 0 Then
-            Session("TotalPage") = Math.Floor(intTotalRecord / 25) + 1
-            Session("CurrentPage") = "1"
+    ''        Dim intTotalRecord As Integer = GetWarningReportRecordCount()
+    ''        If intTotalRecord <> 0 Then
+    ''            Session("TotalPage") = Math.Floor(intTotalRecord / 25) + 1
+    ''            Session("CurrentPage") = "1"
 
-            GenerateWarningListReport()
-        Else
-            Session("TotalPage") = "0"
-            Session("CurrentPage") = "0"
-        End If
+    ''            GenerateWarningListReport()
+    ''        Else
+    ''            Session("TotalPage") = "0"
+    ''            Session("CurrentPage") = "0"
+    ''        End If
 
-        txtPageCounter.Value = Session("CurrentPage")
+    ''        txtPageCounter.Value = Session("CurrentPage")
 
-    End Sub
+    ''    End Sub
 
-    Private Sub Bootstrap_Panel1_Panel_Excel_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Excel_Click
+    ''    Private Sub Bootstrap_Panel1_Panel_Excel_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Excel_Click
 
-        Try
-            If Session("WarningNotificationReport") IsNot Nothing Then
-                Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-                Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+    ''        Try
+    ''            If Session("WarningNotificationReport") IsNot Nothing Then
+    ''                Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+    ''                Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
 
-                Dim strPath As String = Server.MapPath("") & "\TempFile\" & drwUserLogin.ID & "\"
-                Dim FileName As String = "WarningNotificationReport-" & drwUserLogin.ID.ToString()
+    ''                Dim strPath As String = Server.MapPath("") & "\TempFile\" & drwUserLogin.ID & "\"
+    ''                Dim FileName As String = "WarningNotificationReport-" & drwUserLogin.ID.ToString()
 
-                Dim tblCSVResult As DataTable = Session("WarningNotificationReport")
-                If tblCSVResult.Rows.Count > 0 Then
-                    If Not System.IO.Directory.Exists(strPath) Then
-                        System.IO.Directory.CreateDirectory(strPath)
-                    End If
+    ''                Dim tblCSVResult As DataTable = Session("WarningNotificationReport")
+    ''                If tblCSVResult.Rows.Count > 0 Then
+    ''                    If Not System.IO.Directory.Exists(strPath) Then
+    ''                        System.IO.Directory.CreateDirectory(strPath)
+    ''                    End If
 
-                    Dim clsCSVWriter As New clsCSVWriter
-                    Using strWriter As StreamWriter = New StreamWriter(strPath & FileName)
-                        If ViewState("WarningNotificationReportType") = "1" Then
-                            WriteDataTableCustom(tblCSVResult, FileName, strWriter, True)
-                        Else
-                            WriteDataTableCustom(tblCSVResult, FileName, strWriter, True)
-                        End If
+    ''                    Dim clsCSVWriter As New clsCSVWriter
+    ''                    Using strWriter As StreamWriter = New StreamWriter(strPath & FileName)
+    ''                        If ViewState("WarningNotificationReportType") = "1" Then
+    ''                            WriteDataTableCustom(tblCSVResult, FileName, strWriter, True)
+    ''                        Else
+    ''                            WriteDataTableCustom(tblCSVResult, FileName, strWriter, True)
+    ''                        End If
 
-                    End Using
-                Else
-                    Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
-                    Session("WarningNotificationReport") = Nothing
-                End If
-            Else
-                Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
-                Session("WarningNotificationReport") = Nothing
-            End If
-        Catch ex As Exception
-            Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
-            Session("WarningNotificationReport") = Nothing
-        End Try
+    ''                    End Using
+    ''                Else
+    ''                    Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+    ''                    Session("WarningNotificationReport") = Nothing
+    ''                End If
+    ''            Else
+    ''                Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+    ''                Session("WarningNotificationReport") = Nothing
+    ''            End If
+    ''        Catch ex As Exception
+    ''            Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
+    ''            Session("WarningNotificationReport") = Nothing
+    ''        End Try
 
 
 
-    End Sub
-    Private Function GetWarningReportRecordCount() As Integer
+    ''    End Sub
+    ''    Private Function GetWarningReportRecordCount() As Integer
 
 
-        Dim dtFromDate As Date = Bootstrap_PersianDateTimePicker_From.GergorainDateTime
-        Dim dteToDate As Date = If(Bootstrap_PersianDateTimePicker_To.GergorainDateTime.Hour < 14, Bootstrap_PersianDateTimePicker_To.GergorainDateTime.AddHours(8), Bootstrap_PersianDateTimePicker_To.GergorainDateTime)
-        'Bootstrap_PersianDateTimePicker_To.GergorainDateTime
+    ''        Dim dtFromDate As Date = Bootstrap_PersianDateTimePicker_From.GergorainDateTime
+    ''        Dim dteToDate As Date = If(Bootstrap_PersianDateTimePicker_To.GergorainDateTime.Hour < 14, Bootstrap_PersianDateTimePicker_To.GergorainDateTime.AddHours(8), Bootstrap_PersianDateTimePicker_To.GergorainDateTime)
+    ''        'Bootstrap_PersianDateTimePicker_To.GergorainDateTime
 
 
-        Dim ctxMehr As New BusinessObject.dbMehrVosulEntities1
-        Dim lnqWarningNotificationLogDetail = ctxMehr.tbl_WarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.STime >= dtFromDate AndAlso x.tbl_WarningNotificationLog.STime <= dteToDate)
+    ''        Dim ctxMehr As New BusinessObject.dbMehrVosulEntities1
+    ''        Dim lnqWarningNotificationLogDetail = ctxMehr.tbl_WarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.STime >= dtFromDate AndAlso x.tbl_WarningNotificationLog.STime <= dteToDate)
 
 
 
-        tblResult.Visible = False
-        tblResult2.Visible = False
-        Bootstrap_Panel1.ClearMessage()
+    ''        tblResult.Visible = False
+    ''        tblResult2.Visible = False
+    ''        Bootstrap_Panel1.ClearMessage()
 
 
-        Dim blnProvince As Boolean = False
+    ''        Dim blnProvince As Boolean = False
 
-        If cmbProvince.SelectedValue <> -1 And chkBranchSelectAll.Checked = True Then
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.Fk_ProvinceID = cmbProvince.SelectedValue)
-            blnProvince = True
-        End If
+    ''        If cmbProvince.SelectedValue <> -1 And chkBranchSelectAll.Checked = True Then
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.Fk_ProvinceID = cmbProvince.SelectedValue)
+    ''            blnProvince = True
+    ''        End If
 
 
-        If txtFile.Text.Trim() <> "" Then
+    ''        If txtFile.Text.Trim() <> "" Then
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.tbl_File.CustomerNo.Contains(txtFile.Text.Trim))
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.tbl_File.CustomerNo.Contains(txtFile.Text.Trim))
 
 
-        End If
+    ''        End If
 
-        If cmbReceiver.SelectedIndex <> 0 Then
+    ''        If cmbReceiver.SelectedIndex <> 0 Then
 
 
 
-            If cmbReceiver.SelectedValue = 1 Then
-                lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ToBorrower = 1)
-            Else
-                lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ToBorrower = 0)
+    ''            If cmbReceiver.SelectedValue = 1 Then
+    ''                lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ToBorrower = 1)
+    ''            Else
+    ''                lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ToBorrower = 0)
 
-            End If
+    ''            End If
 
-        End If
+    ''        End If
 
-        If cmbNotification.SelectedIndex <> 0 Then
+    ''        If cmbNotification.SelectedIndex <> 0 Then
 
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = cmbNotification.SelectedValue)
-        End If
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = cmbNotification.SelectedValue)
+    ''        End If
 
-        ''If cmbWarningType.SelectedIndex <> 0 Then
+    ''        ''If cmbWarningType.SelectedIndex <> 0 Then
 
-        ''    lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.FK_WarningIntervalID = cmbWarningType.SelectedValue)
+    ''        ''    lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.FK_WarningIntervalID = cmbWarningType.SelectedValue)
 
 
 
-        ''End If
+    ''        ''End If
 
 
-        If blnProvince = False Then
+    ''        If blnProvince = False Then
 
 
 
-            Dim lstBranches As New List(Of Integer)
+    ''            Dim lstBranches As New List(Of Integer)
 
-            For i As Integer = 0 To Request.Form.Keys.Count - 1
+    ''            For i As Integer = 0 To Request.Form.Keys.Count - 1
 
-                If Request.Form.Keys(i).StartsWith("chklstBranch") = True Then
-                    Dim intBranchID As Integer = CInt(Request.Form(i))
-                    lstBranches.Add(intBranchID)
+    ''                If Request.Form.Keys(i).StartsWith("chklstBranch") = True Then
+    ''                    Dim intBranchID As Integer = CInt(Request.Form(i))
+    ''                    lstBranches.Add(intBranchID)
 
 
-                End If
+    ''                End If
 
-            Next i
+    ''            Next i
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) lstBranches.Contains(x.tbl_WarningNotificationLog.tbl_Loan.FK_BranchID))
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) lstBranches.Contains(x.tbl_WarningNotificationLog.tbl_Loan.FK_BranchID))
 
 
-        End If
+    ''        End If
 
 
-        If txtReciverNo.Text.Trim() <> "" Then
+    ''        If txtReciverNo.Text.Trim() <> "" Then
 
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ReceiverInfo.Contains(txtReciverNo.Text))
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ReceiverInfo.Contains(txtReciverNo.Text))
 
 
-        End If
+    ''        End If
 
 
 
-        If rdbReportType.SelectedValue = 0 Then
-            'Summary
+    ''        If rdbReportType.SelectedValue = 0 Then
+    ''            'Summary
 
-            Dim lnqWarningNotificationLogDetailGroupCount = lnqWarningNotificationLogDetail.GroupBy(Function(x) x.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.BranchName).Count
+    ''            Dim lnqWarningNotificationLogDetailGroupCount = lnqWarningNotificationLogDetail.GroupBy(Function(x) x.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.BranchName).Count
 
-            Return lnqWarningNotificationLogDetailGroupCount
+    ''            Return lnqWarningNotificationLogDetailGroupCount
 
 
-        Else 'Detail
+    ''        Else 'Detail
 
-            Dim lnqWarningNotificationLogDetailCount = lnqWarningNotificationLogDetail.Count
+    ''            Dim lnqWarningNotificationLogDetailCount = lnqWarningNotificationLogDetail.Count
 
-            Return lnqWarningNotificationLogDetailCount
+    ''            Return lnqWarningNotificationLogDetailCount
 
 
-        End If
+    ''        End If
 
 
 
 
 
 
-    End Function
+    ''    End Function
 
 
-    Private Sub GenerateWarningListReport()
+    ''    Private Sub GenerateWarningListReport()
 
 
-        Dim dtFromDate As Date = Bootstrap_PersianDateTimePicker_From.GergorainDateTime
-        Dim dteToDate As Date = Bootstrap_PersianDateTimePicker_To.GergorainDateTime
+    ''        Dim dtFromDate As Date = Bootstrap_PersianDateTimePicker_From.GergorainDateTime
+    ''        Dim dteToDate As Date = Bootstrap_PersianDateTimePicker_To.GergorainDateTime
 
 
-        Dim ctxMehr As New BusinessObject.dbMehrVosulEntities1
-        Dim lnqWarningNotificationLogDetail = ctxMehr.tbl_WarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.STime >= dtFromDate AndAlso x.tbl_WarningNotificationLog.STime <= dteToDate)
+    ''        Dim ctxMehr As New BusinessObject.dbMehrVosulEntities1
+    ''        Dim lnqWarningNotificationLogDetail = ctxMehr.tbl_WarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.STime >= dtFromDate AndAlso x.tbl_WarningNotificationLog.STime <= dteToDate)
 
 
-        tblResult.Visible = False
-        tblResult2.Visible = False
-        Bootstrap_Panel1.ClearMessage()
+    ''        tblResult.Visible = False
+    ''        tblResult2.Visible = False
+    ''        Bootstrap_Panel1.ClearMessage()
 
 
-        Dim blnProvince As Boolean = False
+    ''        Dim blnProvince As Boolean = False
 
-        If cmbProvince.SelectedValue <> -1 And chkBranchSelectAll.Checked = True Then
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.Fk_ProvinceID = cmbProvince.SelectedValue)
-            blnProvince = True
-        End If
+    ''        If cmbProvince.SelectedValue <> -1 And chkBranchSelectAll.Checked = True Then
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.Fk_ProvinceID = cmbProvince.SelectedValue)
+    ''            blnProvince = True
+    ''        End If
 
 
-        If txtFile.Text.Trim() <> "" Then
+    ''        If txtFile.Text.Trim() <> "" Then
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.tbl_File.CustomerNo.Contains(txtFile.Text.Trim))
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.tbl_File.CustomerNo.Contains(txtFile.Text.Trim))
 
 
-        End If
+    ''        End If
 
-        If cmbReceiver.SelectedIndex <> 0 Then
+    ''        If cmbReceiver.SelectedIndex <> 0 Then
 
-            If cmbReceiver.SelectedValue = 1 Then
-                lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ToBorrower = 1)
-            Else
-                lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ToBorrower = 0)
+    ''            If cmbReceiver.SelectedValue = 1 Then
+    ''                lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ToBorrower = 1)
+    ''            Else
+    ''                lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ToBorrower = 0)
 
-            End If
+    ''            End If
 
-        End If
+    ''        End If
 
-        If cmbNotification.SelectedIndex <> 0 Then
+    ''        If cmbNotification.SelectedIndex <> 0 Then
 
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = cmbNotification.SelectedValue)
-        End If
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.NotificationTypeID = cmbNotification.SelectedValue)
+    ''        End If
 
-        If cmbWarningType.SelectedIndex <> 0 Then
+    ''        If cmbWarningType.SelectedIndex <> 0 Then
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.FK_WarningIntervalID = cmbWarningType.SelectedValue)
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.tbl_WarningNotificationLog.FK_WarningIntervalID = cmbWarningType.SelectedValue)
 
 
 
-        End If
+    ''        End If
 
 
-        If blnProvince = False Then
+    ''        If blnProvince = False Then
 
 
-            Dim lstBranches As New List(Of Integer)
+    ''            Dim lstBranches As New List(Of Integer)
 
-            For i As Integer = 0 To Request.Form.Keys.Count - 1
+    ''            For i As Integer = 0 To Request.Form.Keys.Count - 1
 
-                If Request.Form.Keys(i).StartsWith("chklstBranch") = True Then
-                    Dim intBranchID As Integer = CInt(Request.Form(i))
-                    lstBranches.Add(intBranchID)
+    ''                If Request.Form.Keys(i).StartsWith("chklstBranch") = True Then
+    ''                    Dim intBranchID As Integer = CInt(Request.Form(i))
+    ''                    lstBranches.Add(intBranchID)
 
 
-                End If
+    ''                End If
 
-            Next i
+    ''            Next i
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) lstBranches.Contains(x.tbl_WarningNotificationLog.tbl_Loan.FK_BranchID))
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) lstBranches.Contains(x.tbl_WarningNotificationLog.tbl_Loan.FK_BranchID))
 
-        End If
+    ''        End If
 
 
-        If txtReciverNo.Text.Trim() <> "" Then
+    ''        If txtReciverNo.Text.Trim() <> "" Then
 
 
 
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ReceiverInfo.Contains(txtReciverNo.Text))
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.Where(Function(x) x.ReceiverInfo.Contains(txtReciverNo.Text))
 
 
-        End If
+    ''        End If
 
 
 
-        If rdbReportType.SelectedValue = 0 Then
-            'Summary
+    ''        If rdbReportType.SelectedValue = 0 Then
+    ''            'Summary
 
-            tblResult.Visible = False
-            tblResult2.Visible = True
+    ''            tblResult.Visible = False
+    ''            tblResult2.Visible = True
 
-            Dim intCurrentPage As Integer = CInt(Session("CurrentPage"))
-            Dim intFromRecord As Integer = (25 * (intCurrentPage - 1))
+    ''            Dim intCurrentPage As Integer = CInt(Session("CurrentPage"))
+    ''            Dim intFromRecord As Integer = (25 * (intCurrentPage - 1))
 
 
-            Dim lnqWarningNotificationLogDetailGroup = lnqWarningNotificationLogDetail.GroupBy(Function(x) x.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.BranchName).OrderBy(Function(x) x.Key).Skip(intFromRecord).Take(25)
-            Dim lnqWarningNotificationLogDetailGroupList = lnqWarningNotificationLogDetailGroup.ToList()
+    ''            Dim lnqWarningNotificationLogDetailGroup = lnqWarningNotificationLogDetail.GroupBy(Function(x) x.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.BranchName).OrderBy(Function(x) x.Key).Skip(intFromRecord).Take(25)
+    ''            Dim lnqWarningNotificationLogDetailGroupList = lnqWarningNotificationLogDetailGroup.ToList()
 
-            If lnqWarningNotificationLogDetailGroupList.Count > 0 Then
+    ''            If lnqWarningNotificationLogDetailGroupList.Count > 0 Then
 
 
-                ''get total report
-                Dim intCount As Integer = intFromRecord
-                For Each lnqWarningNotificationLogDetailListGroupItem In lnqWarningNotificationLogDetailGroupList
+    ''                ''get total report
+    ''                Dim intCount As Integer = intFromRecord
+    ''                For Each lnqWarningNotificationLogDetailListGroupItem In lnqWarningNotificationLogDetailGroupList
 
-                    intCount += 1
-                    Dim TbRow As New HtmlTableRow
-                    Dim TbCell As HtmlTableCell
+    ''                    intCount += 1
+    ''                    Dim TbRow As New HtmlTableRow
+    ''                    Dim TbCell As HtmlTableCell
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = CStr(intCount)
-                    TbCell.Align = "center"
-                    TbCell.NoWrap = True
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = CStr(intCount)
+    ''                    TbCell.Align = "center"
+    ''                    TbCell.NoWrap = True
+    ''                    TbRow.Cells.Add(TbCell)
 
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListGroupItem.Key
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbCell.Attributes.Add("dir", "rtl")
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListGroupItem.Key
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbCell.Attributes.Add("dir", "rtl")
+    ''                    TbRow.Cells.Add(TbCell)
 
-                    TbCell = New HtmlTableCell
-                    Dim intTotalCount As Integer = lnqWarningNotificationLogDetailListGroupItem.Count
+    ''                    TbCell = New HtmlTableCell
+    ''                    Dim intTotalCount As Integer = lnqWarningNotificationLogDetailListGroupItem.Count
 
-                    TbCell.InnerHtml = intTotalCount.ToString("n0")
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell.InnerHtml = intTotalCount.ToString("n0")
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
 
 
-                    tblResult2.Rows.Add(TbRow)
+    ''                    tblResult2.Rows.Add(TbRow)
 
 
-                Next
+    ''                Next
 
-                divResult.Visible = True
-                tblResult2.Visible = True
+    ''                divResult.Visible = True
+    ''                tblResult2.Visible = True
 
-                '' Session("WarningNotificationReport") = dtblReport
-                ViewState("WarningNotificationReportType") = "1"
+    ''                '' Session("WarningNotificationReport") = dtblReport
+    ''                ViewState("WarningNotificationReportType") = "1"
 
-            Else
+    ''            Else
 
-                divResult.Visible = False
+    ''                divResult.Visible = False
 
-            End If
+    ''            End If
 
-            rdbReportType.Items(1).Enabled = True
+    ''            rdbReportType.Items(1).Enabled = True
 
-        Else
-            'Detail
-            Dim intCurrentPage As Integer = CInt(Session("CurrentPage"))
-            Dim intFromRecord As Integer = (25 * (intCurrentPage - 1))
-            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.OrderBy(Function(x) x.tbl_WarningNotificationLog.STime).Skip(intFromRecord).Take(25)
+    ''        Else
+    ''            'Detail
+    ''            Dim intCurrentPage As Integer = CInt(Session("CurrentPage"))
+    ''            Dim intFromRecord As Integer = (25 * (intCurrentPage - 1))
+    ''            lnqWarningNotificationLogDetail = lnqWarningNotificationLogDetail.OrderBy(Function(x) x.tbl_WarningNotificationLog.STime).Skip(intFromRecord).Take(25)
 
 
-            Dim lnqWarningNotificationLogDetailList = lnqWarningNotificationLogDetail.ToList()
+    ''            Dim lnqWarningNotificationLogDetailList = lnqWarningNotificationLogDetail.ToList()
 
-            If lnqWarningNotificationLogDetailList.Count > 0 Then
+    ''            If lnqWarningNotificationLogDetailList.Count > 0 Then
 
 
-                tblResult.Visible = True
-                tblResult2.Visible = False
+    ''                tblResult.Visible = True
+    ''                tblResult2.Visible = False
 
-                ''get total report
-                Dim intCount As Integer = intFromRecord
-                For Each lnqWarningNotificationLogDetailListItem In lnqWarningNotificationLogDetailList
+    ''                ''get total report
+    ''                Dim intCount As Integer = intFromRecord
+    ''                For Each lnqWarningNotificationLogDetailListItem In lnqWarningNotificationLogDetailList
 
-                    intCount += 1
-                    Dim TbRow As New HtmlTableRow
-                    Dim TbCell As HtmlTableCell
+    ''                    intCount += 1
+    ''                    Dim TbRow As New HtmlTableRow
+    ''                    Dim TbCell As HtmlTableCell
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = "<input type='hidden' id='hdnAmounts" & CStr(intCount) & "' >" & CStr(intCount)
-                    TbCell.Align = "center"
-                    TbCell.NoWrap = True
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = "<input type='hidden' id='hdnAmounts" & CStr(intCount) & "' >" & CStr(intCount)
+    ''                    TbCell.Align = "center"
+    ''                    TbCell.NoWrap = True
+    ''                    TbRow.Cells.Add(TbCell)
 
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = mdlGeneral.GetPersianDate(lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.theDay)
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbCell.Attributes.Add("dir", "rtl")
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = mdlGeneral.GetPersianDate(lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.theDay)
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbCell.Attributes.Add("dir", "rtl")
+    ''                    TbRow.Cells.Add(TbCell)
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_WarningIntervals.FromDay.ToString() & "-" & lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_WarningIntervals.ToDay.ToString()
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_WarningIntervals.FromDay.ToString() & "-" & lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_WarningIntervals.ToDay.ToString()
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
 
 
-                    TbCell = New HtmlTableCell
+    ''                    TbCell = New HtmlTableCell
 
-                    Dim intNotificationTypeID As Integer = lnqWarningNotificationLogDetailListItem.NotificationTypeID
-                    Dim strNotification As String = ""
-                    Select Case intNotificationTypeID
-                        Case 1
+    ''                    Dim intNotificationTypeID As Integer = lnqWarningNotificationLogDetailListItem.NotificationTypeID
+    ''                    Dim strNotification As String = ""
+    ''                    Select Case intNotificationTypeID
+    ''                        Case 1
 
-                            strNotification = "پیامک"
+    ''                            strNotification = "پیامک"
 
-                        Case 2
-                            strNotification = "تلفن"
+    ''                        Case 2
+    ''                            strNotification = "تلفن"
 
 
-                        Case 3
-                            strNotification = "دعوتنامه"
+    ''                        Case 3
+    ''                            strNotification = "دعوتنامه"
 
-                        Case 4
-                            strNotification = "اخطاریه"
+    ''                        Case 4
+    ''                            strNotification = "اخطاریه"
 
-                        Case 5
-                            strNotification = "اظهارنامه"
+    ''                        Case 5
+    ''                            strNotification = "اظهارنامه"
 
-                    End Select
+    ''                    End Select
 
 
-                    TbCell.InnerHtml = strNotification
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell.InnerHtml = strNotification
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_Loan.LoanNumber
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_Loan.LoanNumber
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
 
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_File.CustomerNo
-                    TbCell.NoWrap = False
-                    TbCell.Align = "center"
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_File.CustomerNo
+    ''                    TbCell.NoWrap = False
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.strMessage
-                    TbCell.NoWrap = False
-                    TbCell.Align = "center"
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.strMessage
+    ''                    TbCell.NoWrap = False
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
 
 
-                    TbCell = New HtmlTableCell
-                    If Not lnqWarningNotificationLogDetailListItem.SendDate Is Nothing Then
-                        TbCell.InnerHtml = mdlGeneral.GetPersianDate(lnqWarningNotificationLogDetailListItem.SendDate)
-                    Else
-                        TbCell.InnerHtml = ""
-                    End If
+    ''                    TbCell = New HtmlTableCell
+    ''                    If Not lnqWarningNotificationLogDetailListItem.SendDate Is Nothing Then
+    ''                        TbCell.InnerHtml = mdlGeneral.GetPersianDate(lnqWarningNotificationLogDetailListItem.SendDate)
+    ''                    Else
+    ''                        TbCell.InnerHtml = ""
+    ''                    End If
 
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbCell.Attributes.Add("dir", "rtl")
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbCell.Attributes.Add("dir", "rtl")
+    ''                    TbRow.Cells.Add(TbCell)
 
 
-                    TbCell = New HtmlTableCell
-                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.BrnachCode & "(" & lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.BranchName & ")"
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    TbCell.InnerHtml = lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.BrnachCode & "(" & lnqWarningNotificationLogDetailListItem.tbl_WarningNotificationLog.tbl_Loan.tbl_Branch.BranchName & ")"
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
 
 
-                    TbCell = New HtmlTableCell
-                    Select Case lnqWarningNotificationLogDetailListItem.SendStatus
-                        Case 1
-                            TbCell.InnerHtml = "ارسال نشده"
-                        Case 2
-                            TbCell.InnerHtml = "ارسال شده"
-                        Case 3
-                            TbCell.InnerHtml = "رسیده به گوشی"
-                        Case 4
-                            TbCell.InnerHtml = "خطا در ارسال"
-                        Case 5
-                            TbCell.InnerHtml = "صادر شده"
-                        Case 6
-                            TbCell.InnerHtml = "ارسال شده"
-                        Case 7
-                            TbCell.InnerHtml = "تحویل شده"
-                        Case 8
-                            TbCell.InnerHtml = "تماس برقرار شده"
-                        Case 9
-                            TbCell.InnerHtml = "پاسخ داده شده"
-                    End Select
-                    TbCell.NoWrap = True
-                    TbCell.Align = "center"
-                    TbRow.Cells.Add(TbCell)
+    ''                    TbCell = New HtmlTableCell
+    ''                    Select Case lnqWarningNotificationLogDetailListItem.SendStatus
+    ''                        Case 1
+    ''                            TbCell.InnerHtml = "ارسال نشده"
+    ''                        Case 2
+    ''                            TbCell.InnerHtml = "ارسال شده"
+    ''                        Case 3
+    ''                            TbCell.InnerHtml = "رسیده به گوشی"
+    ''                        Case 4
+    ''                            TbCell.InnerHtml = "خطا در ارسال"
+    ''                        Case 5
+    ''                            TbCell.InnerHtml = "صادر شده"
+    ''                        Case 6
+    ''                            TbCell.InnerHtml = "ارسال شده"
+    ''                        Case 7
+    ''                            TbCell.InnerHtml = "تحویل شده"
+    ''                        Case 8
+    ''                            TbCell.InnerHtml = "تماس برقرار شده"
+    ''                        Case 9
+    ''                            TbCell.InnerHtml = "پاسخ داده شده"
+    ''                    End Select
+    ''                    TbCell.NoWrap = True
+    ''                    TbCell.Align = "center"
+    ''                    TbRow.Cells.Add(TbCell)
 
-                    tblResult.Rows.Add(TbRow)
+    ''                    tblResult.Rows.Add(TbRow)
 
 
-                Next
+    ''                Next
 
 
 
-                Session("WarningNotificationReport") = lnqWarningNotificationLogDetailList
-                ViewState("WarningNotificationReportType") = "1"
+    ''                Session("WarningNotificationReport") = lnqWarningNotificationLogDetailList
+    ''                ViewState("WarningNotificationReportType") = "1"
 
-            Else
+    ''            Else
 
-                divResult.Visible = False
+    ''                divResult.Visible = False
 
-            End If
+    ''            End If
 
-        End If
+    ''        End If
 
 
-    End Sub
+    ''    End Sub
 
 
 
-    'Protected Sub cmbBranch_DataBound(sender As Object, e As EventArgs) Handles cmbBranch.DataBound
-    '    Dim li As New ListItem
-    '    li.Text = "(همه)"
-    '    li.Value = -1
-    '    cmbBranch.Items.Insert(0, li)
-    'End Sub
+    ''    'Protected Sub cmbBranch_DataBound(sender As Object, e As EventArgs) Handles cmbBranch.DataBound
+    ''    '    Dim li As New ListItem
+    ''    '    li.Text = "(همه)"
+    ''    '    li.Value = -1
+    ''    '    cmbBranch.Items.Insert(0, li)
+    ''    'End Sub
 
-    'Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
+    ''    'Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
 
 
-    '    odsBranch.SelectParameters.Item("Action").DefaultValue = 2
-    '    odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
-    '    odsBranch.DataBind()
+    ''    '    odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+    ''    '    odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+    ''    '    odsBranch.DataBind()
 
-    '    cmbBranch.DataSourceID = "odsBranch"
-    '    cmbBranch.DataTextField = "BrnachCode"
-    '    cmbBranch.DataValueField = "ID"
+    ''    '    cmbBranch.DataSourceID = "odsBranch"
+    ''    '    cmbBranch.DataTextField = "BrnachCode"
+    ''    '    cmbBranch.DataValueField = "ID"
 
 
-    '    cmbBranch.DataBind()
+    ''    '    cmbBranch.DataBind()
 
-    'End Sub
+    ''    'End Sub
 
-    Protected Sub cmbProvince_DataBound(sender As Object, e As EventArgs) Handles cmbProvince.DataBound
-        Dim li As New ListItem
-        li.Text = "(همه استان ها)"
-        li.Value = -1
-        cmbProvince.Items.Insert(0, li)
+    ''    Protected Sub cmbProvince_DataBound(sender As Object, e As EventArgs) Handles cmbProvince.DataBound
+    ''        Dim li As New ListItem
+    ''        li.Text = "(همه استان ها)"
+    ''        li.Value = -1
+    ''        cmbProvince.Items.Insert(0, li)
 
-    End Sub
+    ''    End Sub
 
-    Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
+    ''    Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
 
-        Dim tadpBrnachList As New BusinessObject.dstBranchTableAdapters.spr_Branch_List_SelectTableAdapter
-        Dim dtblBranchList As BusinessObject.dstBranch.spr_Branch_List_SelectDataTable = Nothing
-        If cmbProvince.SelectedValue = -1 Then
-            dtblBranchList = tadpBrnachList.GetData(1, -1)
-        Else
-            dtblBranchList = tadpBrnachList.GetData(2, cmbProvince.SelectedValue)
-        End If
+    ''        Dim tadpBrnachList As New BusinessObject.dstBranchTableAdapters.spr_Branch_List_SelectTableAdapter
+    ''        Dim dtblBranchList As BusinessObject.dstBranch.spr_Branch_List_SelectDataTable = Nothing
+    ''        If cmbProvince.SelectedValue = -1 Then
+    ''            dtblBranchList = tadpBrnachList.GetData(1, -1)
+    ''        Else
+    ''            dtblBranchList = tadpBrnachList.GetData(2, cmbProvince.SelectedValue)
+    ''        End If
 
-        Dim strBrnachesList As String = ""
+    ''        Dim strBrnachesList As String = ""
 
 
-        For Each drwBranchList As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList.Rows
-            strBrnachesList &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwBranchList.ID & "' name='chklstBranch" & drwBranchList.ID & "'><i class='fa " & drwBranchList.ID & " fa-1x'></i> " & drwBranchList.BrnachCode & "</label></div>"
-        Next drwBranchList
+    ''        For Each drwBranchList As BusinessObject.dstBranch.spr_Branch_List_SelectRow In dtblBranchList.Rows
+    ''            strBrnachesList &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwBranchList.ID & "' name='chklstBranch" & drwBranchList.ID & "'><i class='fa " & drwBranchList.ID & " fa-1x'></i> " & drwBranchList.BrnachCode & "</label></div>"
+    ''        Next drwBranchList
 
-        divBranches.InnerHtml = strBrnachesList
-        chkBranchSelectAll.Checked = False
+    ''        divBranches.InnerHtml = strBrnachesList
+    ''        chkBranchSelectAll.Checked = False
 
-    End Sub
+    ''    End Sub
 
 
 
-    Private Sub WriteDataTableCustom(ByVal sourceTable As DataTable, ByVal FileName As String, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
+    ''    Private Sub WriteDataTableCustom(ByVal sourceTable As DataTable, ByVal FileName As String, ByVal writer As TextWriter, ByVal includeHeaders As Boolean)
 
-        Dim context As HttpContext = HttpContext.Current
-        Dim memoryStream As New MemoryStream
-        writer = New StreamWriter(memoryStream, Encoding.UTF8)
-        If (includeHeaders) Then
-            Dim headerValues As List(Of String) = New List(Of String)()
-            For Each column As DataColumn In sourceTable.Columns
-                'Select Case column.ColumnName
+    ''        Dim context As HttpContext = HttpContext.Current
+    ''        Dim memoryStream As New MemoryStream
+    ''        writer = New StreamWriter(memoryStream, Encoding.UTF8)
+    ''        If (includeHeaders) Then
+    ''            Dim headerValues As List(Of String) = New List(Of String)()
+    ''            For Each column As DataColumn In sourceTable.Columns
+    ''                'Select Case column.ColumnName
 
-                '    Case "BranchName"
+    ''                '    Case "BranchName"
 
-                '        headerValues.Add(QuoteValue("[نام شعبه]"))
+    ''                '        headerValues.Add(QuoteValue("[نام شعبه]"))
 
-                '    Case "SMSCount"
+    ''                '    Case "SMSCount"
 
-                '        headerValues.Add(QuoteValue("[تعداد]"))
+    ''                '        headerValues.Add(QuoteValue("[تعداد]"))
 
 
-                '    Case "theDay"
-                '        headerValues.Add(QuoteValue("[روز]"))
+    ''                '    Case "theDay"
+    ''                '        headerValues.Add(QuoteValue("[روز]"))
 
 
-                '    Case "CustomerNo"
+    ''                '    Case "CustomerNo"
 
-                '        headerValues.Add(QuoteValue("[مشتری]"))
+    ''                '        headerValues.Add(QuoteValue("[مشتری]"))
 
-                '    Case "strMessage"
+    ''                '    Case "strMessage"
 
-                '        headerValues.Add(QuoteValue("[متن ارسالی]"))
+    ''                '        headerValues.Add(QuoteValue("[متن ارسالی]"))
 
-                '    Case "SentLogTime"
+    ''                '    Case "SentLogTime"
 
-                '        headerValues.Add(QuoteValue("[زمان ارسال]"))
+    ''                '        headerValues.Add(QuoteValue("[زمان ارسال]"))
 
-                '    Case "SendStatus"
+    ''                '    Case "SendStatus"
 
-                '        headerValues.Add(QuoteValue("[وضعیت]"))
+    ''                '        headerValues.Add(QuoteValue("[وضعیت]"))
 
-                '    Case "NotificationType"
+    ''                '    Case "NotificationType"
 
-                '        headerValues.Add(QuoteValue("[نوع اطلاع رسانی]"))
-                '    Case "LoanNumber"
+    ''                '        headerValues.Add(QuoteValue("[نوع اطلاع رسانی]"))
+    ''                '    Case "LoanNumber"
 
-                '        headerValues.Add(QuoteValue("[وام]"))
+    ''                '        headerValues.Add(QuoteValue("[وام]"))
 
-                '    Case "Branch"
+    ''                '    Case "Branch"
 
-                '        headerValues.Add(QuoteValue("[شعبه]"))
+    ''                '        headerValues.Add(QuoteValue("[شعبه]"))
 
-                '    Case "Interval"
+    ''                '    Case "Interval"
 
-                '        headerValues.Add(QuoteValue("[بازه]"))
-                'End Select
-                headerValues.Add(QuoteValue(column.ColumnName))
-            Next
-            writer.WriteLine(String.Join(",", headerValues.ToArray))
-        End If
-        Dim items() As String = Nothing
-        ReDim items(sourceTable.Columns.Count - 1)
-        For Each row As DataRow In sourceTable.Rows
-            For i As Integer = 0 To sourceTable.Columns.Count - 1
-                If i = 0 OrElse i = 3 Then
-                    items(i) = mdlGeneral.GetPersianDate(CDate(row.Item(i)))
-                Else
-                    items(i) = row.Item(i).ToString
-                End If
+    ''                '        headerValues.Add(QuoteValue("[بازه]"))
+    ''                'End Select
+    ''                headerValues.Add(QuoteValue(column.ColumnName))
+    ''            Next
+    ''            writer.WriteLine(String.Join(",", headerValues.ToArray))
+    ''        End If
+    ''        Dim items() As String = Nothing
+    ''        ReDim items(sourceTable.Columns.Count - 1)
+    ''        For Each row As DataRow In sourceTable.Rows
+    ''            For i As Integer = 0 To sourceTable.Columns.Count - 1
+    ''                If i = 0 OrElse i = 3 Then
+    ''                    items(i) = mdlGeneral.GetPersianDate(CDate(row.Item(i)))
+    ''                Else
+    ''                    items(i) = row.Item(i).ToString
+    ''                End If
 
-            Next i
+    ''            Next i
 
-            '    items = row.ItemArray.Select(Function(obj) QuoteValue(obj.ToString())).ToArray()
-            writer.WriteLine(String.Join(",", items))
-        Next
+    ''            '    items = row.ItemArray.Select(Function(obj) QuoteValue(obj.ToString())).ToArray()
+    ''            writer.WriteLine(String.Join(",", items))
+    ''        Next
 
-        writer.Flush()
-        Dim bytesInStream As Byte() = memoryStream.ToArray()
-        memoryStream.Close()
-        context.Response.Clear()
-        context.Response.Charset = String.Empty
-        context.Response.ContentType = "text/csv"
-        context.Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ".csv")
-        context.Response.BinaryWrite(bytesInStream)
-        context.Response.End()
-    End Sub
+    ''        writer.Flush()
+    ''        Dim bytesInStream As Byte() = memoryStream.ToArray()
+    ''        memoryStream.Close()
+    ''        context.Response.Clear()
+    ''        context.Response.Charset = String.Empty
+    ''        context.Response.ContentType = "text/csv"
+    ''        context.Response.AddHeader("Content-Disposition", "attachment; filename=" + FileName + ".csv")
+    ''        context.Response.BinaryWrite(bytesInStream)
+    ''        context.Response.End()
+    ''    End Sub
 
-    Private Function QuoteValue(ByVal value As String) As String
-        Return String.Concat("""", value.Replace("""", """"""), """")
-    End Function
+    ''    Private Function QuoteValue(ByVal value As String) As String
+    ''        Return String.Concat("""", value.Replace("""", """"""), """")
+    ''    End Function
 
-    Private Sub btnLastPage_ServerClick(sender As Object, e As EventArgs) Handles btnLastPage.ServerClick
+    ''    Private Sub btnLastPage_ServerClick(sender As Object, e As EventArgs) Handles btnLastPage.ServerClick
 
 
 
-        Dim intTotalPage As Integer = Session("TotalPage")
+    ''        Dim intTotalPage As Integer = Session("TotalPage")
 
-        If intTotalPage = 0 Then
-            Return
-        End If
-        Session("CurrentPage") = intTotalPage
-        Call GenerateWarningListReport()
-        txtPageCounter.Value = Session("CurrentPage")
+    ''        If intTotalPage = 0 Then
+    ''            Return
+    ''        End If
+    ''        Session("CurrentPage") = intTotalPage
+    ''        Call GenerateWarningListReport()
+    ''        txtPageCounter.Value = Session("CurrentPage")
 
-    End Sub
+    ''    End Sub
 
-    Private Sub btnFirstPage_ServerClick(sender As Object, e As EventArgs) Handles btnFirstPage.ServerClick
+    ''    Private Sub btnFirstPage_ServerClick(sender As Object, e As EventArgs) Handles btnFirstPage.ServerClick
 
-        Dim intTotalPage As Integer = Session("TotalPage")
+    ''        Dim intTotalPage As Integer = Session("TotalPage")
 
-        If intTotalPage = 0 Then
-            Return
-        End If
+    ''        If intTotalPage = 0 Then
+    ''            Return
+    ''        End If
 
-        Dim intCurrentPage As Integer = 1
-        Session("CurrentPage") = 1
-        Call GenerateWarningListReport()
-        txtPageCounter.Value = Session("CurrentPage")
+    ''        Dim intCurrentPage As Integer = 1
+    ''        Session("CurrentPage") = 1
+    ''        Call GenerateWarningListReport()
+    ''        txtPageCounter.Value = Session("CurrentPage")
 
 
-    End Sub
+    ''    End Sub
 
 
-    Private Sub btnPreviousPage_ServerClick(sender As Object, e As EventArgs) Handles btnPreviousPage.ServerClick
-        Dim intTotalPage As Integer = Session("TotalPage")
+    ''    Private Sub btnPreviousPage_ServerClick(sender As Object, e As EventArgs) Handles btnPreviousPage.ServerClick
+    ''        Dim intTotalPage As Integer = Session("TotalPage")
 
-        If intTotalPage = 0 Then
-            Return
-        End If
+    ''        If intTotalPage = 0 Then
+    ''            Return
+    ''        End If
 
-        Dim intCurrentPage As Integer = CInt(Session("CurrentPage"))
-        If intCurrentPage > 1 Then
-            intCurrentPage -= 1
-        End If
-        Session("CurrentPage") = CObj(intCurrentPage)
-        Call GenerateWarningListReport()
-        txtPageCounter.Value = Session("CurrentPage")
-    End Sub
+    ''        Dim intCurrentPage As Integer = CInt(Session("CurrentPage"))
+    ''        If intCurrentPage > 1 Then
+    ''            intCurrentPage -= 1
+    ''        End If
+    ''        Session("CurrentPage") = CObj(intCurrentPage)
+    ''        Call GenerateWarningListReport()
+    ''        txtPageCounter.Value = Session("CurrentPage")
+    ''    End Sub
 
-    Private Sub btnNextPage_ServerClick(sender As Object, e As EventArgs) Handles btnNextPage.ServerClick
+    ''    Private Sub btnNextPage_ServerClick(sender As Object, e As EventArgs) Handles btnNextPage.ServerClick
 
-        Dim intTotalPage As Integer = Session("TotalPage")
+    ''        Dim intTotalPage As Integer = Session("TotalPage")
 
-        If intTotalPage = 0 Then
-            Return
-        End If
+    ''        If intTotalPage = 0 Then
+    ''            Return
+    ''        End If
 
 
-        Dim intCurrentPage As Integer = CInt(Session("CurrentPage"))
-        If intCurrentPage < intTotalPage Then
-            intCurrentPage += 1
-        End If
-        Session("CurrentPage") = CObj(intCurrentPage)
-        Call GenerateWarningListReport()
+    ''        Dim intCurrentPage As Integer = CInt(Session("CurrentPage"))
+    ''        If intCurrentPage < intTotalPage Then
+    ''            intCurrentPage += 1
+    ''        End If
+    ''        Session("CurrentPage") = CObj(intCurrentPage)
+    ''        Call GenerateWarningListReport()
 
-        txtPageCounter.Value = Session("CurrentPage")
-    End Sub
+    ''        txtPageCounter.Value = Session("CurrentPage")
+    ''    End Sub
 
-    Private Sub btnGoPage_ServerClick(sender As Object, e As EventArgs) Handles btnGoPage.ServerClick
+    ''    Private Sub btnGoPage_ServerClick(sender As Object, e As EventArgs) Handles btnGoPage.ServerClick
 
-        Dim intTotalPage As Integer = Session("TotalPage")
+    ''        Dim intTotalPage As Integer = Session("TotalPage")
 
-        If intTotalPage = 0 Then
-            Return
-        End If
+    ''        If intTotalPage = 0 Then
+    ''            Return
+    ''        End If
 
-        Dim intCurrentPage As Integer
+    ''        Dim intCurrentPage As Integer
 
-        If CInt(txtPageCounter.Value) < 1 Then
+    ''        If CInt(txtPageCounter.Value) < 1 Then
 
-            intCurrentPage = 1
-            txtPageCounter.Value = 1
+    ''            intCurrentPage = 1
+    ''            txtPageCounter.Value = 1
 
-        ElseIf CInt(txtPageCounter.Value) > CInt(Session("TotalPage")) Then
-            intCurrentPage = CInt(Session("TotalPage"))
+    ''        ElseIf CInt(txtPageCounter.Value) > CInt(Session("TotalPage")) Then
+    ''            intCurrentPage = CInt(Session("TotalPage"))
 
-        ElseIf CInt(txtPageCounter.Value) > CInt(Session("CurrentPage")) Then
-            intCurrentPage = intCurrentPage + CInt(txtPageCounter.Value)
+    ''        ElseIf CInt(txtPageCounter.Value) > CInt(Session("CurrentPage")) Then
+    ''            intCurrentPage = intCurrentPage + CInt(txtPageCounter.Value)
 
-        ElseIf CInt(txtPageCounter.Value) < CInt(Session("CurrentPage")) Then
-            intCurrentPage = intCurrentPage - CInt(txtPageCounter.Value)
+    ''        ElseIf CInt(txtPageCounter.Value) < CInt(Session("CurrentPage")) Then
+    ''            intCurrentPage = intCurrentPage - CInt(txtPageCounter.Value)
 
-        End If
+    ''        End If
 
 
 
 
-        Session("CurrentPage") = CObj(intCurrentPage)
-        Call GenerateWarningListReport()
+    ''        Session("CurrentPage") = CObj(intCurrentPage)
+    ''        Call GenerateWarningListReport()
 
-        txtPageCounter.Value = Session("CurrentPage")
+    ''        txtPageCounter.Value = Session("CurrentPage")
 
-    End Sub
+    ''    End Sub
 
 
 

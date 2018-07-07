@@ -89,8 +89,31 @@ Public Class HandyFollowNew
 
                 End If
 
-                Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
-                Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+                If Not Session("AssignType") Is Nothing Then
+                    If Session("AssignType") <> 1 Then
+                        ViewState("AssignType") = Session("AssignType")
+                        btnPrint.Visible = True
+                        divNotice.Visible = True
+                        btnAddToText.Visible = False
+
+                    Else
+
+                        btnPrint.Visible = False
+                        divNotice.Visible = False
+                        btnAddToText.Visible = True
+
+                    End If
+
+                Else
+
+                    btnPrint.Visible = False
+                    divNotice.Visible = False
+                    btnAddToText.Visible = True
+
+                End If
+
+                Dim tadpFile As New BusinessObject.dstHandyFollowTableAdapters.spr_File_SelectTableAdapter
+                Dim dtblFile As BusinessObject.dstHandyFollow.spr_File_SelectDataTable = Nothing
 
 
                 If Session("intFileID") = -1 AndAlso Not Session("CustomerNO") Is Nothing Then
@@ -125,6 +148,20 @@ Public Class HandyFollowNew
                             lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
                         End If
 
+
+                        If dtblFile.First.IsMobileNo2Null = False Then
+                            txtMobile.Text = dtblFile.First.MobileNo2
+                        End If
+
+                        If dtblFile.First.IsAddress2Null = False Then
+                            txtAddress.Text = dtblFile.First.Address2
+                        End If
+
+                        If dtblFile.First.IsNationalID2Null = False Then
+
+                            txtNationalID.Text = dtblFile.First.NationalID2
+                        End If
+
                     Else
 
                         '' GetCustomerInfo(Session("CustomerNO"))
@@ -154,6 +191,20 @@ Public Class HandyFollowNew
                         If dtblFile.First.IsMobileNoNull = False Then
                             lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
                         End If
+
+                        If dtblFile.First.IsMobileNo2Null = False Then
+                            txtMobile.Text = dtblFile.First.MobileNo2
+                        End If
+
+                        If dtblFile.First.IsAddress2Null = False Then
+                            txtAddress.Text = dtblFile.First.Address2
+                        End If
+
+                        If dtblFile.First.IsNationalID2Null = False Then
+
+                            txtNationalID.Text = dtblFile.First.NationalID2
+                        End If
+
                     End If
 
                     ''get loan no
@@ -215,6 +266,24 @@ Public Class HandyFollowNew
                         lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
                     End If
 
+                    If dtblFile.First.IsNationalIDNull = False Then
+                        txtNationalID.Text = dtblFile.First.NationalID
+                    End If
+
+                    If dtblFile.First.IsMobileNo2Null = False Then
+                        txtMobile.Text = dtblFile.First.MobileNo2
+                    End If
+
+                    If dtblFile.First.IsAddress2Null = False Then
+                        txtAddress.Text = dtblFile.First.Address2
+                    End If
+
+                    If dtblFile.First.IsNationalID2Null = False Then
+
+                        txtNationalID.Text = dtblFile.First.NationalID2
+                    End If
+
+
                 End If
 
             Else
@@ -247,112 +316,7 @@ Public Class HandyFollowNew
 
     Protected Sub btnAddToText_Click(sender As Object, e As EventArgs) Handles btnAddToText.Click
 
-
-        Try
-
-            Dim qryHnadyFollow As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
-
-
-            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
-
-            Dim intFileID As Integer = CInt(Session("intFileID"))
-            Dim intLonaID As Integer = CInt(Session("intLoanID"))
-            Dim intNotificationTypeID As Integer = CInt(cmbNotificationType.SelectedValue)
-            Dim blnToSponsor As Boolean = If(rdboToSponsor.SelectedValue = 1, True, False)
-            Dim intAudienceFileID As Integer = CInt(Session("intFileID"))
-
-
-            If blnToSponsor = True Then
-                If cmbSponsor.SelectedValue <> -1 Then
-
-                    ''get file ID
-                    Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
-                    Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
-
-                    dtblFile = tadpFile.GetData(3, -1, cmbSponsor.SelectedValue)
-
-                    If dtblFile.Rows.Count > 0 Then
-                        intAudienceFileID = dtblFile.First.ID
-                    End If
-
-
-
-                Else
-
-                    ''
-                    Bootstrap_Panel1.ShowMessage("ضامن را مشخص نمایید", True)
-                    Return
-
-                End If
-            End If
-
-            Dim intHandFollowAssignID? As Integer = Nothing
-            Dim blnUpdateHandyFollowAssign As Boolean = False
-            If Not Session("HandyFollowAssign") Is Nothing Then
-
-                intHandFollowAssignID = CInt(Session("HandyFollowAssign"))
-                blnUpdateHandyFollowAssign = True
-
-
-            Else
-                ''check Handy Follow Assign
-                Dim tadpHandyFollowAssignByUser As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByUser_SelectTableAdapter
-                Dim dtblHandyFollowAssignByUser As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByUser_SelectDataTable = Nothing
-
-                dtblHandyFollowAssignByUser = tadpHandyFollowAssignByUser.GetData(drwUserLogin.ID, CInt(Session("intLoanID")))
-                If dtblHandyFollowAssignByUser.Rows.Count > 0 Then
-
-                    intHandFollowAssignID = dtblHandyFollowAssignByUser.First.ID
-                    blnUpdateHandyFollowAssign = True
-                End If
-
-            End If
-
-            Dim blnAnswered As Boolean = If(rdbListAnswered.SelectedValue = 1, True, False)
-            Dim blnIsSuccess As Boolean = If(rdbListNotificationStatus.SelectedValue = 1, True, False)
-            Dim strRemarks As String = txtRemark.Text
-            Dim dtFromDate As DateTime = Bootstrap_PersianDateTimePicker_From.GergorainDateTime
-            Dim dteDutyDate As Date? = Nothing
-            If Bootstrap_PersianDateTimePicker_TO.PersianDateTime <> "" Then
-                dteDutyDate = Bootstrap_PersianDateTimePicker_TO.GergorainDateTime
-            End If
-
-            qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate, intHandFollowAssignID)
-
-            Bootstrap_Panel1.ShowMessage("ثبت پیگیری با موفقیت انجام شد", False)
-
-            GetHandyFollowList()
-
-
-            cmbNotificationType.SelectedValue = 2
-            rdbListAnswered.SelectedValue = 1
-            rdbListNotificationStatus.SelectedValue = 1
-            rdboToSponsor.SelectedValue = 0
-            cmbSponsor.SelectedValue = -1
-            txtRemark.Text = ""
-            Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
-            Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now.AddDays(10)
-
-            If blnUpdateHandyFollowAssign = True Then
-
-                Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
-                qryHandyFollowAssign.spr_HandyFollowAssignStatus_Update(intHandFollowAssignID)
-
-            End If
-
-
-        Catch ex As Exception
-
-            Bootstrap_Panel1.ShowMessage("در ثبت پیگیری خطا رخ داده است", True)
-
-            Return
-
-        End Try
-
-
-
-
+        AddFollow()
 
 
     End Sub
@@ -362,7 +326,7 @@ Public Class HandyFollowNew
 
         If Not Session("From") Is Nothing Then
 
-            Response.Redirect("HandyFollowSearch.aspx?Branch=" & Session("Branch").ToString & "&LoanType=" & Session("LoanType").ToString() & "&Province=" & Session("Province").ToString & "&From=" & Session("From").ToString() & "&To=" & Session("To").ToString())
+            Response.Redirect("HandyFollowFileSearch.aspx?Branch=" & Session("Branch").ToString & "&LoanType=" & Session("LoanType").ToString() & "&Province=" & Session("Province").ToString & "&From=" & Session("From").ToString() & "&To=" & Session("To").ToString())
 
         ElseIf Not Session("customerNO") Is Nothing Then
 
@@ -370,7 +334,7 @@ Public Class HandyFollowNew
 
         Else
 
-            Response.Redirect("HandyFollowSearch.aspx")
+            Response.Redirect("HandyFollowFileSearch.aspx")
         End If
 
 
@@ -533,6 +497,172 @@ Public Class HandyFollowNew
 
 
     End Sub
+
+
+
+    Private Sub AddFollow()
+
+        Try
+
+            Dim qryHnadyFollow As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+
+
+            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+            Dim intFileID As Integer = CInt(Session("intFileID"))
+            Dim intLonaID As Integer = CInt(Session("intLoanID"))
+            Dim intNotificationTypeID As Integer = CInt(cmbNotificationType.SelectedValue)
+            Dim blnToSponsor As Boolean = If(rdboToSponsor.SelectedValue = 1, True, False)
+            Dim intAudienceFileID As Integer = CInt(Session("intFileID"))
+
+
+            If blnToSponsor = True Then
+                If cmbSponsor.SelectedValue <> -1 Then
+
+                    ''get file ID
+                    Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                    Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+
+                    dtblFile = tadpFile.GetData(3, -1, cmbSponsor.SelectedValue)
+
+                    If dtblFile.Rows.Count > 0 Then
+                        intAudienceFileID = dtblFile.First.ID
+                    End If
+
+
+
+                Else
+
+                    ''
+                    Bootstrap_Panel1.ShowMessage("ضامن را مشخص نمایید", True)
+                    Return
+
+                End If
+            End If
+
+            Dim intHandFollowAssignID? As Integer = Nothing
+            Dim blnUpdateHandyFollowAssign As Boolean = False
+            If Not Session("HandyFollowAssign") Is Nothing Then
+
+                intHandFollowAssignID = CInt(Session("HandyFollowAssign"))
+                blnUpdateHandyFollowAssign = True
+
+
+            Else
+                ''check Handy Follow Assign
+                Dim tadpHandyFollowAssignByUser As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignByUser_SelectTableAdapter
+                Dim dtblHandyFollowAssignByUser As BusinessObject.dstHandyFollow.spr_HandyFollowAssignByUser_SelectDataTable = Nothing
+
+                dtblHandyFollowAssignByUser = tadpHandyFollowAssignByUser.GetData(drwUserLogin.ID, CInt(Session("intLoanID")))
+                If dtblHandyFollowAssignByUser.Rows.Count > 0 Then
+
+                    intHandFollowAssignID = dtblHandyFollowAssignByUser.First.ID
+                    blnUpdateHandyFollowAssign = True
+                End If
+
+            End If
+
+            Dim blnAnswered As Boolean = If(rdbListAnswered.SelectedValue = 1, True, False)
+            Dim blnIsSuccess As Boolean = If(rdbListNotificationStatus.SelectedValue = 1, True, False)
+            Dim strRemarks As String = txtRemark.Text
+            Dim dtFromDate As DateTime = Bootstrap_PersianDateTimePicker_From.GergorainDateTime
+            Dim dteDutyDate As Date? = Nothing
+            If Bootstrap_PersianDateTimePicker_TO.PersianDateTime <> "" Then
+                dteDutyDate = Bootstrap_PersianDateTimePicker_TO.GergorainDateTime
+            End If
+
+            qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate, intHandFollowAssignID)
+
+            If Not ViewState("AssignType") Is Nothing Then
+
+                If ViewState("AssignType") <> 1 Then
+
+                    Dim qryFile As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+
+                    Dim strMoileNO As String = txtMobile.Text.Trim()
+                    Dim strAddress As String = txtAddress.Text
+                    Dim strNationalID As String = txtNationalID.Text.Trim()
+                    qryFile.spr_FileInfo_Update(intFileID, strMoileNO, strAddress, strNationalID, drwUserLogin.ID)
+
+
+
+                End If
+
+
+            End If
+
+
+
+            Bootstrap_Panel1.ShowMessage("ثبت پیگیری با موفقیت انجام شد", False)
+
+            GetHandyFollowList()
+
+
+            cmbNotificationType.SelectedValue = 2
+            rdbListAnswered.SelectedValue = 1
+            rdbListNotificationStatus.SelectedValue = 1
+            rdboToSponsor.SelectedValue = 0
+            cmbSponsor.SelectedValue = -1
+            txtRemark.Text = ""
+            Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
+            Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now.AddDays(10)
+
+            If blnUpdateHandyFollowAssign = True Then
+
+                Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+                qryHandyFollowAssign.spr_HandyFollowAssignStatus_Update(intHandFollowAssignID)
+
+            End If
+
+
+        Catch ex As Exception
+
+            Bootstrap_Panel1.ShowMessage("در ثبت پیگیری خطا رخ داده است", True)
+
+            Return
+
+        End Try
+
+
+    End Sub
+
+    Protected Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+
+
+        Try
+
+            AddFollow()
+
+        Catch ex As Exception
+
+
+            Bootstrap_Panel1.ShowMessage("در ثبت پیگیری خطا رخ داده است", True)
+
+            Return
+
+
+        End Try
+
+
+
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+        If ViewState("AssignType") = 2 Then
+
+            Response.Redirect("ManifestPreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID)
+
+        ElseIf ViewState("AssignType") = 3 Then
+
+            Response.Redirect("NoticePreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&CompanyNational=" & txtCompanyNationalID.Text.Trim())
+
+        End If
+
+
+    End Sub
+
 
     'Private Sub GetCustomerInfo(ByVal strCustomerNO As String)
 

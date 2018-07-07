@@ -168,7 +168,7 @@ Public Class HandyFollowSearch
                 End If
 
 
-                DisplayFileList()
+                '' DisplayFileList()
 
             End If
 
@@ -198,7 +198,7 @@ Public Class HandyFollowSearch
 
     Private Sub Bootstrap_Panel1_Panel_Display_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Display_Click
 
-        DisplayFileList()
+        '' DisplayFileList()
 
     End Sub
 
@@ -507,471 +507,471 @@ Public Class HandyFollowSearch
     End Sub
 
 
-    Protected Sub DisplayFileList()
+    ''Protected Sub DisplayFileList()
 
-        Bootstrap_Panel1.ClearMessage()
+    ''    Bootstrap_Panel1.ClearMessage()
 
-        Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
-        cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
-        cnnBuiler_BI.UserID = "deposit"
-        cnnBuiler_BI.Password = "deposit"
-        cnnBuiler_BI.Unicode = True
+    ''    Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+    ''    cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+    ''    cnnBuiler_BI.UserID = "deposit"
+    ''    cnnBuiler_BI.Password = "deposit"
+    ''    cnnBuiler_BI.Unicode = True
 
-        Dim dteThisDate As Date = Date.Now.AddDays(-1)
-        Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
+    ''    Dim dteThisDate As Date = Date.Now.AddDays(-1)
+    ''    Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
 
-        Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+    ''    Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
 
-            Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+    ''        Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
 
-            Dim strLoan_Info_Query As String = "SELECT * from loan_info where Date_P='" & strThisDatePersian & "' and state in ('3','4','5','F')  and ("
+    ''        Dim strLoan_Info_Query As String = "SELECT * from loan_info where Date_P='" & strThisDatePersian & "' and state in ('3','4','5','F')  and ("
 
-            Dim strBranchQuery As String = ""
-            Dim ctxMehr As New BusinessObject.dbMehrVosulEntities1
+    ''        Dim strBranchQuery As String = ""
+    ''        Dim ctxMehr As New BusinessObject.dbMehrVosulEntities1
 
 
-            If cmbBranch.SelectedValue <> -1 Then
-                Dim lnqBranchCode = ctxMehr.tbl_Branch.Where(Function(x) x.ID = cmbBranch.SelectedValue).First
-                strLoan_Info_Query &= " ABRNCHCOD='" & lnqBranchCode.BrnachCode & "' )  "
-            End If
+    ''        If cmbBranch.SelectedValue <> -1 Then
+    ''            Dim lnqBranchCode = ctxMehr.tbl_Branch.Where(Function(x) x.ID = cmbBranch.SelectedValue).First
+    ''            strLoan_Info_Query &= " ABRNCHCOD='" & lnqBranchCode.BrnachCode & "' )  "
+    ''        End If
 
 
-            If cmbLoanType.SelectedValue <> -1 Then
-                Dim lnqLoanTypeCode = ctxMehr.tbl_LoanType.Where(Function(x) x.ID = cmbLoanType.SelectedValue).First
-                strLoan_Info_Query &= "  and ( LNMINORTP='" & lnqLoanTypeCode.LoanTypeCode & "' )  "
+    ''        If cmbLoanType.SelectedValue <> -1 Then
+    ''            Dim lnqLoanTypeCode = ctxMehr.tbl_LoanType.Where(Function(x) x.ID = cmbLoanType.SelectedValue).First
+    ''            strLoan_Info_Query &= "  and ( LNMINORTP='" & lnqLoanTypeCode.LoanTypeCode & "' )  "
 
-            End If
+    ''        End If
 
-            Dim strFromDay As String = txtFrom.Text
-            Dim strToDay As String = txtTo.Text
+    ''        Dim strFromDay As String = txtFrom.Text
+    ''        Dim strToDay As String = txtTo.Text
 
-            strLoan_Info_Query &= " and (NPDURATION between " & strFromDay & " and " & strToDay & " )"
+    ''        strLoan_Info_Query &= " and (NPDURATION between " & strFromDay & " and " & strToDay & " )"
 
 
 
-            cmd_BI.CommandText = strLoan_Info_Query
+    ''        cmd_BI.CommandText = strLoan_Info_Query
 
-            Try
-                cnnBI_Connection.Open()
-            Catch ex As Exception
+    ''        Try
+    ''            cnnBI_Connection.Open()
+    ''        Catch ex As Exception
 
-                Bootstrap_Panel1.ShowMessage(ex.Message, True)
-                Return
-            End Try
-            Dim dataReader As OracleDataReader = Nothing
+    ''            Bootstrap_Panel1.ShowMessage(ex.Message, True)
+    ''            Return
+    ''        End Try
+    ''        Dim dataReader As OracleDataReader = Nothing
 
-            Try
-                dataReader = cmd_BI.ExecuteReader()
+    ''        Try
+    ''            dataReader = cmd_BI.ExecuteReader()
 
-                If dataReader.Read = False Then
+    ''            If dataReader.Read = False Then
 
-                    Bootstrap_Panel1.ShowMessage(" موردی یافت نشد ", True)
+    ''                Bootstrap_Panel1.ShowMessage(" موردی یافت نشد ", True)
 
-                    dataReader.Close()
-                    cnnBI_Connection.Close()
+    ''                dataReader.Close()
+    ''                cnnBI_Connection.Close()
 
-                    Return
-                End If
+    ''                Return
+    ''            End If
 
-                Dim i As Integer
-                Dim intCount As Integer = 0
-                Dim stcVarLoanInfo As stc_Loan_Info
+    ''            Dim i As Integer
+    ''            Dim intCount As Integer = 0
+    ''            Dim stcVarLoanInfo As stc_Loan_Info
 
-                Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-                Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+    ''            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+    ''            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-                Dim listOperationLoan As New ArrayList
-                Dim qryErrorLog As New BusinessObject.dstLoginLogTableAdapters.QueriesTableAdapter
+    ''            Dim listOperationLoan As New ArrayList
+    ''            Dim qryErrorLog As New BusinessObject.dstLoginLogTableAdapters.QueriesTableAdapter
 
 
-                Do
-                    i += 1
-                    Dim TbRow As HtmlTableRow
+    ''            Do
+    ''                i += 1
+    ''                Dim TbRow As HtmlTableRow
 
 
-                    Try
+    ''                Try
 
-                        If dataReader.GetValue(0) Is DBNull.Value Then
-                            stcVarLoanInfo.FullName = ""
-                        Else
-                            stcVarLoanInfo.FullName = CStr(dataReader.GetValue(0)).Replace("'", "")
-                        End If
+    ''                    If dataReader.GetValue(0) Is DBNull.Value Then
+    ''                        stcVarLoanInfo.FullName = ""
+    ''                    Else
+    ''                        stcVarLoanInfo.FullName = CStr(dataReader.GetValue(0)).Replace("'", "")
+    ''                    End If
 
 
-                        If dataReader.GetValue(4) Is DBNull.Value Then
-                            stcVarLoanInfo.Mobile = ""
-                        Else
-                            stcVarLoanInfo.Mobile = CStr(dataReader.GetValue(4)).Trim.Replace("'", "")
-                        End If
+    ''                    If dataReader.GetValue(4) Is DBNull.Value Then
+    ''                        stcVarLoanInfo.Mobile = ""
+    ''                    Else
+    ''                        stcVarLoanInfo.Mobile = CStr(dataReader.GetValue(4)).Trim.Replace("'", "")
+    ''                    End If
 
 
-                        If dataReader.GetValue(6) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(6)).Trim.Replace("'", "")
-                        End If
+    ''                    If dataReader.GetValue(6) Is DBNull.Value Then
+    ''                        i -= 1
+    ''                        Continue Do
+    ''                    Else
+    ''                        stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(6)).Trim.Replace("'", "")
+    ''                    End If
 
 
-                        If dataReader.GetValue(7) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.BranchCode = CStr(dataReader.GetValue(7)).Trim
-                        End If
+    ''                    If dataReader.GetValue(7) Is DBNull.Value Then
+    ''                        i -= 1
+    ''                        Continue Do
+    ''                    Else
+    ''                        stcVarLoanInfo.BranchCode = CStr(dataReader.GetValue(7)).Trim
+    ''                    End If
 
 
-                        If dataReader.GetValue(9) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(9)).Trim.Replace("'", "")
-                        End If
+    ''                    If dataReader.GetValue(9) Is DBNull.Value Then
+    ''                        i -= 1
+    ''                        Continue Do
+    ''                    Else
+    ''                        stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(9)).Trim.Replace("'", "")
+    ''                    End If
 
 
-                        If dataReader.GetValue(10) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.LoanSerial = CInt(dataReader.GetValue(10))
-                        End If
+    ''                    If dataReader.GetValue(10) Is DBNull.Value Then
+    ''                        i -= 1
+    ''                        Continue Do
+    ''                    Else
+    ''                        stcVarLoanInfo.LoanSerial = CInt(dataReader.GetValue(10))
+    ''                    End If
 
-                        If dataReader.GetValue(11) Is DBNull.Value Then
-                            stcVarLoanInfo.LCDate = ""
-                        Else
-                            stcVarLoanInfo.LCDate = CStr(dataReader.GetValue(11)).Trim
-                        End If
+    ''                    If dataReader.GetValue(11) Is DBNull.Value Then
+    ''                        stcVarLoanInfo.LCDate = ""
+    ''                    Else
+    ''                        stcVarLoanInfo.LCDate = CStr(dataReader.GetValue(11)).Trim
+    ''                    End If
 
-                        If dataReader.GetValue(12) Is DBNull.Value Then
-                            stcVarLoanInfo.LCAmount = Nothing
-                        Else
-                            stcVarLoanInfo.LCAmount = CDbl(dataReader.GetValue(12))
-                        End If
+    ''                    If dataReader.GetValue(12) Is DBNull.Value Then
+    ''                        stcVarLoanInfo.LCAmount = Nothing
+    ''                    Else
+    ''                        stcVarLoanInfo.LCAmount = CDbl(dataReader.GetValue(12))
+    ''                    End If
 
 
 
-                        If dataReader.GetValue(17) Is DBNull.Value Then
-                            stcVarLoanInfo.AmounDefferd = Nothing
-                        Else
-                            stcVarLoanInfo.AmounDefferd = CDbl(dataReader.GetValue(17))
-                        End If
+    ''                    If dataReader.GetValue(17) Is DBNull.Value Then
+    ''                        stcVarLoanInfo.AmounDefferd = Nothing
+    ''                    Else
+    ''                        stcVarLoanInfo.AmounDefferd = CDbl(dataReader.GetValue(17))
+    ''                    End If
 
 
 
-                        If dataReader.GetValue(21) Is DBNull.Value Then
-                            i -= 1
-                            Continue Do
-                        Else
-                            stcVarLoanInfo.NotPiadDurationDay = CInt(dataReader.GetValue(21))
-                        End If
+    ''                    If dataReader.GetValue(21) Is DBNull.Value Then
+    ''                        i -= 1
+    ''                        Continue Do
+    ''                    Else
+    ''                        stcVarLoanInfo.NotPiadDurationDay = CInt(dataReader.GetValue(21))
+    ''                    End If
 
-                        ''check if Customer Number is double or not, if it is then skip it
-                        If i = 1 Then
+    ''                    ''check if Customer Number is double or not, if it is then skip it
+    ''                    If i = 1 Then
 
-                            listOperationLoan.Add(stcVarLoanInfo.CustomerNo)
+    ''                        listOperationLoan.Add(stcVarLoanInfo.CustomerNo)
 
-                        Else
+    ''                    Else
 
 
-                            For Each obj In listOperationLoan
-                                If obj = stcVarLoanInfo.CustomerNo Then
-                                    Continue Do
-                                End If
-                            Next
+    ''                        For Each obj In listOperationLoan
+    ''                            If obj = stcVarLoanInfo.CustomerNo Then
+    ''                                Continue Do
+    ''                            End If
+    ''                        Next
 
-                            listOperationLoan.Add(stcVarLoanInfo.CustomerNo)
+    ''                        listOperationLoan.Add(stcVarLoanInfo.CustomerNo)
 
-                        End If
+    ''                    End If
 
 
-                        Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
-                        Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
-                        dtblBranchbyCode = tadpBranchbyCode.GetData(stcVarLoanInfo.BranchCode)
+    ''                    Dim tadpBranchbyCode As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
+    ''                    Dim dtblBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
+    ''                    dtblBranchbyCode = tadpBranchbyCode.GetData(stcVarLoanInfo.BranchCode)
 
-                        Dim intBranchID As Integer = -1
-                        Dim strBranchName As String = ""
-                        If dtblBranchbyCode.Rows.Count = 0 Then
+    ''                    Dim intBranchID As Integer = -1
+    ''                    Dim strBranchName As String = ""
+    ''                    If dtblBranchbyCode.Rows.Count = 0 Then
 
-                            Dim obj_stc_BranchInfo As stc_Branch_Info = GetBarnchName(stcVarLoanInfo.BranchCode)
-                            Dim qryBranch As New BusinessObject.dstBranchTableAdapters.QueriesTableAdapter
-                            intBranchID = qryBranch.spr_Branch_Insert(stcVarLoanInfo.BranchCode, obj_stc_BranchInfo.BranchName, obj_stc_BranchInfo.BranchAddress, 2, Nothing, "", 1) 'UserID=2 is System User
-                            strBranchName = obj_stc_BranchInfo.BranchName
+    ''                        Dim obj_stc_BranchInfo As stc_Branch_Info = GetBarnchName(stcVarLoanInfo.BranchCode)
+    ''                        Dim qryBranch As New BusinessObject.dstBranchTableAdapters.QueriesTableAdapter
+    ''                        intBranchID = qryBranch.spr_Branch_Insert(stcVarLoanInfo.BranchCode, obj_stc_BranchInfo.BranchName, obj_stc_BranchInfo.BranchAddress, 2, Nothing, "", 1) 'UserID=2 is System User
+    ''                        strBranchName = obj_stc_BranchInfo.BranchName
 
 
-                        Else
+    ''                    Else
 
-                            Dim drwBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectRow = dtblBranchbyCode.Rows(0)
+    ''                        Dim drwBranchbyCode As BusinessObject.dstBranch.spr_Branch_ByCode_SelectRow = dtblBranchbyCode.Rows(0)
 
-                            intBranchID = drwBranchbyCode.ID
-                            strBranchName = drwBranchbyCode.BranchName
+    ''                        intBranchID = drwBranchbyCode.ID
+    ''                        strBranchName = drwBranchbyCode.BranchName
 
-                        End If
+    ''                    End If
 
 
 
-                        ''get total report
+    ''                    ''get total report
 
-                        With stcVarLoanInfo
+    ''                    With stcVarLoanInfo
 
-                            intCount += 1
+    ''                        intCount += 1
 
 
-                            Dim TbCell As HtmlTableCell
-                            TbRow = New HtmlTableRow
+    ''                        Dim TbCell As HtmlTableCell
+    ''                        TbRow = New HtmlTableRow
 
 
-                            TbCell = New HtmlTableCell
-                            TbCell.InnerHtml = CStr(intCount)
-                            TbCell.Align = "center"
-                            TbCell.NoWrap = True
-                            TbRow.Cells.Add(TbCell)
+    ''                        TbCell = New HtmlTableCell
+    ''                        TbCell.InnerHtml = CStr(intCount)
+    ''                        TbCell.Align = "center"
+    ''                        TbCell.NoWrap = True
+    ''                        TbRow.Cells.Add(TbCell)
 
 
-                            TbCell = New HtmlTableCell
-                            TbCell.InnerHtml = stcVarLoanInfo.CustomerNo
-                            TbCell.NoWrap = True
-                            TbCell.Align = "center"
-                            TbRow.Cells.Add(TbCell)
+    ''                        TbCell = New HtmlTableCell
+    ''                        TbCell.InnerHtml = stcVarLoanInfo.CustomerNo
+    ''                        TbCell.NoWrap = True
+    ''                        TbCell.Align = "center"
+    ''                        TbRow.Cells.Add(TbCell)
 
-                            TbCell = New HtmlTableCell
+    ''                        TbCell = New HtmlTableCell
 
-                            Dim arrFullName() As String = stcVarLoanInfo.FullName.Split("*")
-                            Dim strFatherName As String = arrFullName(0)
-                            Dim strFName As String = arrFullName(1)
-                            Dim strLName As String = arrFullName(2)
-                            TbCell.InnerHtml = strFName & " " & strLName
-                            TbCell.NoWrap = False
-                            TbCell.Width = "100px"
-                            TbCell.Align = "center"
-                            TbRow.Cells.Add(TbCell)
+    ''                        Dim arrFullName() As String = stcVarLoanInfo.FullName.Split("*")
+    ''                        Dim strFatherName As String = arrFullName(0)
+    ''                        Dim strFName As String = arrFullName(1)
+    ''                        Dim strLName As String = arrFullName(2)
+    ''                        TbCell.InnerHtml = strFName & " " & strLName
+    ''                        TbCell.NoWrap = False
+    ''                        TbCell.Width = "100px"
+    ''                        TbCell.Align = "center"
+    ''                        TbRow.Cells.Add(TbCell)
 
 
-                            TbCell = New HtmlTableCell
-                            TbCell.InnerHtml = stcVarLoanInfo.LC_No
-                            TbCell.NoWrap = True
-                            TbCell.Align = "center"
-                            TbRow.Cells.Add(TbCell)
+    ''                        TbCell = New HtmlTableCell
+    ''                        TbCell.InnerHtml = stcVarLoanInfo.LC_No
+    ''                        TbCell.NoWrap = True
+    ''                        TbCell.Align = "center"
+    ''                        TbRow.Cells.Add(TbCell)
 
 
 
-                            TbCell = New HtmlTableCell
-                            TbCell.InnerHtml = stcVarLoanInfo.Mobile
-                            TbCell.NoWrap = True
-                            TbCell.Align = "center"
-                            TbRow.Cells.Add(TbCell)
+    ''                        TbCell = New HtmlTableCell
+    ''                        TbCell.InnerHtml = stcVarLoanInfo.Mobile
+    ''                        TbCell.NoWrap = True
+    ''                        TbCell.Align = "center"
+    ''                        TbRow.Cells.Add(TbCell)
 
 
-                            TbCell = New HtmlTableCell
-                            TbCell.InnerHtml = stcVarLoanInfo.NotPiadDurationDay
-                            TbCell.NoWrap = True
-                            TbCell.Width = "50px"
-                            TbCell.Align = "center"
-                            TbRow.Cells.Add(TbCell)
+    ''                        TbCell = New HtmlTableCell
+    ''                        TbCell.InnerHtml = stcVarLoanInfo.NotPiadDurationDay
+    ''                        TbCell.NoWrap = True
+    ''                        TbCell.Width = "50px"
+    ''                        TbCell.Align = "center"
+    ''                        TbRow.Cells.Add(TbCell)
 
-                            TbCell = New HtmlTableCell
-                            TbCell.InnerHtml = strBranchName
-                            TbCell.NoWrap = False
-                            TbCell.Width = "120px"
-                            TbCell.Align = "center"
-                            TbRow.Cells.Add(TbCell)
+    ''                        TbCell = New HtmlTableCell
+    ''                        TbCell.InnerHtml = strBranchName
+    ''                        TbCell.NoWrap = False
+    ''                        TbCell.Width = "120px"
+    ''                        TbCell.Align = "center"
+    ''                        TbRow.Cells.Add(TbCell)
 
 
 
-                            Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
-                            Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
-                            dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarLoanInfo.CustomerNo)
+    ''                        Dim tadpFilebyCustomerNo As New BusinessObject.dstFileTableAdapters.spr_File_CustomerNo_SelectTableAdapter
+    ''                        Dim dtblFilebyCustomerNo As BusinessObject.dstFile.spr_File_CustomerNo_SelectDataTable = Nothing
+    ''                        dtblFilebyCustomerNo = tadpFilebyCustomerNo.GetData(stcVarLoanInfo.CustomerNo)
 
-                            Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
+    ''                        Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
 
 
 
-                            If dtblFilebyCustomerNo.Count > 0 Then
+    ''                        If dtblFilebyCustomerNo.Count > 0 Then
 
-                                If drwUserLogin.IsDataUserAdmin = False Then
+    ''                            If drwUserLogin.IsDataUserAdmin = False Then
 
-                                    Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
-                                    Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
-                                    dtblLoanByNumber = tadpLoanByNumber.GetData(stcVarLoanInfo.LC_No, dtblFilebyCustomerNo.First.ID)
+    ''                                Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+    ''                                Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+    ''                                dtblLoanByNumber = tadpLoanByNumber.GetData(stcVarLoanInfo.LC_No, dtblFilebyCustomerNo.First.ID)
 
-                                    If dtblLoanByNumber.Count > 0 Then
+    ''                                If dtblLoanByNumber.Count > 0 Then
 
-                                        'Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollow_CheckFileLoan_SelectTableAdapter
-                                        'Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollow_CheckFileLoan_SelectDataTable = Nothing
+    ''                                    'Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollow_CheckFileLoan_SelectTableAdapter
+    ''                                    'Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollow_CheckFileLoan_SelectDataTable = Nothing
 
-                                        'dtblHandyFollow = tadpHandyFollow.GetData(dtblLoanByNumber.First.ID, dtblFilebyCustomerNo.First.ID)
-                                        Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
-                                        Dim intLoanID As Integer = dtblLoanByNumber.First.ID
-                                        Dim intLogCount = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID).Count()
-                                        If intLogCount = 0 Then
+    ''                                    'dtblHandyFollow = tadpHandyFollow.GetData(dtblLoanByNumber.First.ID, dtblFilebyCustomerNo.First.ID)
+    ''                                    Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
+    ''                                    Dim intLoanID As Integer = dtblLoanByNumber.First.ID
+    ''                                    Dim intLogCount = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID).Count()
+    ''                                    If intLogCount = 0 Then
 
 
 
-                                            TbCell = New HtmlTableCell
-                                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & dtblFilebyCustomerNo.First.ID & "," & dtblLoanByNumber.First.ID & "," & stcVarLoanInfo.AmounDefferd & ")>ثبت پیگیری</a>"
-                                            TbCell.NoWrap = True
-                                            TbCell.Align = "center"
-                                            TbRow.Cells.Add(TbCell)
+    ''                                        TbCell = New HtmlTableCell
+    ''                                        TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & dtblFilebyCustomerNo.First.ID & "," & dtblLoanByNumber.First.ID & "," & stcVarLoanInfo.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                                        TbCell.NoWrap = True
+    ''                                        TbCell.Align = "center"
+    ''                                        TbRow.Cells.Add(TbCell)
 
-                                            TbCell = New HtmlTableCell
-                                            TbCell.InnerHtml = "---"
-                                            TbCell.NoWrap = True
-                                            TbCell.Align = "center"
-                                            TbRow.Cells.Add(TbCell)
+    ''                                        TbCell = New HtmlTableCell
+    ''                                        TbCell.InnerHtml = "---"
+    ''                                        TbCell.NoWrap = True
+    ''                                        TbCell.Align = "center"
+    ''                                        TbRow.Cells.Add(TbCell)
 
-                                        Else
+    ''                                    Else
 
-                                            Dim intUserId As Integer = drwUserLogin.ID
-                                            Dim intLogCountByUser = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID And x.FK_UserID = intUserId).Count()
+    ''                                        Dim intUserId As Integer = drwUserLogin.ID
+    ''                                        Dim intLogCountByUser = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID And x.FK_UserID = intUserId).Count()
 
 
 
-                                            If intLogCountByUser = 0 Then
+    ''                                        If intLogCountByUser = 0 Then
 
-                                                TbCell = New HtmlTableCell
-                                                TbCell.InnerHtml = "ثبت پیگیری"
-                                                TbCell.NoWrap = False
-                                                TbCell.Align = "center"
-                                                TbRow.Cells.Add(TbCell)
+    ''                                            TbCell = New HtmlTableCell
+    ''                                            TbCell.InnerHtml = "ثبت پیگیری"
+    ''                                            TbCell.NoWrap = False
+    ''                                            TbCell.Align = "center"
+    ''                                            TbRow.Cells.Add(TbCell)
 
-                                                Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
-                                                If lnqDetail.Count > 0 Then
+    ''                                            Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
+    ''                                            If lnqDetail.Count > 0 Then
 
-                                                    Dim lnqDetailList = lnqDetail.ToList(0)
-                                                    Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+    ''                                                Dim lnqDetailList = lnqDetail.ToList(0)
+    ''                                                Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
 
-                                                    TbCell = New HtmlTableCell
-                                                    TbCell.InnerHtml = lnqUser.Username
-                                                    TbCell.NoWrap = True
-                                                    TbCell.Align = "center"
-                                                    TbRow.Cells.Add(TbCell)
+    ''                                                TbCell = New HtmlTableCell
+    ''                                                TbCell.InnerHtml = lnqUser.Username
+    ''                                                TbCell.NoWrap = True
+    ''                                                TbCell.Align = "center"
+    ''                                                TbRow.Cells.Add(TbCell)
 
-                                                End If
-                                            Else
+    ''                                            End If
+    ''                                        Else
 
-                                                TbCell = New HtmlTableCell
-                                                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & dtblFilebyCustomerNo.First.ID & "," & dtblLoanByNumber.First.ID & stcVarLoanInfo.AmounDefferd & ")>ثبت پیگیری</a>"
-                                                TbCell.NoWrap = True
-                                                TbCell.Align = "center"
-                                                TbRow.Cells.Add(TbCell)
+    ''                                            TbCell = New HtmlTableCell
+    ''                                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & dtblFilebyCustomerNo.First.ID & "," & dtblLoanByNumber.First.ID & stcVarLoanInfo.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                                            TbCell.NoWrap = True
+    ''                                            TbCell.Align = "center"
+    ''                                            TbRow.Cells.Add(TbCell)
 
-                                                Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
-                                                If lnqDetail.Count > 0 Then
-                                                    Dim lnqDetailList = lnqDetail.ToList(0)
-                                                    Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+    ''                                            Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
+    ''                                            If lnqDetail.Count > 0 Then
+    ''                                                Dim lnqDetailList = lnqDetail.ToList(0)
+    ''                                                Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
 
-                                                    TbCell = New HtmlTableCell
-                                                    TbCell.InnerHtml = lnqUser.Username
-                                                    TbCell.NoWrap = True
-                                                    TbCell.Align = "center"
-                                                    TbRow.Cells.Add(TbCell)
+    ''                                                TbCell = New HtmlTableCell
+    ''                                                TbCell.InnerHtml = lnqUser.Username
+    ''                                                TbCell.NoWrap = True
+    ''                                                TbCell.Align = "center"
+    ''                                                TbRow.Cells.Add(TbCell)
 
-                                                End If
+    ''                                            End If
 
-                                            End If
+    ''                                        End If
 
 
 
-                                        End If
-                                    End If
+    ''                                    End If
+    ''                                End If
 
 
-                                Else
+    ''                            Else
 
-                                    Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
-                                    Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
-                                    dtblLoanByNumber = tadpLoanByNumber.GetData(stcVarLoanInfo.LC_No, dtblFilebyCustomerNo.First.ID)
+    ''                                Dim tadpLoanByNumber As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+    ''                                Dim dtblLoanByNumber As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+    ''                                dtblLoanByNumber = tadpLoanByNumber.GetData(stcVarLoanInfo.LC_No, dtblFilebyCustomerNo.First.ID)
 
-                                    Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
-                                    Dim intLoanID As Integer = dtblLoanByNumber.First.ID
+    ''                                Dim intFileID As Integer = dtblFilebyCustomerNo.First.ID
+    ''                                Dim intLoanID As Integer = dtblLoanByNumber.First.ID
 
-                                    TbCell = New HtmlTableCell
-                                    TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & dtblFilebyCustomerNo.First.ID & "," & dtblLoanByNumber.First.ID & "," & stcVarLoanInfo.AmounDefferd & ")>ثبت پیگیری</a>"
-                                    TbCell.NoWrap = True
-                                    TbCell.Align = "center"
-                                    TbRow.Cells.Add(TbCell)
+    ''                                TbCell = New HtmlTableCell
+    ''                                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & dtblFilebyCustomerNo.First.ID & "," & dtblLoanByNumber.First.ID & "," & stcVarLoanInfo.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                                TbCell.NoWrap = True
+    ''                                TbCell.Align = "center"
+    ''                                TbRow.Cells.Add(TbCell)
 
 
-                                    Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
-                                    Dim followingUserName As String = "---"
-                                    ''********************
-                                    If lnqDetail.Count > 0 Then
-                                        Dim lnqDetailList = lnqDetail.ToList(0)
+    ''                                Dim lnqDetail = cntxVar.tbl_HandyFollow.Where(Function(x) x.FK_FileID = intFileID And x.FK_LoanID = intLoanID)
+    ''                                Dim followingUserName As String = "---"
+    ''                                ''********************
+    ''                                If lnqDetail.Count > 0 Then
+    ''                                    Dim lnqDetailList = lnqDetail.ToList(0)
 
-                                        Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
-                                        followingUserName = lnqUser.Username
-                                    End If
+    ''                                    Dim lnqUser = cntxVar.tbl_User.Where(Function(x) x.ID = lnqDetailList.FK_UserID).ToList(0)
+    ''                                    followingUserName = lnqUser.Username
+    ''                                End If
 
 
 
-                                    TbCell = New HtmlTableCell
-                                    TbCell.InnerHtml = followingUserName
-                                    TbCell.NoWrap = True
-                                    TbCell.Align = "center"
-                                    TbRow.Cells.Add(TbCell)
+    ''                                TbCell = New HtmlTableCell
+    ''                                TbCell.InnerHtml = followingUserName
+    ''                                TbCell.NoWrap = True
+    ''                                TbCell.Align = "center"
+    ''                                TbRow.Cells.Add(TbCell)
 
 
-                                End If
+    ''                            End If
 
-                            Else
+    ''                        Else
 
 
-                                Session("BranchID") = intBranchID
-                                Session("BranchName") = strBranchName
-                                Session("CustomerNO") = stcVarLoanInfo.CustomerNo
+    ''                            Session("BranchID") = intBranchID
+    ''                            Session("BranchName") = strBranchName
+    ''                            Session("CustomerNO") = stcVarLoanInfo.CustomerNo
 
-                                TbCell = New HtmlTableCell
-                                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & -1 & "," & -1 & "," & stcVarLoanInfo.AmounDefferd & ")>ثبت پیگیری</a>"
-                                TbCell.NoWrap = True
-                                TbCell.Align = "center"
-                                TbRow.Cells.Add(TbCell)
+    ''                            TbCell = New HtmlTableCell
+    ''                            TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & -1 & "," & -1 & "," & stcVarLoanInfo.AmounDefferd & ")>ثبت پیگیری</a>"
+    ''                            TbCell.NoWrap = True
+    ''                            TbCell.Align = "center"
+    ''                            TbRow.Cells.Add(TbCell)
 
-                                TbCell = New HtmlTableCell
-                                TbCell.InnerHtml = "---"
-                                TbCell.NoWrap = True
-                                TbCell.Align = "center"
-                                TbRow.Cells.Add(TbCell)
+    ''                            TbCell = New HtmlTableCell
+    ''                            TbCell.InnerHtml = "---"
+    ''                            TbCell.NoWrap = True
+    ''                            TbCell.Align = "center"
+    ''                            TbRow.Cells.Add(TbCell)
 
 
-                            End If
+    ''                        End If
 
 
 
-                        End With
+    ''                    End With
 
 
 
-                        divResult.Visible = True
-                        tblResult.Rows.Add(TbRow)
+    ''                    divResult.Visible = True
+    ''                    tblResult.Rows.Add(TbRow)
 
 
-                    Catch ex As Exception
+    ''                Catch ex As Exception
 
-                        qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, drwUserLogin.ID.ToString())
-                        Continue Do
+    ''                    qryErrorLog.spr_ErrorLog_Insert(ex.Message, 3, drwUserLogin.ID.ToString())
+    ''                    Continue Do
 
-                    End Try
+    ''                End Try
 
 
-                Loop While dataReader.Read()
-                dataReader.Close()
+    ''            Loop While dataReader.Read()
+    ''            dataReader.Close()
 
-                listOperationLoan.Clear()
+    ''            listOperationLoan.Clear()
 
-            Catch ex As Exception
+    ''        Catch ex As Exception
 
-                Bootstrap_Panel1.ShowMessage(ex.Message, True)
+    ''            Bootstrap_Panel1.ShowMessage(ex.Message, True)
 
-                cnnBI_Connection.Close()
+    ''            cnnBI_Connection.Close()
 
-                Return
-            End Try
+    ''            Return
+    ''        End Try
 
-        End Using
+    ''    End Using
 
 
 
 
-    End Sub
+    ''End Sub
 
 
     Private Function GetBarnchName(ByVal strBranchCode As String) As stc_Branch_Info

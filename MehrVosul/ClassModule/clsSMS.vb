@@ -31,7 +31,7 @@ Public Class clsSMS
             txt = txt & "<!DOCTYPE smsBatch PUBLIC ""-//PERVASIVE//DTD CPAS 1.0//EN"" ""http://www.ubicomp.ir/dtd/Cpas.dtd"">" & vbCrLf
             txt = txt & "<smsBatch  ackType=""" & ackType & """ company=""" & Company & """ batchID=""" & BatchID & """>" & vbCrLf
 
-            For i = 0 To DestSize - 1
+            For i As Integer = 0 To DestSize - 1
 
                 Dim strMessage As String = Message(i)
                 Dim strDestinationAddress As String = correctNumber(DestinationAddress(i))
@@ -388,7 +388,7 @@ errHandler:
     End Function
     Public Function DecodePersianNumber(ByVal PersianNumber As String) As String
         Dim EngNum As String = ""
-        For i = 0 To PersianNumber.Length - 1
+        For i As Integer = 0 To PersianNumber.Length - 1
             Dim number As String = PersianNumber.Substring(i, 1)
             Select Case number
                 Case "۰"

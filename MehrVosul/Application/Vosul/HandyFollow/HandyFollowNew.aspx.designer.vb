@@ -248,6 +248,69 @@ Partial Public Class HandyFollowNew
     Protected WithEvents txtRemark As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''divNotice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divNotice As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''txtMobile control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtMobile As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtAddress control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAddress As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtNationalID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNationalID As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtLetterNO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtLetterNO As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtRegisterNO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtRegisterNO As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtCompanyNationalID control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCompanyNationalID As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''btnAddToText control.
     '''</summary>
     '''<remarks>
@@ -255,6 +318,15 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnAddToText As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''btnPrint control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnPrint As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
     '''hdnAction control.

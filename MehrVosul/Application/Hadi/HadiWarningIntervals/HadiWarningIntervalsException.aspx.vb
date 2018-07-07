@@ -21,146 +21,146 @@
 
         If Page.IsPostBack = False Then
 
-            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+            ''    Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+            ''    Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-            If Session("intEditHadiWarningIntervalsID") Is Nothing Then
-                Response.Redirect("HadiwarningIntervalsManagement.aspx")
-                Return
-            End If
+            ''    If Session("intEditHadiWarningIntervalsID") Is Nothing Then
+            ''        Response.Redirect("HadiwarningIntervalsManagement.aspx")
+            ''        Return
+            ''    End If
 
-            Dim intEditHadiWarningIntervalsID As Integer = CInt(Session("intEditHadiWarningIntervalsID"))
-            ViewState("intEditHadiWarningIntervalsID") = intEditHadiWarningIntervalsID
+            ''    Dim intEditHadiWarningIntervalsID As Integer = CInt(Session("intEditHadiWarningIntervalsID"))
+            ''    ViewState("intEditHadiWarningIntervalsID") = intEditHadiWarningIntervalsID
 
-            Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
-            Dim lnqHadiWarningIntervalsException = cntxVar.tbl_HadiWarningIntervalsException.Where(Function(x) x.FK_HadiWarningIntervalID = intEditHadiWarningIntervalsID)
-            Dim intHadiWarningIntervalsExceptionID As Integer
-            If lnqHadiWarningIntervalsException.Count > 0 Then
+            ''    Dim cntxVar As New BusinessObject.dbMehrVosulEntities1
+            ''    Dim lnqHadiWarningIntervalsException = cntxVar.tbl_HadiWarningIntervalsException.Where(Function(x) x.FK_HadiWarningIntervalID = intEditHadiWarningIntervalsID)
+            ''    Dim intHadiWarningIntervalsExceptionID As Integer
+            ''    If lnqHadiWarningIntervalsException.Count > 0 Then
 
-                Dim lnqHadiWarningIntervalsExceptionList = lnqHadiWarningIntervalsException.ToList(0)
+            ''        Dim lnqHadiWarningIntervalsExceptionList = lnqHadiWarningIntervalsException.ToList(0)
 
-                txtWarningIntervalsExeptionName.Text = lnqHadiWarningIntervalsExceptionList.ExceptionName
-                chkStatus.Checked = lnqHadiWarningIntervalsExceptionList.ISActive
-                intHadiWarningIntervalsExceptionID = lnqHadiWarningIntervalsExceptionList.ID
-                ViewState("HadiWarningIntervalsExceptionID") = intHadiWarningIntervalsExceptionID
-            End If
+            ''        txtWarningIntervalsExeptionName.Text = lnqHadiWarningIntervalsExceptionList.ExceptionName
+            ''        chkStatus.Checked = lnqHadiWarningIntervalsExceptionList.ISActive
+            ''        intHadiWarningIntervalsExceptionID = lnqHadiWarningIntervalsExceptionList.ID
+            ''        ViewState("HadiWarningIntervalsExceptionID") = intHadiWarningIntervalsExceptionID
+            ''    End If
 
-            Dim lnqWarningIntervalsExeptionDeposit = cntxVar.tbl_HadiWarningIntervalsExceptionDeposit.Where(Function(x) x.FK_HadiWarningIntervalsExceptionID = intHadiWarningIntervalsExceptionID)
-
-
-            Dim tadpDepositTypeList As New BusinessObject.dstDepositTableAdapters.spr_DepositType_SelectTableAdapter
-            Dim dtblDepositTypeList As BusinessObject.dstDeposit.spr_DepositType_SelectDataTable = Nothing
-
-            Dim tadpIntervalsDeposit As New BusinessObject.dstHadiWarningIntervalsDepositTableAdapters.spr_HadiWarningIntervalsDeposit_SelectTableAdapter
-
-            Dim dtblMenuLeafList As BusinessObject.dstHadiWarningIntervalsDeposit.spr_HadiWarningIntervalsDeposit_SelectDataTable = Nothing
-            dtblMenuLeafList = tadpIntervalsDeposit.GetData(3, -1, intEditHadiWarningIntervalsID)
-            Dim strchklstLoanTypeLeaves As String = ""
-
-            Dim blnHasChecked As Boolean = False
-            Dim blnHasBranch As Boolean = False
-            For Each drwMeneLeafList As BusinessObject.dstHadiWarningIntervalsDeposit.spr_HadiWarningIntervalsDeposit_SelectRow In dtblMenuLeafList.Rows
-                dtblDepositTypeList = tadpDepositTypeList.GetData(1, drwMeneLeafList.FK_DepositTypeID)
-                If lnqWarningIntervalsExeptionDeposit.Count > 0 Then
-
-                    Dim lnqWarningIntervalsExeptionLoanTypeList = lnqWarningIntervalsExeptionDeposit.ToList()
-                    For Each lnqWarningIntervalsExeptionLoanTypeItem In lnqWarningIntervalsExeptionLoanTypeList
-                        If drwMeneLeafList.ID = lnqWarningIntervalsExeptionLoanTypeItem.FK_HadiWariningIntervalDepositID Then
-
-                            strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' checked='checked' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & dtblDepositTypeList.First.DepositName & "</label></div>"
-                            blnHasChecked = True
-                            Exit For
-                        End If
-
-                    Next
-
-                End If
-                If blnHasChecked = True Then
-                    blnHasChecked = False
-                    Continue For
-                Else
-                    strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & dtblDepositTypeList.First.DepositName & "</label></div>"
-                End If
+            ''    Dim lnqWarningIntervalsExeptionDeposit = cntxVar.tbl_HadiWarningIntervalsExceptionDeposit.Where(Function(x) x.FK_HadiWarningIntervalsExceptionID = intHadiWarningIntervalsExceptionID)
 
 
+            ''    Dim tadpDepositTypeList As New BusinessObject.dstDepositTableAdapters.spr_DepositType_SelectTableAdapter
+            ''    Dim dtblDepositTypeList As BusinessObject.dstDeposit.spr_DepositType_SelectDataTable = Nothing
 
-            Next drwMeneLeafList
+            ''    Dim tadpIntervalsDeposit As New BusinessObject.dstHadiWarningIntervalsDepositTableAdapters.spr_HadiWarningIntervalsDeposit_SelectTableAdapter
 
-            divchklstLoanTypeItems.InnerHtml = strchklstLoanTypeLeaves
+            ''    Dim dtblMenuLeafList As BusinessObject.dstHadiWarningIntervalsDeposit.spr_HadiWarningIntervalsDeposit_SelectDataTable = Nothing
+            ''    dtblMenuLeafList = tadpIntervalsDeposit.GetData(3, -1, intEditHadiWarningIntervalsID)
+            ''    Dim strchklstLoanTypeLeaves As String = ""
 
-            ''Fill Branch Tree
-            Dim tadpProvince As New BusinessObject.dstBranchTableAdapters.spr_ProvinceList_SelectTableAdapter
-            Dim dtblProvince As BusinessObject.dstBranch.spr_ProvinceList_SelectDataTable = Nothing
-            dtblProvince = tadpProvince.GetData()
-            Dim tadpBranchProvince As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.spr_HadiWarningIntervalsBranchProvince_SelectByIntervalIDTableAdapter
-            Dim dtblBranchProvince As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranchProvince_SelectByIntervalIDDataTable = Nothing
-            dtblBranchProvince = tadpBranchProvince.GetData(intEditHadiWarningIntervalsID)
-            Dim tadpIntervalBranch As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.spr_HadiWarningIntervalsBranch_SelectByIntervalIDTableAdapter
-            Dim dtblIntervalBranch As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_SelectByIntervalIDDataTable = Nothing
+            ''    Dim blnHasChecked As Boolean = False
+            ''    Dim blnHasBranch As Boolean = False
+            ''    For Each drwMeneLeafList As BusinessObject.dstHadiWarningIntervalsDeposit.spr_HadiWarningIntervalsDeposit_SelectRow In dtblMenuLeafList.Rows
+            ''        dtblDepositTypeList = tadpDepositTypeList.GetData(1, drwMeneLeafList.FK_DepositTypeID)
+            ''        If lnqWarningIntervalsExeptionDeposit.Count > 0 Then
 
-            Dim lnqWarningIntervalsExeptionBranch = cntxVar.tbl_HadiWarningIntervalsExceptionBranch.Where(Function(x) x.FK_HadiWarningIntervalsExceptionID = intHadiWarningIntervalsExceptionID)
+            ''            Dim lnqWarningIntervalsExeptionLoanTypeList = lnqWarningIntervalsExeptionDeposit.ToList()
+            ''            For Each lnqWarningIntervalsExeptionLoanTypeItem In lnqWarningIntervalsExeptionLoanTypeList
+            ''                If drwMeneLeafList.ID = lnqWarningIntervalsExeptionLoanTypeItem.FK_HadiWariningIntervalDepositID Then
 
-            For Each drwProvince As BusinessObject.dstBranch.spr_ProvinceList_SelectRow In dtblProvince
+            ''                    strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' checked='checked' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & dtblDepositTypeList.First.DepositName & "</label></div>"
+            ''                    blnHasChecked = True
+            ''                    Exit For
+            ''                End If
 
-                Dim trNodeProvince As New TreeNode
+            ''            Next
 
-                For Each drwBranchProvince As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranchProvince_SelectByIntervalIDRow In dtblBranchProvince
-
-                    If drwProvince.ID = drwBranchProvince.Fk_ProvinceID Then
-
-                        dtblIntervalBranch = tadpIntervalBranch.GetData(intEditHadiWarningIntervalsID, drwBranchProvince.Fk_ProvinceID)
-
-                        trNodeProvince.Value = drwProvince.ID
-                        trNodeProvince.Text = "&nbsp;&nbsp;+" & drwProvince.Province
-                        trNodeProvince.SelectAction = TreeNodeSelectAction.Expand
-                        trState.Nodes.Add(trNodeProvince)
-                        trNodeProvince.ShowCheckBox = True
-
-
-                        For Each drwBranch As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_SelectByIntervalIDRow In dtblIntervalBranch.Rows
-                            Dim trNodeBranch As New TreeNode
-
-                            trNodeBranch.Text = "&nbsp;&nbsp;" & drwBranch.BrnachCode
-                            trNodeBranch.Value = drwBranch.ID
-                            trNodeBranch.ShowCheckBox = True
-                            trNodeBranch.SelectAction = TreeNodeSelectAction.None
-
-
-                            If lnqWarningIntervalsExeptionBranch.Count > 0 Then
-                                Dim lnqWarningIntervalsExeptionBranchList = lnqWarningIntervalsExeptionBranch.ToList()
-
-                                For Each lnqWarningIntervalsExeptionBranchListItem In lnqWarningIntervalsExeptionBranchList
-
-                                    If lnqWarningIntervalsExeptionBranchListItem.FK_HadiWarningIntervalBranchID = drwBranch.ID Then
-
-                                        trNodeBranch.Checked = True
-                                        trNodeProvince.Expanded = True
-                                        blnHasBranch = True
-                                        Exit For
-                                    End If
-
-                                Next
+            ''        End If
+            ''        If blnHasChecked = True Then
+            ''            blnHasChecked = False
+            ''            Continue For
+            ''        Else
+            ''            strchklstLoanTypeLeaves &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwMeneLeafList.ID & "' name='chklstMenu" & drwMeneLeafList.ID & "'><i class='fa " & drwMeneLeafList.ID & " fa-1x'></i> " & dtblDepositTypeList.First.DepositName & "</label></div>"
+            ''        End If
 
 
 
-                            End If
+            ''    Next drwMeneLeafList
+
+            ''    divchklstLoanTypeItems.InnerHtml = strchklstLoanTypeLeaves
+
+            ''    ''Fill Branch Tree
+            ''    Dim tadpProvince As New BusinessObject.dstBranchTableAdapters.spr_ProvinceList_SelectTableAdapter
+            ''    Dim dtblProvince As BusinessObject.dstBranch.spr_ProvinceList_SelectDataTable = Nothing
+            ''    dtblProvince = tadpProvince.GetData()
+            ''    Dim tadpBranchProvince As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.spr_HadiWarningIntervalsBranchProvince_SelectByIntervalIDTableAdapter
+            ''    Dim dtblBranchProvince As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranchProvince_SelectByIntervalIDDataTable = Nothing
+            ''    dtblBranchProvince = tadpBranchProvince.GetData(intEditHadiWarningIntervalsID)
+            ''    Dim tadpIntervalBranch As New BusinessObject.dstHadiWarningIntervalsBranchTableAdapters.spr_HadiWarningIntervalsBranch_SelectByIntervalIDTableAdapter
+            ''    Dim dtblIntervalBranch As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_SelectByIntervalIDDataTable = Nothing
+
+            ''    Dim lnqWarningIntervalsExeptionBranch = cntxVar.tbl_HadiWarningIntervalsExceptionBranch.Where(Function(x) x.FK_HadiWarningIntervalsExceptionID = intHadiWarningIntervalsExceptionID)
+
+            ''    For Each drwProvince As BusinessObject.dstBranch.spr_ProvinceList_SelectRow In dtblProvince
+
+            ''        Dim trNodeProvince As New TreeNode
+
+            ''        For Each drwBranchProvince As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranchProvince_SelectByIntervalIDRow In dtblBranchProvince
+
+            ''            If drwProvince.ID = drwBranchProvince.Fk_ProvinceID Then
+
+            ''                dtblIntervalBranch = tadpIntervalBranch.GetData(intEditHadiWarningIntervalsID, drwBranchProvince.Fk_ProvinceID)
+
+            ''                trNodeProvince.Value = drwProvince.ID
+            ''                trNodeProvince.Text = "&nbsp;&nbsp;+" & drwProvince.Province
+            ''                trNodeProvince.SelectAction = TreeNodeSelectAction.Expand
+            ''                trState.Nodes.Add(trNodeProvince)
+            ''                trNodeProvince.ShowCheckBox = True
 
 
-                            trNodeProvince.ChildNodes.Add(trNodeBranch)
+            ''                For Each drwBranch As BusinessObject.dstHadiWarningIntervalsBranch.spr_HadiWarningIntervalsBranch_SelectByIntervalIDRow In dtblIntervalBranch.Rows
+            ''                    Dim trNodeBranch As New TreeNode
+
+            ''                    trNodeBranch.Text = "&nbsp;&nbsp;" & drwBranch.BrnachCode
+            ''                    trNodeBranch.Value = drwBranch.ID
+            ''                    trNodeBranch.ShowCheckBox = True
+            ''                    trNodeBranch.SelectAction = TreeNodeSelectAction.None
 
 
-                        Next drwBranch
+            ''                    If lnqWarningIntervalsExeptionBranch.Count > 0 Then
+            ''                        Dim lnqWarningIntervalsExeptionBranchList = lnqWarningIntervalsExeptionBranch.ToList()
+
+            ''                        For Each lnqWarningIntervalsExeptionBranchListItem In lnqWarningIntervalsExeptionBranchList
+
+            ''                            If lnqWarningIntervalsExeptionBranchListItem.FK_HadiWarningIntervalBranchID = drwBranch.ID Then
+
+            ''                                trNodeBranch.Checked = True
+            ''                                trNodeProvince.Expanded = True
+            ''                                blnHasBranch = True
+            ''                                Exit For
+            ''                            End If
+
+            ''                        Next
 
 
-                    End If
 
-                Next
-            Next
+            ''                    End If
 
 
+            ''                    trNodeProvince.ChildNodes.Add(trNodeBranch)
 
 
-        Else
+            ''                Next drwBranch
+
+
+            ''            End If
+
+            ''        Next
+            ''    Next
+
+
+
+
+            ''Else
 
 
         End If

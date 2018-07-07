@@ -1278,7 +1278,7 @@
     <None Include="Vosul\dstFile.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>dstFile.Designer.vb</LastGenOutput>
+      <LastGenOutput>dstFile1.Designer.vb</LastGenOutput>
     </None>
     <None Include="Vosul\dstFile.xss">
       <DependentUpon>dstFile.xsd</DependentUpon>
