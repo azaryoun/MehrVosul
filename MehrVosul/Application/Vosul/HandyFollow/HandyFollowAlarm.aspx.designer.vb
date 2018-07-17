@@ -11,7 +11,7 @@ Option Strict On
 Option Explicit On
 
 
-Partial Public Class HandyFollowManagement
+Partial Public Class HandyFollowAlarm
     
     '''<summary>
     '''Bootstrap_Panel1 control.
@@ -32,31 +32,13 @@ Partial Public Class HandyFollowManagement
     Protected WithEvents lblInnerPageTitle As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
-    '''odsPerson control.
+    '''tblMResult control.
     '''</summary>
     '''<remarks>
     '''Auto-generated field.
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
-    Protected WithEvents odsPerson As Global.System.Web.UI.WebControls.ObjectDataSource
-    
-    '''<summary>
-    '''UpdatePanel7 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents UpdatePanel7 As Global.System.Web.UI.UpdatePanel
-    
-    '''<summary>
-    '''cmbPerson control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents cmbPerson As Global.System.Web.UI.WebControls.DropDownList
+    Protected WithEvents tblMResult As Global.System.Web.UI.HtmlControls.HtmlTable
     
     '''<summary>
     '''hdnAction control.

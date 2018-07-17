@@ -53,6 +53,12 @@
                             </tr>
                             <tr>
 
+                                <th style="color: #FF0000"><a style="color: black" href="Vosul/HandyFollow/HandyFollowAlarm.aspx">
+                                  <i style="color: red" class="fa fa-bell fa-x"></i><asp:Label ID="lblHandyFollowAlarmAdmin" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ تعهد</th>
+                                <th>&nbsp;</th>
+                            </tr>
+                            <tr>
+
                                 <th><i style="color: Blue" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx">
                                     <asp:Label ID="lblNewFileNotAssign" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های معوق جدید تخصیص نیافته</th>
                                 <th><i style="color: red" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssignNotFollowManagement.aspx">
@@ -126,6 +132,12 @@
                                     <asp:Label ID="lblNormalPublicNotice" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;اعلان عمومی</th>
                                 <th><i style="color: green" class="fa fa-file fa-x"></i><a style="color: black" href="/Application/Administration/Notice/NoticeManagement.aspx">
                                     <asp:Label ID="lblNormalProvinceNotice" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;اعلان استانی</th>
+                            </tr>
+                            <tr>
+
+                                <th style="color: #FF0000"><a style="color: black" href="/Application/Vosul/HandyFollow/HandyFollowAlarm.aspx">
+                                  <i style="color: red" class="fa fa-bell fa-x"></i><asp:Label ID="lblHandyFollowAlarm" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ تعهد</th>
+                                <th>&nbsp;</th>
                             </tr>
                             <tr>
 
@@ -329,7 +341,7 @@
     <div class="row">
 
 
-        <div runat="server" id="divBranchAdmin3" class="col-md-6">
+        <div runat="server" id="divBranchAdmin3" class="col-md-6" style="visibility:hidden;" >
             <div class="panel back-dash" style="background-color: #00CE6F">
                 <a style="color: White" href="/Application/Vosul/Reports/WarningNotificationReport.aspx"><i class="fa fa-bar-chart fa-4x"></i><strong style="display: -ms-inline-grid">&nbsp; گزارش گیری </strong></a>
                 <p class="text-muted">
@@ -343,7 +355,7 @@
 
         </div>
 
-        <div runat="server" id="divBranchAdmin4" class="col-md-6">
+        <div runat="server" id="divBranchAdmin4" style="visibility:hidden;" class="col-md-6">
 
             <div class="panel back-dash">
 
@@ -361,7 +373,7 @@
 
     <div class="row">
         <br />
-        <div class="col-md-6" runat="server" id="divBranchUser">
+        <div class="col-md-6" runat="server" style="visibility:hidden;" id="divBranchUser">
 
             <div class="panel back-dash" style="background-color: #ffd800">
                 <a style="color: White" href="/Application/Vosul/HandyFollow/HandyFollowFileSearch.aspx"><i class="fa fa-users fa-4x"></i><strong style="display: -ms-inline-grid">&nbsp;پیگیری پرسنلی</strong></a>
@@ -374,7 +386,7 @@
 
         </div>
 
-        <div class="col-md-6" runat="server" id="divBranchUser1">
+        <div class="col-md-6" runat="server" style="visibility:hidden;" id="divBranchUser1">
 
             <div class="panel back-dash" style="background-color: #00ffff">
                 <a style="color: White" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx"><i class="fa fa-users fa-4x"></i><strong style="display: -ms-inline-grid">&nbsp;پیگیریهای تخصیص یافته</strong></a>
@@ -386,7 +398,7 @@
 
 
         </div>
-        <div class="col-md-6">
+        <div style="visibility:hidden;" class="col-md-6">
 
 
             <div runat="server" id="divadmin" class="panel back-dash" style="background-color: purple">

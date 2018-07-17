@@ -58,6 +58,16 @@
                     lblUserRole.Text = dtblUserRole.First.UserRoles
                 End If
 
+
+                ''Fill HandyFollow Alarm 
+                Dim tadpHandyFollowAlarm As New BusinessObject.dstAlarmTableAdapters.spr_HandyFollowAlarm_Select_CountTableAdapter
+                Dim dtblHandyFollowAlarm As BusinessObject.dstAlarm.spr_HandyFollowAlarm_Select_CountDataTable = Nothing
+
+                dtblHandyFollowAlarm = tadpHandyFollowAlarm.GetData(1, -1, drwUserLogin.FK_BrnachID)
+                If dtblHandyFollowAlarm.Rows.Count > 0 Then
+                    lblHandyFollowAlarmAdmin.Text = dtblHandyFollowAlarm.First.HandyFollow.ToString()
+                End If
+
             End If
 
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsItemAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
@@ -111,7 +121,7 @@
                 divSMSError.Visible = False
                 divSMSSuccess.Visible = False
                 tblLogDetaile.Visible = False
-                divItemAdmin.Visible = True
+                divItemAdmin.Visible = False
                 divadmin.Visible = False
 
                 If blnAdminBranch = False Then
@@ -120,6 +130,7 @@
                     divBranchUser.Visible = True
                     divBranchAdmin3.Visible = False
                     divBranchAdmin4.Visible = False
+                    divItemAdmin.Visible = True
 
                 Else
                     divBranchUser.Visible = False
@@ -188,6 +199,17 @@
                     ''    lblItemAdmin.Text = "لطفا جهت ثبت پیگیری از ساعت 11 صبح به بعد اقدام نمایید."
 
                 End If
+
+
+                ''Fill HandyFollow Alarm 
+                Dim tadpHandyFollowAlarm As New BusinessObject.dstAlarmTableAdapters.spr_HandyFollowAlarm_Select_CountTableAdapter
+                Dim dtblHandyFollowAlarm As BusinessObject.dstAlarm.spr_HandyFollowAlarm_Select_CountDataTable = Nothing
+
+                dtblHandyFollowAlarm = tadpHandyFollowAlarm.GetData(2, drwUserLogin.ID, -1)
+                If dtblHandyFollowAlarm.Rows.Count > 0 Then
+                    lblHandyFollowAlarm.Text = dtblHandyFollowAlarm.First.HandyFollow.ToString()
+                End If
+
 
             Else
 

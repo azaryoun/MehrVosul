@@ -68,6 +68,15 @@ Partial Public Class StartPage
     Protected WithEvents lblProvinceNews As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblHandyFollowAlarmAdmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblHandyFollowAlarmAdmin As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lblNewFileNotAssign control.
     '''</summary>
     '''<remarks>
@@ -210,6 +219,15 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblNormalProvinceNotice As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblHandyFollowAlarm control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblHandyFollowAlarm As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''lblAssignedFiles control.

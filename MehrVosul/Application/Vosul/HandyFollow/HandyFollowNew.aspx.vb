@@ -606,7 +606,7 @@ Public Class HandyFollowNew
             cmbSponsor.SelectedValue = -1
             txtRemark.Text = ""
             Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
-            Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now.AddDays(10)
+            '' Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now.AddDays(10)
 
             If blnUpdateHandyFollowAssign = True Then
 

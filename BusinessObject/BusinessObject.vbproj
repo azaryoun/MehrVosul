@@ -775,6 +775,11 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Vosul\dstAlarm.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstAlarm.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Vosul\dstBlackList.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1217,6 +1222,17 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="packages.config" />
+    <None Include="Vosul\dstAlarm.xsc">
+      <DependentUpon>dstAlarm.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstAlarm.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstAlarm.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstAlarm.xss">
+      <DependentUpon>dstAlarm.xsd</DependentUpon>
+    </None>
     <None Include="Vosul\dstBlackList.xsc">
       <DependentUpon>dstBlackList.xsd</DependentUpon>
     </None>

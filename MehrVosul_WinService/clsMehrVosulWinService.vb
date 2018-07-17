@@ -5052,7 +5052,7 @@ VoiceSMS:
 
     Private Sub tmrFinalReport_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrFinalReport.Elapsed
 
-        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 3) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+        If Date.Now.Hour < (drwSystemSetting.UpdateTime.Hours + 4) OrElse Date.Now.Hour > 21 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
             Return
         End If
 
@@ -5265,7 +5265,7 @@ VoiceSMS:
 
     Private Sub GetTotalLC()
 
-        If Date.Now.Hour < 9 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+        If Date.Now.Hour < 8 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
             Return
         End If
 

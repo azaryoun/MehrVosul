@@ -5122,7 +5122,8 @@ Namespace dstSponsor_ListTableAdapters
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _
                         <> Global.System.Data.ConnectionState.Open) Then
-                command.Connection.Open
+                command.Connection.Open()
+                command.CommandTimeout = Integer.MaxValue
             End If
             Dim returnValue As Integer
             Try 

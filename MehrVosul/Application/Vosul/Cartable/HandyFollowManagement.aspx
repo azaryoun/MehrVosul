@@ -15,6 +15,52 @@
             return true;
         }
 
+
+        
+        function SaveOperation_Validate() {
+
+
+            debugger
+            var tblMResult = document.getElementById("tblMResult")
+            var theKeys = new Array();
+            var theLoans = new Array();
+
+            var cmbPerson = document.getElementById("<%=cmbPerson.ClientID%>");
+
+            for (i = 1; i < tblMResult.rows.length; i++) {
+
+                if (tblMResult.rows[i].cells[0].firstChild.checked) {
+
+                    theKeys[theKeys.length] = tblMResult.rows[i].cells[1].firstChild.value;
+                    theLoans[theLoans.length] = tblMResult.rows[i].cells[2].firstChild.innerText;
+
+                }
+            }
+
+
+            if (theKeys.length == 0) {
+                alert("رکوردی انتخاب نشده است");
+                return false;
+            }
+
+            if (!confirm("از تغییر پیگیری(ها) به کارشناس منتخب اطمینان دارید؟"))
+                return false;
+
+            PageMethods.DeleteOperation_Server(theKeys,theLoans,cmbPerson.options[cmbPerson.selectedIndex].value,DeleteOperation_Validate_CallBack);
+
+            return false;
+
+        }
+
+        function DeleteOperation_Validate_CallBack(result) {
+            if (result != "") {
+                alert("فرایند تخصیص با شکست مواجه شده است: " + result)
+            }
+
+            StartthePage();
+        }
+      
+
         function btnLastPage_Click() {
             var txtPageCounter = document.getElementById("txtPageCounter");
 
@@ -352,6 +398,32 @@
                 <div class="panel-heading">
                     <asp:Label ID="lblInnerPageTitle" runat="server" Text=""></asp:Label>
                 </div>
+
+                           <div class="col-md-6">
+
+                            <div class="form-group">
+                                <label>کارشناس پیگیر</label>
+                                <asp:ObjectDataSource ID="odsPerson" runat="server"
+                                    OldValuesParameterFormatString="original_{0}" SelectMethod="GetData"
+                                    TypeName="BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter">
+                                    <SelectParameters>
+                                        <asp:Parameter Name="Action" Type="Int32" />
+                                        <asp:Parameter Name="BranchID" Type="Int32" />
+                                        <asp:Parameter Name="ProvinceID" Type="Int32" />
+                                    </SelectParameters>
+                                </asp:ObjectDataSource>
+                                <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+                                    <ContentTemplate>
+
+                                        <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
+                                            DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID" AutoPostBack="True" >
+                                        </asp:DropDownList>
+                                        <br />
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+
+                            </div>
+                        </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="tblMResult">
@@ -367,6 +439,7 @@
                                     <th class="auto-style1">وضعیت تخصیص</th>
                                     <th class="auto-style1">تاریخ لغو تخصیص</th>
                                     <th class="auto-style1">نوع تخصیص</th>
+                                    <th class="auto-style1">پیگیری</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -83,6 +83,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -173,6 +174,7 @@
     <Content Include="Application\Vosul\File\WhiteListManagement.aspx" />
     <Content Include="Application\Vosul\File\WhiteListNew.aspx" />
     <Content Include="Application\Vosul\HandyFollowNew\HandyFollowNewSearch.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\HandyFollowAlarm.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx" />
@@ -649,6 +651,13 @@
       <DependentUpon>HandyFollowNewSearch.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowAlarm.aspx.designer.vb">
+      <DependentUpon>HandyFollowAlarm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowAlarm.aspx.vb">
+      <DependentUpon>HandyFollowAlarm.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx.designer.vb">
       <DependentUpon>HandyFollowFileSearch.aspx</DependentUpon>
     </Compile>
@@ -1012,9 +1021,9 @@
   <ItemGroup>
     <EmbeddedResource Include="My Project\Resources.resx">
       <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

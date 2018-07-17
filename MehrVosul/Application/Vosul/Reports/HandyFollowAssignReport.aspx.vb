@@ -203,7 +203,7 @@ Public Class HandyFollowAssignReport
 
                 If drwhandyFollow.AssignDate <= mdlGeneral.GetPersianDate(Date.Now.AddDays(-intAssignDay)) AndAlso drwhandyFollow.IsAssigned = True Then
 
-                    dtblHandyFollow = tadplHandyFollow.GetData(drwhandyFollow.AssignUserID, drwhandyFollow.ID)
+                    dtblHandyFollow = tadplHandyFollow.GetData(1, drwhandyFollow.AssignUserID, drwhandyFollow.ID)
                     dtblTotalDeffred = tadpTotalDeffred.GetData(drwhandyFollow.LoanNumber)
                     If dtblHandyFollow.First.HandFollow <> 0 Then
                         If dtblTotalDeffred.Rows.Count > 0 Then

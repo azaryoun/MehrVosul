@@ -1,11 +1,13 @@
-﻿Public Class HandyFollowManagement
+﻿Imports System.Windows.Forms.VisualStyles.VisualStyleElement.Header
+
+Public Class HandyFollowManagement
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Page.Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
         Bootstrap_Panel1.CanNew = False
-        Bootstrap_Panel1.CanSave = False
+        Bootstrap_Panel1.CanSave = True
         Bootstrap_Panel1.CanDelete = False
         Bootstrap_Panel1.CanSearch = True
         Bootstrap_Panel1.CanCancel = False
@@ -16,9 +18,13 @@
         Bootstrap_Panel1.CanDisplay = False
         Bootstrap_Panel1.CanExcel = False
         Bootstrap_Panel1.Enable_Delete_Client_Validate = True
+        Bootstrap_Panel1.Enable_Save_Client_Validate = True
         Bootstrap_Panel1.Enable_Search_Client_Validate = True
 
-        lblInnerPageTitle.Text = "فهرست  پرونده ها، لطفا طبق ضوابط عمل نمایید"
+        lblInnerPageTitle.Text = "فهرست  تخصیص ها، لطفا طبق ضوابط عمل نمایید"
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
 
 
         If Page.IsPostBack = False Then
@@ -35,6 +41,33 @@
                 Bootstrap_Panel1.ClearMessage()
             End If
 
+            If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+                cmbPerson.DataBind()
+
+            ElseIf drwUserLogin.IsDataAdmin = True Then
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+                cmbPerson.DataBind()
+
+            ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+                cmbPerson.DataBind()
+
+            End If
+
+
         End If
 
         If hdnAction.Value.StartsWith("E") = True Then
@@ -43,22 +76,14 @@
             Dim tadpHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_SelectTableAdapter
             Dim dtblHandyFollowAssign As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_SelectDataTable = Nothing
 
-
-
             Dim tadpTotalDeffredLCByLCNO As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByLCNOTableAdapter
             Dim dtblTotalDeffredLCByLCNO As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByLCNODataTable = Nothing
 
             Dim intFollowAssignID As Integer = CInt(hdnAction.Value.Split(";")(1))
 
-
-            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
-
-
             If drwUserLogin.IsDataUserAdmin = False Then
+
                 dtblHandyFollowAssign = tadpHandyFollowAssign.GetData(intFollowAssignID)
-
-
 
                 If dtblHandyFollowAssign.Rows.Count > 0 Then
 
@@ -160,6 +185,18 @@
                         strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i))
                     Next
 
+                    Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
+                    Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
+
+                    dtblHandyFollow = tadpHandyFollow.GetData(2, -1, drwHandyFollowAssignManagement.Item(0))
+                    If dtblHandyFollow.First.HandFollow > 0 Then
+                        strResult &= ";@;ثبت شده"
+                    Else
+                        strResult &= ";@;ثبت نشده"
+                    End If
+
+
+
 
                 Next drwHandyFollowAssignManagement
 
@@ -174,6 +211,16 @@
                         strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i)).ToLower.Replace(strFilter.ToLower, "<b><font color='#0F17FF'>" & strFilter & "</font></b>")
                     Next
 
+
+                    Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
+                    Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
+
+                    dtblHandyFollow = tadpHandyFollow.GetData(2, -1, drwHandyFollowAssignManagement.Item(0))
+                    If dtblHandyFollow.First.HandFollow > 0 Then
+                        strResult &= ";@;ثبت شده"
+                    Else
+                        strResult &= ";@;ثبت نشده"
+                    End If
 
                 Next drwHandyFollowAssignManagement
 
@@ -247,7 +294,74 @@
 
     End Function
 
+    <System.Web.Services.WebMethod()> Public Shared Function DeleteOperation_Server(theKeys() As Integer, theLoans() As String, assignUser As Integer) As String
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+        Dim strLoan As String() = Nothing
+        Dim list As New ArrayList
+        Dim blnHasFind As Boolean = False
+
+        For i As Integer = 0 To theKeys.Length - 1
+
+            Dim intPKey As Integer = CInt(theKeys(i))
+
+            Dim qryWarningIntervals As New BusinessObject.dstWarningIntervalsTableAdapters.QueriesTableAdapter
+            Try
+
+
+                For Each element As String In list
+
+                    If element = theLoans(i) Then
+
+                        blnHasFind = True
+
+                    End If
+
+                Next
+
+                If blnHasFind = True Then
+                    Continue For
+                End If
+
+                Dim tadpHandyFollowAsssign As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_SelectTableAdapter
+                Dim dtblHandyFollowAssign As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_SelectDataTable = Nothing
+
+                dtblHandyFollowAssign = tadpHandyFollowAsssign.GetData(intPKey)
+
+                If dtblHandyFollowAssign.Rows.Count > 0 Then
+
+                    Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+
+                    If dtblHandyFollowAssign.First.IsAssigned = True Then
+                        qryHandyFollowAssign.spr_HandyFollowAssign_Update(intPKey, drwUserLogin.ID, "")
+                    End If
+
+                    qryHandyFollowAssign.spr_HandyFollowAssign_Insert(assignUser, dtblHandyFollowAssign.First.FK_FileID, DateTime.Now, drwUserLogin.ID, "", dtblHandyFollowAssign.First.FK_LoanID, dtblHandyFollowAssign.First.AssignType)
+
+
+                End If
+
+                list.Add(theLoans(i).ToString())
+
+            Catch ex As Exception
+                Return ex.Message
+            End Try
+
+
+
+        Next i
+
+        Return ""
+
+
+
+    End Function
+
     Private Sub Bootstrap_Panel1_Panel_Wizard_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Wizard_Click
         '' Response.Redirect("HandyFollowAssignMagic.aspx")
     End Sub
+
+
 End Class
