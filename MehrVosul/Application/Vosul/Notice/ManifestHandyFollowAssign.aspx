@@ -15,6 +15,19 @@
 
         function CheckDataEnter() {
 
+            var cmbBranch = document.getElementById("<%=cmbBranch.ClientID%>");
+
+
+            if (cmbBranch.options[cmbBranch.selectedIndex].value == -1) {
+                {
+                    alert("شعبه را مشخص نمایید");
+                    cmbBranch.focus();
+                    return false;
+                }
+
+            }
+
+
             return true;
         }
 
@@ -128,73 +141,56 @@
                                 </asp:UpdatePanel>
                             </div>
                         </div>
-                    &nbsp;<div class="form-group">
+                        &nbsp;<div class="form-group">
                             <br />
                             <asp:LinkButton CssClass="btn btn-success" OnClientClick="return CheckDataEnter();" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
                         </div>
                     </div>
 
-                    </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
 
 
 
-                                <asp:UpdatePanel ID="UpdatePanel4" runat="server">
-                                    <ContentTemplate>
+                            <asp:UpdatePanel ID="UpdatePanel4" runat="server">
+                                <ContentTemplate>
 
-                                        <div class="panel-heading">
-                                            <label>پرونده های معوق</label>
-                                            <label>
-                                            (شماره مشتری- شماره وام- نام مشتری - تعداد روز معوق)</label></div>
-                                        <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
-                                            <div class="form-group" runat="server" id="divchklstAssignFiles">
-                                            </div>
+                                    <div class="panel-heading">
+                                        <label>پرونده های معوق</label>
+                                        <label>
+                                            (شماره مشتری- شماره وام- نام مشتری - تعداد روز معوق)</label>
+                                    </div>
+                                    <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+                                        <div class="form-group" runat="server" id="divchklstAssignFiles">
                                         </div>
-                                    </ContentTemplate>
-                                </asp:UpdatePanel>
+                                    </div>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
 
 
 
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>کارشناس پیگیر</label>
-                                <asp:ObjectDataSource ID="odsPerson" runat="server"
-                                    OldValuesParameterFormatString="original_{0}" SelectMethod="GetData"
-                                    TypeName="BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter">
-                                    <SelectParameters>
-                                        <asp:Parameter Name="Action" Type="Int32" />
-                                        <asp:Parameter Name="BranchID" Type="Int32" />
-                                        <asp:Parameter Name="ProvinceID" Type="Int32" />
-                                    </SelectParameters>
-                                </asp:ObjectDataSource>
-
-
-                                <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
-                                    DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID">
-                                </asp:DropDownList>
-
-
-
-
-                            </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>کارشناس پیگیر</label>
+                            <asp:ObjectDataSource ID="odsPerson" runat="server"
+                                OldValuesParameterFormatString="original_{0}" SelectMethod="GetData"
+                                TypeName="BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter">
+                                <SelectParameters>
+                                    <asp:Parameter Name="Action" Type="Int32" />
+                                    <asp:Parameter Name="BranchID" Type="Int32" />
+                                    <asp:Parameter Name="ProvinceID" Type="Int32" />
+                                </SelectParameters>
+                            </asp:ObjectDataSource>
 
-                        <div class="col-md-12">
-                            <div class="form-group">
 
-                                <label>توضیحات</label>
-
-                                <asp:TextBox ID="txtRemark" runat="server" TextMode="MultiLine" CssClass="form-control" MaxLength="50" placeholder="توضیحات را وارد کنید"></asp:TextBox>
-
-
-                            </div>
+                            <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
+                                DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID">
+                            </asp:DropDownList>
 
 
 
@@ -202,14 +198,32 @@
                         </div>
                     </div>
                 </div>
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <div class="form-group">
+
+                            <label>توضیحات</label>
+
+                            <asp:TextBox ID="txtRemark" runat="server" TextMode="MultiLine" CssClass="form-control" MaxLength="50" placeholder="توضیحات را وارد کنید"></asp:TextBox>
+
+
+                        </div>
 
 
 
 
+                    </div>
+                </div>
             </div>
 
 
+
+
         </div>
+
+
+    </div>
 
 
 

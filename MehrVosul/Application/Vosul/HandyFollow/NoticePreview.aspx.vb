@@ -79,4 +79,27 @@
 
     End Sub
 
+
+    Private Sub MakePrintFile(ByVal strLetter As String)
+
+        Dim strHTMLMain As String = ""
+
+
+        strHTMLMain += " <table style='border: 2px solid #000000; height: 100%; width: 100%; padding: 0; border-spacing: 0;'>" _
+           & " <tr><td style='border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #000000'>" _
+           & "  <table style='height: 100%; width: 100%; font-family: 'B Nazanin'; text-align: right; padding: 0; border-spacing: 0;'>" _
+           & " <tr> <td style='width: 150px;'> <table> <tr dir='rtl'> <td>" _
+           & "<asp:Label ID='lblDate' runat='server'>" & mdlGeneral.GetPersianDate(Date.Now).ToString() & "</asp:Label></td><td>تاریخ</td></tr>" _
+           & "<tr><td <asp:Label ID='lblLetterNO' runat='server'>" & strLetter & "</asp:Label></td><td>شماره</td></tr></table></td>" _
+           & "<td style='text-align: center;' dir='rtl'><span style='font-family: ' B Nazanin''>بسمه تعالی</span><br/><br/><span style='font-family: 'B Nazanin'; font-size: small;'>&nbsp;</span></td>" _
+           & "<td style='text-align: center;' dir='rtl'><asp:Image ID='Image1' runat='server' CssClass='auto-style7' ImageUrl='~/Images/System/MehrLogoPrint.jpg' Height='52px' Width='92px'/></td>  </tr> </table> </td>  </tr>" _
+           & "<tr>   <td style='text-align: center'><span style='font-family: Titr; font-size: larger;'>برگ اظهارنامه</span></td></tr>" _
+           & "<tr> <td style='padding-left: 8px'><table style='align-content center; width: 99%; border-style: solid; border-width: 2px; border-color: black; padding: 0; border-spacing: 0'>" _
+           & "<tr><td style='border-right: 2px solid #000000; border-bottom: 2px solid #000000; text-align: center; font-family 'B Nazanin'; font-size: medium; font-weight: bold; ' class='auto-style6' >مشخصات و اقامتگاه مخاطب</td>"
+
+
+
+
+    End Sub
+
 End Class

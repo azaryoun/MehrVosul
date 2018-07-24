@@ -7,7 +7,7 @@ Public Class HandyFollowManagement
         Page.Response.Cache.SetCacheability(HttpCacheability.NoCache)
 
         Bootstrap_Panel1.CanNew = False
-        Bootstrap_Panel1.CanSave = True
+        Bootstrap_Panel1.CanSave = False
         Bootstrap_Panel1.CanDelete = False
         Bootstrap_Panel1.CanSearch = True
         Bootstrap_Panel1.CanCancel = False
@@ -41,6 +41,25 @@ Public Class HandyFollowManagement
                 Bootstrap_Panel1.ClearMessage()
             End If
 
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+            If dtblAccessgroupUser.Rows.Count > 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Count = 0 Then
+                    Bootstrap_Panel1.CanSave = True
+                    cmbPerson.Visible = True
+                    lblPerson.Visible = True
+                End If
+            ElseIf drwUserLogin.IsDataAdmin = True Then
+                Bootstrap_Panel1.CanSave = True
+                cmbPerson.Visible = True
+                lblPerson.Visible = True
+            End If
+
+
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
                 odsPerson.SelectParameters.Item("Action").DefaultValue = 1
@@ -65,6 +84,26 @@ Public Class HandyFollowManagement
 
                 cmbPerson.DataBind()
 
+            End If
+
+        Else
+
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+            If dtblAccessgroupUser.Rows.Count > 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Count = 0 Then
+                    Bootstrap_Panel1.CanSave = True
+                    cmbPerson.Visible = True
+                    lblPerson.Visible = True
+                End If
+            ElseIf drwUserLogin.IsDataAdmin = True Then
+                Bootstrap_Panel1.CanSave = True
+                cmbPerson.Visible = True
+                lblPerson.Visible = True
             End If
 
 

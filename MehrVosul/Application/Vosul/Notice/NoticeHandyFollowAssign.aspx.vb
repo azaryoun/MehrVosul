@@ -164,23 +164,26 @@
         Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
 
         dtblBranch = tadpBranch.GetData(strBranchCode)
-
         dtblWarningIntervalInvoice = tadpWarningIntrevalInvoice.GetData(dtblBranch.First.ID)
 
-        If dtblWarningIntervalInvoice.Rows.Count > 0 Then
-            Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCNoticeAssign_SelectTableAdapter
-            Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectDataTable = Nothing
 
-            dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, dtblWarningIntervalInvoice.First.FromDay, dtblWarningIntervalInvoice.First.ToDay, dtblBranch.First.ID)
+        Dim intNotPiadDurationDayFrom As Integer = CInt(txtNotPiadDurationDayFrom.Text)
+        Dim intNotPiadDurationDayTo As Integer = CInt(txtNotPiadDurationDayTo.Text)
 
-            Dim strchklstFiles As String = ""
+        ''   If dtblWarningIntervalInvoice.Rows.Count > 0 Then
+        Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCNoticeAssign_SelectTableAdapter
+        Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectDataTable = Nothing
 
-            For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectRow In dtblTotalDeffredForAssign.Rows
-                strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.CULN & "' name='chklstMenu" & drwAssignFile.CustomerNO & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
-            Next drwAssignFile
+        dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID)
 
-            divchklstAssignFiles.InnerHtml = strchklstFiles
-        End If
+        Dim strchklstFiles As String = ""
+        For Each drwAssignFile As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCNoticeAssign_SelectRow In dtblTotalDeffredForAssign.Rows
+            strchklstFiles &= "<div class='checkbox'> <label> <input type='checkbox' value='" & drwAssignFile.CULN & "' name='chklstMenu" & drwAssignFile.CULN & "'><i class='fa " & " fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
+
+        Next drwAssignFile
+
+        divchklstAssignFiles.InnerHtml = strchklstFiles
+        ''  End If
 
 
 
@@ -290,4 +293,54 @@
         li.Value = -1
         cmbPerson.Items.Insert(0, li)
     End Sub
+
+    Protected Sub btnPrint_Click(sender As Object, e As EventArgs) Handles btnPrint.Click
+
+
+        Dim strHTMLMain As String = ""
+        For i As Integer = 0 To Request.Form.Keys.Count - 1
+
+
+            If Request.Form.Keys(i).StartsWith("chklstMenu") = True Then
+
+                Bootstrap_Panel1.CanCancel = False
+                Bootstrap_Panel1.CanSave = False
+                divMain2.Visible = False
+
+                ''get File ID
+                Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+                Dim strLCNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - Request.Form(i).IndexOf("(") - 1)
+                Dim strCustomerNO As String = Request.Form(i).Substring(0, Request.Form(i).IndexOf("("))
+                dtblFile = tadpFile.GetData(3, -1, strCustomerNO)
+                Dim intFileID As Integer = dtblFile.First.ID
+
+                Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+                Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+
+                dtblLoan = tadpLoan.GetData(strLCNO, intFileID)
+
+                Dim intLoanID As Integer = dtblLoan.First.ID
+
+                Dim strRemark As String = txtRemark.Text
+
+
+                strHTMLMain &= strCustomerNO & ";" & strLCNO & ","
+
+            End If
+
+
+
+            ''Dim strLCNO As String = Request.Form(i).Substring(Request.Form(i). .Text.IndexOf("(") + 1, cmbFiles.SelectedItem.Text.IndexOf(")") - cmbFiles.SelectedItem.Text.IndexOf("(") - 1)
+
+
+        Next i
+
+        Response.Redirect("../HandyFollow/ManifestPreview.aspx?STRHTML=" & strHTMLMain)
+
+
+    End Sub
+
+
+
 End Class

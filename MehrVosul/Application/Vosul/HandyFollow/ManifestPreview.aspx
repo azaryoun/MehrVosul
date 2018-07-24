@@ -7,7 +7,7 @@
     <title></title>
     <script language="javascript" type="text/javascript">
         function printPage() {
-          
+
             btnprint.style.visibility = 'hidden';
             window.print();
         }
@@ -17,15 +17,15 @@
             size: auto; /* auto is the initial value */
             margin: 0; /* this affects the margin in the printer settings */
         }
-
-
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div>
-            <br />
 
+        <div id="divMain" runat="server">
+        </div>
+
+        <div id="divMain2" runat="server" visible="false" >
             <table style="border: 2px solid #000000; height: 100%; width: 100%; padding: 0; border-spacing: 0;">
                 <tr>
                     <td style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #000000">
@@ -103,8 +103,9 @@
 
                             <tr>
                                 <td style="border-right-style: solid; border-right-width: 2px; border-right-color: #000000; font-family: 'b nazanin'; font-size: medium; font-weight: bold; vertical-align: top" dir="rtl">شماره تسهیلات:<asp:Label ID="lblLoan" runat="server"></asp:Label><br />
-                                    <asp:Label ID="lblLoanType" runat="server"></asp:Label>
-
+                                    <asp:Label ID="lblLoanType" runat="server"></asp:Label><br />
+                                    تلفن ثابت:
+                                      <asp:Label ID="lblPhone" runat="server"></asp:Label>
                                 </td>
                                 <td dir="rtl" style="font-family: 'b nazanin'; font-size: medium; font-weight: normal; padding-right: 2px;">مخاطب محترم خانم / آقای
                                     <asp:Label ID="lblFullName" runat="server"></asp:Label>
@@ -115,8 +116,10 @@
                                     <br />
                                     <br />
                                     مسئول شعبه<br />
-                                    <br />
-                                    رونوشت: مدیریت حقوقی سرپرستی استان <asp:Label ID="lblProvince" runat="server"></asp:Label>
+                                    تلفن شعبه:<br />
+                                    <asp:Label ID="lblBranchNO" runat="server"></asp:Label>
+                                    رونوشت: مدیریت حقوقی سرپرستی استان
+                                    <asp:Label ID="lblProvince" runat="server"></asp:Label>
                                     جهت اطلاع و اقدام<br />
                                 </td>
                             </tr>
@@ -127,9 +130,11 @@
                 </tr>
             </table>
 
-            <button id="btnprint" style="visibility: visible" onclick="printPage();">چاپ</button>
+
 
         </div>
+     
+        <button id="btnprint" style="visibility: visible" onclick="printPage();">چاپ</button>
     </form>
 </body>
 </html>

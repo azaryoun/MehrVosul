@@ -402,7 +402,7 @@
                            <div class="col-md-6">
 
                             <div class="form-group">
-                                <label>کارشناس پیگیر</label>
+                                <label id="lblPerson" runat="server" visible="false">کارشناس پیگیر</label>
                                 <asp:ObjectDataSource ID="odsPerson" runat="server"
                                     OldValuesParameterFormatString="original_{0}" SelectMethod="GetData"
                                     TypeName="BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter">
@@ -416,7 +416,7 @@
                                     <ContentTemplate>
 
                                         <asp:DropDownList ID="cmbPerson" runat="server" CssClass="form-control"
-                                            DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID" AutoPostBack="True" >
+                                            DataSourceID="odsPerson" DataTextField="Username" DataValueField="ID" AutoPostBack="True" Visible="False" >
                                         </asp:DropDownList>
                                         <br />
                                     </ContentTemplate>

@@ -388,7 +388,7 @@
                         </div>
 
                          <div class="form-group">
-                            <label></label>
+                            <label>شناسه ملی </label>
                             <asp:TextBox ID="txtCompanyNationalID" MaxLength="50" runat="server" CssClass="form-control" placeholder="شناسه ملی را وارد کنید"></asp:TextBox>
 
                         </div>

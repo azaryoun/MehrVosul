@@ -147,7 +147,7 @@ Public Class HandyFollowFileSearch
                     Dim tadpTotalDeffredLC As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLC_SelectByLCNOTableAdapter
                     Dim dtblTotalDeffredLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLC_SelectByLCNODataTable = Nothing
                     Dim NotPiadDurationDay As String = ""
-                    Dim AmountDeffered As String = ""
+                    Dim AmountDeffered As String = "0"
 
                     dtblTotalDeffredLC = tadpTotalDeffredLC.GetData(drwLoan.LoanNumber)
 

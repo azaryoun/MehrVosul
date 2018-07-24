@@ -337,7 +337,7 @@
                     <div class="row">
                         <div class="col-md-12">
 
-                            <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+                            <div class="panel-body" style="max-height: 50px;">
 
                                 <label>
                                     <input type="checkbox" value="" id="chkSelectAll" onclick="return chkSelectAll_Click();" />

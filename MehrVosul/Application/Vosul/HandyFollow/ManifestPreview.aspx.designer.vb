@@ -23,6 +23,24 @@ Partial Public Class ManifestPreview
     Protected WithEvents form1 As Global.System.Web.UI.HtmlControls.HtmlForm
     
     '''<summary>
+    '''divMain control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divMain As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''divMain2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divMain2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lblDate control.
     '''</summary>
     '''<remarks>
@@ -122,6 +140,15 @@ Partial Public Class ManifestPreview
     Protected WithEvents lblLoanType As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblPhone control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblPhone As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lblFullName control.
     '''</summary>
     '''<remarks>
@@ -129,6 +156,15 @@ Partial Public Class ManifestPreview
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblFullName As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblBranchNO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblBranchNO As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''lblProvince control.

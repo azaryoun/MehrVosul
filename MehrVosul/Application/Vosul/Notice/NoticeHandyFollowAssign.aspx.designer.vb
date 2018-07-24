@@ -23,6 +23,15 @@ Partial Public Class NoticeHandyFollowAssign
     Protected WithEvents Bootstrap_Panel1 As Global.MehrVosul.Bootstrap_Panel
     
     '''<summary>
+    '''divMain2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divMain2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lblInnerPageTitle control.
     '''</summary>
     '''<remarks>
@@ -86,6 +95,24 @@ Partial Public Class NoticeHandyFollowAssign
     Protected WithEvents cmbBranch As Global.System.Web.UI.WebControls.DropDownList
     
     '''<summary>
+    '''UpdatePanel3 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel3 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''txtNotPiadDurationDayFrom control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNotPiadDurationDayFrom As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
     '''btnCheckFiles control.
     '''</summary>
     '''<remarks>
@@ -93,6 +120,33 @@ Partial Public Class NoticeHandyFollowAssign
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnCheckFiles As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''btnPrint control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnPrint As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''UpdatePanel5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel5 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''txtNotPiadDurationDayTo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtNotPiadDurationDayTo As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''UpdatePanel4 control.
@@ -138,6 +192,15 @@ Partial Public Class NoticeHandyFollowAssign
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtRemark As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''divMain control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divMain As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''hdnAction control.
