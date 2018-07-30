@@ -46,6 +46,8 @@
             End If
 
 
+            odsLoanType.DataBind()
+
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
@@ -170,73 +172,148 @@
 
     Private Sub Bootstrap_Panel1_Panel_Save_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Save_Click
 
+
+        Dim blnHasErrorHappened As Boolean = False
+
         Try
+
 
             Dim qryHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
 
+
             Dim blnFileCheck As Boolean = False
             Dim blnGroupAssign As Boolean = If(cmbAssignType.SelectedValue = 2, True, False)
 
+            If blnGroupAssign = False Then
 
-
-            For i As Integer = 0 To Request.Form.Keys.Count - 1
-
-
-                If blnGroupAssign = False Then
+                For i As Integer = 0 To Request.Form.Keys.Count - 1
 
                     If Request.Form.Keys(i).StartsWith("cmbAssignPerson") = True Then
 
                         If Request.Form(i) <> "-1" Then
-                            Dim strLCNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - Request.Form(i).IndexOf("(") - 1)
-                            'Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - 2)
+
+                            Try
 
 
-                            ' get File ID
-                            Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
-                            Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+                                Dim strLCNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - Request.Form(i).IndexOf("(") - 1)
+                                'Request.Form(i).Substring(Request.Form(i).IndexOf("(") + 1, Request.Form(i).IndexOf(")") - 2)
 
-                            Dim strCustomerNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf(")") + 1, Request.Form(i).IndexOf("/") - Request.Form(i).IndexOf(")") - 1)
-                            dtblFile = tadpFile.GetData(3, -1, strCustomerNO)
+                                ' get File ID
+                                Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                                Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
 
-                            If dtblFile.Rows.Count <> 0 Then
-                                Dim intFileID As Integer = dtblFile.First.ID
+                                Dim strCustomerNO As String = Request.Form(i).Substring(Request.Form(i).IndexOf(")") + 1, Request.Form(i).IndexOf(",") - Request.Form(i).IndexOf(")") - 1)
+                                dtblFile = tadpFile.GetData(3, -1, strCustomerNO)
 
-                                Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
-                                Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
+                                If dtblFile.Rows.Count <> 0 Then
+                                    Dim intFileID As Integer = dtblFile.First.ID
 
-                                dtblLoan = tadpLoan.GetData(strLCNO, intFileID)
+                                    Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_ByLoanNumber_SelectTableAdapter
+                                    Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
 
-                                Dim intLoanID As Integer = dtblLoan.First.ID
+                                    dtblLoan = tadpLoan.GetData(strLCNO, intFileID)
 
-                                Dim intAssignUserID As Integer = CInt(Request.Form(i).Substring(0, Request.Form(i).IndexOf("(")))
+                                    Dim intLoanID As Integer = -1
+                                    If dtblLoan.Rows.Count > 0 Then
 
-                                If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
-                                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+                                        intLoanID = dtblLoan.First.ID
+
+                                    Else
+
+                                        ''insert loan
+                                        Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
+
+                                        Dim strInfo As String = Request.Form(i).Substring(Request.Form(i).IndexOf(",") + 1, Request.Form(i).IndexOf("/") - Request.Form(i).IndexOf(",") - 1)
+
+                                        Dim strLoanTypeCode As String = strInfo.Split(";")(2)
+                                        ''get loan typeid
+                                        Dim tadpLoantypeCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+                                        Dim dtlbLoantypeCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+
+                                        dtlbLoantypeCode = tadpLoantypeCode.GetData(strLoanTypeCode)
+                                        Dim intLoanTypeCode As Integer = dtlbLoantypeCode.First.ID
+
+                                        ''get  branch code
+                                        Dim intBranchID As Integer = cmbBranch.SelectedValue
+
+                                        Dim dteLoanDate? As Date = Nothing
+                                        intLoanID = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeCode, intBranchID, dteLoanDate, strLCNO, Nothing, Date.Now, Nothing, Nothing)
+
+
+                                    End If
+
+
+                                    Dim intAssignUserID As Integer = CInt(Request.Form(i).Substring(0, Request.Form(i).IndexOf("(")))
+
+                                    If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
+                                        qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+
+                                    End If
+
+                                Else
+
+                                    Dim strInfo As String = Request.Form(i).Substring(Request.Form(i).IndexOf(",") + 1, Request.Form(i).IndexOf("/") - Request.Form(i).IndexOf(",") - 1)
+
+                                    Dim strMobileNO As String = strInfo.Split(";")(1)
+                                    Dim strLoanTypeCode As String = strInfo.Split(";")(2)
+                                    Dim strFullName As String = strInfo.Split(";")(0)
+
+                                    ''Insert to File
+                                    Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+
+                                    Dim intFileID As Integer = qryFile.spr_File_Insert(strCustomerNO, "", strFullName, "", strMobileNO, "", "", "", "", "", "", False, 1, Nothing, Nothing, Nothing)
+
+                                    ''get  branch code
+                                    Dim intBranchID As Integer = cmbBranch.SelectedValue
+
+                                    ''get loan typeid
+                                    Dim tadpLoantypeCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+                                    Dim dtlbLoantypeCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+
+                                    dtlbLoantypeCode = tadpLoantypeCode.GetData(strLoanTypeCode)
+                                    Dim intLoanTypeCode As Integer = dtlbLoantypeCode.First.ID
+
+                                    ''insert loan
+                                    Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
+
+                                    Dim dteLoanDate? As Date = Nothing
+                                    Dim intLoanID As Integer = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeCode, intBranchID, dteLoanDate, strLCNO, Nothing, Date.Now, Nothing, Nothing)
+
+                                    Dim intAssignUserID As Integer = CInt(Request.Form(i).Substring(0, Request.Form(i).IndexOf("(")))
+
+                                    If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
+                                        qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+
+                                    End If
 
                                 End If
 
-                            Else
+
+                            Catch ex As Exception
 
 
-
-                            End If
-
+                                blnHasErrorHappened = True
+                                Exit For
+                            End Try
 
                         End If
 
-
                     End If
+                Next i
 
-                Else
+            Else
+
+                If hdnSelected.Value <> "" Then
 
 
-                    If hdnSelected.Value <> "" Then
 
-                        Dim strLCNumber As String() = hdnSelected.Value.Split(",")
-                        For j As Integer = 0 To strLCNumber.Length - 2
+
+                    Dim strLCNumber As String() = hdnSelected.Value.Split(",")
+                    For j As Integer = 0 To strLCNumber.Length - 2
+                        Try
                             Dim strLCNO As String = strLCNumber(j).Split(";")(0)
 
                             ' get File ID
@@ -253,8 +330,30 @@
                                 Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_ByLoanNumber_SelectDataTable = Nothing
 
                                 dtblLoan = tadpLoan.GetData(strLCNO, intFileID)
+                                Dim intLoanID As Integer = -1
+                                If dtblLoan.Rows.Count > 0 Then
+                                    intLoanID = dtblLoan.First.ID
+                                Else
 
-                                Dim intLoanID As Integer = dtblLoan.First.ID
+                                    ''insert loan
+                                    Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
+
+                                    Dim strLoanTypeCode As String = strLCNumber(j).Split(";")(3)
+                                    ''get loan typeid
+                                    Dim tadpLoantypeCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+                                    Dim dtlbLoantypeCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+
+                                    dtlbLoantypeCode = tadpLoantypeCode.GetData(strLoanTypeCode)
+                                    Dim intLoanTypeCode As Integer = dtlbLoantypeCode.First.ID
+
+                                    ''get  branch code
+                                    Dim intBranchID As Integer = cmbBranch.SelectedValue
+
+                                    Dim dteLoanDate? As Date = Nothing
+                                    intLoanID = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeCode, intBranchID, dteLoanDate, strLCNO, Nothing, Date.Now, Nothing, Nothing)
+
+
+                                End If
 
                                 Dim intAssignUserID As Integer = CInt(cmbPerson.SelectedValue)
 
@@ -262,27 +361,73 @@
                                     qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
 
                                 End If
+
+
+                            Else
+
+
+                                Dim strMobileNO As String = strLCNumber(j).Split(";")(2)
+                                Dim strLoanTypeCode As String = strLCNumber(j).Split(";")(3)
+                                Dim strFullName As String = strLCNumber(j).Split(";")(4)
+
+                                ''Insert to File
+                                Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
+
+                                Dim intFileID As Integer = qryFile.spr_File_Insert(strCustomerNO, "", strFullName, "", strMobileNO, "", "", "", "", "", "", False, 1, Nothing, Nothing, Nothing)
+
+                                ''get  branch code
+                                Dim intBranchID As Integer = cmbBranch.SelectedValue
+
+                                ''get loan typeid
+                                Dim tadpLoantypeCode As New BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_byCode_SelectTableAdapter
+                                Dim dtlbLoantypeCode As BusinessObject.dstLoanType.spr_LoanType_byCode_SelectDataTable = Nothing
+
+                                dtlbLoantypeCode = tadpLoantypeCode.GetData(strLoanTypeCode)
+                                Dim intLoanTypeCode As Integer = dtlbLoantypeCode.First.ID
+
+
+                                ''insert loan
+                                Dim qryLoan As New BusinessObject.dstLoanTableAdapters.QueriesTableAdapter
+
+                                Dim dteLoanDate? As Date = Nothing
+                                Dim intLoanID As Integer = qryLoan.spr_Loan_Insert(intFileID, intLoanTypeCode, intBranchID, dteLoanDate, strLCNO, Nothing, Date.Now, Nothing, Nothing)
+
+                                Dim intAssignUserID As Integer = CInt(cmbPerson.SelectedValue)
+
+                                If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
+                                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+
+                                End If
+
+
                             End If
 
-                        Next
+                        Catch ex As Exception
 
+                            blnHasErrorHappened = True
+                            Exit For
+                        End Try
 
-                    End If
+                    Next
 
                 End If
 
-            Next i
-
-
+            End If
 
 
         Catch ex As Exception
 
-
             Response.Redirect("HandyFollowManagement.aspx?Save=NO")
         End Try
 
-        Response.Redirect("HandyFollowManagement.aspx?Save=OK")
+        If blnHasErrorHappened = True Then
+            Bootstrap_Panel1.ShowMessage("در فرآیند تخصیص پیگیری خطا رخ داده است ", False)
+            Return
+
+        Else
+            Response.Redirect("HandyFollowManagement.aspx?Save=OK")
+
+        End If
 
     End Sub
 
@@ -328,7 +473,16 @@
                     intNotPiadDurationDayTo = 100000
             End Select
 
-            dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID, 1, -1, -1)
+            If cmbLoanType.SelectedValue = -1 Then
+
+                dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID, 1, -1, -1, -1)
+
+            Else
+
+                Dim intLoanTypeID As Integer = cmbLoanType.SelectedValue
+                dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID, 3, -1, -1, intLoanTypeID)
+
+            End If
 
 
         Else
@@ -337,15 +491,33 @@
 
             ''Max time out inserted in dataset
             If rdbListSelectType.SelectedValue = 0 Then
+
                 intNotPiadDurationDayFrom = CInt(txtNotPiadDurationDayFrom.Text)
                 intNotPiadDurationDayTo = CInt(txtNotPiadDurationDayTo.Text)
-                dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID, 1, -1, -1)
+
+
+                If cmbLoanType.SelectedValue = -1 Then
+                    dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID, 1, -1, -1, -1)
+
+                Else
+
+                    Dim intLoanTypeID As Integer = cmbLoanType.SelectedValue
+                    dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, intNotPiadDurationDayFrom, intNotPiadDurationDayTo, dtblBranch.First.ID, 3, -1, -1, intLoanTypeID)
+
+                End If
 
             Else
 
                 Dim dblLCAmountFrom As Double = CDbl(txtNotPiadDurationDayFrom.Text)
                 Dim dblLCAmountTo As Double = CDbl(txtNotPiadDurationDayTo.Text)
-                dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, -1, -1, dtblBranch.First.ID, 2, dblLCAmountFrom, dblLCAmountTo)
+                If cmbLoanType.SelectedValue = -1 Then
+                    dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, -1, -1, dtblBranch.First.ID, 2, dblLCAmountFrom, dblLCAmountTo, -1)
+
+                Else
+                    Dim intLoanTypeID As Integer = cmbLoanType.SelectedValue
+                    dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, -1, -1, dtblBranch.First.ID, 4, dblLCAmountFrom, dblLCAmountTo, intLoanTypeID)
+
+                End If
 
             End If
         End If
@@ -375,7 +547,7 @@
             TbRow.Cells.Add(TbCell)
 
             TbCell = New HtmlTableCell
-            strchklstFiles = "<input type='checkbox' name='" & drwRTotalDeffredLC.LCNumber.ToString() & ";" & drwRTotalDeffredLC.CustomerNO.ToString() & "' /> "
+            strchklstFiles = "<input type='checkbox' name='" & drwRTotalDeffredLC.LCNumber.ToString() & ";" & drwRTotalDeffredLC.CustomerNO.ToString() & ";" & drwRTotalDeffredLC.MobileNO.ToString() & ";" & drwRTotalDeffredLC.LoanTypeCode.ToString() & ";" & drwRTotalDeffredLC.FullName.ToString() & "' /> "
             TbCell.InnerHtml = strchklstFiles
             TbCell.Align = "center"
             TbCell.NoWrap = True
@@ -446,7 +618,7 @@
                 Dim j As Integer = 0
                 For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
 
-                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "/'>" & drwPerson.Username & "</Option>"
+                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
 
 
                 Next
@@ -464,7 +636,7 @@
                 Dim j As Integer = 0
                 For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
 
-                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "/'>" & drwPerson.Username & "</Option>"
+                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
 
                 Next
 
@@ -480,7 +652,7 @@
                 Dim j As Integer = 0
                 For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
 
-                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "/'>" & drwPerson.Username & "</Option>"
+                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
 
 
                 Next
@@ -667,5 +839,12 @@
             txtNotPiadDurationDayFrom.Enabled = True
             txtNotPiadDurationDayTo.Enabled = True
         End If
+    End Sub
+
+    Protected Sub cmbLoanType_DataBound(sender As Object, e As EventArgs) Handles cmbLoanType.DataBound
+        Dim li As New ListItem
+        li.Text = "---"
+        li.Value = -1
+        cmbLoanType.Items.Insert(0, li)
     End Sub
 End Class

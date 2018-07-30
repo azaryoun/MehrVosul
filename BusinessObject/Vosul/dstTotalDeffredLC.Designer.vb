@@ -4632,6 +4632,10 @@ Partial Public Class dstTotalDeffredLC
         
         Private columnCustomerNO As Global.System.Data.DataColumn
         
+        Private columnMobileNO As Global.System.Data.DataColumn
+        
+        Private columnLoanTypeCode As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -4740,6 +4744,22 @@ Partial Public Class dstTotalDeffredLC
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property MobileNOColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnMobileNO
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property LoanTypeCodeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnLoanTypeCode
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -4776,9 +4796,9 @@ Partial Public Class dstTotalDeffredLC
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_TotalDeffredLCFileAssign_SelectRow(ByVal FullName As String, ByVal LCNumber As String, ByVal InstallmentsCount As Integer, ByVal LCAmount As Decimal, ByVal LoanTypeName As String, ByVal GDeffered As Integer, ByVal AmounDefferd As Decimal, ByVal NotPiadDurationDay As Integer, ByVal CustomerNO As String) As spr_TotalDeffredLCFileAssign_SelectRow
+        Public Overloads Function Addspr_TotalDeffredLCFileAssign_SelectRow(ByVal FullName As String, ByVal LCNumber As String, ByVal InstallmentsCount As Integer, ByVal LCAmount As Decimal, ByVal LoanTypeName As String, ByVal GDeffered As Integer, ByVal AmounDefferd As Decimal, ByVal NotPiadDurationDay As Integer, ByVal CustomerNO As String, ByVal MobileNO As String, ByVal LoanTypeCode As String) As spr_TotalDeffredLCFileAssign_SelectRow
             Dim rowspr_TotalDeffredLCFileAssign_SelectRow As spr_TotalDeffredLCFileAssign_SelectRow = CType(Me.NewRow,spr_TotalDeffredLCFileAssign_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {FullName, LCNumber, InstallmentsCount, LCAmount, LoanTypeName, GDeffered, AmounDefferd, NotPiadDurationDay, CustomerNO}
+            Dim columnValuesArray() As Object = New Object() {FullName, LCNumber, InstallmentsCount, LCAmount, LoanTypeName, GDeffered, AmounDefferd, NotPiadDurationDay, CustomerNO, MobileNO, LoanTypeCode}
             rowspr_TotalDeffredLCFileAssign_SelectRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_TotalDeffredLCFileAssign_SelectRow)
             Return rowspr_TotalDeffredLCFileAssign_SelectRow
@@ -4810,6 +4830,8 @@ Partial Public Class dstTotalDeffredLC
             Me.columnAmounDefferd = MyBase.Columns("AmounDefferd")
             Me.columnNotPiadDurationDay = MyBase.Columns("NotPiadDurationDay")
             Me.columnCustomerNO = MyBase.Columns("CustomerNO")
+            Me.columnMobileNO = MyBase.Columns("MobileNO")
+            Me.columnLoanTypeCode = MyBase.Columns("LoanTypeCode")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -4833,6 +4855,10 @@ Partial Public Class dstTotalDeffredLC
             MyBase.Columns.Add(Me.columnNotPiadDurationDay)
             Me.columnCustomerNO = New Global.System.Data.DataColumn("CustomerNO", GetType(String), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnCustomerNO)
+            Me.columnMobileNO = New Global.System.Data.DataColumn("MobileNO", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnMobileNO)
+            Me.columnLoanTypeCode = New Global.System.Data.DataColumn("LoanTypeCode", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnLoanTypeCode)
             Me.columnFullName.MaxLength = 50
             Me.columnLCNumber.MaxLength = 50
             Me.columnInstallmentsCount.ReadOnly = true
@@ -4840,6 +4866,8 @@ Partial Public Class dstTotalDeffredLC
             Me.columnLoanTypeName.MaxLength = 50
             Me.columnGDeffered.ReadOnly = true
             Me.columnCustomerNO.MaxLength = 50
+            Me.columnMobileNO.MaxLength = 50
+            Me.columnLoanTypeCode.MaxLength = 50
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -6816,6 +6844,38 @@ Partial Public Class dstTotalDeffredLC
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property MobileNO() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_TotalDeffredLCFileAssign_Select.MobileNOColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MobileNO' in table 'spr_TotalDeffredLCFileAssign_Select' is"& _ 
+                            " DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_TotalDeffredLCFileAssign_Select.MobileNOColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property LoanTypeCode() As String
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_TotalDeffredLCFileAssign_Select.LoanTypeCodeColumn),String)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'LoanTypeCode' in table 'spr_TotalDeffredLCFileAssign_Select"& _ 
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_TotalDeffredLCFileAssign_Select.LoanTypeCodeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsFullNameNull() As Boolean
             Return Me.IsNull(Me.tablespr_TotalDeffredLCFileAssign_Select.FullNameColumn)
         End Function
@@ -6920,6 +6980,30 @@ Partial Public Class dstTotalDeffredLC
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetCustomerNONull()
             Me(Me.tablespr_TotalDeffredLCFileAssign_Select.CustomerNOColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsMobileNONull() As Boolean
+            Return Me.IsNull(Me.tablespr_TotalDeffredLCFileAssign_Select.MobileNOColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetMobileNONull()
+            Me(Me.tablespr_TotalDeffredLCFileAssign_Select.MobileNOColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsLoanTypeCodeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_TotalDeffredLCFileAssign_Select.LoanTypeCodeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetLoanTypeCodeNull()
+            Me(Me.tablespr_TotalDeffredLCFileAssign_Select.LoanTypeCodeColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -10617,6 +10701,8 @@ Namespace dstTotalDeffredLCTableAdapters
             tableMapping.ColumnMappings.Add("AmounDefferd", "AmounDefferd")
             tableMapping.ColumnMappings.Add("NotPiadDurationDay", "NotPiadDurationDay")
             tableMapping.ColumnMappings.Add("CustomerNO", "CustomerNO")
+            tableMapping.ColumnMappings.Add("MobileNO", "MobileNO")
+            tableMapping.ColumnMappings.Add("LoanTypeCode", "LoanTypeCode")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
@@ -10643,13 +10729,14 @@ Namespace dstTotalDeffredLCTableAdapters
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@Action", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FromLCAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@ToLCAmount", Global.System.Data.SqlDbType.Money, 8, Global.System.Data.ParameterDirection.Input, 19, 4, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LoanType", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable, ByVal BranchCode As String, ByVal FromNotPiadDurationDay As Global.System.Nullable(Of Integer), ByVal ToNotPiadDurationDay As Global.System.Nullable(Of Integer), ByVal BranchID As Global.System.Nullable(Of Integer), ByVal Action As Global.System.Nullable(Of Integer), ByVal FromLCAmount As Global.System.Nullable(Of Decimal), ByVal ToLCAmount As Global.System.Nullable(Of Decimal)) As Integer
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable, ByVal BranchCode As String, ByVal FromNotPiadDurationDay As Global.System.Nullable(Of Integer), ByVal ToNotPiadDurationDay As Global.System.Nullable(Of Integer), ByVal BranchID As Global.System.Nullable(Of Integer), ByVal Action As Global.System.Nullable(Of Integer), ByVal FromLCAmount As Global.System.Nullable(Of Decimal), ByVal ToLCAmount As Global.System.Nullable(Of Decimal), ByVal LoanType As Global.System.Nullable(Of Integer)) As Integer
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (BranchCode Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
@@ -10685,6 +10772,11 @@ Namespace dstTotalDeffredLCTableAdapters
                 Me.Adapter.SelectCommand.Parameters(7).Value = CType(ToLCAmount.Value,Decimal)
             Else
                 Me.Adapter.SelectCommand.Parameters(7).Value = Global.System.DBNull.Value
+            End If
+            If (LoanType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(8).Value = CType(LoanType.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(8).Value = Global.System.DBNull.Value
             End If
             If (Me.ClearBeforeFill = true) Then
                 dataTable.Clear
@@ -10697,7 +10789,7 @@ Namespace dstTotalDeffredLCTableAdapters
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
          Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData(ByVal BranchCode As String, ByVal FromNotPiadDurationDay As Global.System.Nullable(Of Integer), ByVal ToNotPiadDurationDay As Global.System.Nullable(Of Integer), ByVal BranchID As Global.System.Nullable(Of Integer), ByVal Action As Global.System.Nullable(Of Integer), ByVal FromLCAmount As Global.System.Nullable(Of Decimal), ByVal ToLCAmount As Global.System.Nullable(Of Decimal)) As dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable
+        Public Overloads Overridable Function GetData(ByVal BranchCode As String, ByVal FromNotPiadDurationDay As Global.System.Nullable(Of Integer), ByVal ToNotPiadDurationDay As Global.System.Nullable(Of Integer), ByVal BranchID As Global.System.Nullable(Of Integer), ByVal Action As Global.System.Nullable(Of Integer), ByVal FromLCAmount As Global.System.Nullable(Of Decimal), ByVal ToLCAmount As Global.System.Nullable(Of Decimal), ByVal LoanType As Global.System.Nullable(Of Integer)) As dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             If (BranchCode Is Nothing) Then
                 Me.Adapter.SelectCommand.Parameters(1).Value = Global.System.DBNull.Value
@@ -10733,6 +10825,11 @@ Namespace dstTotalDeffredLCTableAdapters
                 Me.Adapter.SelectCommand.Parameters(7).Value = CType(ToLCAmount.Value,Decimal)
             Else
                 Me.Adapter.SelectCommand.Parameters(7).Value = Global.System.DBNull.Value
+            End If
+            If (LoanType.HasValue = true) Then
+                Me.Adapter.SelectCommand.Parameters(8).Value = CType(LoanType.Value,Integer)
+            Else
+                Me.Adapter.SelectCommand.Parameters(8).Value = Global.System.DBNull.Value
             End If
             Dim dataTable As dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable = New dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable()
             Me.Adapter.Fill(dataTable)

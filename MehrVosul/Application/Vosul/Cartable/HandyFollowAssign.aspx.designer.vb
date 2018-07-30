@@ -131,15 +131,6 @@ Partial Public Class HandyFollowAssign
     Protected WithEvents txtNotPiadDurationDayFrom As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
-    '''btnCheckFiles control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents btnCheckFiles As Global.System.Web.UI.WebControls.LinkButton
-    
-    '''<summary>
     '''UpdatePanel4 control.
     '''</summary>
     '''<remarks>
@@ -156,6 +147,33 @@ Partial Public Class HandyFollowAssign
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtNotPiadDurationDayTo As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''odsLoanType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents odsLoanType As Global.System.Web.UI.WebControls.ObjectDataSource
+    
+    '''<summary>
+    '''cmbLoanType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmbLoanType As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
+    '''btnCheckFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnCheckFiles As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
     '''UpdatePanel5 control.

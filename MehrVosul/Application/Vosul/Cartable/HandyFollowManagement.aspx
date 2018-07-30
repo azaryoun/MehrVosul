@@ -20,7 +20,7 @@
         function SaveOperation_Validate() {
 
 
-            debugger
+            
             var tblMResult = document.getElementById("tblMResult")
             var theKeys = new Array();
             var theLoans = new Array();
@@ -52,9 +52,51 @@
 
         }
 
+        function Print_Validate() {
+       
+            var tblMResult = document.getElementById("tblMResult")
+            var theKeys = new Array();
+
+
+            for (i = 1; i < tblMResult.rows.length; i++) {
+                if (tblMResult.rows[i].cells[0].firstChild.checked) {
+
+                    theKeys[theKeys.length] = tblMResult.rows[i].cells[1].firstChild.value;
+
+                }
+            }
+
+
+            if (theKeys.length == 0) {
+                alert("رکوردی انتخاب نشده است");
+                return false;
+            }
+
+            if (!confirm("چاپ اخطاریه رکورد(های) انتخاب شده را تایید نمایید"))
+                return false;
+
+            PageMethods.PrintOperation_Server(theKeys, Print1);
+            
+           
+            return false;
+
+
+        }
+
         function DeleteOperation_Validate_CallBack(result) {
+            
             if (result != "") {
                 alert("فرایند تخصیص با شکست مواجه شده است: " + result)
+            }
+
+            StartthePage();
+        }
+
+
+        function Print1(result) {
+            
+            if (result != "") {
+                window.location.href="../HandyFollow/ManifestPreview.aspx?STRHTML=" +  result;
             }
 
             StartthePage();
@@ -334,6 +376,7 @@
         }
 
         function SearchOperation_Validate() {
+
             var txtPanelSearch = document.getElementById("ContentPlaceHolder1_Bootstrap_Panel1_txtSearchBox");
             var btnSearch = document.getElementById("ContentPlaceHolder1_Bootstrap_Panel1_btnSearch");
 
@@ -388,8 +431,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
+  
     <uc1:Bootstrap_Panel ID="Bootstrap_Panel1" runat="server" />
+      <asp:LinkButton CssClass="btn btn-primary" ID="btnPrint" runat="server" OnClientClick="return Print_Validate();" ToolTip="چاپ"><i class="fa fa-print fa-lg"></i> </asp:LinkButton>
     <div class="row">
         <br />
         <div class="col-md-12">

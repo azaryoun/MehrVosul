@@ -61,8 +61,17 @@
 
                     lblMobileNO.Text = If(dtblFile.First.IsMobileNo2Null = False AndAlso dtblFile.First.MobileNo2 <> "", dtblFile.First.MobileNo2, dtblFile.First.MobileNo)
 
-                    ''  lblProvince.Text = dtblProvince.First.ProvinceName
-                    lblLoan.Text = dtblLoan.First.LoanNumber
+                    ''  lblPovince.Text = dtblProvince.First.ProvinceName
+
+                    Dim strNewLoan As String() = dtblLoan.First.LoanNumber.Split("-")
+                    Dim strLoanNew As String = ""
+                    If strNewLoan.Length = 4 Then
+                        strLoanNew &= strNewLoan(3) & "-" & strNewLoan(2) & "-" & strNewLoan(1) & "-" & strNewLoan(0)
+
+                    Else
+                        strLoanNew = dtblLoan.First.LoanNumber
+                    End If
+                    lblLoan.Text = strLoanNew
                     lblLoanType.Text = dtblLoanType.First.LoanTypeName
 
                 End If

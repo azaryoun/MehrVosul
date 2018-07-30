@@ -23,15 +23,6 @@ Partial Public Class NoticeHandyFollowAssign
     Protected WithEvents Bootstrap_Panel1 As Global.MehrVosul.Bootstrap_Panel
     
     '''<summary>
-    '''divMain2 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divMain2 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
     '''lblInnerPageTitle control.
     '''</summary>
     '''<remarks>

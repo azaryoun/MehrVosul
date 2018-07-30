@@ -303,9 +303,7 @@
 
             If Request.Form.Keys(i).StartsWith("chklstMenu") = True Then
 
-                Bootstrap_Panel1.CanCancel = False
-                Bootstrap_Panel1.CanSave = False
-                divMain2.Visible = False
+
 
                 ''get File ID
                 Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter

@@ -20,7 +20,7 @@
     <Shape ID="DesignTable:spr_TotalDeffredLCByBranchDoAssign_Select" ZOrder="3" X="0" Y="0" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
     <Shape ID="DesignTable:spr_TotalDeffredLCByProvinceDoAssign_Select1" ZOrder="2" X="0" Y="0" Height="90" Width="158" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="0" />
     <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="14" X="81" Y="37" Height="105" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="101" />
-    <Shape ID="DesignTable:spr_TotalDeffredLCFileAssign_Select" ZOrder="1" X="895" Y="66" Height="248" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="197" />
+    <Shape ID="DesignTable:spr_TotalDeffredLCFileAssign_Select" ZOrder="1" X="813" Y="41" Height="286" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="235" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

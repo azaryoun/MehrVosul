@@ -19,21 +19,9 @@
             margin: 0; /* this affects the margin in the printer settings */
         }
 
+     
 
-        .auto-style1 {
-            text-align: center;
-            height: 110px;
-        }
-
-
-        .auto-style2 {
-            width: 48%;
-        }
-        .auto-style3 {
-            text-align: right;
-        }
-
-
+       
         .auto-style4 {
             width: 33%;
             height: 110px;
@@ -88,12 +76,12 @@
 
                                     </table>
                                 </td>
-                                <td style="text-align: center;" dir="rtl"><span style="font-family: 'B Nazanin'">بسمه تعالی</span><br />
-                                    <br />
-                                    <span style="font-family: 'B Nazanin'; font-size: small;">&nbsp;</span></td>
+                                <td style="text-align: center;padding-left:80px;" dir="rtl"><span style="font-family: 'B Nazanin'">بسمه تعالی</span><br />
+                                  
+                                 </td>
 
                                 <td style="text-align: center;" dir="rtl">
-                                    <asp:Image ID="Image1" runat="server" CssClass="auto-style7" ImageUrl="~/Images/System/MehrLogoPrint.jpg" Height="52px" Width="92px" />
+                                    <asp:Image ID="Image1" runat="server"  ImageUrl="~/Images/System/MehrLogoPrint.jpg" Height="52px" />
                                 </td>
                             </tr>
                         </table>
@@ -109,7 +97,7 @@
                         <table style="align-content: center; width: 99%; border-style: solid; border-width: 2px; border-color: black; padding: 0; border-spacing: 0">
                             <tr>
                                 <td style="border-right: 2px solid #000000; border-bottom: 2px solid #000000; text-align: center; font-family: 'B Nazanin'; font-size: medium; font-weight: bold; " class="auto-style6" >مشخصات و اقامتگاه مخاطب</td>
-                                <td style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #000000; text-align: center; font-family: 'B Nazanin'; font-size: medium; font-weight: bold; border-right-style: solid; border-right-width: 2px; border-right-color: #000000;" class="auto-style7">موضوع اظهارنامه</td>
+                                <td style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #000000; text-align: center; font-family: 'B Nazanin'; font-size: medium; font-weight: bold; border-right-style: solid; border-right-width: 2px; border-right-color: #000000;width:250px">موضوع اظهارنامه</td>
                                 <td style="border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #000000; text-align: center; font-family: 'B Nazanin'; font-size: medium; font-weight: bold;" class="auto-style7">مشخصات و اقامتگاه اظهار کننده</td>
                             </tr>
                             <tr>
@@ -122,7 +110,7 @@
                                     <asp:Label ID="lblNationalID" runat="server"></asp:Label><br />
                                     همراه:
                                     <asp:Label ID="lblMobileNO" runat="server"></asp:Label></td>
-                                <td style="border-right: 2px solid #000000;  font-family: 'b nazanin'; font-size: medium; padding-right: 4px; font-weight: bold; padding-top: 0px; border-right-style: solid; border-right-width: 2px; border-right-color: #000000;" dir="rtl" class="auto-style1">شماره تسهیلات:<asp:Label ID="lblLoan" runat="server"></asp:Label><br />
+                                <td style="border-right: 2px solid #000000;  font-family: 'b nazanin'; font-size: medium; padding-right: 4px; font-weight: bold; padding-top: 0px; border-right-style: solid; border-right-width: 2px; border-right-color: #000000;" dir="rtl" >شماره تسهیلات:<asp:Label ID="lblLoan" runat="server"></asp:Label><br />
                                     <asp:Label ID="lblLoanType" runat="server"></asp:Label>
 
                                 </td>
@@ -141,8 +129,8 @@
                          <table style="align-content: center; width: 99%; border-color: black; padding: 0; border-spacing: 0; border-right-style: solid; border-bottom-style: solid; border-left-style: solid; border-right-width: 2px; border-bottom-width: 2px; border-left-width: 2px;">
                        
                             <tr>
-                                <td style="border-right: 2px solid #000000; font-family: 'b nazanin'; font-size: medium; font-weight: bold; vertical-align: top; " dir="rtl" class="auto-style2">&nbsp;</td>
-                                <td dir="rtl" style="font-family: 'b nazanin'; font-size: medium; font-weight: normal; padding-right: 2px;" colspan="2" class="auto-style3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; خلاصه اظهارات<br />
+                                <td style="border-right: 2px solid #000000; font-family: 'b nazanin'; font-size: medium; font-weight: bold; vertical-align: top;width:48%;" dir="rtl" >&nbsp;</td>
+                                <td dir="rtl" style="font-family: 'b nazanin'; font-size: medium; font-weight: normal; padding-right: 2px;text-align:right;" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; خلاصه اظهارات<br />
                                     <br />
                                     مخاطب محترم خانم / آقای
                                     <asp:Label ID="lblFullName" runat="server"></asp:Label>

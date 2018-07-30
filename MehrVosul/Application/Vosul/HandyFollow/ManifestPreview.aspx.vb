@@ -15,6 +15,7 @@
 
 
                 strLoanCustomer = Request.QueryString("STRHTML").ToString().Split(",")
+
                 For j As Integer = 0 To strLoanCustomer.Length - 2
 
                     ''get File ID
@@ -71,11 +72,15 @@
                     Dim strPhone As String = If(dtblFile.First.IsTelephoneHomeNull = True, dtblFile.First.TelephoneWork, dtblFile.First.TelephoneHome)
                     Dim strBranchPhone As String = If(dtblBranch.First.IsTelephoneNull = True, "", dtblBranch.First.Telephone)
 
-                    strHTMLMain &= MakePrintFile("", "", strAdress2, strNationalID2, strMobileNo2, dtblBranch.First.BranchName, strAddress, strLCNO, strLoanType, strProvince, strFullName, strPhone, strBranchPhone)
 
-                    If j <> strLoanCustomer.Length - 2 Then
+                    If j = strLoanCustomer.Length - 2 Then
 
-                        strHTMLMain &= "<br /><br /><br /><br /><br />"
+                        strHTMLMain &= MakePrintFile("", "", strAdress2, strNationalID2, strMobileNo2, dtblBranch.First.BranchName, strAddress, strLCNO, strLoanType, strProvince, strFullName, strPhone, strBranchPhone, True)
+
+                    Else
+
+                        strHTMLMain &= MakePrintFile("", "", strAdress2, strNationalID2, strMobileNo2, dtblBranch.First.BranchName, strAddress, strLCNO, strLoanType, strProvince, strFullName, strPhone, strBranchPhone, False)
+
                     End If
                 Next
 
@@ -158,7 +163,7 @@
 
                     Dim strBranchPhone As String = If(dtblBranch.First.IsTelephoneNull = True, "", dtblBranch.First.Telephone)
 
-                    Dim strHTML As String = MakePrintFile(Request.QueryString("LetterNO").ToString(), Request.QueryString("RegisterNO").ToString(), strAdress2, strNationalID2, strMobileNo2, strBranch, strAddress, strLoan, strLoanType, strProvince, strFullName, strPhone, strBranchPhone)
+                    Dim strHTML As String = MakePrintFile(Request.QueryString("LetterNO").ToString(), Request.QueryString("RegisterNO").ToString(), strAdress2, strNationalID2, strMobileNo2, strBranch, strAddress, strLoan, strLoanType, strProvince, strFullName, strPhone, strBranchPhone, True)
 
                     divMain2.Visible = True
                     divMain2.InnerHtml = strHTML
@@ -181,7 +186,7 @@
     End Sub
 
 
-    Private Function MakePrintFile(ByVal strLetter As String, ByVal strRegiterNO As String, ByVal strAddress2 As String, ByVal strNationalNO As String, ByVal strMobileNO As String, ByVal strBranch As String, ByVal strAddress As String, ByVal strLoan As String, ByVal strLoanType As String, ByVal strProvince As String, ByVal strFullName As String, ByVal strPhone As String, ByVal strBranchPhone As String) As String
+    Private Function MakePrintFile(ByVal strLetter As String, ByVal strRegiterNO As String, ByVal strAddress2 As String, ByVal strNationalNO As String, ByVal strMobileNO As String, ByVal strBranch As String, ByVal strAddress As String, ByVal strLoan As String, ByVal strLoanType As String, ByVal strProvince As String, ByVal strFullName As String, ByVal strPhone As String, ByVal strBranchPhone As String, ByVal isLastItem As Boolean) As String
 
         Dim strHTMLMain As String = ""
         Dim strNewLoan As String() = strLoan.Split("-")
@@ -193,10 +198,13 @@
             strLoanNew = strLoan
         End If
 
+        If isLastItem = True Then
+            strHTMLMain += "<table style='border: 2px solid #000000; height: 100%; width: 100%; padding: 0; border-spacing: 0;'>"
+        Else
+            strHTMLMain += "<table style='border: 2px solid #000000; height: 100%; width: 100%; padding: 0; border-spacing: 0;page-break-after: always;'>"
+        End If
 
-
-        strHTMLMain += " <table style='border: 2px solid #000000; height: 100%; width: 100%; padding: 0; border-spacing: 0;'>" _
-           & "<tr><td style='border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #000000'>" _
+        strHTMLMain += "<tr><td style='border-bottom-style: solid; border-bottom-width: 2px; border-bottom-color: #000000'>" _
            & "<table style='height: 100%; width: 100%; font-family:B Nazanin; text-align: right; padding: 0; border-spacing: 0;'>" _
            & "<tr><td style='width: 150px;'> <table> <tr dir='rtl'> <td>" _
            & "<asp:Label ID='lblDate' runat='server'>" & mdlGeneral.GetPersianDate(Date.Now).ToString() & "</asp:Label></td><td>تاریخ</td></tr>" _
@@ -225,7 +233,6 @@
            & "پیرو اخطاریه تلفنی به اطلاع می رساند جنابعالی به موجب اسناد تعهدآور موجود، به این بانک بدهکار می باشید.نظر یه اینکه تاکنون بدهی خود را پرداخت ننموده اید بدینوسیله برای آخرین بار جنابعالی اخطار می گردد کلیه دیون خود را حداکثر ظرف مهلت 3 روز پس از روئیت این اخطاریه پرداخت نمایید در غیر اینصورت نسبت به تعقیبات قضایی از طریق مراجع ذیصلاح اقدام و در این صورت کلیه خسارات قانونی به عهده جنابعالی خواهد بود.<br />" _
            & "<br /><br /> مسئول شعبه <br /> تلفن شعبه:<asp:Label ID='lblBranchNO' runat='server'>" & strBranchPhone & "</asp:Label><br />رونوشت: مدیریت حقوقی سرپرستی استان <asp: Label ID = 'lblProvince' runat='server'>" & strProvince & "</asp: Label> جهت اطلاع و اقدام<br />" _
            & "</td></tr> </table> <br /></td></tr> </table>"
-
 
 
         '' divMain.InnerHtml = strHTMLMain

@@ -6,11 +6,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script language="javascript" type="text/javascript">
 
-        function printPage() {
-
-            btnprint.style.visibility = 'hidden';
-            window.print();
-        }
+     
 
         function StartthePage() {
 
@@ -153,19 +149,14 @@
 
     </script>
 
-    <style type="text/css">
-        @page {
-            size: auto; /* auto is the initial value */
-            margin: 0; /* this affects the margin in the printer settings */
-        }
-    </style>
+ 
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
 
     <uc1:Bootstrap_Panel ID="Bootstrap_Panel1" runat="server" />
-    <div class="row" runat="server" id="divMain2">
+    <div class="row" >
         <br />
         <div class="col-md-12">
 

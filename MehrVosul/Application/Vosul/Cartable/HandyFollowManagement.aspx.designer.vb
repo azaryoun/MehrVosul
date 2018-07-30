@@ -23,6 +23,15 @@ Partial Public Class HandyFollowManagement
     Protected WithEvents Bootstrap_Panel1 As Global.MehrVosul.Bootstrap_Panel
     
     '''<summary>
+    '''btnPrint control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents btnPrint As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
     '''lblInnerPageTitle control.
     '''</summary>
     '''<remarks>

@@ -45,8 +45,8 @@
 
         function SaveOperation_Validate() {
 
-            
-          
+
+
 
             var cmbAssignType = document.getElementById("<%=cmbAssignType.ClientID%>");
 
@@ -77,7 +77,7 @@
 
             }
             else {
-                
+
                 var tblNumbers_Name = "<%=tblNumbers.ClientID %>";
                 var tblNumbers = document.getElementById(tblNumbers_Name);
 
@@ -128,7 +128,7 @@
         function ReadytoAssign() {
 
 
-            
+
             var tblNumbers_Name = "ContentPlaceHolder1_tblNumbers";
             var tblNumbers = document.getElementById(tblNumbers_Name);
 
@@ -250,7 +250,6 @@
 
                     <div class="row">
 
-
                         <div class="col-md-6">
                             <div class="form-group">
 
@@ -262,9 +261,7 @@
 
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
-                                <br />
-                                <asp:LinkButton CssClass="btn btn-success" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
-
+                              
 
                             </div>
                         </div>
@@ -283,7 +280,25 @@
                         </div>
 
                     </div>
+                    <div class="row">
 
+                        <div class="col-md-6">
+
+                            <div class="form-group">
+
+                                <div class="form-group">
+                                    <label>نوع وام</label><asp:ObjectDataSource ID="odsLoanType" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_List_SelectTableAdapter">
+                                    </asp:ObjectDataSource>
+                                    &nbsp;<asp:DropDownList ID="cmbLoanType" runat="server" CssClass="form-control"
+                                        DataSourceID="odsLoanType" DataTextField="LoanType" DataValueField="ID">
+                                    </asp:DropDownList>
+                                </div>
+                                  <br />
+                                <asp:LinkButton CssClass="btn btn-success" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
+
+                            </div>
+                        </div>
+                    </div>
                     <div class="row">
 
                         <div class="col-md-6">
@@ -334,6 +349,7 @@
                     </div>
 
 
+
                     <div class="row">
                         <div class="col-md-12">
 
@@ -357,7 +373,7 @@
                                     <td class="TableHeader1">تعداد اقساط</td>
                                     <td class="TableHeader1">مبلغ تسهیلات</td>
                                     <td class="TableHeader1">نوع تسهیلات</td>
-                                   
+
                                     <td class="TableHeader1">مبلغ معوق</td>
                                     <td class="TableHeader1">تعدادروزمعوق</td>
                                     <td class="TableHeader1">کارشناس پیگیر</td>

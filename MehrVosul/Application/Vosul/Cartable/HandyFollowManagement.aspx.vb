@@ -403,4 +403,63 @@ Public Class HandyFollowManagement
     End Sub
 
 
+    <System.Web.Services.WebMethod()> Public Shared Function PrintOperation_Server(theKeys() As Integer) As String
+
+
+        Try
+
+            Dim strHTMLMain As String = ""
+            For i As Integer = 0 To theKeys.Length - 1
+
+                Dim intPKey As Integer = CInt(theKeys(i))
+
+                Dim qryWarningIntervals As New BusinessObject.dstWarningIntervalsTableAdapters.QueriesTableAdapter
+
+                Dim tadpFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_SelectTableAdapter
+                Dim dtblFollowAssign As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_SelectDataTable = Nothing
+
+                dtblFollowAssign = tadpFollowAssign.GetData(intPKey)
+
+                If dtblFollowAssign.First.AssignType <> 2 OrElse dtblFollowAssign.First.IsAssigned = False Then
+
+                    Continue For
+
+                End If
+
+
+                ''get File ID
+                Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
+                Dim dtblFile As BusinessObject.dstFile.spr_File_SelectDataTable = Nothing
+                dtblFile = tadpFile.GetData(1, dtblFollowAssign.First.FK_FileID, "")
+
+                Dim strCustomerNO As String = dtblFile.First.CustomerNo
+
+                Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_SelectTableAdapter
+                Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_SelectDataTable = Nothing
+
+                dtblLoan = tadpLoan.GetData(2, dtblFollowAssign.First.FK_LoanID, -1, -1)
+
+                Dim strLCNO As String = dtblLoan.First.LoanNumber
+
+
+                strHTMLMain &= strCustomerNO & ";" & strLCNO & ","
+
+
+
+            Next i
+
+            ''     Response.Redirect("../HandyFollow/ManifestPreview.aspx?STRHTML=" & strHTMLMain)
+
+
+            Return strHTMLMain
+
+        Catch ex As Exception
+
+            Return ""
+
+        End Try
+
+    End Function
+
+
 End Class
