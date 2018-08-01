@@ -248,6 +248,42 @@ Partial Public Class HandyFollowNew
     Protected WithEvents txtRemark As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''txtCheckNO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtCheckNO As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtAccountNO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAccountNO As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''Bootstrap_PersianDateTimePickerCheckDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Bootstrap_PersianDateTimePickerCheckDate As Global.MehrVosul.Bootstrap_PersianDateTimePicker
+    
+    '''<summary>
+    '''Bootstrap_PersianDateTimePickerChekDateDuty control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Bootstrap_PersianDateTimePickerChekDateDuty As Global.MehrVosul.Bootstrap_PersianDateTimePicker
+    
+    '''<summary>
     '''divNotice control.
     '''</summary>
     '''<remarks>

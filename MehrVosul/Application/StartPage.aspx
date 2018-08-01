@@ -55,7 +55,8 @@
 
                                 <th style="color: #FF0000"><a style="color: black" href="Vosul/HandyFollow/HandyFollowAlarm.aspx">
                                   <i style="color: red" class="fa fa-bell fa-x"></i><asp:Label ID="lblHandyFollowAlarmAdmin" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ تعهد</th>
-                                <th>&nbsp;</th>
+                                <th style="color: #FF0000"><a style="color: black" href="Vosul/HandyFollow/HandyFollowCheckAlarm.aspx">  <i style="color: red" class="fa fa-bell fa-x"></i>
+                                    <asp:Label ID="lblHandyFollowCheckAlarmAdmin" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ چک</th>
                             </tr>
                             <tr>
 
@@ -137,7 +138,8 @@
 
                                 <th style="color: #FF0000"><a style="color: black" href="/Application/Vosul/HandyFollow/HandyFollowAlarm.aspx">
                                   <i style="color: red" class="fa fa-bell fa-x"></i><asp:Label ID="lblHandyFollowAlarm" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ تعهد</th>
-                                <th>&nbsp;</th>
+                                <th style="color: #FF0000"><a style="color: black" href="/Application/Vosul/HandyFollow/HandyFollowCheckAlarm.aspx">
+                                  <i style="color: red" class="fa fa-bell fa-x"></i><asp:Label ID="lblHandyFollowCheckAlarm" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp; سررسید تعهد چک</th>
                             </tr>
                             <tr>
 

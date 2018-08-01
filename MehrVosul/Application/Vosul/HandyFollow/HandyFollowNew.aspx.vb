@@ -412,10 +412,25 @@ Public Class HandyFollowNew
 
 
             TbCell = New HtmlTableCell
+            Dim strCheckDesc As String = ""
+            If drwHandyFollow.IsCheckDateNull = False AndAlso drwHandyFollow.IsCheckDateNull = False Then
+                strCheckDesc = drwHandyFollow.CheckNO & "(" & mdlGeneral.GetPersianDate(drwHandyFollow.CheckDate) & ")"
+            End If
+            TbCell.Attributes.Add("dir", "ltr")
+            TbCell.InnerHtml = strCheckDesc
+            TbCell.NoWrap = False
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
+
+
+            TbCell = New HtmlTableCell
             TbCell.InnerHtml = drwHandyFollow.Remarks
             TbCell.NoWrap = False
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
+
+
+
 
             ''TbCell = New HtmlTableCell
             ''TbCell.InnerHtml = "<a ID='lnkbtnHandyDelete' href='#'  onclick= lnkbtnHandyDelete_ClientClick(" & drwHandyFollow.ID & ")>حذف</a>"
@@ -572,7 +587,20 @@ Public Class HandyFollowNew
                 dteDutyDate = Bootstrap_PersianDateTimePicker_TO.GergorainDateTime
             End If
 
-            qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate, intHandFollowAssignID)
+            Dim blnHasCheck As Boolean = If(txtCheckNO.Text.Trim <> "", True, False)
+            Dim strCheckNO As String = txtCheckNO.Text.Trim
+            Dim dteCheckDate As Date? = Nothing
+            If Bootstrap_PersianDateTimePickerCheckDate.PersianDateTime <> "" Then
+                dteCheckDate = Bootstrap_PersianDateTimePickerCheckDate.GergorainDateTime
+            End If
+            Dim dteChekDateDuty As Date? = Nothing
+            If Bootstrap_PersianDateTimePickerChekDateDuty.PersianDateTime <> "" Then
+                dteChekDateDuty = Bootstrap_PersianDateTimePickerChekDateDuty.GergorainDateTime
+            End If
+            Dim strCheckDesk As String = txtAccountNO.Text
+
+            qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate, intHandFollowAssignID, blnHasCheck, strCheckNO, dteCheckDate, strCheckDesk, dteChekDateDuty)
+
 
             If Not ViewState("AssignType") Is Nothing Then
 

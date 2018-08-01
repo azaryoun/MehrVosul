@@ -175,6 +175,7 @@
     <Content Include="Application\Vosul\File\WhiteListNew.aspx" />
     <Content Include="Application\Vosul\HandyFollowNew\HandyFollowNewSearch.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowAlarm.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\HandyFollowCheckAlarm.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx" />
@@ -656,6 +657,13 @@
     </Compile>
     <Compile Include="Application\Vosul\HandyFollow\HandyFollowAlarm.aspx.vb">
       <DependentUpon>HandyFollowAlarm.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowCheckAlarm.aspx.designer.vb">
+      <DependentUpon>HandyFollowCheckAlarm.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowCheckAlarm.aspx.vb">
+      <DependentUpon>HandyFollowCheckAlarm.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx.designer.vb">

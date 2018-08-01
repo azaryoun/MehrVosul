@@ -77,6 +77,15 @@ Partial Public Class StartPage
     Protected WithEvents lblHandyFollowAlarmAdmin As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblHandyFollowCheckAlarmAdmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblHandyFollowCheckAlarmAdmin As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''lblNewFileNotAssign control.
     '''</summary>
     '''<remarks>
@@ -228,6 +237,15 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblHandyFollowAlarm As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblHandyFollowCheckAlarm control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblHandyFollowCheckAlarm As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''lblAssignedFiles control.

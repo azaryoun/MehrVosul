@@ -68,6 +68,17 @@
                     lblHandyFollowAlarmAdmin.Text = dtblHandyFollowAlarm.First.HandyFollow.ToString()
                 End If
 
+                ''Fill HandyFollow Alarm 
+                Dim tadpHandyFollowCheckAlarm As New BusinessObject.dstAlarmTableAdapters.spr_HandyFollowCheckAlarm_Select_CountTableAdapter
+                Dim dtblHandyFollowCheckAlarm As BusinessObject.dstAlarm.spr_HandyFollowCheckAlarm_Select_CountDataTable = Nothing
+
+                dtblHandyFollowCheckAlarm = tadpHandyFollowCheckAlarm.GetData(1, -1, drwUserLogin.FK_BrnachID)
+                If dtblHandyFollowAlarm.Rows.Count > 0 Then
+                    lblHandyFollowCheckAlarmAdmin.Text = dtblHandyFollowCheckAlarm.First.HandyFollow.ToString()
+                End If
+
+
+
             End If
 
             If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsItemAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
@@ -208,6 +219,16 @@
                 dtblHandyFollowAlarm = tadpHandyFollowAlarm.GetData(2, drwUserLogin.ID, -1)
                 If dtblHandyFollowAlarm.Rows.Count > 0 Then
                     lblHandyFollowAlarm.Text = dtblHandyFollowAlarm.First.HandyFollow.ToString()
+                End If
+
+
+                ''Fill HandyFollow Check Alarm 
+                Dim tadpHandyFollowCheckAlarm As New BusinessObject.dstAlarmTableAdapters.spr_HandyFollowCheckAlarm_Select_CountTableAdapter
+                Dim dtblHandyFollowCheckAlarm As BusinessObject.dstAlarm.spr_HandyFollowCheckAlarm_Select_CountDataTable = Nothing
+
+                dtblHandyFollowCheckAlarm = tadpHandyFollowCheckAlarm.GetData(2, drwUserLogin.ID, -1)
+                If dtblHandyFollowCheckAlarm.Rows.Count > 0 Then
+                    lblHandyFollowCheckAlarm.Text = dtblHandyFollowCheckAlarm.First.HandyFollow.ToString()
                 End If
 
 
