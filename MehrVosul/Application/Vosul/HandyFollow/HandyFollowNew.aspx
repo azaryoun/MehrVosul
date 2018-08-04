@@ -317,7 +317,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label>توضیحات</label>
+                            <label style="font-weight:bold;font-size:medium">توضیحات پیگیری</label>
 
                             <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control"
                                 placeholder="توضیحات را وارد کنید" Height="100px" TextMode="MultiLine"></asp:TextBox>
@@ -339,7 +339,7 @@
                                     placeholder="شماره چک را وارد کنید"></asp:TextBox>
                             </div>
                             <div class="form-group">
-                                <label>توضیحات(شماره حساب)</label>
+                                <label>توضیحات چک(شماره حساب)</label>
 
                                 <asp:TextBox ID="txtAccountNO" runat="server" CssClass="form-control"
                                     placeholder="توضیحات  یا شماره حساب را وارد کنید" Height="100px" TextMode="MultiLine"></asp:TextBox>
