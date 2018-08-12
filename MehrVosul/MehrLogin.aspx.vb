@@ -1,4 +1,4 @@
-﻿Public Class Login
+﻿Public Class MehrLogin
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
@@ -12,22 +12,22 @@
     Protected Sub btnSignin_Click(sender As Object, e As EventArgs) Handles btnSignIn.ServerClick
         Dim strUsername As String = txtUsername.Text.Trim
         Dim strPassword As String = txtPassword.Text.Trim
-        Dim tadpUserLogin As New BusinessObject.dstUserTableAdapters.spr_User_Login_SelectTableAdapter
-        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = Nothing
-        dtblUserLogin = tadpUserLogin.GetData(strUsername, strPassword)
-        If dtblUserLogin.Rows.Count = 0 Then
+        Dim tadpUserMehrLogin As New BusinessObject.dstUserTableAdapters.spr_User_Login_SelectTableAdapter
+        Dim dtblUserMehrLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = Nothing
+        dtblUserMehrLogin = tadpUserMehrLogin.GetData(strUsername, strPassword)
+        If dtblUserMehrLogin.Rows.Count = 0 Then
             divMessage.Style("display") = "inline"
             Return
         End If
 
 
-        'If dtblUserLogin.First.IsDataAdmin = False AndAlso dtblUserLogin.First.IsItemAdmin = False Then
+        'If dtblUserMehrLogin.First.IsDataAdmin = False AndAlso dtblUserMehrLogin.First.IsItemAdmin = False Then
         '    Dim strIP As String = System.Web.HttpContext.Current.Request.UserHostAddress
 
         '    Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
         '    Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
 
-        '    dtblBranch = tadpBranch.GetData(dtblUserLogin.First.FK_BrnachID)
+        '    dtblBranch = tadpBranch.GetData(dtblUserMehrLogin.First.FK_BrnachID)
         '    If dtblBranch.Rows.Count > 0 Then
 
         '        If dtblBranch.First.IsBranchIPNull = True Then
@@ -47,15 +47,15 @@
         '        End If
         '    End If
         'End If
-        
-        Session("dtblUserLogin") = CObj(dtblUserLogin)
 
-        Dim qryUserLogin As New BusinessObject.dstLoginLogTableAdapters.QueriesTableAdapter
-        qryUserLogin.spr_SystemLoginLog_Insert(dtblUserLogin.First.ID)
+        Session("dtblUserLogin") = CObj(dtblUserMehrLogin)
+
+        Dim qryUserMehrLogin As New BusinessObject.dstLoginLogTableAdapters.QueriesTableAdapter
+        qryUserMehrLogin.spr_SystemLoginLog_Insert(dtblUserMehrLogin.First.ID)
 
         Web.Security.FormsAuthentication.SetAuthCookie("TCS_Username", False)
 
-        Response.Redirect("Application/StartPage.aspx?BankName=Mehr")
+        Response.Redirect("Application/StartPage.aspx?BankName=MehrIran")
         Return
 
     End Sub

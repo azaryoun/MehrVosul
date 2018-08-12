@@ -378,7 +378,7 @@
         <div class="col-md-6" runat="server" style="visibility:hidden;" id="divBranchUser">
 
             <div class="panel back-dash" style="background-color: #ffd800">
-                <a style="color: White" href="/Application/Vosul/HandyFollow/HandyFollowFileSearch.aspx"><i class="fa fa-users fa-4x"></i><strong style="display: -ms-inline-grid">&nbsp;پیگیری پرسنلی</strong></a>
+                <a style="color: White" href="/Application/Vosul/HandyFollow/HandyFollowFileSearch1.aspx"><i class="fa fa-users fa-4x"></i><strong style="display: -ms-inline-grid">&nbsp;پیگیری پرسنلی</strong></a>
                 <p class="text-muted">امکان ثبت پیگیریهای دستی انجام شده توسط  کارشناسان از طریق جستجوی شماره پرونده</p>
                 <br />
             </div>

@@ -1,10 +1,10 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="Login.aspx.vb" Inherits="MehrVosul.Login" %>
+﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="HadiLogin.aspx.vb" Inherits="MehrVosul.HadiLogin" %>
 
 <!DOCTYPE html>
 
 <html>
 <head runat="server">
-    <title>به نرم افزار جامع وصول مطالبات بانک مهر (وصال) خوش آمدید</title>
+    <title>به نرم افزار جامع هادی بانک مهر اقتصاد خوش آمدید</title>
 
     <link href="/assets/css/bootstrap.css" rel="stylesheet" />
     <link href="/assets/css/font-awesome.css" rel="stylesheet" />
@@ -48,9 +48,6 @@
        }
 
 
-
-
-
     </script>
 </head>
 <body>
@@ -62,7 +59,7 @@
                     <div>
                         <div align="center">
                             <asp:Image ID="Image1" runat="server" Style="width: 100%"
-                                ImageUrl="~/Images/System/MehrHeader.jpg" />
+                                ImageUrl="~/Images/System/HadiHeader2.jpg" />
                         </div>
                         <div class="panel-body">
 
@@ -73,7 +70,7 @@
 
 
                                 <div class="col-md-8"
-                                    style="background-image: url('Images/System/bachgroundcolor.jpg'); top: 0px; right: 0px; width: 100%">
+                                    style="background-image: url('Images/System/bachgroundcolorHadi.png'); top: 0px; right: 0px; width: 100%">
 
 
                                     <div class="row">
@@ -92,7 +89,7 @@
                                                 <th>
 
                                                     <div class="input-group">
-                                                        <asp:TextBox ID="txtUsername" Width="200px" CssClass="form-control" runat="server" placeholder="نام کاربری" TextMode="SingleLine" MaxLength="30" BackColor="#AFBEF7"></asp:TextBox>
+                                                        <asp:TextBox ID="txtUsername" Width="200px" CssClass="form-control" runat="server" placeholder="نام کاربری" TextMode="SingleLine" MaxLength="30" BackColor="#c5e5e4"></asp:TextBox>
 
                                                     </div>
                                                 </th>
@@ -114,7 +111,7 @@
                                                 <th>
 
                                                     <div class="input-group">
-                                                        <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server" placeholder="رمز عبور" TextMode="Password" MaxLength="30" Width="200px" BackColor="#AFBEF7"></asp:TextBox>
+                                                        <asp:TextBox ID="txtPassword" CssClass="form-control" runat="server" placeholder="رمز عبور" TextMode="Password" MaxLength="30" Width="200px" BackColor="#c5e5e4"></asp:TextBox>
                                                     </div>
 
                                                 </th>
@@ -136,7 +133,7 @@
                                                 <th style="width: 90px;"></th>
 
                                                 <th>
-                                                    <button id="btnSignIn" title="press to log-in!" runat="server" class="btn btn-sh btn-primary" style="width: 100px; background-color: #3B5BEA; font-size: x-small; font-weight: bold;">ورود به سیستم</button>
+                                                    <button id="btnSignIn" title="press to log-in!" runat="server" class="btn btn-sh btn-primary" style="width: 100px; background-color: #339789; font-size: x-small; font-weight: bold;">ورود به سیستم</button>
                                                 </th>
                                             </tr>
                                         </table>
@@ -185,9 +182,9 @@
 
                 </div>
             </div>
-            <div class="col-xs-4"></div>
-        </div>
-      
+        <div class="col-xs-4"></div>
+
+       
 
     </form>
 </body>

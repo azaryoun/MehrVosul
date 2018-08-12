@@ -326,15 +326,15 @@ Public Class HandyFollowNew
 
         If Not Session("From") Is Nothing Then
 
-            Response.Redirect("HandyFollowFileSearch.aspx?Branch=" & Session("Branch").ToString & "&LoanType=" & Session("LoanType").ToString() & "&Province=" & Session("Province").ToString & "&From=" & Session("From").ToString() & "&To=" & Session("To").ToString())
+            Response.Redirect("HandyFollowFileSearch1.aspx?Branch=" & Session("Branch").ToString & "&LoanType=" & Session("LoanType").ToString() & "&Province=" & Session("Province").ToString & "&From=" & Session("From").ToString() & "&To=" & Session("To").ToString())
 
         ElseIf Not Session("customerNO") Is Nothing Then
 
-            Response.Redirect("HandyFollowFileSearch.aspx?customerNO=" & Session("customerNO").ToString())
+            Response.Redirect("HandyFollowFileSearch1.aspx?customerNO=" & Session("customerNO").ToString())
 
         Else
 
-            Response.Redirect("HandyFollowFileSearch.aspx")
+            Response.Redirect("HandyFollowFileSearch1.aspx")
         End If
 
 

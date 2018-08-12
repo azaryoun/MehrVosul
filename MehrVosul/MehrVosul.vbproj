@@ -39,7 +39,7 @@
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>MehrVosul.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -137,6 +137,7 @@
     <Content Include="Application\Administration\User\UserManagement.aspx" />
     <Content Include="Application\BasicInfo\AdminSetting.aspx" />
     <Content Include="Application\BasicInfo\SystemSetting.aspx" />
+    <Content Include="Application\HadiStartPage.aspx" />
     <Content Include="Application\Hadi\Deposit\DepositTypeEdit.aspx" />
     <Content Include="Application\Hadi\Deposit\DepositTypeManagement.aspx" />
     <Content Include="Application\Hadi\Deposit\DepositTypeNew.aspx" />
@@ -177,6 +178,7 @@
     <Content Include="Application\Vosul\HandyFollow\HandyFollowAlarm.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowCheckAlarm.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowFileSearch.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\HandyFollowFileSearch1.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx" />
     <Content Include="Application\Vosul\HandyFollow\ManifestPreview.aspx" />
@@ -246,6 +248,8 @@
     <Content Include="assets\js\morris\morris.js" />
     <Content Include="assets\js\morris\raphael-2.1.0.min.js" />
     <Content Include="Global.asax" />
+    <Content Include="HadiLogin.aspx" />
+    <Content Include="Images\bachgroundcolorHadi.png" />
     <Content Include="Images\System\2448.jpg" />
     <Content Include="Images\System\add_icon.png" />
     <Content Include="Images\System\ansar.jpg" />
@@ -253,20 +257,27 @@
     <Content Include="Images\System\ansarlogo1.png" />
     <Content Include="Images\System\audio.png" />
     <Content Include="Images\System\bachgroundcolor.jpg" />
+    <Content Include="Images\System\bachgroundcolorHadi.png" />
     <Content Include="Images\System\datepicker.bmp" />
     <Content Include="Images\System\download.jpg" />
     <Content Include="Images\System\find_user.png" />
+    <Content Include="Images\System\HadiHeader.jpg" />
+    <Content Include="Images\System\HadiHeader2.jpg" />
     <Content Include="Images\System\key_enter.png" />
     <Content Include="Images\System\MehrHeader.jpg" />
+    <Content Include="Images\System\MehrIranHeader.jpg" />
+    <Content Include="Images\System\MehrIranLogo.png" />
     <Content Include="Images\System\MehrLogo.jpg" />
     <Content Include="Images\System\MehrLogonew.jpg" />
     <Content Include="Images\System\MehrLogoNew.png" />
     <Content Include="Images\System\MehrLogoNew1.png" />
     <Content Include="Images\System\MehrLogoPrint.jpg" />
     <Content Include="Images\System\minus_icon.png" />
+    <Content Include="Images\System\overtime2.jpg" />
     <Content Include="Images\System\Responsive.png" />
     <Content Include="Login.aspx" />
     <Content Include="Application\StartPage.aspx" />
+    <Content Include="MehrLogin.aspx" />
     <Content Include="obj\Styles\Site.css" />
     <Content Include="Scripts\Farsi.js" />
     <Content Include="Scripts\Integrated.js" />
@@ -398,6 +409,13 @@
     </Compile>
     <Compile Include="Application\BasicInfo\SystemSetting.aspx.vb">
       <DependentUpon>SystemSetting.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\HadiStartPage.aspx.designer.vb">
+      <DependentUpon>HadiStartPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\HadiStartPage.aspx.vb">
+      <DependentUpon>HadiStartPage.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Hadi\Deposit\DepositTypeEdit.aspx.designer.vb">
@@ -673,6 +691,13 @@
       <DependentUpon>HandyFollowFileSearch.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowFileSearch1.aspx.designer.vb">
+      <DependentUpon>HandyFollowFileSearch1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\HandyFollowFileSearch1.aspx.vb">
+      <DependentUpon>HandyFollowFileSearch1.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx.designer.vb">
       <DependentUpon>HandyFollowNew.aspx</DependentUpon>
     </Compile>
@@ -940,6 +965,13 @@
     <Compile Include="Global.asax.vb">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="HadiLogin.aspx.designer.vb">
+      <DependentUpon>HadiLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HadiLogin.aspx.vb">
+      <DependentUpon>HadiLogin.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Login.aspx.designer.vb">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
@@ -953,6 +985,13 @@
     <Compile Include="MasterPage\SmartIntergace_Master.Master.vb">
       <DependentUpon>SmartIntergace_Master.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="MehrLogin.aspx.designer.vb">
+      <DependentUpon>MehrLogin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="MehrLogin.aspx.vb">
+      <DependentUpon>MehrLogin.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">

@@ -1,14 +1,11 @@
-﻿Public Class Login
+﻿Public Class HadiLogin
     Inherits System.Web.UI.Page
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         btnSignIn.Attributes.Add("onclick", "return AccountValidate();")
         divMessage1.Style("display") = "none"
         divMessage.Style("display") = "none"
-        'Test
-        'Test
     End Sub
-
     Protected Sub btnSignin_Click(sender As Object, e As EventArgs) Handles btnSignIn.ServerClick
         Dim strUsername As String = txtUsername.Text.Trim
         Dim strPassword As String = txtPassword.Text.Trim
@@ -47,7 +44,7 @@
         '        End If
         '    End If
         'End If
-        
+
         Session("dtblUserLogin") = CObj(dtblUserLogin)
 
         Dim qryUserLogin As New BusinessObject.dstLoginLogTableAdapters.QueriesTableAdapter
@@ -55,23 +52,9 @@
 
         Web.Security.FormsAuthentication.SetAuthCookie("TCS_Username", False)
 
-        Response.Redirect("Application/StartPage.aspx?BankName=Mehr")
+        Response.Redirect("Application/HadiStartPage.aspx")
         Return
 
     End Sub
 
-
-
-
-    ''Protected Sub lnkbtnUserManula_Click(sender As Object, e As EventArgs) Handles lnkbtnUserManula.Click
-
-    ''    If IO.File.Exists(Server.MapPath("~") & "\UserManual\MehrUserManual.pdf") = True Then
-    ''        Response.Clear()
-    ''        Response.ContentType = "Application/zip"
-    ''        Response.AppendHeader("Content-Disposition", "attachment; filename=MehrUserManual.pdf")
-    ''        Response.WriteFile(Server.MapPath("~") & "\UserManual\MehrUserManual.pdf")
-    ''        Response.End()
-    ''    End If
-
-    ''End Sub
 End Class

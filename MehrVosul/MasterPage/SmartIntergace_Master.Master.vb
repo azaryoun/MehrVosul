@@ -10,6 +10,10 @@
             Return
         End If
 
+        If Session("BankName") Is Nothing Then
+            Session("BankName") = Request.QueryString("BankName")
+        End If
+
         '   Dim DraftType As String = Request.QueryString("type")
         Dim strClassName As String = Request.ServerVariables("SCRIPT_NAME")
         Dim intPos As Integer = strClassName.LastIndexOf("/")
@@ -19,7 +23,26 @@
 
         Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
         Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
-        Dim strPageTitle As String = "نرم افزار جامع وصول مطالبات بانک مهر (وصال)"
+
+        Dim strPageTitle As String = ""
+
+        If Request.QueryString("BankName") = "Mehr" OrElse Session("BankName") = "Mehr" Then
+
+            strPageTitle = "نرم افزار جامع وصول مطالبات بانک مهر (وصال)"
+            imgLogo.ImageUrl = "~/Images/System/MehrLogoNew1.png"
+
+        ElseIf Request.QueryString("BankName") = "MehrIran" OrElse Session("BankName") = "MehrIran" Then
+
+            strPageTitle = "نرم افزار جامع وصول مطالبات صندوق قرض الحسنه مهر ایران(وصال)"
+            imgLogo.ImageUrl = "~/Images/System/MehrIranLogo.png"
+        Else
+            divHadi.Visible = True
+            divVesal.Visible = False
+            strPageTitle = "سامانه هادی بانک مهر اقتصاد"
+            imgLogo.ImageUrl = "~/Images/System/MehrLogoNew1.png"
+
+        End If
+
 
 
         Dim intActiveMenuID As Integer = -1
