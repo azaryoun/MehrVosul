@@ -242,7 +242,7 @@
 
                 Dim tadpSMSCount As New BusinessObject.dstHadiWarningNotificationLogDetailTableAdapters.spr_HadiWarningNotificationLogDetail_SMSCount_SelectTableAdapter
                 Dim dtblSMSCount As BusinessObject.dstHadiWarningNotificationLogDetail.spr_HadiWarningNotificationLogDetail_SMSCount_SelectDataTable = Nothing
-                dtblSMSCount = tadpSMSCount.GetData(Date.Now.Date)
+                dtblSMSCount = tadpSMSCount.GetData(1, Date.Now.Date)
 
                 If dtblSMSCount.Rows.Count = 0 Then
                     ' strResultMessage &= ControlChars.NewLine & "ولی هیچ پیامکی تاکنون ارسال نشده است مشکل در سرویس ارسال" & ControlChars.NewLine & "code:2"
@@ -250,12 +250,12 @@
                 Else
 
                     Dim drwSMSCount As BusinessObject.dstHadiWarningNotificationLogDetail.spr_HadiWarningNotificationLogDetail_SMSCount_SelectRow = dtblSMSCount.Rows(0)
-                    If drwSMSCount.IsExpr1Null = True OrElse drwSMSCount.Expr1 = 0 Then
+                    If drwSMSCount.IsHadiSMSCountNull = True OrElse drwSMSCount.HadiSMSCount = 0 Then
                         'strResultMessage &= ControlChars.NewLine & "ولی هیچ پیامکی تاکنون ارسال نشده است مشکل در سرویس ارسال" & ControlChars.NewLine & "code:2"
                         strResultMessage = "پیامکی در مورخ " & mdlGeneral.GetPersianDate(Date.Now) & " تا این لحظه ارسال نشده است. "
 
                     Else
-                        strResultMessage &= " در مورخ" & mdlGeneral.GetPersianDate(Date.Now) & " تا کنون " & drwSMSCount.Expr1 & " پیامک با موفقیت ارسال شده است."
+                        strResultMessage &= " در مورخ" & mdlGeneral.GetPersianDate(Date.Now) & " تا کنون " & drwSMSCount.HadiSMSCount & " پیامک با موفقیت ارسال شده است."
                         blnSuccess = True
                     End If
                 End If

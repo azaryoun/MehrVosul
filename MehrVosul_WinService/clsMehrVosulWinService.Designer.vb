@@ -45,7 +45,6 @@ Partial Class clsMehrVosulWinService
         Me.tmrSponsorList = New System.Timers.Timer()
         Me.tmrSelfReport = New System.Timers.Timer()
         Me.tmrVoiceSMS = New System.Timers.Timer()
-        Me.tmrUpdateData_Hadi_Deposit = New System.Timers.Timer()
         Me.tmrUpdateData_Hadi_Loan = New System.Timers.Timer()
         Me.tmrFinalReport = New System.Timers.Timer()
         Me.UpdatePreWarning = New System.Timers.Timer()
@@ -53,11 +52,11 @@ Partial Class clsMehrVosulWinService
         Me.tmrNewSponsor = New System.Timers.Timer()
         Me.tmrVoiceSMSStatus = New System.Timers.Timer()
         Me.tmrProvinceFinalReport = New System.Timers.Timer()
+        Me.tmrHadiFinalReport = New System.Timers.Timer()
         CType(Me.tmrUpdateData, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSponsorList, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrVoiceSMS, System.ComponentModel.ISupportInitialize).BeginInit()
-        CType(Me.tmrUpdateData_Hadi_Deposit, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrFinalReport, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.UpdatePreWarning, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -65,6 +64,7 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrNewSponsor, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrVoiceSMSStatus, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.tmrProvinceFinalReport, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.tmrHadiFinalReport, System.ComponentModel.ISupportInitialize).BeginInit()
         '
         'tmrUpdateData
         '
@@ -84,10 +84,6 @@ Partial Class clsMehrVosulWinService
         '
         Me.tmrVoiceSMS.Enabled = True
         Me.tmrVoiceSMS.Interval = 3600000.0R
-        '
-        'tmrUpdateData_Hadi_Deposit
-        '
-        Me.tmrUpdateData_Hadi_Deposit.Interval = 3600000.0R
         '
         'tmrUpdateData_Hadi_Loan
         '
@@ -122,6 +118,10 @@ Partial Class clsMehrVosulWinService
         Me.tmrProvinceFinalReport.Enabled = True
         Me.tmrProvinceFinalReport.Interval = 3600000.0R
         '
+        'tmrHadiFinalReport
+        '
+        Me.tmrHadiFinalReport.Interval = 3600000.0R
+        '
         'clsMehrVosulWinService
         '
         Me.ServiceName = "Service1"
@@ -129,7 +129,6 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrSponsorList, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrSelfReport, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrVoiceSMS, System.ComponentModel.ISupportInitialize).EndInit()
-        CType(Me.tmrUpdateData_Hadi_Deposit, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrUpdateData_Hadi_Loan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrFinalReport, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.UpdatePreWarning, System.ComponentModel.ISupportInitialize).EndInit()
@@ -137,13 +136,13 @@ Partial Class clsMehrVosulWinService
         CType(Me.tmrNewSponsor, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrVoiceSMSStatus, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.tmrProvinceFinalReport, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.tmrHadiFinalReport, System.ComponentModel.ISupportInitialize).EndInit()
 
     End Sub
     Friend WithEvents tmrUpdateData As System.Timers.Timer
     Friend WithEvents tmrSponsorList As System.Timers.Timer
     Friend WithEvents tmrSelfReport As System.Timers.Timer
     Friend WithEvents tmrVoiceSMS As Timers.Timer
-    Friend WithEvents tmrUpdateData_Hadi_Deposit As Timers.Timer
     Friend WithEvents tmrUpdateData_Hadi_Loan As Timers.Timer
     Friend WithEvents tmrFinalReport As Timers.Timer
     Friend WithEvents UpdatePreWarning As Timers.Timer
@@ -151,4 +150,5 @@ Partial Class clsMehrVosulWinService
     Friend WithEvents tmrNewSponsor As Timers.Timer
     Friend WithEvents tmrVoiceSMSStatus As Timers.Timer
     Friend WithEvents tmrProvinceFinalReport As Timers.Timer
+    Friend WithEvents tmrHadiFinalReport As Timers.Timer
 End Class

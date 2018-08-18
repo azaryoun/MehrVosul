@@ -39,7 +39,7 @@
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>MehrVosul.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -144,6 +144,7 @@
     <Content Include="Application\Hadi\HadiDraft\HadiDraftText.aspx" />
     <Content Include="Application\Hadi\HadiDraft\HadiDraftTextDeposit.aspx" />
     <Content Include="Application\Hadi\HadiDraft\HadiVoiceMessageDraftText.aspx" />
+    <Content Include="Application\Hadi\HadiReports\HadiWarningNotificationReport.aspx" />
     <Content Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsEdit.aspx" />
     <Content Include="Application\Hadi\HadiWarningIntervals\HadiWarningIntervalsException.aspx" />
     <Content Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsMagic.aspx" />
@@ -459,6 +460,13 @@
     <Compile Include="Application\Hadi\HadiDraft\HadiVoiceMessageDraftText.aspx.vb">
       <DependentUpon>HadiVoiceMessageDraftText.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiReports\HadiWarningNotificationReport.aspx.designer.vb">
+      <DependentUpon>HadiWarningNotificationReport.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Hadi\HadiReports\HadiWarningNotificationReport.aspx.vb">
+      <DependentUpon>HadiWarningNotificationReport.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Hadi\HadiWarningIntervals\HadiwarningIntervalsEdit.aspx.designer.vb">
       <DependentUpon>HadiwarningIntervalsEdit.aspx</DependentUpon>

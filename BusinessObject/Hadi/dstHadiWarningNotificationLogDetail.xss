@@ -8,10 +8,10 @@
   <Shapes>
     <Shape ID="DesignTable:spr_HadiWarningNotificationLogDetail_Select" ZOrder="6" X="12" Y="60" Height="305" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="254" />
     <Shape ID="DesignTable:spr_HadiWarningNotificationLogDetail_DeliverySMS_List_Select" ZOrder="5" X="760" Y="58" Height="96" Width="375" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
-    <Shape ID="DesignTable:spr_HadiWarningNotificationLogDetail_SMSCount_Select" ZOrder="4" X="713" Y="210" Height="96" Width="397" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
-    <Shape ID="DesignTable:spr_HadiWarningNotificationLogDetail_NotSend_SMS_List" ZOrder="3" X="379" Y="327" Height="191" Width="469" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
-    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="1" X="525" Y="559" Height="143" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
-    <Shape ID="DesignTable:spr_HadiSMSCountLog_Select" ZOrder="2" X="13" Y="385" Height="248" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="197" />
+    <Shape ID="DesignTable:spr_HadiWarningNotificationLogDetail_NotSend_SMS_List" ZOrder="4" X="379" Y="327" Height="191" Width="469" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="140" />
+    <Shape ID="DesignTable:spr_HadiSMSCountLog_Select" ZOrder="3" X="13" Y="385" Height="248" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="197" />
+    <Shape ID="DesignSources:QueriesTableAdapter" ZOrder="2" X="525" Y="559" Height="143" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="139" />
+    <Shape ID="DesignTable:spr_HadiWarningNotificationLogDetail_SMSCount_Select" ZOrder="1" X="581" Y="210" Height="96" Width="300" AdapterExpanded="true" DataTableExpanded="true" OldAdapterHeight="0" OldDataTableHeight="0" SplitterPosition="46" />
   </Shapes>
   <Connectors />
 </DiagramLayout>

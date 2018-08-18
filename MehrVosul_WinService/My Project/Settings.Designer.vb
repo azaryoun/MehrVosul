@@ -57,8 +57,8 @@ Namespace My
         <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.ConnectionString),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.110.174;Initial Catalog=dbMehrVosul;Persist Security Info=Tru"& _ 
-            "e;User ID=sa;Password=dashpass123")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("Data Source=.\SQL2008;Initial Catalog=dbMehrVosul;Persist Security Info=True;User"& _ 
+            " ID=sa;Password=123")>  _
         Public ReadOnly Property dbMehrVosulConnectionString() As String
             Get
                 Return CType(Me("dbMehrVosulConnectionString"),String)
