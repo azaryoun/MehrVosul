@@ -16,6 +16,8 @@
             Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
             Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
 
+            
+
             ''get Userrole
             If drwUserLogin.IsDataAdmin = True Then
 
@@ -29,6 +31,12 @@
                 ''check the access Group id
                 Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
                 Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3432)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+
+                    Response.Redirect("../Login.aspx")
+                End If
 
                 Dim blnAdminBranch As Boolean = False
                 dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
@@ -119,6 +127,11 @@
                 ''check the access Group id
                 Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
                 Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3432)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    Response.Redirect("../Login.aspx")
+                End If
 
                 dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
                 Dim blnAdminBranch As Boolean = False

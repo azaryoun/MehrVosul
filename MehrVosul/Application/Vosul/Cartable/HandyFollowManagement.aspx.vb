@@ -41,73 +41,98 @@ Public Class HandyFollowManagement
                 Bootstrap_Panel1.ClearMessage()
             End If
 
-            ''check the access Group id
-            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-            If dtblAccessgroupUser.Rows.Count > 0 Then
-                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
-                If dtblAccessgroupUser.Count = 0 Then
+            If drwUserLogin.IsDataAdmin = True Then
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+                cmbPerson.DataBind()
+
+                Bootstrap_Panel1.CanSave = True
+                cmbPerson.Visible = True
+                lblPerson.Visible = True
+            Else
+
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                    If dtblAccessgroupUser.Count = 0 Then
+                        Bootstrap_Panel1.CanSave = True
+                        cmbPerson.Visible = True
+                        lblPerson.Visible = True
+                    End If
+                ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
                     Bootstrap_Panel1.CanSave = True
                     cmbPerson.Visible = True
                     lblPerson.Visible = True
                 End If
-            ElseIf drwUserLogin.IsDataAdmin = True Then
-                Bootstrap_Panel1.CanSave = True
-                cmbPerson.Visible = True
-                lblPerson.Visible = True
-            End If
 
 
-            If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
+                If drwUserLogin.FK_AccessGroupID = 3438 Then
 
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
-                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 4
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                cmbPerson.DataBind()
+                    cmbPerson.DataBind()
 
-            ElseIf drwUserLogin.IsDataAdmin = True Then
+                ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
-                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                cmbPerson.DataBind()
+                    cmbPerson.DataBind()
 
-            ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
 
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
-                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
-                cmbPerson.DataBind()
+                ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
 
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+                    cmbPerson.DataBind()
+
+                End If
             End If
 
         Else
 
-            ''check the access Group id
-            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-            If dtblAccessgroupUser.Rows.Count > 0 Then
-                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
-                If dtblAccessgroupUser.Count = 0 Then
+            If drwUserLogin.IsDataAdmin = True Then
+                Bootstrap_Panel1.CanSave = True
+                cmbPerson.Visible = True
+                lblPerson.Visible = True
+            Else
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                    If dtblAccessgroupUser.Count = 0 Then
+                        Bootstrap_Panel1.CanSave = True
+                        cmbPerson.Visible = True
+                        lblPerson.Visible = True
+                    End If
+                ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
                     Bootstrap_Panel1.CanSave = True
                     cmbPerson.Visible = True
                     lblPerson.Visible = True
                 End If
-            ElseIf drwUserLogin.IsDataAdmin = True Then
-                Bootstrap_Panel1.CanSave = True
-                cmbPerson.Visible = True
-                lblPerson.Visible = True
+
             End If
 
-
         End If
+
 
         If hdnAction.Value.StartsWith("E") = True Then
 
@@ -120,39 +145,54 @@ Public Class HandyFollowManagement
 
             Dim intFollowAssignID As Integer = CInt(hdnAction.Value.Split(";")(1))
 
-            If drwUserLogin.IsDataUserAdmin = False Then
 
-                dtblHandyFollowAssign = tadpHandyFollowAssign.GetData(intFollowAssignID)
-
-                If dtblHandyFollowAssign.Rows.Count > 0 Then
-
-
-                    dtblTotalDeffredLCByLCNO = tadpTotalDeffredLCByLCNO.GetData(dtblHandyFollowAssign.First.LoanNumber)
-
-
-                    Dim intFileID As Long = dtblHandyFollowAssign.First.FK_FileID
-                    Dim intLoanID As Long = dtblHandyFollowAssign.First.FK_LoanID
-
-                    If dtblTotalDeffredLCByLCNO.Rows.Count > 0 Then
-                        Session("AmountDeffed") = dtblTotalDeffredLCByLCNO.First.AmounDefferd
-                        Session("customerNO") = dtblTotalDeffredLCByLCNO.First.CustomerNO
-                    End If
-
-                    Session("intFileID") = CObj(intFileID)
-                    Session("intLoanID") = CObj(intLoanID)
-                    Session("HandyFollowAssign") = dtblHandyFollowAssign.First.ID
-                    Session("AssignType") = dtblHandyFollowAssign.First.AssignType
-
-                    Response.Redirect("../HandyFollow/HandyFollowNew.aspx")
-                Else
-
-                    Return
-
-                End If
-            Else
+            If drwUserLogin.IsDataAdmin = True Then
                 Session("intFollowAssignID") = intFollowAssignID
                 Response.Redirect("HandyFollowAssignEdit.aspx")
+            Else
+                If drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                    Session("intFollowAssignID") = intFollowAssignID
+                    Response.Redirect("HandyFollowAssignEdit.aspx")
+
+                ElseIf drwUserLogin.IsDataUserAdmin = False Then
+
+                    dtblHandyFollowAssign = tadpHandyFollowAssign.GetData(intFollowAssignID)
+
+                    If dtblHandyFollowAssign.Rows.Count > 0 Then
+
+
+                        dtblTotalDeffredLCByLCNO = tadpTotalDeffredLCByLCNO.GetData(dtblHandyFollowAssign.First.LoanNumber)
+
+
+                        Dim intFileID As Long = dtblHandyFollowAssign.First.FK_FileID
+                        Dim intLoanID As Long = dtblHandyFollowAssign.First.FK_LoanID
+
+                        If dtblTotalDeffredLCByLCNO.Rows.Count > 0 Then
+                            Session("AmountDeffed") = dtblTotalDeffredLCByLCNO.First.AmounDefferd
+                            Session("customerNO") = dtblTotalDeffredLCByLCNO.First.CustomerNO
+                        End If
+
+                        Session("intFileID") = CObj(intFileID)
+                        Session("intLoanID") = CObj(intLoanID)
+                        Session("HandyFollowAssign") = dtblHandyFollowAssign.First.ID
+                        Session("AssignType") = dtblHandyFollowAssign.First.AssignType
+
+                        Response.Redirect("../HandyFollow/HandyFollowNew.aspx")
+                    Else
+
+                        Return
+
+                    End If
+
+
+                Else
+                    Session("intFollowAssignID") = intFollowAssignID
+                    Response.Redirect("HandyFollowAssignEdit.aspx")
+                End If
+
             End If
+
 
 
         End If
@@ -167,42 +207,60 @@ Public Class HandyFollowManagement
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-            ''check the access Group id
-            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
-
-            Dim blnAdminBranch As Boolean = False
-            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
-            If dtblAccessgroupUser.Rows.Count = 0 Then
-                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-                If dtblAccessgroupUser.Rows.Count > 0 Then
-                    blnAdminBranch = True
-                End If
-            End If
 
             Dim intAction As Integer
             If drwUserLogin.IsDataAdmin = True Then
+
                 intAction = 5
                 If strFilter IsNot Nothing Then
                     intAction = 6
                 End If
-            ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
-                intAction = 3
-                If strFilter IsNot Nothing Then
-                    intAction = 4
-                End If
-            ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
-                intAction = 7
-                If strFilter IsNot Nothing Then
-                    intAction = 8
-                End If
+
 
             Else
-                intAction = 1
-                If strFilter IsNot Nothing Then
-                    intAction = 2
+
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                Dim blnAdminBranch As Boolean = False
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Rows.Count = 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                    If dtblAccessgroupUser.Rows.Count > 0 Then
+                        blnAdminBranch = True
+                    End If
                 End If
+
+
+                If drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                    intAction = 9
+                    If strFilter IsNot Nothing Then
+                        intAction = 10
+                    End If
+
+                ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
+                    intAction = 3
+                    If strFilter IsNot Nothing Then
+                        intAction = 4
+                    End If
+                ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
+                    intAction = 7
+                    If strFilter IsNot Nothing Then
+                        intAction = 8
+                    End If
+
+                Else
+                    intAction = 1
+                    If strFilter IsNot Nothing Then
+                        intAction = 2
+                    End If
+                End If
+
             End If
+
+
 
 
 
@@ -215,7 +273,7 @@ Public Class HandyFollowManagement
             Dim strResult As String = ""
             Dim intColumnCount As Integer = dtblHandyFollowAssignManagement.Columns.Count
 
-            If intAction = 1 Or intAction = 3 Or intAction = 5 Or intAction = 7 Then
+            If intAction = 1 Or intAction = 3 Or intAction = 5 Or intAction = 7 Or intAction = 9 Then
                 For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
 
 
@@ -283,40 +341,54 @@ Public Class HandyFollowManagement
         Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
         Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-        ''check the access Group id
-        Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-        Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
-
-        Dim blnAdminBranch As Boolean = False
-        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
-        If dtblAccessgroupUser.Rows.Count = 0 Then
-            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-            If dtblAccessgroupUser.Rows.Count > 0 Then
-                blnAdminBranch = True
-            End If
-        End If
-
         Dim intAction As Integer
         If drwUserLogin.IsDataAdmin = True Then
             intAction = 5
             If strFilter IsNot Nothing Then
                 intAction = 6
+
             End If
-        ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
-            intAction = 3
-            If strFilter IsNot Nothing Then
-                intAction = 4
-            End If
-        ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
-            intAction = 7
-            If strFilter IsNot Nothing Then
-                intAction = 8
+        Else
+
+
+            ''check the access Group id
+            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+            Dim blnAdminBranch As Boolean = False
+            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+            If dtblAccessgroupUser.Rows.Count = 0 Then
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    blnAdminBranch = True
+                End If
             End If
 
-        Else
-            intAction = 1
-            If strFilter IsNot Nothing Then
-                intAction = 2
+
+            If drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                intAction = 9
+                If strFilter IsNot Nothing Then
+                    intAction = 10
+                End If
+
+
+            ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
+                intAction = 3
+                If strFilter IsNot Nothing Then
+                    intAction = 4
+                End If
+            ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
+                intAction = 7
+                If strFilter IsNot Nothing Then
+                    intAction = 8
+                End If
+
+            Else
+                intAction = 1
+                If strFilter IsNot Nothing Then
+                    intAction = 2
+                End If
             End If
         End If
 

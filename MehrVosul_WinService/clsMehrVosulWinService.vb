@@ -86,6 +86,13 @@ Public Class clsMehrVosulWinService
 
     End Structure
 
+    Private Structure stc_NotDeffred_Info
+
+        Public LC_No As String '6
+        Public CustomerNo As String '9
+
+    End Structure
+
 
 
     Private Structure stc_Deposit_Info
@@ -194,8 +201,14 @@ Public Class clsMehrVosulWinService
 
         Dim trSMSSendVOICE_Sponser As New Threading.Thread(AddressOf SendNotification_VoiceSMS_Sponsor)
         trSMSSendVOICE_Sponser.Start()
-        ''Dim trNotification_Hadi_Loan As New Threading.Thread(AddressOf SendHadiNotification_Loan)
-        ''trNotification_Hadi_Loan.Start()
+
+
+        Dim trNotification_Hadi_Loan As New Threading.Thread(AddressOf SendHadiNotification_Loan)
+        trNotification_Hadi_Loan.Start()
+
+        Dim trHadiSMSSend As New Threading.Thread(AddressOf HadiSendSMS)
+        trHadiSMSSend.Start()
+
 
     End Sub
 
@@ -1399,7 +1412,7 @@ VoiceSMS:
                         Dim drwWarningIntervalCheck As BusinessObject.dstHadiWarningIntervals.spr_HadiWarningIntervals_Check_SelectRow = dtblWarningIntervalCheck.Rows(0)
 
                         Dim qryWarningNotificationLog As New BusinessObject.dstHadiWarningNotificationLogTableAdapters.QueriesTableAdapter
-                        Dim intWarningNotifcationLogID As Integer = qryWarningNotificationLog.spr_HadiWarningNotificationLog_Insert(drwLCStaus.FK_FileID, drwWarningIntervalCheck.ID, drwLCStaus.LCDate, 1, Date.Now, False)
+                        Dim intWarningNotifcationLogID As Integer = qryWarningNotificationLog.spr_HadiWarningNotificationLog_Insert(drwLCStaus.FK_FileID, drwWarningIntervalCheck.ID, drwLCStaus.LCDate, 1, Date.Now, False, drwLCStaus.FK_LoanID)
 
                         If drwWarningIntervalCheck.SendSMS = True Then
 
@@ -3764,16 +3777,16 @@ VoiceSMS:
                             stcVarLoanInfo.LoanAmount = CDbl(dataReader.GetValue(9))
                         End If
 
-                        If dataReader.GetValue(10) Is DBNull.Value Then
-                            stcVarLoanInfo.LoanTitle = Nothing
-                        Else
-                            stcVarLoanInfo.LoanTitle = CStr(dataReader.GetValue(10))
-                        End If
+                        ''If dataReader.GetValue(10) Is DBNull.Value Then
+                        ''    stcVarLoanInfo.LoanTitle = Nothing
+                        ''Else
+                        ''    stcVarLoanInfo.LoanTitle = CStr(dataReader.GetValue(10))
+                        ''End If
 
-                        If dataReader.GetValue(11) Is DBNull.Value Then
+                        If dataReader.GetValue(10) Is DBNull.Value Then
                             stcVarLoanInfo.LoanState = Nothing
                         Else
-                            stcVarLoanInfo.LoanState = CStr(dataReader.GetValue(11))
+                            stcVarLoanInfo.LoanState = CStr(dataReader.GetValue(10))
                         End If
 
                         ''If dataReader.GetValue(14) Is DBNull.Value Then
@@ -3911,7 +3924,7 @@ VoiceSMS:
                             End If
 
 
-                            intLoanID = qryLoan.spr_Loan_Insert(intBorrowerFileID, intLoanTypeID, intBranchID, dteLoanDate, strLCNO, stcVarLoanInfo.SerialNumber, Date.Now, stcVarLoanInfo.LoanAmount, stcVarLoanInfo.IstNum)
+                            intLoanID = qryLoan.spr_Loan_Insert(intBorrowerFileID, intLoanTypeID, intBranchID, dteLoanDate, strLCNO, stcVarLoanInfo.SerialNumber, Date.Now, stcVarLoanInfo.LoanAmount, 0)
 
 
 
@@ -4712,7 +4725,7 @@ VoiceSMS:
         Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
         dtblSystemSetting = tadpSystemSetting.GetData()
         drwSystemSetting = dtblSystemSetting.Rows(0)
-        Call UpdateBIData()
+        ''   Call UpdateBIData()
 
         ' '' '' ''   Call tmrSponsorList_Elapsed(Nothing, Nothing)
 
@@ -4722,7 +4735,7 @@ VoiceSMS:
 
         ''   Call tmrSelfReport_Elapsed(Nothing, Nothing)
 
-        ''  Call tmrVoiceSMS_Elapsed(Nothing, Nothing)
+        ''        Call tmrVoiceSMS_Elapsed(Nothing, Nothing)
 
 
 
@@ -5058,7 +5071,7 @@ VoiceSMS:
 
 
     Private Sub tmrUpdateData_Hadi_Loan_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrUpdateData_Hadi_Loan.Elapsed
-        'Call Hadi_BI_Laon()
+        Call Hadi_BI_Laon()
     End Sub
 
     Private Sub tmrFinalReport_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrFinalReport.Elapsed
@@ -5551,6 +5564,197 @@ VoiceSMS:
 
     End Sub
 
+    ''Private Sub GetNotDeffredLC()
+
+    ''    If Date.Now.Hour < 8 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+    ''        Return
+    ''    End If
+
+    ''    Dim tadpSystemSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
+    ''    Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
+    ''    dtblSystemSetting = tadpSystemSetting.GetData()
+    ''    drwSystemSetting = dtblSystemSetting.Rows(0)
+
+
+    ''    If drwSystemSetting.GetNotDeffredLC = False Then
+    ''        Return
+    ''    End If
+
+    ''    If drwSystemSetting.tryTime_NotDeffredlLC = 0 Then
+    ''        Return
+    ''    End If
+
+    ''    If drwSystemSetting.UpdateTime_NotDeffredLC > Date.Now.TimeOfDay Then
+    ''        Return
+    ''    End If
+
+    ''    Dim dteThisDate As Date = Date.Now.AddDays(-1)
+    ''    Dim dteToday As Date = Date.Now.Date
+
+    ''    Dim tadpLogHeader As New BusinessObject.dstNotDeffredLCTableAdapters.spr_LogNotDeffredStatus_ForDate_SelectTableAdapter
+    ''    Dim dtblLogHeader As BusinessObject.dstNotDeffredLC.spr_LogNotDeffredStatus_ForDate_SelectDataTable = Nothing
+    ''    dtblLogHeader = tadpLogHeader.GetData(dteThisDate)
+    ''    Dim intCurrentTryTime As Integer = 0
+
+    ''    If dtblLogHeader.Rows.Count > 0 Then
+    ''        Dim drwLogHeader As BusinessObject.dstNotDeffredLC.spr_LogNotDeffredStatus_ForDate_SelectRow = dtblLogHeader.Rows(0)
+    ''        If drwLogHeader.Success = True Then
+    ''            Return
+    ''        End If
+
+    ''        If drwLogHeader.tryTime >= drwSystemSetting.tryTime Then
+    ''            Return
+    ''        End If
+
+    ''        If Date.Now.Subtract(drwLogHeader.STime).TotalHours < drwSystemSetting.tryIntervalHour Then
+    ''            Return
+    ''        End If
+
+    ''        intCurrentTryTime = drwLogHeader.tryTime
+
+    ''    End If
+
+
+    ''    intCurrentTryTime += 1
+
+
+    ''    Dim qryLogTotelLC As New BusinessObject.dstNotDeffredLCTableAdapters.QueriesTableAdapter 'dstHanyFollowTableAdapters.QueriesTableAdapter
+
+
+    ''    Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
+
+    ''    Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+    ''    cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+    ''    cnnBuiler_BI.UserID = "deposit"
+    ''    cnnBuiler_BI.Password = "deposit"
+    ''    cnnBuiler_BI.Unicode = True
+
+    ''    Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+
+    ''        Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+
+
+    ''        Dim strLoan_Info_Query As String = "SELECT lc_no,CFCIFNO from loan_info where Date_P='" & strThisDatePersian & "'   and  amntdeferred  <= 0  "
+    ''        ''and NPDURATION >=60
+
+    ''        cmd_BI.CommandText = strLoan_Info_Query
+
+    ''        Try
+    ''            cnnBI_Connection.Open()
+    ''        Catch ex As Exception
+
+    ''            qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+    ''            Return
+    ''        End Try
+    ''        Dim dataReader As OracleDataReader = Nothing
+
+    ''        Try
+    ''            dataReader = cmd_BI.ExecuteReader()
+    ''        Catch ex As Exception
+
+    ''            qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+    ''            cnnBI_Connection.Close()
+
+    ''            Return
+    ''        End Try
+
+    ''        Try
+    ''            If dataReader.Read = False Then
+
+    ''                qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, "اطلاعات مربوط به مورخ " & mdlGeneral.GetPersianDate(dteThisDate) & " بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید", intCurrentTryTime)
+    ''                dataReader.Close()
+    ''                cnnBI_Connection.Close()
+
+    ''                Return
+    ''            End If
+
+    ''            Dim intLogHeaderID As Integer = qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, True, "", intCurrentTryTime)
+
+    ''            qryLogTotelLC.spr_NotDeffredLC_Delete()
+
+    ''            Dim i As Integer = 0
+    ''            Dim strBuilder As New Text.StringBuilder()
+
+    ''            Dim otbl As New DataSet1.defferdTypeDataTable
+
+
+
+    ''            Do
+    ''                i += 1
+    ''                Dim orow As DataSet1.defferdTypeRow = otbl.NewdefferdTypeRow()
+    ''                Try
+    ''                    Dim stcVarLoanInfo As stc_NotDeffred_Info
+
+
+    ''                    If dataReader.GetValue(0) Is DBNull.Value Then
+    ''                        i -= 1
+    ''                        Continue Do
+    ''                    Else
+    ''                        stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(2)).Trim.Replace("'", "")
+    ''                    End If
+
+
+    ''                    If dataReader.GetValue(1) Is DBNull.Value Then
+    ''                        i -= 1
+    ''                        Continue Do
+    ''                    Else
+    ''                        stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(4)).Trim.Replace("'", "")
+    ''                    End If
+
+
+
+    ''                    With stcVarLoanInfo
+
+
+    ''                        orow.CustomerNo = .CustomerNo
+    ''                        orow.LC_No = .LC_No
+
+
+    ''                        otbl.Rows.Add(orow)
+
+
+    ''                        If i >= 500000 Then
+
+    ''                            qryLogTotelLC.spr_NotDeffredLC_Bulk_Insert(otbl)
+    ''                            otbl.Clear()
+    ''                            i = 0
+
+
+    ''                        End If
+
+
+
+
+    ''                    End With
+
+
+    ''                Catch ex As Exception
+    ''                    Continue Do
+    ''                End Try
+
+
+    ''            Loop While dataReader.Read()
+    ''            dataReader.Close()
+
+    ''            If i <> 0 Then
+    ''                qryLogTotelLC.spr_NotDeffredLC_Bulk_Insert(otbl)
+    ''                otbl.Clear()
+
+    ''            End If
+
+
+    ''        Catch ex As Exception
+
+    ''            qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+    ''            Return
+    ''        End Try
+
+    ''        cnnBI_Connection.Close()
+
+    ''    End Using
+
+
+    ''End Sub
 
     Private Sub SponsorList()
 
@@ -6233,6 +6437,35 @@ VoiceSMS:
 
 
     End Sub
+
+
+    'Private Sub CheckHandyFollowAssignUpdated()
+
+    '    Dim tadpNotDeffred As New BusinessObject.dstNotDeffredLCTableAdapters.spr_NotDeffredLC_SelectByLCNOTableAdapter
+    '    Dim dtblNotDeffed As BusinessObject.dstNotDeffredLC.spr_NotDeffredLC_SelectByLCNODataTable = Nothing
+
+    '    Dim tadpHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.spr_CheckHandyFollowAssign_IsUpdatedSelectTableAdapter
+    '    Dim dtblHandyFollowAssign As BusinessObject.dstHandyFollow.spr_CheckHandyFollowAssign_IsUpdatedSelectDataTable = Nothing
+
+    '    Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+
+    '    dtblHandyFollowAssign = tadpHandyFollowAssign.GetData()
+
+    '    For Each drwHandyFollowAssign As BusinessObject.dstHandyFollow.spr_CheckHandyFollowAssign_IsUpdatedSelectRow In dtblHandyFollowAssign
+
+    '        dtblNotDeffed = tadpNotDeffred.GetData(drwHandyFollowAssign.LoanNumber)
+
+    '        If dtblNotDeffed.Rows.Count > 0 Then
+
+    '            qryHandyFollowAssign.spr_HandyFollowAssignIsUpdated_Update(drwHandyFollowAssign.ID)
+
+    '        End If
+
+    '    Next
+
+
+
+    'End Sub
 
 
     ''Private Function CheckBlackList(lcNumber As String) As Boolean

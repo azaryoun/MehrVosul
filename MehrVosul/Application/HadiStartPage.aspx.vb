@@ -15,7 +15,15 @@
         Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_SelectTableAdapter
         Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
 
+        ''check the access Group id
+        Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+        Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
+        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3432)
+        If dtblAccessgroupUser.Rows.Count = 0 Then
+
+            Response.Redirect("../HadiLogin.aspx")
+        End If
 
 
         Dim tadpSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
@@ -47,7 +55,7 @@
         End If
 
 
-        If Date.Now.Hour >= dtblSetting.First.UpdateTime.Hours Then
+        If Date.Now.Hour >= dtblSetting.First.UpdateTime_Loan.Hours Then
 
             Dim dteThisDate As Date = Date.Now
             dtblLogCurrentLCStatus = tadpLogCurrentLCStatus.GetData(dteThisDate)
@@ -82,7 +90,7 @@
 
         Else
 
-            dtblLogCurrentLCStatus = tadpLogCurrentLCStatus.GetData(Date.Now.AddDays(-2))
+            dtblLogCurrentLCStatus = tadpLogCurrentLCStatus.GetData(Date.Now.AddDays(-1))
             If dtblLogCurrentLCStatus.Rows.Count > 0 Then
 
                 If dtblLogCurrentLCStatus.First.Success = True Then
@@ -113,24 +121,22 @@
 
         End If
 
-        ''Get Log Status Detailes
+        ''Get last day Log Status Detailes
 
-        Dim tadpLCLog As New BusinessObject.dstHadiLogCurrentLCStatus_HTableAdapters.spr_HadiLogCurrentLCStatus_H_ForDate_SelectTableAdapter
-        Dim dtblLCLog As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectDataTable = Nothing
 
-        dtblLCLog = tadpLCLog.GetData(Date.Now.AddDays(-1).Date)
+        dtblLogCurrentLCStatus = tadpLogCurrentLCStatus.GetData(Date.Now.AddDays(-1))
 
-        If dtblLCLog.Rows.Count = 0 Then
+        If dtblLogCurrentLCStatus.Rows.Count = 0 Then
 
-            lblLastDayStatus.Text = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now) & " لاگ موجود نیست سرویس را ریست کنید" & ControlChars.NewLine & "code:0"
+            lblLastDayStatus.Text = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now.AddDays(-1)) & " لاگ موجود نیست سرویس را ریست کنید" & ControlChars.NewLine & "code:0"
 
 
         Else
 
-            Dim drwLCLog As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectRow = dtblLCLog.Rows(0)
+            Dim drwLCLog As BusinessObject.dstHadiLogLoanStatus.spr_HadiLogLoanStatus_ForDate_SelectRow = dtblLogCurrentLCStatus.Rows(0)
             If drwLCLog.Success = False Then
 
-                lblLastDayStatus.Text = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now) & "خواندن اطلاعات با خطا همراه شده است  مشکل در BI است " & drwLCLog.Remarks & ControlChars.NewLine & "code:1"
+                lblLastDayStatus.Text = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now.AddDays(-1)) & "خواندن اطلاعات با خطا همراه شده است  مشکل در BI است " & drwLCLog.Remarks & ControlChars.NewLine & "code:1"
             Else
 
                 lblLastDayStatus.Text = "OK"
@@ -138,7 +144,7 @@
                 Dim tadpSMSCountLog As New BusinessObject.dstHadiWarningNotificationLogDetailTableAdapters.spr_HadiSMSCountLog_SelectTableAdapter
                 Dim dtblSMSCountLog As BusinessObject.dstHadiWarningNotificationLogDetail.spr_HadiSMSCountLog_SelectDataTable = Nothing
 
-                dtblSMSCountLog = tadpSMSCountLog.GetData(Date.Now.Date)
+                dtblSMSCountLog = tadpSMSCountLog.GetData(Date.Now.AddDays(-1).Date)
 
                 If dtblSMSCountLog.Rows.Count <> 0 Then
 
@@ -161,14 +167,14 @@
 
         End If
 
-        dtblLCLog = tadpLCLog.GetData(Date.Now.AddDays(-1).Date)
+        dtblLogCurrentLCStatus = tadpLogCurrentLCStatus.GetData(Date.Now.Date)
 
-        If dtblLCLog.Rows.Count = 0 Then
+        If dtblLogCurrentLCStatus.Rows.Count = 0 Then
 
             lblTodayStatus.Text = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now) & " لاگ موجود نیست سرویس را ریست کنید" & ControlChars.NewLine & "code:0"
         Else
 
-            Dim drwLCLog As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectRow = dtblLCLog.Rows(0)
+            Dim drwLCLog As BusinessObject.dstHadiLogLoanStatus.spr_HadiLogLoanStatus_ForDate_SelectRow = dtblLogCurrentLCStatus.Rows(0)
             If drwLCLog.Success = False Then
 
                 lblTodayStatus.Text = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now) & "خواندن اطلاعات با خطا همراه شده است  مشکل در BI است " & drwLCLog.Remarks & ControlChars.NewLine & "code:1"
@@ -217,8 +223,8 @@
         blnSuccess = False
 
 
-        Dim tadpLCLog As New BusinessObject.dstHadiLogCurrentLCStatus_HTableAdapters.spr_HadiLogCurrentLCStatus_H_ForDate_SelectTableAdapter
-        Dim dtblLCLog As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectDataTable = Nothing
+        Dim tadpLCLog As New BusinessObject.dstHadiLogLoanStatusTableAdapters.spr_HadiLogLoanStatus_ForDate_SelectTableAdapter
+        Dim dtblLCLog As BusinessObject.dstHadiLogLoanStatus.spr_HadiLogLoanStatus_ForDate_SelectDataTable = Nothing
 
         dtblLCLog = tadpLCLog.GetData(Date.Now.Date)
 
@@ -230,7 +236,7 @@
             '  strResultMessage = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now.AddDays(-1)) & " لاگ موجود نیست سرویس را ریست کنید" & ControlChars.NewLine & "code:0"
 
         Else
-            Dim drwLCLog As BusinessObject.dstHadiLogCurrentLCStatus_H.spr_HadiLogCurrentLCStatus_H_ForDate_SelectRow = dtblLCLog.Rows(0)
+            Dim drwLCLog As BusinessObject.dstHadiLogLoanStatus.spr_HadiLogLoanStatus_ForDate_SelectRow = dtblLCLog.Rows(0)
             If drwLCLog.Success = False Then
 
                 '  strResultMessage = " برای مورخ " & mdlGeneral.GetPersianDate(Date.Now.AddDays(-1)) & "خواندن اطلاعات با خطا همراه شده است  مشکل در BI است " & drwLCLog.Remarks & ControlChars.NewLine & "code:1"

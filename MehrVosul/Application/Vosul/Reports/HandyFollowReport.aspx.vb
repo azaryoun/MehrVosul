@@ -54,6 +54,25 @@ Public Class HandyFollowReport
 
                 cmbPerson.DataBind()
 
+            ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                odsBranch.SelectParameters.Item("Action").DefaultValue = 1
+                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = -1
+                odsBranch.DataBind()
+
+                cmbBranch.DataSourceID = "odsBranch"
+                cmbBranch.DataTextField = "BrnachCode"
+                cmbBranch.DataValueField = "ID"
+
+
+                cmbBranch.DataBind()
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 4
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+
+                cmbPerson.DataBind()
 
             ElseIf drwUserLogin.IsDataAdmin = False And drwUserLogin.IsDataUserAdmin = False Then
 
@@ -380,10 +399,47 @@ Public Class HandyFollowReport
 
     Protected Sub cmbBranch_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbBranch.SelectedIndexChanged
 
-        odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-        odsPerson.SelectParameters.Item("BranchID").DefaultValue = CInt(cmbBranch.SelectedValue)
-        odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
+
+        If cmbBranch.SelectedValue = -1 Then
+
+            If drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.IsDataUserAdmin = True Then
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 3
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+
+            ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 6
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+
+            End If
+
+
+        Else
+
+            If drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.IsDataUserAdmin = True Then
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = CInt(cmbBranch.SelectedValue)
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+            ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 5
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = CInt(cmbBranch.SelectedValue)
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+
+            End If
+
+
+
+        End If
 
         cmbPerson.DataBind()
 
@@ -393,7 +449,21 @@ Public Class HandyFollowReport
         Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
         Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-        If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
+        If drwUserLogin.IsDataAdmin = True Then
+
+            Dim li As New ListItem
+            li.Text = "(همه)"
+            li.Value = -1
+            cmbPerson.Items.Insert(0, li)
+
+        ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+            Dim li As New ListItem
+            li.Text = "(همه)"
+            li.Value = -1
+            cmbPerson.Items.Insert(0, li)
+
+        ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
 
             cmbPerson.SelectedValue = drwUserLogin.ID
             cmbPerson.Enabled = False
@@ -409,6 +479,8 @@ Public Class HandyFollowReport
     End Sub
 
     Protected Sub cmbProvince_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbProvince.SelectedIndexChanged
+
+
         odsBranch.SelectParameters.Item("Action").DefaultValue = 2
         odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
         odsBranch.DataBind()
@@ -419,9 +491,31 @@ Public Class HandyFollowReport
 
         cmbBranch.DataBind()
 
-        odsPerson.SelectParameters.Item("Action").DefaultValue = 3
-        odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
-        odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+
+        If drwUserLogin.IsDataAdmin = True Then
+
+            odsPerson.SelectParameters.Item("Action").DefaultValue = 3
+            odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+            odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+
+        ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+            odsPerson.SelectParameters.Item("Action").DefaultValue = 6
+            odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+            odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+        Else
+
+            odsPerson.SelectParameters.Item("Action").DefaultValue = 3
+            odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+            odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+
+        End If
+
+
+
 
         cmbPerson.DataBind()
 

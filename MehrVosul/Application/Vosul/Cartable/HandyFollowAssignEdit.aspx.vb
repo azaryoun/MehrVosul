@@ -28,26 +28,47 @@
 
             Dim intFollowAssignID As Integer = CInt(Session("intFollowAssignID"))
 
+
+
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-            ''check the access Group id
-            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+            If drwUserLogin.IsDataAdmin = True Then
 
-            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-            If dtblAccessgroupUser.Rows.Count > 0 Then
-                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
-                If dtblAccessgroupUser.Count = 0 Then
+                Bootstrap_Panel1.CanSave = True
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+            Else
+
+
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                    If dtblAccessgroupUser.Count = 0 Then
+                        Bootstrap_Panel1.CanSave = True
+                    End If
+                ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
                     Bootstrap_Panel1.CanSave = True
                 End If
-            ElseIf drwUserLogin.IsDataAdmin = True Then
-                Bootstrap_Panel1.CanSave = True
+
+                If drwUserLogin.FK_AccessGroupID = 3438 Then
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 4
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+                Else
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+                End If
+
+
             End If
 
-            odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-            odsPerson.SelectParameters.Item("BranchID").DefaultValue = drwUserLogin.FK_BrnachID
-            odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
             cmbPerson.DataBind()
 
@@ -66,6 +87,8 @@
             Dim dtblLoan As BusinessObject.dstLoan.spr_Loan_SelectDataTable = Nothing
 
             dtblLoan = tadpLoan.GetData(2, dtblHandyFollowAssign.First.FK_LoanID, -1, -1)
+
+            GetHandyFollowAssignList(dtblHandyFollowAssign.First.FK_LoanID)
 
             txtLoan.Text = dtblLoan.First.LoanNumber
             txtAssignDate.Text = mdlGeneral.GetPersianDateTime(dtblHandyFollowAssign.First.AssignDate)
@@ -92,7 +115,7 @@
                 If dtblAccessgroupUser.Count = 0 Then
                     Bootstrap_Panel1.CanSave = True
                 End If
-            ElseIf drwUserLogin.IsDataAdmin = True Then
+            ElseIf drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.FK_AccessGroupID = 3438 Then
                 Bootstrap_Panel1.CanSave = True
             End If
 
@@ -103,6 +126,78 @@
 
     Private Sub Bootstrap_Panel1_Panel_Cancel_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Cancel_Click
         Response.Redirect("HandyFollowManagement.aspx")
+    End Sub
+
+    Private Sub GetHandyFollowAssignList(ByVal LoanID As Integer)
+
+        Dim tadpHandyFollowAssignList As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignList_SelectByLoanIDTableAdapter
+        Dim dtblHandyFollowAssignList As BusinessObject.dstHandyFollow.spr_HandyFollowAssignList_SelectByLoanIDDataTable = Nothing
+
+        dtblHandyFollowAssignList = tadpHandyFollowAssignList.GetData(LoanID)
+
+        Dim intCount As Integer = 0
+
+        For Each drwHandyFollowAssignList As BusinessObject.dstHandyFollow.spr_HandyFollowAssignList_SelectByLoanIDRow In dtblHandyFollowAssignList.Rows
+
+            tblResult.Visible = True
+            intCount += 1
+            Dim TbRow As New HtmlTableRow
+            Dim TbCell As HtmlTableCell
+
+
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = CStr(intCount)
+            TbCell.Align = "center"
+            TbCell.NoWrap = True
+            TbRow.Cells.Add(TbCell)
+
+
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = drwHandyFollowAssignList.AssignDate
+            TbCell.Attributes.Add("dir", "ltr")
+            TbCell.NoWrap = True
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
+
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = drwHandyFollowAssignList.Username
+            TbCell.NoWrap = True
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
+
+
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = drwHandyFollowAssignList.AssignMod
+            TbCell.NoWrap = True
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
+
+
+
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = drwHandyFollowAssignList.UnassignDate
+            TbCell.Attributes.Add("dir", "ltr")
+            TbCell.NoWrap = True
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
+
+
+            TbCell = New HtmlTableCell
+            TbCell.InnerHtml = drwHandyFollowAssignList.AssignType
+            TbCell.NoWrap = False
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
+
+
+
+
+
+            tblResult.Rows.Add(TbRow)
+
+
+
+        Next
+
     End Sub
 
     Private Sub Bootstrap_Panel1_Panel_Save_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Save_Click

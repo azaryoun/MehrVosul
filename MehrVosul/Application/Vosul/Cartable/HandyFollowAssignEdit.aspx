@@ -71,6 +71,37 @@
                     <asp:Label ID="lblInnerPageTitle" runat="server" Text=""></asp:Label>
                 </div>
                 <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel panel-default" id="divResult" runat="server">
+                                <div class="panel-heading">
+                                    لیست تخصیصهای ثبت شده
+                                </div>
+                                <div class="panel-body">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered table-hover" id="tblResult" runat="server">
+                                            <thead>
+                                                <tr>
+
+                                                    <th>#</th>
+                                                    <th>تاریخ تخصیص</th>
+                                                    <th>نام کاربری</th>
+                                                    <th>وضعیت تخصیص</th>
+                                                    <th>تاریخ لغو تخصیص</th>
+                                                    <th>پیگیری</th>
+                                                    
+
+                                                </tr>
+                                            </thead>
+
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="row">
                         <div class="col-md-6">
@@ -80,9 +111,9 @@
                                 <asp:UpdatePanel ID="UpdatePanel4" runat="server">
                                     <ContentTemplate>
 
-                                 
-                                            <label>تسهیلات</label>
-                                    
+
+                                        <label>تسهیلات</label>
+
                                         <div class="form-grou">
 
                                             <asp:TextBox ID="txtLoan" runat="server" ReadOnly="true" CssClass="form-control" MaxLength="50"></asp:TextBox>
@@ -131,7 +162,7 @@
 
                                 <label>تاریخ اختصاص</label>
 
-                                <asp:TextBox ID="txtAssignDate" style="direction:ltr" runat="server" ReadOnly="true" CssClass="form-control" MaxLength="50"></asp:TextBox>
+                                <asp:TextBox ID="txtAssignDate" Style="direction: ltr" runat="server" ReadOnly="true" CssClass="form-control" MaxLength="50"></asp:TextBox>
 
 
                             </div>
@@ -151,8 +182,8 @@
 
                         </div>
                     </div>
-                       <div class="row">
-                       
+                    <div class="row">
+
                         <div class="col-md-12">
                             <div class="form-group">
 

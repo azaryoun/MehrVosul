@@ -30,6 +30,8 @@
 
             If drwUserLogin.IsDataAdmin = True AndAlso drwUserLogin.IsItemAdmin = True Then
 
+                divUserType.Visible = True
+
                 cmbBranch.Enabled = True
                 cmbUserType.Items.Add(New ListItem("Normal Access(دسترسی نرمال-سطح شعبه)", 0))
                 cmbUserType.Items.Add(New ListItem("Item Access(دسترسی ادمین-سطح استان یا مدیر شعب)", 2))
@@ -38,6 +40,16 @@
                 cmbBranch.SelectedIndex = 0
 
                 dtblAccessGroupList = tadpAccessGroupList.GetData(1, -1)
+
+
+                ''Atieh Admin
+            ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+
+                cmbBranch.Enabled = True
+                cmbBranch.SelectedIndex = 0
+
+                dtblAccessGroupList = tadpAccessGroupList.GetData(2, drwUserLogin.ID)
 
 
 
@@ -53,7 +65,6 @@
 
 
             ElseIf drwUserLogin.IsDataUserAdmin = True Then
-
 
 
                 ''check the access Group id
@@ -186,6 +197,9 @@
 
                 cmbBranch.SelectedValue = drwUser.FK_BrnachID
 
+                chkbxHadi.Checked = .IsHadiSystem
+                chkbxAtieh.Checked = .ISAtiehUser
+
             End With
 
             ''Dim tadpAccessgroupUserList As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUser_List_SelectTableAdapter
@@ -316,14 +330,23 @@
             blnUserPhotoChanged = True
         End If
 
+        Dim blnHadiUser As Boolean = chkbxHadi.Checked
+        Dim blnAtiehUser As Boolean = chkbxAtieh.Checked
+
+        If drwUserLogin.IsDataAdmin = False Then
+            If drwUserLogin.FK_AccessGroupID = 3438 Then
+                blnAtiehUser = True
+            End If
+        End If
+
 
         Try
             Dim qryUser As New BusinessObject.dstUserTableAdapters.QueriesTableAdapter
             If blnItemAdmin = True Then
-                qryUser.spr_User_Update(strUserName, intEditUserID, blnISActive, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
+                qryUser.spr_User_Update(strUserName, intEditUserID, blnISActive, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime, blnHadiUser, blnAtiehUser)
 
             Else
-                qryUser.spr_User_Update(strUserName, intEditUserID, blnISActive, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime)
+                qryUser.spr_User_Update(strUserName, intEditUserID, blnISActive, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, intBranchID, blnIsPartTime, blnHadiUser, blnAtiehUser)
 
             End If
 

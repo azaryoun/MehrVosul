@@ -115,11 +115,22 @@
 
 
             Dim intAction As Integer
+
+
             If drwUserLogin.IsDataAdmin = True Then
                 intAction = 1
                 If strFilter IsNot Nothing Then
                     intAction = 2
                 End If
+
+            ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                intAction = 9
+                If strFilter IsNot Nothing Then
+                    intAction = 10
+                End If
+
+
             ElseIf drwUserLogin.IsDataUserAdmin = True And blnAdminBranch = False Then
                 intAction = 5
                 If strFilter IsNot Nothing Then
@@ -146,7 +157,7 @@
             Dim strResult As String = ""
             Dim intColumnCount As Integer = dtblUserManagement.Columns.Count
 
-            If intAction = 1 Or intAction = 3 Or intAction = 5 Then
+            If intAction = 1 Or intAction = 3 Or intAction = 5 Or intAction = 9 Then
                 For Each drwUserManagement As BusinessObject.dstUser.spr_User_Management_SelectRow In dtblUserManagement.Rows
 
 
@@ -199,11 +210,22 @@
         End If
 
         Dim intAction As Integer
+
+
+
         If drwUserLogin.IsDataAdmin = True Then
             intAction = 1
             If strFilter IsNot Nothing Then
                 intAction = 2
             End If
+
+        ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+            intAction = 9
+            If strFilter IsNot Nothing Then
+                intAction = 10
+            End If
+
         ElseIf drwUserLogin.IsDataUserAdmin = True And blnAdminBranch = False Then
             intAction = 5
             If strFilter IsNot Nothing Then

@@ -19,7 +19,7 @@
             var txtNotPiadDurationDayTo = document.getElementById("<%=txtNotPiadDurationDayTo.ClientID%>");
 
             var cmbDeferredPeriod = document.getElementById("<%=cmbDeferredPeriod.ClientID%>");
-
+            var cmbBranch = document.getElementById("<%=cmbBranch.ClientID%>");
 
             if (cmbDeferredPeriod.options[cmbDeferredPeriod.selectedIndex].value == -1) {
 
@@ -36,6 +36,14 @@
                     return false;
                 }
             }
+
+
+            if (cmbBranch.options[cmbBranch.selectedIndex].value == 0) {
+                alert("کد شعبه را مشخص نمائید", "خطا");
+                cmbBranch.focus();
+                return false;
+            }
+
 
             return true;
         }

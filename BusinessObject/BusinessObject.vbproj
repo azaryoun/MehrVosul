@@ -735,6 +735,11 @@
     <Compile Include="Hadi\dstHadiOperation_Loan.vb">
       <DependentUpon>dstHadiOperation_Loan.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Hadi\dstHadiReport.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstHadiReport.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Hadi\dstHadiWarningIntervals.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -870,6 +875,14 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>dstMessageDetailBuffer.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstNotDeffredLC.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dstNotDeffredLC.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Vosul\dstNotDeffredLC.vb">
+      <DependentUpon>dstNotDeffredLC.xsd</DependentUpon>
     </Compile>
     <Compile Include="Vosul\dstPreDraft.Designer.vb">
       <AutoGen>True</AutoGen>
@@ -1157,6 +1170,17 @@
     <None Include="Hadi\dstHadiOperation_Loan.xss">
       <DependentUpon>dstHadiOperation_Loan.xsd</DependentUpon>
     </None>
+    <None Include="Hadi\dstHadiReport.xsc">
+      <DependentUpon>dstHadiReport.xsd</DependentUpon>
+    </None>
+    <None Include="Hadi\dstHadiReport.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstHadiReport.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Hadi\dstHadiReport.xss">
+      <DependentUpon>dstHadiReport.xsd</DependentUpon>
+    </None>
     <None Include="Hadi\dstHadiWarningIntervals.xsc">
       <DependentUpon>dstHadiWarningIntervals.xsd</DependentUpon>
     </None>
@@ -1386,6 +1410,17 @@
     </None>
     <None Include="Vosul\dstMessageDetailBuffer.xss">
       <DependentUpon>dstMessageDetailBuffer.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstNotDeffredLC.xsc">
+      <DependentUpon>dstNotDeffredLC.xsd</DependentUpon>
+    </None>
+    <None Include="Vosul\dstNotDeffredLC.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>dstNotDeffredLC.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Vosul\dstNotDeffredLC.xss">
+      <DependentUpon>dstNotDeffredLC.xsd</DependentUpon>
     </None>
     <None Include="Vosul\dstPreDraft.xsc">
       <DependentUpon>dstPreDraft.xsd</DependentUpon>

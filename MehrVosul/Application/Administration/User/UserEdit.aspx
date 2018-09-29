@@ -203,7 +203,7 @@
                                 <asp:UpdatePanel ID="UpdatePanel2" runat="server">
                                     <ContentTemplate>
                                         <asp:DropDownList ID="cmbBranch" runat="server"
-                                            CssClass="form-control"  AutoPostBack="True">
+                                            CssClass="form-control" AutoPostBack="True">
                                             <asp:ListItem Selected="True" Value="0" Text="---"></asp:ListItem>
                                         </asp:DropDownList>
                                     </ContentTemplate>
@@ -309,10 +309,31 @@
 
 
                             </div>
+                             <div class="col-md-6">
+                                <div runat="server" id="divUserType" visible="false" class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>نوع کاربری</label>
+                                    </div>
+
+                                    <div class="panel-body" style="max-height: 200px; overflow-y: scroll;">
+
+                                        <label>
+                                            <input type="checkbox" runat="server" id="chkbxHadi" />
+                                            هادی</label>
+
+                                        <label>
+                                            <input type="checkbox" runat="server" id="chkbxAtieh" />
+                                            آتیه</label>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="row">
+                           
+
                         </div>
                     </div>
-
-
                 </div>
 
             </div>

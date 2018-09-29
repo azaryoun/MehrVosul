@@ -284,6 +284,33 @@ Partial Public Class UserNew
     Protected WithEvents fleUserPhoto As Global.System.Web.UI.WebControls.FileUpload
     
     '''<summary>
+    '''divUserType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divUserType As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''chkbxHadi control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkbxHadi As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    
+    '''<summary>
+    '''chkbxAtieh control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkbxAtieh As Global.System.Web.UI.HtmlControls.HtmlInputCheckBox
+    
+    '''<summary>
     '''hdnAction control.
     '''</summary>
     '''<remarks>

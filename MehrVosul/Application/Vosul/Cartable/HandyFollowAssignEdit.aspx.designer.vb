@@ -32,6 +32,24 @@ Partial Public Class HandyFollowAssignEdit
     Protected WithEvents lblInnerPageTitle As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''divResult control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divResult As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''tblResult control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tblResult As Global.System.Web.UI.HtmlControls.HtmlTable
+    
+    '''<summary>
     '''UpdatePanel4 control.
     '''</summary>
     '''<remarks>

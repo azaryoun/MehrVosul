@@ -41,14 +41,38 @@
                 ElseIf drwUserLogin.IsDataAdmin = True Then
                     Bootstrap_Panel1.CanSave = True
                 End If
-            ElseIf drwUserLogin.IsDataAdmin = True Then
+            ElseIf drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.FK_AccessGroupID = 3438 Then
                 Bootstrap_Panel1.CanSave = True
             End If
 
 
             odsLoanType.DataBind()
 
-            If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
+
+            If drwUserLogin.FK_AccessGroupID = 3438 Then
+
+
+                cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
+
+                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
+                odsBranch.DataBind()
+
+                cmbBranch.DataSourceID = "odsBranch"
+                cmbBranch.DataTextField = "BrnachCode"
+                cmbBranch.DataValueField = "ID"
+
+
+                cmbBranch.DataBind()
+                cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
+
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 4
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+                cmbPerson.DataBind()
+
+            ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
 
@@ -75,6 +99,7 @@
 
                 Dim blnAdminBranch As Boolean = False
                 dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+
                 If dtblAccessgroupUser.Rows.Count = 0 Then
                     dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
                     If dtblAccessgroupUser.Rows.Count > 0 Then
@@ -83,6 +108,7 @@
                 End If
 
                 cmbProvince.Enabled = False
+
 
             ElseIf drwUserLogin.IsDataAdmin = True Then
 
@@ -106,6 +132,7 @@
                 odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
                 cmbPerson.DataBind()
+
 
             ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
 
@@ -160,7 +187,7 @@
                 ElseIf drwUserLogin.IsDataAdmin = True Then
                     Bootstrap_Panel1.CanSave = True
                 End If
-            ElseIf drwUserLogin.IsDataAdmin = True Then
+            ElseIf drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.FK_AccessGroupID = 3438 Then
                 Bootstrap_Panel1.CanSave = True
             End If
 
@@ -607,7 +634,25 @@
 
             Dim strTemp As String = ""
 
-            If drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
+            If drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
+                strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
+
+                dtblPerson = tadpPerson.GetData(4, -1, -1)
+
+                Dim j As Integer = 0
+                For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
+
+                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
+
+
+                Next
+
+                strTemp = strTemp & "</Select>"
+
+
+            ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
 
                 strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"

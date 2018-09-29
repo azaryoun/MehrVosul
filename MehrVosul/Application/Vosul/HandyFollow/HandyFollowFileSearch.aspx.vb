@@ -102,7 +102,7 @@ Public Class HandyFollowFileSearch
         End If
 
         ''کارشناس حقوقی
-        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3437)
+        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3438)
         If dtblAccessgroupUser.Rows.Count > 0 AndAlso drwUserLogin.IsDataUserAdmin = True Then
             blnProvinceAdmin = True
         End If

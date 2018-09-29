@@ -25,6 +25,7 @@
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
             If drwUserLogin.IsDataAdmin = True AndAlso drwUserLogin.IsItemAdmin = True Then
+                divUserType.Visible = True
 
                 cmbBranch.Enabled = True
 
@@ -42,6 +43,36 @@
                 trAccessGroup.Nodes.Add(trNodeProvince)
 
                 For Each drwAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectRow In dtblAccessGroupList.Rows
+                    Dim trNodeBranch As New TreeNode
+
+                    trNodeBranch.Text = "&nbsp;&nbsp;" & drwAccessGroupList.Desp
+                    trNodeBranch.Value = drwAccessGroupList.ID
+                    trNodeBranch.ShowCheckBox = True
+                    trNodeBranch.SelectAction = TreeNodeSelectAction.None
+                    trNodeProvince.ChildNodes.Add(trNodeBranch)
+
+
+                Next drwAccessGroupList
+
+                ''Atieh Admin
+            ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+
+                cmbBranch.Enabled = True
+                cmbBranch.SelectedIndex = 0
+
+
+                Dim tadpAccessGroupList As New BusinessObject.dstAccessgroupTableAdapters.spr_Accessgroup_List_SelectTableAdapter
+                Dim dtblAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectDataTable = Nothing
+
+                dtblAccessGroupList = tadpAccessGroupList.GetData(2, drwUserLogin.ID)
+
+                Dim trNodeProvince As New TreeNode
+                trAccessGroup.Nodes.Add(trNodeProvince)
+
+                For Each drwAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectRow In dtblAccessGroupList.Rows
+
+
                     Dim trNodeBranch As New TreeNode
 
                     trNodeBranch.Text = "&nbsp;&nbsp;" & drwAccessGroupList.Desp
@@ -229,17 +260,26 @@
         End If
 
         Dim blnIsPartTime As Boolean = rdoIsPartTimeYes.Checked
-     
+        Dim blnHadiUser As Boolean = chkbxHadi.Checked
+        Dim blnAtiehUser As Boolean = chkbxAtieh.Checked
+
+        If drwUserLogin.IsDataAdmin = False Then
+            If drwUserLogin.FK_AccessGroupID = 3438 Then
+                blnAtiehUser = True
+            End If
+        End If
+
+
         Try
             Dim qryUser As New BusinessObject.dstUserTableAdapters.QueriesTableAdapter
             Dim intNewUserID As Integer
             If blnItemAdmin = True Then
 
-                intNewUserID = qryUser.spr_User_Insert(strUsername, strPassword, True, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, arrUserPhoto, intBranchID, blnIsPartTime)
+                intNewUserID = qryUser.spr_User_Insert(strUsername, strPassword, True, blnDataAdmin, False, True, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, arrUserPhoto, intBranchID, blnIsPartTime, blnHadiUser, blnAtiehUser)
 
             Else
 
-                intNewUserID = qryUser.spr_User_Insert(strUsername, strPassword, True, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, arrUserPhoto, intBranchID, blnIsPartTime)
+                intNewUserID = qryUser.spr_User_Insert(strUsername, strPassword, True, blnDataAdmin, False, False, strFname, strLname, strEmail, blnSex, strTel, strMobile, Date.Now, drwUserLogin.ID, strPersonCode, strNationalID, strNationalNo, strAddress, arrUserPhoto, intBranchID, blnIsPartTime, blnHadiUser, blnAtiehUser)
 
             End If
 

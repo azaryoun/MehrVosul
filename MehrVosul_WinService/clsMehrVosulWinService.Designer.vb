@@ -87,7 +87,8 @@ Partial Class clsMehrVosulWinService
         '
         'tmrUpdateData_Hadi_Loan
         '
-        Me.tmrUpdateData_Hadi_Loan.Interval = 3600000.0R
+        Me.tmrUpdateData_Hadi_Loan.Enabled = True
+        Me.tmrUpdateData_Hadi_Loan.Interval = 900000.0R
         '
         'tmrFinalReport
         '
@@ -120,7 +121,8 @@ Partial Class clsMehrVosulWinService
         '
         'tmrHadiFinalReport
         '
-        Me.tmrHadiFinalReport.Interval = 3600000.0R
+        Me.tmrHadiFinalReport.Enabled = True
+        Me.tmrHadiFinalReport.Interval = 1800000.0R
         '
         'clsMehrVosulWinService
         '

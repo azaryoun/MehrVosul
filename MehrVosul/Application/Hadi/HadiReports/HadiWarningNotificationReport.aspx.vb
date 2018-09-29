@@ -38,7 +38,7 @@ Public Class HadiWarningNotificationReport
 
             Dim blnSingleBranch As Boolean = False
 
-            If drwUserLogin.IsDataAdmin = True Then
+            If drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.ID = 105 Then
 
                 dtblBranchList = tadpBrnachList.GetData(1, -1)
 
@@ -90,7 +90,7 @@ Public Class HadiWarningNotificationReport
 
             Dim blnSingleBranch As Boolean = False
 
-            If drwUserLogin.IsDataAdmin = True Then
+            If drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.ID = 105 Then
 
                 If cmbProvince.SelectedValue = -1 Then
 
@@ -216,8 +216,8 @@ Public Class HadiWarningNotificationReport
 
             If txtFile.Text.Trim() = "" Then
 
-                Dim tadpNotificationReport As New BusinessObject.dstReportTableAdapters.spr_NotificationDetailes_ReportTableAdapter
-                Dim dtblNotificationReport As BusinessObject.dstReport.spr_NotificationDetailes_ReportDataTable = Nothing
+                Dim tadpNotificationReport As New BusinessObject.dstHadiReportTableAdapters.spr_HadiNotificationDetailes_ReportTableAdapter
+                Dim dtblNotificationReport As BusinessObject.dstHadiReport.spr_HadiNotificationDetailes_ReportDataTable = Nothing
 
                 If cmbNotification.SelectedIndex = 0 Then
 
@@ -293,12 +293,12 @@ Public Class HadiWarningNotificationReport
 
                 End If
 
-                Session("WarningNotificationReport") = dtblNotificationReport
+                Session("HadiWarningNotificationReport") = dtblNotificationReport
 
                 ''get total report
                 Dim intCount As Integer = 0 'intFromRecord
 
-                For Each drwNotificationReport As BusinessObject.dstReport.spr_NotificationDetailes_ReportRow In dtblNotificationReport
+                For Each drwNotificationReport As BusinessObject.dstHadiReport.spr_HadiNotificationDetailes_ReportRow In dtblNotificationReport
 
                     divResult.Visible = True
                     tblResult.Visible = True
@@ -407,6 +407,13 @@ Public Class HadiWarningNotificationReport
                     TbCell.Align = "center"
                     TbRow.Cells.Add(TbCell)
 
+
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = drwNotificationReport.strMessage
+                    TbCell.NoWrap = False
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
                     'TbCell = New HtmlTableCell
                     'Select Case lnqWarningNotificationLogDetailListItem.SendStatus
                     '    Case 1
@@ -448,8 +455,8 @@ Public Class HadiWarningNotificationReport
 
                 ''Customer NO
                 blnSelectFile = True
-                Dim tadpNotificationReport As New BusinessObject.dstReportTableAdapters.spr_NotificationByCustomerNO_ReportTableAdapter
-                Dim dtblNotificationReport As BusinessObject.dstReport.spr_NotificationByCustomerNO_ReportDataTable = Nothing
+                Dim tadpNotificationReport As New BusinessObject.dstHadiReportTableAdapters.spr_HadiNotificationByCustomerNO_ReportTableAdapter
+                Dim dtblNotificationReport As BusinessObject.dstHadiReport.spr_HadiNotificationByCustomerNO_ReportDataTable = Nothing
 
                 If cmbNotification.SelectedIndex = 0 Then
                     dtblNotificationReport = tadpNotificationReport.GetData(1, dtFromDate, dteToDate, -1, txtFile.Text)
@@ -461,9 +468,9 @@ Public Class HadiWarningNotificationReport
                 ''get total report
                 Dim intCount As Integer = 0 'intFromRecord
 
-                Session("WarningNotificationReport") = dtblNotificationReport
+                Session("HadiWarningNotificationReport") = dtblNotificationReport
 
-                For Each drwNotificationReport As BusinessObject.dstReport.spr_NotificationByCustomerNO_ReportRow In dtblNotificationReport
+                For Each drwNotificationReport As BusinessObject.dstHadiReport.spr_HadiNotificationByCustomerNO_ReportRow In dtblNotificationReport
 
                     divResult.Visible = True
                     tblResult.Visible = False
@@ -582,6 +589,12 @@ Public Class HadiWarningNotificationReport
                     TbRow.Cells.Add(TbCell)
 
 
+                    TbCell = New HtmlTableCell
+                    TbCell.InnerHtml = drwNotificationReport.strMessage
+                    TbCell.NoWrap = False
+                    TbCell.Align = "center"
+                    TbRow.Cells.Add(TbCell)
+
 
                     tblResultCustomer.Rows.Add(TbRow)
 
@@ -600,8 +613,8 @@ Public Class HadiWarningNotificationReport
         Else
 
             ''summary report
-            Dim tadpNotificationSummaryReport As New BusinessObject.dstReportTableAdapters.spr_NotificationSummary_ReportTableAdapter
-            Dim dtblNotificationSummaryReport As BusinessObject.dstReport.spr_NotificationSummary_ReportDataTable = Nothing
+            Dim tadpNotificationSummaryReport As New BusinessObject.dstHadiReportTableAdapters.spr_HadiNotificationSummary_ReportTableAdapter
+            Dim dtblNotificationSummaryReport As BusinessObject.dstHadiReport.spr_HadiNotificationSummary_ReportDataTable = Nothing
 
 
             If cmbNotification.SelectedIndex = 0 Then
@@ -675,7 +688,7 @@ Public Class HadiWarningNotificationReport
 
             End If
 
-            Session("WarningNotificationSummaryReport") = dtblNotificationSummaryReport
+            Session("HadiWarningNotificationSummaryReport") = dtblNotificationSummaryReport
 
             divResult.Visible = True
             tblResult.Visible = False
@@ -684,7 +697,7 @@ Public Class HadiWarningNotificationReport
 
             ''Fill Table
             Dim intCount As Integer = 0
-            For Each drow As BusinessObject.dstReport.spr_NotificationSummary_ReportRow In dtblNotificationSummaryReport
+            For Each drow As BusinessObject.dstHadiReport.spr_HadiNotificationSummary_ReportRow In dtblNotificationSummaryReport
 
                 intCount += 1
                 Dim TbRow As New HtmlTableRow
@@ -740,17 +753,17 @@ Public Class HadiWarningNotificationReport
 
 
             Dim strPath As String = Server.MapPath("") & "\TempFile\" & drwUserLogin.ID & "\"
-            Dim FileName As String = "WarningNotificationReport-" & drwUserLogin.ID.ToString()
+            Dim FileName As String = "HadiWarningNotificationReport-" & drwUserLogin.ID.ToString()
 
 
             If rdbReportType.SelectedValue = 1 Then
 
 
-                If Session("WarningNotificationReport") IsNot Nothing Then
+                If Session("HadiWarningNotificationReport") IsNot Nothing Then
 
 
                     '' Dim tblCSVResult As DataTable = dtblNotificationReport
-                    Dim tblCSVResult As DataTable = Session("WarningNotificationReport")
+                    Dim tblCSVResult As DataTable = Session("HadiWarningNotificationReport")
                     If tblCSVResult.Rows.Count > 0 Then
                         If Not System.IO.Directory.Exists(strPath) Then
                             System.IO.Directory.CreateDirectory(strPath)
@@ -767,7 +780,7 @@ Public Class HadiWarningNotificationReport
                         End Using
                     Else
                         Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
-                        Session("WarningNotificationReport") = Nothing
+                        Session("HadiWarningNotificationReport") = Nothing
                     End If
 
 
@@ -775,9 +788,9 @@ Public Class HadiWarningNotificationReport
 
             Else
                 ''Summary Report
-                If Session("WarningNotificationSummaryReport") IsNot Nothing Then
+                If Session("HadiWarningNotificationSummaryReport") IsNot Nothing Then
 
-                    Dim tblCSVResult As DataTable = Session("WarningNotificationSummaryReport")
+                    Dim tblCSVResult As DataTable = Session("HadiWarningNotificationSummaryReport")
                     If tblCSVResult.Rows.Count > 0 Then
                         If Not System.IO.Directory.Exists(strPath) Then
                             System.IO.Directory.CreateDirectory(strPath)
@@ -792,7 +805,7 @@ Public Class HadiWarningNotificationReport
                         End Using
                     Else
                         Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
-                        Session("WarningNotificationSummaryReport") = Nothing
+                        Session("HadiWarningNotificationSummaryReport") = Nothing
                     End If
 
 
@@ -804,8 +817,8 @@ Public Class HadiWarningNotificationReport
 
         Catch ex As Exception
             Bootstrap_Panel1.ShowMessage("امکان انتقال گزارش به فایل اکسل وجود ندارد", False)
-            Session("WarningNotificationReport") = Nothing
-            Session("WarningNotificationSummaryReport") = Nothing
+            Session("HadiWarningNotificationReport") = Nothing
+            Session("HadiWarningNotificationSummaryReport") = Nothing
         End Try
 
 

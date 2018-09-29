@@ -162,7 +162,7 @@
                         End If
 
 
-                        Dim intUserID As Integer = qryUser.spr_User_Insert(strUserName, "123", True, False, False, False, strName, strLastName, "", False, "", "", Date.Now, drwUserLogin.ID, strUserName, "", "", "", Nothing, intBranchID, False)
+                        Dim intUserID As Integer = qryUser.spr_User_Insert(strUserName, "123", True, False, False, False, strName, strLastName, "", False, "", "", Date.Now, drwUserLogin.ID, strUserName, "", "", "", Nothing, intBranchID, False, False, False)
 
                         Dim arrSelectedGroups() As Integer = lstAccessGroups.GetSelectedIndices()
 

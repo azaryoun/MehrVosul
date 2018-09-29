@@ -878,7 +878,7 @@ Namespace dstHadiWarningNotificationLogTableAdapters
         Private Sub InitCommandCollection()
             Me._commandCollection = New Global.System.Data.IDbCommand(0) {}
             Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
-            CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString)
+            CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Connection = New Global.System.Data.SqlClient.SqlConnection(Global.BusinessObject.My.MySettings.Default.dbMehrVosulConnectionString)
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).CommandText = "dbo.spr_HadiWarningNotificationLog_Insert"
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).CommandType = Global.System.Data.CommandType.StoredProcedure
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
@@ -888,12 +888,13 @@ Namespace dstHadiWarningNotificationLogTableAdapters
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@FrquencyNo", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@STime", Global.System.Data.SqlDbType.DateTime, 8, Global.System.Data.ParameterDirection.Input, 23, 3, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
             CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@IsHandy", Global.System.Data.SqlDbType.Bit, 1, Global.System.Data.ParameterDirection.Input, 1, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+            CType(Me._commandCollection(0),Global.System.Data.SqlClient.SqlCommand).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@LoanID", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.Input, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-        Public Overloads Overridable Function spr_HadiWarningNotificationLog_Insert(ByVal FK_FileID As Global.System.Nullable(Of Integer), ByVal FK_HadiWarningIntervalID As Global.System.Nullable(Of Integer), ByVal theDay As Global.System.Nullable(Of Date), ByVal FrquencyNo As Global.System.Nullable(Of Integer), ByVal STime As Global.System.Nullable(Of Date), ByVal IsHandy As Global.System.Nullable(Of Boolean)) As Object
+        Public Overloads Overridable Function spr_HadiWarningNotificationLog_Insert(ByVal FK_FileID As Global.System.Nullable(Of Integer), ByVal FK_HadiWarningIntervalID As Global.System.Nullable(Of Integer), ByVal theDay As Global.System.Nullable(Of Date), ByVal FrquencyNo As Global.System.Nullable(Of Integer), ByVal STime As Global.System.Nullable(Of Date), ByVal IsHandy As Global.System.Nullable(Of Boolean), ByVal LoanID As Global.System.Nullable(Of Integer)) As Object
             Dim command As Global.System.Data.SqlClient.SqlCommand = CType(Me.CommandCollection(0),Global.System.Data.SqlClient.SqlCommand)
             If (FK_FileID.HasValue = true) Then
                 command.Parameters(1).Value = CType(FK_FileID.Value,Integer)
@@ -924,6 +925,11 @@ Namespace dstHadiWarningNotificationLogTableAdapters
                 command.Parameters(6).Value = CType(IsHandy.Value,Boolean)
             Else
                 command.Parameters(6).Value = Global.System.DBNull.Value
+            End If
+            If (LoanID.HasValue = true) Then
+                command.Parameters(7).Value = CType(LoanID.Value,Integer)
+            Else
+                command.Parameters(7).Value = Global.System.DBNull.Value
             End If
             Dim previousConnectionState As Global.System.Data.ConnectionState = command.Connection.State
             If ((command.Connection.State And Global.System.Data.ConnectionState.Open)  _

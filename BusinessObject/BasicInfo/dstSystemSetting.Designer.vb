@@ -25,9 +25,9 @@ Option Explicit On
 Partial Public Class dstSystemSetting
     Inherits Global.System.Data.DataSet
     
-    Private tablespr_SystemSetting_Select As spr_SystemSetting_SelectDataTable
-    
     Private tablespr_AdminSetting_Select As spr_AdminSetting_SelectDataTable
+    
+    Private tablespr_SystemSetting_Select As spr_SystemSetting_SelectDataTable
     
     Private _schemaSerializationMode As Global.System.Data.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
     
@@ -58,11 +58,11 @@ Partial Public Class dstSystemSetting
         If (Me.DetermineSchemaSerializationMode(info, context) = Global.System.Data.SchemaSerializationMode.IncludeSchema) Then
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXmlSchema(New Global.System.Xml.XmlTextReader(New Global.System.IO.StringReader(strSchema)))
-            If (Not (ds.Tables("spr_SystemSetting_Select")) Is Nothing) Then
-                MyBase.Tables.Add(New spr_SystemSetting_SelectDataTable(ds.Tables("spr_SystemSetting_Select")))
-            End If
             If (Not (ds.Tables("spr_AdminSetting_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_AdminSetting_SelectDataTable(ds.Tables("spr_AdminSetting_Select")))
+            End If
+            If (Not (ds.Tables("spr_SystemSetting_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_SystemSetting_SelectDataTable(ds.Tables("spr_SystemSetting_Select")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -85,9 +85,9 @@ Partial Public Class dstSystemSetting
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.Browsable(false),  _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-    Public ReadOnly Property spr_SystemSetting_Select() As spr_SystemSetting_SelectDataTable
+    Public ReadOnly Property spr_AdminSetting_Select() As spr_AdminSetting_SelectDataTable
         Get
-            Return Me.tablespr_SystemSetting_Select
+            Return Me.tablespr_AdminSetting_Select
         End Get
     End Property
     
@@ -95,9 +95,9 @@ Partial Public Class dstSystemSetting
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
      Global.System.ComponentModel.Browsable(false),  _
      Global.System.ComponentModel.DesignerSerializationVisibility(Global.System.ComponentModel.DesignerSerializationVisibility.Content)>  _
-    Public ReadOnly Property spr_AdminSetting_Select() As spr_AdminSetting_SelectDataTable
+    Public ReadOnly Property spr_SystemSetting_Select() As spr_SystemSetting_SelectDataTable
         Get
-            Return Me.tablespr_AdminSetting_Select
+            Return Me.tablespr_SystemSetting_Select
         End Get
     End Property
     
@@ -168,11 +168,11 @@ Partial Public Class dstSystemSetting
             Me.Reset
             Dim ds As Global.System.Data.DataSet = New Global.System.Data.DataSet()
             ds.ReadXml(reader)
-            If (Not (ds.Tables("spr_SystemSetting_Select")) Is Nothing) Then
-                MyBase.Tables.Add(New spr_SystemSetting_SelectDataTable(ds.Tables("spr_SystemSetting_Select")))
-            End If
             If (Not (ds.Tables("spr_AdminSetting_Select")) Is Nothing) Then
                 MyBase.Tables.Add(New spr_AdminSetting_SelectDataTable(ds.Tables("spr_AdminSetting_Select")))
+            End If
+            If (Not (ds.Tables("spr_SystemSetting_Select")) Is Nothing) Then
+                MyBase.Tables.Add(New spr_SystemSetting_SelectDataTable(ds.Tables("spr_SystemSetting_Select")))
             End If
             Me.DataSetName = ds.DataSetName
             Me.Prefix = ds.Prefix
@@ -206,16 +206,16 @@ Partial Public Class dstSystemSetting
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Friend Overloads Sub InitVars(ByVal initTable As Boolean)
-        Me.tablespr_SystemSetting_Select = CType(MyBase.Tables("spr_SystemSetting_Select"),spr_SystemSetting_SelectDataTable)
-        If (initTable = true) Then
-            If (Not (Me.tablespr_SystemSetting_Select) Is Nothing) Then
-                Me.tablespr_SystemSetting_Select.InitVars
-            End If
-        End If
         Me.tablespr_AdminSetting_Select = CType(MyBase.Tables("spr_AdminSetting_Select"),spr_AdminSetting_SelectDataTable)
         If (initTable = true) Then
             If (Not (Me.tablespr_AdminSetting_Select) Is Nothing) Then
                 Me.tablespr_AdminSetting_Select.InitVars
+            End If
+        End If
+        Me.tablespr_SystemSetting_Select = CType(MyBase.Tables("spr_SystemSetting_Select"),spr_SystemSetting_SelectDataTable)
+        If (initTable = true) Then
+            If (Not (Me.tablespr_SystemSetting_Select) Is Nothing) Then
+                Me.tablespr_SystemSetting_Select.InitVars
             End If
         End If
     End Sub
@@ -228,21 +228,21 @@ Partial Public Class dstSystemSetting
         Me.Namespace = "http://tempuri.org/dstSystemSetting.xsd"
         Me.EnforceConstraints = true
         Me.SchemaSerializationMode = Global.System.Data.SchemaSerializationMode.IncludeSchema
-        Me.tablespr_SystemSetting_Select = New spr_SystemSetting_SelectDataTable()
-        MyBase.Tables.Add(Me.tablespr_SystemSetting_Select)
         Me.tablespr_AdminSetting_Select = New spr_AdminSetting_SelectDataTable()
         MyBase.Tables.Add(Me.tablespr_AdminSetting_Select)
+        Me.tablespr_SystemSetting_Select = New spr_SystemSetting_SelectDataTable()
+        MyBase.Tables.Add(Me.tablespr_SystemSetting_Select)
     End Sub
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Private Function ShouldSerializespr_SystemSetting_Select() As Boolean
+    Private Function ShouldSerializespr_AdminSetting_Select() As Boolean
         Return false
     End Function
     
     <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Private Function ShouldSerializespr_AdminSetting_Select() As Boolean
+    Private Function ShouldSerializespr_SystemSetting_Select() As Boolean
         Return false
     End Function
     
@@ -305,747 +305,10 @@ Partial Public Class dstSystemSetting
     End Function
     
     <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Delegate Sub spr_SystemSetting_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_SystemSetting_SelectRowChangeEvent)
-    
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
     Public Delegate Sub spr_AdminSetting_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_AdminSetting_SelectRowChangeEvent)
     
-    '''<summary>
-    '''Represents the strongly named DataTable class.
-    '''</summary>
-    <Global.System.Serializable(),  _
-     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
-    Partial Public Class spr_SystemSetting_SelectDataTable
-        Inherits Global.System.Data.TypedTableBase(Of spr_SystemSetting_SelectRow)
-        
-        Private columnID As Global.System.Data.DataColumn
-        
-        Private columnGatewayNumber As Global.System.Data.DataColumn
-        
-        Private columnGatewayCompany As Global.System.Data.DataColumn
-        
-        Private columnGatewayUsername As Global.System.Data.DataColumn
-        
-        Private columnGatewayPassword As Global.System.Data.DataColumn
-        
-        Private columnGatewayIP As Global.System.Data.DataColumn
-        
-        Private columnEmailUsername As Global.System.Data.DataColumn
-        
-        Private columnEmailHost As Global.System.Data.DataColumn
-        
-        Private columnEmailPassword As Global.System.Data.DataColumn
-        
-        Private columnEmail As Global.System.Data.DataColumn
-        
-        Private columnTelephoneNumber As Global.System.Data.DataColumn
-        
-        Private columnUpdateTime As Global.System.Data.DataColumn
-        
-        Private columntryTime As Global.System.Data.DataColumn
-        
-        Private columntryIntervalHour As Global.System.Data.DataColumn
-        
-        Private columnETime As Global.System.Data.DataColumn
-        
-        Private columnFK_EUserID As Global.System.Data.DataColumn
-        
-        Private columnUpdateTime_Deposit As Global.System.Data.DataColumn
-        
-        Private columntryTime_Deposit As Global.System.Data.DataColumn
-        
-        Private columntryIntervalHour_Deposit As Global.System.Data.DataColumn
-        
-        Private columnUpdateTime_Loan As Global.System.Data.DataColumn
-        
-        Private columntryTime_Loan As Global.System.Data.DataColumn
-        
-        Private columntryIntervalHour_Loan As Global.System.Data.DataColumn
-        
-        Private columnVoiceSMSUID As Global.System.Data.DataColumn
-        
-        Private columnVoiceSMSToken As Global.System.Data.DataColumn
-        
-        Private columnVosoulService As Global.System.Data.DataColumn
-        
-        Private columnHadiService As Global.System.Data.DataColumn
-        
-        Private columnHadiServiceLoan As Global.System.Data.DataColumn
-        
-        Private columnVoiceService As Global.System.Data.DataColumn
-        
-        Private columnPreNotification As Global.System.Data.DataColumn
-        
-        Private columnUpdateTime_PreNotify As Global.System.Data.DataColumn
-        
-        Private columntryTime_PreNotify As Global.System.Data.DataColumn
-        
-        Private columnGetTotalLC As Global.System.Data.DataColumn
-        
-        Private columnUpdateTime_TotalLC As Global.System.Data.DataColumn
-        
-        Private columntryTime_TotalLC As Global.System.Data.DataColumn
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New()
-            MyBase.New
-            Me.TableName = "spr_SystemSetting_Select"
-            Me.BeginInit
-            Me.InitClass
-            Me.EndInit
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub New(ByVal table As Global.System.Data.DataTable)
-            MyBase.New
-            Me.TableName = table.TableName
-            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
-                Me.CaseSensitive = table.CaseSensitive
-            End If
-            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
-                Me.Locale = table.Locale
-            End If
-            If (table.Namespace <> table.DataSet.Namespace) Then
-                Me.Namespace = table.Namespace
-            End If
-            Me.Prefix = table.Prefix
-            Me.MinimumCapacity = table.MinimumCapacity
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
-            MyBase.New(info, context)
-            Me.InitVars
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property GatewayNumberColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnGatewayNumber
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property GatewayCompanyColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnGatewayCompany
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property GatewayUsernameColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnGatewayUsername
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property GatewayPasswordColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnGatewayPassword
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property GatewayIPColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnGatewayIP
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property EmailUsernameColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnEmailUsername
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property EmailHostColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnEmailHost
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property EmailPasswordColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnEmailPassword
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property EmailColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnEmail
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property TelephoneNumberColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnTelephoneNumber
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property UpdateTimeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnUpdateTime
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property tryTimeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columntryTime
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property tryIntervalHourColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columntryIntervalHour
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property ETimeColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnETime
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property FK_EUserIDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnFK_EUserID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property UpdateTime_DepositColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnUpdateTime_Deposit
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property tryTime_DepositColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columntryTime_Deposit
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property tryIntervalHour_DepositColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columntryIntervalHour_Deposit
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property UpdateTime_LoanColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnUpdateTime_Loan
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property tryTime_LoanColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columntryTime_Loan
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property tryIntervalHour_LoanColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columntryIntervalHour_Loan
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property VoiceSMSUIDColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnVoiceSMSUID
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property VoiceSMSTokenColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnVoiceSMSToken
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property VosoulServiceColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnVosoulService
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property HadiServiceColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnHadiService
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property HadiServiceLoanColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnHadiServiceLoan
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property VoiceServiceColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnVoiceService
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property PreNotificationColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnPreNotification
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property UpdateTime_PreNotifyColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnUpdateTime_PreNotify
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property tryTime_PreNotifyColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columntryTime_PreNotify
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property GetTotalLCColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnGetTotalLC
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property UpdateTime_TotalLCColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columnUpdateTime_TotalLC
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property tryTime_TotalLCColumn() As Global.System.Data.DataColumn
-            Get
-                Return Me.columntryTime_TotalLC
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Browsable(false)>  _
-        Public ReadOnly Property Count() As Integer
-            Get
-                Return Me.Rows.Count
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_SystemSetting_SelectRow
-            Get
-                Return CType(Me.Rows(index),spr_SystemSetting_SelectRow)
-            End Get
-        End Property
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_SystemSetting_SelectRowChanging As spr_SystemSetting_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_SystemSetting_SelectRowChanged As spr_SystemSetting_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_SystemSetting_SelectRowDeleting As spr_SystemSetting_SelectRowChangeEventHandler
-        
-        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Event spr_SystemSetting_SelectRowDeleted As spr_SystemSetting_SelectRowChangeEventHandler
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Sub Addspr_SystemSetting_SelectRow(ByVal row As spr_SystemSetting_SelectRow)
-            Me.Rows.Add(row)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_SystemSetting_SelectRow( _
-                    ByVal ID As Integer,  _
-                    ByVal GatewayNumber As String,  _
-                    ByVal GatewayCompany As String,  _
-                    ByVal GatewayUsername As String,  _
-                    ByVal GatewayPassword As String,  _
-                    ByVal GatewayIP As String,  _
-                    ByVal EmailUsername As String,  _
-                    ByVal EmailHost As String,  _
-                    ByVal EmailPassword As String,  _
-                    ByVal Email As String,  _
-                    ByVal TelephoneNumber As String,  _
-                    ByVal UpdateTime As System.TimeSpan,  _
-                    ByVal tryTime As Integer,  _
-                    ByVal tryIntervalHour As Integer,  _
-                    ByVal ETime As Date,  _
-                    ByVal FK_EUserID As String,  _
-                    ByVal UpdateTime_Deposit As System.TimeSpan,  _
-                    ByVal tryTime_Deposit As Integer,  _
-                    ByVal tryIntervalHour_Deposit As Integer,  _
-                    ByVal UpdateTime_Loan As System.TimeSpan,  _
-                    ByVal tryTime_Loan As Integer,  _
-                    ByVal tryIntervalHour_Loan As Integer,  _
-                    ByVal VoiceSMSUID As String,  _
-                    ByVal VoiceSMSToken As String,  _
-                    ByVal VosoulService As Boolean,  _
-                    ByVal HadiService As Boolean,  _
-                    ByVal HadiServiceLoan As Boolean,  _
-                    ByVal VoiceService As Boolean,  _
-                    ByVal PreNotification As Boolean,  _
-                    ByVal UpdateTime_PreNotify As System.TimeSpan,  _
-                    ByVal tryTime_PreNotify As Integer,  _
-                    ByVal GetTotalLC As Boolean,  _
-                    ByVal UpdateTime_TotalLC As System.TimeSpan,  _
-                    ByVal tryTime_TotalLC As Integer) As spr_SystemSetting_SelectRow
-            Dim rowspr_SystemSetting_SelectRow As spr_SystemSetting_SelectRow = CType(Me.NewRow,spr_SystemSetting_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {ID, GatewayNumber, GatewayCompany, GatewayUsername, GatewayPassword, GatewayIP, EmailUsername, EmailHost, EmailPassword, Email, TelephoneNumber, UpdateTime, tryTime, tryIntervalHour, ETime, FK_EUserID, UpdateTime_Deposit, tryTime_Deposit, tryIntervalHour_Deposit, UpdateTime_Loan, tryTime_Loan, tryIntervalHour_Loan, VoiceSMSUID, VoiceSMSToken, VosoulService, HadiService, HadiServiceLoan, VoiceService, PreNotification, UpdateTime_PreNotify, tryTime_PreNotify, GetTotalLC, UpdateTime_TotalLC, tryTime_TotalLC}
-            rowspr_SystemSetting_SelectRow.ItemArray = columnValuesArray
-            Me.Rows.Add(rowspr_SystemSetting_SelectRow)
-            Return rowspr_SystemSetting_SelectRow
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function FindByID(ByVal ID As Integer) As spr_SystemSetting_SelectRow
-            Return CType(Me.Rows.Find(New Object() {ID}),spr_SystemSetting_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overrides Function Clone() As Global.System.Data.DataTable
-            Dim cln As spr_SystemSetting_SelectDataTable = CType(MyBase.Clone,spr_SystemSetting_SelectDataTable)
-            cln.InitVars
-            Return cln
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
-            Return New spr_SystemSetting_SelectDataTable()
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub InitVars()
-            Me.columnID = MyBase.Columns("ID")
-            Me.columnGatewayNumber = MyBase.Columns("GatewayNumber")
-            Me.columnGatewayCompany = MyBase.Columns("GatewayCompany")
-            Me.columnGatewayUsername = MyBase.Columns("GatewayUsername")
-            Me.columnGatewayPassword = MyBase.Columns("GatewayPassword")
-            Me.columnGatewayIP = MyBase.Columns("GatewayIP")
-            Me.columnEmailUsername = MyBase.Columns("EmailUsername")
-            Me.columnEmailHost = MyBase.Columns("EmailHost")
-            Me.columnEmailPassword = MyBase.Columns("EmailPassword")
-            Me.columnEmail = MyBase.Columns("Email")
-            Me.columnTelephoneNumber = MyBase.Columns("TelephoneNumber")
-            Me.columnUpdateTime = MyBase.Columns("UpdateTime")
-            Me.columntryTime = MyBase.Columns("tryTime")
-            Me.columntryIntervalHour = MyBase.Columns("tryIntervalHour")
-            Me.columnETime = MyBase.Columns("ETime")
-            Me.columnFK_EUserID = MyBase.Columns("FK_EUserID")
-            Me.columnUpdateTime_Deposit = MyBase.Columns("UpdateTime_Deposit")
-            Me.columntryTime_Deposit = MyBase.Columns("tryTime_Deposit")
-            Me.columntryIntervalHour_Deposit = MyBase.Columns("tryIntervalHour_Deposit")
-            Me.columnUpdateTime_Loan = MyBase.Columns("UpdateTime_Loan")
-            Me.columntryTime_Loan = MyBase.Columns("tryTime_Loan")
-            Me.columntryIntervalHour_Loan = MyBase.Columns("tryIntervalHour_Loan")
-            Me.columnVoiceSMSUID = MyBase.Columns("VoiceSMSUID")
-            Me.columnVoiceSMSToken = MyBase.Columns("VoiceSMSToken")
-            Me.columnVosoulService = MyBase.Columns("VosoulService")
-            Me.columnHadiService = MyBase.Columns("HadiService")
-            Me.columnHadiServiceLoan = MyBase.Columns("HadiServiceLoan")
-            Me.columnVoiceService = MyBase.Columns("VoiceService")
-            Me.columnPreNotification = MyBase.Columns("PreNotification")
-            Me.columnUpdateTime_PreNotify = MyBase.Columns("UpdateTime_PreNotify")
-            Me.columntryTime_PreNotify = MyBase.Columns("tryTime_PreNotify")
-            Me.columnGetTotalLC = MyBase.Columns("GetTotalLC")
-            Me.columnUpdateTime_TotalLC = MyBase.Columns("UpdateTime_TotalLC")
-            Me.columntryTime_TotalLC = MyBase.Columns("tryTime_TotalLC")
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitClass()
-            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnID)
-            Me.columnGatewayNumber = New Global.System.Data.DataColumn("GatewayNumber", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnGatewayNumber)
-            Me.columnGatewayCompany = New Global.System.Data.DataColumn("GatewayCompany", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnGatewayCompany)
-            Me.columnGatewayUsername = New Global.System.Data.DataColumn("GatewayUsername", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnGatewayUsername)
-            Me.columnGatewayPassword = New Global.System.Data.DataColumn("GatewayPassword", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnGatewayPassword)
-            Me.columnGatewayIP = New Global.System.Data.DataColumn("GatewayIP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnGatewayIP)
-            Me.columnEmailUsername = New Global.System.Data.DataColumn("EmailUsername", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnEmailUsername)
-            Me.columnEmailHost = New Global.System.Data.DataColumn("EmailHost", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnEmailHost)
-            Me.columnEmailPassword = New Global.System.Data.DataColumn("EmailPassword", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnEmailPassword)
-            Me.columnEmail = New Global.System.Data.DataColumn("Email", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnEmail)
-            Me.columnTelephoneNumber = New Global.System.Data.DataColumn("TelephoneNumber", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnTelephoneNumber)
-            Me.columnUpdateTime = New Global.System.Data.DataColumn("UpdateTime", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnUpdateTime)
-            Me.columntryTime = New Global.System.Data.DataColumn("tryTime", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columntryTime)
-            Me.columntryIntervalHour = New Global.System.Data.DataColumn("tryIntervalHour", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columntryIntervalHour)
-            Me.columnETime = New Global.System.Data.DataColumn("ETime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnETime)
-            Me.columnFK_EUserID = New Global.System.Data.DataColumn("FK_EUserID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnFK_EUserID)
-            Me.columnUpdateTime_Deposit = New Global.System.Data.DataColumn("UpdateTime_Deposit", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnUpdateTime_Deposit)
-            Me.columntryTime_Deposit = New Global.System.Data.DataColumn("tryTime_Deposit", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columntryTime_Deposit)
-            Me.columntryIntervalHour_Deposit = New Global.System.Data.DataColumn("tryIntervalHour_Deposit", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columntryIntervalHour_Deposit)
-            Me.columnUpdateTime_Loan = New Global.System.Data.DataColumn("UpdateTime_Loan", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnUpdateTime_Loan)
-            Me.columntryTime_Loan = New Global.System.Data.DataColumn("tryTime_Loan", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columntryTime_Loan)
-            Me.columntryIntervalHour_Loan = New Global.System.Data.DataColumn("tryIntervalHour_Loan", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columntryIntervalHour_Loan)
-            Me.columnVoiceSMSUID = New Global.System.Data.DataColumn("VoiceSMSUID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnVoiceSMSUID)
-            Me.columnVoiceSMSToken = New Global.System.Data.DataColumn("VoiceSMSToken", GetType(String), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnVoiceSMSToken)
-            Me.columnVosoulService = New Global.System.Data.DataColumn("VosoulService", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnVosoulService)
-            Me.columnHadiService = New Global.System.Data.DataColumn("HadiService", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnHadiService)
-            Me.columnHadiServiceLoan = New Global.System.Data.DataColumn("HadiServiceLoan", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnHadiServiceLoan)
-            Me.columnVoiceService = New Global.System.Data.DataColumn("VoiceService", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnVoiceService)
-            Me.columnPreNotification = New Global.System.Data.DataColumn("PreNotification", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnPreNotification)
-            Me.columnUpdateTime_PreNotify = New Global.System.Data.DataColumn("UpdateTime_PreNotify", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnUpdateTime_PreNotify)
-            Me.columntryTime_PreNotify = New Global.System.Data.DataColumn("tryTime_PreNotify", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columntryTime_PreNotify)
-            Me.columnGetTotalLC = New Global.System.Data.DataColumn("GetTotalLC", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnGetTotalLC)
-            Me.columnUpdateTime_TotalLC = New Global.System.Data.DataColumn("UpdateTime_TotalLC", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columnUpdateTime_TotalLC)
-            Me.columntryTime_TotalLC = New Global.System.Data.DataColumn("tryTime_TotalLC", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
-            MyBase.Columns.Add(Me.columntryTime_TotalLC)
-            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
-            Me.columnID.AllowDBNull = false
-            Me.columnID.Unique = true
-            Me.columnGatewayNumber.MaxLength = 50
-            Me.columnGatewayCompany.MaxLength = 50
-            Me.columnGatewayUsername.MaxLength = 50
-            Me.columnGatewayPassword.MaxLength = 50
-            Me.columnGatewayIP.MaxLength = 100
-            Me.columnEmailUsername.MaxLength = 50
-            Me.columnEmailHost.MaxLength = 50
-            Me.columnEmailPassword.MaxLength = 50
-            Me.columnEmail.MaxLength = 50
-            Me.columnTelephoneNumber.MaxLength = 50
-            Me.columnFK_EUserID.MaxLength = 10
-            Me.columnVoiceSMSUID.MaxLength = 50
-            Me.columnVoiceSMSToken.MaxLength = 50
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function Newspr_SystemSetting_SelectRow() As spr_SystemSetting_SelectRow
-            Return CType(Me.NewRow,spr_SystemSetting_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
-            Return New spr_SystemSetting_SelectRow(builder)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Function GetRowType() As Global.System.Type
-            Return GetType(spr_SystemSetting_SelectRow)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanged(e)
-            If (Not (Me.spr_SystemSetting_SelectRowChangedEvent) Is Nothing) Then
-                RaiseEvent spr_SystemSetting_SelectRowChanged(Me, New spr_SystemSetting_SelectRowChangeEvent(CType(e.Row,spr_SystemSetting_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowChanging(e)
-            If (Not (Me.spr_SystemSetting_SelectRowChangingEvent) Is Nothing) Then
-                RaiseEvent spr_SystemSetting_SelectRowChanging(Me, New spr_SystemSetting_SelectRowChangeEvent(CType(e.Row,spr_SystemSetting_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleted(e)
-            If (Not (Me.spr_SystemSetting_SelectRowDeletedEvent) Is Nothing) Then
-                RaiseEvent spr_SystemSetting_SelectRowDeleted(Me, New spr_SystemSetting_SelectRowChangeEvent(CType(e.Row,spr_SystemSetting_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
-            MyBase.OnRowDeleting(e)
-            If (Not (Me.spr_SystemSetting_SelectRowDeletingEvent) Is Nothing) Then
-                RaiseEvent spr_SystemSetting_SelectRowDeleting(Me, New spr_SystemSetting_SelectRowChangeEvent(CType(e.Row,spr_SystemSetting_SelectRow), e.Action))
-            End If
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub Removespr_SystemSetting_SelectRow(ByVal row As spr_SystemSetting_SelectRow)
-            Me.Rows.Remove(row)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
-            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
-            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
-            Dim ds As dstSystemSetting = New dstSystemSetting()
-            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
-            any1.MinOccurs = New Decimal(0)
-            any1.MaxOccurs = Decimal.MaxValue
-            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any1)
-            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
-            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
-            any2.MinOccurs = New Decimal(1)
-            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
-            sequence.Items.Add(any2)
-            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute1.Name = "namespace"
-            attribute1.FixedValue = ds.Namespace
-            type.Attributes.Add(attribute1)
-            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
-            attribute2.Name = "tableTypeName"
-            attribute2.FixedValue = "spr_SystemSetting_SelectDataTable"
-            type.Attributes.Add(attribute2)
-            type.Particle = sequence
-            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
-            If xs.Contains(dsSchema.TargetNamespace) Then
-                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
-                Try 
-                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
-                    dsSchema.Write(s1)
-                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
-                    Do While schemas.MoveNext
-                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
-                        s2.SetLength(0)
-                        schema.Write(s2)
-                        If (s1.Length = s2.Length) Then
-                            s1.Position = 0
-                            s2.Position = 0
-                            
-                            Do While ((s1.Position <> s1.Length)  _
-                                        AndAlso (s1.ReadByte = s2.ReadByte))
-                                
-                                
-                            Loop
-                            If (s1.Position = s1.Length) Then
-                                Return type
-                            End If
-                        End If
-                        
-                    Loop
-                Finally
-                    If (Not (s1) Is Nothing) Then
-                        s1.Close
-                    End If
-                    If (Not (s2) Is Nothing) Then
-                        s2.Close
-                    End If
-                End Try
-            End If
-            xs.Add(dsSchema)
-            Return type
-        End Function
-    End Class
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Delegate Sub spr_SystemSetting_SelectRowChangeEventHandler(ByVal sender As Object, ByVal e As spr_SystemSetting_SelectRowChangeEvent)
     
     '''<summary>
     '''Represents the strongly named DataTable class.
@@ -1466,6 +729,1146 @@ Partial Public Class dstSystemSetting
             xs.Add(dsSchema)
             Return type
         End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the strongly named DataTable class.
+    '''</summary>
+    <Global.System.Serializable(),  _
+     Global.System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")>  _
+    Partial Public Class spr_SystemSetting_SelectDataTable
+        Inherits Global.System.Data.TypedTableBase(Of spr_SystemSetting_SelectRow)
+        
+        Private columnID As Global.System.Data.DataColumn
+        
+        Private columnGatewayNumber As Global.System.Data.DataColumn
+        
+        Private columnGatewayCompany As Global.System.Data.DataColumn
+        
+        Private columnGatewayUsername As Global.System.Data.DataColumn
+        
+        Private columnGatewayPassword As Global.System.Data.DataColumn
+        
+        Private columnGatewayIP As Global.System.Data.DataColumn
+        
+        Private columnEmailUsername As Global.System.Data.DataColumn
+        
+        Private columnEmailHost As Global.System.Data.DataColumn
+        
+        Private columnEmailPassword As Global.System.Data.DataColumn
+        
+        Private columnEmail As Global.System.Data.DataColumn
+        
+        Private columnTelephoneNumber As Global.System.Data.DataColumn
+        
+        Private columnUpdateTime As Global.System.Data.DataColumn
+        
+        Private columntryTime As Global.System.Data.DataColumn
+        
+        Private columntryIntervalHour As Global.System.Data.DataColumn
+        
+        Private columnETime As Global.System.Data.DataColumn
+        
+        Private columnFK_EUserID As Global.System.Data.DataColumn
+        
+        Private columnUpdateTime_Deposit As Global.System.Data.DataColumn
+        
+        Private columntryTime_Deposit As Global.System.Data.DataColumn
+        
+        Private columntryIntervalHour_Deposit As Global.System.Data.DataColumn
+        
+        Private columnUpdateTime_Loan As Global.System.Data.DataColumn
+        
+        Private columntryTime_Loan As Global.System.Data.DataColumn
+        
+        Private columntryIntervalHour_Loan As Global.System.Data.DataColumn
+        
+        Private columnVoiceSMSUID As Global.System.Data.DataColumn
+        
+        Private columnVoiceSMSToken As Global.System.Data.DataColumn
+        
+        Private columnVosoulService As Global.System.Data.DataColumn
+        
+        Private columnHadiService As Global.System.Data.DataColumn
+        
+        Private columnHadiServiceLoan As Global.System.Data.DataColumn
+        
+        Private columnVoiceService As Global.System.Data.DataColumn
+        
+        Private columnPreNotification As Global.System.Data.DataColumn
+        
+        Private columnUpdateTime_PreNotify As Global.System.Data.DataColumn
+        
+        Private columntryTime_PreNotify As Global.System.Data.DataColumn
+        
+        Private columnGetTotalLC As Global.System.Data.DataColumn
+        
+        Private columnUpdateTime_TotalLC As Global.System.Data.DataColumn
+        
+        Private columntryTime_TotalLC As Global.System.Data.DataColumn
+        
+        Private columnGetNotDeffredLC As Global.System.Data.DataColumn
+        
+        Private columnUpdateTime_NotDeffredLC As Global.System.Data.DataColumn
+        
+        Private columntryTime_NotDeffredlLC As Global.System.Data.DataColumn
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.TableName = "spr_SystemSetting_Select"
+            Me.BeginInit
+            Me.InitClass
+            Me.EndInit
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal table As Global.System.Data.DataTable)
+            MyBase.New
+            Me.TableName = table.TableName
+            If (table.CaseSensitive <> table.DataSet.CaseSensitive) Then
+                Me.CaseSensitive = table.CaseSensitive
+            End If
+            If (table.Locale.ToString <> table.DataSet.Locale.ToString) Then
+                Me.Locale = table.Locale
+            End If
+            If (table.Namespace <> table.DataSet.Namespace) Then
+                Me.Namespace = table.Namespace
+            End If
+            Me.Prefix = table.Prefix
+            Me.MinimumCapacity = table.MinimumCapacity
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Sub New(ByVal info As Global.System.Runtime.Serialization.SerializationInfo, ByVal context As Global.System.Runtime.Serialization.StreamingContext)
+            MyBase.New(info, context)
+            Me.InitVars
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property GatewayNumberColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnGatewayNumber
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property GatewayCompanyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnGatewayCompany
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property GatewayUsernameColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnGatewayUsername
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property GatewayPasswordColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnGatewayPassword
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property GatewayIPColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnGatewayIP
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property EmailUsernameColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnEmailUsername
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property EmailHostColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnEmailHost
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property EmailPasswordColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnEmailPassword
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property EmailColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnEmail
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property TelephoneNumberColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnTelephoneNumber
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property UpdateTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnUpdateTime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryTimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryTime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryIntervalHourColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryIntervalHour
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property ETimeColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnETime
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property FK_EUserIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnFK_EUserID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property UpdateTime_DepositColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnUpdateTime_Deposit
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryTime_DepositColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryTime_Deposit
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryIntervalHour_DepositColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryIntervalHour_Deposit
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property UpdateTime_LoanColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnUpdateTime_Loan
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryTime_LoanColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryTime_Loan
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryIntervalHour_LoanColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryIntervalHour_Loan
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property VoiceSMSUIDColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnVoiceSMSUID
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property VoiceSMSTokenColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnVoiceSMSToken
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property VosoulServiceColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnVosoulService
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property HadiServiceColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnHadiService
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property HadiServiceLoanColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnHadiServiceLoan
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property VoiceServiceColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnVoiceService
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property PreNotificationColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnPreNotification
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property UpdateTime_PreNotifyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnUpdateTime_PreNotify
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryTime_PreNotifyColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryTime_PreNotify
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property GetTotalLCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnGetTotalLC
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property UpdateTime_TotalLCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnUpdateTime_TotalLC
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryTime_TotalLCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryTime_TotalLC
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property GetNotDeffredLCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnGetNotDeffredLC
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property UpdateTime_NotDeffredLCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnUpdateTime_NotDeffredLC
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property tryTime_NotDeffredlLCColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columntryTime_NotDeffredlLC
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Browsable(false)>  _
+        Public ReadOnly Property Count() As Integer
+            Get
+                Return Me.Rows.Count
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Default ReadOnly Property Item(ByVal index As Integer) As spr_SystemSetting_SelectRow
+            Get
+                Return CType(Me.Rows(index),spr_SystemSetting_SelectRow)
+            End Get
+        End Property
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_SystemSetting_SelectRowChanging As spr_SystemSetting_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_SystemSetting_SelectRowChanged As spr_SystemSetting_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_SystemSetting_SelectRowDeleting As spr_SystemSetting_SelectRowChangeEventHandler
+        
+        <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Event spr_SystemSetting_SelectRowDeleted As spr_SystemSetting_SelectRowChangeEventHandler
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Sub Addspr_SystemSetting_SelectRow(ByVal row As spr_SystemSetting_SelectRow)
+            Me.Rows.Add(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overloads Function Addspr_SystemSetting_SelectRow( _
+                    ByVal ID As Integer,  _
+                    ByVal GatewayNumber As String,  _
+                    ByVal GatewayCompany As String,  _
+                    ByVal GatewayUsername As String,  _
+                    ByVal GatewayPassword As String,  _
+                    ByVal GatewayIP As String,  _
+                    ByVal EmailUsername As String,  _
+                    ByVal EmailHost As String,  _
+                    ByVal EmailPassword As String,  _
+                    ByVal Email As String,  _
+                    ByVal TelephoneNumber As String,  _
+                    ByVal UpdateTime As System.TimeSpan,  _
+                    ByVal tryTime As Integer,  _
+                    ByVal tryIntervalHour As Integer,  _
+                    ByVal ETime As Date,  _
+                    ByVal FK_EUserID As String,  _
+                    ByVal UpdateTime_Deposit As System.TimeSpan,  _
+                    ByVal tryTime_Deposit As Integer,  _
+                    ByVal tryIntervalHour_Deposit As Integer,  _
+                    ByVal UpdateTime_Loan As System.TimeSpan,  _
+                    ByVal tryTime_Loan As Integer,  _
+                    ByVal tryIntervalHour_Loan As Integer,  _
+                    ByVal VoiceSMSUID As String,  _
+                    ByVal VoiceSMSToken As String,  _
+                    ByVal VosoulService As Boolean,  _
+                    ByVal HadiService As Boolean,  _
+                    ByVal HadiServiceLoan As Boolean,  _
+                    ByVal VoiceService As Boolean,  _
+                    ByVal PreNotification As Boolean,  _
+                    ByVal UpdateTime_PreNotify As System.TimeSpan,  _
+                    ByVal tryTime_PreNotify As Integer,  _
+                    ByVal GetTotalLC As Boolean,  _
+                    ByVal UpdateTime_TotalLC As System.TimeSpan,  _
+                    ByVal tryTime_TotalLC As Integer,  _
+                    ByVal GetNotDeffredLC As Boolean,  _
+                    ByVal UpdateTime_NotDeffredLC As System.TimeSpan,  _
+                    ByVal tryTime_NotDeffredlLC As Boolean) As spr_SystemSetting_SelectRow
+            Dim rowspr_SystemSetting_SelectRow As spr_SystemSetting_SelectRow = CType(Me.NewRow,spr_SystemSetting_SelectRow)
+            Dim columnValuesArray() As Object = New Object() {ID, GatewayNumber, GatewayCompany, GatewayUsername, GatewayPassword, GatewayIP, EmailUsername, EmailHost, EmailPassword, Email, TelephoneNumber, UpdateTime, tryTime, tryIntervalHour, ETime, FK_EUserID, UpdateTime_Deposit, tryTime_Deposit, tryIntervalHour_Deposit, UpdateTime_Loan, tryTime_Loan, tryIntervalHour_Loan, VoiceSMSUID, VoiceSMSToken, VosoulService, HadiService, HadiServiceLoan, VoiceService, PreNotification, UpdateTime_PreNotify, tryTime_PreNotify, GetTotalLC, UpdateTime_TotalLC, tryTime_TotalLC, GetNotDeffredLC, UpdateTime_NotDeffredLC, tryTime_NotDeffredlLC}
+            rowspr_SystemSetting_SelectRow.ItemArray = columnValuesArray
+            Me.Rows.Add(rowspr_SystemSetting_SelectRow)
+            Return rowspr_SystemSetting_SelectRow
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function FindByID(ByVal ID As Integer) As spr_SystemSetting_SelectRow
+            Return CType(Me.Rows.Find(New Object() {ID}),spr_SystemSetting_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Overrides Function Clone() As Global.System.Data.DataTable
+            Dim cln As spr_SystemSetting_SelectDataTable = CType(MyBase.Clone,spr_SystemSetting_SelectDataTable)
+            cln.InitVars
+            Return cln
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function CreateInstance() As Global.System.Data.DataTable
+            Return New spr_SystemSetting_SelectDataTable()
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub InitVars()
+            Me.columnID = MyBase.Columns("ID")
+            Me.columnGatewayNumber = MyBase.Columns("GatewayNumber")
+            Me.columnGatewayCompany = MyBase.Columns("GatewayCompany")
+            Me.columnGatewayUsername = MyBase.Columns("GatewayUsername")
+            Me.columnGatewayPassword = MyBase.Columns("GatewayPassword")
+            Me.columnGatewayIP = MyBase.Columns("GatewayIP")
+            Me.columnEmailUsername = MyBase.Columns("EmailUsername")
+            Me.columnEmailHost = MyBase.Columns("EmailHost")
+            Me.columnEmailPassword = MyBase.Columns("EmailPassword")
+            Me.columnEmail = MyBase.Columns("Email")
+            Me.columnTelephoneNumber = MyBase.Columns("TelephoneNumber")
+            Me.columnUpdateTime = MyBase.Columns("UpdateTime")
+            Me.columntryTime = MyBase.Columns("tryTime")
+            Me.columntryIntervalHour = MyBase.Columns("tryIntervalHour")
+            Me.columnETime = MyBase.Columns("ETime")
+            Me.columnFK_EUserID = MyBase.Columns("FK_EUserID")
+            Me.columnUpdateTime_Deposit = MyBase.Columns("UpdateTime_Deposit")
+            Me.columntryTime_Deposit = MyBase.Columns("tryTime_Deposit")
+            Me.columntryIntervalHour_Deposit = MyBase.Columns("tryIntervalHour_Deposit")
+            Me.columnUpdateTime_Loan = MyBase.Columns("UpdateTime_Loan")
+            Me.columntryTime_Loan = MyBase.Columns("tryTime_Loan")
+            Me.columntryIntervalHour_Loan = MyBase.Columns("tryIntervalHour_Loan")
+            Me.columnVoiceSMSUID = MyBase.Columns("VoiceSMSUID")
+            Me.columnVoiceSMSToken = MyBase.Columns("VoiceSMSToken")
+            Me.columnVosoulService = MyBase.Columns("VosoulService")
+            Me.columnHadiService = MyBase.Columns("HadiService")
+            Me.columnHadiServiceLoan = MyBase.Columns("HadiServiceLoan")
+            Me.columnVoiceService = MyBase.Columns("VoiceService")
+            Me.columnPreNotification = MyBase.Columns("PreNotification")
+            Me.columnUpdateTime_PreNotify = MyBase.Columns("UpdateTime_PreNotify")
+            Me.columntryTime_PreNotify = MyBase.Columns("tryTime_PreNotify")
+            Me.columnGetTotalLC = MyBase.Columns("GetTotalLC")
+            Me.columnUpdateTime_TotalLC = MyBase.Columns("UpdateTime_TotalLC")
+            Me.columntryTime_TotalLC = MyBase.Columns("tryTime_TotalLC")
+            Me.columnGetNotDeffredLC = MyBase.Columns("GetNotDeffredLC")
+            Me.columnUpdateTime_NotDeffredLC = MyBase.Columns("UpdateTime_NotDeffredLC")
+            Me.columntryTime_NotDeffredlLC = MyBase.Columns("tryTime_NotDeffredlLC")
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitClass()
+            Me.columnID = New Global.System.Data.DataColumn("ID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnID)
+            Me.columnGatewayNumber = New Global.System.Data.DataColumn("GatewayNumber", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnGatewayNumber)
+            Me.columnGatewayCompany = New Global.System.Data.DataColumn("GatewayCompany", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnGatewayCompany)
+            Me.columnGatewayUsername = New Global.System.Data.DataColumn("GatewayUsername", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnGatewayUsername)
+            Me.columnGatewayPassword = New Global.System.Data.DataColumn("GatewayPassword", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnGatewayPassword)
+            Me.columnGatewayIP = New Global.System.Data.DataColumn("GatewayIP", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnGatewayIP)
+            Me.columnEmailUsername = New Global.System.Data.DataColumn("EmailUsername", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnEmailUsername)
+            Me.columnEmailHost = New Global.System.Data.DataColumn("EmailHost", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnEmailHost)
+            Me.columnEmailPassword = New Global.System.Data.DataColumn("EmailPassword", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnEmailPassword)
+            Me.columnEmail = New Global.System.Data.DataColumn("Email", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnEmail)
+            Me.columnTelephoneNumber = New Global.System.Data.DataColumn("TelephoneNumber", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnTelephoneNumber)
+            Me.columnUpdateTime = New Global.System.Data.DataColumn("UpdateTime", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnUpdateTime)
+            Me.columntryTime = New Global.System.Data.DataColumn("tryTime", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryTime)
+            Me.columntryIntervalHour = New Global.System.Data.DataColumn("tryIntervalHour", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryIntervalHour)
+            Me.columnETime = New Global.System.Data.DataColumn("ETime", GetType(Date), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnETime)
+            Me.columnFK_EUserID = New Global.System.Data.DataColumn("FK_EUserID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnFK_EUserID)
+            Me.columnUpdateTime_Deposit = New Global.System.Data.DataColumn("UpdateTime_Deposit", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnUpdateTime_Deposit)
+            Me.columntryTime_Deposit = New Global.System.Data.DataColumn("tryTime_Deposit", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryTime_Deposit)
+            Me.columntryIntervalHour_Deposit = New Global.System.Data.DataColumn("tryIntervalHour_Deposit", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryIntervalHour_Deposit)
+            Me.columnUpdateTime_Loan = New Global.System.Data.DataColumn("UpdateTime_Loan", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnUpdateTime_Loan)
+            Me.columntryTime_Loan = New Global.System.Data.DataColumn("tryTime_Loan", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryTime_Loan)
+            Me.columntryIntervalHour_Loan = New Global.System.Data.DataColumn("tryIntervalHour_Loan", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryIntervalHour_Loan)
+            Me.columnVoiceSMSUID = New Global.System.Data.DataColumn("VoiceSMSUID", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnVoiceSMSUID)
+            Me.columnVoiceSMSToken = New Global.System.Data.DataColumn("VoiceSMSToken", GetType(String), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnVoiceSMSToken)
+            Me.columnVosoulService = New Global.System.Data.DataColumn("VosoulService", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnVosoulService)
+            Me.columnHadiService = New Global.System.Data.DataColumn("HadiService", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnHadiService)
+            Me.columnHadiServiceLoan = New Global.System.Data.DataColumn("HadiServiceLoan", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnHadiServiceLoan)
+            Me.columnVoiceService = New Global.System.Data.DataColumn("VoiceService", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnVoiceService)
+            Me.columnPreNotification = New Global.System.Data.DataColumn("PreNotification", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnPreNotification)
+            Me.columnUpdateTime_PreNotify = New Global.System.Data.DataColumn("UpdateTime_PreNotify", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnUpdateTime_PreNotify)
+            Me.columntryTime_PreNotify = New Global.System.Data.DataColumn("tryTime_PreNotify", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryTime_PreNotify)
+            Me.columnGetTotalLC = New Global.System.Data.DataColumn("GetTotalLC", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnGetTotalLC)
+            Me.columnUpdateTime_TotalLC = New Global.System.Data.DataColumn("UpdateTime_TotalLC", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnUpdateTime_TotalLC)
+            Me.columntryTime_TotalLC = New Global.System.Data.DataColumn("tryTime_TotalLC", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryTime_TotalLC)
+            Me.columnGetNotDeffredLC = New Global.System.Data.DataColumn("GetNotDeffredLC", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnGetNotDeffredLC)
+            Me.columnUpdateTime_NotDeffredLC = New Global.System.Data.DataColumn("UpdateTime_NotDeffredLC", GetType(Global.System.TimeSpan), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnUpdateTime_NotDeffredLC)
+            Me.columntryTime_NotDeffredlLC = New Global.System.Data.DataColumn("tryTime_NotDeffredlLC", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columntryTime_NotDeffredlLC)
+            Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
+            Me.columnID.AllowDBNull = false
+            Me.columnID.Unique = true
+            Me.columnGatewayNumber.MaxLength = 50
+            Me.columnGatewayCompany.MaxLength = 50
+            Me.columnGatewayUsername.MaxLength = 50
+            Me.columnGatewayPassword.MaxLength = 50
+            Me.columnGatewayIP.MaxLength = 100
+            Me.columnEmailUsername.MaxLength = 50
+            Me.columnEmailHost.MaxLength = 50
+            Me.columnEmailPassword.MaxLength = 50
+            Me.columnEmail.MaxLength = 50
+            Me.columnTelephoneNumber.MaxLength = 50
+            Me.columnFK_EUserID.MaxLength = 10
+            Me.columnVoiceSMSUID.MaxLength = 50
+            Me.columnVoiceSMSToken.MaxLength = 50
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function Newspr_SystemSetting_SelectRow() As spr_SystemSetting_SelectRow
+            Return CType(Me.NewRow,spr_SystemSetting_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function NewRowFromBuilder(ByVal builder As Global.System.Data.DataRowBuilder) As Global.System.Data.DataRow
+            Return New spr_SystemSetting_SelectRow(builder)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Function GetRowType() As Global.System.Type
+            Return GetType(spr_SystemSetting_SelectRow)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanged(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanged(e)
+            If (Not (Me.spr_SystemSetting_SelectRowChangedEvent) Is Nothing) Then
+                RaiseEvent spr_SystemSetting_SelectRowChanged(Me, New spr_SystemSetting_SelectRowChangeEvent(CType(e.Row,spr_SystemSetting_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowChanging(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowChanging(e)
+            If (Not (Me.spr_SystemSetting_SelectRowChangingEvent) Is Nothing) Then
+                RaiseEvent spr_SystemSetting_SelectRowChanging(Me, New spr_SystemSetting_SelectRowChangeEvent(CType(e.Row,spr_SystemSetting_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleted(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleted(e)
+            If (Not (Me.spr_SystemSetting_SelectRowDeletedEvent) Is Nothing) Then
+                RaiseEvent spr_SystemSetting_SelectRowDeleted(Me, New spr_SystemSetting_SelectRowChangeEvent(CType(e.Row,spr_SystemSetting_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Overrides Sub OnRowDeleting(ByVal e As Global.System.Data.DataRowChangeEventArgs)
+            MyBase.OnRowDeleting(e)
+            If (Not (Me.spr_SystemSetting_SelectRowDeletingEvent) Is Nothing) Then
+                RaiseEvent spr_SystemSetting_SelectRowDeleting(Me, New spr_SystemSetting_SelectRowChangeEvent(CType(e.Row,spr_SystemSetting_SelectRow), e.Action))
+            End If
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub Removespr_SystemSetting_SelectRow(ByVal row As spr_SystemSetting_SelectRow)
+            Me.Rows.Remove(row)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Shared Function GetTypedTableSchema(ByVal xs As Global.System.Xml.Schema.XmlSchemaSet) As Global.System.Xml.Schema.XmlSchemaComplexType
+            Dim type As Global.System.Xml.Schema.XmlSchemaComplexType = New Global.System.Xml.Schema.XmlSchemaComplexType()
+            Dim sequence As Global.System.Xml.Schema.XmlSchemaSequence = New Global.System.Xml.Schema.XmlSchemaSequence()
+            Dim ds As dstSystemSetting = New dstSystemSetting()
+            Dim any1 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any1.Namespace = "http://www.w3.org/2001/XMLSchema"
+            any1.MinOccurs = New Decimal(0)
+            any1.MaxOccurs = Decimal.MaxValue
+            any1.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any1)
+            Dim any2 As Global.System.Xml.Schema.XmlSchemaAny = New Global.System.Xml.Schema.XmlSchemaAny()
+            any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1"
+            any2.MinOccurs = New Decimal(1)
+            any2.ProcessContents = Global.System.Xml.Schema.XmlSchemaContentProcessing.Lax
+            sequence.Items.Add(any2)
+            Dim attribute1 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute1.Name = "namespace"
+            attribute1.FixedValue = ds.Namespace
+            type.Attributes.Add(attribute1)
+            Dim attribute2 As Global.System.Xml.Schema.XmlSchemaAttribute = New Global.System.Xml.Schema.XmlSchemaAttribute()
+            attribute2.Name = "tableTypeName"
+            attribute2.FixedValue = "spr_SystemSetting_SelectDataTable"
+            type.Attributes.Add(attribute2)
+            type.Particle = sequence
+            Dim dsSchema As Global.System.Xml.Schema.XmlSchema = ds.GetSchemaSerializable
+            If xs.Contains(dsSchema.TargetNamespace) Then
+                Dim s1 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Dim s2 As Global.System.IO.MemoryStream = New Global.System.IO.MemoryStream()
+                Try 
+                    Dim schema As Global.System.Xml.Schema.XmlSchema = Nothing
+                    dsSchema.Write(s1)
+                    Dim schemas As Global.System.Collections.IEnumerator = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator
+                    Do While schemas.MoveNext
+                        schema = CType(schemas.Current,Global.System.Xml.Schema.XmlSchema)
+                        s2.SetLength(0)
+                        schema.Write(s2)
+                        If (s1.Length = s2.Length) Then
+                            s1.Position = 0
+                            s2.Position = 0
+                            
+                            Do While ((s1.Position <> s1.Length)  _
+                                        AndAlso (s1.ReadByte = s2.ReadByte))
+                                
+                                
+                            Loop
+                            If (s1.Position = s1.Length) Then
+                                Return type
+                            End If
+                        End If
+                        
+                    Loop
+                Finally
+                    If (Not (s1) Is Nothing) Then
+                        s1.Close
+                    End If
+                    If (Not (s2) Is Nothing) Then
+                        s2.Close
+                    End If
+                End Try
+            End If
+            xs.Add(dsSchema)
+            Return type
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents strongly named DataRow class.
+    '''</summary>
+    Partial Public Class spr_AdminSetting_SelectRow
+        Inherits Global.System.Data.DataRow
+        
+        Private tablespr_AdminSetting_Select As spr_AdminSetting_SelectDataTable
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
+            MyBase.New(rb)
+            Me.tablespr_AdminSetting_Select = CType(Me.Table,spr_AdminSetting_SelectDataTable)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ID() As Integer
+            Get
+                Return CType(Me(Me.tablespr_AdminSetting_Select.IDColumn),Integer)
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.IDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property MassiveFilePeriod() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MassiveFilePeriod' in table 'spr_AdminSetting_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DueDateFilePeroid() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateFilePeroid' in table 'spr_AdminSetting_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DueDateRecivedPeriod() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateRecivedPeriod' in table 'spr_AdminSetting_Select' is"& _ 
+                            " DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DeferredPeriod() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DeferredPeriod' in table 'spr_AdminSetting_Select' is DBNul"& _ 
+                            "l.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DoubtfulPaidPeriod() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DoubtfulPaidPeriod' in table 'spr_AdminSetting_Select' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property FK_UserID() As Integer
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn),Integer)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_UserID' in table 'spr_AdminSetting_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property STime() As Date
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.STimeColumn),Date)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'STime' in table 'spr_AdminSetting_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.STimeColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property MassiveFileAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'MassiveFileAmount' in table 'spr_AdminSetting_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DueDateFileAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateFileAmount' in table 'spr_AdminSetting_Select' is DB"& _ 
+                            "Null.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DueDateRecivedAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateRecivedAmount' in table 'spr_AdminSetting_Select' is"& _ 
+                            " DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DeferredAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DeferredAmount' in table 'spr_AdminSetting_Select' is DBNul"& _ 
+                            "l.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property DoubtfulPaidAmount() As Decimal
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn),Decimal)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'DoubtfulPaidAmount' in table 'spr_AdminSetting_Select' is D"& _ 
+                            "BNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsMassiveFilePeriodNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetMassiveFilePeriodNull()
+            Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDueDateFilePeroidNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDueDateFilePeroidNull()
+            Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDueDateRecivedPeriodNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDueDateRecivedPeriodNull()
+            Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDeferredPeriodNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDeferredPeriodNull()
+            Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDoubtfulPaidPeriodNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDoubtfulPaidPeriodNull()
+            Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsFK_UserIDNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.FK_UserIDColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetFK_UserIDNull()
+            Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsSTimeNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.STimeColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetSTimeNull()
+            Me(Me.tablespr_AdminSetting_Select.STimeColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsMassiveFileAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetMassiveFileAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDueDateFileAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDueDateFileAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDueDateRecivedAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDueDateRecivedAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDeferredAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DeferredAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDeferredAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsDoubtfulPaidAmountNull() As Boolean
+            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetDoubtfulPaidAmountNull()
+            Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn) = Global.System.Convert.DBNull
+        End Sub
     End Class
     
     '''<summary>
@@ -2016,6 +2419,54 @@ Partial Public Class dstSystemSetting
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property GetNotDeffredLC() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SystemSetting_Select.GetNotDeffredLCColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'GetNotDeffredLC' in table 'spr_SystemSetting_Select' is DBN"& _ 
+                            "ull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SystemSetting_Select.GetNotDeffredLCColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property UpdateTime_NotDeffredLC() As System.TimeSpan
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SystemSetting_Select.UpdateTime_NotDeffredLCColumn),Global.System.TimeSpan)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'UpdateTime_NotDeffredLC' in table 'spr_SystemSetting_Select"& _ 
+                            "' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SystemSetting_Select.UpdateTime_NotDeffredLCColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property tryTime_NotDeffredlLC() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_SystemSetting_Select.tryTime_NotDeffredlLCColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'tryTime_NotDeffredlLC' in table 'spr_SystemSetting_Select' "& _ 
+                            "is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_SystemSetting_Select.tryTime_NotDeffredlLCColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsGatewayNumberNull() As Boolean
             Return Me.IsNull(Me.tablespr_SystemSetting_Select.GatewayNumberColumn)
         End Function
@@ -2409,403 +2860,42 @@ Partial Public Class dstSystemSetting
         Public Sub SettryTime_TotalLCNull()
             Me(Me.tablespr_SystemSetting_Select.tryTime_TotalLCColumn) = Global.System.Convert.DBNull
         End Sub
-    End Class
-    
-    '''<summary>
-    '''Represents strongly named DataRow class.
-    '''</summary>
-    Partial Public Class spr_AdminSetting_SelectRow
-        Inherits Global.System.Data.DataRow
-        
-        Private tablespr_AdminSetting_Select As spr_AdminSetting_SelectDataTable
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Sub New(ByVal rb As Global.System.Data.DataRowBuilder)
-            MyBase.New(rb)
-            Me.tablespr_AdminSetting_Select = CType(Me.Table,spr_AdminSetting_SelectDataTable)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ID() As Integer
-            Get
-                Return CType(Me(Me.tablespr_AdminSetting_Select.IDColumn),Integer)
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.IDColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property MassiveFilePeriod() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MassiveFilePeriod' in table 'spr_AdminSetting_Select' is DB"& _ 
-                            "Null.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DueDateFilePeroid() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateFilePeroid' in table 'spr_AdminSetting_Select' is DB"& _ 
-                            "Null.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DueDateRecivedPeriod() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateRecivedPeriod' in table 'spr_AdminSetting_Select' is"& _ 
-                            " DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DeferredPeriod() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DeferredPeriod' in table 'spr_AdminSetting_Select' is DBNul"& _ 
-                            "l.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DoubtfulPaidPeriod() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DoubtfulPaidPeriod' in table 'spr_AdminSetting_Select' is D"& _ 
-                            "BNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property FK_UserID() As Integer
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn),Integer)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'FK_UserID' in table 'spr_AdminSetting_Select' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property STime() As Date
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.STimeColumn),Date)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'STime' in table 'spr_AdminSetting_Select' is DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.STimeColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property MassiveFileAmount() As Decimal
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn),Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'MassiveFileAmount' in table 'spr_AdminSetting_Select' is DB"& _ 
-                            "Null.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DueDateFileAmount() As Decimal
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn),Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateFileAmount' in table 'spr_AdminSetting_Select' is DB"& _ 
-                            "Null.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DueDateRecivedAmount() As Decimal
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn),Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DueDateRecivedAmount' in table 'spr_AdminSetting_Select' is"& _ 
-                            " DBNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DeferredAmount() As Decimal
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn),Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DeferredAmount' in table 'spr_AdminSetting_Select' is DBNul"& _ 
-                            "l.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property DoubtfulPaidAmount() As Decimal
-            Get
-                Try 
-                    Return CType(Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn),Decimal)
-                Catch e As Global.System.InvalidCastException
-                    Throw New Global.System.Data.StrongTypingException("The value for column 'DoubtfulPaidAmount' in table 'spr_AdminSetting_Select' is D"& _ 
-                            "BNull.", e)
-                End Try
-            End Get
-            Set
-                Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn) = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsMassiveFilePeriodNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn)
+        Public Function IsGetNotDeffredLCNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SystemSetting_Select.GetNotDeffredLCColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetMassiveFilePeriodNull()
-            Me(Me.tablespr_AdminSetting_Select.MassiveFilePeriodColumn) = Global.System.Convert.DBNull
+        Public Sub SetGetNotDeffredLCNull()
+            Me(Me.tablespr_SystemSetting_Select.GetNotDeffredLCColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDueDateFilePeroidNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn)
+        Public Function IsUpdateTime_NotDeffredLCNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SystemSetting_Select.UpdateTime_NotDeffredLCColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDueDateFilePeroidNull()
-            Me(Me.tablespr_AdminSetting_Select.DueDateFilePeroidColumn) = Global.System.Convert.DBNull
+        Public Sub SetUpdateTime_NotDeffredLCNull()
+            Me(Me.tablespr_SystemSetting_Select.UpdateTime_NotDeffredLCColumn) = Global.System.Convert.DBNull
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDueDateRecivedPeriodNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn)
+        Public Function IstryTime_NotDeffredlLCNull() As Boolean
+            Return Me.IsNull(Me.tablespr_SystemSetting_Select.tryTime_NotDeffredlLCColumn)
         End Function
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDueDateRecivedPeriodNull()
-            Me(Me.tablespr_AdminSetting_Select.DueDateRecivedPeriodColumn) = Global.System.Convert.DBNull
+        Public Sub SettryTime_NotDeffredlLCNull()
+            Me(Me.tablespr_SystemSetting_Select.tryTime_NotDeffredlLCColumn) = Global.System.Convert.DBNull
         End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDeferredPeriodNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDeferredPeriodNull()
-            Me(Me.tablespr_AdminSetting_Select.DeferredPeriodColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDoubtfulPaidPeriodNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDoubtfulPaidPeriodNull()
-            Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidPeriodColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsFK_UserIDNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.FK_UserIDColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetFK_UserIDNull()
-            Me(Me.tablespr_AdminSetting_Select.FK_UserIDColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsSTimeNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.STimeColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetSTimeNull()
-            Me(Me.tablespr_AdminSetting_Select.STimeColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsMassiveFileAmountNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetMassiveFileAmountNull()
-            Me(Me.tablespr_AdminSetting_Select.MassiveFileAmountColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDueDateFileAmountNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDueDateFileAmountNull()
-            Me(Me.tablespr_AdminSetting_Select.DueDateFileAmountColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDueDateRecivedAmountNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDueDateRecivedAmountNull()
-            Me(Me.tablespr_AdminSetting_Select.DueDateRecivedAmountColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDeferredAmountNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DeferredAmountColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDeferredAmountNull()
-            Me(Me.tablespr_AdminSetting_Select.DeferredAmountColumn) = Global.System.Convert.DBNull
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Function IsDoubtfulPaidAmountNull() As Boolean
-            Return Me.IsNull(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn)
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub SetDoubtfulPaidAmountNull()
-            Me(Me.tablespr_AdminSetting_Select.DoubtfulPaidAmountColumn) = Global.System.Convert.DBNull
-        End Sub
-    End Class
-    
-    '''<summary>
-    '''Row event argument class
-    '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-    Public Class spr_SystemSetting_SelectRowChangeEvent
-        Inherits Global.System.EventArgs
-        
-        Private eventRow As spr_SystemSetting_SelectRow
-        
-        Private eventAction As Global.System.Data.DataRowAction
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New(ByVal row As spr_SystemSetting_SelectRow, ByVal action As Global.System.Data.DataRowAction)
-            MyBase.New
-            Me.eventRow = row
-            Me.eventAction = action
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Row() As spr_SystemSetting_SelectRow
-            Get
-                Return Me.eventRow
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
-            Get
-                Return Me.eventAction
-            End Get
-        End Property
     End Class
     
     '''<summary>
@@ -2843,216 +2933,45 @@ Partial Public Class dstSystemSetting
             End Get
         End Property
     End Class
+    
+    '''<summary>
+    '''Row event argument class
+    '''</summary>
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+    Public Class spr_SystemSetting_SelectRowChangeEvent
+        Inherits Global.System.EventArgs
+        
+        Private eventRow As spr_SystemSetting_SelectRow
+        
+        Private eventAction As Global.System.Data.DataRowAction
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New(ByVal row As spr_SystemSetting_SelectRow, ByVal action As Global.System.Data.DataRowAction)
+            MyBase.New
+            Me.eventRow = row
+            Me.eventAction = action
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Row() As spr_SystemSetting_SelectRow
+            Get
+                Return Me.eventRow
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property Action() As Global.System.Data.DataRowAction
+            Get
+                Return Me.eventAction
+            End Get
+        End Property
+    End Class
 End Class
 
 Namespace dstSystemSettingTableAdapters
-    
-    '''<summary>
-    '''Represents the connection and commands used to retrieve and save data.
-    '''</summary>
-    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
-     Global.System.ComponentModel.ToolboxItem(true),  _
-     Global.System.ComponentModel.DataObjectAttribute(true),  _
-     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
-     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
-    Partial Public Class spr_SystemSetting_SelectTableAdapter
-        Inherits Global.System.ComponentModel.Component
-        
-        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
-        
-        Private _connection As Global.System.Data.SqlClient.SqlConnection
-        
-        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
-        
-        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
-        
-        Private _clearBeforeFill As Boolean
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Sub New()
-            MyBase.New
-            Me.ClearBeforeFill = true
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
-            Get
-                If (Me._adapter Is Nothing) Then
-                    Me.InitAdapter
-                End If
-                Return Me._adapter
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
-            Get
-                If (Me._connection Is Nothing) Then
-                    Me.InitConnection
-                End If
-                Return Me._connection
-            End Get
-            Set
-                Me._connection = value
-                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
-                    Me.Adapter.InsertCommand.Connection = value
-                End If
-                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
-                    Me.Adapter.DeleteCommand.Connection = value
-                End If
-                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
-                    Me.Adapter.UpdateCommand.Connection = value
-                End If
-                Dim i As Integer = 0
-                Do While (i < Me.CommandCollection.Length)
-                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
-                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
-                    End If
-                    i = (i + 1)
-                Loop
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
-            Get
-                Return Me._transaction
-            End Get
-            Set
-                Me._transaction = value
-                Dim i As Integer = 0
-                Do While (i < Me.CommandCollection.Length)
-                    Me.CommandCollection(i).Transaction = Me._transaction
-                    i = (i + 1)
-                Loop
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
-                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
-                End If
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
-                    Me.Adapter.InsertCommand.Transaction = Me._transaction
-                End If
-                If ((Not (Me.Adapter) Is Nothing)  _
-                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
-                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
-                End If
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
-            Get
-                If (Me._commandCollection Is Nothing) Then
-                    Me.InitCommandCollection
-                End If
-                Return Me._commandCollection
-            End Get
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Property ClearBeforeFill() As Boolean
-            Get
-                Return Me._clearBeforeFill
-            End Get
-            Set
-                Me._clearBeforeFill = value
-            End Set
-        End Property
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitAdapter()
-            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
-            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
-            tableMapping.SourceTable = "Table"
-            tableMapping.DataSetTable = "spr_SystemSetting_Select"
-            tableMapping.ColumnMappings.Add("ID", "ID")
-            tableMapping.ColumnMappings.Add("GatewayNumber", "GatewayNumber")
-            tableMapping.ColumnMappings.Add("GatewayCompany", "GatewayCompany")
-            tableMapping.ColumnMappings.Add("GatewayUsername", "GatewayUsername")
-            tableMapping.ColumnMappings.Add("GatewayPassword", "GatewayPassword")
-            tableMapping.ColumnMappings.Add("GatewayIP", "GatewayIP")
-            tableMapping.ColumnMappings.Add("EmailUsername", "EmailUsername")
-            tableMapping.ColumnMappings.Add("EmailHost", "EmailHost")
-            tableMapping.ColumnMappings.Add("EmailPassword", "EmailPassword")
-            tableMapping.ColumnMappings.Add("Email", "Email")
-            tableMapping.ColumnMappings.Add("TelephoneNumber", "TelephoneNumber")
-            tableMapping.ColumnMappings.Add("UpdateTime", "UpdateTime")
-            tableMapping.ColumnMappings.Add("tryTime", "tryTime")
-            tableMapping.ColumnMappings.Add("tryIntervalHour", "tryIntervalHour")
-            tableMapping.ColumnMappings.Add("ETime", "ETime")
-            tableMapping.ColumnMappings.Add("FK_EUserID", "FK_EUserID")
-            tableMapping.ColumnMappings.Add("UpdateTime_Deposit", "UpdateTime_Deposit")
-            tableMapping.ColumnMappings.Add("tryTime_Deposit", "tryTime_Deposit")
-            tableMapping.ColumnMappings.Add("tryIntervalHour_Deposit", "tryIntervalHour_Deposit")
-            tableMapping.ColumnMappings.Add("UpdateTime_Loan", "UpdateTime_Loan")
-            tableMapping.ColumnMappings.Add("tryTime_Loan", "tryTime_Loan")
-            tableMapping.ColumnMappings.Add("tryIntervalHour_Loan", "tryIntervalHour_Loan")
-            tableMapping.ColumnMappings.Add("VoiceSMSUID", "VoiceSMSUID")
-            tableMapping.ColumnMappings.Add("VoiceSMSToken", "VoiceSMSToken")
-            tableMapping.ColumnMappings.Add("VosoulService", "VosoulService")
-            tableMapping.ColumnMappings.Add("HadiService", "HadiService")
-            tableMapping.ColumnMappings.Add("HadiServiceLoan", "HadiServiceLoan")
-            tableMapping.ColumnMappings.Add("VoiceService", "VoiceService")
-            tableMapping.ColumnMappings.Add("PreNotification", "PreNotification")
-            tableMapping.ColumnMappings.Add("UpdateTime_PreNotify", "UpdateTime_PreNotify")
-            tableMapping.ColumnMappings.Add("tryTime_PreNotify", "tryTime_PreNotify")
-            tableMapping.ColumnMappings.Add("GetTotalLC", "GetTotalLC")
-            tableMapping.ColumnMappings.Add("UpdateTime_TotalLC", "UpdateTime_TotalLC")
-            tableMapping.ColumnMappings.Add("tryTime_TotalLC", "tryTime_TotalLC")
-            Me._adapter.TableMappings.Add(tableMapping)
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitConnection()
-            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
-            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbTCSConnectionString
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Private Sub InitCommandCollection()
-            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
-            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
-            Me._commandCollection(0).Connection = Me.Connection
-            Me._commandCollection(0).CommandText = "dbo.spr_SystemSetting_Select"
-            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
-            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
-        End Sub
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
-        Public Overloads Overridable Function Fill(ByVal dataTable As dstSystemSetting.spr_SystemSetting_SelectDataTable) As Integer
-            Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            If (Me.ClearBeforeFill = true) Then
-                dataTable.Clear
-            End If
-            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
-            Return returnValue
-        End Function
-        
-        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
-         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
-         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
-        Public Overloads Overridable Function GetData() As dstSystemSetting.spr_SystemSetting_SelectDataTable
-            Me.Adapter.SelectCommand = Me.CommandCollection(0)
-            Dim dataTable As dstSystemSetting.spr_SystemSetting_SelectDataTable = New dstSystemSetting.spr_SystemSetting_SelectDataTable()
-            Me.Adapter.Fill(dataTable)
-            Return dataTable
-        End Function
-    End Class
     
     '''<summary>
     '''Represents the connection and commands used to retrieve and save data.
@@ -3235,6 +3154,216 @@ Namespace dstSystemSettingTableAdapters
         Public Overloads Overridable Function GetData() As dstSystemSetting.spr_AdminSetting_SelectDataTable
             Me.Adapter.SelectCommand = Me.CommandCollection(0)
             Dim dataTable As dstSystemSetting.spr_AdminSetting_SelectDataTable = New dstSystemSetting.spr_AdminSetting_SelectDataTable()
+            Me.Adapter.Fill(dataTable)
+            Return dataTable
+        End Function
+    End Class
+    
+    '''<summary>
+    '''Represents the connection and commands used to retrieve and save data.
+    '''</summary>
+    <Global.System.ComponentModel.DesignerCategoryAttribute("code"),  _
+     Global.System.ComponentModel.ToolboxItem(true),  _
+     Global.System.ComponentModel.DataObjectAttribute(true),  _
+     Global.System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner"& _ 
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a"),  _
+     Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")>  _
+    Partial Public Class spr_SystemSetting_SelectTableAdapter
+        Inherits Global.System.ComponentModel.Component
+        
+        Private WithEvents _adapter As Global.System.Data.SqlClient.SqlDataAdapter
+        
+        Private _connection As Global.System.Data.SqlClient.SqlConnection
+        
+        Private _transaction As Global.System.Data.SqlClient.SqlTransaction
+        
+        Private _commandCollection() As Global.System.Data.SqlClient.SqlCommand
+        
+        Private _clearBeforeFill As Boolean
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub New()
+            MyBase.New
+            Me.ClearBeforeFill = true
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected Friend ReadOnly Property Adapter() As Global.System.Data.SqlClient.SqlDataAdapter
+            Get
+                If (Me._adapter Is Nothing) Then
+                    Me.InitAdapter
+                End If
+                Return Me._adapter
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Connection() As Global.System.Data.SqlClient.SqlConnection
+            Get
+                If (Me._connection Is Nothing) Then
+                    Me.InitConnection
+                End If
+                Return Me._connection
+            End Get
+            Set
+                Me._connection = value
+                If (Not (Me.Adapter.InsertCommand) Is Nothing) Then
+                    Me.Adapter.InsertCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.DeleteCommand) Is Nothing) Then
+                    Me.Adapter.DeleteCommand.Connection = value
+                End If
+                If (Not (Me.Adapter.UpdateCommand) Is Nothing) Then
+                    Me.Adapter.UpdateCommand.Connection = value
+                End If
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    If (Not (Me.CommandCollection(i)) Is Nothing) Then
+                        CType(Me.CommandCollection(i),Global.System.Data.SqlClient.SqlCommand).Connection = value
+                    End If
+                    i = (i + 1)
+                Loop
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Friend Property Transaction() As Global.System.Data.SqlClient.SqlTransaction
+            Get
+                Return Me._transaction
+            End Get
+            Set
+                Me._transaction = value
+                Dim i As Integer = 0
+                Do While (i < Me.CommandCollection.Length)
+                    Me.CommandCollection(i).Transaction = Me._transaction
+                    i = (i + 1)
+                Loop
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.DeleteCommand) Is Nothing)) Then
+                    Me.Adapter.DeleteCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.InsertCommand) Is Nothing)) Then
+                    Me.Adapter.InsertCommand.Transaction = Me._transaction
+                End If
+                If ((Not (Me.Adapter) Is Nothing)  _
+                            AndAlso (Not (Me.Adapter.UpdateCommand) Is Nothing)) Then
+                    Me.Adapter.UpdateCommand.Transaction = Me._transaction
+                End If
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Protected ReadOnly Property CommandCollection() As Global.System.Data.SqlClient.SqlCommand()
+            Get
+                If (Me._commandCollection Is Nothing) Then
+                    Me.InitCommandCollection
+                End If
+                Return Me._commandCollection
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property ClearBeforeFill() As Boolean
+            Get
+                Return Me._clearBeforeFill
+            End Get
+            Set
+                Me._clearBeforeFill = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitAdapter()
+            Me._adapter = New Global.System.Data.SqlClient.SqlDataAdapter()
+            Dim tableMapping As Global.System.Data.Common.DataTableMapping = New Global.System.Data.Common.DataTableMapping()
+            tableMapping.SourceTable = "Table"
+            tableMapping.DataSetTable = "spr_SystemSetting_Select"
+            tableMapping.ColumnMappings.Add("ID", "ID")
+            tableMapping.ColumnMappings.Add("GatewayNumber", "GatewayNumber")
+            tableMapping.ColumnMappings.Add("GatewayCompany", "GatewayCompany")
+            tableMapping.ColumnMappings.Add("GatewayUsername", "GatewayUsername")
+            tableMapping.ColumnMappings.Add("GatewayPassword", "GatewayPassword")
+            tableMapping.ColumnMappings.Add("GatewayIP", "GatewayIP")
+            tableMapping.ColumnMappings.Add("EmailUsername", "EmailUsername")
+            tableMapping.ColumnMappings.Add("EmailHost", "EmailHost")
+            tableMapping.ColumnMappings.Add("EmailPassword", "EmailPassword")
+            tableMapping.ColumnMappings.Add("Email", "Email")
+            tableMapping.ColumnMappings.Add("TelephoneNumber", "TelephoneNumber")
+            tableMapping.ColumnMappings.Add("UpdateTime", "UpdateTime")
+            tableMapping.ColumnMappings.Add("tryTime", "tryTime")
+            tableMapping.ColumnMappings.Add("tryIntervalHour", "tryIntervalHour")
+            tableMapping.ColumnMappings.Add("ETime", "ETime")
+            tableMapping.ColumnMappings.Add("FK_EUserID", "FK_EUserID")
+            tableMapping.ColumnMappings.Add("UpdateTime_Deposit", "UpdateTime_Deposit")
+            tableMapping.ColumnMappings.Add("tryTime_Deposit", "tryTime_Deposit")
+            tableMapping.ColumnMappings.Add("tryIntervalHour_Deposit", "tryIntervalHour_Deposit")
+            tableMapping.ColumnMappings.Add("UpdateTime_Loan", "UpdateTime_Loan")
+            tableMapping.ColumnMappings.Add("tryTime_Loan", "tryTime_Loan")
+            tableMapping.ColumnMappings.Add("tryIntervalHour_Loan", "tryIntervalHour_Loan")
+            tableMapping.ColumnMappings.Add("VoiceSMSUID", "VoiceSMSUID")
+            tableMapping.ColumnMappings.Add("VoiceSMSToken", "VoiceSMSToken")
+            tableMapping.ColumnMappings.Add("VosoulService", "VosoulService")
+            tableMapping.ColumnMappings.Add("HadiService", "HadiService")
+            tableMapping.ColumnMappings.Add("HadiServiceLoan", "HadiServiceLoan")
+            tableMapping.ColumnMappings.Add("VoiceService", "VoiceService")
+            tableMapping.ColumnMappings.Add("PreNotification", "PreNotification")
+            tableMapping.ColumnMappings.Add("UpdateTime_PreNotify", "UpdateTime_PreNotify")
+            tableMapping.ColumnMappings.Add("tryTime_PreNotify", "tryTime_PreNotify")
+            tableMapping.ColumnMappings.Add("GetTotalLC", "GetTotalLC")
+            tableMapping.ColumnMappings.Add("UpdateTime_TotalLC", "UpdateTime_TotalLC")
+            tableMapping.ColumnMappings.Add("tryTime_TotalLC", "tryTime_TotalLC")
+            tableMapping.ColumnMappings.Add("GetNotDeffredLC", "GetNotDeffredLC")
+            tableMapping.ColumnMappings.Add("UpdateTime_NotDeffredLC", "UpdateTime_NotDeffredLC")
+            tableMapping.ColumnMappings.Add("tryTime_NotDeffredlLC", "tryTime_NotDeffredlLC")
+            Me._adapter.TableMappings.Add(tableMapping)
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitConnection()
+            Me._connection = New Global.System.Data.SqlClient.SqlConnection()
+            Me._connection.ConnectionString = Global.BusinessObject.My.MySettings.Default.dbMehrVosulConnectionString
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Private Sub InitCommandCollection()
+            Me._commandCollection = New Global.System.Data.SqlClient.SqlCommand(0) {}
+            Me._commandCollection(0) = New Global.System.Data.SqlClient.SqlCommand()
+            Me._commandCollection(0).Connection = Me.Connection
+            Me._commandCollection(0).CommandText = "dbo.spr_SystemSetting_Select"
+            Me._commandCollection(0).CommandType = Global.System.Data.CommandType.StoredProcedure
+            Me._commandCollection(0).Parameters.Add(New Global.System.Data.SqlClient.SqlParameter("@RETURN_VALUE", Global.System.Data.SqlDbType.Int, 4, Global.System.Data.ParameterDirection.ReturnValue, 10, 0, Nothing, Global.System.Data.DataRowVersion.Current, false, Nothing, "", "", ""))
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.Fill, true)>  _
+        Public Overloads Overridable Function Fill(ByVal dataTable As dstSystemSetting.spr_SystemSetting_SelectDataTable) As Integer
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            If (Me.ClearBeforeFill = true) Then
+                dataTable.Clear
+            End If
+            Dim returnValue As Integer = Me.Adapter.Fill(dataTable)
+            Return returnValue
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
+         Global.System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter"),  _
+         Global.System.ComponentModel.DataObjectMethodAttribute(Global.System.ComponentModel.DataObjectMethodType.[Select], true)>  _
+        Public Overloads Overridable Function GetData() As dstSystemSetting.spr_SystemSetting_SelectDataTable
+            Me.Adapter.SelectCommand = Me.CommandCollection(0)
+            Dim dataTable As dstSystemSetting.spr_SystemSetting_SelectDataTable = New dstSystemSetting.spr_SystemSetting_SelectDataTable()
             Me.Adapter.Fill(dataTable)
             Return dataTable
         End Function

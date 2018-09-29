@@ -4,7 +4,7 @@
         Dim k As New clsMehrVosulWinService
         ''  k.Test()
 
-        ''   k.SendSMS()
+        ''  k.SendSMS()
 
 
 
