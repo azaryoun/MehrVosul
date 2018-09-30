@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HandyFollowAlarm.aspx.vb" Inherits="MehrVosul.HandyFollowAlarm" %>
 
 <%@ Register Src="../../../UserControl/Bootstrap_Panel.ascx" TagName="Bootstrap_Panel" TagPrefix="uc1" %>
+<%@ Register Src="../../../UserControl/UC_TimePicker.ascx" TagName="UC_TimePicker" TagPrefix="uc3" %>
+<%@ Register src="../../../UserControl/Bootstrap_PersianDateTimePicker.ascx" tagname="Bootstrap_PersianDateTimePicker" tagprefix="uc4" %>
+
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script language="javascript" type="text/javascript">
 
@@ -13,7 +17,7 @@
 
 
 
-           function btnFollwoing_ClientClick(Pkey, Pkey1,Pkey2) {
+        function btnFollwoing_ClientClick(Pkey, Pkey1, Pkey2) {
             var hdnAction_Name = "<%=hdnAction.ClientID%>";
             var hdnAction = document.getElementById(hdnAction_Name);
             hdnAction.value = "S;" + Pkey + ";" + Pkey1 + ";" + Pkey2 + ";";
@@ -40,6 +44,46 @@
     <uc1:Bootstrap_Panel ID="Bootstrap_Panel1" runat="server" />
     <div class="row">
         <br />
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>از</label>
+                    </div>
+                    <div class="panel-body" style="max-height: 200px;">
+
+                        <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePicker_From"
+                            runat="server" />
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>تا</label>
+                    </div>
+                    <div class="panel-body" style="max-height: 200px;">
+                        <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePicker_To"
+                            runat="server" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <br />
         <div class="col-md-12">
 
             <div class="panel panel-default">
@@ -47,35 +91,29 @@
                     <asp:Label ID="lblInnerPageTitle" runat="server" Text=""></asp:Label>
                 </div>
 
-                           <div class="col-md-6">
 
-                            <div class="form-group">
-
-                            </div>
-                        </div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" runat="server" id="tblMResult">
                             <thead>
                                 <tr>
-                                  
-                                     
-                                       <th ></th>
-                                    <th >شماره وام</th>
-                                    <th >شماره مشتری</th>
-                                     <th >نام و نام خانودگی</th>
-                                    <th >شماره تماس</th>
-                                    <th >کاربر پیگیر</th>
-                                     <th >ثبت پیگیری</th>
-                              
-                                  
+
+
+                                    <th></th>
+                                    <th>شماره وام</th>
+                                    <th>شماره مشتری</th>
+                                    <th>نام و نام خانودگی</th>
+                                    <th>شماره تماس</th>
+                                    <th>کاربر پیگیر</th>
+                                    <th>تاریخ تعهد</th>
+                                    <th>ثبت پیگیری</th>
                                 </tr>
                             </thead>
                             <tbody>
                             </tbody>
                         </table>
 
-                       
+
                     </div>
                 </div>
 

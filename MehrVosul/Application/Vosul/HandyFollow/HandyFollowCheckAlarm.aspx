@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="" Language="vb" AutoEventWireup="false" MasterPageFile="~/MasterPage/SmartIntergace_Master.Master" CodeBehind="HandyFollowCheckAlarm.aspx.vb" Inherits="MehrVosul.HandyFollowCheckAlarm" %>
 
 <%@ Register Src="../../../UserControl/Bootstrap_Panel.ascx" TagName="Bootstrap_Panel" TagPrefix="uc1" %>
+<%@ Register Src="../../../UserControl/UC_TimePicker.ascx" TagName="UC_TimePicker" TagPrefix="uc3" %>
+<%@ Register Src="../../../UserControl/Bootstrap_PersianDateTimePicker.ascx" TagName="Bootstrap_PersianDateTimePicker" TagPrefix="uc4" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <script language="javascript" type="text/javascript">
 
@@ -38,6 +40,46 @@
 
 
     <uc1:Bootstrap_Panel ID="Bootstrap_Panel1" runat="server" />
+
+        <div class="row">
+        <br />
+
+        <div class="col-md-6">
+
+            <div class="form-group">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>از</label>
+                    </div>
+                    <div class="panel-body" style="max-height: 200px;">
+
+                        <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePicker_From"
+                            runat="server" />
+
+
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>تا</label>
+                    </div>
+                    <div class="panel-body" style="max-height: 200px;">
+                        <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePicker_To"
+                            runat="server" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <br />
         <div class="col-md-12">

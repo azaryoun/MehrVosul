@@ -23,6 +23,24 @@ Partial Public Class HandyFollowAlarm
     Protected WithEvents Bootstrap_Panel1 As Global.MehrVosul.Bootstrap_Panel
     
     '''<summary>
+    '''Bootstrap_PersianDateTimePicker_From control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Bootstrap_PersianDateTimePicker_From As Global.MehrVosul.Bootstrap_PersianDateTimePicker
+    
+    '''<summary>
+    '''Bootstrap_PersianDateTimePicker_To control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Bootstrap_PersianDateTimePicker_To As Global.MehrVosul.Bootstrap_PersianDateTimePicker
+    
+    '''<summary>
     '''lblInnerPageTitle control.
     '''</summary>
     '''<remarks>
