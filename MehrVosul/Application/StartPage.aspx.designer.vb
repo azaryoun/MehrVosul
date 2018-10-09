@@ -14,6 +14,78 @@ Option Explicit On
 Partial Public Class StartPage
     
     '''<summary>
+    '''divBranchAdminChangedStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divBranchAdminChangedStatus As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''tblChangeStatus control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents tblChangeStatus As Global.System.Web.UI.HtmlControls.HtmlTable
+    
+    '''<summary>
+    '''lblTodayDelayFiles control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTodayDelayFiles As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblTodayDelayFilesAssigned control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTodayDelayFilesAssigned As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblTodayDeferred control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTodayDeferred As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblTodayDeferredAssigned control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTodayDeferredAssigned As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblTodayDoubtful control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTodayDoubtful As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblTodayDoubtfulAssigned control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblTodayDoubtfulAssigned As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''divBranchAdminInfo control.
     '''</summary>
     '''<remarks>
@@ -543,85 +615,4 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblTodaySendTime As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''divBranchAdmin1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divBranchAdmin1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''divchklstAssignFiles control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divchklstAssignFiles As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''divBranchAdmin control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divBranchAdmin As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''divchklstAssignFiles1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divchklstAssignFiles1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''divBranchAdmin3 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divBranchAdmin3 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''divBranchAdmin4 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divBranchAdmin4 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''divBranchUser control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divBranchUser As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''divBranchUser1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divBranchUser1 As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
-    '''divadmin control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divadmin As Global.System.Web.UI.HtmlControls.HtmlGenericControl
 End Class

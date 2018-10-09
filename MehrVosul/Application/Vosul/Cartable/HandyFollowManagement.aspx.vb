@@ -41,6 +41,16 @@ Public Class HandyFollowManagement
                 Bootstrap_Panel1.ClearMessage()
             End If
 
+            If Request.QueryString("AdminDelaidDay") <> Nothing Then
+
+                Dim intDelaidDay As Integer = CInt(Request.QueryString("AdminDelaidDay"))
+                hdnDelayedDay.Value = intDelaidDay
+
+            Else
+                hdnDelayedDay.Value = 0
+
+            End If
+
 
             If drwUserLogin.IsDataAdmin = True Then
 
@@ -200,24 +210,341 @@ Public Class HandyFollowManagement
 
     End Sub
 
-    <System.Web.Services.WebMethod()> Public Shared Function GetPageRecords(intPageNo As Integer, strFilter As String) As String
-        Try
+    <System.Web.Services.WebMethod()> Public Shared Function GetPageRecords(intPageNo As Integer, strFilter As String, intDelayedDay As Integer) As String
 
 
-            Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-            Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
 
-            Dim intAction As Integer
-            If drwUserLogin.IsDataAdmin = True Then
+        Dim intAction As Integer
 
-                intAction = 5
-                If strFilter IsNot Nothing Then
-                    intAction = 6
+
+        If intDelayedDay <> 0 Then
+
+            Try
+                If drwUserLogin.IsDataAdmin = True Then
+
+                    intAction = 3
+                    If strFilter IsNot Nothing Then
+                        intAction = 4
+                    End If
+
+
+                Else
+
+                    ''check the access Group id
+                    Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                    Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                    Dim blnAdminBranch As Boolean = False
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                    If dtblAccessgroupUser.Rows.Count = 0 Then
+                        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                        If dtblAccessgroupUser.Rows.Count > 0 Then
+                            blnAdminBranch = True
+                        End If
+                    End If
+
+
+                    If drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                        intAction = 3
+                        If strFilter IsNot Nothing Then
+                            intAction = 4
+                        End If
+
+                    ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
+                        intAction = 1
+                        If strFilter IsNot Nothing Then
+                            intAction = 2
+                        End If
+                    ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
+                        intAction = 5
+                        If strFilter IsNot Nothing Then
+                            intAction = 6
+                        End If
+                    End If
+
                 End If
 
 
+                Dim intToIndex As Integer = intPageNo * mdlGeneral.cnst_RowsCountInPage
+                Dim intFromIndex As Integer = (intToIndex - mdlGeneral.cnst_RowsCountInPage) + 1
+                Dim tadpHandyFollowAssignManagement As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignStatusChanged_Management_SelectTableAdapter
+                Dim dtblHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssignStatusChanged_Management_SelectDataTable = Nothing
+                dtblHandyFollowAssignManagement = tadpHandyFollowAssignManagement.GetData(intAction, intFromIndex, intToIndex, strFilter, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID, intDelayedDay)
+
+                Dim strResult As String = ""
+                Dim intColumnCount As Integer = dtblHandyFollowAssignManagement.Columns.Count
+
+                If intAction = 1 Or intAction = 3 Or intAction = 5 Or intAction = 7 Or intAction = 9 Then
+                    For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssignStatusChanged_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
+
+
+                        strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
+                        For i As Integer = 1 To intColumnCount - 1
+                            strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i))
+                        Next
+
+                        Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
+                        Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
+
+                        dtblHandyFollow = tadpHandyFollow.GetData(2, -1, drwHandyFollowAssignManagement.Item(0))
+                        If dtblHandyFollow.First.HandFollow > 0 Then
+                            strResult &= ";@;ثبت شده"
+                        Else
+                            strResult &= ";@;ثبت نشده"
+                        End If
+
+
+
+
+                    Next drwHandyFollowAssignManagement
+
+                Else
+
+                    For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssignStatusChanged_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
+
+
+                        strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
+                        strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(1))
+                        For i As Integer = 2 To intColumnCount - 1
+                            strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i)).ToLower.Replace(strFilter.ToLower, "<b><font color='#0F17FF'>" & strFilter & "</font></b>")
+                        Next
+
+
+                        Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
+                        Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
+
+                        dtblHandyFollow = tadpHandyFollow.GetData(2, -1, drwHandyFollowAssignManagement.Item(0))
+                        If dtblHandyFollow.First.HandFollow > 0 Then
+                            strResult &= ";@;ثبت شده"
+                        Else
+                            strResult &= ";@;ثبت نشده"
+                        End If
+
+                    Next drwHandyFollowAssignManagement
+
+
+                End If
+
+
+
+                Return strResult
+
+            Catch ex As Exception
+                Return "E"
+            End Try
+
+
+        Else
+
+
+
+            Try
+                If drwUserLogin.IsDataAdmin = True Then
+
+                    intAction = 5
+                    If strFilter IsNot Nothing Then
+                        intAction = 6
+                    End If
+
+
+                Else
+
+                    ''check the access Group id
+                    Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                    Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                    Dim blnAdminBranch As Boolean = False
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                    If dtblAccessgroupUser.Rows.Count = 0 Then
+                        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                        If dtblAccessgroupUser.Rows.Count > 0 Then
+                            blnAdminBranch = True
+                        End If
+                    End If
+
+
+                    If drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                        intAction = 9
+                        If strFilter IsNot Nothing Then
+                            intAction = 10
+                        End If
+
+                    ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
+                        intAction = 3
+                        If strFilter IsNot Nothing Then
+                            intAction = 4
+                        End If
+                    ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
+                        intAction = 7
+                        If strFilter IsNot Nothing Then
+                            intAction = 8
+                        End If
+
+                    Else
+                        intAction = 1
+                        If strFilter IsNot Nothing Then
+                            intAction = 2
+                        End If
+                    End If
+
+                End If
+
+
+                Dim intToIndex As Integer = intPageNo * mdlGeneral.cnst_RowsCountInPage
+                Dim intFromIndex As Integer = (intToIndex - mdlGeneral.cnst_RowsCountInPage) + 1
+                Dim tadpHandyFollowAssignManagement As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_Management_SelectTableAdapter
+                Dim dtblHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectDataTable = Nothing
+                dtblHandyFollowAssignManagement = tadpHandyFollowAssignManagement.GetData(intAction, intFromIndex, intToIndex, strFilter, drwUserLogin.ID, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID)
+
+                Dim strResult As String = ""
+                Dim intColumnCount As Integer = dtblHandyFollowAssignManagement.Columns.Count
+
+                If intAction = 1 Or intAction = 3 Or intAction = 5 Or intAction = 7 Or intAction = 9 Then
+                    For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
+
+
+                        strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
+                        For i As Integer = 1 To intColumnCount - 1
+                            strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i))
+                        Next
+
+                        Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
+                        Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
+
+                        dtblHandyFollow = tadpHandyFollow.GetData(2, -1, drwHandyFollowAssignManagement.Item(0))
+                        If dtblHandyFollow.First.HandFollow > 0 Then
+                            strResult &= ";@;ثبت شده"
+                        Else
+                            strResult &= ";@;ثبت نشده"
+                        End If
+
+
+
+
+                    Next drwHandyFollowAssignManagement
+
+                Else
+
+                    For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
+
+
+                        strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
+                        strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(1))
+                        For i As Integer = 2 To intColumnCount - 1
+                            strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i)).ToLower.Replace(strFilter.ToLower, "<b><font color='#0F17FF'>" & strFilter & "</font></b>")
+                        Next
+
+
+                        Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
+                        Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
+
+                        dtblHandyFollow = tadpHandyFollow.GetData(2, -1, drwHandyFollowAssignManagement.Item(0))
+                        If dtblHandyFollow.First.HandFollow > 0 Then
+                            strResult &= ";@;ثبت شده"
+                        Else
+                            strResult &= ";@;ثبت نشده"
+                        End If
+
+                    Next drwHandyFollowAssignManagement
+
+
+                End If
+
+
+
+                Return strResult
+
+            Catch ex As Exception
+                Return "E"
+            End Try
+
+
+        End If
+
+
+    End Function
+
+    <System.Web.Services.WebMethod()> Public Shared Function GetPageCount(strFilter As String, intDelayedDay As Integer) As Integer()
+
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+        Dim intAction As Integer
+        Dim intPageCount As Integer
+        Dim intHandFollowAssign As Integer
+
+        If intDelayedDay <> 0 Then
+
+            If drwUserLogin.IsDataAdmin = True Then
+                intAction = 3
+                If strFilter IsNot Nothing Then
+                    intAction = 4
+
+                End If
             Else
+
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                Dim blnAdminBranch As Boolean = False
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                If dtblAccessgroupUser.Rows.Count = 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                    If dtblAccessgroupUser.Rows.Count > 0 Then
+                        blnAdminBranch = True
+                    End If
+                End If
+
+
+                If drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
+                    intAction = 1
+                    If strFilter IsNot Nothing Then
+                        intAction = 2
+                    End If
+                ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
+                    intAction = 5
+                    If strFilter IsNot Nothing Then
+                        intAction = 6
+                    End If
+
+                End If
+
+            End If
+
+            Dim tadpHandyFollowAssignCount As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignStatusChanged_Count_SelectTableAdapter
+            Dim dtblHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssignStatusChanged_Count_SelectDataTable = Nothing
+            dtblHandyFollowAssignCount = tadpHandyFollowAssignCount.GetData(intAction, strFilter, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID, intDelayedDay)
+            If dtblHandyFollowAssignCount.Rows.Count > 0 Then
+                Dim drwHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssignStatusChanged_Count_SelectRow = dtblHandyFollowAssignCount.Rows(0)
+                intPageCount = Math.Ceiling(drwHandyFollowAssignCount.HandyFollowAssign / mdlGeneral.cnst_RowsCountInPage)
+                intHandFollowAssign = drwHandyFollowAssignCount.HandyFollowAssign
+
+
+            End If
+
+
+
+        Else
+
+
+
+
+            If drwUserLogin.IsDataAdmin = True Then
+                intAction = 5
+                If strFilter IsNot Nothing Then
+                    intAction = 6
+
+                End If
+            Else
+
 
                 ''check the access Group id
                 Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
@@ -240,6 +567,7 @@ Public Class HandyFollowManagement
                         intAction = 10
                     End If
 
+
                 ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
                     intAction = 3
                     If strFilter IsNot Nothing Then
@@ -257,150 +585,22 @@ Public Class HandyFollowManagement
                         intAction = 2
                     End If
                 End If
-
             End If
 
 
+            Dim tadpHandyFollowAssignCount As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_Count_SelectTableAdapter
+            Dim dtblHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Count_SelectDataTable = Nothing
+            dtblHandyFollowAssignCount = tadpHandyFollowAssignCount.GetData(intAction, strFilter, drwUserLogin.ID, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID)
+            Dim drwHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Count_SelectRow = dtblHandyFollowAssignCount.Rows(0)
+            intPageCount = Math.Ceiling(drwHandyFollowAssignCount.HandyFollowAssign / mdlGeneral.cnst_RowsCountInPage)
+            intHandFollowAssign = drwHandyFollowAssignCount.HandyFollowAssign
 
-
-
-            Dim intToIndex As Integer = intPageNo * mdlGeneral.cnst_RowsCountInPage
-            Dim intFromIndex As Integer = (intToIndex - mdlGeneral.cnst_RowsCountInPage) + 1
-            Dim tadpHandyFollowAssignManagement As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_Management_SelectTableAdapter
-            Dim dtblHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectDataTable = Nothing
-            dtblHandyFollowAssignManagement = tadpHandyFollowAssignManagement.GetData(intAction, intFromIndex, intToIndex, strFilter, drwUserLogin.ID, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID)
-
-            Dim strResult As String = ""
-            Dim intColumnCount As Integer = dtblHandyFollowAssignManagement.Columns.Count
-
-            If intAction = 1 Or intAction = 3 Or intAction = 5 Or intAction = 7 Or intAction = 9 Then
-                For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
-
-
-                    strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
-                    For i As Integer = 1 To intColumnCount - 1
-                        strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i))
-                    Next
-
-                    Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
-                    Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
-
-                    dtblHandyFollow = tadpHandyFollow.GetData(2, -1, drwHandyFollowAssignManagement.Item(0))
-                    If dtblHandyFollow.First.HandFollow > 0 Then
-                        strResult &= ";@;ثبت شده"
-                    Else
-                        strResult &= ";@;ثبت نشده"
-                    End If
-
-
-
-
-                Next drwHandyFollowAssignManagement
-
-            Else
-
-                For Each drwHandyFollowAssignManagement As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Management_SelectRow In dtblHandyFollowAssignManagement.Rows
-
-
-                    strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
-                    strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(1))
-                    For i As Integer = 2 To intColumnCount - 1
-                        strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i)).ToLower.Replace(strFilter.ToLower, "<b><font color='#0F17FF'>" & strFilter & "</font></b>")
-                    Next
-
-
-                    Dim tadpHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowByAssignID_SelectTableAdapter
-                    Dim dtblHandyFollow As BusinessObject.dstHandyFollow.spr_HandyFollowByAssignID_SelectDataTable = Nothing
-
-                    dtblHandyFollow = tadpHandyFollow.GetData(2, -1, drwHandyFollowAssignManagement.Item(0))
-                    If dtblHandyFollow.First.HandFollow > 0 Then
-                        strResult &= ";@;ثبت شده"
-                    Else
-                        strResult &= ";@;ثبت نشده"
-                    End If
-
-                Next drwHandyFollowAssignManagement
-
-
-            End If
-
-
-
-            Return strResult
-
-        Catch ex As Exception
-            Return "E"
-        End Try
-
-
-    End Function
-
-    <System.Web.Services.WebMethod()> Public Shared Function GetPageCount(strFilter As String) As Integer()
-
-
-        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
-        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
-
-        Dim intAction As Integer
-        If drwUserLogin.IsDataAdmin = True Then
-            intAction = 5
-            If strFilter IsNot Nothing Then
-                intAction = 6
-
-            End If
-        Else
-
-
-            ''check the access Group id
-            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
-
-            Dim blnAdminBranch As Boolean = False
-            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
-            If dtblAccessgroupUser.Rows.Count = 0 Then
-                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-                If dtblAccessgroupUser.Rows.Count > 0 Then
-                    blnAdminBranch = True
-                End If
-            End If
-
-
-            If drwUserLogin.FK_AccessGroupID = 3438 Then
-
-                intAction = 9
-                If strFilter IsNot Nothing Then
-                    intAction = 10
-                End If
-
-
-            ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = True Then
-                intAction = 3
-                If strFilter IsNot Nothing Then
-                    intAction = 4
-                End If
-            ElseIf drwUserLogin.IsDataUserAdmin = True AndAlso blnAdminBranch = False Then
-                intAction = 7
-                If strFilter IsNot Nothing Then
-                    intAction = 8
-                End If
-
-            Else
-                intAction = 1
-                If strFilter IsNot Nothing Then
-                    intAction = 2
-                End If
-            End If
         End If
 
-
-        Dim tadpHandyFollowAssignCount As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_Count_SelectTableAdapter
-        Dim dtblHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Count_SelectDataTable = Nothing
-        dtblHandyFollowAssignCount = tadpHandyFollowAssignCount.GetData(intAction, strFilter, drwUserLogin.ID, drwUserLogin.FK_BrnachID, drwUserLogin.Fk_ProvinceID)
-        Dim drwHandyFollowAssignCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_Count_SelectRow = dtblHandyFollowAssignCount.Rows(0)
-        Dim intPageCount As Integer = Math.Ceiling(drwHandyFollowAssignCount.HandyFollowAssign / mdlGeneral.cnst_RowsCountInPage)
-        Dim arrResult(1) As Integer
-        arrResult(0) = drwHandyFollowAssignCount.HandyFollowAssign
+        Dim arrResult(2) As Integer
+        arrResult(0) = intHandFollowAssign
         arrResult(1) = intPageCount
+        arrResult(2) = intDelayedDay
         Return arrResult
 
     End Function

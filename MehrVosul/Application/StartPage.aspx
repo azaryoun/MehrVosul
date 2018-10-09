@@ -14,8 +14,6 @@
 
     </script>
     <style type="text/css">
-      
-
         .div-center {
             display: flex;
             align-items: center;
@@ -25,13 +23,48 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
-
-    <div style="justify-content: center; align-items: center;display:flex;"  id="divBranchAdminInfo" visible="false" runat="server">
-
+    <div style="justify-content: center; align-items: center; display: flex;" id="divBranchAdminChangedStatus" visible="false" runat="server">
 
         <div class="col-md-12">
 
-            <div class="panel-body" >
+            <div class="panel-body">
+                <div class="page-header">
+                    <div class="table-responsive div-center">
+                        <table id="tblChangeStatus" style="width: 50%;" runat="server" class="table table-striped table-bordered table-hover">
+                            <thead>
+                                <tr>
+                                    <th><i style="color: Blue" class="fa fa-file fa-x"></i><a runat="server"  style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx?AdminDelaidDay=61">
+                                        <asp:Label ID="lblTodayDelayFiles" Visible="false" runat="server" Text="" ToolTip ="قابل تخصیص" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a> 
+                                        <a   style="color: black" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx?AdminDelaidDay=61">
+                                            <asp:Label ID="lblTodayDelayFilesAssigned" ToolTip="تخصیص یافته" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;سررسید گذشته امروز</th>
+                                   
+                                    
+                                     <th><i style="color: green" class="fa fa-file fa-x"></i><a  style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx?AdminDelaidDay=181">
+                                        <asp:Label ID="lblTodayDeferred" runat="server" ToolTip="قابل تخصیص" Visible="false"  Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>
+                                        <a  style="color: black" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx?AdminDelaidDay=181">
+                                            <asp:Label ID="lblTodayDeferredAssigned" ToolTip="تخصیص یافته" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;معوق امروز</th>
+                                </tr>
+                                <tr>
+                                    <th><i style="color: red" class="fa fa-file fa-x"></i><a  style="color: black" href="/Application/Vosul/Cartable/HandyFollowAssign.aspx?AdminDelaidDay=541" >
+                                        <asp:Label ID="lblTodayDoubtful" runat="server" Visible="false"  ToolTip="قابل تخصیص" Text="" Style="color: red">&nbsp;&nbsp;0</asp:Label></a>
+                                        <a  style="color: black" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx?AdminDelaidDay=541">
+                                            <asp:Label ID="lblTodayDoubtfulAssigned"   ToolTip="تخصیص یافته" runat="server" Text="" Style="color: red">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مشکوک الوصول امروز</th>
+                                </tr>
+                            </thead>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div style="justify-content: center; align-items: center; display: flex;" id="divBranchAdminInfo" visible="false" runat="server">
+
+        <div class="col-md-12">
+
+            <div class="panel-body">
                 <div class="table-responsive div-center">
                     <table id="tblSummary" style="width: 50%;" runat="server" class="table table-striped table-bordered table-hover">
                         <thead>
@@ -54,8 +87,9 @@
                             <tr>
 
                                 <th style="color: #FF0000"><a style="color: black" href="Vosul/HandyFollow/HandyFollowAlarm.aspx">
-                                  <i style="color: red" class="fa fa-bell fa-x"></i><asp:Label ID="lblHandyFollowAlarmAdmin" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ تعهد</th>
-                                <th style="color: #FF0000"><a style="color: black" href="Vosul/HandyFollow/HandyFollowCheckAlarm.aspx">  <i style="color: red" class="fa fa-bell fa-x"></i>
+                                    <i style="color: red" class="fa fa-bell fa-x"></i>
+                                    <asp:Label ID="lblHandyFollowAlarmAdmin" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ تعهد</th>
+                                <th style="color: #FF0000"><a style="color: black" href="Vosul/HandyFollow/HandyFollowCheckAlarm.aspx"><i style="color: red" class="fa fa-bell fa-x"></i>
                                     <asp:Label ID="lblHandyFollowCheckAlarmAdmin" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ چک</th>
                             </tr>
                             <tr>
@@ -86,9 +120,9 @@
                             <tr>
 
 
-                                <th><i style="color:Highlight" class="fa fa-calendar fa-x"></i><a style="color: black">
+                                <th><i style="color: Highlight" class="fa fa-calendar fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDeferredPeriod" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مبلغ پرونده های معوق</th>
-                                <th><i style="color:chocolate" class="fa fa-calendar fa-x"></i><a style="color: black">
+                                <th><i style="color: chocolate" class="fa fa-calendar fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDeferredCount" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;تعداد پرونده های معوق</th>
                             </tr>
 
@@ -97,7 +131,7 @@
 
                                 <th><i style="color: orange" class="fa fa-bullhorn fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDoubtfulPaidPeriod" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;مبلغ پرونده های مشکوک الوصول</th>
-                                <th><i style="color: aqua" class="fa fa-bullhorn fa-x"></i><a style="color: black" >
+                                <th><i style="color: aqua" class="fa fa-bullhorn fa-x"></i><a style="color: black">
                                     <asp:Label ID="lblDoubtfulPaidCount" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;تعداد پرونده های مشکوک الوصول</th>
                             </tr>
                         </thead>
@@ -109,12 +143,12 @@
 
     </div>
 
-      <div style="justify-content: center; align-items: center;display:flex;"  id="divUserAdminInfo" visible="false" runat="server">
+    <div style="justify-content: center; align-items: center; display: flex;" id="divUserAdminInfo" visible="false" runat="server">
 
 
         <div class="col-md-12">
 
-            <div class="panel-body" >
+            <div class="panel-body">
                 <div class="table-responsive div-center">
                     <table id="Table1" style="width: 50%;" runat="server" class="table table-striped table-bordered table-hover">
                         <thead>
@@ -137,9 +171,11 @@
                             <tr>
 
                                 <th style="color: #FF0000"><a style="color: black" href="/Application/Vosul/HandyFollow/HandyFollowAlarm.aspx">
-                                  <i style="color: red" class="fa fa-bell fa-x"></i><asp:Label ID="lblHandyFollowAlarm" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ تعهد</th>
+                                    <i style="color: red" class="fa fa-bell fa-x"></i>
+                                    <asp:Label ID="lblHandyFollowAlarm" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp;سررسید تاریخ تعهد</th>
                                 <th style="color: #FF0000"><a style="color: black" href="/Application/Vosul/HandyFollow/HandyFollowCheckAlarm.aspx">
-                                  <i style="color: red" class="fa fa-bell fa-x"></i><asp:Label ID="lblHandyFollowCheckAlarm" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp; سررسید تعهد چک</th>
+                                    <i style="color: red" class="fa fa-bell fa-x"></i>
+                                    <asp:Label ID="lblHandyFollowCheckAlarm" runat="server" Text="&amp;nbsp;&amp;nbsp;0" Style="color: #31708f"></asp:Label></a>&nbsp;&nbsp; سررسید تعهد چک</th>
                             </tr>
                             <tr>
 
@@ -148,7 +184,7 @@
                                 <th><i style="color: red" class="fa fa-folder-open fa-x"></i><a style="color: black" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx">
                                     <asp:Label ID="lblDefferedFiles" runat="server" Text="" Style="color: #31708f">&nbsp;&nbsp;0</asp:Label></a>&nbsp;&nbsp;پرونده های تخصیص یافته بدون انجام پیگیری</th>
                             </tr>
-                         
+
                         </thead>
                     </table>
                 </div>
@@ -158,16 +194,16 @@
 
     </div>
 
-      <div class="alert alert-info" role="alert" id="div1" runat="server">
-                <strong><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                    <span class="sr-only">Info:</span>
+    <div class="alert alert-info" role="alert" id="div1" runat="server">
+        <strong><span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+            <span class="sr-only">Info:</span>
 
-                  
-         <asp:LinkButton ID="lnkbtnUserManual"  runat="server" >دانلود راهنمای کاربری</asp:LinkButton></strong>
+
+            <asp:LinkButton ID="lnkbtnUserManual" runat="server">دانلود راهنمای کاربری</asp:LinkButton></strong>
     </div>
 
     <div class="row">
-      
+
         <div class="col-md-12">
 
 
@@ -301,7 +337,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+   <%-- <div class="row" style="visibility: hidden;"> 
 
         <div class="col-md-6" runat="server" id="divBranchAdmin1">
 
@@ -343,7 +379,7 @@
     <div class="row">
 
 
-        <div runat="server" id="divBranchAdmin3" class="col-md-6" style="visibility:hidden;" >
+        <div runat="server" id="divBranchAdmin3" class="col-md-6" style="visibility: hidden;">
             <div class="panel back-dash" style="background-color: #00CE6F">
                 <a style="color: White" href="/Application/Vosul/Reports/WarningNotificationReport.aspx"><i class="fa fa-bar-chart fa-4x"></i><strong style="display: -ms-inline-grid">&nbsp; گزارش گیری </strong></a>
                 <p class="text-muted">
@@ -357,7 +393,7 @@
 
         </div>
 
-        <div runat="server" id="divBranchAdmin4" style="visibility:hidden;" class="col-md-6">
+        <div runat="server" id="divBranchAdmin4" style="visibility: hidden;" class="col-md-6">
 
             <div class="panel back-dash">
 
@@ -375,7 +411,7 @@
 
     <div class="row">
         <br />
-        <div class="col-md-6" runat="server" style="visibility:hidden;" id="divBranchUser">
+        <div class="col-md-6" runat="server" style="visibility: hidden;" id="divBranchUser">
 
             <div class="panel back-dash" style="background-color: #ffd800">
                 <a style="color: White" href="/Application/Vosul/HandyFollow/HandyFollowFileSearch1.aspx"><i class="fa fa-users fa-4x"></i><strong style="display: -ms-inline-grid">&nbsp;پیگیری پرسنلی</strong></a>
@@ -388,7 +424,7 @@
 
         </div>
 
-        <div class="col-md-6" runat="server" style="visibility:hidden;" id="divBranchUser1">
+        <div class="col-md-6" runat="server" style="visibility: hidden;" id="divBranchUser1">
 
             <div class="panel back-dash" style="background-color: #00ffff">
                 <a style="color: White" href="/Application/Vosul/Cartable/HandyFollowManagement.aspx"><i class="fa fa-users fa-4x"></i><strong style="display: -ms-inline-grid">&nbsp;پیگیریهای تخصیص یافته</strong></a>
@@ -400,7 +436,7 @@
 
 
         </div>
-        <div style="visibility:hidden;" class="col-md-6">
+        <div style="visibility: hidden;" class="col-md-6">
 
 
             <div runat="server" id="divadmin" class="panel back-dash" style="background-color: purple">
@@ -411,7 +447,7 @@
         </div>
 
 
-    </div>
+    </div>--%>
 
     <%--<div class="row">
     <br />

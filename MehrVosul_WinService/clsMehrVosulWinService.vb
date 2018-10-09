@@ -5564,197 +5564,197 @@ VoiceSMS:
 
     End Sub
 
-    ''Private Sub GetNotDeffredLC()
+    Private Sub GetNotDeffredLC()
 
-    ''    If Date.Now.Hour < 8 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
-    ''        Return
-    ''    End If
+        If Date.Now.Hour < 8 OrElse Date.Now.DayOfWeek = DayOfWeek.Friday Then
+            Return
+        End If
 
-    ''    Dim tadpSystemSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
-    ''    Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
-    ''    dtblSystemSetting = tadpSystemSetting.GetData()
-    ''    drwSystemSetting = dtblSystemSetting.Rows(0)
+        Dim tadpSystemSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter
+        Dim dtblSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectDataTable = Nothing
+        dtblSystemSetting = tadpSystemSetting.GetData()
+        drwSystemSetting = dtblSystemSetting.Rows(0)
 
 
-    ''    If drwSystemSetting.GetNotDeffredLC = False Then
-    ''        Return
-    ''    End If
+        If drwSystemSetting.GetNotDeffredLC = False Then
+            Return
+        End If
 
-    ''    If drwSystemSetting.tryTime_NotDeffredlLC = 0 Then
-    ''        Return
-    ''    End If
+        If drwSystemSetting.tryTime_NotDeffredlLC = 0 Then
+            Return
+        End If
 
-    ''    If drwSystemSetting.UpdateTime_NotDeffredLC > Date.Now.TimeOfDay Then
-    ''        Return
-    ''    End If
+        If drwSystemSetting.UpdateTime_NotDeffredLC > Date.Now.TimeOfDay Then
+            Return
+        End If
 
-    ''    Dim dteThisDate As Date = Date.Now.AddDays(-1)
-    ''    Dim dteToday As Date = Date.Now.Date
+        Dim dteThisDate As Date = Date.Now.AddDays(-1)
+        Dim dteToday As Date = Date.Now.Date
 
-    ''    Dim tadpLogHeader As New BusinessObject.dstNotDeffredLCTableAdapters.spr_LogNotDeffredStatus_ForDate_SelectTableAdapter
-    ''    Dim dtblLogHeader As BusinessObject.dstNotDeffredLC.spr_LogNotDeffredStatus_ForDate_SelectDataTable = Nothing
-    ''    dtblLogHeader = tadpLogHeader.GetData(dteThisDate)
-    ''    Dim intCurrentTryTime As Integer = 0
+        Dim tadpLogHeader As New BusinessObject.dstNotDeffredLCTableAdapters.spr_LogNotDeffredStatus_ForDate_SelectTableAdapter
+        Dim dtblLogHeader As BusinessObject.dstNotDeffredLC.spr_LogNotDeffredStatus_ForDate_SelectDataTable = Nothing
+        dtblLogHeader = tadpLogHeader.GetData(dteThisDate)
+        Dim intCurrentTryTime As Integer = 0
 
-    ''    If dtblLogHeader.Rows.Count > 0 Then
-    ''        Dim drwLogHeader As BusinessObject.dstNotDeffredLC.spr_LogNotDeffredStatus_ForDate_SelectRow = dtblLogHeader.Rows(0)
-    ''        If drwLogHeader.Success = True Then
-    ''            Return
-    ''        End If
+        If dtblLogHeader.Rows.Count > 0 Then
+            Dim drwLogHeader As BusinessObject.dstNotDeffredLC.spr_LogNotDeffredStatus_ForDate_SelectRow = dtblLogHeader.Rows(0)
+            If drwLogHeader.Success = True Then
+                Return
+            End If
 
-    ''        If drwLogHeader.tryTime >= drwSystemSetting.tryTime Then
-    ''            Return
-    ''        End If
+            If drwLogHeader.tryTime >= drwSystemSetting.tryTime Then
+                Return
+            End If
 
-    ''        If Date.Now.Subtract(drwLogHeader.STime).TotalHours < drwSystemSetting.tryIntervalHour Then
-    ''            Return
-    ''        End If
+            If Date.Now.Subtract(drwLogHeader.STime).TotalHours < drwSystemSetting.tryIntervalHour Then
+                Return
+            End If
 
-    ''        intCurrentTryTime = drwLogHeader.tryTime
+            intCurrentTryTime = drwLogHeader.tryTime
 
-    ''    End If
+        End If
 
 
-    ''    intCurrentTryTime += 1
+        intCurrentTryTime += 1
 
 
-    ''    Dim qryLogTotelLC As New BusinessObject.dstNotDeffredLCTableAdapters.QueriesTableAdapter 'dstHanyFollowTableAdapters.QueriesTableAdapter
+        Dim qryLogTotelLC As New BusinessObject.dstNotDeffredLCTableAdapters.QueriesTableAdapter 'dstHanyFollowTableAdapters.QueriesTableAdapter
 
 
-    ''    Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
+        Dim strThisDatePersian As String = mdlGeneral.GetPersianDate(dteThisDate).Replace("/", "")
 
-    ''    Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
-    ''    cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
-    ''    cnnBuiler_BI.UserID = "deposit"
-    ''    cnnBuiler_BI.Password = "deposit"
-    ''    cnnBuiler_BI.Unicode = True
+        Dim cnnBuiler_BI As New OracleConnectionStringBuilder()
+        cnnBuiler_BI.DataSource = "10.35.1.37:1522/bidb"
+        cnnBuiler_BI.UserID = "deposit"
+        cnnBuiler_BI.Password = "deposit"
+        cnnBuiler_BI.Unicode = True
 
-    ''    Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
+        Using cnnBI_Connection As New OracleConnection(cnnBuiler_BI.ConnectionString)
 
-    ''        Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
+            Dim cmd_BI As OracleCommand = cnnBI_Connection.CreateCommand()
 
 
-    ''        Dim strLoan_Info_Query As String = "SELECT lc_no,CFCIFNO from loan_info where Date_P='" & strThisDatePersian & "'   and  amntdeferred  <= 0  "
-    ''        ''and NPDURATION >=60
+            Dim strLoan_Info_Query As String = "SELECT lc_no,CFCIFNO from loan_info where Date_P='" & strThisDatePersian & "'   and  amntdeferred  <= 0  "
+            ''and NPDURATION >=60
 
-    ''        cmd_BI.CommandText = strLoan_Info_Query
+            cmd_BI.CommandText = strLoan_Info_Query
 
-    ''        Try
-    ''            cnnBI_Connection.Open()
-    ''        Catch ex As Exception
+            Try
+                cnnBI_Connection.Open()
+            Catch ex As Exception
 
-    ''            qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
-    ''            Return
-    ''        End Try
-    ''        Dim dataReader As OracleDataReader = Nothing
+                qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+                Return
+            End Try
+            Dim dataReader As OracleDataReader = Nothing
 
-    ''        Try
-    ''            dataReader = cmd_BI.ExecuteReader()
-    ''        Catch ex As Exception
+            Try
+                dataReader = cmd_BI.ExecuteReader()
+            Catch ex As Exception
 
-    ''            qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
-    ''            cnnBI_Connection.Close()
+                qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+                cnnBI_Connection.Close()
 
-    ''            Return
-    ''        End Try
+                Return
+            End Try
 
-    ''        Try
-    ''            If dataReader.Read = False Then
+            Try
+                If dataReader.Read = False Then
 
-    ''                qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, "اطلاعات مربوط به مورخ " & mdlGeneral.GetPersianDate(dteThisDate) & " بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید", intCurrentTryTime)
-    ''                dataReader.Close()
-    ''                cnnBI_Connection.Close()
+                    qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, "اطلاعات مربوط به مورخ " & mdlGeneral.GetPersianDate(dteThisDate) & " بروز رسانی نشده است. لطفا با مدیر سیستم تماس بگیرید", intCurrentTryTime)
+                    dataReader.Close()
+                    cnnBI_Connection.Close()
 
-    ''                Return
-    ''            End If
+                    Return
+                End If
 
-    ''            Dim intLogHeaderID As Integer = qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, True, "", intCurrentTryTime)
+                Dim intLogHeaderID As Integer = qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, True, "", intCurrentTryTime)
 
-    ''            qryLogTotelLC.spr_NotDeffredLC_Delete()
+                qryLogTotelLC.spr_NotDeffredLC_Delete()
 
-    ''            Dim i As Integer = 0
-    ''            Dim strBuilder As New Text.StringBuilder()
+                Dim i As Integer = 0
+                Dim strBuilder As New Text.StringBuilder()
 
-    ''            Dim otbl As New DataSet1.defferdTypeDataTable
+                Dim otbl As New DataSet1.defferdTypeDataTable
 
 
 
-    ''            Do
-    ''                i += 1
-    ''                Dim orow As DataSet1.defferdTypeRow = otbl.NewdefferdTypeRow()
-    ''                Try
-    ''                    Dim stcVarLoanInfo As stc_NotDeffred_Info
+                Do
+                    i += 1
+                    Dim orow As DataSet1.defferdTypeRow = otbl.NewdefferdTypeRow()
+                    Try
+                        Dim stcVarLoanInfo As stc_NotDeffred_Info
 
 
-    ''                    If dataReader.GetValue(0) Is DBNull.Value Then
-    ''                        i -= 1
-    ''                        Continue Do
-    ''                    Else
-    ''                        stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(2)).Trim.Replace("'", "")
-    ''                    End If
+                        If dataReader.GetValue(0) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.LC_No = CStr(dataReader.GetValue(0)).Trim.Replace("'", "")
+                        End If
 
 
-    ''                    If dataReader.GetValue(1) Is DBNull.Value Then
-    ''                        i -= 1
-    ''                        Continue Do
-    ''                    Else
-    ''                        stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(4)).Trim.Replace("'", "")
-    ''                    End If
+                        If dataReader.GetValue(1) Is DBNull.Value Then
+                            i -= 1
+                            Continue Do
+                        Else
+                            stcVarLoanInfo.CustomerNo = CStr(dataReader.GetValue(1)).Trim.Replace("'", "")
+                        End If
 
 
 
-    ''                    With stcVarLoanInfo
+                        With stcVarLoanInfo
 
 
-    ''                        orow.CustomerNo = .CustomerNo
-    ''                        orow.LC_No = .LC_No
+                            orow.CustomerNo = .CustomerNo
+                            orow.LC_No = .LC_No
 
 
-    ''                        otbl.Rows.Add(orow)
+                            otbl.Rows.Add(orow)
 
 
-    ''                        If i >= 500000 Then
+                            If i >= 500000 Then
 
-    ''                            qryLogTotelLC.spr_NotDeffredLC_Bulk_Insert(otbl)
-    ''                            otbl.Clear()
-    ''                            i = 0
+                                qryLogTotelLC.spr_NotDeffredLC_Bulk_Insert(otbl)
+                                otbl.Clear()
+                                i = 0
 
 
-    ''                        End If
+                            End If
 
 
 
 
-    ''                    End With
+                        End With
 
 
-    ''                Catch ex As Exception
-    ''                    Continue Do
-    ''                End Try
+                    Catch ex As Exception
+                        Continue Do
+                    End Try
 
 
-    ''            Loop While dataReader.Read()
-    ''            dataReader.Close()
+                Loop While dataReader.Read()
+                dataReader.Close()
 
-    ''            If i <> 0 Then
-    ''                qryLogTotelLC.spr_NotDeffredLC_Bulk_Insert(otbl)
-    ''                otbl.Clear()
+                If i <> 0 Then
+                    qryLogTotelLC.spr_NotDeffredLC_Bulk_Insert(otbl)
+                    otbl.Clear()
 
-    ''            End If
+                End If
 
 
-    ''        Catch ex As Exception
+            Catch ex As Exception
 
-    ''            qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
-    ''            Return
-    ''        End Try
+                qryLogTotelLC.spr_LogNotDeffredLCStatus_Insert(dteThisDate, False, ex.Message, intCurrentTryTime)
+                Return
+            End Try
 
-    ''        cnnBI_Connection.Close()
+            cnnBI_Connection.Close()
 
-    ''    End Using
+        End Using
 
 
-    ''End Sub
+    End Sub
 
     Private Sub SponsorList()
 
@@ -6435,6 +6435,15 @@ VoiceSMS:
 
 
 
+
+    End Sub
+
+    Private Sub tmrNotTotalLC_Elapsed(sender As Object, e As Timers.ElapsedEventArgs) Handles tmrNotDeffredLC.Elapsed
+        Try
+            Call GetNotDeffredLC()
+        Catch ex As Exception
+
+        End Try
 
     End Sub
 

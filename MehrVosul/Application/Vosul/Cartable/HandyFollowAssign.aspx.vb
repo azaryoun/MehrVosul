@@ -33,23 +33,26 @@
             Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
             Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-            If dtblAccessgroupUser.Rows.Count > 0 Then
-                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
-                If dtblAccessgroupUser.Count = 0 Then
-                    Bootstrap_Panel1.CanSave = True
-                ElseIf drwUserLogin.IsDataAdmin = True Then
+            If drwUserLogin.IsDataAdmin = False Then
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                    If dtblAccessgroupUser.Count = 0 Then
+                        Bootstrap_Panel1.CanSave = True
+                    End If
+                ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
                     Bootstrap_Panel1.CanSave = True
                 End If
-            ElseIf drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.FK_AccessGroupID = 3438 Then
+
+            Else
                 Bootstrap_Panel1.CanSave = True
             End If
 
 
             odsLoanType.DataBind()
 
-
-            If drwUserLogin.FK_AccessGroupID = 3438 Then
+            If drwUserLogin.IsDataAdmin = True Then
 
 
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
@@ -66,108 +69,118 @@
                 cmbBranch.DataBind()
                 cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 4
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
                 odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
                 cmbPerson.DataBind()
+
+
+            ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+
+                cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
+
+                    odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+                    odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
+                    odsBranch.DataBind()
+
+                    cmbBranch.DataSourceID = "odsBranch"
+                    cmbBranch.DataTextField = "BrnachCode"
+                    cmbBranch.DataValueField = "ID"
+
+
+                    cmbBranch.DataBind()
+                    cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
+
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 4
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = -1
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+                    cmbPerson.DataBind()
+
 
             ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
 
-                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
-                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
-                odsBranch.DataBind()
+                    odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+                    odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
+                    odsBranch.DataBind()
 
-                cmbBranch.DataSourceID = "odsBranch"
-                cmbBranch.DataTextField = "BrnachCode"
-                cmbBranch.DataValueField = "ID"
-
-
-                cmbBranch.DataBind()
-
-                cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
-
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
-                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
-
-                cmbPerson.DataBind()
+                    cmbBranch.DataSourceID = "odsBranch"
+                    cmbBranch.DataTextField = "BrnachCode"
+                    cmbBranch.DataValueField = "ID"
 
 
+                    cmbBranch.DataBind()
 
-                Dim blnAdminBranch As Boolean = False
-                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                    cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
 
-                If dtblAccessgroupUser.Rows.Count = 0 Then
-                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-                    If dtblAccessgroupUser.Rows.Count > 0 Then
-                        cmbBranch.Enabled = False
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+
+                    cmbPerson.DataBind()
+
+
+
+                    Dim blnAdminBranch As Boolean = False
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+
+                    If dtblAccessgroupUser.Rows.Count = 0 Then
+                        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                        If dtblAccessgroupUser.Rows.Count > 0 Then
+                            cmbBranch.Enabled = False
+                        End If
                     End If
-                End If
 
-                cmbProvince.Enabled = False
-
-
-            ElseIf drwUserLogin.IsDataAdmin = True Then
+                    cmbProvince.Enabled = False
 
 
-                cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
 
-                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
-                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
-                odsBranch.DataBind()
-
-                cmbBranch.DataSourceID = "odsBranch"
-                cmbBranch.DataTextField = "BrnachCode"
-                cmbBranch.DataValueField = "ID"
+                ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
 
 
-                cmbBranch.DataBind()
-                cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
+                    cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
 
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
-                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
+                    odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+                    odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
+                    odsBranch.DataBind()
 
-                cmbPerson.DataBind()
+                    cmbBranch.DataSourceID = "odsBranch"
+                    cmbBranch.DataTextField = "BrnachCode"
+                    cmbBranch.DataValueField = "ID"
 
+                    cmbBranch.DataBind()
+                    cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
+                    cmbBranch.Enabled = False
+                    cmbProvince.Enabled = False
 
-            ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
+                    odsPerson.SelectParameters.Item("Action").DefaultValue = 1
+                    odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
+                    odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
 
+                    cmbPerson.DataBind()
 
-                cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
-
-                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
-                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = drwUserLogin.Fk_ProvinceID
-                odsBranch.DataBind()
-
-                cmbBranch.DataSourceID = "odsBranch"
-                cmbBranch.DataTextField = "BrnachCode"
-                cmbBranch.DataValueField = "ID"
-
-                cmbBranch.DataBind()
-                cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
-                cmbBranch.Enabled = False
-                cmbProvince.Enabled = False
-
-                odsPerson.SelectParameters.Item("Action").DefaultValue = 1
-                odsPerson.SelectParameters.Item("BranchID").DefaultValue = cmbBranch.SelectedValue
-                odsPerson.SelectParameters.Item("ProvinceID").DefaultValue = -1
-
-                cmbPerson.DataBind()
 
             End If
 
             txtNotPiadDurationDayFrom.Attributes.Add("onkeypress", "return numbersonly(event, false);")
             txtNotPiadDurationDayTo.Attributes.Add("onkeypress", "return numbersonly(event, false);")
 
+            ''If Request.QueryString("AdminDelaidDay") <> Nothing Then
+
+            ''    Dim intDelaidDay As Integer = CInt(Request.QueryString("AdminDelaidDay"))
+            ''    ShowDelaiedFiles(intDelaidDay)
+
+
+            ''End If
 
         Else
 
-
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
             Dim tadpAdminSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_AdminSetting_SelectTableAdapter
@@ -175,21 +188,28 @@
 
             dtblAdminSetting = tadpAdminSetting.GetData()
 
-            ''check the access Group id
-            Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-            Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-            dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
-            If dtblAccessgroupUser.Rows.Count > 0 Then
-                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
-                If dtblAccessgroupUser.Count = 0 Then
-                    Bootstrap_Panel1.CanSave = True
-                ElseIf drwUserLogin.IsDataAdmin = True Then
+            If drwUserLogin.IsDataAdmin = True Then
+                Bootstrap_Panel1.CanSave = True
+
+            Else
+                ''check the access Group id
+                Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+                Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+
+                dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3436)
+                If dtblAccessgroupUser.Rows.Count > 0 Then
+                    dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3431)
+                    If dtblAccessgroupUser.Count = 0 Then
+                        Bootstrap_Panel1.CanSave = True
+
+                    End If
+                ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
                     Bootstrap_Panel1.CanSave = True
                 End If
-            ElseIf drwUserLogin.IsDataAdmin = True OrElse drwUserLogin.FK_AccessGroupID = 3438 Then
-                Bootstrap_Panel1.CanSave = True
             End If
+
+
 
         End If
 
@@ -514,8 +534,6 @@
 
         Else
 
-
-
             ''Max time out inserted in dataset
             If rdbListSelectType.SelectedValue = 0 Then
 
@@ -634,58 +652,60 @@
 
             Dim strTemp As String = ""
 
-            If drwUserLogin.FK_AccessGroupID = 3438 Then
+            If drwUserLogin.IsDataAdmin = True Then
+
+
 
                 strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
                 strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
 
-                dtblPerson = tadpPerson.GetData(4, -1, -1)
-
+                dtblPerson = tadpPerson.GetData(1, cmbBranch.SelectedValue, -1)
                 Dim j As Integer = 0
                 For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
 
                     strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
 
-
                 Next
 
                 strTemp = strTemp & "</Select>"
+
+            ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+                strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
+                    strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
+
+                    dtblPerson = tadpPerson.GetData(4, -1, -1)
+
+                    Dim j As Integer = 0
+                    For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
+
+                        strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
+
+
+                    Next
+
+                    strTemp = strTemp & "</Select>"
+
 
 
             ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
 
 
                 strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
-                strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
+                    strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
 
-                dtblPerson = tadpPerson.GetData(1, cmbBranch.SelectedValue, -1)
+                    dtblPerson = tadpPerson.GetData(1, cmbBranch.SelectedValue, -1)
 
-                Dim j As Integer = 0
-                For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
+                    Dim j As Integer = 0
+                    For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
 
-                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
-
-
-                Next
-
-                strTemp = strTemp & "</Select>"
-
-            ElseIf drwUserLogin.IsDataAdmin = True Then
+                        strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
 
 
+                    Next
 
-                strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
-                strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
+                    strTemp = strTemp & "</Select>"
 
-                dtblPerson = tadpPerson.GetData(1, cmbBranch.SelectedValue, -1)
-                Dim j As Integer = 0
-                For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
-
-                    strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
-
-                Next
-
-                strTemp = strTemp & "</Select>"
 
             ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
 
@@ -728,6 +748,191 @@
 
 
     End Sub
+
+    ''Private Sub ShowDelaiedFiles(ByVal NotPaidDay As Integer)
+
+    ''    Dim strBranchCode As String = cmbBranch.SelectedItem.Text.Substring(0, cmbBranch.SelectedItem.Text.IndexOf("("))
+
+    ''    Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+    ''    Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+    ''    Dim tadpBranch As New BusinessObject.dstBranchTableAdapters.spr_Branch_ByCode_SelectTableAdapter
+    ''    Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_ByCode_SelectDataTable = Nothing
+
+    ''    dtblBranch = tadpBranch.GetData(strBranchCode)
+
+    ''    Dim tadpTotalDeffredForAssign As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_TotalDeffredLCFileAssign_SelectTableAdapter
+    ''    Dim dtblTotalDeffredForAssign As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectDataTable = Nothing
+
+    ''    dtblTotalDeffredForAssign = tadpTotalDeffredForAssign.GetData(strBranchCode, NotPaidDay, NotPaidDay, dtblBranch.First.ID, 1, -1, -1, -1)
+
+    ''    Dim dtblPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectDataTable = Nothing
+    ''    Dim tadpPerson As New BusinessObject.dstUserTableAdapters.spr_User_CheckBranch_SelectTableAdapter
+
+
+    ''    Dim strchklstFiles As String = ""
+    ''    Dim i As Integer = 1
+    ''    For Each drwRTotalDeffredLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectRow In dtblTotalDeffredForAssign.Rows
+
+    ''        Dim TbRow As New HtmlTableRow
+    ''        Dim TbCell As HtmlTableCell
+
+
+    ''        TbCell = New HtmlTableCell
+    ''        ' '"<input type='hidden' id='hdnAmounts" & CStr(i) & "' value='" & drwRTotalDeffredLC.LCNumber & "') >"
+    ''        TbCell.InnerHtml = CStr(i)
+    ''        TbCell.Align = "center"
+    ''        TbCell.NoWrap = True
+    ''        TbRow.Cells.Add(TbCell)
+
+    ''        TbCell = New HtmlTableCell
+    ''        strchklstFiles = "<input type='checkbox' name='" & drwRTotalDeffredLC.LCNumber.ToString() & ";" & drwRTotalDeffredLC.CustomerNO.ToString() & ";" & drwRTotalDeffredLC.MobileNO.ToString() & ";" & drwRTotalDeffredLC.LoanTypeCode.ToString() & ";" & drwRTotalDeffredLC.FullName.ToString() & "' /> "
+    ''        TbCell.InnerHtml = strchklstFiles
+    ''        TbCell.Align = "center"
+    ''        TbCell.NoWrap = True
+    ''        TbRow.Cells.Add(TbCell)
+
+
+
+    ''        TbCell = New HtmlTableCell
+    ''        TbCell.InnerHtml = drwRTotalDeffredLC.FullName
+    ''        TbCell.NoWrap = True
+    ''        TbCell.Align = "center"
+    ''        TbRow.Cells.Add(TbCell)
+
+    ''        TbCell = New HtmlTableCell
+    ''        TbCell.InnerHtml = drwRTotalDeffredLC.LCNumber
+    ''        TbCell.NoWrap = True
+    ''        TbCell.Align = "center"
+    ''        TbRow.Cells.Add(TbCell)
+
+
+    ''        TbCell = New HtmlTableCell
+    ''        TbCell.InnerHtml = drwRTotalDeffredLC.InstallmentsCount
+    ''        TbCell.NoWrap = True
+    ''        TbCell.Align = "center"
+    ''        TbRow.Cells.Add(TbCell)
+
+    ''        TbCell = New HtmlTableCell
+    ''        TbCell.InnerHtml = drwRTotalDeffredLC.LCAmount.ToString("N0")
+    ''        TbCell.NoWrap = True
+    ''        TbCell.Align = "center"
+    ''        TbRow.Cells.Add(TbCell)
+
+    ''        TbCell = New HtmlTableCell
+    ''        TbCell.InnerHtml = drwRTotalDeffredLC.LoanTypeName
+    ''        TbCell.NoWrap = True
+    ''        TbCell.Align = "center"
+    ''        TbRow.Cells.Add(TbCell)
+
+    ''        TbCell = New HtmlTableCell
+    ''        TbCell.InnerHtml = drwRTotalDeffredLC.AmounDefferd.ToString("N0")
+    ''        TbCell.NoWrap = True
+    ''        TbCell.Align = "center"
+    ''        TbRow.Cells.Add(TbCell)
+
+    ''        TbCell = New HtmlTableCell
+    ''        TbCell.InnerHtml = drwRTotalDeffredLC.NotPiadDurationDay
+    ''        TbCell.NoWrap = True
+    ''        TbCell.Align = "center"
+    ''        TbRow.Cells.Add(TbCell)
+
+
+    ''        Dim strTemp As String = ""
+
+    ''        If drwUserLogin.IsDataAdmin = True Then
+
+
+
+    ''            strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
+    ''            strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
+
+    ''            dtblPerson = tadpPerson.GetData(1, cmbBranch.SelectedValue, -1)
+    ''            Dim j As Integer = 0
+    ''            For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
+
+    ''                strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
+
+    ''            Next
+
+    ''            strTemp = strTemp & "</Select>"
+
+    ''        ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
+
+    ''            strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
+    ''            strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
+
+    ''            dtblPerson = tadpPerson.GetData(4, -1, -1)
+
+    ''            Dim j As Integer = 0
+    ''            For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
+
+    ''                strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
+
+
+    ''            Next
+
+    ''            strTemp = strTemp & "</Select>"
+
+
+    ''        ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = True Then
+
+
+    ''            strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
+    ''            strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
+
+    ''            dtblPerson = tadpPerson.GetData(1, cmbBranch.SelectedValue, -1)
+
+    ''            Dim j As Integer = 0
+    ''            For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
+
+    ''                strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
+
+
+    ''            Next
+
+    ''            strTemp = strTemp & "</Select>"
+
+
+    ''        ElseIf drwUserLogin.IsDataAdmin = False AndAlso drwUserLogin.IsDataUserAdmin = False Then
+
+
+    ''            strTemp = "<select name='cmbAssignPerson" & CStr(i) & "' style='WIDTH:50;HEIGHT:25px;background-color:rgba(0,0,0,0.05)'>"
+    ''            strTemp = strTemp & "<Option value='-1' selected>انتخاب شود</Option>"
+
+    ''            dtblPerson = tadpPerson.GetData(1, cmbBranch.SelectedValue, -1)
+    ''            Dim j As Integer = 0
+    ''            For Each drwPerson As BusinessObject.dstUser.spr_User_CheckBranch_SelectRow In dtblPerson
+
+    ''                strTemp = strTemp & "<Option value='" & drwPerson.ID & "(" & drwRTotalDeffredLC.LCNumber & ")" & drwRTotalDeffredLC.CustomerNO & "," & drwRTotalDeffredLC.FullName & ";" & drwRTotalDeffredLC.MobileNO & ";" & drwRTotalDeffredLC.LoanTypeCode & "/'>" & drwPerson.Username & "</Option>"
+
+
+    ''            Next
+
+    ''            strTemp = strTemp & "</Select>"
+
+
+
+    ''        End If
+
+
+    ''        TbCell = New HtmlTableCell
+    ''        TbCell.InnerHtml = strTemp
+    ''        TbCell.NoWrap = True
+    ''        TbCell.Align = "center"
+    ''        TbRow.Cells.Add(TbCell)
+
+
+
+    ''        i += 1
+
+
+
+    ''        tblNumbers.Rows.Add(TbRow)
+
+    ''    Next
+
+    ''End Sub
 
     ''Private Sub ShowFiles(FileType As String, RoleID As Integer, ProvinceID As Integer, BranchCode As String, MassiveFilePeriod As Integer, DueDateFilePeroid As Integer, DueDateRecivedPeriod As Integer, DoubtfulPaidPeriod As Integer, DeferredPeriod As Integer)
 

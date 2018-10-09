@@ -84,4 +84,13 @@ Partial Public Class HandyFollowManagement
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents hdnAction As Global.System.Web.UI.WebControls.HiddenField
+    
+    '''<summary>
+    '''hdnDelayedDay control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents hdnDelayedDay As Global.System.Web.UI.WebControls.HiddenField
 End Class

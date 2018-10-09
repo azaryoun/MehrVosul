@@ -11,7 +11,15 @@
         var PageCount = 0;
 
         function StartthePage() {
-            PageMethods.GetPageCount(this.PageFilter, GetPageCount_CallBack);
+            
+            var hdnDelayedDay_Name = "<%=hdnDelayedDay.ClientID%>";
+            var hdnDelayedDay = document.getElementById(hdnDelayedDay_Name);
+
+            
+
+            PageMethods.GetPageCount(this.PageFilter,hdnDelayedDay.value, GetPageCount_CallBack);
+            
+
             return true;
         }
 
@@ -203,14 +211,15 @@
             var txtPageCounter = document.getElementById("txtPageCounter");
             txtPageCounter.value = this.PageNo;
 
-
-            PageMethods.GetPageRecords(this.PageNo, this.PageFilter, GetPageRecords_CallBack);
+         debugger
+            PageMethods.GetPageRecords(this.PageNo, this.PageFilter, result[2], GetPageRecords_CallBack);
 
         }
 
 
 
         function GetPageRecords_CallBack(result) {
+
             var btnSearch = document.getElementById("ContentPlaceHolder1_Bootstrap_Panel1_btnSearch");
             var txtPanelSearch = document.getElementById("ContentPlaceHolder1_Bootstrap_Panel1_txtSearchBox");
 
@@ -367,8 +376,10 @@
                 tblMResult.deleteRow(1);
             }
 
-
-            PageMethods.GetPageRecords(this.PageNo, this.PageFilter, GetPageRecords_CallBack);
+            var hdnDelayedDay_Name = "<%=hdnDelayedDay.ClientID%>";
+            var hdnDelayedDay = document.getElementById(hdnDelayedDay_Name);
+            debugger
+            PageMethods.GetPageRecords(this.PageNo, this.PageFilter,hdnDelayedDay.value , GetPageRecords_CallBack);
             //   window.scrollBy(0, window.innerHeight);
             return false;
 
@@ -524,5 +535,6 @@
     </div>
 
     <asp:HiddenField ID="hdnAction" runat="server" />
+        <asp:HiddenField ID="hdnDelayedDay" runat="server" />
 
 </asp:Content>

@@ -23,8 +23,11 @@
 
                 lblUserRole.Text = "کاربر ارشد"
                 divBranchAdminInfo.Visible = True
+                divBranchAdminChangedStatus.Visible = True
+
 
                 FillDataAdminInfo(drwUserLogin.Fk_ProvinceID)
+                FillDataAdminStatusChanged()
 
             ElseIf drwUserLogin.IsDataUserAdmin = True Then
 
@@ -49,11 +52,16 @@
 
                 dtblBranch = tadpBranch.GetData(drwUserLogin.FK_BrnachID)
                 divBranchAdminInfo.Visible = True
+                divBranchAdminChangedStatus.Visible = True
+
                 If blnAdminBranch = True Then
 
                     FillBranchAdminInfo(drwUserLogin.Fk_ProvinceID, dtblBranch.First.BrnachCode)
+                    FillBranchAdminStatusChanged(drwUserLogin.Fk_ProvinceID, dtblBranch.First.BrnachCode)
+
                 Else
                     FillItemAdminInfo(drwUserLogin.Fk_ProvinceID)
+
 
                 End If
 
@@ -146,20 +154,22 @@
                 divSMSSuccess.Visible = False
                 tblLogDetaile.Visible = False
                 divItemAdmin.Visible = False
-                divadmin.Visible = False
+                ' divadmin.Visible = False
 
                 If blnAdminBranch = False Then
-                    divBranchAdmin.Visible = False
-                    divBranchAdmin1.Visible = False
-                    divBranchUser.Visible = True
-                    divBranchAdmin3.Visible = False
-                    divBranchAdmin4.Visible = False
+                    '   divBranchAdmin.Visible = False
+                    ' divBranchAdmin1.Visible = False
+                    '  divBranchUser.Visible = True
+                    '  divBranchAdmin3.Visible = False
+                    '  divBranchAdmin4.Visible = False
                     divItemAdmin.Visible = True
 
                 Else
-                    divBranchUser.Visible = False
-                    divBranchUser1.Visible = False
+                    '  divBranchUser.Visible = False
+                    '  divBranchUser1.Visible = False
                     FillBranchAdminInfo(drwUserLogin.Fk_ProvinceID, dtblBranch.First.BrnachCode)
+                    FillBranchAdminStatusChanged(drwUserLogin.Fk_ProvinceID, dtblBranch.First.BrnachCode)
+
                 End If
 
                 ''''Fill Current day related Branch Manifest
@@ -185,7 +195,7 @@
                         strchklstFiles &= "<div class='checkbox'> <label> <i class='fa fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
                     Next drwAssignFile
 
-                    divchklstAssignFiles.InnerHtml = strchklstFiles
+                    'divchklstAssignFiles.InnerHtml = strchklstFiles
                 End If
 
                 Dim tadpWarningIntrevalInvoice As New BusinessObject.dstWarningIntervalsTableAdapters.spr_WarningIntervalsInvoice_SelectTableAdapter
@@ -205,7 +215,7 @@
                         strchklstFiles &= "<div class='checkbox'> <label><i class='fa fa-1x'></i> " & drwAssignFile.CULN & "</label></div>"
                     Next drwAssignFile
 
-                    divchklstAssignFiles1.InnerHtml = strchklstFiles
+                    ''divchklstAssignFiles1.InnerHtml = strchklstFiles
                 End If
 
                 ''''''''''''''''''''''''''''''''''''''
@@ -438,6 +448,104 @@
 
     End Sub
 
+    Private Sub FillBranchAdminStatusChanged(ByVal ProvinceID As Integer, ByVal BranchCode As String)
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+        Dim tadpStatusChangedFiles As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_StatusChangedFiles_SelectTableAdapter
+        Dim dtblStatusChangedFiles As BusinessObject.dstTotalDeffredLC.spr_StatusChangedFiles_SelectDataTable = Nothing
+
+        dtblStatusChangedFiles = tadpStatusChangedFiles.GetData(2, BranchCode, -1, 61)
+
+        If dtblStatusChangedFiles.Rows.Count > 0 Then
+            lblTodayDelayFiles.Text = dtblStatusChangedFiles.First.FileCount
+        End If
+
+        dtblStatusChangedFiles = tadpStatusChangedFiles.GetData(2, BranchCode, -1, 181)
+        If dtblStatusChangedFiles.Rows.Count > 0 Then
+            lblTodayDeferred.Text = dtblStatusChangedFiles.First.FileCount
+        End If
+
+        dtblStatusChangedFiles = tadpStatusChangedFiles.GetData(2, BranchCode, -1, 541)
+        If dtblStatusChangedFiles.Rows.Count > 0 Then
+            lblTodayDeferred.Text = dtblStatusChangedFiles.First.FileCount
+        End If
+
+
+        Dim tadpHandyFollowAssignStatusChanged As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignStatusChanged_Count_SelectTableAdapter
+        Dim dtblHandyFollowAssignStatusChanged As BusinessObject.dstHandyFollow.spr_HandyFollowAssignStatusChanged_Count_SelectDataTable = Nothing
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(1, "", drwUserLogin.FK_BrnachID, -1, 61)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDelayFilesAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(1, "", drwUserLogin.FK_BrnachID, -1, 181)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDeferredAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(1, "", drwUserLogin.FK_BrnachID, -1, 541)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDoubtfulAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+    End Sub
+
+
+    Private Sub FillDataAdminStatusChanged()
+
+        Dim tadpStatusChangedFiles As New BusinessObject.dstTotalDeffredLCTableAdapters.spr_StatusChangedFiles_SelectTableAdapter
+        Dim dtblStatusChangedFiles As BusinessObject.dstTotalDeffredLC.spr_StatusChangedFiles_SelectDataTable = Nothing
+
+        dtblStatusChangedFiles = tadpStatusChangedFiles.GetData(1, -1, -1, 61)
+
+        If dtblStatusChangedFiles.Rows.Count > 0 Then
+            lblTodayDelayFiles.Text = dtblStatusChangedFiles.First.FileCount
+        End If
+
+        dtblStatusChangedFiles = tadpStatusChangedFiles.GetData(1, -1, -1, 181)
+        If dtblStatusChangedFiles.Rows.Count > 0 Then
+            lblTodayDeferred.Text = dtblStatusChangedFiles.First.FileCount
+        End If
+
+        dtblStatusChangedFiles = tadpStatusChangedFiles.GetData(1, -1, -1, 541)
+        If dtblStatusChangedFiles.Rows.Count > 0 Then
+            lblTodayDoubtful.Text = dtblStatusChangedFiles.First.FileCount
+        End If
+
+        Dim tadpHandyFollowAssignStatusChanged As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignStatusChanged_Count_SelectTableAdapter
+        Dim dtblHandyFollowAssignStatusChanged As BusinessObject.dstHandyFollow.spr_HandyFollowAssignStatusChanged_Count_SelectDataTable = Nothing
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(3, "", -1, -1, 61)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDelayFilesAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(3, "", -1, -1, 181)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDeferredAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(3, "", -1, -1, 541)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDoubtfulAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+
+    End Sub
 
     Private Sub FillBranchAdminInfo(ByVal ProvinceID As Integer, ByVal BranchCode As String)
 

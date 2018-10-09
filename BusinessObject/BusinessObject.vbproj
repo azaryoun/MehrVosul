@@ -785,6 +785,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dstAlarm.xsd</DependentUpon>
     </Compile>
+    <Compile Include="Vosul\dstAlarm.vb">
+      <DependentUpon>dstAlarm.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Vosul\dstBlackList.Designer.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
