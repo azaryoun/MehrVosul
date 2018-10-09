@@ -61,7 +61,7 @@
 
                 Else
                     FillItemAdminInfo(drwUserLogin.Fk_ProvinceID)
-
+                    FillAdminProvinceStatusChanged()
 
                 End If
 
@@ -547,6 +547,40 @@
 
     End Sub
 
+    Private Sub FillAdminProvinceStatusChanged()
+
+
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+
+
+        Dim tadpHandyFollowAssignStatusChanged As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignStatusChanged_Count_SelectTableAdapter
+        Dim dtblHandyFollowAssignStatusChanged As BusinessObject.dstHandyFollow.spr_HandyFollowAssignStatusChanged_Count_SelectDataTable = Nothing
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(5, "", -1, drwUserLogin.Fk_ProvinceID, 61)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDelayFilesAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(5, "", -1, drwUserLogin.Fk_ProvinceID, 181)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDeferredAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+
+        dtblHandyFollowAssignStatusChanged = tadpHandyFollowAssignStatusChanged.GetData(5, "", -1, drwUserLogin.Fk_ProvinceID, 541)
+
+        If dtblHandyFollowAssignStatusChanged.Rows.Count > 0 Then
+
+            lblTodayDoubtfulAssigned.Text = dtblHandyFollowAssignStatusChanged.First.HandyFollowAssign
+        End If
+
+    End Sub
+
     Private Sub FillBranchAdminInfo(ByVal ProvinceID As Integer, ByVal BranchCode As String)
 
         Dim tadplNoticeCount As New BusinessObject.dstNoticeTableAdapters.spr_NoticeStartPageCount_SelectTableAdapter
@@ -759,10 +793,9 @@
 
 
 
+
+
     Private Function GetSMSMessage(ByRef blnSuccess As Boolean) As String
-
-
-
 
         Dim strResultMessage As String = ""
         blnSuccess = False
