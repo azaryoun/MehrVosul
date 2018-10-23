@@ -103,8 +103,8 @@
                 divUserAdminInfo.Visible = True
                 ''Fill user role 
                 dtblUserRole = tadpUserRole.GetData(drwUserLogin.ID)
-                lblNormalUserRole.Text = dtblUserRole.First.UserRoles
-                lblNormalUserName.Text = drwUserLogin.Username
+                lblUserRole.Text = dtblUserRole.First.UserRoles
+                ''lblNormalUserName.Text = drwUserLogin.Username
 
                 ''Fill Notice
                 Dim tadplNoticeCount As New BusinessObject.dstNoticeTableAdapters.spr_NoticeStartPageCount_SelectTableAdapter
@@ -241,7 +241,8 @@
 
                 dtblHandyFollowAlarm = tadpHandyFollowAlarm.GetData(2, drwUserLogin.ID, -1)
                 If dtblHandyFollowAlarm.Rows.Count > 0 Then
-                    lblHandyFollowAlarm.Text = dtblHandyFollowAlarm.First.HandyFollow.ToString()
+                    ''lblHandyFollowAlarm.Text = dtblHandyFollowAlarm.First.HandyFollow.ToString()
+                    lblHandyFollowAlarmAdmin.Text = dtblHandyFollowAlarm.First.HandyFollow.ToString()
                 End If
 
 
@@ -251,7 +252,8 @@
 
                 dtblHandyFollowCheckAlarm = tadpHandyFollowCheckAlarm.GetData(2, drwUserLogin.ID, -1)
                 If dtblHandyFollowCheckAlarm.Rows.Count > 0 Then
-                    lblHandyFollowCheckAlarm.Text = dtblHandyFollowCheckAlarm.First.HandyFollow.ToString()
+                    ''lblHandyFollowCheckAlarm.Text = dtblHandyFollowCheckAlarm.First.HandyFollow.ToString()
+                    lblHandyFollowCheckAlarmAdmin.Text = dtblHandyFollowCheckAlarm.First.HandyFollow.ToString()
                 End If
 
 

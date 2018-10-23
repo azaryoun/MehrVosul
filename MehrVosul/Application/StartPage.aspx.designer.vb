@@ -14,6 +14,42 @@ Option Explicit On
 Partial Public Class StartPage
     
     '''<summary>
+    '''lblUserName1 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUserName1 As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblUserRole control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblUserRole As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblHandyFollowAlarmAdmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblHandyFollowAlarmAdmin As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
+    '''lblHandyFollowCheckAlarmAdmin control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblHandyFollowCheckAlarmAdmin As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''divBranchAdminChangedStatus control.
     '''</summary>
     '''<remarks>
@@ -104,24 +140,6 @@ Partial Public Class StartPage
     Protected WithEvents tblSummary As Global.System.Web.UI.HtmlControls.HtmlTable
     
     '''<summary>
-    '''lblUserName1 control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblUserName1 As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblUserRole control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblUserRole As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
     '''lblPublicNews control.
     '''</summary>
     '''<remarks>
@@ -138,24 +156,6 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblProvinceNews As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblHandyFollowAlarmAdmin control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblHandyFollowAlarmAdmin As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblHandyFollowCheckAlarmAdmin control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblHandyFollowCheckAlarmAdmin As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''lblNewFileNotAssign control.
@@ -266,24 +266,6 @@ Partial Public Class StartPage
     Protected WithEvents Table1 As Global.System.Web.UI.HtmlControls.HtmlTable
     
     '''<summary>
-    '''lblNormalUserName control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblNormalUserName As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblNormalUserRole control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblNormalUserRole As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
     '''lblNormalPublicNotice control.
     '''</summary>
     '''<remarks>
@@ -300,24 +282,6 @@ Partial Public Class StartPage
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblNormalProvinceNotice As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblHandyFollowAlarm control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblHandyFollowAlarm As Global.System.Web.UI.WebControls.Label
-    
-    '''<summary>
-    '''lblHandyFollowCheckAlarm control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents lblHandyFollowCheckAlarm As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
     '''lblAssignedFiles control.

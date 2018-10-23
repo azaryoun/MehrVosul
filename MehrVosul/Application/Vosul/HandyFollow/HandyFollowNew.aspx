@@ -46,7 +46,27 @@
             ////    txtRegisterNO.focus();
             ////    return false;
             ////}
-
+            
+            var rdboToSponsors = document.getElementById("<%=rdboToSponsor.ClientID%>");
+            var cmbSponsor = document.getElementById("<%=cmbSponsor.ClientID%>");
+debugger
+            var listcontrol = rdboToSponsors.rows[1].cells[0].childNodes[0];
+            var listcontrol1 = rdboToSponsors.rows[0].cells[0].childNodes[0];
+            if (listcontrol.checked) {
+                if (cmbSponsor.options[cmbSponsor.selectedIndex].value == -1) {
+                    alert("لطفا ضامن را مشخص نمائید.", "خطا");
+                    cmbSponsor.focus();
+                    return false;
+                }
+            }
+            else if (!listcontrol1.checked)
+            {
+                alert("لطفا ضامن را مشخص نمائید.", "خطا");
+                cmbSponsor.focus();
+                return false;
+            }
+        
+        
             if (!confirm("ذخیره و پیش نمایش چاپ اخطاریه یا اظهارنامه را تایید نمایید"))
                 return false;
 
@@ -128,8 +148,8 @@
                                     <label>مخاطب</label>
                                 </div>
                                 <div class="panel-body" style="max-height: 200px;">
-                                    <asp:RadioButtonList ID="rdboToSponsor" runat="server">
-                                        <asp:ListItem Selected="True" Value="0">وام گیرنده</asp:ListItem>
+                                    <asp:RadioButtonList  ID="rdboToSponsor" runat="server">
+                                        <asp:ListItem Selected="True"   Value="0">وام گیرنده</asp:ListItem>
                                         <asp:ListItem Value="1">ضامن</asp:ListItem>
                                     </asp:RadioButtonList>
                                 </div>
@@ -444,7 +464,8 @@
                                 <asp:TextBox ID="txtCompanyNationalID" MaxLength="50" runat="server" CssClass="form-control" placeholder="شناسه ملی را وارد کنید"></asp:TextBox>
 
                             </div>
-
+                             
+                      
 
                         </div>
                     </div>

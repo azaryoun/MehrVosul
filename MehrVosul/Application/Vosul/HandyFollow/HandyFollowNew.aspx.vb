@@ -73,6 +73,7 @@ Public Class HandyFollowNew
         Bootstrap_Panel1.CanExcel = False
         Bootstrap_Panel1.Enable_Display_Client_Validate = True
 
+
         If Page.IsPostBack = False Then
 
             ''Get Handy Follow related List
@@ -545,7 +546,7 @@ Public Class HandyFollowNew
                         intAudienceFileID = dtblFile.First.ID
                     End If
 
-
+                    Session("intAudienceFileID") = intAudienceFileID
 
                 Else
 
@@ -630,10 +631,12 @@ Public Class HandyFollowNew
             cmbNotificationType.SelectedValue = 2
             rdbListAnswered.SelectedValue = 1
             rdbListNotificationStatus.SelectedValue = 1
-            rdboToSponsor.SelectedValue = 0
-            cmbSponsor.SelectedValue = -1
+            ''rdboToSponsor.SelectedValue = 0
+            ''  cmbSponsor.SelectedValue = -1
             txtRemark.Text = ""
-            Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
+            '' Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
+
+
             '' Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now.AddDays(10)
 
             If blnUpdateHandyFollowAssign = True Then
@@ -680,7 +683,7 @@ Public Class HandyFollowNew
 
         If ViewState("AssignType") = 2 Then
 
-            Response.Redirect("ManifestPreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID)
+            Response.Redirect("ManifestPreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&ManifestType=" & rdboToSponsor.SelectedValue)
 
         ElseIf ViewState("AssignType") = 3 Then
 

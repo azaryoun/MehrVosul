@@ -142,8 +142,8 @@
                                     جنابعالی برابر اسناد و مدارک موجود در این بانک بدهکار می باشید نظر به اینکه تا کنون بدهی خود را پرداخت ننموده اید از&nbsp; این طریق موجب ایراد ضرر و زیان به این بانک شده اید علیهذا جهت اثبات حسن نیت خود بدینوسیله به جنابعالی اخطار می گردد ظرف مدت 10 روز پس از رویت این اظهارنامه کلیه دیون مزبور پرداخت کلیه خسارات قانونی اعم از هزینه های&nbsp; دادرسی و حق الزحمه نمایندگی قضایی و جریمه تاخیر تادیه به عهده جنابعالی خواهد بود.<br />
                                     <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; با سپاس<br />
-                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; رییس شعبه<asp:Label ID="lblBranch" runat="server"></asp:Label>
-                                    <br />
+                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; رییس شعبه&nbsp; <asp:Label ID="lblBranch" runat="server"></asp:Label>
+                                    &nbsp;<br />
                                     <br />
                                     <br />
                                     <br />
