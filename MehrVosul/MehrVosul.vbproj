@@ -182,8 +182,10 @@
     <Content Include="Application\Vosul\HandyFollow\HandyFollowFileSearch1.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowNew.aspx" />
     <Content Include="Application\Vosul\HandyFollow\HandyFollowSearch.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\InvitationPreview.aspx" />
     <Content Include="Application\Vosul\HandyFollow\ManifestPreview.aspx" />
     <Content Include="Application\Vosul\HandyFollow\NoticePreview.aspx" />
+    <Content Include="Application\Vosul\HandyFollow\ReductionSalary.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeEdit.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeManagement.aspx" />
     <Content Include="Application\Vosul\LoanType\LoanTypeNew.aspx" />
@@ -720,6 +722,13 @@
       <DependentUpon>HandyFollowSearch.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\InvitationPreview.aspx.designer.vb">
+      <DependentUpon>InvitationPreview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\InvitationPreview.aspx.vb">
+      <DependentUpon>InvitationPreview.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
     <Compile Include="Application\Vosul\HandyFollow\ManifestPreview.aspx.designer.vb">
       <DependentUpon>ManifestPreview.aspx</DependentUpon>
     </Compile>
@@ -732,6 +741,13 @@
     </Compile>
     <Compile Include="Application\Vosul\HandyFollow\NoticePreview.aspx.vb">
       <DependentUpon>NoticePreview.aspx</DependentUpon>
+      <SubType>ASPXCodebehind</SubType>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\ReductionSalary.aspx.designer.vb">
+      <DependentUpon>ReductionSalary.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Application\Vosul\HandyFollow\ReductionSalary.aspx.vb">
+      <DependentUpon>ReductionSalary.aspx</DependentUpon>
       <SubType>ASPXCodebehind</SubType>
     </Compile>
     <Compile Include="Application\Vosul\LoanType\LoanTypeEdit.aspx.designer.vb">

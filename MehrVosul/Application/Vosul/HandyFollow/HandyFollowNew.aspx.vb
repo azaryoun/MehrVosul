@@ -92,24 +92,37 @@ Public Class HandyFollowNew
 
                 If Not Session("AssignType") Is Nothing Then
                     If Session("AssignType") <> 1 Then
+
                         ViewState("AssignType") = Session("AssignType")
                         btnPrint.Visible = True
-                        divNotice.Visible = True
+
                         btnAddToText.Visible = False
+
+                        Select Case Session("AssignType")
+
+                            Case 2
+                                cmbNotificationType.SelectedValue = 5
+                                divNotice.Visible = True
+                            Case 3
+                                cmbNotificationType.SelectedValue = 4
+                                divNotice.Visible = True
+                            Case 4
+                                cmbNotificationType.SelectedValue = 3
+                                divInvitation.Visible = True
+                            Case 5
+
+                                cmbNotificationType.SelectedValue = 6
+                                divReductionSalary.Visible = True
+                        End Select
+
 
                     Else
 
+                        cmbNotificationType.SelectedValue = 2
                         btnPrint.Visible = False
                         divNotice.Visible = False
                         btnAddToText.Visible = True
-
                     End If
-
-                Else
-
-                    btnPrint.Visible = False
-                    divNotice.Visible = False
-                    btnAddToText.Visible = True
 
                 End If
 
@@ -309,6 +322,10 @@ Public Class HandyFollowNew
 
 
         End If
+
+        txtDefferedAmount.Attributes.Add("onkeypress", "return numbersonly(event, false);")
+        txtInstallmentAmount.Attributes.Add("onkeypress", "return numbersonly(event, false);")
+
 
         Bootstrap_PersianDateTimePicker_From.ShowTimePicker = True
         Bootstrap_PersianDateTimePicker_TO.ShowTimePicker = False
@@ -627,8 +644,6 @@ Public Class HandyFollowNew
 
             GetHandyFollowList()
 
-
-            cmbNotificationType.SelectedValue = 2
             rdbListAnswered.SelectedValue = 1
             rdbListNotificationStatus.SelectedValue = 1
             ''rdboToSponsor.SelectedValue = 0
@@ -681,14 +696,59 @@ Public Class HandyFollowNew
         Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
         Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-        If ViewState("AssignType") = 2 Then
 
+        If cmbNotificationType.SelectedValue = 3 Then
+
+            Response.Redirect("InvitationPreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&InvitationDate=" & txtInvitationDate.Text.Trim() & "&InvitationTime=" & txtInvitationTime.Text.Trim())
+
+        ElseIf cmbNotificationType.SelectedValue = 4 Then
+            ''اخطاریه
             Response.Redirect("ManifestPreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&ManifestType=" & rdboToSponsor.SelectedValue)
 
-        ElseIf ViewState("AssignType") = 3 Then
-
+        ElseIf cmbNotificationType.SelectedValue = 5 Then
+            ''اظهارنامه
             Response.Redirect("NoticePreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&CompanyNational=" & txtCompanyNationalID.Text.Trim())
 
+        ElseIf cmbNotificationType.SelectedValue = 6 Then
+
+            Dim strNotifyType = ""
+            If rdboToSponsor.SelectedValue = 1 Then
+
+                strNotifyType = "ضامن"
+
+            Else
+                strNotifyType = "وام گیرنده"
+            End If
+
+
+            Response.Redirect("ReductionSalary.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&RSLetterNo=" & txtRSLetterNo.Text.Trim() & "&RSLetterDate=" & txtRSLetterDate.Text.Trim() & "&InstallmentAmount=" & txtInstallmentAmount.Text.Trim() & "&DefferedAmount=" & txtDefferedAmount.Text.Trim() & "&Remarks=" & txtRSRemarks.Text & "&Receiver=" & txtReceiver.Text & "&NotifyType=" & strNotifyType)
+
+
+        End If
+
+
+    End Sub
+
+    Protected Sub cmbNotificationType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbNotificationType.SelectedIndexChanged
+        If cmbNotificationType.SelectedValue = 3 Then
+            divReductionSalary.Visible = False
+            divInvitation.Visible = True
+            divNotice.Visible = False
+
+        ElseIf cmbNotificationType.SelectedValue = 6 Then
+            divReductionSalary.Visible = True
+            divInvitation.Visible = False
+            divNotice.Visible = False
+
+        ElseIf cmbNotificationType.SelectedValue = 4 OrElse cmbNotificationType.SelectedValue = 5 Then
+
+            divNotice.Visible = True
+            divReductionSalary.Visible = False
+            divInvitation.Visible = False
+        Else
+            divReductionSalary.Visible = False
+            divInvitation.Visible = False
+            divNotice.Visible = False
         End If
 
 

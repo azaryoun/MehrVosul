@@ -194,6 +194,15 @@ Partial Public Class HandyFollowNew
     Protected WithEvents lblSponsorMobile As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''UpdatePanel5 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel5 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
     '''cmbNotificationType control.
     '''</summary>
     '''<remarks>
@@ -284,15 +293,6 @@ Partial Public Class HandyFollowNew
     Protected WithEvents Bootstrap_PersianDateTimePickerChekDateDuty As Global.MehrVosul.Bootstrap_PersianDateTimePicker
     
     '''<summary>
-    '''divNotice control.
-    '''</summary>
-    '''<remarks>
-    '''Auto-generated field.
-    '''To modify move field declaration from designer file to code-behind file.
-    '''</remarks>
-    Protected WithEvents divNotice As Global.System.Web.UI.HtmlControls.HtmlGenericControl
-    
-    '''<summary>
     '''txtMobile control.
     '''</summary>
     '''<remarks>
@@ -320,6 +320,24 @@ Partial Public Class HandyFollowNew
     Protected WithEvents txtNationalID As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''UpdatePanel8 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel8 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''divNotice control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divNotice As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''txtLetterNO control.
     '''</summary>
     '''<remarks>
@@ -345,6 +363,114 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtCompanyNationalID As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''UpdatePanel6 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel6 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''divInvitation control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divInvitation As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''txtInvitationDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtInvitationDate As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtInvitationTime control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtInvitationTime As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''UpdatePanel7 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel7 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''divReductionSalary control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divReductionSalary As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''txtRSLetterNo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtRSLetterNo As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtRSLetterDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtRSLetterDate As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtInstallmentAmount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtInstallmentAmount As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtDefferedAmount control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtDefferedAmount As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtReceiver control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtReceiver As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtRSRemarks control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtRSRemarks As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''btnAddToText control.
