@@ -229,7 +229,7 @@
             Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
             Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
 
-
+            Dim intAssignType As Integer = cmbNotificationType.SelectedValue
 
             Dim blnFileCheck As Boolean = False
             Dim blnGroupAssign As Boolean = If(cmbAssignType.SelectedValue = 2, True, False)
@@ -296,7 +296,7 @@
                                     Dim intAssignUserID As Integer = CInt(Request.Form(i).Substring(0, Request.Form(i).IndexOf("(")))
 
                                     If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
-                                        qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+                                        qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, intAssignType)
 
                                     End If
 
@@ -332,7 +332,7 @@
                                     Dim intAssignUserID As Integer = CInt(Request.Form(i).Substring(0, Request.Form(i).IndexOf("(")))
 
                                     If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
-                                        qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+                                        qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, intAssignType)
 
                                     End If
 
@@ -405,7 +405,7 @@
                                 Dim intAssignUserID As Integer = CInt(cmbPerson.SelectedValue)
 
                                 If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
-                                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+                                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, intAssignType)
 
                                 End If
 
@@ -442,7 +442,7 @@
                                 Dim intAssignUserID As Integer = CInt(cmbPerson.SelectedValue)
 
                                 If CheckFileAssign(intAssignUserID, intLoanID, 1) = False Then
-                                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, 1)
+                                    qryHandyFollow.spr_HandyFollowAssign_Insert(intAssignUserID, intFileID, Date.Now, drwUserLogin.ID, "", intLoanID, intAssignType)
 
                                 End If
 

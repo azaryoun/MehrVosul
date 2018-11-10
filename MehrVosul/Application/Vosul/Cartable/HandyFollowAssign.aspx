@@ -269,7 +269,7 @@
 
                                     </ContentTemplate>
                                 </asp:UpdatePanel>
-                              
+
 
                             </div>
                         </div>
@@ -295,14 +295,31 @@
                             <div class="form-group">
 
                                 <div class="form-group">
-                                    <label>نوع وام</label><asp:ObjectDataSource ID="odsLoanType" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_List_SelectTableAdapter">
-                                    </asp:ObjectDataSource>
+                                    <label>نوع وام</label><asp:ObjectDataSource ID="odsLoanType" runat="server" OldValuesParameterFormatString="original_{0}" SelectMethod="GetData" TypeName="BusinessObject.dstLoanTypeTableAdapters.spr_LoanType_List_SelectTableAdapter"></asp:ObjectDataSource>
                                     &nbsp;<asp:DropDownList ID="cmbLoanType" runat="server" CssClass="form-control"
                                         DataSourceID="odsLoanType" DataTextField="LoanType" DataValueField="ID">
                                     </asp:DropDownList>
                                 </div>
-                                  <br />
+                                <br />
                                 <asp:LinkButton CssClass="btn btn-success" ID="btnCheckFiles" runat="server" ToolTip="نمایش پرونده"><i class="fa fa-filter fa-x"></i> </asp:LinkButton>
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>نوع اطلاع رسانی</label>
+
+                                <asp:DropDownList ID="cmbNotificationType" runat="server"
+                                    CssClass="form-control">
+
+                                    <asp:ListItem Value="1">پیگیری دستی</asp:ListItem>
+                                    <asp:ListItem Value="2">اخطاریه</asp:ListItem>
+                                    <asp:ListItem Value="3">اظهارنامه</asp:ListItem>
+                                    <asp:ListItem Value="4">دعوتنامه</asp:ListItem>
+                                    <asp:ListItem Value="5">کسر از حقوق</asp:ListItem>
+
+                                </asp:DropDownList>
 
                             </div>
                         </div>
@@ -381,7 +398,6 @@
                                     <td class="TableHeader1">تعداد اقساط</td>
                                     <td class="TableHeader1">مبلغ تسهیلات</td>
                                     <td class="TableHeader1">نوع تسهیلات</td>
-
                                     <td class="TableHeader1">مبلغ معوق</td>
                                     <td class="TableHeader1">تعدادروزمعوق</td>
                                     <td class="TableHeader1">کارشناس پیگیر</td>
@@ -409,7 +425,7 @@
 
     <asp:HiddenField ID="hdnSelected" runat="server" />
 
-    
+
 
 
 </asp:Content>

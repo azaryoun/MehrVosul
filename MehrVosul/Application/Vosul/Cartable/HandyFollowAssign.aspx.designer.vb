@@ -176,6 +176,15 @@ Partial Public Class HandyFollowAssign
     Protected WithEvents btnCheckFiles As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
+    '''cmbNotificationType control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents cmbNotificationType As Global.System.Web.UI.WebControls.DropDownList
+    
+    '''<summary>
     '''UpdatePanel5 control.
     '''</summary>
     '''<remarks>
