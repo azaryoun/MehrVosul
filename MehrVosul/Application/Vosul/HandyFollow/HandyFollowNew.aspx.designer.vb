@@ -275,6 +275,24 @@ Partial Public Class HandyFollowNew
     Protected WithEvents txtAccountNO As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''UpdatePanel9 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel9 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''chkbxCheckBack control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents chkbxCheckBack As Global.System.Web.UI.WebControls.CheckBox
+    
+    '''<summary>
     '''Bootstrap_PersianDateTimePickerCheckDate control.
     '''</summary>
     '''<remarks>
@@ -291,6 +309,24 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents Bootstrap_PersianDateTimePickerChekDateDuty As Global.MehrVosul.Bootstrap_PersianDateTimePicker
+    
+    '''<summary>
+    '''Bootstrap_PersianDateTimeCheckReturnDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Bootstrap_PersianDateTimeCheckReturnDate As Global.MehrVosul.Bootstrap_PersianDateTimePicker
+    
+    '''<summary>
+    '''Bootstrap_PersianDateTimeCheckLegalDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents Bootstrap_PersianDateTimeCheckLegalDate As Global.MehrVosul.Bootstrap_PersianDateTimePicker
     
     '''<summary>
     '''txtMobile control.

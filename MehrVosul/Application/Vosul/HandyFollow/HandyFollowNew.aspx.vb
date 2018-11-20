@@ -440,14 +440,35 @@ Public Class HandyFollowNew
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
 
+            TbCell = New HtmlTableCell
+            Dim strReturnCheckDesc As String = ""
+            Dim strRetDate As String = ""
+            Dim strLegalDate As String = ""
+
+            If drwHandyFollow.IsCheckReturend = True Then
+
+                If drwHandyFollow.IsCheckReturnDateNull = False Then
+                    strRetDate = mdlGeneral.GetPersianDate(drwHandyFollow.CheckReturnDate)
+                End If
+
+                If drwHandyFollow.IsCheckLegalDateNull = False Then
+                    strLegalDate = mdlGeneral.GetPersianDate(drwHandyFollow.CheckLegalDate)
+                End If
+
+                strReturnCheckDesc = "تاریخ برگشت:" & strRetDate & "-" & "تاریخ ارجاء به حقوقی" & strLegalDate
+            End If
+            TbCell.Attributes.Add("dir", "ltr")
+            TbCell.InnerHtml = strReturnCheckDesc
+            TbCell.NoWrap = True
+            TbCell.Align = "center"
+            TbRow.Cells.Add(TbCell)
+
 
             TbCell = New HtmlTableCell
             TbCell.InnerHtml = drwHandyFollow.Remarks
             TbCell.NoWrap = False
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
-
-
 
 
             ''TbCell = New HtmlTableCell
@@ -617,8 +638,23 @@ Public Class HandyFollowNew
             End If
             Dim strCheckDesk As String = txtAccountNO.Text
 
-            qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate, intHandFollowAssignID, blnHasCheck, strCheckNO, dteCheckDate, strCheckDesk, dteChekDateDuty)
+            Dim blnCheckBack As Boolean = chkbxCheckBack.Checked
+            Dim dteCheckReturnDate As Date? = Nothing
+            Dim dteCheckLegalDate As Date? = Nothing
 
+            If chkbxCheckBack.Checked = True Then
+
+                If Bootstrap_PersianDateTimeCheckReturnDate.PersianDateTime <> "" Then
+                    dteCheckReturnDate = Bootstrap_PersianDateTimeCheckReturnDate.GergorainDateTime
+                End If
+
+                If Bootstrap_PersianDateTimeCheckLegalDate.PersianDateTime <> "" Then
+                    dteCheckLegalDate = Bootstrap_PersianDateTimeCheckLegalDate.GergorainDateTime
+                End If
+
+            End If
+
+            qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate, intHandFollowAssignID, blnHasCheck, strCheckNO, dteCheckDate, strCheckDesk, dteChekDateDuty, dteCheckReturnDate, dteCheckLegalDate, blnCheckBack)
 
             If Not ViewState("AssignType") Is Nothing Then
 
@@ -631,14 +667,9 @@ Public Class HandyFollowNew
                     Dim strNationalID As String = txtNationalID.Text.Trim()
                     qryFile.spr_FileInfo_Update(intFileID, strMoileNO, strAddress, strNationalID, drwUserLogin.ID)
 
-
-
                 End If
 
-
             End If
-
-
 
             Bootstrap_Panel1.ShowMessage("ثبت پیگیری با موفقیت انجام شد", False)
 
@@ -753,6 +784,7 @@ Public Class HandyFollowNew
 
 
     End Sub
+
 
 
     'Private Sub GetCustomerInfo(ByVal strCustomerNO As String)

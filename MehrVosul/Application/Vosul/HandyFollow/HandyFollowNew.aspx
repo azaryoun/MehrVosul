@@ -26,6 +26,18 @@
             return false;
         }
 
+        function CheckData1() {
+            debugger
+            var chkbxCheckBack = document.getElementById("<%=chkbxCheckBack.ClientID%>");
+
+            var Bootstrap_PersianDateTimePickerCheckDate = document.getElementById("<%= Bootstrap_PersianDateTimePickerCheckDate.ClientID%>");
+
+            if (chkbxCheckBack.checked == true) {
+
+
+            }
+            return true;
+        }
 
 
         function CheckDataEnter() {
@@ -56,6 +68,7 @@
             var txtInstallmentAmount = document.getElementById("<%=txtInstallmentAmount.ClientID%>");
             var txtDefferedAmount = document.getElementById("<%=txtDefferedAmount.ClientID%>");
             var txtRSRemarks = document.getElementById("<%=txtRSRemarks.ClientID%>");
+
 
             if (cmbNotificationType.options[cmbNotificationType.selectedIndex].value == 6) {
                 if (trimall(txtRSLetterNo.value) == "") {
@@ -164,6 +177,7 @@
                                         <th>وضعیت تماس </th>
                                         <th>نتیجه تماس</th>
                                         <th>شماره چک(تاریخ)</th>
+                                         <th>چک برگشتی</th>
                                         <th>ملاحظات</th>
 
                                     </tr>
@@ -355,10 +369,8 @@
                                 </div>
                                 <div class="panel-body" style="max-height: 200px;">
 
-
                                     <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePicker_From"
                                         runat="server" />
-
 
                                 </div>
 
@@ -372,18 +384,13 @@
                                 <div class="panel-body" style="max-height: 200px;">
                                     <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePicker_TO"
                                         runat="server" />
-
                                 </div>
-
                             </div>
                         </div>
-
                         <div class="form-group">
                             <label style="font-weight: bold; font-size: medium">توضیحات پیگیری</label>
-
                             <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control"
                                 placeholder="توضیحات را وارد کنید" Height="100px" TextMode="MultiLine"></asp:TextBox>
-
                         </div>
 
                     </div>
@@ -401,15 +408,22 @@
                                     placeholder="شماره چک را وارد کنید"></asp:TextBox>
                             </div>
                             <div class="form-group">
-                                <label>توضیحات چک(شماره حساب)</label>
+                                <label>توضیحات چک(شماره حساب،مبلغ چک،بانک عامل)</label>
 
                                 <asp:TextBox ID="txtAccountNO" runat="server" CssClass="form-control"
                                     placeholder="توضیحات  یا شماره حساب را وارد کنید" Height="100px" TextMode="MultiLine"></asp:TextBox>
 
                             </div>
-
+                            <asp:UpdatePanel ID="UpdatePanel9" runat="server">
+                                <ContentTemplate>
+                                    <label>
+                                        <asp:CheckBox ID="chkbxCheckBack" Text="چک برگشتی" AutoPostBack="true" runat="server" />
+                                    </label>
+                                </ContentTemplate>
+                            </asp:UpdatePanel>
                         </div>
                     </div>
+
                     <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-heading">
@@ -417,227 +431,228 @@
                             </div>
                             <div class="form-group">
 
-
                                 <label>تاریخ چک</label>
-
-                                <div class="panel-body" style="max-height: 200px;">
-
-                                    <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePickerCheckDate"
-                                        runat="server" />
-                                </div>
-
-
+                                <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePickerCheckDate"
+                                    runat="server" />
                             </div>
                             <div class="form-group">
-
-
                                 <label>تاریخ  تعهد چک</label>
+                                <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePickerChekDateDuty"
+                                    runat="server" />
+                            </div>
 
-                                <div class="panel-body" style="max-height: 200px;">
+                            <div class="form-group">
 
-                                    <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePickerChekDateDuty"
-                                        runat="server" />
+                                <label>تاریخ برگشت چک</label>
 
-                                </div>
-
+                                <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimeCheckReturnDate"
+                                    runat="server" />
 
                             </div>
+
+                            <div class="form-group">
+                                <label>تاریخ ارجاء به حقوقی</label>
+
+                                <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimeCheckLegalDate"
+                                    runat="server" />
+                            </div>
+
                         </div>
-
-
 
                     </div>
-                </div>
 
-
-            </div>
-        </div>
-        <div class="row">
-            <br />
-            <div class="col-md-6">
-                <div class="form-group">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <label>تغییر اطلاعات جهت چاپ یا ذخیره </label>
-                        </div>
-                        <div class="panel-body" style="max-height: 300px;">
-                            <div class="form-group">
-                                <label>تلفن همراه</label>
-                                <asp:TextBox ID="txtMobile" MaxLength="50" runat="server" CssClass="form-control" placeholder="تلفن همراه را وارد کنید"></asp:TextBox>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label>آدرس</label>
-                                <asp:TextBox ID="txtAddress" MaxLength="50" runat="server" CssClass="form-control" placeholder="آدرس را وارد کنید"></asp:TextBox>
-
-                            </div>
-
-                            <div class="form-group">
-                                <label>کد ملی</label>
-                                <asp:TextBox ID="txtNationalID" MaxLength="50" runat="server" CssClass="form-control" placeholder="کد ملی را وارد کنید"></asp:TextBox>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
-            <asp:UpdatePanel ID="UpdatePanel8" runat="server">
-                <ContentTemplate>
-                    <div id="divNotice" runat="server" visible="false" class="col-md-6">
-                        <div class="form-group">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <label>اطلاعات نامه جهت چاپ اخطاریه، اظهارنامه، دعوتنامه و کسر از حقوق</label>
-                                </div>
-                                <div class="panel-body" style="max-height: 300px;">
-                                    <div class="form-group">
-                                        <label>شماره</label>
-                                        <asp:TextBox ID="txtLetterNO" MaxLength="50" runat="server" CssClass="form-control" placeholder="شماره نامه را وارد کنید"></asp:TextBox>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>پیوست(شماره ثبت)</label>
-                                        <asp:TextBox ID="txtRegisterNO" MaxLength="50" runat="server" CssClass="form-control" placeholder="شماره پیوست نامه را وارد کنید"></asp:TextBox>
-
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label>شناسه ملی </label>
-                                        <asp:TextBox ID="txtCompanyNationalID" MaxLength="50" runat="server" CssClass="form-control" placeholder="شناسه ملی را وارد کنید"></asp:TextBox>
-
-                                    </div>
 
 
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
         </div>
-        <asp:UpdatePanel ID="UpdatePanel6" runat="server">
-            <ContentTemplate>
-                <div class="row" id="divInvitation" runat="server" visible="false">
-                    <div class="col-md-12">
-                        <div class="form-group">
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <label>اطلاعات جهت دعوتنامه</label>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>تاریخ</label>
-                                        <asp:TextBox ID="txtInvitationDate" MaxLength="50" runat="server" CssClass="form-control" placeholder="تاریخ را وارد کنید"></asp:TextBox>
-
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label>ساعت</label>
-                                        <asp:TextBox ID="txtInvitationTime" MaxLength="50" runat="server" CssClass="form-control" placeholder="ساعت را وارد کنید"></asp:TextBox>
-
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
-        <asp:UpdatePanel ID="UpdatePanel7" runat="server">
-            <ContentTemplate>
-                <div class="row" id="divReductionSalary" runat="server" visible="false">
-                    <div class="col-md-12">
-                        <div class="form-group">
-
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <label>اطلاعات جهت کسر از حقوق</label>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>شماره نامه عطفی</label>
-                                            <asp:TextBox ID="txtRSLetterNo" MaxLength="50" runat="server" CssClass="form-control" placeholder="شماره نامه عطفی را وارد کنید"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>تاریخ نامه عطفی</label>
-                                            <asp:TextBox ID="txtRSLetterDate" MaxLength="50" runat="server" CssClass="form-control" placeholder="تاریخ نامه عطفی را وارد کنید"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>مبلغ قسط</label>
-                                            <asp:TextBox ID="txtInstallmentAmount" MaxLength="50" runat="server" CssClass="form-control" placeholder="مبلغ قسط را وارد کنید"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>مبلغ بدهی</label>
-                                            <asp:TextBox ID="txtDefferedAmount" MaxLength="50" runat="server" CssClass="form-control" placeholder="مبلغ بدهی را وارد کنید"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>نام گیرنده</label>
-                                            <asp:TextBox ID="txtReceiver" TextMode="MultiLine" MaxLength="50" runat="server" CssClass="form-control" placeholder="گیرنده را وارد کنید"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label>توضیحات واریز</label>
-                                            <asp:TextBox ID="txtRSRemarks" TextMode="MultiLine" MaxLength="50" runat="server" CssClass="form-control" placeholder="توضیحات واریز را وارد کنید"></asp:TextBox>
-
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </ContentTemplate>
-        </asp:UpdatePanel>
-        <span class="form-group input-group-btn">
-
-
-            <asp:LinkButton CssClass="btn btn-success" ID="btnAddToText" runat="server" ToolTip="ثبت پیگیری"><i class="fa fa-plus-circle fa-lg"></i> </asp:LinkButton>
-
-        </span>
-
-
-        <span class="form-group input-group-btn">
-
-
-            <asp:LinkButton Visible="false" CssClass="btn btn-success" ID="btnPrint" runat="server" OnClientClick="return CheckDataEnter();" ToolTip="ذخیزه و چاپ"><i class="fa fa-print fa-lg"></i> </asp:LinkButton>
-
-        </span>
+    </div>
+    <div class="row">
         <br />
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <label>تغییر اطلاعات جهت چاپ یا ذخیره </label>
+                    </div>
+                    <div class="panel-body" style="max-height: 300px;">
+                        <div class="form-group">
+                            <label>تلفن همراه</label>
+                            <asp:TextBox ID="txtMobile" MaxLength="50" runat="server" CssClass="form-control" placeholder="تلفن همراه را وارد کنید"></asp:TextBox>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>آدرس</label>
+                            <asp:TextBox ID="txtAddress" MaxLength="50" runat="server" CssClass="form-control" placeholder="آدرس را وارد کنید"></asp:TextBox>
+
+                        </div>
+
+                        <div class="form-group">
+                            <label>کد ملی</label>
+                            <asp:TextBox ID="txtNationalID" MaxLength="50" runat="server" CssClass="form-control" placeholder="کد ملی را وارد کنید"></asp:TextBox>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <asp:UpdatePanel ID="UpdatePanel8" runat="server">
+            <ContentTemplate>
+                <div id="divNotice" runat="server" visible="false" class="col-md-6">
+                    <div class="form-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <label>اطلاعات نامه جهت چاپ اخطاریه، اظهارنامه، دعوتنامه و کسر از حقوق</label>
+                            </div>
+                            <div class="panel-body" style="max-height: 300px;">
+                                <div class="form-group">
+                                    <label>شماره</label>
+                                    <asp:TextBox ID="txtLetterNO" MaxLength="50" runat="server" CssClass="form-control" placeholder="شماره نامه را وارد کنید"></asp:TextBox>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label>پیوست(شماره ثبت)</label>
+                                    <asp:TextBox ID="txtRegisterNO" MaxLength="50" runat="server" CssClass="form-control" placeholder="شماره پیوست نامه را وارد کنید"></asp:TextBox>
+
+                                </div>
+
+                                <div class="form-group">
+                                    <label>شناسه ملی </label>
+                                    <asp:TextBox ID="txtCompanyNationalID" MaxLength="50" runat="server" CssClass="form-control" placeholder="شناسه ملی را وارد کنید"></asp:TextBox>
+
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+    </div>
+    <asp:UpdatePanel ID="UpdatePanel6" runat="server">
+        <ContentTemplate>
+            <div class="row" id="divInvitation" runat="server" visible="false">
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <label>اطلاعات جهت دعوتنامه</label>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>تاریخ</label>
+                                    <asp:TextBox ID="txtInvitationDate" MaxLength="50" runat="server" CssClass="form-control" placeholder="تاریخ را وارد کنید"></asp:TextBox>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>ساعت</label>
+                                    <asp:TextBox ID="txtInvitationTime" MaxLength="50" runat="server" CssClass="form-control" placeholder="ساعت را وارد کنید"></asp:TextBox>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <asp:UpdatePanel ID="UpdatePanel7" runat="server">
+        <ContentTemplate>
+            <div class="row" id="divReductionSalary" runat="server" visible="false">
+                <div class="col-md-12">
+                    <div class="form-group">
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <label>اطلاعات جهت کسر از حقوق</label>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>شماره نامه عطفی</label>
+                                        <asp:TextBox ID="txtRSLetterNo" MaxLength="50" runat="server" CssClass="form-control" placeholder="شماره نامه عطفی را وارد کنید"></asp:TextBox>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>تاریخ نامه عطفی</label>
+                                        <asp:TextBox ID="txtRSLetterDate" MaxLength="50" runat="server" CssClass="form-control" placeholder="تاریخ نامه عطفی را وارد کنید"></asp:TextBox>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>مبلغ قسط</label>
+                                        <asp:TextBox ID="txtInstallmentAmount" MaxLength="50" runat="server" CssClass="form-control" placeholder="مبلغ قسط را وارد کنید"></asp:TextBox>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>مبلغ بدهی</label>
+                                        <asp:TextBox ID="txtDefferedAmount" MaxLength="50" runat="server" CssClass="form-control" placeholder="مبلغ بدهی را وارد کنید"></asp:TextBox>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>نام گیرنده</label>
+                                        <asp:TextBox ID="txtReceiver" TextMode="MultiLine" MaxLength="50" runat="server" CssClass="form-control" placeholder="گیرنده را وارد کنید"></asp:TextBox>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>توضیحات واریز</label>
+                                        <asp:TextBox ID="txtRSRemarks" TextMode="MultiLine" MaxLength="50" runat="server" CssClass="form-control" placeholder="توضیحات واریز را وارد کنید"></asp:TextBox>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+    <span class="form-group input-group-btn">
+
+
+        <asp:LinkButton CssClass="btn btn-success" ID="btnAddToText" OnClientClick="return CheckData1();" runat="server" ToolTip="ثبت پیگیری"><i class="fa fa-plus-circle fa-lg"></i> </asp:LinkButton>
+
+    </span>
+
+
+    <span class="form-group input-group-btn">
+
+
+        <asp:LinkButton Visible="false" CssClass="btn btn-success" ID="btnPrint" runat="server" OnClientClick="return CheckDataEnter();" ToolTip="ذخیزه و چاپ"><i class="fa fa-print fa-lg"></i> </asp:LinkButton>
+
+    </span>
+    <br />
 
 
 
 
 
-        <asp:HiddenField ID="hdnAction" runat="server" />
+    <asp:HiddenField ID="hdnAction" runat="server" />
 </asp:Content>

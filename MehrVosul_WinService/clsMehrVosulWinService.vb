@@ -5047,8 +5047,8 @@ VoiceSMS:
             Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend
             Dim strMessage As String = ""
             Dim arrRecords(1) As String
-            arrRecords(0) = "49412"
-            arrRecords(1) = "49413"
+            arrRecords(0) = "49561" ' "49412"
+            arrRecords(1) = "49560" '"49413"
             Dim arrNumbers(1) As String
             arrNumbers(0) = "21"
             arrNumbers(1) = "35"
