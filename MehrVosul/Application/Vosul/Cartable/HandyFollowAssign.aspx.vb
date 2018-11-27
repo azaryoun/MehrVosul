@@ -580,6 +580,10 @@
         Dim i As Integer = 1
         For Each drwRTotalDeffredLC As BusinessObject.dstTotalDeffredLC.spr_TotalDeffredLCFileAssign_SelectRow In dtblTotalDeffredForAssign.Rows
 
+            If drwRTotalDeffredLC.LoanTypeCode = 311 OrElse drwRTotalDeffredLC.LoanTypeCode = 207 OrElse drwRTotalDeffredLC.LoanTypeCode = 104 OrElse drwRTotalDeffredLC.LoanTypeCode = 3 Then
+                Continue For
+            End If
+
             Dim TbRow As New HtmlTableRow
             Dim TbCell As HtmlTableCell
 

@@ -459,7 +459,7 @@ Public Class HandyFollowNew
             End If
             TbCell.Attributes.Add("dir", "ltr")
             TbCell.InnerHtml = strReturnCheckDesc
-            TbCell.NoWrap = True
+            TbCell.NoWrap = False
             TbCell.Align = "center"
             TbRow.Cells.Add(TbCell)
 

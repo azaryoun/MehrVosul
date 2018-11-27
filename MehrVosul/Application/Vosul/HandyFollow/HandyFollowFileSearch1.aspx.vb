@@ -59,6 +59,9 @@ Public Class HandyFollowFileSearch1
         DisplayFileList()
     End Sub
 
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Private Sub DisplayFileList()
 
 
@@ -66,6 +69,7 @@ Public Class HandyFollowFileSearch1
         Bootstrap_Panel1.ClearMessage()
 
         Dim blnHasFind As Boolean = False
+        Dim blnShowFile As Boolean = False
 
         Dim intCount As Integer = 0
 
@@ -216,7 +220,8 @@ Public Class HandyFollowFileSearch1
 
                         Else
 
-                            Continue For
+                            blnShowFile = True
+                            ''Continue For
 
                         End If
                     Else
@@ -362,8 +367,13 @@ Public Class HandyFollowFileSearch1
                 TbRow.Cells.Add(TbCell)
 
                 TbCell = New HtmlTableCell
-                TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwHandyFollowSerch.AmounDefferd & ")>ثبت پیگیری</a>"
-                TbCell.NoWrap = True
+                If blnShowFile = True Then
+                    TbCell.InnerHtml = "ثبت پیگیری بدلیل تخصیص پرونده به کاربر دیگر امکان پذیر نمی باشد."
+                Else
+                    TbCell.InnerHtml = "<a ID='lnkbtnFollowing' href='#'  onclick= btnFollwoing_ClientClick(" & intFileID.ToString() & "," & intLoanID.ToString() & "," & drwHandyFollowSerch.AmounDefferd & ")>ثبت پیگیری</a>"
+                End If
+
+                TbCell.NoWrap = False
                 TbCell.Align = "center"
                 TbRow.Cells.Add(TbCell)
 
@@ -381,7 +391,7 @@ Public Class HandyFollowFileSearch1
         Else
             ''
             If blnProvinceAdmin = False Then
-                Bootstrap_Panel1.ShowMessage("وامی قابل پیگیری برای پرونده فوق یافت نشد", True)
+                Bootstrap_Panel1.ShowMessage("در حال حاضر وامی قابل پیگیری برای پرونده فوق یافت نشد", True)
                 Exit Sub
             End If
 
@@ -465,31 +475,31 @@ Public Class HandyFollowFileSearch1
 
                         ''CHECK IF USER IS NORMAL USER SELECT THE RELATED HANDYFOLLOW ASSIGN
                         If blnNormalUser = True Then
-                                If dtblHandyFollowAssign.First.IsAssigned = False OrElse dtblHandyFollowAssign.First.FK_AssignUserID = drwUserLogin.ID Then
-                                    blnHasFind = True
-                                    ''fill table
-
-                                Else
-
-                                    Continue For
-
-                                End If
-                            Else
-
-
+                            If dtblHandyFollowAssign.First.IsAssigned = False OrElse dtblHandyFollowAssign.First.FK_AssignUserID = drwUserLogin.ID Then
+                                blnHasFind = True
                                 ''fill table
 
-
+                            Else
+                                blnShowFile = True
+                                '' Continue For
 
                             End If
-
                         Else
 
-                            ''fill the table
+
+                            ''fill table
 
 
 
                         End If
+
+                    Else
+
+                        ''fill the table
+
+
+
+                    End If
 
                     blnHasFind = True
 
@@ -635,16 +645,16 @@ Public Class HandyFollowFileSearch1
 
 
             Else
-                Bootstrap_Panel1.ShowMessage("وامی قابل پیگیری برای پرونده فوق یافت نشد", True)
+                Bootstrap_Panel1.ShowMessage("در حال حاضر وامی قابل پیگیری برای پرونده فوق یافت نشد", True)
             End If
 
         End If
 
 
 
-        If blnHasFind = False Then
+        If blnHasFind = False AndAlso blnShowFile = False Then
 
-            Bootstrap_Panel1.ShowMessage("وامی قابل پیگیری برای پرونده فوق یافت نشد", True)
+            Bootstrap_Panel1.ShowMessage("در حال حاضر وامی قابل پیگیری برای پرونده فوق یافت نشد", True)
 
 
         End If
