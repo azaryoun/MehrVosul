@@ -1,4 +1,7 @@
 ﻿Imports System.Data.OleDb
+Imports OfficeOpenXml
+Imports System.IO
+
 
 
 Public Module mdlGeneral
@@ -190,6 +193,64 @@ A:          Randomize()
         Return dt
     End Function
 
+
+    Public Function ReadExcelNew(strPath As String, ByRef strMessage As String) As DataTable
+
+        Try
+
+            Dim dtblResult As New DataTable
+
+            Using pck As New OfficeOpenXml.ExcelPackage()
+
+                Using stream As FileStream = File.OpenRead(strPath)
+                    pck.Load(stream)
+                End Using
+
+                Dim ws As ExcelWorksheet = pck.Workbook.Worksheets.First()
+
+                If ws.Name <> "Sheet1" Then
+                    strMessage = "نام sheet فایل اکسل بایستی SHEET1 باشد."
+                    Return Nothing
+                End If
+
+                For i As Integer = 1 To ws.Dimension.End.Column
+
+                    Dim strColName As String = ws.Cells(1, i, 1, i).Text
+
+                    'If duplicate columns
+                    If (dtblResult.Columns.Contains(strColName)) Then
+                        strColName = strColName + "_" + i
+                    End If
+
+                    dtblResult.Columns.Add(strColName)
+
+                Next i
+
+                For j As Integer = 2 To ws.Dimension.End.Row
+
+                    Dim wsRow = ws.Cells(j, 1, j, ws.Dimension.End.Column)
+
+                    For Each cell As ExcelRangeBase In wsRow
+
+                        If cell.Text <> "" Then
+                            Dim drow = dtblResult.Rows.Add()
+                            drow(cell.Start.Column - 1) = cell.Text
+                        End If
+
+                    Next cell
+
+                Next j
+
+                Return dtblResult
+
+            End Using
+
+        Catch ex As Exception
+            strMessage = ex.Message
+            Return Nothing
+        End Try
+
+    End Function
 
     Public Function ReadExcel2003(ByVal strFileName As String, ByVal strSheetName As String) As DataTable
         Try

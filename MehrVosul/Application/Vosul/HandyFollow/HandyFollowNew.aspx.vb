@@ -91,6 +91,7 @@ Public Class HandyFollowNew
                 End If
 
                 If Not Session("AssignType") Is Nothing Then
+
                     If Session("AssignType") <> 1 Then
 
                         ViewState("AssignType") = Session("AssignType")
@@ -113,6 +114,7 @@ Public Class HandyFollowNew
 
                                 cmbNotificationType.SelectedValue = 6
                                 divReductionSalary.Visible = True
+
                         End Select
 
 
@@ -162,6 +164,9 @@ Public Class HandyFollowNew
                             lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
                         End If
 
+                        If dtblFile.First.IsAddressNull = False Then
+                            lblAddress.InnerText = dtblFile.First.Address
+                        End If
 
                         If dtblFile.First.IsMobileNo2Null = False Then
                             txtMobile.Text = dtblFile.First.MobileNo2
@@ -174,6 +179,10 @@ Public Class HandyFollowNew
                         If dtblFile.First.IsNationalID2Null = False Then
 
                             txtNationalID.Text = dtblFile.First.NationalID2
+                        End If
+
+                        If dtblFile.First.IsAddress3Null = False Then
+                            txtAddress2.Text = dtblFile.First.Address3
                         End If
 
                     Else
@@ -206,6 +215,10 @@ Public Class HandyFollowNew
                             lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
                         End If
 
+                        If dtblFile.First.IsAddressNull = False Then
+                            lblAddress.InnerText = dtblFile.First.Address
+                        End If
+
                         If dtblFile.First.IsMobileNo2Null = False Then
                             txtMobile.Text = dtblFile.First.MobileNo2
                         End If
@@ -217,6 +230,10 @@ Public Class HandyFollowNew
                         If dtblFile.First.IsNationalID2Null = False Then
 
                             txtNationalID.Text = dtblFile.First.NationalID2
+                        End If
+
+                        If dtblFile.First.IsAddress3Null = False Then
+                            txtAddress2.Text = dtblFile.First.Address3
                         End If
 
                     End If
@@ -235,8 +252,6 @@ Public Class HandyFollowNew
                     End If
 
                 Else
-
-
 
                     'odcSponsor.SelectParameters.Item("LoanID").DefaultValue = CInt(Session("intLoanID"))
 
@@ -280,6 +295,10 @@ Public Class HandyFollowNew
                         lblBorrowerMobile.InnerText = dtblFile.First.MobileNo
                     End If
 
+                    If dtblFile.First.IsAddressNull = False Then
+                        lblAddress.InnerText = dtblFile.First.Address
+                    End If
+
                     If dtblFile.First.IsNationalIDNull = False Then
                         txtNationalID.Text = dtblFile.First.NationalID
                     End If
@@ -297,6 +316,9 @@ Public Class HandyFollowNew
                         txtNationalID.Text = dtblFile.First.NationalID2
                     End If
 
+                    If dtblFile.First.IsAddress3Null = False Then
+                        txtAddress2.Text = dtblFile.First.Address3
+                    End If
 
                 End If
 
@@ -511,6 +533,10 @@ Public Class HandyFollowNew
                     lblSponsorMobile.InnerText = dtblFile.First.MobileNo
                 End If
 
+
+                If dtblFile.First.IsAddressNull = False Then
+                    lblSponsorAddress.InnerText = dtblFile.First.Address
+                End If
             Else
 
                 ''get sponsor info
@@ -526,6 +552,7 @@ Public Class HandyFollowNew
 
                 lblSponsorMobile.InnerText = dtblSponsor.First.MobileNo
 
+                lblSponsorAddress.InnerText = dtblSponsor.First.Address
 
                 ''Insert to File
                 Dim qryFile As New BusinessObject.dstFileTableAdapters.QueriesTableAdapter
@@ -642,6 +669,8 @@ Public Class HandyFollowNew
             Dim dteCheckReturnDate As Date? = Nothing
             Dim dteCheckLegalDate As Date? = Nothing
 
+
+
             If chkbxCheckBack.Checked = True Then
 
                 If Bootstrap_PersianDateTimeCheckReturnDate.PersianDateTime <> "" Then
@@ -656,20 +685,21 @@ Public Class HandyFollowNew
 
             qryHnadyFollow.spr_HandyFollow_Insert(intFileID, intLonaID, intNotificationTypeID, blnToSponsor, intAudienceFileID, dtFromDate, drwUserLogin.ID, Date.Now, strRemarks, blnAnswered, blnIsSuccess, dteDutyDate, intHandFollowAssignID, blnHasCheck, strCheckNO, dteCheckDate, strCheckDesk, dteChekDateDuty, dteCheckReturnDate, dteCheckLegalDate, blnCheckBack)
 
-            If Not ViewState("AssignType") Is Nothing Then
+            ''If Not ViewState("AssignType") Is Nothing Then
 
-                If ViewState("AssignType") <> 1 Then
+            ''    If ViewState("AssignType") <> 1 Then
 
-                    Dim qryFile As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+            Dim qryFile As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
 
-                    Dim strMoileNO As String = txtMobile.Text.Trim()
-                    Dim strAddress As String = txtAddress.Text
-                    Dim strNationalID As String = txtNationalID.Text.Trim()
-                    qryFile.spr_FileInfo_Update(intFileID, strMoileNO, strAddress, strNationalID, drwUserLogin.ID)
+            Dim strMoileNO As String = txtMobile.Text.Trim()
+            Dim strAddress As String = txtAddress.Text
+            Dim strNationalID As String = txtNationalID.Text.Trim()
+            Dim strAddress2 As String = txtAddress2.Text
+            qryFile.spr_FileInfo_Update(intFileID, strMoileNO, strAddress, strNationalID, drwUserLogin.ID, strAddress2)
 
-                End If
+            ''    End If
 
-            End If
+            ''End If
 
             Bootstrap_Panel1.ShowMessage("ثبت پیگیری با موفقیت انجام شد", False)
 
@@ -677,13 +707,8 @@ Public Class HandyFollowNew
 
             rdbListAnswered.SelectedValue = 1
             rdbListNotificationStatus.SelectedValue = 1
-            ''rdboToSponsor.SelectedValue = 0
-            ''  cmbSponsor.SelectedValue = -1
+
             txtRemark.Text = ""
-            '' Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now
-
-
-            '' Bootstrap_PersianDateTimePicker_From.GergorainDateTime = Date.Now.AddDays(10)
 
             If blnUpdateHandyFollowAssign = True Then
 
@@ -733,12 +758,13 @@ Public Class HandyFollowNew
             Response.Redirect("InvitationPreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&InvitationDate=" & txtInvitationDate.Text.Trim() & "&InvitationTime=" & txtInvitationTime.Text.Trim())
 
         ElseIf cmbNotificationType.SelectedValue = 4 Then
-            ''اخطاریه
-            Response.Redirect("ManifestPreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&ManifestType=" & rdboToSponsor.SelectedValue)
-
-        ElseIf cmbNotificationType.SelectedValue = 5 Then
             ''اظهارنامه
             Response.Redirect("NoticePreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&CompanyNational=" & txtCompanyNationalID.Text.Trim())
+
+        ElseIf cmbNotificationType.SelectedValue = 5 Then
+
+            ''اخطاریه
+            Response.Redirect("ManifestPreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&ManifestType=" & rdboToSponsor.SelectedValue)
 
         ElseIf cmbNotificationType.SelectedValue = 6 Then
 
@@ -761,21 +787,25 @@ Public Class HandyFollowNew
     End Sub
 
     Protected Sub cmbNotificationType_SelectedIndexChanged(sender As Object, e As EventArgs) Handles cmbNotificationType.SelectedIndexChanged
+
         If cmbNotificationType.SelectedValue = 3 Then
             divReductionSalary.Visible = False
             divInvitation.Visible = True
             divNotice.Visible = False
+            btnPrint.Visible = True
 
         ElseIf cmbNotificationType.SelectedValue = 6 Then
             divReductionSalary.Visible = True
             divInvitation.Visible = False
             divNotice.Visible = False
+            btnPrint.Visible = True
 
         ElseIf cmbNotificationType.SelectedValue = 4 OrElse cmbNotificationType.SelectedValue = 5 Then
 
             divNotice.Visible = True
             divReductionSalary.Visible = False
             divInvitation.Visible = False
+            btnPrint.Visible = True
         Else
             divReductionSalary.Visible = False
             divInvitation.Visible = False

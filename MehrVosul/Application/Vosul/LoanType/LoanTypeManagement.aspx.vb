@@ -11,13 +11,14 @@
         Bootstrap_Panel1.CanSearch = True
         Bootstrap_Panel1.CanCancel = False
         Bootstrap_Panel1.CanUp = False
-        Bootstrap_Panel1.CanWizard = False
+        Bootstrap_Panel1.CanWizard = True
         Bootstrap_Panel1.CanConfirmRequest = False
         Bootstrap_Panel1.CanReject = False
         Bootstrap_Panel1.CanDisplay = False
         Bootstrap_Panel1.CanExcel = False
         Bootstrap_Panel1.Enable_Delete_Client_Validate = True
         Bootstrap_Panel1.Enable_Search_Client_Validate = True
+
 
         lblInnerPageTitle.Text = "فهرست انواع وام، لطفا طبق ضوابط عمل نمایید"
 
@@ -167,5 +168,17 @@
     Private Sub Bootstrap_Panel1_Panel_New_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_New_Click
         Response.Redirect("LoanTypeNew.aspx")
         Return
+    End Sub
+
+    Private Sub Bootstrap_Panel1_Panel_Wizard_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Wizard_Click
+        Response.Redirect("LoanTypeMagic.aspx")
+        Return
+    End Sub
+
+    Private Sub Bootstrap_Panel1_Panel_Save_Click(sender As Object, e As EventArgs) Handles Bootstrap_Panel1.Panel_Save_Click
+
+
+
+
     End Sub
 End Class

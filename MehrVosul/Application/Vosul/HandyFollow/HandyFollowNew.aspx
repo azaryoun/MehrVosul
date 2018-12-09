@@ -27,7 +27,7 @@
         }
 
         function CheckData1() {
-            debugger
+
             var chkbxCheckBack = document.getElementById("<%=chkbxCheckBack.ClientID%>");
 
             var Bootstrap_PersianDateTimePickerCheckDate = document.getElementById("<%= Bootstrap_PersianDateTimePickerCheckDate.ClientID%>");
@@ -177,7 +177,7 @@
                                         <th>وضعیت تماس </th>
                                         <th>نتیجه تماس</th>
                                         <th>شماره چک(تاریخ)</th>
-                                         <th>چک برگشتی</th>
+                                        <th>چک برگشتی</th>
                                         <th>ملاحظات</th>
 
                                     </tr>
@@ -248,7 +248,10 @@
                                         <label runat="server" style="font-weight: bold;" id="lblBorrowerMobile">"---"</label>
                                     </div>
 
-
+                                    <div class="form-group">
+                                        <label>آدرس:&nbsp;&nbsp;&nbsp; </label>
+                                        <label runat="server" style="font-weight: bold;" id="lblAddress">"---"</label>
+                                    </div>
                                 </div>
 
 
@@ -309,6 +312,16 @@
 
                                                 <label>&nbsp;&nbsp;&nbsp; موبایل:</label>
                                                 <label runat="server" id="lblSponsorMobile"></label>
+
+                                            </div>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                    <asp:UpdatePanel ID="UpdatePanel11" runat="server">
+                                        <ContentTemplate>
+                                            <div class="form-group">
+
+                                                <label>&nbsp;&nbsp;&nbsp; آدرس:</label>
+                                                <label runat="server" id="lblSponsorAddress"></label>
 
                                             </div>
                                         </ContentTemplate>
@@ -392,9 +405,9 @@
                             <asp:TextBox ID="txtRemark" runat="server" CssClass="form-control"
                                 placeholder="توضیحات را وارد کنید" Height="100px" TextMode="MultiLine"></asp:TextBox>
                         </div>
-
+                        <br />
                     </div>
-
+                    <br />
 
                     <div class="col-md-6">
                         <div class="panel panel-default">
@@ -487,7 +500,11 @@
                             <asp:TextBox ID="txtAddress" MaxLength="50" runat="server" CssClass="form-control" placeholder="آدرس را وارد کنید"></asp:TextBox>
 
                         </div>
+                            <div class="form-group">
+                            <label>آدرس2</label>
+                            <asp:TextBox ID="txtAddress2" MaxLength="50" runat="server" CssClass="form-control" placeholder="آدرس را وارد کنید"></asp:TextBox>
 
+                        </div>
                         <div class="form-group">
                             <label>کد ملی</label>
                             <asp:TextBox ID="txtNationalID" MaxLength="50" runat="server" CssClass="form-control" placeholder="کد ملی را وارد کنید"></asp:TextBox>
@@ -644,9 +661,11 @@
 
     <span class="form-group input-group-btn">
 
-
-        <asp:LinkButton Visible="false" CssClass="btn btn-success" ID="btnPrint" runat="server" OnClientClick="return CheckDataEnter();" ToolTip="ذخیزه و چاپ"><i class="fa fa-print fa-lg"></i> </asp:LinkButton>
-
+        <asp:UpdatePanel ID="UpdatePanel10" runat="server">
+            <ContentTemplate>
+                <asp:LinkButton Visible="false" CssClass="btn btn-success" ID="btnPrint" runat="server" OnClientClick="return CheckDataEnter();" ToolTip="ذخیزه و چاپ"><i class="fa fa-print fa-lg"></i> </asp:LinkButton>
+            </ContentTemplate>
+        </asp:UpdatePanel>
     </span>
     <br />
 

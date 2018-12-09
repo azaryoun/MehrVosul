@@ -113,6 +113,15 @@ Partial Public Class HandyFollowNew
     Protected WithEvents lblBorrowerMobile As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
+    '''lblAddress control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblAddress As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''odcSponsor control.
     '''</summary>
     '''<remarks>
@@ -192,6 +201,24 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents lblSponsorMobile As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
+    '''UpdatePanel11 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel11 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''lblSponsorAddress control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblSponsorAddress As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''UpdatePanel5 control.
@@ -345,6 +372,15 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtAddress As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''txtAddress2 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents txtAddress2 As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
     '''txtNationalID control.
@@ -516,6 +552,15 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents btnAddToText As Global.System.Web.UI.WebControls.LinkButton
+    
+    '''<summary>
+    '''UpdatePanel10 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel10 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
     '''btnPrint control.

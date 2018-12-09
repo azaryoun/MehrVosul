@@ -678,6 +678,13 @@ Public Class HandyFollowManagement
     <System.Web.Services.WebMethod()> Public Shared Function PrintOperation_Server(theKeys() As Integer) As String
 
 
+        Dim dtblUserLogin As BusinessObject.dstUser.spr_User_Login_SelectDataTable = CType(HttpContext.Current.Session("dtblUserLogin"), BusinessObject.dstUser.spr_User_Login_SelectDataTable)
+        Dim drwUserLogin As BusinessObject.dstUser.spr_User_Login_SelectRow = dtblUserLogin.Rows(0)
+
+        Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+        Dim qryHandyFollow As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+
+
         Try
 
             Dim strHTMLMain As String = ""
@@ -685,7 +692,6 @@ Public Class HandyFollowManagement
 
                 Dim intPKey As Integer = CInt(theKeys(i))
 
-                Dim qryWarningIntervals As New BusinessObject.dstWarningIntervalsTableAdapters.QueriesTableAdapter
 
                 Dim tadpFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssign_SelectTableAdapter
                 Dim dtblFollowAssign As BusinessObject.dstHandyFollow.spr_HandyFollowAssign_SelectDataTable = Nothing
@@ -697,7 +703,6 @@ Public Class HandyFollowManagement
                     Continue For
 
                 End If
-
 
                 ''get File ID
                 Dim tadpFile As New BusinessObject.dstFileTableAdapters.spr_File_SelectTableAdapter
@@ -713,6 +718,11 @@ Public Class HandyFollowManagement
 
                 Dim strLCNO As String = dtblLoan.First.LoanNumber
 
+                qryHandyFollow.spr_HandyFollow_Insert(dtblFile.First.ID, dtblLoan.First.ID, 2, False, dtblFile.First.ID, Date.Now, drwUserLogin.ID, Date.Now, "صدور اخطاریه از طریق چاپ صفحه مشاهده پیگیری تخصیص یافته", False, False, Nothing, dtblFollowAssign.First.ID, Nothing, "", Nothing, "", Nothing, Nothing, Nothing, Nothing)
+
+
+                qryHandyFollowAssign.spr_HandyFollowAssignStatus_Update(dtblFollowAssign.First.ID)
+
 
                 strHTMLMain &= strCustomerNO & ";" & strLCNO & ","
 
@@ -727,7 +737,7 @@ Public Class HandyFollowManagement
 
         Catch ex As Exception
 
-            Return ""
+            Return ex.Message
 
         End Try
 

@@ -4736,7 +4736,7 @@ VoiceSMS:
         ''   Call tmrSelfReport_Elapsed(Nothing, Nothing)
 
         ''        Call tmrVoiceSMS_Elapsed(Nothing, Nothing)
-
+        '' CheckHandyFollowAssignUpdated()
 
 
     End Sub
@@ -6448,48 +6448,69 @@ VoiceSMS:
     End Sub
 
 
-    'Private Sub CheckHandyFollowAssignUpdated()
+    Private Sub CheckHandyFollowAssignUpdated()
 
-    '    Dim tadpNotDeffred As New BusinessObject.dstNotDeffredLCTableAdapters.spr_NotDeffredLC_SelectByLCNOTableAdapter
-    '    Dim dtblNotDeffed As BusinessObject.dstNotDeffredLC.spr_NotDeffredLC_SelectByLCNODataTable = Nothing
 
-    '    Dim tadpHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.spr_CheckHandyFollowAssign_IsUpdatedSelectTableAdapter
-    '    Dim dtblHandyFollowAssign As BusinessObject.dstHandyFollow.spr_CheckHandyFollowAssign_IsUpdatedSelectDataTable = Nothing
+        Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+        Dim qryNotDeffred As New BusinessObject.dstNotDeffredLCTableAdapters.QueriesTableAdapter
 
-    '    Dim qryHandyFollowAssign As New BusinessObject.dstHandyFollowTableAdapters.QueriesTableAdapter
+        ''get today nottotaldeffredlc count  
+        ''Dim tadpNotDeffredLC As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignIsUpdated_SelectTableAdapter
+        ''Dim dtblNotDeffredLC As BusinessObject.dstHandyFollow.spr_HandyFollowAssignIsUpdated_SelectDataTable = Nothing
 
-    '    dtblHandyFollowAssign = tadpHandyFollowAssign.GetData()
+        ''get All HandyfollowAssign  isupdated Count
+        Dim tadpHandyFollowAssignIsUpdatedCount As New BusinessObject.dstHandyFollowTableAdapters.spr_HandyFollowAssignIsUpdatedCount_SelectTableAdapter
+        Dim dtblHandyFllowAssignIsUpdatedCount As BusinessObject.dstHandyFollow.spr_HandyFollowAssignIsUpdatedCount_SelectDataTable = Nothing
 
-    '    For Each drwHandyFollowAssign As BusinessObject.dstHandyFollow.spr_CheckHandyFollowAssign_IsUpdatedSelectRow In dtblHandyFollowAssign
-
-    '        dtblNotDeffed = tadpNotDeffred.GetData(drwHandyFollowAssign.LoanNumber)
-
-    '        If dtblNotDeffed.Rows.Count > 0 Then
-
-    '            qryHandyFollowAssign.spr_HandyFollowAssignIsUpdated_Update(drwHandyFollowAssign.ID)
-
-    '        End If
-
-    '    Next
+        Dim tadpNotDeffredLCUpdatedLog As New BusinessObject.dstNotDeffredLCTableAdapters.spr_NotDeffredLCUpdatedLog_ForDate_SelectTableAdapter
+        Dim dtblNotDeffredLCUpdatedLog As BusinessObject.dstNotDeffredLC.spr_NotDeffredLCUpdatedLog_ForDate_SelectDataTable = Nothing
 
 
 
-    'End Sub
+        Try
+
+            dtblNotDeffredLCUpdatedLog = tadpNotDeffredLCUpdatedLog.GetData(Date.Today.Date)
+            If dtblNotDeffredLCUpdatedLog.Rows.Count > 0 Then
+
+                If dtblNotDeffredLCUpdatedLog.First.IsUpadated = True Then
+                    Exit Sub
+                End If
+
+            End If
+
+            '' dtblNotDeffredLC = tadpNotDeffredLC.GetData()
+            dtblHandyFllowAssignIsUpdatedCount = tadpHandyFollowAssignIsUpdatedCount.GetData()
+
+            Dim intUpdatedCount As Integer = 0
+
+            If dtblHandyFllowAssignIsUpdatedCount.Rows.Count > 0 Then
+
+                intUpdatedCount = dtblHandyFllowAssignIsUpdatedCount.First.HandyFollowAssignIsUpdatedCount
+
+            End If
+
+            qryHandyFollowAssign.spr_HandyFollowAssignIsUpdated_Update()
+
+            dtblHandyFllowAssignIsUpdatedCount = tadpHandyFollowAssignIsUpdatedCount.GetData()
+            If dtblHandyFllowAssignIsUpdatedCount.Rows.Count > 0 Then
+
+                intUpdatedCount = dtblHandyFllowAssignIsUpdatedCount.First.HandyFollowAssignIsUpdatedCount - intUpdatedCount
+
+            End If
+
+            qryNotDeffred.spr_NotDeffredLCUpdatedLog_Insert(True, "Successful", intUpdatedCount, Date.Today.Date)
+
+        Catch ex As Exception
+
+            qryNotDeffred.spr_NotDeffredLCUpdatedLog_Insert(False, ex.Message, 0, Date.Today.Date)
+
+        End Try
 
 
-    ''Private Function CheckBlackList(lcNumber As String) As Boolean
 
-    ''    Dim tadpBlackList As New BusinessObject.dstBlackListTableAdapters.spr_BlackList_SelectTableAdapter
-    ''    Dim dtblBlackList As BusinessObject.dstBlackList.spr_BlackList_SelectDataTable = Nothing
+    End Sub
 
-    ''    dtblBlackList = tadpBlackList.GetData(lcNumber)
 
-    ''    If dtblBlackList.Rows.Count > 0 Then
-    ''        Return True
-    ''    End If
 
-    ''    Return False
-
-    ''End Function
 End Class
 
