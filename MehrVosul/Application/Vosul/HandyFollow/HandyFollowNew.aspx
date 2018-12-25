@@ -205,6 +205,10 @@
 
                     <div class="col-md-6">
 
+                         <div class="form-group">
+                            <label>شماره تسهیلات:&nbsp;&nbsp;&nbsp; </label>
+                            <label runat="server" style="font-weight: bold;" id="lblLCNO">"---"</label>
+                        </div>
                         <div class="form-group">
                             <label>مبلغ معوق:&nbsp;&nbsp;&nbsp; </label>
                             <label runat="server" style="font-weight: bold;" id="lblAmountDefferd">"---"</label>
@@ -408,72 +412,77 @@
                         <br />
                     </div>
                     <br />
+                    <asp:UpdatePanel ID="UpdatePanel13" runat="server">
+                        <ContentTemplate>
+                            <div class="col-md-6" runat="server" id="divCheckInfo">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>مشخصات چک</label>
+                                    </div>
+                                    <div class="form-group">
 
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <label>مشخصات چک</label>
+                                        <label>شماره چک</label>
+                                        <asp:TextBox ID="txtCheckNO" runat="server" CssClass="form-control"
+                                            placeholder="شماره چک را وارد کنید"></asp:TextBox>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>توضیحات چک(شماره حساب،مبلغ چک،بانک عامل)</label>
+
+                                        <asp:TextBox ID="txtAccountNO" runat="server" CssClass="form-control"
+                                            placeholder="توضیحات  یا شماره حساب را وارد کنید" Height="100px" TextMode="MultiLine"></asp:TextBox>
+
+                                    </div>
+                                    <asp:UpdatePanel ID="UpdatePanel9" runat="server">
+                                        <ContentTemplate>
+                                            <label>
+                                                <asp:CheckBox ID="chkbxCheckBack" Text="چک برگشتی" AutoPostBack="true" runat="server" />
+                                            </label>
+                                        </ContentTemplate>
+                                    </asp:UpdatePanel>
+                                </div>
                             </div>
-                            <div class="form-group">
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
+                    <asp:UpdatePanel ID="UpdatePanel12" runat="server">
+                        <ContentTemplate>
+                            <div class="col-md-6" runat="server" id="divCheckInfoDate">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <label>تاریخ</label>
+                                    </div>
+                                    <div class="form-group">
 
-                                <label>شماره چک</label>
-                                <asp:TextBox ID="txtCheckNO" runat="server" CssClass="form-control"
-                                    placeholder="شماره چک را وارد کنید"></asp:TextBox>
-                            </div>
-                            <div class="form-group">
-                                <label>توضیحات چک(شماره حساب،مبلغ چک،بانک عامل)</label>
+                                        <label>تاریخ چک</label>
+                                        <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePickerCheckDate"
+                                            runat="server" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>تاریخ  تعهد چک</label>
+                                        <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePickerChekDateDuty"
+                                            runat="server" />
+                                    </div>
 
-                                <asp:TextBox ID="txtAccountNO" runat="server" CssClass="form-control"
-                                    placeholder="توضیحات  یا شماره حساب را وارد کنید" Height="100px" TextMode="MultiLine"></asp:TextBox>
+                                    <div class="form-group">
 
-                            </div>
-                            <asp:UpdatePanel ID="UpdatePanel9" runat="server">
-                                <ContentTemplate>
-                                    <label>
-                                        <asp:CheckBox ID="chkbxCheckBack" Text="چک برگشتی" AutoPostBack="true" runat="server" />
-                                    </label>
-                                </ContentTemplate>
-                            </asp:UpdatePanel>
-                        </div>
-                    </div>
+                                        <label>تاریخ برگشت چک</label>
 
-                    <div class="col-md-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <label>تاریخ</label>
-                            </div>
-                            <div class="form-group">
+                                        <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimeCheckReturnDate"
+                                            runat="server" />
 
-                                <label>تاریخ چک</label>
-                                <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePickerCheckDate"
-                                    runat="server" />
-                            </div>
-                            <div class="form-group">
-                                <label>تاریخ  تعهد چک</label>
-                                <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimePickerChekDateDuty"
-                                    runat="server" />
-                            </div>
+                                    </div>
 
-                            <div class="form-group">
+                                    <div class="form-group">
+                                        <label>تاریخ ارجاء به حقوقی</label>
 
-                                <label>تاریخ برگشت چک</label>
+                                        <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimeCheckLegalDate"
+                                            runat="server" />
+                                    </div>
 
-                                <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimeCheckReturnDate"
-                                    runat="server" />
+                                </div>
 
                             </div>
-
-                            <div class="form-group">
-                                <label>تاریخ ارجاء به حقوقی</label>
-
-                                <uc4:Bootstrap_PersianDateTimePicker ID="Bootstrap_PersianDateTimeCheckLegalDate"
-                                    runat="server" />
-                            </div>
-
-                        </div>
-
-                    </div>
-
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
 
@@ -500,7 +509,7 @@
                             <asp:TextBox ID="txtAddress" MaxLength="50" runat="server" CssClass="form-control" placeholder="آدرس را وارد کنید"></asp:TextBox>
 
                         </div>
-                            <div class="form-group">
+                        <div class="form-group">
                             <label>آدرس2</label>
                             <asp:TextBox ID="txtAddress2" MaxLength="50" runat="server" CssClass="form-control" placeholder="آدرس را وارد کنید"></asp:TextBox>
 
@@ -651,16 +660,17 @@
             </div>
         </ContentTemplate>
     </asp:UpdatePanel>
-    <span class="form-group input-group-btn">
-
-
-        <asp:LinkButton CssClass="btn btn-success" ID="btnAddToText" OnClientClick="return CheckData1();" runat="server" ToolTip="ثبت پیگیری"><i class="fa fa-plus-circle fa-lg"></i> </asp:LinkButton>
-
-    </span>
+    <span class="form-group input-group-btn"></span>
 
 
     <span class="form-group input-group-btn">
-
+        <asp:UpdatePanel ID="UpdatePanel14" runat="server">
+            <ContentTemplate>
+                <asp:LinkButton CssClass="btn btn-success" ID="btnAddToText" OnClientClick="return CheckData1();" runat="server" ToolTip="ثبت پیگیری"><i class="fa fa-plus-circle fa-lg"></i> </asp:LinkButton>
+            </ContentTemplate>
+        </asp:UpdatePanel>
+        <br />
+        <br />
         <asp:UpdatePanel ID="UpdatePanel10" runat="server">
             <ContentTemplate>
                 <asp:LinkButton Visible="false" CssClass="btn btn-success" ID="btnPrint" runat="server" OnClientClick="return CheckDataEnter();" ToolTip="ذخیزه و چاپ"><i class="fa fa-print fa-lg"></i> </asp:LinkButton>

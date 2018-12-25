@@ -51,6 +51,7 @@ Public Class HandyFollowFileSearch1
 
             Session("customerNO") = CObj(txtCustomerNO.Text)
             Response.Redirect("HandyFollowNew.aspx")
+
         End If
 
     End Sub

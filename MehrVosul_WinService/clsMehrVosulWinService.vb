@@ -232,10 +232,13 @@ Public Class clsMehrVosulWinService
                     arrnumbers(i) = _VoiceSMSs_Borrower(i).numbers(0)
                 Next i
 
-                Dim intCampaignID As Integer = -1
+                ''Dim intResult As Integer = -1
+                Dim strCampaignID As String = ""
+
 
                 Try
-                    intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Borrower(0).name, arrPhoneNumbers, _VoiceSMSs_Borrower(0).records, arrnumbers, strSayMethod)
+                    strCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Borrower(0).name, arrPhoneNumbers, _VoiceSMSs_Borrower(0).records, arrnumbers, strSayMethod)
+
 
                 Catch ex As Exception
                     Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
@@ -245,7 +248,8 @@ Public Class clsMehrVosulWinService
 
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
                 For i As Integer = 0 To 74
-                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Borrower(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                    ''qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Borrower(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی به موبایل وام گیرنده" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Borrower(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), True, "ارسال پیامک صوتی وام گیرنده" & "#" & strCampaignID, "", Date.Now, strCampaignID, 8, 6, Date.Now)
                 Next
 
                 For i As Integer = 0 To 74
@@ -281,11 +285,14 @@ Public Class clsMehrVosulWinService
                     arrPhoneNumbers(i) = _VoiceSMSs_Sponser(i).tophonenumber
                 Next i
 
-                Dim intCampaignID As Integer = -1
+                ''Dim intCampaignID As Integer = -1
+                Dim strCampaignID As String = ""
 
                 Try
                     '''''      intCampaignID = SendVoiceMixedSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records, arrnumbers, strSayMethod)
-                    intCampaignID = SendVoiceSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records(0), strSayMethod)
+                    ''  intCampaignID = SendVoiceSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records(0), strSayMethod)
+                    strCampaignID = SendVoiceSMS(uId, token, _VoiceSMSs_Sponser(0).name, arrPhoneNumbers, _VoiceSMSs_Sponser(0).records(0), strSayMethod)
+
                 Catch ex As Exception
                     Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
                     qryErrorLog.spr_ErrorLog_Insert(ex.Message, 1, "VoiceSMS_Sponsor")
@@ -293,7 +300,8 @@ Public Class clsMehrVosulWinService
 
                 Dim qryWarningNotificationLogDetail As New BusinessObject.dstWarningNotificationLogDetailTableAdapters.QueriesTableAdapter
                 For i As Integer = 0 To 19
-                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Sponser(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), False, "ارسال پیامک صوتی به موبایل وام ضامن" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                    ''qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Sponser(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), False, "ارسال پیامک صوتی به موبایل وام ضامن" & "#" & intCampaignID.ToString, "", Date.Now, intCampaignID.ToString, 8, 6, Date.Now)
+                    qryWarningNotificationLogDetail.spr_WarningNotificationLogDetail_Insert(_VoiceSMSs_Sponser(i).WarningNotifcationLogId, "Voice SMS", arrPhoneNumbers(i), False, "ارسال پیامک صوتی ضامن" & "#" & strCampaignID, "", Date.Now, strCampaignID, 8, 6, Date.Now)
                 Next
 
                 For i As Integer = 0 To 19
@@ -4968,41 +4976,62 @@ VoiceSMS:
 
     End Sub
 
-    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Integer
+    '' Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As Integer
+    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String) As String
+
 
         Try
-            Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
+            Dim oVoiceSMS As New ZamanakNew.MehrVoice 'VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
 
             If numbers.Length > 75 Then
                 ReDim Preserve numbers(75)
             End If
 
-            Dim intCampaignID = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+
+            Dim intCampaignID = oVoiceSMS.SendMixedVoiceSMS_SynchNew("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
 
             If intCampaignID = 0 Then
                 Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
                 qryErrorLog.spr_ErrorLog_Insert(strMessage, 2, "SendVoiceMixedSMS")
+                Return "-1"
             End If
 
-            Return intCampaignID
+            ''Return intCampaignID
+            Return strMessage
+
         Catch ex As Exception
             Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
             qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendVoiceMixedSMS")
-            Return -1
+            ''Return -1
+            Return "-1"
         End Try
 
     End Function
 
-    Public Function SendVoiceSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records As Integer, ByVal sayMathod As String) As Integer
-
+    '' Public Function SendVoiceSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records As Integer, ByVal sayMathod As String) As Integer
+    Public Function SendVoiceSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records As Integer, ByVal sayMathod As String) As String
         Try
-            Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
+            Dim oVoiceSMS As New ZamanakNew.MehrVoice  'VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-            Dim intCampaignID = oVoiceSMS.SendVoiceSMS_Mehr("vesal", "matchautoreplay123", uId, token, name, tos, records, 3, strMessage)
-            Return intCampaignID
+            ''  Dim intCampaignID = oVoiceSMS.SendVoiceSMS_Mehr("vesal", "matchautoreplay123", uId, token, name, tos, records, 3, strMessage)
+            Dim intCampaignID = oVoiceSMS.SendVoiceSMS_MehrNew("vesal", "matchautoreplay123", uId, token, name, tos, records, 3, strMessage)
+
+            If intCampaignID = 0 Then
+                Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+                qryErrorLog.spr_ErrorLog_Insert(strMessage, 2, "SendVoiceSMS1")
+                Return "-1"
+            End If
+            ''Return intCampaignID
+
+            Return strMessage
+
         Catch ex As Exception
-            Return -1
+
+            Dim qryErrorLog As New DataSet1TableAdapters.QueriesTableAdapter
+            qryErrorLog.spr_ErrorLog_Insert(ex.Message, 2, "SendVoiceSMS1")
+            Return "-1"
+
         End Try
 
     End Function
@@ -5044,7 +5073,7 @@ VoiceSMS:
             ''arrDestination(4) = "09128165662"
             ''arrDestination(5) = "09355066075"
 
-            Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend
+            '' Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend
             Dim strMessage As String = ""
             Dim arrRecords(1) As String
             arrRecords(0) = "49561" ' "49412"
@@ -6032,10 +6061,11 @@ VoiceSMS:
 
 
         Dim startTime As DateTime = Date.Now
-        Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
+        Dim oVoiceSMS As New ZamanakNew.MehrVoice 'VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
         Dim strMessage As String = ""
 
-        Dim VoiceStatus As VoiceSMS.STC_Status()
+        ''  Dim VoiceStatus As VoiceSMS.STC_Status()
+        Dim VoiceStatus As ZamanakNew.STC_Status()
 
         ''get status sent voice sms of the current day
         Dim tadpGetCurrentDayVoiceSMS As New BusinessObject.dstZamanakTableAdapters.spr_GetCurrentDayVoiceSMS_SelectTableAdapter
@@ -6054,18 +6084,20 @@ VoiceSMS:
                 Try
                     Dim intPageCount As Integer = Math.Abs(drwGetCurrentDayVoiceSMS.BatchCount / 10)
 
-                    Dim strCampin() As String = drwGetCurrentDayVoiceSMS.strMessage.Split("#")
-                    Dim intCampain As Integer = CInt(strCampin(1))
+                    ''Dim strCampin() As String = drwGetCurrentDayVoiceSMS.strMessage.Split("#")
+                    Dim strCampin As String = drwGetCurrentDayVoiceSMS.BatchID
+                    ''Dim intCampain As Integer = CInt(strCampin(1))
+                    Dim intCampain As Integer = 1 ''CInt(strCampin)
 
-                    If intCampain = Nothing Then
+                    If strCampin = Nothing Then
                         Continue For
                     End If
                     '' VoiceStatus = oVoiceSMS.StatusVoiceSMS_Details("09905389810", "mehrvosul", intCampain, 1, strMessage)
-                    VoiceStatus = oVoiceSMS.StatusVoiceSMS_Details_Mehr("vesal", "matchautoreplay123", 9899, "ZamanakSoapV45815e7f52aaab", intCampain, 1, strMessage)
+                    VoiceStatus = oVoiceSMS.StatusVoiceSMS_Details_Mehr("vesal", "matchautoreplay123", 9899, "ZamanakSoapV45815e7f52aaab", strCampin, 1, strMessage)
                     'oVoiceSMS.st
                     If VoiceStatus Is Nothing Then
                         ''Log error and campainID
-                        qryVoiceMessage.spr_VoiceMessageErrorLog_Insert(intCampain, strMessage)
+                        qryVoiceMessage.spr_VoiceMessageErrorLog_Insert(intCampain, strMessage & strCampin)
                         Continue For
                     End If
 
@@ -6074,16 +6106,16 @@ VoiceSMS:
                         Try
                             Dim intStaus As Integer
                             Select Case VoiceStatus(i).Status
-                                Case "completed"
+                                Case "NORMAL" ''"completed"
                                     intStaus = 1
-                                Case "noanswered"
+                                Case "NO_ANSWER"
                                     intStaus = 2
                                 Case Else
 
                                     intStaus = 3
 
                             End Select
-                            qryVoiceMessage.spr_VoiceMessageStatus_Insert(intCampain, VoiceStatus(i).ReceiverNumber, intStaus, drwGetCurrentDayVoiceSMS.STime)
+                            qryVoiceMessage.spr_VoiceMessageStatus_Insert(intCampain, VoiceStatus(i).ReceiverNumber, intStaus, drwGetCurrentDayVoiceSMS.STime, strCampin)
 
                         Catch ex As Exception
 

@@ -59,6 +59,15 @@ Partial Public Class HandyFollowNew
     Protected WithEvents Label1 As Global.System.Web.UI.WebControls.Label
     
     '''<summary>
+    '''lblLCNO control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblLCNO As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''lblAmountDefferd control.
     '''</summary>
     '''<remarks>
@@ -284,6 +293,24 @@ Partial Public Class HandyFollowNew
     Protected WithEvents txtRemark As Global.System.Web.UI.WebControls.TextBox
     
     '''<summary>
+    '''UpdatePanel13 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel13 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''divCheckInfo control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divCheckInfo As Global.System.Web.UI.HtmlControls.HtmlGenericControl
+    
+    '''<summary>
     '''txtCheckNO control.
     '''</summary>
     '''<remarks>
@@ -318,6 +345,24 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents chkbxCheckBack As Global.System.Web.UI.WebControls.CheckBox
+    
+    '''<summary>
+    '''UpdatePanel12 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel12 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''divCheckInfoDate control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents divCheckInfoDate As Global.System.Web.UI.HtmlControls.HtmlGenericControl
     
     '''<summary>
     '''Bootstrap_PersianDateTimePickerCheckDate control.
@@ -543,6 +588,15 @@ Partial Public Class HandyFollowNew
     '''To modify move field declaration from designer file to code-behind file.
     '''</remarks>
     Protected WithEvents txtRSRemarks As Global.System.Web.UI.WebControls.TextBox
+    
+    '''<summary>
+    '''UpdatePanel14 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel14 As Global.System.Web.UI.UpdatePanel
     
     '''<summary>
     '''btnAddToText control.

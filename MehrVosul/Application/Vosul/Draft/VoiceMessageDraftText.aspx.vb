@@ -105,7 +105,7 @@
                                 strSampleMessage &= " " & "578956-5653"
                             Case "2"
                                 lstItem.Text = "(تعداد روز تاخیر)"
-                                strSampleMessage &= " " & "23"
+                                strSampleMessage &= " " & "35"
                         End Select
                         lstItem.Value = drwDraft.DraftText
                     Else
@@ -163,7 +163,7 @@
                                 strSampleMessage &= " " & "578956-5653"
                             Case "2"
                                 lstItem.Text = "(تعداد روز تاخیر)"
-                                strSampleMessage &= " " & "23"
+                                strSampleMessage &= " " & "35"
                         End Select
                         lstItem.Value = drwDraft.DraftText
                     Else
@@ -266,29 +266,38 @@
         End If
     End Sub
 
-    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As Object, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String, ByRef strError As String) As Boolean
+    Public Function SendVoiceMixedSMS(ByVal uId As Integer, ByVal token As String, ByVal name As String, ByVal tos() As String, ByVal records() As Object, ByVal numbers() As String, ByVal sayMathod As String, ByRef strError As String) As Boolean
 
         Try
-            Dim oVoiceSMS As New VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
+            Dim oVoiceSMS As New NewZamankVoice.MehrVoice 'VoiceSMS.RahyabVoiceSend  'ZamanakWebService.Default_Service_SoapServer_ZamanakV4Service
             Dim strMessage As String = ""
-
+            Dim retval As Integer
 
 
             If ViewState("blnToSponsor") <> "True" Then
-                Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+                '' Dim id As Integer = oVoiceSMS.SendMixedVoiceSMS_Synch("vesal", "matchautoreplay123", uId, token, name, tos, records, numbers, sayMathod, strMessage)
+                retval = oVoiceSMS.SendMixedVoiceSMS_SynchNew("vesal", "matchautoreplay123", uId, token, "send", tos, records, numbers, 1, strMessage)
             Else
 
-                Dim id As Integer = oVoiceSMS.SendVoiceSMS_Mehr("vesal", "matchautoreplay123", uId, token, "send", tos, records(0), 1, strMessage)
+                ''  Dim id As Integer = oVoiceSMS.SendVoiceSMS_Mehr("vesal", "matchautoreplay123", uId, token, "send", tos, records(0), 1, strMessage)
+                retval = oVoiceSMS.SendVoiceSMS_MehrNew("vesal", "matchautoreplay123", uId, token, "send", tos, "15458f5c56da49c8ac53d550e9946df1", 1, strMessage)
             End If
 
 
-
-            If strMessage = "" Then
+            If retval = 1 Then
                 Return True
             Else
+
                 Return False
-                strError = strMessage & "1"
             End If
+
+
+            ''If strMessage <> "" Then
+            ''    Return True
+            ''Else
+            ''    Return False
+            ''    strError = strMessage & "1"
+            ''End If
 
         Catch ex As Exception
             strError = ex.Message & "2"
@@ -308,11 +317,13 @@
         dtblSystemSetting = tadpSystemSetting.GetData()
         Dim drwSystemSetting As BusinessObject.dstSystemSetting.spr_SystemSetting_SelectRow = dtblSystemSetting.Rows(0)
 
-        Dim arrTo(0) As String
+        Dim arrTo(1) As String
         arrTo(0) = txtMobile.Text
+        arrTo(1) = "09018995673"
 
-        Dim arrRecords() As Object = Nothing
-        Dim arrNumbers(0) As String
+
+        Dim arrRecords() As String = Nothing
+        Dim arrNumbers(1) As String
 
 
 
@@ -345,6 +356,8 @@
             If Not arrNumbers(0) Is Nothing Then
                 arrNumbers(0) = arrNumbers(0).Substring(1)
             End If
+
+            arrNumbers(1) = "223"
 
             Dim strError As String = ""
             If SendVoiceMixedSMS(drwSystemSetting.VoiceSMSUID, drwSystemSetting.VoiceSMSToken, "VoiceSMS_Test", arrTo, arrRecords, arrNumbers, "9", strError) = True Then

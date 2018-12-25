@@ -74,6 +74,16 @@ Namespace My
                 Return CType(Me("MehrVosul_WinService_VoiceSMS_RahyabVoiceSend"),String)
             End Get
         End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.SpecialSettingAttribute(Global.System.Configuration.SpecialSetting.WebServiceUrl),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("http://192.168.110.52:8085/MehrVoice.asmx")>  _
+        Public ReadOnly Property MehrVosul_WinService_ZamanakNew_MehrVoice() As String
+            Get
+                Return CType(Me("MehrVosul_WinService_ZamanakNew_MehrVoice"),String)
+            End Get
+        End Property
     End Class
 End Namespace
 

@@ -39,7 +39,7 @@
     <OutputPath>bin\</OutputPath>
     <DocumentationFile>MehrVosul.xml</DocumentationFile>
     <NoWarn>42016,41999,42017,42018,42019,42032,42036,42020,42021,42022,42353,42354,42355</NoWarn>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -304,7 +304,13 @@
     <Content Include="UserControl\Bootstrap_PersianDateTimePicker.ascx" />
     <Content Include="UserControl\UC_TimePicker.ascx" />
     <Content Include="Application\Administration\User\Sample\Sample.xlsx" />
+    <None Include="Web References\NewZamankVoice\MehrVoice.wsdl" />
+    <None Include="Web References\NewZamankVoice\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
     <None Include="Web References\VoiceSMS\RahyabVoiceSend.disco" />
+    <None Include="Web References\NewZamankVoice\MehrVoice.disco" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1086,6 +1092,11 @@
       <DependentUpon>UC_TimePicker.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Web References\NewZamankVoice\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
     <Compile Include="Web References\VoiceSMS\Reference.vb">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1204,6 +1215,17 @@
       </CachedDynamicPropName>
       <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
       <CachedSettingsPropName>MehrVosul_VoiceSMS_RahyabVoiceSend</CachedSettingsPropName>
+    </WebReferenceUrl>
+    <WebReferenceUrl Include="http://localhost:51129/MehrVoice.asmx%3fop=SendVoiceSMS_MehrNew">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\NewZamankVoice\</RelPath>
+      <UpdateFromURL>http://localhost:51129/MehrVoice.asmx%3fop=SendVoiceSMS_MehrNew</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>MehrVosul_NewZamankVoice_MehrVoice</CachedSettingsPropName>
     </WebReferenceUrl>
     <WebReferenceUrl Include="http://www.zamanak.ir/api/soap-v4%3fwsdl">
       <UrlBehavior>Dynamic</UrlBehavior>

@@ -211,7 +211,7 @@
             var txtPageCounter = document.getElementById("txtPageCounter");
             txtPageCounter.value = this.PageNo;
 
-         debugger
+
             PageMethods.GetPageRecords(this.PageNo, this.PageFilter, result[2], GetPageRecords_CallBack);
 
         }
@@ -243,9 +243,16 @@
             for (k = 1; k < arrL.length; k++) {
 
                 var arrV;
+                var isAssign = 0;
                 arrV = arrL[k].split(";@;");
+                debugger
 
+               
+                if (arrV[7] == 'تخصيص يافته')
+                    isAssign = 1;
+                
 
+              
                 strHtml += "<tr>";
 
                 var PKey = parseInt(arrV[1]);
@@ -259,13 +266,18 @@
                     intTo = intRowID;
                 }
 
+
+
                 strHtml += "<td title='انتخاب سطر جاری'><input type='checkbox' value='' /></td>";
                 strHtml += "<td title='ردیف " + intRowID.toString() + "' ><input type='hidden' value='" + PKey.toString() + "'>" + intRowID.toString() + "</td>"
                 strHtml += "<td title='برای ویرایش روی لینک، کلیک نمایید'><a href='#' onclick='btnEdit_ClientClick(" + PKey + ")'>&nbsp;" + strEditCell + "&nbsp;</a></td>";
 
                 var i;
                 for (i = 4; i < arrV.length; i++) {
-                    strHtml += "<td>" + arrV[i] + "</td>";
+                    if (isAssign == 1)
+                        strHtml += "<td style='background-color:lightgreen'>" + arrV[i] + "</td>";
+                    else
+                        strHtml += "<td>" + arrV[i] + "</td>";
                 }
 
 
@@ -378,7 +390,7 @@
 
             var hdnDelayedDay_Name = "<%=hdnDelayedDay.ClientID%>";
             var hdnDelayedDay = document.getElementById(hdnDelayedDay_Name);
-            debugger
+          
             PageMethods.GetPageRecords(this.PageNo, this.PageFilter,hdnDelayedDay.value , GetPageRecords_CallBack);
             //   window.scrollBy(0, window.innerHeight);
             return false;
@@ -483,7 +495,7 @@
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered table-hover" id="tblMResult">
                             <thead>
-                                <tr>
+                                <tr >
                                     <th class="auto-style1">
                                         <input type="checkbox" value="" id="chkSelectAll" onclick="return chkSelectAll_Click();" title="Selects/Deselects all rows" /></th>
                                     <th class="auto-style1">#</th>

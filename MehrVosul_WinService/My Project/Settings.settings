@@ -13,5 +13,8 @@
     <Setting Name="MehrVosul_WinService_VoiceSMS_RahyabVoiceSend" Type="(Web Service URL)" Scope="Application">
       <Value Profile="(Default)">http://panel.rahyab.ir/RahyabVoiceSend.asmx</Value>
     </Setting>
+    <Setting Name="MehrVosul_WinService_ZamanakNew_MehrVoice" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">http://192.168.110.52:8085/MehrVoice.asmx</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -182,31 +182,6 @@
 
     End Function
 
-    Public Function GetUserVoiceCredit(ByVal UserID As Integer) As Double
-
-        ''Dim tadpUserVoiceCredit As New BusinessObject.dstZamanakTableAdapters.spr_UserVoiceCredit_SelectTableAdapter
-        ''Dim dtblUserVoiceCredit As BusinessObject.dstZamanak.spr_UserVoiceCredit_SelectDataTable = Nothing
-        ''dtblUserVoiceCredit = tadpUserVoiceCredit.GetData(UserID)
-        ''If dtblUserVoiceCredit.Rows.Count > 0 Then
-        ''    If dtblUserVoiceCredit.Rows(0)(0) = -1 Then
-        ''        Return Double.MaxValue
-        ''    Else
-        ''        Return dtblUserVoiceCredit.Rows(0)(0)
-        ''    End If
-        ''Else
-        ''    Return 0
-        ''End If
-
-        Return Double.MaxValue
-    End Function
-
-    Public Function MinusUserCharge(ByVal UserID As Integer, ByVal CompanyID As Integer, ByVal strRemark As String, ByVal dblVoiceCount As Double, ByVal dblLeftVoiceCredit As Double)
-
-        ''Dim qryUserCharge As New BusinessObject.dstUserChargeTableAdapters.QueriesTableAdapter
-        ''qryUserCharge.spr_UserCharge_Insert(UserID, CompanyID, strRemark, dblVoiceCount, 8, True, 1386, Nothing, 1, 15, Nothing, "کسر اعتبار از صفحه ارسال مربوطه", dblLeftVoiceCredit)
-
-    End Function
-
     Public Function GetRecordCount(ByVal intRecordID As Integer) As Integer
 
         Try
@@ -258,27 +233,6 @@
         Catch ex As Exception
             Return ""
         End Try
-
-    End Function
-
-    Public Function GetCampInfo(ByVal intCampHeaderID As Integer) As String()
-
-        ''Try
-        ''    Dim result(3) As String
-        ''    Dim tadpCampHeader As New BusinessObject.dstZamanakTableAdapters.spr_CampaignHeader_SelectTableAdapter
-        ''    Dim dtblCampHeader As BusinessObject.dstZamanak.spr_CampaignHeader_SelectDataTable = Nothing
-        ''    dtblCampHeader = tadpCampHeader.GetData(1, intCampHeaderID, -1)
-        ''    If dtblCampHeader.Rows.Count > 0 Then
-        ''        result(0) = dtblCampHeader.First().CampaignID
-        ''        result(1) = dtblCampHeader.First().Name
-        ''        result(2) = dtblCampHeader.First().PollName
-        ''        result(3) = dtblCampHeader.First().CampTypeID
-        ''    End If
-
-        ''    Return result
-        ''Catch ex As Exception
-
-        ''End Try
 
     End Function
 

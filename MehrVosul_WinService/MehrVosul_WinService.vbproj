@@ -163,6 +163,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="Web References\ZamanakNew\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="clsMehrVosulWinService.resx">
@@ -212,6 +217,14 @@
     <None Include="Web References\VoiceSMS\STC_Status.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\ZamanakNew\MehrVoice.wsdl" />
+    <None Include="Web References\ZamanakNew\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Web References\ZamanakNew\STC_Status.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />
@@ -220,6 +233,17 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WebReferenceUrl Include="http://192.168.110.52:8085/MehrVoice.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\ZamanakNew\</RelPath>
+      <UpdateFromURL>http://192.168.110.52:8085/MehrVoice.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>MySettings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>MehrVosul_WinService_ZamanakNew_MehrVoice</CachedSettingsPropName>
+    </WebReferenceUrl>
     <WebReferenceUrl Include="http://panel.rahyab.ir/RahyabVoiceSend.asmx">
       <UrlBehavior>Dynamic</UrlBehavior>
       <RelPath>Web References\VoiceSMS\</RelPath>
@@ -240,6 +264,9 @@
       <Project>{8d5a05d4-5dcf-4772-89a0-0302e85f5c9e}</Project>
       <Name>BusinessObject</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Web References\ZamanakNew\MehrVoice.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

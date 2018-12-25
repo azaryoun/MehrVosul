@@ -104,16 +104,24 @@ Public Class HandyFollowNew
                             Case 2
                                 cmbNotificationType.SelectedValue = 5
                                 divNotice.Visible = True
+                                divCheckInfo.Visible = False
+                                divCheckInfoDate.Visible = False
                             Case 3
                                 cmbNotificationType.SelectedValue = 4
                                 divNotice.Visible = True
+                                divCheckInfo.Visible = False
+                                divCheckInfoDate.Visible = False
                             Case 4
                                 cmbNotificationType.SelectedValue = 3
                                 divInvitation.Visible = True
+                                divCheckInfo.Visible = False
+                                divCheckInfoDate.Visible = False
                             Case 5
 
                                 cmbNotificationType.SelectedValue = 6
                                 divReductionSalary.Visible = True
+                                divCheckInfo.Visible = False
+                                divCheckInfoDate.Visible = False
 
                         End Select
 
@@ -249,7 +257,10 @@ Public Class HandyFollowNew
 
                         cmbSponsor.DataBind()
 
+
+                        lblLCNO.InnerText = dtblLoan.First.LoanNumber
                     End If
+
 
                 Else
 
@@ -267,6 +278,7 @@ Public Class HandyFollowNew
 
                         cmbSponsor.DataBind()
 
+                        lblLCNO.InnerText = dtblLoan.First.LoanNumber
                     End If
 
 
@@ -363,20 +375,37 @@ Public Class HandyFollowNew
 
     Private Sub Bootstrap_Panel1_Panel_Up_Click(sender As Object, e As System.EventArgs) Handles Bootstrap_Panel1.Panel_Up_Click
 
+        ''If Not Session("From") Is Nothing Then
 
-        If Not Session("From") Is Nothing Then
+        ''    Response.Redirect("HandyFollowFileSearch1.aspx?Branch=" & Session("Branch").ToString & "&LoanType=" & Session("LoanType").ToString() & "&Province=" & Session("Province").ToString & "&From=" & Session("From").ToString() & "&To=" & Session("To").ToString())
 
-            Response.Redirect("HandyFollowFileSearch1.aspx?Branch=" & Session("Branch").ToString & "&LoanType=" & Session("LoanType").ToString() & "&Province=" & Session("Province").ToString & "&From=" & Session("From").ToString() & "&To=" & Session("To").ToString())
+        ''ElseIf Not Session("customerNO") Is Nothing Then
 
-        ElseIf Not Session("customerNO") Is Nothing Then
+        ''    Response.Redirect("HandyFollowFileSearch1.aspx?customerNO=" & Session("customerNO").ToString())
 
-            Response.Redirect("HandyFollowFileSearch1.aspx?customerNO=" & Session("customerNO").ToString())
+        ''Else
 
+        ''    Response.Redirect("HandyFollowFileSearch1.aspx")
+        ''End If
+
+
+        If Not Session("HandyFollowAssign") Is Nothing Then
+
+            Session("intFileID") = Nothing
+            Session("intLoanID") = Nothing
+            Session("HandyFollowAssign") = Nothing
+            Session("AssignType") = Nothing
+            Session("AmountDeffed") = Nothing
+            Session("customerNO") = Nothing
+            Response.Redirect("../Cartable/HandyFollowManagement.aspx")
         Else
 
-            Response.Redirect("HandyFollowFileSearch1.aspx")
-        End If
+            Session("AmountDeffed") = Nothing
+            Session("intFileID") = Nothing
+            Session("intLoanID") = Nothing
 
+            Response.Redirect("HandyFollowFileSearch1.aspx?customerNO=" & Session("customerNO").ToString())
+        End If
 
 
     End Sub
@@ -771,10 +800,10 @@ Public Class HandyFollowNew
             Dim strNotifyType = ""
             If rdboToSponsor.SelectedValue = 1 Then
 
-                strNotifyType = "ضامن"
+                strNotifyType = cmbSponsor.SelectedItem.Text '"ضامن"
 
             Else
-                strNotifyType = "وام گیرنده"
+                strNotifyType = cmbSponsor.SelectedItem.Text '"وام گیرنده"
             End If
 
 
@@ -793,11 +822,19 @@ Public Class HandyFollowNew
             divInvitation.Visible = True
             divNotice.Visible = False
             btnPrint.Visible = True
+            divCheckInfo.Visible = False
+            divCheckInfoDate.Visible = False
+            btnAddToText.Visible = False
+            btnPrint.Visible = True
 
         ElseIf cmbNotificationType.SelectedValue = 6 Then
             divReductionSalary.Visible = True
             divInvitation.Visible = False
             divNotice.Visible = False
+            btnPrint.Visible = True
+            divCheckInfo.Visible = False
+            divCheckInfoDate.Visible = False
+            btnAddToText.Visible = False
             btnPrint.Visible = True
 
         ElseIf cmbNotificationType.SelectedValue = 4 OrElse cmbNotificationType.SelectedValue = 5 Then
@@ -806,10 +843,18 @@ Public Class HandyFollowNew
             divReductionSalary.Visible = False
             divInvitation.Visible = False
             btnPrint.Visible = True
+            divCheckInfo.Visible = False
+            divCheckInfoDate.Visible = False
+            btnAddToText.Visible = False
+            btnPrint.Visible = True
         Else
             divReductionSalary.Visible = False
             divInvitation.Visible = False
             divNotice.Visible = False
+            divCheckInfo.Visible = True
+            divCheckInfoDate.Visible = True
+            btnAddToText.Visible = True
+            btnPrint.Visible = False
         End If
 
 

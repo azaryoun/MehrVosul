@@ -411,6 +411,7 @@ Public Class HandyFollowManagement
 
                         strResult &= ";n;;@;" & CStr(drwHandyFollowAssignManagement.Item(0))
                         For i As Integer = 1 To intColumnCount - 1
+
                             strResult &= ";@;" & CStr(drwHandyFollowAssignManagement.Item(i))
                         Next
 
