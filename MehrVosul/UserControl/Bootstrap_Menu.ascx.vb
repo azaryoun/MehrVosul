@@ -50,7 +50,7 @@
                 Dim strMenuTextSecondLevel As String = ""
                 Dim strMenuTextSecondLevelHead As String = "<ul class='nav nav-second-level'>"
 
-            
+
                 For Each drwChildMenu_Level2 As BusinessObject.dstMenu.spr_Menu_ChildSelectRow In dtblChildMenu_Level2.Rows
                     strMenuTextSecondLevel &= "<li>"
                     If intActiveMenuID = drwChildMenu_Level2.ID Then

@@ -177,6 +177,52 @@
 
 
 
+            ElseIf drwUserLogin.IsHadiSystem = True Then
+
+
+
+                Dim tadpUserProvince As New BusinessObject.dstBranchTableAdapters.spr_Province_Check_SelectTableAdapter
+                Dim dtblUserProvince As BusinessObject.dstBranch.spr_Province_Check_SelectDataTable = Nothing
+
+                dtblUserProvince = tadpUserProvince.GetData(drwUserLogin.FK_BrnachID)
+
+                cmbProvince.DataBind()
+                cmbProvince.SelectedValue = dtblUserProvince.First.ID
+                cmbProvince.Enabled = True
+
+                odsBranch.SelectParameters.Item("Action").DefaultValue = 2
+                odsBranch.SelectParameters.Item("ProvinceID").DefaultValue = cmbProvince.SelectedValue
+                odsBranch.DataBind()
+
+                cmbBranch.Enabled = True
+                cmbBranch.DataSourceID = "odsBranch"
+                cmbBranch.DataTextField = "BrnachCode"
+                cmbBranch.DataValueField = "ID"
+                cmbBranch.SelectedValue = drwUserLogin.FK_BrnachID
+
+
+                cmbBranch.Enabled = True
+
+
+                Dim tadpAccessGroupList As New BusinessObject.dstAccessgroupTableAdapters.spr_Accessgroup_List_SelectTableAdapter
+                Dim dtblAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectDataTable = Nothing
+
+                dtblAccessGroupList = tadpAccessGroupList.GetData(2, drwUserLogin.ID)
+
+                Dim trNodeProvince As New TreeNode
+                trAccessGroup.Nodes.Add(trNodeProvince)
+
+                For Each drwAccessGroupList As BusinessObject.dstAccessgroup.spr_Accessgroup_List_SelectRow In dtblAccessGroupList.Rows
+                    Dim trNodeBranch As New TreeNode
+
+                    trNodeBranch.Text = "&nbsp;&nbsp;" & drwAccessGroupList.Desp
+                    trNodeBranch.Value = drwAccessGroupList.ID
+                    trNodeBranch.ShowCheckBox = True
+                    trNodeBranch.SelectAction = TreeNodeSelectAction.None
+                    trNodeProvince.ChildNodes.Add(trNodeBranch)
+
+
+                Next drwAccessGroupList
 
             End If
 
@@ -261,6 +307,10 @@
 
         Dim blnIsPartTime As Boolean = rdoIsPartTimeYes.Checked
         Dim blnHadiUser As Boolean = chkbxHadi.Checked
+        If drwUserLogin.IsHadiSystem = True Then
+            blnHadiUser = True
+        End If
+
         Dim blnAtiehUser As Boolean = chkbxAtieh.Checked
 
         If drwUserLogin.IsDataAdmin = False Then

@@ -122,7 +122,13 @@
                 If strFilter IsNot Nothing Then
                     intAction = 2
                 End If
+            ElseIf drwUserLogin.IsHadiSystem = True Then
 
+
+                intAction = 7
+                If strFilter IsNot Nothing Then
+                    intAction = 8
+                End If
             ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
 
                 intAction = 9
@@ -145,6 +151,8 @@
                 End If
 
 
+
+
             End If
 
            
@@ -157,7 +165,7 @@
             Dim strResult As String = ""
             Dim intColumnCount As Integer = dtblUserManagement.Columns.Count
 
-            If intAction = 1 Or intAction = 3 Or intAction = 5 Or intAction = 9 Then
+            If intAction = 1 Or intAction = 3 Or intAction = 5 Or intAction = 9 Or intAction = 7 Then
                 For Each drwUserManagement As BusinessObject.dstUser.spr_User_Management_SelectRow In dtblUserManagement.Rows
 
 
@@ -219,6 +227,14 @@
                 intAction = 2
             End If
 
+        ElseIf drwUserLogin.IsHadiSystem = True Then
+
+
+            intAction = 7
+            If strFilter IsNot Nothing Then
+                intAction = 8
+            End If
+
         ElseIf drwUserLogin.FK_AccessGroupID = 3438 Then
 
             intAction = 9
@@ -241,6 +257,9 @@
 
 
         End If
+
+
+
 
         Dim tadpUserCount As New BusinessObject.dstUserTableAdapters.spr_User_Count_SelectTableAdapter
         Dim dtblUserCount As BusinessObject.dstUser.spr_User_Count_SelectDataTable = Nothing

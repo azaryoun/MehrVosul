@@ -4,10 +4,10 @@ Public Class WebForm1
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
 
-        Dim ctnx As New BusinessObject.dbMehrVosulEntities1
-        Dim dte As Date = Date.Now.Date
+        ''Dim ctnx As New BusinessObject.dbMehrVosulEntities1
+        ''Dim dte As Date = Date.Now.Date
 
-        Dim lnq = ctnx.tbl_SelfReport.Where(Function(x) DbFunctions.TruncateTime(x.STime.Value) = dte).ToList()
+        ''Dim lnq = ctnx.tbl_SelfReport.Where(Function(x) DbFunctions.TruncateTime(x.STime.Value) = dte).ToList()
 
     End Sub
 

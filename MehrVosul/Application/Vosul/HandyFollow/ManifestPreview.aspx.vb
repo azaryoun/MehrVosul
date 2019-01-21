@@ -94,11 +94,12 @@
 
 
                     Dim blnIsSponsor As Boolean = False
-                    If Not Request.QueryString("ManifestType") Is Nothing Then
+                    If Not Request.QueryString("Sponsor") Is Nothing Then
 
-                        If Request.QueryString("ManifestType") = 1 Then
-                            blnIsSponsor = True
-                        End If
+                        ''If Request.QueryString("ManifestType") = 1 Then
+                        blnIsSponsor = True
+                        ''End If
+
                     End If
 
 

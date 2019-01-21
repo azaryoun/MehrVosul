@@ -10,12 +10,25 @@
                 ''If Not Request.QueryString("LetterNO") AndAlso Not Request.QueryString("RegisterNO") Is Nothing AndAlso Not Request.QueryString("Branch") Is Nothing Then
 
                 If Not Request.QueryString("Branch") Is Nothing Then
+
+                    Dim blnIsSponsor As Boolean = False
+                    Dim strSponsorFileNO As String = ""
+                    If Not Request.QueryString("Sponsor") Is Nothing AndAlso Request.QueryString("Sponsor") <> -1 Then
+
+                        strSponsorFileNO = Request.QueryString("Sponsor")
+
+                    End If
+
                     ''get File Info
                     Dim tadpFile As New BusinessObject.dstHandyFollowTableAdapters.spr_File_SelectTableAdapter
                     Dim dtblFile As BusinessObject.dstHandyFollow.spr_File_SelectDataTable = Nothing
 
-                    dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")), "")
+                    If strSponsorFileNO <> "" Then
+                        dtblFile = tadpFile.GetData(3, -1, strSponsorFileNO)
 
+                    Else
+                        dtblFile = tadpFile.GetData(1, CInt(Session("intFileID")), "")
+                    End If
 
                     ''Get Loan Info
                     Dim tadpLoan As New BusinessObject.dstLoanTableAdapters.spr_Loan_SelectTableAdapter

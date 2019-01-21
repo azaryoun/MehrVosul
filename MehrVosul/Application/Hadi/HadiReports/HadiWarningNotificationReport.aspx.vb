@@ -53,7 +53,7 @@ Public Class HadiWarningNotificationReport
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
                 cmbProvince.Enabled = False
                 dtblBranchList = tadpBrnachList.GetData(2, drwUserLogin.Fk_ProvinceID)
-                blnSingleBranch = True
+                '' blnSingleBranch = True
 
             End If
 
@@ -113,7 +113,7 @@ Public Class HadiWarningNotificationReport
                 cmbProvince.SelectedValue = drwUserLogin.Fk_ProvinceID
                 cmbProvince.Enabled = False
                 dtblBranchList = tadpBrnachList.GetData(2, drwUserLogin.Fk_ProvinceID)
-                blnSingleBranch = True
+                '' blnSingleBranch = True
 
             End If
 

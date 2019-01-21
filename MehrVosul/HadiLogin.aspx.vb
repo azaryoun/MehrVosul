@@ -7,6 +7,7 @@
         divMessage.Style("display") = "none"
     End Sub
     Protected Sub btnSignin_Click(sender As Object, e As EventArgs) Handles btnSignIn.ServerClick
+
         Dim strUsername As String = txtUsername.Text.Trim
         Dim strPassword As String = txtPassword.Text.Trim
         Dim tadpUserLogin As New BusinessObject.dstUserTableAdapters.spr_User_Login_SelectTableAdapter

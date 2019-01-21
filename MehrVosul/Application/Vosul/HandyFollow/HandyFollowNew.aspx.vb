@@ -746,7 +746,7 @@ Public Class HandyFollowNew
 
             End If
 
-
+            lblMessage.Text = "ثبت پیگیری با موفقیت انجام شد، لطفا جهت مشاهده آن صفحه را refresh نمایید"
         Catch ex As Exception
 
             Bootstrap_Panel1.ShowMessage("در ثبت پیگیری خطا رخ داده است", True)
@@ -788,7 +788,7 @@ Public Class HandyFollowNew
 
         ElseIf cmbNotificationType.SelectedValue = 4 Then
             ''اظهارنامه
-            Response.Redirect("NoticePreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&CompanyNational=" & txtCompanyNationalID.Text.Trim())
+            Response.Redirect("NoticePreview.aspx?LetterNO=" & txtLetterNO.Text.Trim() & "&RegisterNO=" & txtRegisterNO.Text.Trim & "&Branch=" & drwUserLogin.FK_BrnachID & "&CompanyNational=" & txtCompanyNationalID.Text.Trim() & "&Sponsor=" & cmbSponsor.SelectedValue)
 
         ElseIf cmbNotificationType.SelectedValue = 5 Then
 

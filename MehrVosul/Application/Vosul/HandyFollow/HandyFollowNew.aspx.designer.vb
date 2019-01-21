@@ -626,6 +626,24 @@ Partial Public Class HandyFollowNew
     Protected WithEvents btnPrint As Global.System.Web.UI.WebControls.LinkButton
     
     '''<summary>
+    '''UpdatePanel15 control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents UpdatePanel15 As Global.System.Web.UI.UpdatePanel
+    
+    '''<summary>
+    '''lblMessage control.
+    '''</summary>
+    '''<remarks>
+    '''Auto-generated field.
+    '''To modify move field declaration from designer file to code-behind file.
+    '''</remarks>
+    Protected WithEvents lblMessage As Global.System.Web.UI.WebControls.Label
+    
+    '''<summary>
     '''hdnAction control.
     '''</summary>
     '''<remarks>

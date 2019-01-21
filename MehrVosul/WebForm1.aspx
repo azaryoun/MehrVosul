@@ -1,4 +1,4 @@
-﻿<%@ Page Language="vb" AutoEventWireup="false" CodeBehind="WebForm1.aspx.vb" Inherits="MehrVosul.WebForm1" %>
+﻿<%@ Page EnableSessionState="False"  Language="vb" AutoEventWireup="false" CodeBehind="WebForm1.aspx.vb" Inherits="MehrVosul.WebForm1" %>
 
 
 
@@ -24,23 +24,10 @@
     <form id="form1" runat="server">
 
  <div id="datetimepicker" class="input-append date">
-      <input type="text"></input>
-      <span class="add-on">
-        <i data-time-icon="icon-time" data-date-icon="icon-calendar"></i>
-      </span>
-    </div>
- 
- 
-  
-    </script>
-    <script type="text/javascript">
-        $('#datetimepicker').datetimepicker({
-            format: 'dd/MM/yyyy hh:mm:ss',
-            language: 'pt-US'
-
-
-        });
-    </script>
+     
+  </div>
+   
+   
     </form>
 </body>
 </html>

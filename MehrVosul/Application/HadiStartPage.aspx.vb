@@ -16,14 +16,14 @@
         Dim dtblBranch As BusinessObject.dstBranch.spr_Branch_SelectDataTable = Nothing
 
         ''check the access Group id
-        Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
-        Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
+        ''Dim tadpAccessgroupUser As New BusinessObject.dstAccessgroupUserTableAdapters.spr_AccessgroupUserByID_SelectTableAdapter
+        ''Dim dtblAccessgroupUser As BusinessObject.dstAccessgroupUser.spr_AccessgroupUserByID_SelectDataTable = Nothing
 
-        dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3432)
-        If dtblAccessgroupUser.Rows.Count = 0 Then
+        ''dtblAccessgroupUser = tadpAccessgroupUser.GetData(drwUserLogin.ID, 3432)
+        ''If dtblAccessgroupUser.Rows.Count = 0 Then
 
-            Response.Redirect("../HadiLogin.aspx")
-        End If
+        ''    Response.Redirect("../HadiLogin.aspx")
+        ''End If
 
 
         Dim tadpSetting As New BusinessObject.dstSystemSettingTableAdapters.spr_SystemSetting_SelectTableAdapter

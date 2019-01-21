@@ -205,7 +205,7 @@
 
                     <div class="col-md-6">
 
-                         <div class="form-group">
+                        <div class="form-group">
                             <label>شماره تسهیلات:&nbsp;&nbsp;&nbsp; </label>
                             <label runat="server" style="font-weight: bold;" id="lblLCNO">"---"</label>
                         </div>
@@ -255,6 +255,8 @@
                                     <div class="form-group">
                                         <label>آدرس:&nbsp;&nbsp;&nbsp; </label>
                                         <label runat="server" style="font-weight: bold;" id="lblAddress">"---"</label>
+                                        <br />
+                                        <br />
                                     </div>
                                 </div>
 
@@ -676,12 +678,18 @@
                 <asp:LinkButton Visible="false" CssClass="btn btn-success" ID="btnPrint" runat="server" OnClientClick="return CheckDataEnter();" ToolTip="ذخیزه و چاپ"><i class="fa fa-print fa-lg"></i> </asp:LinkButton>
             </ContentTemplate>
         </asp:UpdatePanel>
+
+
     </span>
     <br />
+   
+        <asp:UpdatePanel ID="UpdatePanel15" runat="server">
+            <ContentTemplate>
+                <asp:Label ID="lblMessage" ForeColor="Red" Font-Bold="true" runat="server" Text=""></asp:Label>
 
-
-
-
+            </ContentTemplate>
+        </asp:UpdatePanel>
+   
 
     <asp:HiddenField ID="hdnAction" runat="server" />
 </asp:Content>

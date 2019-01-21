@@ -2555,6 +2555,8 @@ Partial Public Class dstUser
         
         Private columnFK_AccessGroupID As Global.System.Data.DataColumn
         
+        Private columnIsHadiSystem As Global.System.Data.DataColumn
+        
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub New()
@@ -2719,6 +2721,14 @@ Partial Public Class dstUser
         End Property
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public ReadOnly Property IsHadiSystemColumn() As Global.System.Data.DataColumn
+            Get
+                Return Me.columnIsHadiSystem
+            End Get
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0"),  _
          Global.System.ComponentModel.Browsable(false)>  _
         Public ReadOnly Property Count() As Integer
@@ -2755,9 +2765,25 @@ Partial Public Class dstUser
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
-        Public Overloads Function Addspr_User_Login_SelectRow(ByVal Username As String, ByVal IsDataAdmin As Boolean, ByVal IsItemAdmin As Boolean, ByVal IsDataUserAdmin As Boolean, ByVal FName As String, ByVal LName As String, ByVal Email As String, ByVal Sex As Boolean, ByVal Mobile As String, ByVal UserPhoto() As Byte, ByVal FK_BrnachID As Integer, ByVal BranchName As String, ByVal IsPartTime As Boolean, ByVal Fk_ProvinceID As Integer, ByVal FK_AccessGroupID As Integer) As spr_User_Login_SelectRow
+        Public Overloads Function Addspr_User_Login_SelectRow( _
+                    ByVal Username As String,  _
+                    ByVal IsDataAdmin As Boolean,  _
+                    ByVal IsItemAdmin As Boolean,  _
+                    ByVal IsDataUserAdmin As Boolean,  _
+                    ByVal FName As String,  _
+                    ByVal LName As String,  _
+                    ByVal Email As String,  _
+                    ByVal Sex As Boolean,  _
+                    ByVal Mobile As String,  _
+                    ByVal UserPhoto() As Byte,  _
+                    ByVal FK_BrnachID As Integer,  _
+                    ByVal BranchName As String,  _
+                    ByVal IsPartTime As Boolean,  _
+                    ByVal Fk_ProvinceID As Integer,  _
+                    ByVal FK_AccessGroupID As Integer,  _
+                    ByVal IsHadiSystem As Boolean) As spr_User_Login_SelectRow
             Dim rowspr_User_Login_SelectRow As spr_User_Login_SelectRow = CType(Me.NewRow,spr_User_Login_SelectRow)
-            Dim columnValuesArray() As Object = New Object() {Nothing, Username, IsDataAdmin, IsItemAdmin, IsDataUserAdmin, FName, LName, Email, Sex, Mobile, UserPhoto, FK_BrnachID, BranchName, IsPartTime, Fk_ProvinceID, FK_AccessGroupID}
+            Dim columnValuesArray() As Object = New Object() {Nothing, Username, IsDataAdmin, IsItemAdmin, IsDataUserAdmin, FName, LName, Email, Sex, Mobile, UserPhoto, FK_BrnachID, BranchName, IsPartTime, Fk_ProvinceID, FK_AccessGroupID, IsHadiSystem}
             rowspr_User_Login_SelectRow.ItemArray = columnValuesArray
             Me.Rows.Add(rowspr_User_Login_SelectRow)
             Return rowspr_User_Login_SelectRow
@@ -2802,6 +2828,7 @@ Partial Public Class dstUser
             Me.columnIsPartTime = MyBase.Columns("IsPartTime")
             Me.columnFk_ProvinceID = MyBase.Columns("Fk_ProvinceID")
             Me.columnFK_AccessGroupID = MyBase.Columns("FK_AccessGroupID")
+            Me.columnIsHadiSystem = MyBase.Columns("IsHadiSystem")
         End Sub
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
@@ -2839,6 +2866,8 @@ Partial Public Class dstUser
             MyBase.Columns.Add(Me.columnFk_ProvinceID)
             Me.columnFK_AccessGroupID = New Global.System.Data.DataColumn("FK_AccessGroupID", GetType(Integer), Nothing, Global.System.Data.MappingType.Element)
             MyBase.Columns.Add(Me.columnFK_AccessGroupID)
+            Me.columnIsHadiSystem = New Global.System.Data.DataColumn("IsHadiSystem", GetType(Boolean), Nothing, Global.System.Data.MappingType.Element)
+            MyBase.Columns.Add(Me.columnIsHadiSystem)
             Me.Constraints.Add(New Global.System.Data.UniqueConstraint("Constraint1", New Global.System.Data.DataColumn() {Me.columnID}, true))
             Me.columnID.AutoIncrement = true
             Me.columnID.AutoIncrementSeed = -1
@@ -4298,6 +4327,21 @@ Partial Public Class dstUser
         
         <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Property IsHadiSystem() As Boolean
+            Get
+                Try 
+                    Return CType(Me(Me.tablespr_User_Login_Select.IsHadiSystemColumn),Boolean)
+                Catch e As Global.System.InvalidCastException
+                    Throw New Global.System.Data.StrongTypingException("The value for column 'IsHadiSystem' in table 'spr_User_Login_Select' is DBNull.", e)
+                End Try
+            End Get
+            Set
+                Me(Me.tablespr_User_Login_Select.IsHadiSystemColumn) = value
+            End Set
+        End Property
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Function IsUsernameNull() As Boolean
             Return Me.IsNull(Me.tablespr_User_Login_Select.UsernameColumn)
         End Function
@@ -4474,6 +4518,18 @@ Partial Public Class dstUser
          Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
         Public Sub SetFK_AccessGroupIDNull()
             Me(Me.tablespr_User_Login_Select.FK_AccessGroupIDColumn) = Global.System.Convert.DBNull
+        End Sub
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Function IsIsHadiSystemNull() As Boolean
+            Return Me.IsNull(Me.tablespr_User_Login_Select.IsHadiSystemColumn)
+        End Function
+        
+        <Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")>  _
+        Public Sub SetIsHadiSystemNull()
+            Me(Me.tablespr_User_Login_Select.IsHadiSystemColumn) = Global.System.Convert.DBNull
         End Sub
     End Class
     
@@ -6127,6 +6183,7 @@ Namespace dstUserTableAdapters
             tableMapping.ColumnMappings.Add("IsPartTime", "IsPartTime")
             tableMapping.ColumnMappings.Add("Fk_ProvinceID", "Fk_ProvinceID")
             tableMapping.ColumnMappings.Add("FK_AccessGroupID", "FK_AccessGroupID")
+            tableMapping.ColumnMappings.Add("IsHadiSystem", "IsHadiSystem")
             Me._adapter.TableMappings.Add(tableMapping)
         End Sub
         
